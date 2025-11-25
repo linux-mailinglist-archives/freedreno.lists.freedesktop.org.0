@@ -2,90 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34860C83884
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BAC0C83882
 	for <lists+freedreno@lfdr.de>; Tue, 25 Nov 2025 07:49:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0A1A10E34E;
-	Tue, 25 Nov 2025 06:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9A410E34F;
+	Tue, 25 Nov 2025 06:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ot6/TizF";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cDsscwJs";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="A1D1Gbnx";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H7tuDTaK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B19ED10E34C
- for <freedreno@lists.freedesktop.org>; Tue, 25 Nov 2025 06:48:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7028510E34F
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Nov 2025 06:48:48 +0000 (UTC)
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AP2geeF1939548
- for <freedreno@lists.freedesktop.org>; Tue, 25 Nov 2025 06:48:37 GMT
+ 5AP2h2bb1940317
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Nov 2025 06:48:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=uka3uTpmYpZ
- zlyvT3E47XTXFzCZQzB9mn0T94QG8BGk=; b=ot6/TizFawuhqCorhRmo/gQyZj6
- VFo7AI9lo/yMIhbdPyB/S+xbkrQrg1giT+G6mEEZCLmmjT4hgvpkoF+qyovlhFAa
- IH518rDNSYr41qi8eJpzaYz0JfCjQEsDO2RoYoKVR3NEvBk72OHMqsP5Wgk06ibr
- A7D91rDIGnLI30PSXji2rBcGo4eB5b5ql3NXiNd4TlWl9DkM24QrEG0HC9ldISAn
- NVEZvp6VZV+dVbZA8Yq3Mao26lE3miXPeNLg1ICjoamPGk2ArZwED65uAzKAk5Uu
- BDqwwbE9DV46QfECcH4pyzHquzUbnLlOg96Yj9i2gN1kLLqlL5G99/1TQ1w==
+ :mime-version:references:subject:to; s=qcppdkim1; bh=sav2JkTpiNB
+ huDhe1bdSzqFnq6opp4D6AgKKwiZEkUs=; b=A1D1GbnxrdrPX9Y0bwmMKLo4dFs
+ fFcNRG5yVSj3H47kfpiA86myucLWrR3KLKMz4tT+i21R+R3Z2NK+d/LgBTI30MIS
+ VkE5tCBOxj50Vg2sbjAtmLWbFGCUbNff3EO4aN8xBgCh3Svq7vaGTB4R4AG/UTHk
+ qIypC24v/Z9Fkgf0t5R4YL7feMMwv5YK9PDbMfHn2VIgxHzT8kXp9oEdAOWRqhMO
+ fHVsz53H90rNSAxaee4HG0jhtwtH7DYSWEC1FZqQxbCLH2RQ08Y6jDH2oEpiC5pO
+ fhqCZpLJm1dcxZeKUWrV3fo0Qv2HOZACnIwbqLLWJRsUmV/6GgknLvhUVZA==
 Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
  [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4amsst2b3h-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4amsst2b44-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 25 Nov 2025 06:48:36 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Nov 2025 06:48:47 +0000 (GMT)
 Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-8823a371984so128095156d6.1
- for <freedreno@lists.freedesktop.org>; Mon, 24 Nov 2025 22:48:36 -0800 (PST)
+ 6a1803df08f44-8804b991a54so189321606d6.2
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Nov 2025 22:48:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1764053316; x=1764658116;
+ d=oss.qualcomm.com; s=google; t=1764053327; x=1764658127;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uka3uTpmYpZzlyvT3E47XTXFzCZQzB9mn0T94QG8BGk=;
- b=cDsscwJssRbmV+sTyOs5Zm0Ixyok4sXV6JFzJMfK/n8PuG2d68tB0YZk9VihOTVgK9
- Dx9tWaua7u8lBHl+Tg7kGmLTsDWRDIrUBAL7wCPVPbeWx00XIYCqbY0nlWOHKnYbGD1B
- +b4okwpu1Y85h30vURsFzOWdVIPXsnjCiwn2mHWyZBe61ZRKUvkoUBClgHIQ+/mzZe/Q
- yjr24fWCXuBb1ifUWyhX8U0wZWE6kb2xHUaH6kJgvCzPp0yripadNN811xGwKAxByiBK
- ut4SHAP95v2bgMePBQBidduxDPv+0fXoARB2eqqdz5RLSF0vYHKVP5Fn2nHw0BMVqeuK
- sn1w==
+ bh=sav2JkTpiNBhuDhe1bdSzqFnq6opp4D6AgKKwiZEkUs=;
+ b=H7tuDTaKodt1NO7B2a3UCC+dWR+YuS8gUajcEfJnWCPKX7mXq5VbPD+TgHAvjlxasB
+ HFJhfR0WJp0vI2f3efcCHWI0cBas78J0R8FhQnHsCJdte2//5pqgjkHpkpSynihnI0t2
+ ibmua3l2E/5HPPhgg55LTLymRUpGC35HZk6pGRb6eDHZmgly4apRS5ucdvDLwAeNKxko
+ z1zHVMhpUr+4XgbcC3ugqxhTzNTQMWyvUuMYLKyXMJuA4xkS/PIOEKcO8J6CuOY5nvaG
+ 7sLsQSepLTS6tx2p8FLSPs2Ges7hdT1IFu0Y/sFr0qVT2YuEQ6Igb7hxR6/OEG+iJGrJ
+ bKGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764053316; x=1764658116;
+ d=1e100.net; s=20230601; t=1764053327; x=1764658127;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=uka3uTpmYpZzlyvT3E47XTXFzCZQzB9mn0T94QG8BGk=;
- b=m8vCMSYxkeEvcLQVCG6eObqnyXQZDtdXXvQIY2tKynTW6XJD7IB/ZVjtlxdysfCiTL
- IlnhJskMObxqgxZQh57MmSRRC0kXHmWVEhdusi811pq1fT5+NMMtcUmSg6lqU5vcyiWq
- R/uvSy3PvyCMoz6KmaNep4AQp52G/Acw8hRkEomAsGgFr6usgG/5CeBjoonfK+Glm+uU
- 8Nt/waP0QZLCE4VuIRlOUWgGMhxXShMgKfqf8o+5U8ulqSYLpuHsL3TKApyuIhXtb1D6
- Sid2Z93qbcf01FC7f90GZsuj2iy06eS80eORvTW3qFctT8tVdjc4WHbXhcL8fqhpvhGI
- ugBA==
+ bh=sav2JkTpiNBhuDhe1bdSzqFnq6opp4D6AgKKwiZEkUs=;
+ b=hCHocK/AsW78BDBkjOpRV1CxyIB9h8n4kxquaP3oPhuqKV2bPdtv3eg5W715npzfX9
+ HQOaWB/9yV3SLJtyKpx0M54aq3L4ut6bvy3kOUeh0Rlw0iAk7wQBh64Yu+9eYAjo/axe
+ GzdBV8GI8jlYP6aQz7v3tg/AeKcaS8OdqFTvAujZQJ17IgpTtQqmyBgOVRYqcW/YoKCR
+ 1G92E9JV9PcWL+tGLgJi6L7xwmldpgd2cd7yy/R7p02zJ0ZXXaIkyQu87dHjycMDkCRI
+ 0zvuDjXtcDF5CHum/2AUt+W6fLbFj7/qON4hYBi+QSq4pFkJiJGzkiKt81y9ZLwm4xt4
+ hbSw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXSGJHaJcPnTGIXkzEibrScd71YwXGuHhzrsq+1Hk9d284JDSnGkkNRjtwMNmzt23kIEesHSaK94l4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwNbNMZhtGClHkD0SUuflmt3kji2ZNvwDayfI7D470EOCNfKKMS
- aDG91QFcTp+2kPFURxphtaZbm7Avm6cYGoCMJwMgUw8WJmsVxEx0dUTZjMH2bYwCepE5gQrKBaS
- hrAypWnmrlhk8Ap0CuBLGTXKZGAzaF2mBmhpyRVe7w3eb+55IAZFetmOo0e4ESKJFO7qHqZk=
-X-Gm-Gg: ASbGnct83zPrtAJpGNwL+pVDz//1nRRyk5NnEGq+wpU29HZjZrLwv8MXg3Z4WJPA9pB
- wMZWabD9xTWEs2302W2ZRfIsK9RNQ9BV7Gokl2ZQHmK6zpIA9TTGDu/rHss/yhWpLcbEiLtkWsd
- mb9KLwTo7bnjNf7hcF+LwN5muc2QtF6/K+ZVJCvUjStDC/Id5nJpof9h/hKnpVym4PCF6rDXZ0Y
- RGy3LVRMox50rrZoCKWojIPQoFFvaxk//5bY/l624AwcKk+dxTylldURF9NB4kRmXXfVmT1CPFh
- VcJgk9U0Cs60Ue4Yg/gb7FsYj3XI41qtgyh6VXcY+/w+pNLAQ/qZ+nD2KtznRoq24xJ1xaOHatQ
- fqDBjNzh9hG8CYp50tTbJLghyER/o42IPs2N6TJqR3ZTcvx54mfD6LJ1jCA2zU2N9FyR/bAM=
-X-Received: by 2002:a05:622a:286:b0:4ed:62f2:8f03 with SMTP id
- d75a77b69052e-4ee5891e11amr213003751cf.81.1764053316367; 
- Mon, 24 Nov 2025 22:48:36 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH7Jw2MQLBvzFRC89v824DN/Tc0cUmEGvEmhJxMuJaT6Mxnhfg0N3B9zzancdtKnis4GzykTA==
-X-Received: by 2002:a05:622a:286:b0:4ed:62f2:8f03 with SMTP id
- d75a77b69052e-4ee5891e11amr213003551cf.81.1764053315898; 
- Mon, 24 Nov 2025 22:48:35 -0800 (PST)
+ AJvYcCUGqweaUnSJ8Kj3IHG37DZzsL4d0jYy4LK/WBY7FXhhzDV5JtD1gaWN+czm0XOwD6WdCxyB4bo0UHQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtTT1kXyX2i8/IUfTOt3d/0kk/x8C/yxaHWZz35dpSldv/IhPY
+ eDqOlAD+98p1l4+a1zxjA1Xf8sr7wtcL41RPY1sK4md7B+JSHiBHaCQN5dYiQ4d/JglUv9wiThH
+ lGlyc+Q4yLbVGVDDc4PLi1cqWsYtPIbqaUdREZmtndGSBejfR5l8IoHktLdZQPxhSlPyEKJM=
+X-Gm-Gg: ASbGncvJXcqTl3WPGbNcqrvvANnv6Z+VwE6uebarQPiL63+BlkiYLKhMRC/F+e73OnT
+ YIq9CL4k6izlWCl9+DZQa/BzvZB/2qTmtMafNaqf02teGCXKpnZ5kxRT7K/+YfYm1odG3xdynEN
+ 4YiA8cT4LQV655dqFbOqODWPPh/AFuT0gqfamwG3ru+XRq/DWFSaYE2g6yynAvOcCkA3Oj2N4Kt
+ PLpHh3CnVTiv+iYf7AL4w9HZsPsKEI8XmF1+MMeVmW6jFzvhplyVJrX/79+OhVkMiSPKQtAuDyy
+ 8vSOdLcF1mC6zPimjj+MiH397cNY9Ul2+wOjZTMqSrO+Dof9Q2fUxKGNqTIxPHm2x/wsgdqxBh1
+ 3KttpcHL1kVPjllAZ1cEudmcHFacCcm80787QPI4NFBrvlLwKm2aod6vZbjT9CLaUVbDKRGc=
+X-Received: by 2002:a05:622a:303:b0:4ee:15af:b934 with SMTP id
+ d75a77b69052e-4ee58b0644bmr207487581cf.79.1764053327072; 
+ Mon, 24 Nov 2025 22:48:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH71783JNIvrMRVHdGNlmiZuEs7Iy0PRRr9PWxHrAh8mFu1oAwTLpeENpq76fFhnnNwxFIx6g==
+X-Received: by 2002:a05:622a:303:b0:4ee:15af:b934 with SMTP id
+ d75a77b69052e-4ee58b0644bmr207486891cf.79.1764053325783; 
+ Mon, 24 Nov 2025 22:48:45 -0800 (PST)
 Received: from yuanjiey.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4ee48e3edb9sm100645971cf.22.2025.11.24.22.48.27
+ d75a77b69052e-4ee48e3edb9sm100645971cf.22.2025.11.24.22.48.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Nov 2025 22:48:35 -0800 (PST)
+ Mon, 24 Nov 2025 22:48:45 -0800 (PST)
 From: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
 To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
@@ -97,29 +97,28 @@ To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com
-Subject: [PATCH v2 01/10] dt-bindings: display/msm: qcom,
- kaanapali-dpu: Add Kaanapali
-Date: Tue, 25 Nov 2025 14:47:49 +0800
-Message-Id: <20251125064758.7207-2-yuanjie.yang@oss.qualcomm.com>
+Subject: [PATCH v2 02/10] dt-bindings: display/msm: dsi-phy-7nm: Add Kaanapali
+ DSI PHY
+Date: Tue, 25 Nov 2025 14:47:50 +0800
+Message-Id: <20251125064758.7207-3-yuanjie.yang@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251125064758.7207-1-yuanjie.yang@oss.qualcomm.com>
 References: <20251125064758.7207-1-yuanjie.yang@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=bM0b4f+Z c=1 sm=1 tr=0 ts=69255144 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=bM0b4f+Z c=1 sm=1 tr=0 ts=6925514f cx=c_pps
  a=oc9J++0uMp73DTRD5QyR2A==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=LEfPF28z9Y6gGZEU5FYA:9
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: uIHBHali1Y4aDaooCGYKnB-LRRzeJbDd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI1MDA1NCBTYWx0ZWRfX6GzaiO1rOoWi
- HGDE93ra/hEMjl7EUHbVNNMYaRSTY9FNjcrvG/o5rpWz/H8uZq/b6NvUh3kdqrADwBp20lp6oEk
- TN+PjXI9y1c9UP+XONRz0uVVhc5kqqoMYRBUoE+/fG2naNnXXA9NgP7P1AqThZinIkXf9407n/t
- jG0yfuw5NpZCQZOqyx6/oTN3eJ3i56h8uQQQRQwv9RyZELDJXsycawDh+rGEn2hx3JwW0mgogg5
- WcPkl8KCOAgSFs4KvMOnxs0POjCDhOiQ4Q8zfNBKiT3quV+U2mwXyzx9N2Pp9VProXUoqxugXCu
- Js6C33Stk4UedCuUdN8DK4DiGV5UQPyD00xUsYjV3TNve5R78137mVtaGXtoCi5A/kNZ4ha0m7q
- unbfFP17ZqimSacMDtva030EEFKIew==
-X-Proofpoint-ORIG-GUID: uIHBHali1Y4aDaooCGYKnB-LRRzeJbDd
+ a=EUspDBNiAAAA:8 a=tNVMJPnUsVqa3Ada0T4A:9 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: yIpirbCLNkTkmu8rTE_5Yr7IQSNdFrU_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI1MDA1NCBTYWx0ZWRfX8c5NayHqA8Zg
+ qxpk116+cbG4Iujv8Pydvc3udfNnVQko9/R/QIiEYZFV4UawGGywLM31i46BJj01ECnw6fvcneY
+ 2lNz2D0qrzc5FKOK+/+WdwyEgE8VlzsynqK1ZhfddtmI5qWsXNFkxZF+5wOngy7DfqTRWpCcOgM
+ JYr2OeLtXZNQhJmw5BcEkPyQ+kfOdgy2v13DEGyJQJsAOBV/zIszDpj8b6LgQKWTTmzpPR+Sl2o
+ Cb7CKZ3sKrTaRdjtnhaas2/vfb0s9mGA+hblfDLrrJAqIcUJRe8GXWQa3xyRq51eKb1MZ/vxo5g
+ wXBNxNjhiMh/JuHM+UmkkXWK43eBVBgZuRgP/R4yWcERkZuNHuB//skcy+4DKDFjy1PYpzEEWk8
+ lcG7Ni7+nPuzHIuUiAyZxupOtXLNtw==
+X-Proofpoint-ORIG-GUID: yIpirbCLNkTkmu8rTE_5Yr7IQSNdFrU_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-25_01,2025-11-24_02,2025-10-01_01
@@ -145,28 +144,26 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
-Add DPU version 13.0 for Qualcomm Kaanapali Soc. The Kaanapali
-DPU and SM8750 have significant differences, including additions
-and removals of registers, as well as changes in register addresses.
+The DSI PHY registers on the Kaanapali platform differ from those
+on SM8750. So add DSI PHY for Kaanapali to compatible these changes.
 
 Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml         | 1 +
+ Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-index fe296e3186d0..e29c4687c3a2 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-@@ -16,6 +16,7 @@ properties:
-     oneOf:
-       - enum:
-           - qcom,glymur-dpu
-+          - qcom,kaanapali-dpu
-           - qcom,sa8775p-dpu
-           - qcom,sm8650-dpu
-           - qcom,sm8750-dpu
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+index 1ca820a500b7..a6e044eed3df 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+@@ -17,6 +17,7 @@ properties:
+     enum:
+       - qcom,dsi-phy-7nm
+       - qcom,dsi-phy-7nm-8150
++      - qcom,kaanapali-dsi-phy-3nm
+       - qcom,sa8775p-dsi-phy-5nm
+       - qcom,sar2130p-dsi-phy-5nm
+       - qcom,sc7280-dsi-phy-7nm
 -- 
 2.34.1
 
