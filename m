@@ -2,57 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB542C83D45
-	for <lists+freedreno@lfdr.de>; Tue, 25 Nov 2025 08:58:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889F8C83EDE
+	for <lists+freedreno@lfdr.de>; Tue, 25 Nov 2025 09:16:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A47CA10E369;
-	Tue, 25 Nov 2025 07:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FBF810E37F;
+	Tue, 25 Nov 2025 08:16:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ioOqVP7i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SFNGgIq0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF5A910E366;
- Tue, 25 Nov 2025 07:58:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F0B10E37E;
+ Tue, 25 Nov 2025 08:16:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A1E6A40030;
- Tue, 25 Nov 2025 07:58:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEEDEC4CEF1;
- Tue, 25 Nov 2025 07:58:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9D9DA4033A;
+ Tue, 25 Nov 2025 08:16:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC43C4CEF1;
+ Tue, 25 Nov 2025 08:16:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764057501;
- bh=1pmGmJBeXhSAvASam0vRKjUxYf0D5FwlRO1qil6CU68=;
+ s=k20201202; t=1764058598;
+ bh=5wgdcTj1KJbTC2xHzImYJ8OdikbVyCwSxzZIfn0r8dY=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ioOqVP7i9feGc23LoNL1OXaBIrYrJMPnOSj0DgwWqun+dBUpfK/u/HWqQ6fM4bwjv
- R1N3vIrkmt/MuKIcccnfHz7bcg2UmZaFY6N36+DdV/+/9hcWAx5aN05Pjivh9eOvPL
- MwoAdhG6VNevALzQfhilr2W/9oFvni4mcHQApOPIHE5TohSm8IVlItQUzPCtHufd95
- Ks4LSsWBa3BKV+A59yutrp3mZsGFdnj1xGzVKlKD1yuOphCPV842DLVNPITWki4Uvu
- cedO1gBDUIc96ovOfRfikvUsFrNBEShMH3B6TcTblLZfN7opcCUGTXWifyV6DtHuJ9
- Xnk5CooU7OJvg==
-Message-ID: <89601075-a312-478e-925d-3cc0b1e9471a@kernel.org>
-Date: Tue, 25 Nov 2025 08:58:14 +0100
+ b=SFNGgIq04QJ8z6YGNma2DNonyRTX2+UAFFTiUgZl368UW6s4cDQzv2RosteXWXXur
+ 8lDoh8dNq9JM/Xk+oGPZN56rccV4WcFo4ZtEWLYlwxt6qsmMGDEC8A7wwh2NW0Ux2+
+ hefjKOBpsBjFWy4yElsfMGEDti1cu5wbCq1xZKsjnjB2aTgir7Pmb2iPKo/yGqSWuo
+ am0xkjdU+A5VVeG0SQ/wXkP1tRJHKOnt2DQkIRGTZ/dbQ12d7CWSc1uXdRtiprMn4x
+ Y7W3DcV4OyvuvvzNJ+9kIVCvbjhv4HEpN1HhtImieBrvsMWnzpw038KD4pj8JCKpAP
+ OgfmtxVfxN1YA==
+Message-ID: <774e5c50-f470-40b8-8b06-ee7806401d09@kernel.org>
+Date: Tue, 25 Nov 2025 09:16:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] dt-bindings: display/msm: gpu: Document A612 GPU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Dan Carpenter <dan.carpenter@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20251122-qcs615-spin-2-v3-0-9f4d4c87f51d@oss.qualcomm.com>
- <20251122-qcs615-spin-2-v3-2-9f4d4c87f51d@oss.qualcomm.com>
- <20251122-savvy-camouflaged-chinchilla-f600ce@kuoka>
- <1207b70e-dcf1-47cf-be26-ff2928932e3e@oss.qualcomm.com>
+Subject: Re: [PATCH v2 02/10] dt-bindings: display/msm: dsi-phy-7nm: Add
+ Kaanapali DSI PHY
+To: yuanjie yang <yuanjie.yang@oss.qualcomm.com>,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, quic_mkrishn@quicinc.com, jonathan@marek.ca,
+ quic_khsieh@quicinc.com, neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com
+References: <20251125064758.7207-1-yuanjie.yang@oss.qualcomm.com>
+ <20251125064758.7207-3-yuanjie.yang@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -98,7 +93,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <1207b70e-dcf1-47cf-be26-ff2928932e3e@oss.qualcomm.com>
+In-Reply-To: <20251125064758.7207-3-yuanjie.yang@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -116,56 +111,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/11/2025 22:39, Akhil P Oommen wrote:
-> On 11/22/2025 4:32 PM, Krzysztof Kozlowski wrote:
->> On Sat, Nov 22, 2025 at 03:22:16AM +0530, Akhil P Oommen wrote:
->>> +
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: qcom,adreno-612.0
->>> +    then:
->>> +      properties:
->>> +        clocks:
->>> +          items:
->>> +            - description: GPU Core clock
->>> +
->>> +        clock-names:
->>> +          items:
->>> +            - const: core
->>> +
->>> +      required:
->>> +        - clocks
->>> +        - clock-names
->>> +
->>>      else:
->>
->> I am pretty sure you break not only intention/logic behindi this else,
->> but actually cause real warnings to appear.
->>
->> The else was intentional, right? So the pattern further will not match
->> some of devices defined in if:. Now else is for different part, so only
->> 612 out of these devices is excluded.
->>
->> There is a reason we do not want ever else:if: in bindings. If it
->> appeared, sure, maybe there is some benefit of it, but it means you need
->> to be more careful now.
+On 25/11/2025 07:47, yuanjie yang wrote:
+> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 > 
-> Aah! I missed that this comes under an 'allOf'. Not an expert in this
+> The DSI PHY registers on the Kaanapali platform differ from those
+> on SM8750. So add DSI PHY for Kaanapali to compatible these changes.
+> 
 
-The allOf does not matter here. If these were separate if:then: then it
-would be the same.
 
-> syntax, does moving this entire block under an 'else' make sense? Or is
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC. It might happen, that command when run on an older
+kernel, gives you outdated entries. Therefore please be sure you base
+your patches on recent Linux kernel.
 
-No, never nest blocks.
+Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+people, so fix your workflow. Tools might also fail if you work on some
+ancient tree (don't, instead use mainline) or work on fork of kernel
+(don't, instead use mainline). Just use b4 and everything should be
+fine, although remember about `b4 prep --auto-to-cc` if you added new
+patches to the patchset.
 
-> there a saner alternative?
+You missed at least devicetree list (maybe more), so this won't be
+tested by automated tooling. Performing review on untested code might be
+a waste of time.
 
-Not sure, I don't remember the code. Original code was not easy to read,
-with your changes it will not be easier. So the only alternative I see
-is to make it simple and obvious.
+Please kindly resend and include all necessary To/Cc entries.
 
 
 Best regards,
