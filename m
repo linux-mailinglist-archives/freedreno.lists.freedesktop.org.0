@@ -2,133 +2,138 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E085C8DEE9
-	for <lists+freedreno@lfdr.de>; Thu, 27 Nov 2025 12:17:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF977C8EBC7
+	for <lists+freedreno@lfdr.de>; Thu, 27 Nov 2025 15:25:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58F8810E723;
-	Thu, 27 Nov 2025 11:17:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A44610E797;
+	Thu, 27 Nov 2025 14:25:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yp6uDTue";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ALfXEIc+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O+ED2TXu";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sf5lMAIa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F91A10E678
- for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 11:17:33 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CF4510E76A
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 14:25:32 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AR9IbKQ1668686
- for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 11:17:33 GMT
+ 5AR9bD8D785221
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 14:25:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ci/37DlTmxIfU8Bj0sC/lZy7VV9scGlmmWwDe8TzOzU=; b=Yp6uDTueOa/0AY1Q
- LjECEL8Jio10tBDtJhhKn1Mol7IDjJwyvIve3SYLLiNCbO1lSwrq5xLAeSJ9wNkK
- tBPhKsdzPXDyMKzVNHKzwznERPPYNsratU4V4ZrDwKHDneNTXHHIuTBu9HJ7jV+J
- bhu8DSs2HhLM1j3bn6YzHK+oQUDHVubsvGkOY8Uv+eqZC1eNjXUnozVoia1qi3ld
- 6Mo791QDbVdgh3bteyHVBTtKWMx/q6qTcI97k3jW9CnPvN+Ty0E0gepxcLyXqbTt
- 6Epm01YBKqlMJe/NU33Xmcjx6t0ABSBL0h3N37h8UHfh2ybz3FYkzWiKKAXLGMgW
- nZrEGQ==
+ lXfQGw9aQcdQsXAqShAhqg7C4NopwvslBYymEWJH4zY=; b=O+ED2TXuJmVoFhaU
+ km8EVBUOCpZ3HTYumGT5retiXw2EepI2LX/yrhNaaVRUxY69I9/mOjjmUJNXx1I5
+ DmxxdYG6q9vWFmPJDM1tNUecRRbYBVY69r5kdRvtMfUzovwJp9WUHLR4V+XVHsdO
+ hMxiwJErYI1jtUjj5UGAwUgau62nLd9l8nINhPmpOTLRXeXHOKrhrGNWNoTZJgOr
+ ZZQUFzJLnLANgZL1XAfrloxZfRe/TkX078X766fGui+6m8P0+IzmxXJbareqdHP6
+ m9wPqr1LgNAstcsOKZS5oFwCNH6nMyWawvheH3KT+3FVg+L/gVZYFyyrELZDRbfI
+ /HpfkA==
 Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
  [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ap0bmukt8-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4apm61rqe5-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 11:17:33 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 14:25:31 +0000 (GMT)
 Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4ee409f1880so1170001cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 03:17:32 -0800 (PST)
+ d75a77b69052e-4ee05927208so2552471cf.1
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 06:25:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1764242252; x=1764847052;
+ d=oss.qualcomm.com; s=google; t=1764253531; x=1764858331;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ci/37DlTmxIfU8Bj0sC/lZy7VV9scGlmmWwDe8TzOzU=;
- b=ALfXEIc+79qFQqVMkkK8C+eEHLmUOw+3vuRG3E6mFvMnk6cVre3mRlW2+7uJ8Kgx6B
- WhRTZAWCe0JwjY5i6HU4pEzyTkjjUJjX2q+VX+G9gYA9IC462zIqZKi9QhfQb4OKiPTI
- DIUwP1wZmyVMlhgyLZAjvckJ/Sau2yBcABvvips9BQS79uRSDEJRJG76IqzZj+TAEaXD
- 0cvd6Q2KhMq+JIQBzBQ3B6zo/Ie8ZnUgHGCwsHcIcTRKrG9sDq0R43xBLiSnkWx7XRFM
- fTaUxKqLvQ8WhvWPjE3h9ucarItPY51Kbp5BYgi3KsDV691zeJJ7QFof2ihtwUn/l5fc
- FqxQ==
+ bh=lXfQGw9aQcdQsXAqShAhqg7C4NopwvslBYymEWJH4zY=;
+ b=Sf5lMAIam3rLDntyGziDpC+ycLbHiAUxkNx4RawKLAVHb4+IjwoA/tkism4ep9NrYF
+ roBhhVUKS2zRmUNJnDk+3bitUHxVkT9HXCOh/cr6E7op6cBp51LgfWIG7QDtYYVHtQnw
+ 0sSHBWNEsTx0UKCU+lnAZW/EOujnSZ2goYK+9XXjDnIcZX3gQSkwL0wdWdaF5HtABg9j
+ X1r1KZIpPLOQlWG04Qfe0ApBJYjcDbohgSmWrQW3VrdWfAoltEa23UohBR/YJldKvZfX
+ 5IzgIIyGx16UUgXU4dV5Wko787iHDjCbcLTByNDjezEVipTxvdRPsAdQD/1gcKw1jwJX
+ cNRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764242252; x=1764847052;
+ d=1e100.net; s=20230601; t=1764253531; x=1764858331;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ci/37DlTmxIfU8Bj0sC/lZy7VV9scGlmmWwDe8TzOzU=;
- b=rtT8A/d8ILY8LygQk4L6wYTM6KqkYYYcyIZ+1TDR99a8dgGK39CuXeT804M3mNZeRQ
- WwOxDQihJsLIwzIMsAUVORzKy+frbK6BLNEFlbSAbTRipfNiMo+I0+3uNBWRMzaMY7/m
- tEmPBJ5PjwHtjzZ9cDX73Ks74AzliZTMq/tAA+vhBncZpd5VO0bIDIxrQWyD84FwtKy4
- qvPkv/YwZ4N3lJ5T9mQAZ3xGJbElmqgYMyYS9g/H1HCnwK0hLaPenE/m49R/Ew7V/cUi
- q80roA8MmMeE7zHCHiEtC6JAbfV96+1uWukxK+djvhsQKq1TQK67KssWUf38X5x3e45X
- 5jKw==
+ bh=lXfQGw9aQcdQsXAqShAhqg7C4NopwvslBYymEWJH4zY=;
+ b=eEzsIYxJOxIK9pMlI6jss/TRN+PEM4VW6420BcUxB3M2CgKlOnCD6NxJrwUHwaUTvW
+ ioz9nYCeZqekSMcINeiifjs5I/Dj0kH+PQNa7VrGRp88Az7S9ItbWFWuoIBwvh7jQHeZ
+ OQj7612kweK058H2/k2ptFEQCmxqfPWzj4yYzp8xmcATFNiTrhZRJpUmZNXleYYgWeBf
+ WJ0CiFbX2zqmqiLLF07ttIK0zcFQW+T4sSV/C1hjHunBrZp1YugfEcJMrRhNdjaJavYc
+ EOT5OBigeqqvt3Uc6PtD1YkG9EO7c7GeRFGtfdXrsSLqzdMLiu35vjLzOg8ued+e7Jj2
+ mk5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVNTleGon2i/51UEobmPOcfhuche3QbRUXimUZEFWAiCnmFWPRGUV10ci1UvXE4zWAwGqtgVoP1C2s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwF14T4xo5UHPOAeUdzCvFPtSBFoqE/7eN/ZarzVWJm8XYciGeH
- JUkoxT4g3BgJZ2C1ttj+D41dF2H3EmK3WNijfGpj3rRzLFf9QkUcCCK/+9s1KGvBBaF6r5w8uK2
- OQYOD8gE6JdOwd/S6htc3mVaE7gG4VaHC9w1XGj0OSPsqLsxBXpMi1F0/ubLLOMlVVjjEaiY=
-X-Gm-Gg: ASbGncum867WpgbfKf7OlYA398+1PIADo4og5lMq030NtY2ifsEEQOnDQInU7x0chN4
- z+EDEprUozJ0Hl0C4t+xMCaXXu8gcQ5HXWbpDE0ojMOQRMwxCfj9J0WVpwcFXQHS3WYSufjOqtf
- Wq6UMUAii9aaupTTYtiRTQvVpQxuldoNg+IXF03mGtipOyaaJBBi2FXq74/zUv1Ydnt+p0z5jxP
- t+av1m0s4Suc3AH3R3V4YsApvEs1l6KC/na+vNptXmGzXbbshavcqu65NgSPVgW3rGAMbzuqfFB
- rnnVIkJxdksEXaiwJu/m8dxwZq6yKdo4+2IPeiFJLKYgbQhWm3BanJWvmV20trUw8Sq4V/pcPae
- Bywqyvqnj2hGoWtaZjoqRHcZyhhb23LAS0EmhSiefG/eHB8raXgcUw1sYaBxvzX5Bw5Y=
-X-Received: by 2002:a05:622a:151:b0:4ee:1924:c6fc with SMTP id
- d75a77b69052e-4ee5883a43cmr226703641cf.1.1764242252102; 
- Thu, 27 Nov 2025 03:17:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEWrKzvgUfp7pp0dFFrDH8KDul8sGDdmqACAOw/2L3t7uZiKm7I3Nq5DZgJOiLy/6fXAl6I3Q==
-X-Received: by 2002:a05:622a:151:b0:4ee:1924:c6fc with SMTP id
- d75a77b69052e-4ee5883a43cmr226703291cf.1.1764242251587; 
- Thu, 27 Nov 2025 03:17:31 -0800 (PST)
+ AJvYcCUVpKycKCu0OXOdFANhS8F/4dLpNQ4k8AOcpdZwU+BLLlLm/1IbWHGTd0iaufs20l1vMXm15iRHBXY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxzUNUwwifaaLaahi0OgwqNou0hmvqgZlpGZI6jfEYwUD6DQtBj
+ ILL+zkX7VWvjYh5OsdXKkf7BMfoTYw2ZdBNZ99nGAKiClz+VL3VLtv9RcBe1rWC6N9JA9ewe0gW
+ NtC1jYt3H8F4vWVad4QaLyX/veUefNiRoXOKlNzinmDGXbr7asK5PzaxkAilVsbylTYUUCwQ=
+X-Gm-Gg: ASbGncu1lMSKktxW8jPRv/5yHWvDThAMngh1NrNOHUNicECBy+qXNA6KvBjqpYJPNZR
+ zF170u4aWuNB4Z2q48+EfhfuGl5RHPcR2PjamgSxAc5sf16+CtgCqrc8CZx4LrTxnessv1x5jmu
+ 5r+V9meEZ2YGuRPp/UITBfwWXUx7tjnFLY4y5hk0vtzeUHUTb+X2qc5WOzOfNWF8qrxTOiiThEo
+ fpixmt+Iftecl5AHTDsD+XpLxM4RVCaD19embd++CvvicQCVsaXxwFodV1mNlUnfSKJmULTu0CG
+ 27HxzJyZN58HqWgeZtCk/mH3QNaDmSujt/AjOWhJxNsZD5E/TKYZ2uxjnLAvlUGGD4ppocAUfDw
+ TNJEczxACdIp8T/8E2bpaSMyUZtuss/1m7qENOkUD1KI2Ezvl9Jx2EVtCK31rEglLTZs=
+X-Received: by 2002:ac8:7f47:0:b0:4ee:1367:8836 with SMTP id
+ d75a77b69052e-4ee5b6fad57mr245601381cf.5.1764253530911; 
+ Thu, 27 Nov 2025 06:25:30 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG1PEAD2AIQg2biuCDwbY2+IKiEBg3avLNdeTwyi+/WMXHOuqe/1V83hpMDDO6bHfXgntzNkw==
+X-Received: by 2002:ac8:7f47:0:b0:4ee:1367:8836 with SMTP id
+ d75a77b69052e-4ee5b6fad57mr245600931cf.5.1764253530457; 
+ Thu, 27 Nov 2025 06:25:30 -0800 (PST)
 Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f5162bb6sm140900866b.12.2025.11.27.03.17.29
+ a640c23a62f3a-b76f59a6a67sm172720266b.34.2025.11.27.06.25.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 03:17:30 -0800 (PST)
-Message-ID: <61e9791e-5222-46f4-a13c-6358a06a3912@oss.qualcomm.com>
-Date: Thu, 27 Nov 2025 12:17:27 +0100
+ Thu, 27 Nov 2025 06:25:29 -0800 (PST)
+Message-ID: <58570d98-f8f1-4e8c-8ae2-5f70a1ced67a@oss.qualcomm.com>
+Date: Thu, 27 Nov 2025 15:25:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dsi/phy_7nm: fix rounding error in recalc_rate
-To: Prahlad Valluru <venkata.valluru@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+Subject: Re: [PATCH] drm/msm: Fix a7xx per pipe register programming
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20251125-msm-dsi-phy-7nm-clk-rate-v1-1-17141806e3a0@oss.qualcomm.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20251125-msm-dsi-phy-7nm-clk-rate-v1-1-17141806e3a0@oss.qualcomm.com>
+In-Reply-To: <20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=AKyLkLWT c=1 sm=1 tr=0 ts=6928334d cx=c_pps
+X-Proofpoint-GUID: JDj8aA8PamHXcwq1blkO3Ya1VATS4yLR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI3MDEwNyBTYWx0ZWRfX9ygpiSJmAYIp
+ X95GStATFzvkeJkOk8W6i58qmwuHiAAkJ9542HzliZyBqtwCq3wMcWDpWYvdioolYebUlnwj/3f
+ WS8iwbGrPyc2RJW81irf/JpJvcpCIYcaJouKpl/sqJcN+naBR08ye7q76+gYPIBwALlbK11kHq1
+ a2CdRVt8a1rhl3DAotzULf5Ozb/8pIeigAIf5l9kwqqlThz9WfIsMa+Y/Z8njhi5YA6x1rJJPLz
+ Pl0KJwUR6iuOXNXg16Wu5+FKJ3g1mxSsTK7g74ziM628BPXJL/GgfmqgUITot17huEoVj6DyjKr
+ UE0M8IXqXfYhhkABdXzJfmZlf99TFDFTLqt2qTZJFQ1oPCnoo71w3jZVPneh13WSez5Yn7HkYB6
+ ikz9N+a0S7UPbHj1kxptEX/LRFQgbw==
+X-Proofpoint-ORIG-GUID: JDj8aA8PamHXcwq1blkO3Ya1VATS4yLR
+X-Authority-Analysis: v=2.4 cv=IciKmGqa c=1 sm=1 tr=0 ts=69285f5b cx=c_pps
  a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=vAqZcY3_g_uuhliy_rEA:9
+ a=VkNPw1HP01LnGYTKEx00:22 a=pGLkceISAAAA:8 a=51bRkEKeLUuq6sK2_JkA:9
  a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI3MDA4MyBTYWx0ZWRfX9mtv/XPSYiqZ
- T4imoLZuc4+S7crLjklvU7uUoS8Ru5EnP7bPCgWF/X1piFWWY881yrSbQpLQVRM3QsjKEha2psc
- HZg9lH+BpZH0j1PVGqHXcCPa+2KNBDT1x5uorTVyuHY4SpxqKEwyhUudySSw+Wcblj2J0G/62JG
- Tj7IGwFnG1IBufN5mjJrN6wlg/PmxztVjMT0tQvU5I63HhlwagnWsIwjVa9F//AqK89cMWdsFjj
- k92z2/9JU8GCfydEUJ7DxQtgL6c6xWSi+3QJK9ZPy1j2xNSEJfEQVFDi/S3yavYH0JJ6ebfQ005
- lHqkOUkKppbGbYUGYBo/IllJ3vIQlfMuHE63aOAUzv64mgAFBPZy9xghGa+3f57w/se5qrvmzOD
- 1BcMQoSEleEKY3O+0kQpW1HtPk69ww==
-X-Proofpoint-GUID: VK2Im0PahiB0JRPG3s2rBqHpVROMbAX2
-X-Proofpoint-ORIG-GUID: VK2Im0PahiB0JRPG3s2rBqHpVROMbAX2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-25_02,2025-11-26_01,2025-10-01_01
+ definitions=2025-11-25_02,2025-11-27_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
- priorityscore=1501 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511270083
+ phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2511270107
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,52 +149,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/25/25 4:25 PM, Prahlad Valluru wrote:
-> Required vco rate is set by programming decimal and fraction
-> from 64 bit calculation. This programmed rate is not exactly
-> matching the requested rate and corresponding recalc_rate is
-> having rounding error due to this delta.
+On 11/27/25 12:46 AM, Anna Maniscalco wrote:
+> GEN7_GRAS_NC_MODE_CNTL was only programmed for BR and not for BV pipe
+> but it needs to be programmed for both.
+> 
+> Program both pipes in hw_init and introducea separate reglist for it in
+> order to add this register to the dynamic reglist which supports
+> restoring registers per pipe.
+> 
+> Fixes: 91389b4e3263 ("drm/msm/a6xx: Add a pwrup_list field to a6xx_info")
+> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  9 ++-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 91 +++++++++++++++++++++++++++++--
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 13 +++++
+>  4 files changed, 109 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 29107b362346..c8d0b1d59b68 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1376,7 +1376,6 @@ static const uint32_t a7xx_pwrup_reglist_regs[] = {
+>  	REG_A6XX_UCHE_MODE_CNTL,
+>  	REG_A6XX_RB_NC_MODE_CNTL,
+>  	REG_A6XX_RB_CMP_DBG_ECO_CNTL,
+> -	REG_A7XX_GRAS_NC_MODE_CNTL,
+>  	REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
+>  	REG_A6XX_UCHE_GBIF_GX_CONFIG,
+>  	REG_A6XX_UCHE_CLIENT_PF,
+> @@ -1448,6 +1447,12 @@ static const u32 a750_ifpc_reglist_regs[] = {
+>  
+>  DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
+>  
+> +static const struct adreno_reglist_pipe a750_reglist_pipe_regs[] = {
+> +	{ REG_A7XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
 
-Feel free to wrap your emails at 72 characters
-
-> When setting byte_clk and byte_intf_clk from this pll,
-> set_rate on byte_intf_clk resulting in dividers getting
-> reprogrammed, which are already set from byte_clk.
-> Convert this recalc_rate to KHz and back to Hz to round up
-> this delta in calculation.
-
-This feels odd. What if we wanted to set the non-1000-aligned rate?
-I think the solution here would be to properly implement .determine_rate,
-so that when we request e.g. 1 GHz, the clock framework will be aware
-of 1.0001 (example numbers) that will actually be programmed
+At a glance at kgsl, all gen7 GPUs that support concurrent binning (i.e.
+not gen7_3_0/a710? and gen7_14_0/whatever that translates to) need this
 
 Konrad
-
-> Signed-off-by: Prahlad Valluru <venkata.valluru@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> index 32f06edd21a9..00f20c5a7c73 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -598,6 +598,12 @@ static unsigned long dsi_pll_7nm_vco_recalc_rate(struct clk_hw *hw,
->  	pll_freq += div_u64(tmp64, multiplier);
->  
->  	vco_rate = pll_freq;
-> +	/*
-> +	 * Recalculating the rate from dec and frac doesn't end up the rate
-> +	 * we originally set. Convert the freq to KHz, round it up and
-> +	 * convert it back to Hz.
-> +	 */
-> +	vco_rate = DIV_ROUND_UP_ULL(vco_rate, 1000) * 1000;
->  	pll_7nm->vco_current_rate = vco_rate;
->  
->  	DBG("DSI PLL%d returning vco rate = %lu, dec = %x, frac = %x",
-> 
-> ---
-> base-commit: 63c971af40365ee706c7e24f6a7900d693518f09
-> change-id: 20251125-msm-dsi-phy-7nm-clk-rate-26723a3b686c
-> 
-> Best regards,
