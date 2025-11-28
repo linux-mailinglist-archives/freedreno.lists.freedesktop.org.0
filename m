@@ -2,70 +2,140 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D56EC90A84
-	for <lists+freedreno@lfdr.de>; Fri, 28 Nov 2025 03:52:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE7BCC90E23
+	for <lists+freedreno@lfdr.de>; Fri, 28 Nov 2025 06:28:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3131910E08C;
-	Fri, 28 Nov 2025 02:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2F610E0EA;
+	Fri, 28 Nov 2025 05:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jwuXKnvl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q6DLqti9";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cYS5hzBe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1434E10E08C;
- Fri, 28 Nov 2025 02:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764298376; x=1795834376;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=kN8f8ocFg/9iq69/nMOZcevqnWg1yZnJ/G3yn1vCZBg=;
- b=jwuXKnvlSlYpwdsuRSo+7bN42FuZxdo8v1XcRvX+LAUqP2Z5DOoKwUWY
- ft2QcllrmyWPSe1Q0v542t4ySUaih99I6R4ozr/2bxZ0sh5XG35FlZzlq
- PSuPO0PATYv8StFflhzaJqGto1fMjB56d/8yXlixH0qhGs6VEz12HDFQI
- rnn/7G8ir8zeEBuLWw0kp0TAoKhBzuJzfYFirBE8/NuR2l5brVzavcHAP
- kzaKO/ilA8FEVdV4jeZX2XS9xpQBOik53rxOwIGXW0Nj8NALLQmRCD92X
- 0EopTGl/PnPkoZPJID0aKj0wg+Um61PY18EW94lwosBgnSGfKvwvGKsTg Q==;
-X-CSE-ConnectionGUID: djrcfU+yRKaCqoEM7mFfYQ==
-X-CSE-MsgGUID: 2OelRxrsQ1W37KBRZ30NBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11626"; a="66281697"
-X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="66281697"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2025 18:52:55 -0800
-X-CSE-ConnectionGUID: kHmaFFJtSrCUNitANqQ8Mg==
-X-CSE-MsgGUID: OVGbIM/SSGC2110517cZ5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="193159342"
-Received: from lkp-server01.sh.intel.com (HELO 4664bbef4914) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 27 Nov 2025 18:52:51 -0800
-Received: from kbuild by 4664bbef4914 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vOobI-000000005xN-3R8H;
- Fri, 28 Nov 2025 02:52:48 +0000
-Date: Fri, 28 Nov 2025 10:52:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8C210E0E3
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Nov 2025 05:27:56 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5ARMrXMP2294575
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Nov 2025 05:27:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bU234KVyfuiQ071hOUaarXJSwgrW199aj94jOmrKW8A=; b=Q6DLqti9tTGUw+uX
+ 9rl9NCSMGJApFugNAQ6IBKmsRbS2nFD3I9+u+dzrtzqTRuO/s+TqRtPm/M0ZTPWE
+ YEeOdU1vLx7KjNh+pRBVb65Ea6geq8j9YCXIeuaKh5OwHZguKfLkuPvPZX7k8TIt
+ YpmU2V0bEacl5BNmZkEzd2fHRWbeI4ia7+1HQLpM6a4DKwrsYsMDigz9+TQEGQ5W
+ j3X8SGD69yFALu5yyi95W1ABhaQmoq46t/1mRFFieb3BmK41p5xFuHhu35t05T/f
+ Qs/S71zJy0tjncGt3ZYsHWye4O/cD/xUqEcMdZNOlIkEPTjxWCQCSj6h3Wpq9pYx
+ VpXsEQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4apkv5jct7-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Nov 2025 05:27:55 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2980ef53fc5so35407775ad.1
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Nov 2025 21:27:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1764307674; x=1764912474;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=bU234KVyfuiQ071hOUaarXJSwgrW199aj94jOmrKW8A=;
+ b=cYS5hzBehLegSR43LTUhs0Nx6Cq8zkB6qsOP/hvdcti/9i5VDWs+RKdbZggFJDwjTo
+ ynlwCOWZmzxjfaWu4+HohMpO+zItSQcid1QKwNo82WjFPoiEGdhYad+DBO93NJk8wOXV
+ aq501LtO+Q8qV3G/RU5RrmK5y83xu/bxywqoXoJ52qmAvDkB6C8ii5YIyRzHzd0F5Edd
+ TTkCRVI4A+T3rqUl/7JpRkjIrK3WfmcPHvpOZyPTuPclBBsM0FDEi7Cxs0bwy5OMMo65
+ 0ABazNdn4Zfz3KiPAMMWUuQM5mP71/e0xFqU3huX0B+z/g8wxIE7oEAkxa9LP42Rudi/
+ WFNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764307674; x=1764912474;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bU234KVyfuiQ071hOUaarXJSwgrW199aj94jOmrKW8A=;
+ b=FS56oW8u3oNaMymTogqtQIy6RyTq+TlI0I6EysKllAwPbtx5JrKeUpkUZIjhj6NfTm
+ 44PRCJnyXl4rYVlz9tDEqUILhFnJozuAp9XvMgQ0As7CUOFb1tygor07vLDkxxcYLCPr
+ E21wxDJK8tmBAvLbxR/1QbkzE7b98u6+pAbABBBkcKLnxuOq0tJbYjiIF0vaAo0kUsfp
+ D9CtYlsHNT8yiD801zlXyqEAarR7/dssauwAUuxp2DmPh7T4p980xRHvyj3pkEe8NZm2
+ dj4z0fpJUmTdlIDtLW0727oc2ISl/rhVaJAsT0TmxZphRKkQ+nEnfc12SzexZO6FN4gN
+ onhw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVyj026+61B/no3Wn+XqhT3lA4N56dJdmrgAyloaVeBpy85KgEu9WJsrcNlLuo5recmLPwTA5iiQ68=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz6oxlD7CcxQg0tzuXgulmiz8KGQMRIhaQoBUPZVW2I+HgS2Gt9
+ zwdd2kFQkSoxBfdPLDQJ8q6ACgBaGyAn9gm9tOxW6yCWSOJ2YntxeXluMxgZp+JuYIFWY4j6tat
+ PfE8+NLNebTHXxzmqNcWXIbQN6VxHgj184JD1lz6xsiXqpQhuKqTCfakNr7nJSZUGE/qAy5I=
+X-Gm-Gg: ASbGnctp9eZ65Ity8iIUNKhbbxDbMSDlrh+xiymHYn9i7c/PNSMIVPr4GSEhqLXxAEs
+ LzzRRpcDBE2JseK+WUrLfj66jR3o8FieFDJ03eWsI46YFwFdhlGtXVuokkqixctBNDL9lKKfK9I
+ xyQTZAJN2+jkQxgTNoR/hGftJNDT0/Rhj8WdfXM8gGzignF+YIksBhZ/7ziG2bWf148eI4+oO5c
+ YV/T57PHqR6xhUkbITguX6/JUleHPUVfWH1Xg9izdQY/X8YGwUgd40IhpJYu6AdLEoBHn8ZIq+5
+ 3R8HPfYc5BCEZBecn4JC3V3xnljbXeRGUIeQ9AQhqAeWob6KUQtXqBniLqmNlE5acCxiDa5ykU0
+ SKyqNOyX1A3CyQjPjjID2/gGdLgxb21F94Mghs8U5JTiOjF7q61DcUtdfHQQjIfr6glSsjbQ=
+X-Received: by 2002:a17:903:2b0f:b0:297:e66a:2065 with SMTP id
+ d9443c01a7336-29b6c6d0d46mr286081265ad.56.1764307674370; 
+ Thu, 27 Nov 2025 21:27:54 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHDTmfxXPvgxwTlUUIThN+iC9CGgSmXnh9oSSh6fI7QVMDdWMCB8DnyUD3jCI4KfCNeEel0FA==
+X-Received: by 2002:a17:903:2b0f:b0:297:e66a:2065 with SMTP id
+ d9443c01a7336-29b6c6d0d46mr286081055ad.56.1764307673874; 
+ Thu, 27 Nov 2025 21:27:53 -0800 (PST)
+Received: from ?IPV6:2401:4900:1c27:6704:8849:8c0d:18ec:2263?
+ ([2401:4900:1c27:6704:8849:8c0d:18ec:2263])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3476a7a4c12sm7424746a91.9.2025.11.27.21.27.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Nov 2025 21:27:53 -0800 (PST)
+Message-ID: <2c234003-c4b5-4b82-938c-8f7f85efedbc@oss.qualcomm.com>
+Date: Fri, 28 Nov 2025 10:57:46 +0530
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Fix a7xx per pipe register programming
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Antonino Maniscalco <antomani103@gmail.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Subject: Re: [PATCH] drm/msm: Fix a7xx per pipe register programming
-Message-ID: <202511281253.rIkrIiqt-lkp@intel.com>
+ stable@vger.kernel.org
 References: <20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com>
+ <bf66095e-9f25-4e0f-876a-00f637a7c696@oss.qualcomm.com>
+ <c7d9f540-b1c0-45a4-befe-177b6d79277a@gmail.com>
+Content-Language: en-US
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <c7d9f540-b1c0-45a4-befe-177b6d79277a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: psnZOCCdWlRUuRQAKyLVSnJJWtHk7RU8
+X-Authority-Analysis: v=2.4 cv=O8k0fR9W c=1 sm=1 tr=0 ts=692932db cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=pGLkceISAAAA:8 a=jF3HVPuvk2LWSY_FLscA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI4MDAzNyBTYWx0ZWRfX0on+HywmG9jD
+ QBBlylpm/Tzw2+g/zrqKlo4fgaWpRDwbV0ZJ3omraIOewZDoWNju/RUIKmlIDJ8Qv7QQJ7+Co85
+ LU5aWMZsYPNwItHAkJMxS+ohS+WD3+IY5hmuoASeEQlM3PU2DtXSO0lLypXwJ6ZZ5+G8Pkxphtd
+ wbNzHJKPfLtn+bsPscblr3SLomDh3mtROBkizfG6ci2j27kYUbNqjTwpHKqI+k56lIfwPehSqiO
+ PiEaxmfT5VAVN3ui7hb/6bse+rOSGVSILVkWdhsFaxut0WpkK0c1kDPek7XW6Ef1eQdqEpKj11U
+ k7fTEH58OKiQCHo2KQaHe6ncrO3I9TEmlAlDS7JK3f+XHSQtmVIno5kE6TF9CwdIMe9e0vDOcd8
+ m3jrUga4boPOK45NrJMFbupwDzAy0A==
+X-Proofpoint-GUID: psnZOCCdWlRUuRQAKyLVSnJJWtHk7RU8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-25_02,2025-11-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511280037
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,107 +151,267 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Anna,
+On 11/28/2025 4:42 AM, Anna Maniscalco wrote:
+> On 11/27/25 10:57 PM, Akhil P Oommen wrote:
+>> On 11/27/2025 5:16 AM, Anna Maniscalco wrote:
+>>> GEN7_GRAS_NC_MODE_CNTL was only programmed for BR and not for BV pipe
+>>> but it needs to be programmed for both.
+>>>
+>>> Program both pipes in hw_init and introducea separate reglist for it in
+>>> order to add this register to the dynamic reglist which supports
+>>> restoring registers per pipe.
+>>>
+>>> Fixes: 91389b4e3263 ("drm/msm/a6xx: Add a pwrup_list field to
+>>> a6xx_info")
+>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  9 ++-
+>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 91 ++++++++++++++++++++
+>>> +++++++++--
+>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 13 +++++
+>>>   4 files changed, 109 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/
+>>> drm/msm/adreno/a6xx_catalog.c
+>>> index 29107b362346..c8d0b1d59b68 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>> @@ -1376,7 +1376,6 @@ static const uint32_t a7xx_pwrup_reglist_regs[]
+>>> = {
+>>>       REG_A6XX_UCHE_MODE_CNTL,
+>>>       REG_A6XX_RB_NC_MODE_CNTL,
+>>>       REG_A6XX_RB_CMP_DBG_ECO_CNTL,
+>>> -    REG_A7XX_GRAS_NC_MODE_CNTL,
+>>>       REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
+>>>       REG_A6XX_UCHE_GBIF_GX_CONFIG,
+>>>       REG_A6XX_UCHE_CLIENT_PF,
+>>> @@ -1448,6 +1447,12 @@ static const u32 a750_ifpc_reglist_regs[] = {
+>>>     DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
+>>>   +static const struct adreno_reglist_pipe a750_reglist_pipe_regs[] = {
+>>> +    { REG_A7XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+>>> +};
+>>> +
+>>> +DECLARE_ADRENO_REGLIST_PIPE_LIST(a750_reglist_pipe);
+>>> +
+>>>   static const struct adreno_info a7xx_gpus[] = {
+>>>       {
+>>>           .chip_ids = ADRENO_CHIP_IDS(0x07000200),
+>>> @@ -1548,6 +1553,7 @@ static const struct adreno_info a7xx_gpus[] = {
+>>>               .protect = &a730_protect,
+>>>               .pwrup_reglist = &a7xx_pwrup_reglist,
+>>>               .ifpc_reglist = &a750_ifpc_reglist,
+>>> +            .pipe_reglist = &a750_reglist_pipe,
+>>>               .gbif_cx = a640_gbif,
+>>>               .gmu_chipid = 0x7050001,
+>>>               .gmu_cgc_mode = 0x00020202,
+>>> @@ -1590,6 +1596,7 @@ static const struct adreno_info a7xx_gpus[] = {
+>>>               .protect = &a730_protect,
+>>>               .pwrup_reglist = &a7xx_pwrup_reglist,
+>>>               .ifpc_reglist = &a750_ifpc_reglist,
+>>> +            .pipe_reglist = &a750_reglist_pipe,
+>>>               .gbif_cx = a640_gbif,
+>>>               .gmu_chipid = 0x7090100,
+>>>               .gmu_cgc_mode = 0x00020202,
+>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/
+>>> msm/adreno/a6xx_gpu.c
+>>> index 0200a7e71cdf..b98f3e93d0a8 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>> @@ -16,6 +16,72 @@
+>>>     #define GPU_PAS_ID 13
+>>>   +static void a7xx_aperture_slice_set(struct msm_gpu *gpu, enum
+>>> adreno_pipe pipe)
+>>> +{
+>>> +    struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>> +    struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>> +    u32 val;
+>>> +
+>>> +    val = A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe);
+>>> +
+>>> +    if (a6xx_gpu->cached_aperture == val)
+>>> +        return;
+>>> +
+>>> +    gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST, val);
+>>> +
+>>> +    a6xx_gpu->cached_aperture = val;
+>>> +}
+>>> +
+>>> +static void a7xx_aperture_acquire(struct msm_gpu *gpu, enum
+>>> adreno_pipe pipe, unsigned long *flags)
+>>> +{
+>>> +    struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>> +    struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>> +
+>>> +    spin_lock_irqsave(&a6xx_gpu->aperture_lock, *flags);
+>>> +
+>>> +    a7xx_aperture_slice_set(gpu, pipe);
+>>> +}
+>>> +
+>>> +static void a7xx_aperture_release(struct msm_gpu *gpu, unsigned long
+>>> flags)
+>>> +{
+>>> +    struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>> +    struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>> +
+>>> +    spin_unlock_irqrestore(&a6xx_gpu->aperture_lock, flags);
+>>> +}
+>>> +
+>>> +static void a7xx_aperture_clear(struct msm_gpu *gpu)
+>>> +{
+>>> +    unsigned long flags;
+>>> +
+>>> +    a7xx_aperture_acquire(gpu, PIPE_NONE, &flags);
+>>> +    a7xx_aperture_release(gpu, flags);
+>>> +}
+>>> +
+>>> +static void a7xx_write_pipe(struct msm_gpu *gpu, enum adreno_pipe
+>>> pipe, u32 offset, u32 data)
+>>> +{
+>>> +    unsigned long flags;
+>>> +
+>>> +    a7xx_aperture_acquire(gpu, pipe, &flags);
+>>> +    gpu_write(gpu, offset, data);
+>>> +    a7xx_aperture_release(gpu, flags);
+>>> +}
+>>> +
+>>> +static u32 a7xx_read_pipe(struct msm_gpu *gpu, enum adreno_pipe
+>>> pipe, u32 offset)
+>>> +{
+>>> +    struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>> +    struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>> +    unsigned long flags;
+>>> +    u32 val;
+>>> +
+>>> +    spin_lock_irqsave(&a6xx_gpu->aperture_lock, flags);
+>>> +    a7xx_aperture_slice_set(gpu, pipe);
+>>> +    val = gpu_read(gpu, offset);
+>>> +    spin_unlock_irqrestore(&a6xx_gpu->aperture_lock, flags);
+>>> +
+>>> +    return val;
+>>> +}
+>>> +
+>> All of the above helper routines are unncessary because we access only a
+>> single register under the aperture in a7x hw_init(). Lets drop these and
+>> program the aperture register directly below.
+> We also access (read) it in a7xx_patch_pwrup_reglist though, so do we
+> want to inline it twice?
 
-kernel test robot noticed the following build warnings:
+Yeah.
 
-[auto build test WARNING on 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530]
+>>
+>>
+>>>   static u64 read_gmu_ao_counter(struct a6xx_gpu *a6xx_gpu)
+>>>   {
+>>>       u64 count_hi, count_lo, temp;
+>>> @@ -849,9 +915,12 @@ static void a6xx_set_ubwc_config(struct msm_gpu
+>>> *gpu)
+>>>             min_acc_len_64b << 3 |
+>>>             hbb_lo << 1 | ubwc_mode);
+>>>   -    if (adreno_is_a7xx(adreno_gpu))
+>>> -        gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
+>>> -              FIELD_PREP(GENMASK(8, 5), hbb_lo));
+>>> +    if (adreno_is_a7xx(adreno_gpu)) {
+>>> +        for (u32 pipe_id = PIPE_BR; pipe_id <= PIPE_BV; pipe_id++)
+>>> +            a7xx_write_pipe(gpu, pipe_id, REG_A7XX_GRAS_NC_MODE_CNTL,
+>>> +                    FIELD_PREP(GENMASK(8, 5), hbb_lo));
+>>> +        a7xx_aperture_clear(gpu);
+>>> +    }
+>>>         gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL,
+>>>             min_acc_len_64b << 23 | hbb_lo << 21);
+>>> @@ -865,9 +934,11 @@ static void a7xx_patch_pwrup_reglist(struct
+>>> msm_gpu *gpu)
+>>>       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>>       struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>>       const struct adreno_reglist_list *reglist;
+>>> +    const struct adreno_reglist_pipe_list *pipe_reglist;
+>>>       void *ptr = a6xx_gpu->pwrup_reglist_ptr;
+>>>       struct cpu_gpu_lock *lock = ptr;
+>>>       u32 *dest = (u32 *)&lock->regs[0];
+>>> +    u32 pipe_reglist_count = 0;
+>>>       int i;
+>>>         lock->gpu_req = lock->cpu_req = lock->turn = 0;
+>>> @@ -907,7 +978,19 @@ static void a7xx_patch_pwrup_reglist(struct
+>>> msm_gpu *gpu)
+>>>        * (<aperture, shifted 12 bits> <address> <data>), and the
+>>> length is
+>>>        * stored as number for triplets in dynamic_list_len.
+>>>        */
+>>> -    lock->dynamic_list_len = 0;
+>>> +    pipe_reglist = adreno_gpu->info->a6xx->pipe_reglist;
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Anna-Maniscalco/drm-msm-Fix-a7xx-per-pipe-register-programming/20251127-074833
-base:   7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
-patch link:    https://lore.kernel.org/r/20251127-gras_nc_mode_fix-v1-1-5c0cf616401f%40gmail.com
-patch subject: [PATCH] drm/msm: Fix a7xx per pipe register programming
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20251128/202511281253.rIkrIiqt-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251128/202511281253.rIkrIiqt-lkp@intel.com/reproduce)
+NULL check for pipe_reglist?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202511281253.rIkrIiqt-lkp@intel.com/
+-Akhil
 
-All warnings (new ones prefixed by >>):
+>>> +    for (u32 pipe_id = PIPE_BR; pipe_id <= PIPE_BV; pipe_id++) {
+>>> +        for (i = 0; i < pipe_reglist->count; i++) {
+>>> +            if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
+>>> +                continue;
+>>> +            *dest++ = A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id);
+>>> +            *dest++ = pipe_reglist->regs[i].offset;
+>>> +            *dest++ = a7xx_read_pipe(gpu, pipe_id,
+>>> +                         pipe_reglist->regs[i].offset);
+>>> +            pipe_reglist_count++;
+>>> +        }
+>>> +    }
+>>> +    lock->dynamic_list_len = pipe_reglist_count;
+>>>   }
+>>>     static int a7xx_preempt_start(struct msm_gpu *gpu)
+>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/
+>>> msm/adreno/a6xx_gpu.h
+>>> index 6820216ec5fc..0a1d6acbc638 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>>> @@ -46,6 +46,7 @@ struct a6xx_info {
+>>>       const struct adreno_protect *protect;
+>>>       const struct adreno_reglist_list *pwrup_reglist;
+>>>       const struct adreno_reglist_list *ifpc_reglist;
+>>> +    const struct adreno_reglist_pipe_list *pipe_reglist;
+>>>       const struct adreno_reglist *gbif_cx;
+>>>       const struct adreno_reglist_pipe *nonctxt_reglist;
+>>>       u32 max_slices;
+>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/
+>>> drm/msm/adreno/adreno_gpu.h
+>>> index 0f8d3de97636..cd1846c1375e 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>> @@ -182,12 +182,25 @@ struct adreno_reglist_list {
+>>>       u32 count;
+>>>   };
+>>>   +struct adreno_reglist_pipe_list {
+>>> +    /** @reg: List of register **/
+>>> +    const struct adreno_reglist_pipe *regs;
+>>> +    /** @count: Number of registers in the list **/
+>>> +    u32 count;
+>>> +};
+>>> +
+>> Please move this chunk down, just above the
+>> DECLARE_ADRENO_REGLIST_PIPE_LIST
+>>
+>> -Akhil
+>>
+>>>   #define DECLARE_ADRENO_REGLIST_LIST(name)    \
+>>>   static const struct adreno_reglist_list name = {        \
+>>>       .regs = name ## _regs,                \
+>>>       .count = ARRAY_SIZE(name ## _regs),        \
+>>>   };
+>>>   +#define DECLARE_ADRENO_REGLIST_PIPE_LIST(name)    \
+>>> +static const struct adreno_reglist_pipe_list name = {        \
+>>> +    .regs = name ## _regs,                \
+>>> +    .count = ARRAY_SIZE(name ## _regs),        \
+>>> +};
+>>> +
+>>>   struct adreno_gpu {
+>>>       struct msm_gpu base;
+>>>       const struct adreno_info *info;
+>>>
+>>> ---
+>>> base-commit: 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
+>>> change-id: 20251126-gras_nc_mode_fix-7224ee506a39
+>>>
+>>> Best regards,
+> 
+> 
+> Best regards,
 
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:984:35: warning: & has lower precedence than ==; == will be evaluated first [-Wparentheses]
-     984 |                         if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
-         |                                                        ^~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:984:35: note: place parentheses around the '==' expression to silence this warning
-     984 |                         if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
-         |                                                        ^ ~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:984:35: note: place parentheses around the & expression to evaluate it first
-     984 |                         if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
-         |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
-   1 warning generated.
-
-
-vim +984 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-
-   931	
-   932	static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
-   933	{
-   934		struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-   935		struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-   936		const struct adreno_reglist_list *reglist;
-   937		const struct adreno_reglist_pipe_list *pipe_reglist;
-   938		void *ptr = a6xx_gpu->pwrup_reglist_ptr;
-   939		struct cpu_gpu_lock *lock = ptr;
-   940		u32 *dest = (u32 *)&lock->regs[0];
-   941		u32 pipe_reglist_count = 0;
-   942		int i;
-   943	
-   944		lock->gpu_req = lock->cpu_req = lock->turn = 0;
-   945	
-   946		reglist = adreno_gpu->info->a6xx->ifpc_reglist;
-   947		lock->ifpc_list_len = reglist->count;
-   948	
-   949		/*
-   950		 * For each entry in each of the lists, write the offset and the current
-   951		 * register value into the GPU buffer
-   952		 */
-   953		for (i = 0; i < reglist->count; i++) {
-   954			*dest++ = reglist->regs[i];
-   955			*dest++ = gpu_read(gpu, reglist->regs[i]);
-   956		}
-   957	
-   958		reglist = adreno_gpu->info->a6xx->pwrup_reglist;
-   959		lock->preemption_list_len = reglist->count;
-   960	
-   961		for (i = 0; i < reglist->count; i++) {
-   962			*dest++ = reglist->regs[i];
-   963			*dest++ = gpu_read(gpu, reglist->regs[i]);
-   964		}
-   965	
-   966		/*
-   967		 * The overall register list is composed of
-   968		 * 1. Static IFPC-only registers
-   969		 * 2. Static IFPC + preemption registers
-   970		 * 3. Dynamic IFPC + preemption registers (ex: perfcounter selects)
-   971		 *
-   972		 * The first two lists are static. Size of these lists are stored as
-   973		 * number of pairs in ifpc_list_len and preemption_list_len
-   974		 * respectively. With concurrent binning, Some of the perfcounter
-   975		 * registers being virtualized, CP needs to know the pipe id to program
-   976		 * the aperture inorder to restore the same. Thus, third list is a
-   977		 * dynamic list with triplets as
-   978		 * (<aperture, shifted 12 bits> <address> <data>), and the length is
-   979		 * stored as number for triplets in dynamic_list_len.
-   980		 */
-   981		pipe_reglist = adreno_gpu->info->a6xx->pipe_reglist;
-   982		for (u32 pipe_id = PIPE_BR; pipe_id <= PIPE_BV; pipe_id++) {
-   983			for (i = 0; i < pipe_reglist->count; i++) {
- > 984				if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
-   985					continue;
-   986				*dest++ = A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id);
-   987				*dest++ = pipe_reglist->regs[i].offset;
-   988				*dest++ = a7xx_read_pipe(gpu, pipe_id,
-   989							 pipe_reglist->regs[i].offset);
-   990				pipe_reglist_count++;
-   991			}
-   992		}
-   993		lock->dynamic_list_len = pipe_reglist_count;
-   994	}
-   995	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
