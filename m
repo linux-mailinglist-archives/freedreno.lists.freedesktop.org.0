@@ -2,48 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08941C908BF
-	for <lists+freedreno@lfdr.de>; Fri, 28 Nov 2025 02:59:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D56EC90A84
+	for <lists+freedreno@lfdr.de>; Fri, 28 Nov 2025 03:52:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F26010E756;
-	Fri, 28 Nov 2025 01:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3131910E08C;
+	Fri, 28 Nov 2025 02:52:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZPPyMRFU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jwuXKnvl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9073B10E076;
- Fri, 28 Nov 2025 01:59:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1434E10E08C;
+ Fri, 28 Nov 2025 02:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764295195; x=1795831195;
+ t=1764298376; x=1795834376;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=jG+Q3vKVz8tj9mgaLr+HMnR7/uIPrxtNMPCHuccxSdA=;
- b=ZPPyMRFUznFTy23LZz7Ga6D4s1iLuDBdI1MaRix4mLFm5Bii64UaaccJ
- An7vhBuxNZ8qOjrmSib/6VN/6ZYfSZUwAR+IZ3zUkrzdnG8FjGR3V46IE
- vPwtoLVrHA5Epf/x1VEx/dgNWkJn015PvKwJ33EWtv6QAoMBbd0IhipJG
- Ur9+/P3BH54ZBACoOikun6tPDXOvGKBhIzsnpBGlOLbknN6ox7K3BkadS
- w5+z8g/OzOfYgq/JTfvGq/45ClaVIvEBbERRjWwqIU6t8p5hv7Vld3TFp
- BhGwvSFVEFy8PysKNanYHmP2r+O4L4XzidREkPsYiO1DzfLFirT4aENk+ Q==;
-X-CSE-ConnectionGUID: dwV/DMrrSb+RzKIcu5kexw==
-X-CSE-MsgGUID: 4RMZ6BsET0O3k4HhYZ8row==
-X-IronPort-AV: E=McAfee;i="6800,10657,11626"; a="68925552"
-X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="68925552"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2025 17:59:54 -0800
-X-CSE-ConnectionGUID: ddZGwDcEQ66Xb8fiKIQDbw==
-X-CSE-MsgGUID: m60YY/UUSkGdERHuslMpnw==
+ bh=kN8f8ocFg/9iq69/nMOZcevqnWg1yZnJ/G3yn1vCZBg=;
+ b=jwuXKnvlSlYpwdsuRSo+7bN42FuZxdo8v1XcRvX+LAUqP2Z5DOoKwUWY
+ ft2QcllrmyWPSe1Q0v542t4ySUaih99I6R4ozr/2bxZ0sh5XG35FlZzlq
+ PSuPO0PATYv8StFflhzaJqGto1fMjB56d/8yXlixH0qhGs6VEz12HDFQI
+ rnn/7G8ir8zeEBuLWw0kp0TAoKhBzuJzfYFirBE8/NuR2l5brVzavcHAP
+ kzaKO/ilA8FEVdV4jeZX2XS9xpQBOik53rxOwIGXW0Nj8NALLQmRCD92X
+ 0EopTGl/PnPkoZPJID0aKj0wg+Um61PY18EW94lwosBgnSGfKvwvGKsTg Q==;
+X-CSE-ConnectionGUID: djrcfU+yRKaCqoEM7mFfYQ==
+X-CSE-MsgGUID: 2OelRxrsQ1W37KBRZ30NBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11626"; a="66281697"
+X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="66281697"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2025 18:52:55 -0800
+X-CSE-ConnectionGUID: kHmaFFJtSrCUNitANqQ8Mg==
+X-CSE-MsgGUID: OVGbIM/SSGC2110517cZ5w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="192475967"
+X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="193159342"
 Received: from lkp-server01.sh.intel.com (HELO 4664bbef4914) ([10.239.97.150])
- by orviesa006.jf.intel.com with ESMTP; 27 Nov 2025 17:59:49 -0800
+ by orviesa009.jf.intel.com with ESMTP; 27 Nov 2025 18:52:51 -0800
 Received: from kbuild by 4664bbef4914 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vOnly-000000005v3-2oCr;
- Fri, 28 Nov 2025 01:59:46 +0000
-Date: Fri, 28 Nov 2025 09:59:39 +0800
+ (envelope-from <lkp@intel.com>) id 1vOobI-000000005xN-3R8H;
+ Fri, 28 Nov 2025 02:52:48 +0000
+Date: Fri, 28 Nov 2025 10:52:00 +0800
 From: kernel test robot <lkp@intel.com>
 To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -55,12 +55,12 @@ To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Antonino Maniscalco <antomani103@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 Subject: Re: [PATCH] drm/msm: Fix a7xx per pipe register programming
-Message-ID: <202511280900.x5OzOOoJ-lkp@intel.com>
+Message-ID: <202511281253.rIkrIiqt-lkp@intel.com>
 References: <20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -91,20 +91,27 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Anna-Maniscalco/drm-msm-F
 base:   7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
 patch link:    https://lore.kernel.org/r/20251127-gras_nc_mode_fix-v1-1-5c0cf616401f%40gmail.com
 patch subject: [PATCH] drm/msm: Fix a7xx per pipe register programming
-config: loongarch-randconfig-001-20251128 (https://download.01.org/0day-ci/archive/20251128/202511280900.x5OzOOoJ-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 15.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251128/202511280900.x5OzOOoJ-lkp@intel.com/reproduce)
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20251128/202511281253.rIkrIiqt-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251128/202511281253.rIkrIiqt-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202511280900.x5OzOOoJ-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202511281253.rIkrIiqt-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c: In function 'a7xx_patch_pwrup_reglist':
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:984:71: warning: suggest parentheses around comparison in operand of '&' [-Wparentheses]
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:984:35: warning: & has lower precedence than ==; == will be evaluated first [-Wparentheses]
      984 |                         if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
+         |                                                        ^~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:984:35: note: place parentheses around the '==' expression to silence this warning
+     984 |                         if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
+         |                                                        ^ ~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:984:35: note: place parentheses around the & expression to evaluate it first
+     984 |                         if (pipe_reglist->regs[i].pipe & BIT(pipe_id) == 0)
+         |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+   1 warning generated.
 
 
 vim +984 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
