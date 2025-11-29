@@ -2,98 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E90C92C76
-	for <lists+freedreno@lfdr.de>; Fri, 28 Nov 2025 18:18:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 202DBC93B16
+	for <lists+freedreno@lfdr.de>; Sat, 29 Nov 2025 10:21:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD03410E917;
-	Fri, 28 Nov 2025 17:18:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8E3010E1CB;
+	Sat, 29 Nov 2025 09:21:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HlnJ383i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G9pWioFS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5111910E90C
- for <freedreno@lists.freedesktop.org>; Fri, 28 Nov 2025 17:18:20 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-b739b3fc2a0so319279366b.3
- for <freedreno@lists.freedesktop.org>; Fri, 28 Nov 2025 09:18:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764350299; x=1764955099; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=GJQwfOIw2qQpgiHTYzvOGMNFZV2HUBa/BfEUHAS1g30=;
- b=HlnJ383i9W+ZzQ5zjn/XPdG29+VIGmtfHFFSpSWHdNeiKOoEckuVAW+Xym8Bz9ebbX
- uC5gzj8ZYfHiCvxy/9yu3M1J+GPSyISLK+2MTY8waV+3GuG948mnqzOSeQTXtcpcuYN6
- aE/1wQuZHOviTHiK7Zg+Ine93mLUWElyJ3oTJ5J/kXEfseQGb7BH30bIP1ZFva1UyWh4
- Pv6nf+RWep2g8/CDvDAaJMTeJ3loJV6WH4MbsQMkhsM5QcxOjU7TMdpkVRzl84GLMwe+
- G5hZJJlfvK1BUN1u/abX5+7Frvmc2XHXVkFD/c7/OGBJL0xVxLJE4flfsh0L8oMOdBZX
- Wa7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764350299; x=1764955099;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GJQwfOIw2qQpgiHTYzvOGMNFZV2HUBa/BfEUHAS1g30=;
- b=SnkTUaNd70iIZF4OyFPWavfEUkDfBEQfa3vjUDW27wBkg37sWVBjjpMs+U/zS/FkHX
- egRnpHXX+C0IzOSpo00O3moqydBU/wnKgwu/sNdWxk6EuV3ts/Ft4PcqgSIZevRfJYzx
- hBQ0tg7HI/tAow/nqa/58HJVq9wtaRLKEDiZMhISowMW2XPd1SxhIgFLqYI5/xvIwRd5
- R4340vFnUdK4qdCb4SQ8cdeUyeb2eT0N6MID1sIl5vbR0DBWCXfzi+ptl03AcHDjI02F
- HYlNQTlN7G2BLzO19volpJAXCmFffZr7vXaMFOXLnjBaQdnHyw618RD/ugV0Slz4d9X1
- RiPA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVtKNMJCKRdr54fVdYpaVEki9X8Ru409HA2ys0mYk4O0Umi8BTV4sjNwshEsk47H5Wfjo82fxrW1WI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD/ay5TNGl1NxQ/b+yrXfRpSShtA3BuOFL9IOqhC1dxlk6E4WH
- 6U3JP9DByM7BEcXBnIb8ax320iClkeVVFwS2zhEsDxPhTgtgIMImpC8=
-X-Gm-Gg: ASbGncuspZIp7KfBTvvkIIr1c9ieIXrHCdC6sXLhIX+bAG2F1E+AOnPbMs23DjbL3Og
- Zy3ilf73P/6wBLgkrc/GmMrec+v95iQb9ocvUWNsgC03M8bfQkXk1BFOdjMFwcBffigIKUhQBPh
- ATxT/Qc5tY+lZZHancEYjkBXwfdGm78tnoY2OYr911SLjHuLj1wXPKoQFeZH4jeaO9Q7Da2w4ZZ
- IqkvR+XoE+ZBCgTntylEFYayXYtVrnqIHxSONDzeBqe3cJwSCKknp12JKI0HcbwIyxGTxafDPo+
- imz5GaPxGPX8Qm6Xu7rbVjsjoARAS0md7Kpg0wI4kUV0fCFLQybKJ99fpGapiBklBTdk5h9+nOI
- BZAF2OiVGkS9r6jeWMJtXKKPlwP16i5DSeuf6H4A+np9TA3zxg5hm6/62vJDpEj2j/sdcySicrY
- +kfiDLtQptnG85c1So0BhSGvnUH1fRgAN2ghNrvMIr7rc6nqy09TmTzih+FcI4ws955Mi7+1s=
-X-Google-Smtp-Source: AGHT+IGMb2CAJXzm7R7ZYxSu0VKeZ+ZE/F03jrlS6C47GGzI0dctfnwYd5RO36R52sY8BYB1vKXY+g==
-X-Received: by 2002:a17:907:801:b0:b73:7de4:dfdb with SMTP id
- a640c23a62f3a-b76c5515010mr1501580566b.37.1764350298291; 
- Fri, 28 Nov 2025 09:18:18 -0800 (PST)
-Received: from [192.168.1.17] (host-79-36-164-91.retail.telecomitalia.it.
- [79.36.164.91]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f5162093sm509465066b.2.2025.11.28.09.18.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Nov 2025 09:18:17 -0800 (PST)
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Fri, 28 Nov 2025 18:17:28 +0100
-Subject: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF4410E1CB;
+ Sat, 29 Nov 2025 09:21:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id D30BA60132;
+ Sat, 29 Nov 2025 09:21:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850DAC4CEF7;
+ Sat, 29 Nov 2025 09:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1764408114;
+ bh=JCS0XqE0LFr0UTEUO0aQ5SQ+0IwobH/0SZQXNTJ7Dp4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=G9pWioFSz+XjIfNCx5EfgksG+5jhfX0lFdfTcBm+HCvYoT+oJSugei8I0cVPEGMD1
+ TwtgZRI59CF8X4xdelv4vTcK54QNLv7t2HBvHLj2/RfxNzJVGl9X8gbCHZJZt3iKln
+ Lnibl+Rj7ilODpXldmoKQchkXhSTYTz/J6eu0AcShpVhZ4RWz3w6voShxzXiY4rMfK
+ +pb3ZYxnkRBJp0FLLywFirUULQPPtccDLWLb++uKoPWpdEJ5NTZlZyy1/DChbZAl8S
+ BD2s796269OU9LF5huPpVN6KwOX78mByOaq/WrbZ+gIOk6++Ar7Z8bl2+jgJyogpXg
+ MCmwVMd1HyUhg==
+Message-ID: <5bad57b5-ab05-477e-b8e9-5086139b2326@kernel.org>
+Date: Sat, 29 Nov 2025 10:21:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/6] dt-bindings: display/msm: gpu: Document A612 GPU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20251122-qcs615-spin-2-v3-0-9f4d4c87f51d@oss.qualcomm.com>
+ <20251122-qcs615-spin-2-v3-2-9f4d4c87f51d@oss.qualcomm.com>
+ <20251122-savvy-camouflaged-chinchilla-f600ce@kuoka>
+ <1207b70e-dcf1-47cf-be26-ff2928932e3e@oss.qualcomm.com>
+ <89601075-a312-478e-925d-3cc0b1e9471a@kernel.org>
+ <a6a172bc-9f76-4e12-8925-35319baabb62@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <a6a172bc-9f76-4e12-8925-35319baabb62@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACjZKWkC/2WNQQrCMBBFr1JmbSQTmxRdeQ8pIaSTdMA2kkhRS
- u9uLLhy+R7891colJkKXJoVMi1cOM0V1KEBP7o5kuChMiipNKIyImZX7OztlAaygV+iU6ol0tK
- 40xnq7JGp6j156yuPXJ4pv/eHBb/2F+v+YwsKFNpLHwyaVmK4xsnx/ejTBP22bR+MHLPwsAAAA
- A==
-X-Change-ID: 20251126-gras_nc_mode_fix-7224ee506a39
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1764350296; l=7753;
- i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=qSMDgAab8niEa7uXA8/JyMRbEm4G4q6XD1/VjNo6mzM=;
- b=T23Rwt648GTVB5YRJanV0yDkpqQX+VDqWRFRQ92FRrpdINbCDnsVnFd9OEz6+pj9nnS5aw8x+
- KpSbq+SP5RzA4aaxGasbztjY6qk3Kg28G5Rv55eY27+65W6w647PBqk
-X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
- pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,200 +118,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-GEN7_GRAS_NC_MODE_CNTL was only programmed for BR and not for BV pipe
-but it needs to be programmed for both.
+On 28/11/2025 11:29, Akhil P Oommen wrote:
+> On 11/25/2025 1:28 PM, Krzysztof Kozlowski wrote:
+>> On 24/11/2025 22:39, Akhil P Oommen wrote:
+>>> On 11/22/2025 4:32 PM, Krzysztof Kozlowski wrote:
+>>>> On Sat, Nov 22, 2025 at 03:22:16AM +0530, Akhil P Oommen wrote:
+>>>>> +
+>>>>> +  - if:
+>>>>> +      properties:
+>>>>> +        compatible:
+>>>>> +          contains:
+>>>>> +            const: qcom,adreno-612.0
+>>>>> +    then:
+>>>>> +      properties:
+>>>>> +        clocks:
+>>>>> +          items:
+>>>>> +            - description: GPU Core clock
+>>>>> +
+>>>>> +        clock-names:
+>>>>> +          items:
+>>>>> +            - const: core
+>>>>> +
+>>>>> +      required:
+>>>>> +        - clocks
+>>>>> +        - clock-names
+>>>>> +
+>>>>>      else:
+>>>>
+>>>> I am pretty sure you break not only intention/logic behindi this else,
+>>>> but actually cause real warnings to appear.
+>>>>
+>>>> The else was intentional, right? So the pattern further will not match
+>>>> some of devices defined in if:. Now else is for different part, so only
+>>>> 612 out of these devices is excluded.
+>>>>
+>>>> There is a reason we do not want ever else:if: in bindings. If it
+>>>> appeared, sure, maybe there is some benefit of it, but it means you need
+>>>> to be more careful now.
+>>>
+>>> Aah! I missed that this comes under an 'allOf'. Not an expert in this
+>>
+>> The allOf does not matter here. If these were separate if:then: then it
+>> would be the same.
+>>
+>>> syntax, does moving this entire block under an 'else' make sense? Or is
+>>
+>> No, never nest blocks.
+>>
+>>> there a saner alternative?
+>>
+>> Not sure, I don't remember the code. Original code was not easy to read,
+>> with your changes it will not be easier. So the only alternative I see
+>> is to make it simple and obvious.
+> 
+> Could you please confirm if the below change would be okay?
+> 
+> @@ -384,6 +384,31 @@ allOf:
+> 
+>   - if:
+>       properties:
+>         compatible:
+>           contains:
+>             enum:
+>               - qcom,adreno-610.0
+>               - qcom,adreno-619.1
+>               - qcom,adreno-07000200
+>     then:
+>       properties:
+>         clocks:
+>           minItems: 6
+>           maxItems: 6
+> 
+>         clock-names:
+>           items:
+>             - const: core
+>               description: GPU Core clock
+>             - const: iface
+>               description: GPU Interface clock
+>             - const: mem_iface
+>               description: GPU Memory Interface clock
+>             - const: alt_mem_iface
+>               description: GPU Alternative Memory Interface clock
+>             - const: gmu
+>               description: CX GMU clock
+>             - const: xo
+>               description: GPUCC clocksource clock
+> 
+>         reg-names:
+>           minItems: 1
+>           items:
+>              - const: kgsl_3d0_reg_memory
+>              - const: cx_dbgc
+> 
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,adreno-612.0
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: GPU Core clock
+> +
+> +        clock-names:
+> +          items:
+> +            - const: core
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,adreno-610.0
+> +              - qcom,adreno-612.0
+> +              - qcom,adreno-619.1
+> +              - qcom,adreno-07000200
+> +    then:
+>       required:
+>         - clocks
+>         - clock-names
 
-Program both pipes in hw_init and introducea separate reglist for it in
-order to add this register to the dynamic reglist which supports
-restoring registers per pipe.
+Yes, this should work, but I think it is better to require clocks in the
+same block which defines them. You also need to restrict reg/reg-names
+for the new device.
 
-Fixes: 91389b4e3263 ("drm/msm/a6xx: Add a pwrup_list field to a6xx_info")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
----
-Changes in v2:
-- Added missing Cc: stable to commit
-- Added pipe_regs to all 7xx gens
-- Null check pipe_regs in a7xx_patch_pwrup_reglist
-- Added parentheses around bitwise and in a7xx_patch_pwrup_reglist
-- Use A7XX_PIPE_{BR, BV, NONE} enum values
-- Link to v1: https://lore.kernel.org/r/20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 12 ++++++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 34 +++++++++++++++++++++++++++----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 13 ++++++++++++
- 4 files changed, 55 insertions(+), 5 deletions(-)
+> 
+>     else:
+>       if:
+>         properties:
+>           compatible:
+>             contains:
+>               oneOf:
+>                 - pattern: '^qcom,adreno-[67][0-9][0-9]\.[0-9]+$'
+>                 - pattern: '^qcom,adreno-[0-9a-f]{8}$'
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 29107b362346..10732062d681 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -1376,7 +1376,6 @@ static const uint32_t a7xx_pwrup_reglist_regs[] = {
- 	REG_A6XX_UCHE_MODE_CNTL,
- 	REG_A6XX_RB_NC_MODE_CNTL,
- 	REG_A6XX_RB_CMP_DBG_ECO_CNTL,
--	REG_A7XX_GRAS_NC_MODE_CNTL,
- 	REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
- 	REG_A6XX_UCHE_GBIF_GX_CONFIG,
- 	REG_A6XX_UCHE_CLIENT_PF,
-@@ -1448,6 +1447,12 @@ static const u32 a750_ifpc_reglist_regs[] = {
- 
- DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
- 
-+static const struct adreno_reglist_pipe a7xx_reglist_pipe_regs[] = {
-+	{ REG_A7XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+};
-+
-+DECLARE_ADRENO_REGLIST_PIPE_LIST(a7xx_reglist_pipe);
-+
- static const struct adreno_info a7xx_gpus[] = {
- 	{
- 		.chip_ids = ADRENO_CHIP_IDS(0x07000200),
-@@ -1491,6 +1496,7 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.hwcg = a730_hwcg,
- 			.protect = &a730_protect,
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
-+			.pipe_reglist = &a7xx_reglist_pipe,
- 			.gbif_cx = a640_gbif,
- 			.gmu_cgc_mode = 0x00020000,
- 		},
-@@ -1513,6 +1519,7 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.hwcg = a740_hwcg,
- 			.protect = &a730_protect,
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
-+			.pipe_reglist = &a7xx_reglist_pipe,
- 			.gbif_cx = a640_gbif,
- 			.gmu_chipid = 0x7020100,
- 			.gmu_cgc_mode = 0x00020202,
-@@ -1548,6 +1555,7 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.protect = &a730_protect,
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
- 			.ifpc_reglist = &a750_ifpc_reglist,
-+			.pipe_reglist = &a7xx_reglist_pipe,
- 			.gbif_cx = a640_gbif,
- 			.gmu_chipid = 0x7050001,
- 			.gmu_cgc_mode = 0x00020202,
-@@ -1590,6 +1598,7 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.protect = &a730_protect,
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
- 			.ifpc_reglist = &a750_ifpc_reglist,
-+			.pipe_reglist = &a7xx_reglist_pipe,
- 			.gbif_cx = a640_gbif,
- 			.gmu_chipid = 0x7090100,
- 			.gmu_cgc_mode = 0x00020202,
-@@ -1623,6 +1632,7 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.hwcg = a740_hwcg,
- 			.protect = &a730_protect,
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
-+			.pipe_reglist = &a7xx_reglist_pipe,
- 			.gbif_cx = a640_gbif,
- 			.gmu_chipid = 0x70f0000,
- 			.gmu_cgc_mode = 0x00020222,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 0200a7e71cdf..422ce4c97f70 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -849,9 +849,16 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
- 		  min_acc_len_64b << 3 |
- 		  hbb_lo << 1 | ubwc_mode);
- 
--	if (adreno_is_a7xx(adreno_gpu))
--		gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
--			  FIELD_PREP(GENMASK(8, 5), hbb_lo));
-+	if (adreno_is_a7xx(adreno_gpu)) {
-+		for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-+			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
-+				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
-+			gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
-+				  FIELD_PREP(GENMASK(8, 5), hbb_lo));
-+		}
-+		gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
-+			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
-+	}
- 
- 	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL,
- 		  min_acc_len_64b << 23 | hbb_lo << 21);
-@@ -865,9 +872,11 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	const struct adreno_reglist_list *reglist;
-+	const struct adreno_reglist_pipe_list *pipe_reglist;
- 	void *ptr = a6xx_gpu->pwrup_reglist_ptr;
- 	struct cpu_gpu_lock *lock = ptr;
- 	u32 *dest = (u32 *)&lock->regs[0];
-+	u32 pipe_reglist_count = 0;
- 	int i;
- 
- 	lock->gpu_req = lock->cpu_req = lock->turn = 0;
-@@ -907,7 +916,24 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
- 	 * (<aperture, shifted 12 bits> <address> <data>), and the length is
- 	 * stored as number for triplets in dynamic_list_len.
- 	 */
--	lock->dynamic_list_len = 0;
-+	pipe_reglist = adreno_gpu->info->a6xx->pipe_reglist;
-+	if (pipe_reglist) {
-+		for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-+			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
-+				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
-+			for (i = 0; i < pipe_reglist->count; i++) {
-+				if ((pipe_reglist->regs[i].pipe & BIT(pipe_id)) == 0)
-+					continue;
-+				*dest++ = A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id);
-+				*dest++ = pipe_reglist->regs[i].offset;
-+				*dest++ = gpu_read(gpu, pipe_reglist->regs[i].offset);
-+				pipe_reglist_count++;
-+			}
-+		}
-+		gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
-+			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
-+	}
-+	lock->dynamic_list_len = pipe_reglist_count;
- }
- 
- static int a7xx_preempt_start(struct msm_gpu *gpu)
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index 6820216ec5fc..0a1d6acbc638 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -46,6 +46,7 @@ struct a6xx_info {
- 	const struct adreno_protect *protect;
- 	const struct adreno_reglist_list *pwrup_reglist;
- 	const struct adreno_reglist_list *ifpc_reglist;
-+	const struct adreno_reglist_pipe_list *pipe_reglist;
- 	const struct adreno_reglist *gbif_cx;
- 	const struct adreno_reglist_pipe *nonctxt_reglist;
- 	u32 max_slices;
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 0f8d3de97636..1d0145f8b3ec 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -188,6 +188,19 @@ static const struct adreno_reglist_list name = {		\
- 	.count = ARRAY_SIZE(name ## _regs),		\
- };
- 
-+struct adreno_reglist_pipe_list {
-+	/** @reg: List of register **/
-+	const struct adreno_reglist_pipe *regs;
-+	/** @count: Number of registers in the list **/
-+	u32 count;
-+};
-+
-+#define DECLARE_ADRENO_REGLIST_PIPE_LIST(name)	\
-+static const struct adreno_reglist_pipe_list name = {		\
-+	.regs = name ## _regs,				\
-+	.count = ARRAY_SIZE(name ## _regs),		\
-+};
-+
- struct adreno_gpu {
- 	struct msm_gpu base;
- 	const struct adreno_info *info;
+This if:else:if: should be just removed and written in a way to choose
+specific devices affected here. The code is not readable and your
+mistake was a proof of that.
 
----
-base-commit: 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
-change-id: 20251126-gras_nc_mode_fix-7224ee506a39
-
+> 
+>       then: # Starting with A6xx, the clocks are usually defined in the
+>         properties:
 Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
-
+Krzysztof
