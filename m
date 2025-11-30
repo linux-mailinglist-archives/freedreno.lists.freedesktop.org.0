@@ -2,46 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1C1AC950B8
-	for <lists+freedreno@lfdr.de>; Sun, 30 Nov 2025 16:10:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC329C94C0D
+	for <lists+freedreno@lfdr.de>; Sun, 30 Nov 2025 08:38:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1398010E067;
-	Sun, 30 Nov 2025 15:09:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C59110E24D;
+	Sun, 30 Nov 2025 07:38:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=veygax.dev header.i=@veygax.dev header.b="b3vQdMF/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TMmv1vrb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F9F10E23B
- for <freedreno@lists.freedesktop.org>; Sun, 30 Nov 2025 01:29:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=veygax.dev;
- s=protonmail; t=1764466141; x=1764725341;
- bh=ozUsX/bT64HY1yGl9o4Rpp0gGQHX5PlMeVLIyIxsBkU=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=b3vQdMF/u924WT4HLmCIb7P6XrxvgsnJdHtRNfzfkTHI32Tsb39jENadWnJVPoLu7
- LLTLbQ3TAPXAi+LOcyegMSLC1v8hM+Vw/3L1NvUPe1ZrfF1nIEtZ/i6f4EYpg8vDYR
- 1F0p1up2drNRAY0gIBgK7AvhGr4DB68KcL8S+mXXUzeB0ghUndEgb4sKhoFpO5/PBW
- oCUsBjErYBhWun7dXsCvUo8awmOs5vMGbfgbDgGrFgg4gAXdx1HqlP0hkgrFZqnMxx
- ArsJEuximdYjc5f6OatEE8BCi0QD8esPmffmq1BB6jUfcICcKqD5qtlWfdAMoTqDp+
- C8c778nWV/vkw==
-Date: Sun, 30 Nov 2025 01:28:54 +0000
-To: robin.clark@oss.qualcomm.com, lumag@kernel.org
-From: veygax <veyga@veygax.dev>
-Cc: abhinav.kumar@linux.dev, jessica.zhang@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- veygax <veyga@veygax.dev>
-Subject: [PATCH] drm/msm: Replace unsafe snprintf usage with scnprintf
-Message-ID: <20251130012834.142585-2-veyga@veygax.dev>
-Feedback-ID: 160365411:user:proton
-X-Pm-Message-ID: e0373c99e967915a910429b8886ef243b72b1be0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD0D10E154;
+ Sun, 30 Nov 2025 07:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764488332; x=1796024332;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=5dnK4oFXEiZYt1cEpiBmjME4Q9+HAvXwwE8FFYoFVCU=;
+ b=TMmv1vrbYF/fIySPWd13d9v1S6xlouHTIp6YTACYiTGkXxAcHSBOPUnI
+ gYlFUD2PfzHnTHuYqaCaTJdpcW5zujMkIJFzk+SnTp4PmYwxX3hfmPf6g
+ 6OV8zv5XqTvoNcrTgf9tMDh1N3CVNM5IUae7QlyvY8YmvR4J6BXbdUPTF
+ dvCE9ssStOR0BXALMDIKQft6ADD5weC5u8KMWLOCdwZxG9ZgJmNhDEEDW
+ /Tk8D7/H2Pz6yj0Xk2LgxGIXiEnQtuedCYPsSVDgIbgcLPD2UgU5zsrWU
+ 6ABL4IKvahIdDO0xWozOmZvsVxcXG074DftcLKUJmqadHtEC3R38Eilej w==;
+X-CSE-ConnectionGUID: kKOrdKbzTbe9+k3WNq8Rdw==
+X-CSE-MsgGUID: aIIV/8r/RwerQxQzVR0b6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11628"; a="54006021"
+X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="54006021"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2025 23:38:51 -0800
+X-CSE-ConnectionGUID: dRXbbdVWRnGYZ/4OuEzi1Q==
+X-CSE-MsgGUID: dcPc/0ZbT665FlB88ciN8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="231074250"
+Received: from lkp-server01.sh.intel.com (HELO 4664bbef4914) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 29 Nov 2025 23:38:46 -0800
+Received: from kbuild by 4664bbef4914 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vPc16-000000007px-29Xd;
+ Sun, 30 Nov 2025 07:38:44 +0000
+Date: Sun, 30 Nov 2025 15:38:22 +0800
+From: kernel test robot <lkp@intel.com>
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Subject: Re: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
+Message-ID: <202511301514.t3OSLc6E-lkp@intel.com>
+References: <20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Sun, 30 Nov 2025 15:09:58 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,68 +81,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The refill_buf function uses snprintf to append to a fixed-size buffer.
-snprintf returns the length that would have been written, which can
-exceed the remaining buffer size. If this happens, ptr advances beyond
-the buffer and rem becomes negative. In the 2nd iteration, rem is
-treated as a large unsigned integer, causing snprintf to write oob.
+Hi Anna,
 
-While this behavior is technically mitigated by num_perfcntrs being
-locked at 5, it's still unsafe if num_perfcntrs were ever to change/a
-second source was added.
+kernel test robot noticed the following build errors:
 
-Signed-off-by: veygax <veyga@veygax.dev>
----
- drivers/gpu/drm/msm/msm_perf.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+[auto build test ERROR on 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530]
 
-diff --git a/drivers/gpu/drm/msm/msm_perf.c b/drivers/gpu/drm/msm/msm_perf.=
-c
-index d3c7889aaf26..c369d4acc378 100644
---- a/drivers/gpu/drm/msm/msm_perf.c
-+++ b/drivers/gpu/drm/msm/msm_perf.c
-@@ -65,13 +65,13 @@ static int refill_buf(struct msm_perf_state *perf)
-=20
- =09if ((perf->cnt++ % 32) =3D=3D 0) {
- =09=09/* Header line: */
--=09=09n =3D snprintf(ptr, rem, "%%BUSY");
-+=09=09n =3D scnprintf(ptr, rem, "%%BUSY");
- =09=09ptr +=3D n;
- =09=09rem -=3D n;
-=20
- =09=09for (i =3D 0; i < gpu->num_perfcntrs; i++) {
- =09=09=09const struct msm_gpu_perfcntr *perfcntr =3D &gpu->perfcntrs[i];
--=09=09=09n =3D snprintf(ptr, rem, "\t%s", perfcntr->name);
-+=09=09=09n =3D scnprintf(ptr, rem, "\t%s", perfcntr->name);
- =09=09=09ptr +=3D n;
- =09=09=09rem -=3D n;
- =09=09}
-@@ -93,21 +93,21 @@ static int refill_buf(struct msm_perf_state *perf)
- =09=09=09return ret;
-=20
- =09=09val =3D totaltime ? 1000 * activetime / totaltime : 0;
--=09=09n =3D snprintf(ptr, rem, "%3d.%d%%", val / 10, val % 10);
-+=09=09n =3D scnprintf(ptr, rem, "%3d.%d%%", val / 10, val % 10);
- =09=09ptr +=3D n;
- =09=09rem -=3D n;
-=20
- =09=09for (i =3D 0; i < ret; i++) {
- =09=09=09/* cycle counters (I think).. convert to MHz.. */
- =09=09=09val =3D cntrs[i] / 10000;
--=09=09=09n =3D snprintf(ptr, rem, "\t%5d.%02d",
-+=09=09=09n =3D scnprintf(ptr, rem, "\t%5d.%02d",
- =09=09=09=09=09val / 100, val % 100);
- =09=09=09ptr +=3D n;
- =09=09=09rem -=3D n;
- =09=09}
- =09}
-=20
--=09n =3D snprintf(ptr, rem, "\n");
-+=09n =3D scnprintf(ptr, rem, "\n");
- =09ptr +=3D n;
- =09rem -=3D n;
-=20
---=20
-2.52.0
+url:    https://github.com/intel-lab-lkp/linux/commits/Anna-Maniscalco/drm-msm-Fix-a7xx-per-pipe-register-programming/20251129-012027
+base:   7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
+patch link:    https://lore.kernel.org/r/20251128-gras_nc_mode_fix-v2-1-634cda7b810f%40gmail.com
+patch subject: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
+config: um-randconfig-002-20251130 (https://download.01.org/0day-ci/archive/20251130/202511301514.t3OSLc6E-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251130/202511301514.t3OSLc6E-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202511301514.t3OSLc6E-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c: In function 'a6xx_set_ubwc_config':
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:36: error: 'A7XX_PIPE_BR' undeclared (first use in this function)
+     853 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
+         |                                    ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:36: note: each undeclared identifier is reported only once for each function it appears in
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:61: error: 'A7XX_PIPE_BV' undeclared (first use in this function)
+     853 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
+         |                                                             ^~~~~~~~~~~~
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:860:59: error: 'A7XX_PIPE_NONE' undeclared (first use in this function); did you mean 'MSM_PIPE_NONE'?
+     860 |                           A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
+         |                                                           ^~~~~~~~~~~~~~
+         |                                                           MSM_PIPE_NONE
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c: In function 'a7xx_patch_pwrup_reglist':
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:36: error: 'A7XX_PIPE_BR' undeclared (first use in this function)
+     921 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
+         |                                    ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:61: error: 'A7XX_PIPE_BV' undeclared (first use in this function)
+     921 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
+         |                                                             ^~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:59: error: 'A7XX_PIPE_NONE' undeclared (first use in this function); did you mean 'MSM_PIPE_NONE'?
+     934 |                           A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
+         |                                                           ^~~~~~~~~~~~~~
+         |                                                           MSM_PIPE_NONE
 
 
+vim +/A7XX_PIPE_BR +853 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+
+   807	
+   808	static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+   809	{
+   810		struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+   811		const struct qcom_ubwc_cfg_data *cfg = adreno_gpu->ubwc_config;
+   812		/*
+   813		 * We subtract 13 from the highest bank bit (13 is the minimum value
+   814		 * allowed by hw) and write the lowest two bits of the remaining value
+   815		 * as hbb_lo and the one above it as hbb_hi to the hardware.
+   816		 */
+   817		BUG_ON(cfg->highest_bank_bit < 13);
+   818		u32 hbb = cfg->highest_bank_bit - 13;
+   819		bool rgb565_predicator = cfg->ubwc_enc_version >= UBWC_4_0;
+   820		u32 level2_swizzling_dis = !(cfg->ubwc_swizzle & UBWC_SWIZZLE_ENABLE_LVL2);
+   821		bool ubwc_mode = qcom_ubwc_get_ubwc_mode(cfg);
+   822		bool amsbc = cfg->ubwc_enc_version >= UBWC_3_0;
+   823		bool min_acc_len_64b = false;
+   824		u8 uavflagprd_inv = 0;
+   825		u32 hbb_hi = hbb >> 2;
+   826		u32 hbb_lo = hbb & 3;
+   827	
+   828		if (adreno_is_a650_family(adreno_gpu) || adreno_is_a7xx(adreno_gpu))
+   829			uavflagprd_inv = 2;
+   830	
+   831		if (adreno_is_a610(adreno_gpu) || adreno_is_a702(adreno_gpu))
+   832			min_acc_len_64b = true;
+   833	
+   834		gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+   835			  level2_swizzling_dis << 12 |
+   836			  rgb565_predicator << 11 |
+   837			  hbb_hi << 10 | amsbc << 4 |
+   838			  min_acc_len_64b << 3 |
+   839			  hbb_lo << 1 | ubwc_mode);
+   840	
+   841		gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL,
+   842			  level2_swizzling_dis << 6 | hbb_hi << 4 |
+   843			  min_acc_len_64b << 3 |
+   844			  hbb_lo << 1 | ubwc_mode);
+   845	
+   846		gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
+   847			  level2_swizzling_dis << 12 | hbb_hi << 10 |
+   848			  uavflagprd_inv << 4 |
+   849			  min_acc_len_64b << 3 |
+   850			  hbb_lo << 1 | ubwc_mode);
+   851	
+   852		if (adreno_is_a7xx(adreno_gpu)) {
+ > 853			for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
+   854				gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
+   855					  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
+   856				gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
+   857					  FIELD_PREP(GENMASK(8, 5), hbb_lo));
+   858			}
+   859			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
+ > 860				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
+   861		}
+   862	
+   863		gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL,
+   864			  min_acc_len_64b << 23 | hbb_lo << 21);
+   865	
+   866		gpu_write(gpu, REG_A6XX_RBBM_NC_MODE_CNTL,
+   867			  cfg->macrotile_mode);
+   868	}
+   869	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
