@@ -2,48 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC329C94C0D
-	for <lists+freedreno@lfdr.de>; Sun, 30 Nov 2025 08:38:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20B13C94C9F
+	for <lists+freedreno@lfdr.de>; Sun, 30 Nov 2025 10:02:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C59110E24D;
-	Sun, 30 Nov 2025 07:38:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CBD010E059;
+	Sun, 30 Nov 2025 09:02:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TMmv1vrb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EheCmqBH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD0D10E154;
- Sun, 30 Nov 2025 07:38:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBBE10E059;
+ Sun, 30 Nov 2025 09:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764488332; x=1796024332;
+ t=1764493374; x=1796029374;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=5dnK4oFXEiZYt1cEpiBmjME4Q9+HAvXwwE8FFYoFVCU=;
- b=TMmv1vrbYF/fIySPWd13d9v1S6xlouHTIp6YTACYiTGkXxAcHSBOPUnI
- gYlFUD2PfzHnTHuYqaCaTJdpcW5zujMkIJFzk+SnTp4PmYwxX3hfmPf6g
- 6OV8zv5XqTvoNcrTgf9tMDh1N3CVNM5IUae7QlyvY8YmvR4J6BXbdUPTF
- dvCE9ssStOR0BXALMDIKQft6ADD5weC5u8KMWLOCdwZxG9ZgJmNhDEEDW
- /Tk8D7/H2Pz6yj0Xk2LgxGIXiEnQtuedCYPsSVDgIbgcLPD2UgU5zsrWU
- 6ABL4IKvahIdDO0xWozOmZvsVxcXG074DftcLKUJmqadHtEC3R38Eilej w==;
-X-CSE-ConnectionGUID: kKOrdKbzTbe9+k3WNq8Rdw==
-X-CSE-MsgGUID: aIIV/8r/RwerQxQzVR0b6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11628"; a="54006021"
-X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="54006021"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2025 23:38:51 -0800
-X-CSE-ConnectionGUID: dRXbbdVWRnGYZ/4OuEzi1Q==
-X-CSE-MsgGUID: dcPc/0ZbT665FlB88ciN8A==
+ bh=9yT3SZfQNOQdwgi44E5zzGA2Jrzyss4nrUwzxvf+Yts=;
+ b=EheCmqBHlNxPJP589E05geVbyty+8fzQ1fAHVHeRpxKiJ3g/NLraTakr
+ JoeqAUprLt47OgH51aiwcP6nf2dqPVmefqBzwEDHhDNHq+Ijs35UMWa7M
+ Ndn/VdBKopouSQnuOJSlt9xcR4aw7HyMZJie5yqpmEnXGJC3ClE+NO8uK
+ URlIN/YK50VCuDSy6WzV4wjCibVeOT99R0vl35G+HR+x1tED+hjGU+a7e
+ qnIDxPkI55nY5EcvNP1YuJ6pNyUmD5jFrbgk/1Ti76IbIPV5roG9xxo38
+ DNpRN8ip9BrY2+FPbZt5SG295q9mRyKtlo4mUjdmVnrieLxm39c/vzBQn g==;
+X-CSE-ConnectionGUID: lEcCh+n5Q/OCYYplFXOcGQ==
+X-CSE-MsgGUID: 6qQkFZ5PQLS3+c7TGC+Jog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11628"; a="66480854"
+X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="66480854"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2025 01:02:52 -0800
+X-CSE-ConnectionGUID: +ajhYAz8Q2CqwSpWbxIjqw==
+X-CSE-MsgGUID: BRMp+JH4RSuHwAWxqfK4Xg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="231074250"
+X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="193696145"
 Received: from lkp-server01.sh.intel.com (HELO 4664bbef4914) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 29 Nov 2025 23:38:46 -0800
+ by fmviesa006.fm.intel.com with ESMTP; 30 Nov 2025 01:02:48 -0800
 Received: from kbuild by 4664bbef4914 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vPc16-000000007px-29Xd;
- Sun, 30 Nov 2025 07:38:44 +0000
-Date: Sun, 30 Nov 2025 15:38:22 +0800
+ (envelope-from <lkp@intel.com>) id 1vPdKQ-000000007sP-1QO1;
+ Sun, 30 Nov 2025 09:02:46 +0000
+Date: Sun, 30 Nov 2025 17:02:17 +0800
 From: kernel test robot <lkp@intel.com>
 To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -55,12 +55,12 @@ To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Antonino Maniscalco <antomani103@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 Subject: Re: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
-Message-ID: <202511301514.t3OSLc6E-lkp@intel.com>
+Message-ID: <202511301632.WkPnj4Dg-lkp@intel.com>
 References: <20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -91,40 +91,36 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Anna-Maniscalco/drm-msm-F
 base:   7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
 patch link:    https://lore.kernel.org/r/20251128-gras_nc_mode_fix-v2-1-634cda7b810f%40gmail.com
 patch subject: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
-config: um-randconfig-002-20251130 (https://download.01.org/0day-ci/archive/20251130/202511301514.t3OSLc6E-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251130/202511301514.t3OSLc6E-lkp@intel.com/reproduce)
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20251130/202511301632.WkPnj4Dg-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251130/202511301632.WkPnj4Dg-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202511301514.t3OSLc6E-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202511301632.WkPnj4Dg-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c: In function 'a6xx_set_ubwc_config':
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:36: error: 'A7XX_PIPE_BR' undeclared (first use in this function)
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:22: error: use of undeclared identifier 'A7XX_PIPE_BR'
      853 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                    ^~~~~~~~~~~~
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:36: note: each undeclared identifier is reported only once for each function it appears in
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:61: error: 'A7XX_PIPE_BV' undeclared (first use in this function)
+         |                                    ^
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:47: error: use of undeclared identifier 'A7XX_PIPE_BV'
      853 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                                             ^~~~~~~~~~~~
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:860:59: error: 'A7XX_PIPE_NONE' undeclared (first use in this function); did you mean 'MSM_PIPE_NONE'?
+         |                                                             ^
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:860:38: error: use of undeclared identifier 'A7XX_PIPE_NONE'
      860 |                           A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
-         |                                                           ^~~~~~~~~~~~~~
-         |                                                           MSM_PIPE_NONE
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c: In function 'a7xx_patch_pwrup_reglist':
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:36: error: 'A7XX_PIPE_BR' undeclared (first use in this function)
+         |                                                           ^
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:22: error: use of undeclared identifier 'A7XX_PIPE_BR'
      921 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                    ^~~~~~~~~~~~
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:61: error: 'A7XX_PIPE_BV' undeclared (first use in this function)
+         |                                    ^
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:47: error: use of undeclared identifier 'A7XX_PIPE_BV'
      921 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                                             ^~~~~~~~~~~~
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:59: error: 'A7XX_PIPE_NONE' undeclared (first use in this function); did you mean 'MSM_PIPE_NONE'?
+         |                                                             ^
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:38: error: use of undeclared identifier 'A7XX_PIPE_NONE'
      934 |                           A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
-         |                                                           ^~~~~~~~~~~~~~
-         |                                                           MSM_PIPE_NONE
+         |                                                           ^
+   6 errors generated.
 
 
 vim +/A7XX_PIPE_BR +853 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
