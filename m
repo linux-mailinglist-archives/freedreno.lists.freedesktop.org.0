@@ -2,70 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20B13C94C9F
-	for <lists+freedreno@lfdr.de>; Sun, 30 Nov 2025 10:02:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61C24C95791
+	for <lists+freedreno@lfdr.de>; Mon, 01 Dec 2025 02:15:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CBD010E059;
-	Sun, 30 Nov 2025 09:02:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2AD10E062;
+	Mon,  1 Dec 2025 01:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EheCmqBH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nQSyMnmq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBBE10E059;
- Sun, 30 Nov 2025 09:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764493374; x=1796029374;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9yT3SZfQNOQdwgi44E5zzGA2Jrzyss4nrUwzxvf+Yts=;
- b=EheCmqBHlNxPJP589E05geVbyty+8fzQ1fAHVHeRpxKiJ3g/NLraTakr
- JoeqAUprLt47OgH51aiwcP6nf2dqPVmefqBzwEDHhDNHq+Ijs35UMWa7M
- Ndn/VdBKopouSQnuOJSlt9xcR4aw7HyMZJie5yqpmEnXGJC3ClE+NO8uK
- URlIN/YK50VCuDSy6WzV4wjCibVeOT99R0vl35G+HR+x1tED+hjGU+a7e
- qnIDxPkI55nY5EcvNP1YuJ6pNyUmD5jFrbgk/1Ti76IbIPV5roG9xxo38
- DNpRN8ip9BrY2+FPbZt5SG295q9mRyKtlo4mUjdmVnrieLxm39c/vzBQn g==;
-X-CSE-ConnectionGUID: lEcCh+n5Q/OCYYplFXOcGQ==
-X-CSE-MsgGUID: 6qQkFZ5PQLS3+c7TGC+Jog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11628"; a="66480854"
-X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="66480854"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2025 01:02:52 -0800
-X-CSE-ConnectionGUID: +ajhYAz8Q2CqwSpWbxIjqw==
-X-CSE-MsgGUID: BRMp+JH4RSuHwAWxqfK4Xg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,238,1758610800"; d="scan'208";a="193696145"
-Received: from lkp-server01.sh.intel.com (HELO 4664bbef4914) ([10.239.97.150])
- by fmviesa006.fm.intel.com with ESMTP; 30 Nov 2025 01:02:48 -0800
-Received: from kbuild by 4664bbef4914 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vPdKQ-000000007sP-1QO1;
- Sun, 30 Nov 2025 09:02:46 +0000
-Date: Sun, 30 Nov 2025 17:02:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8712210E0F5
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Dec 2025 01:15:51 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-477b198f4bcso24434755e9.3
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Nov 2025 17:15:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764551750; x=1765156550; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tx/uBhoEOHIhsehasECkzayBzot/ALhISZ90zdBh0Qs=;
+ b=nQSyMnmquIKl+zIAn5kcWiqkTD1Ug7BWrdlHeesmkcyafkof8+QIWIL8SWuijpbAoV
+ z3Tr16+cYwBDZM3V5qscPlSxEpbBWM6W2Wf/iFpWfArCW1BuZVpeADS4qCg4WWYeJCvP
+ AQCE9qwbaEFtAFnTDar43ocU8juUxWDJtr8q+/qgQJ2w7wB4Jh7Ki6IGXIoro/ICs7XY
+ AcQS5kB2OfZL64P5DbJuU5YmitptmNKy1OL2GzaQ0Rgebk0ZAtoWzmgEqEPKJupFj/NX
+ xvPjrPduO8FemYAKEdDik0GTrXsH6b8mnZiEAsom2FLLxOTA87XHSKzCl/sMGzYA5J8Z
+ ctlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764551750; x=1765156550;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tx/uBhoEOHIhsehasECkzayBzot/ALhISZ90zdBh0Qs=;
+ b=LXtW8pw8NCqKEzihkLBm+FlEpXPwPMnPBsiMs/p9M4/4iXri55H/VSVPPikhez0N+u
+ HIiko+zCkiaERKqLSM02j50uX70bsE6RvJG6L/bAgpyjrnBDER4SfBqhy8xfe49KBQZY
+ 6ZvQEJlUvav0kXfuS6t+b26pP9jzJvYEaCeK5E1omcCv003grYyl5bjlQ8OOuL7GodZm
+ I+vMrbiM4rJrY97eMGy9r3zpH844fb4pU3KvDFCFIa8YRXBIMV9jFjdHp18t1Zh82fua
+ NgimNxinmL//xDmjfMf3x/xERfURhzGKX6kYQUHRP+Tk6iZcOCNsDvXSJiUj9p+UhYaO
+ /WBA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVTRPsv/l01J2FiLMfHu9QPSvZONUk2wU4lbTB4856vnItKQJkSavrhFfmeCUf6HGC7fD4GLLYm8+Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCxRVbQU4qCuxgAWUSZD/jxnhv4U2M16Br0WU6zDipXJj/S2B0
+ gdP85avwr7IDsQJ6LFdD4zp3PZbv1s/UO26Gb9P7dhpNIKgsTchjqiK0
+X-Gm-Gg: ASbGncuUT4McreZ/FBU6fICrwei2NdAqduMMkc9qD3M6/DGpy/QdgJN07d/Sx2+jeF7
+ UV32ivgLasUWrApSzk3rfK4RffsMI2A57CXOLq623pImsgGfrObRL7qn6pl70sEgi5vuxRGYkrH
+ 2+g5ZzKDXSh4LhP9TxwkXYI6K4NnqMLAtAxuMMONyS7+ECQzF14pBA/a3uVvay7hzvGHpS/WhNI
+ Jl6b/RVjQAyByd5HgG5UrXVOMfzB8igNsg59SHo7OSnoOd9QnzWu8b+aakNYYe1Yeg1qhf37ixu
+ Bvl4UHxxeYy+sSz68BfTk9kwTIp9oYAz/9p2xdpTkQVHejke7yMKzatHi7b2fqwnA5yNBiGPfyl
+ RwtVs6N99CzBKcWlZVWPQcnlirr/eNoJ/CmWjVwX5EwECwmxgLzMShDEjRO0lTi0p0q18UHzfuQ
+ r5lvE7EWH+TV3utue3kJL+jGV/0wKHKMYh19nknIXjzmcEuJ/CxSi2Ww==
+X-Google-Smtp-Source: AGHT+IGHjRl74icUPwWh1aQ2xdTwSRRUQMAjgiSVanlvJksDJ6M0AluYsyZQkKBUguFBzPL4kDKIoQ==
+X-Received: by 2002:a05:600c:3110:b0:477:632c:5b91 with SMTP id
+ 5b1f17b1804b1-477c01b4b2amr432822595e9.16.1764551749507; 
+ Sun, 30 Nov 2025 17:15:49 -0800 (PST)
+Received: from alarm (92.40.200.0.threembb.co.uk. [92.40.200.0])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-479110b6da9sm216152305e9.0.2025.11.30.17.15.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Nov 2025 17:15:49 -0800 (PST)
+From: Dale Whinham <daleyo@gmail.com>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Subject: Re: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
-Message-ID: <202511301632.WkPnj4Dg-lkp@intel.com>
-References: <20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com>
+ Bjorn Andersson <andersson@kernel.org>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=B4me=20de=20Bretagne?= <jerome.debretagne@gmail.com>, 
+ Dale Whinham <daleyo@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Jeff Johnson <jjohnson@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v2 0/8] Microsoft Surface Pro 11 support
+Date: Mon,  1 Dec 2025 01:14:41 +0000
+Message-ID: <20251201011457.17422-1-daleyo@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,114 +108,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Anna,
+This series brings support for the X1E80100/X1P64100-based Microsoft
+Surface Pro 11.
 
-kernel test robot noticed the following build errors:
+Patches 6 to 8 are included as RFC as we are unsure of how best to
+achieve the required functionality, however the implementation is
+functional.
 
-[auto build test ERROR on 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530]
+v2:
+  - Dropped ATNA30DW01 patch as it was merged.
+  - Split device tree into x1e (OLED)/x1p (LCD) specific *.dts files and move common code into x1-microsoft-denali.dtsi (patch 4).
+  - Device tree now enables higher external monitor refresh rates/resolutions (patch 4).
+  - Device tree now enables partially working audio output; requires alsa-ucm-conf and audioreach-topology definitions in userspace (patch 4).
+  - Replaced 'Work around bogus maximum link rate' with a quirk-based approach (patch 5).
+  - Improve the commit message about the disable-rfkill property in response to feedback (patch 6).
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Anna-Maniscalco/drm-msm-Fix-a7xx-per-pipe-register-programming/20251129-012027
-base:   7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
-patch link:    https://lore.kernel.org/r/20251128-gras_nc_mode_fix-v2-1-634cda7b810f%40gmail.com
-patch subject: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20251130/202511301632.WkPnj4Dg-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251130/202511301632.WkPnj4Dg-lkp@intel.com/reproduce)
+Dale Whinham (5):
+  firmware: qcom: scm: allow QSEECOM on Surface Pro 11
+  platform/surface: aggregator_registry: Add Surface Pro 11
+  arm64: dts: qcom: Add support for Surface Pro 11
+  wifi: ath12k: Add support for disabling rfkill via devicetree
+  arm64: dts: qcom: x1-microsoft-denali: Disable rfkill for wifi0
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202511301632.WkPnj4Dg-lkp@intel.com/
+Jérôme de Bretagne (3):
+  dt-bindings: arm: qcom: Document Microsoft Surface Pro 11
+  drm/msm/dp: Add dpcd link_rate quirk for Surface Pro 11 OLED
+  dt-bindings: wireless: ath12k: Add disable-rfkill property
 
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:22: error: use of undeclared identifier 'A7XX_PIPE_BR'
-     853 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                    ^
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:853:47: error: use of undeclared identifier 'A7XX_PIPE_BV'
-     853 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                                             ^
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:860:38: error: use of undeclared identifier 'A7XX_PIPE_NONE'
-     860 |                           A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
-         |                                                           ^
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:22: error: use of undeclared identifier 'A7XX_PIPE_BR'
-     921 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                    ^
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:921:47: error: use of undeclared identifier 'A7XX_PIPE_BV'
-     921 |                 for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-         |                                                             ^
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:38: error: use of undeclared identifier 'A7XX_PIPE_NONE'
-     934 |                           A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
-         |                                                           ^
-   6 errors generated.
-
-
-vim +/A7XX_PIPE_BR +853 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-
-   807	
-   808	static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
-   809	{
-   810		struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-   811		const struct qcom_ubwc_cfg_data *cfg = adreno_gpu->ubwc_config;
-   812		/*
-   813		 * We subtract 13 from the highest bank bit (13 is the minimum value
-   814		 * allowed by hw) and write the lowest two bits of the remaining value
-   815		 * as hbb_lo and the one above it as hbb_hi to the hardware.
-   816		 */
-   817		BUG_ON(cfg->highest_bank_bit < 13);
-   818		u32 hbb = cfg->highest_bank_bit - 13;
-   819		bool rgb565_predicator = cfg->ubwc_enc_version >= UBWC_4_0;
-   820		u32 level2_swizzling_dis = !(cfg->ubwc_swizzle & UBWC_SWIZZLE_ENABLE_LVL2);
-   821		bool ubwc_mode = qcom_ubwc_get_ubwc_mode(cfg);
-   822		bool amsbc = cfg->ubwc_enc_version >= UBWC_3_0;
-   823		bool min_acc_len_64b = false;
-   824		u8 uavflagprd_inv = 0;
-   825		u32 hbb_hi = hbb >> 2;
-   826		u32 hbb_lo = hbb & 3;
-   827	
-   828		if (adreno_is_a650_family(adreno_gpu) || adreno_is_a7xx(adreno_gpu))
-   829			uavflagprd_inv = 2;
-   830	
-   831		if (adreno_is_a610(adreno_gpu) || adreno_is_a702(adreno_gpu))
-   832			min_acc_len_64b = true;
-   833	
-   834		gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
-   835			  level2_swizzling_dis << 12 |
-   836			  rgb565_predicator << 11 |
-   837			  hbb_hi << 10 | amsbc << 4 |
-   838			  min_acc_len_64b << 3 |
-   839			  hbb_lo << 1 | ubwc_mode);
-   840	
-   841		gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL,
-   842			  level2_swizzling_dis << 6 | hbb_hi << 4 |
-   843			  min_acc_len_64b << 3 |
-   844			  hbb_lo << 1 | ubwc_mode);
-   845	
-   846		gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
-   847			  level2_swizzling_dis << 12 | hbb_hi << 10 |
-   848			  uavflagprd_inv << 4 |
-   849			  min_acc_len_64b << 3 |
-   850			  hbb_lo << 1 | ubwc_mode);
-   851	
-   852		if (adreno_is_a7xx(adreno_gpu)) {
- > 853			for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-   854				gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
-   855					  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
-   856				gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
-   857					  FIELD_PREP(GENMASK(8, 5), hbb_lo));
-   858			}
-   859			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
- > 860				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
-   861		}
-   862	
-   863		gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL,
-   864			  min_acc_len_64b << 23 | hbb_lo << 21);
-   865	
-   866		gpu_write(gpu, REG_A6XX_RBBM_NC_MODE_CNTL,
-   867			  cfg->macrotile_mode);
-   868	}
-   869	
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ .../bindings/net/wireless/qcom,ath12k.yaml    |    3 +
+ arch/arm64/boot/dts/qcom/Makefile             |    4 +
+ .../boot/dts/qcom/x1-microsoft-denali.dtsi    | 1340 +++++++++++++++++
+ .../qcom/x1e80100-microsoft-denali-oled.dts   |   20 +
+ .../dts/qcom/x1p64100-microsoft-denali.dts    |   16 +
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ drivers/gpu/drm/display/drm_dp_helper.c       |    2 +
+ drivers/gpu/drm/msm/dp/dp_panel.c             |   14 +
+ drivers/net/wireless/ath/ath12k/core.c        |    3 +
+ .../surface/surface_aggregator_registry.c     |   18 +
+ include/drm/display/drm_dp_helper.h           |    7 +
+ 12 files changed, 1429 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e80100-microsoft-denali-oled.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/x1p64100-microsoft-denali.dts
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.52.0
+
