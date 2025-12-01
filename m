@@ -2,79 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8348AC9864D
-	for <lists+freedreno@lfdr.de>; Mon, 01 Dec 2025 18:02:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFFDBC98AC5
+	for <lists+freedreno@lfdr.de>; Mon, 01 Dec 2025 19:15:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49E2610E0D4;
-	Mon,  1 Dec 2025 17:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF43710E453;
+	Mon,  1 Dec 2025 18:14:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jr7StedP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HJx8uwWm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 978D410E0D4;
- Mon,  1 Dec 2025 17:02:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A07CE6014A;
- Mon,  1 Dec 2025 17:01:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5905C116C6;
- Mon,  1 Dec 2025 17:01:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764608519;
- bh=bmyTq2q+hM5yLfaOwvV4mt3DtxhrkyZjZ87SLQzIRvc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jr7StedPEyC4/M1t7fb11w5L7eX7EwY91G07P7AMGijfckxto+L1WhwGZsjlsXYIY
- oPOBlsHBliJM+a+Ck+s95tJX7dUkcTP5pveCNFp/krPg4vR0LXWKAYEHPMZFH7BnSa
- w/jmhdgHtlBNuR767BlzygS7X3PXNC6OjSXYaqFQBISNpnI6dO3zRh4SkdSFewBq7X
- zREFhG+p8OGRGjPPiSi80gwvkw0y85GNS/W5tNjwqV7H9L1DBf2eLGS8ArX4PFGdca
- NRClciXygKLJ3Mf0U36BtEe3k+YhGpk6jI8Jy8BC6oYJJRGMbYG05OQchgkdz3i2TA
- 5RsxeDtcuuY4Q==
-Date: Mon, 1 Dec 2025 18:01:56 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Daniel Stone <daniel@fooishbar.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Liu Ying <victor.liu@nxp.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
- driver capabilities
-Message-ID: <20251201-enlightened-zebu-from-asgard-5a20be@houat>
-References: <20250925-fervent-merry-beagle-2baba3@penduick>
- <qx5ashx62pufott6hnsfna3qntnoyvxwxze4rihhuxcsdxi37s@bbdvc3sfsgne>
- <20250929-gregarious-worm-of-memory-c5354d@houat>
- <itgffxygopi7etkt7xhvmyuvyl5ad3k43nsxvjzw3ubtwiikn7@ocugfdaigtu7>
- <20251003-uptight-echidna-of-stamina-815305@houat>
- <zpygq4kapil3swsmhhqkdwny4ry2dznnzixsw5rkza5p2kqnvp@abvf2vxlbwif>
- <2a5fitdzr2bz235fj6rvqzxr6ckszkjbazjfszlvnizdh2cvbt@w3ypjo7vahhs>
- <pibxhl5hlcpuk3zsgyienfdlda5cwuxrnofwlw356scuzzplqy@zw3ofelgvwik>
- <bsoqyzxi45i67jpzhwr2d4illufa5ghqf25z6flbp67lsbvh22@rrlcihp2oxea>
- <cgzclxjubj5oca3rdnv44qwrkmpddxve4tlz76cc6p3b4hz3oc@3l7mt5ha7do6>
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA1D610E453
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Dec 2025 18:14:57 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-64312565c10so7047210a12.2
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Dec 2025 10:14:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764612896; x=1765217696; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=cdBHarEPp/F3chTNnuM3xZFo7roMjTxRyskG7lZyJVY=;
+ b=HJx8uwWmADc2t/B+Jaw+8zIhdmqvNrSBBWS2Vqre3I6hd2BACAXaIfpk9X/iIjlgGF
+ n3cgDGHOBOHOWmukdXWR2Uu5elR4VXY2gsiZl4aT8/rvR9kOJrmJGr7gaCFXhhFinPcX
+ GWzHqCGdgMNap/p1RvBXkLvsqYwWYAptyWB/AG5InqW8HquiU3boKEa//zHRmk/wQ5nd
+ 0jrQnVsOmGRHFizRSwXB+aVXFjjt+aOQu+o8i5J0C7DPv0baOB3nkAVDml8Lmfo3/hYh
+ wLyhk4Chmcy9a3VvLFyI9P5ZQRNwdheTjAaFAez/i0WYsmgwK8uE/FyZcO7rfaIpHaDJ
+ l/lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764612896; x=1765217696;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cdBHarEPp/F3chTNnuM3xZFo7roMjTxRyskG7lZyJVY=;
+ b=w59RjDggF7RmyF5Nmxnc2SMLWUYO13uEChaWlZgASjT5yLFqG0D2E2RWrhO2egGFVA
+ eSw7QmUVQh9oGIIx/2TH7qi1cHLAjfG6jjuSTEAAy/gC4SEcMOCfQ8RdMNmrjs/pY0Jq
+ 5WZ3WEfuFACrOhlu2j3r+iU2KkHLN2tWqsuVlD5QMdOCg6UcAgoSdIcuPpuEzsHgPaTA
+ rHENO0HFcpa3mUm0czpg840BQsMZtFVWEhhClgrX4Rc2yaw2VBRa7G0rtdbd3C8X/Ehr
+ HCUvi24LvHiPKHUh8A7eJ0CAZPnvJRjo8MKeN2GRAzdSmhAsjJV2o4A3fdahDXCS5L4d
+ oUZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWwUVlXTTfkQYkgNnO+njtWSKgvcsSac6yTKz1lDVOAvn+i4816v0J9j8G3gKtqiaUPMvCs9pD8qto=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvhRj7SCCuutajLKh7gBsQ2Ib1bBjuIlqDGEBywSOLOTpu4KDg
+ cLv4LW+okumWlAKAVoRpOsT1UU1Hh4jH7mZnejAn9LPfidnXp/UyknA=
+X-Gm-Gg: ASbGnctUUBqW3jrQAItX7cP2XiPDfIUxm9Fl+iI19p/iq7f5C3oHP0QUlb7EMgG+ikS
+ O8XxVK+qXnAJKreI84uLr1kl7P151yXKXZnWokWOmOc0bTo7X8QYXFSLMMw3L08Sg/aEjd8NP5H
+ W7xdHaDjrmO0rrjm667HR/hnXa3Ytr8sqaxj/qmOSmhBIYpwFOIbpwjjWTTCoJ2Q7TKzryyd1z7
+ 32zCPzkwL9fG7+Ii/HiSeRF1etf9f3tnfA4ne514L4WGqjC0rPvgdBH0aSczYuzjGZJGmPDzfzi
+ 0ImANATPOBVDf+8DW/CGmmrugdYmWyQJaBbKT02yIPt5bZ4cAVMNxNT7BspfbF6YD1hERov0APT
+ Kg2wljpco5Djg1TExRT6Vobzx+ec3jcTWjwiIyGMFaKrY4nZFRba0QAsBTHoffhb2GllcVpAJ+7
+ TKvLZwAmTSmGDC0lcksnQpeh0G7XV5ZbwviV9As+XnuX7C2WPdOgKN8v+veTg8emUBUUaOHloE2
+ QzG3XDlMnca
+X-Google-Smtp-Source: AGHT+IHGqhGE8mA2IpVApmMTWjrQKk1GSJW1wXCG5WLq0l79b2/ZCwmcJq33Zptjd3K93hqIqk2xIA==
+X-Received: by 2002:a05:6402:4408:b0:645:d764:3fcb with SMTP id
+ 4fb4d7f45d1cf-645eb2aaf67mr25735808a12.28.1764612895894; 
+ Mon, 01 Dec 2025 10:14:55 -0800 (PST)
+Received: from [192.168.1.17] (host-79-32-234-137.retail.telecomitalia.it.
+ [79.32.234.137]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64751035c3bsm12862898a12.19.2025.12.01.10.14.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Dec 2025 10:14:54 -0800 (PST)
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Date: Mon, 01 Dec 2025 19:14:36 +0100
+Subject: [PATCH v3] drm/msm: Fix a7xx per pipe register programming
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="nhtgib353qneclwb"
-Content-Disposition: inline
-In-Reply-To: <cgzclxjubj5oca3rdnv44qwrkmpddxve4tlz76cc6p3b4hz3oc@3l7mt5ha7do6>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251201-gras_nc_mode_fix-v3-1-92a8a10d91d0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAvbLWkC/23N0QqCMBTG8VeJc91iZ+q0rnqPCFnzqAfSxRajE
+ N+9KQRFXf4/OL8zQSDPFOCwmcBT5MBuTJFtN2B7M3YkuEkNSqoCUWnReRPq0daDa6hu+SFKpXK
+ iQmqT7SGd3TyleSVP59Q9h7vzz/VDxGV9Y+UvFlGgKKy0rUadS2yP3WD4urNugAWL6hOo/gAqA
+ TrLbWPKS4XyC5jn+QW7QeGQ8QAAAA==
+X-Change-ID: 20251126-gras_nc_mode_fix-7224ee506a39
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Antonino Maniscalco <antomani103@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1764612893; l=8104;
+ i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
+ bh=L1+oJOb+t8duMnbQpmbgUlKeEuct+2pj/S1LXw+5x4E=;
+ b=Xl5ZhQaztNVoSbuE9N0LIYwINJ6SjcbjDSYO2J0ofPyETSCi9Q78mb1C/B0E5oNJod7c1jCep
+ Zhmx/UODO3+CU25Zelwvnh7sFHl0c0M8X2rAhSb6+tE98T7NKVR5wSW
+X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
+ pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,69 +110,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+GEN7_GRAS_NC_MODE_CNTL was only programmed for BR and not for BV pipe
+but it needs to be programmed for both.
 
---nhtgib353qneclwb
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per
- driver capabilities
-MIME-Version: 1.0
+Program both pipes in hw_init and introducea separate reglist for it in
+order to add this register to the dynamic reglist which supports
+restoring registers per pipe.
 
-On Fri, Nov 21, 2025 at 07:09:01PM +0200, Dmitry Baryshkov wrote:
-> > So it's not really impossible, you just need some hardware and a day's
-> > worth of work.
-> >=20
-> > There's no reason these should get a pass, it's breaking the spec for no
-> > reason.
-> >=20
-> > > > For SPD, It's really not clear to me why atomic_check should do tha=
-t in
-> > > > the first place. Your initial concern was about exposing infoframes=
- in
-> > > > debugfs that wouldn't be used by the driver.
-> > > >=20
-> > > > If the driver doesn't register a debugfs file for SPD, and ignores
-> > > > whatever is in the atomic state, what's should we force drivers to =
-do
-> > > > that?
-> > >=20
-> > > I really don't think that drivers should mess up with debugfs on their
-> > > own. Making atomic_check() disable the unsupported InfoFrames makes t=
-he
-> > > picture perfect: the DRM no longer tries to program them to the
-> > > hardware, DebugFS files stay empty, so the whole state becomes
-> > > consistent.
-> >=20
-> > In the "bridge has no access to infoframes" case, there's really no
-> > infoframe. An empty file is "the infoframe can be there but isn't used",
-> > not "we don't have access to it and can't report them". Only drivers
-> > have those infos.
-> >=20
-> > If we do split up write_infoframe into multiple functions though, I
-> > guess we could create the debugfs file only if the function pointer is
-> > set, which removes drivers' involvement if you don't like that.
->=20
-> I'm fine with not using HDMI connector framework for lt9611uxc.
-> Likewise, I think, it's fine to have empty files for the infoframes
-> which are not being sent over the wire for any reason (hw not supporting
-> it is one of the reasons).
+Fixes: 91389b4e3263 ("drm/msm/a6xx: Add a pwrup_list field to a6xx_info")
+Cc: stable@vger.kernel.org
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+---
+Changes in v3:
+- Collected Rb tags
+- Went back to using PIPE_{BR, BV, NONE} enum values
+- Link to v2: https://lore.kernel.org/r/20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com
 
-I can't think of any other example in the kernel where an empty file
-means that the driver doesn't support something.
+Changes in v2:
+- Added missing Cc: stable to commit
+- Added pipe_regs to all 7xx gens
+- Null check pipe_regs in a7xx_patch_pwrup_reglist
+- Added parentheses around bitwise and in a7xx_patch_pwrup_reglist
+- Use A7XX_PIPE_{BR, BV, NONE} enum values
+- Link to v1: https://lore.kernel.org/r/20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com
+---
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 12 ++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 34 +++++++++++++++++++++++++++----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 13 ++++++++++++
+ 4 files changed, 55 insertions(+), 5 deletions(-)
 
-Maxime
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 29107b362346..c749448e75be 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1376,7 +1376,6 @@ static const uint32_t a7xx_pwrup_reglist_regs[] = {
+ 	REG_A6XX_UCHE_MODE_CNTL,
+ 	REG_A6XX_RB_NC_MODE_CNTL,
+ 	REG_A6XX_RB_CMP_DBG_ECO_CNTL,
+-	REG_A7XX_GRAS_NC_MODE_CNTL,
+ 	REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
+ 	REG_A6XX_UCHE_GBIF_GX_CONFIG,
+ 	REG_A6XX_UCHE_CLIENT_PF,
+@@ -1448,6 +1447,12 @@ static const u32 a750_ifpc_reglist_regs[] = {
+ 
+ DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
+ 
++static const struct adreno_reglist_pipe a7xx_dyn_pwrup_reglist_regs[] = {
++	{ REG_A7XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++};
++
++DECLARE_ADRENO_REGLIST_PIPE_LIST(a7xx_dyn_pwrup_reglist);
++
+ static const struct adreno_info a7xx_gpus[] = {
+ 	{
+ 		.chip_ids = ADRENO_CHIP_IDS(0x07000200),
+@@ -1491,6 +1496,7 @@ static const struct adreno_info a7xx_gpus[] = {
+ 			.hwcg = a730_hwcg,
+ 			.protect = &a730_protect,
+ 			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+ 			.gbif_cx = a640_gbif,
+ 			.gmu_cgc_mode = 0x00020000,
+ 		},
+@@ -1513,6 +1519,7 @@ static const struct adreno_info a7xx_gpus[] = {
+ 			.hwcg = a740_hwcg,
+ 			.protect = &a730_protect,
+ 			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+ 			.gbif_cx = a640_gbif,
+ 			.gmu_chipid = 0x7020100,
+ 			.gmu_cgc_mode = 0x00020202,
+@@ -1547,6 +1554,7 @@ static const struct adreno_info a7xx_gpus[] = {
+ 			.hwcg = a740_hwcg,
+ 			.protect = &a730_protect,
+ 			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+ 			.ifpc_reglist = &a750_ifpc_reglist,
+ 			.gbif_cx = a640_gbif,
+ 			.gmu_chipid = 0x7050001,
+@@ -1589,6 +1597,7 @@ static const struct adreno_info a7xx_gpus[] = {
+ 		.a6xx = &(const struct a6xx_info) {
+ 			.protect = &a730_protect,
+ 			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+ 			.ifpc_reglist = &a750_ifpc_reglist,
+ 			.gbif_cx = a640_gbif,
+ 			.gmu_chipid = 0x7090100,
+@@ -1623,6 +1632,7 @@ static const struct adreno_info a7xx_gpus[] = {
+ 			.hwcg = a740_hwcg,
+ 			.protect = &a730_protect,
+ 			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+ 			.gbif_cx = a640_gbif,
+ 			.gmu_chipid = 0x70f0000,
+ 			.gmu_cgc_mode = 0x00020222,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 0200a7e71cdf..afde8867e260 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -849,9 +849,16 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+ 		  min_acc_len_64b << 3 |
+ 		  hbb_lo << 1 | ubwc_mode);
+ 
+-	if (adreno_is_a7xx(adreno_gpu))
+-		gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
+-			  FIELD_PREP(GENMASK(8, 5), hbb_lo));
++	if (adreno_is_a7xx(adreno_gpu)) {
++		for (u32 pipe_id = PIPE_BR; pipe_id <= PIPE_BV; pipe_id++) {
++			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
++				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
++			gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
++				  FIELD_PREP(GENMASK(8, 5), hbb_lo));
++		}
++		gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
++			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(PIPE_NONE));
++	}
+ 
+ 	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL,
+ 		  min_acc_len_64b << 23 | hbb_lo << 21);
+@@ -865,9 +872,11 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+ 	const struct adreno_reglist_list *reglist;
++	const struct adreno_reglist_pipe_list *dyn_pwrup_reglist;
+ 	void *ptr = a6xx_gpu->pwrup_reglist_ptr;
+ 	struct cpu_gpu_lock *lock = ptr;
+ 	u32 *dest = (u32 *)&lock->regs[0];
++	u32 dyn_pwrup_reglist_count = 0;
+ 	int i;
+ 
+ 	lock->gpu_req = lock->cpu_req = lock->turn = 0;
+@@ -907,7 +916,24 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
+ 	 * (<aperture, shifted 12 bits> <address> <data>), and the length is
+ 	 * stored as number for triplets in dynamic_list_len.
+ 	 */
+-	lock->dynamic_list_len = 0;
++	dyn_pwrup_reglist = adreno_gpu->info->a6xx->dyn_pwrup_reglist;
++	if (dyn_pwrup_reglist) {
++		for (u32 pipe_id = PIPE_BR; pipe_id <= PIPE_BV; pipe_id++) {
++			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
++				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
++			for (i = 0; i < dyn_pwrup_reglist->count; i++) {
++				if ((dyn_pwrup_reglist->regs[i].pipe & BIT(pipe_id)) == 0)
++					continue;
++				*dest++ = A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id);
++				*dest++ = dyn_pwrup_reglist->regs[i].offset;
++				*dest++ = gpu_read(gpu, dyn_pwrup_reglist->regs[i].offset);
++				dyn_pwrup_reglist_count++;
++			}
++		}
++		gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
++			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(PIPE_NONE));
++	}
++	lock->dynamic_list_len = dyn_pwrup_reglist_count;
+ }
+ 
+ static int a7xx_preempt_start(struct msm_gpu *gpu)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 6820216ec5fc..4eaa04711246 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -45,6 +45,7 @@ struct a6xx_info {
+ 	const struct adreno_reglist *hwcg;
+ 	const struct adreno_protect *protect;
+ 	const struct adreno_reglist_list *pwrup_reglist;
++	const struct adreno_reglist_pipe_list *dyn_pwrup_reglist;
+ 	const struct adreno_reglist_list *ifpc_reglist;
+ 	const struct adreno_reglist *gbif_cx;
+ 	const struct adreno_reglist_pipe *nonctxt_reglist;
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 0f8d3de97636..1d0145f8b3ec 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -188,6 +188,19 @@ static const struct adreno_reglist_list name = {		\
+ 	.count = ARRAY_SIZE(name ## _regs),		\
+ };
+ 
++struct adreno_reglist_pipe_list {
++	/** @reg: List of register **/
++	const struct adreno_reglist_pipe *regs;
++	/** @count: Number of registers in the list **/
++	u32 count;
++};
++
++#define DECLARE_ADRENO_REGLIST_PIPE_LIST(name)	\
++static const struct adreno_reglist_pipe_list name = {		\
++	.regs = name ## _regs,				\
++	.count = ARRAY_SIZE(name ## _regs),		\
++};
++
+ struct adreno_gpu {
+ 	struct msm_gpu base;
+ 	const struct adreno_info *info;
 
---nhtgib353qneclwb
-Content-Type: application/pgp-signature; name="signature.asc"
+---
+base-commit: 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
+change-id: 20251126-gras_nc_mode_fix-7224ee506a39
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+-- 
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaS3KBAAKCRAnX84Zoj2+
-dpehAX9df8UFvZVN58dQXWwnBnuke2vOU1UxT4zbhxIdR/6V/O2rER74TkmbviQv
-h0HIhF0BgLOgEP5gmSlL9xZCFl5EWhJpy16T7ozKZGULaHEy/3NJR+/SzYOZmLZ5
-yR5aU4SDRQ==
-=m4w1
------END PGP SIGNATURE-----
-
---nhtgib353qneclwb--
