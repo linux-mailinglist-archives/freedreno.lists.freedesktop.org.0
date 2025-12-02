@@ -2,91 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6673DC98AD1
-	for <lists+freedreno@lfdr.de>; Mon, 01 Dec 2025 19:15:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AC66C99FD2
+	for <lists+freedreno@lfdr.de>; Tue, 02 Dec 2025 05:18:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4701710E454;
-	Mon,  1 Dec 2025 18:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9863A10E15C;
+	Tue,  2 Dec 2025 04:18:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bgv0i5/U";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="B47pu/Mo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E44EC10E455
- for <freedreno@lists.freedesktop.org>; Mon,  1 Dec 2025 18:15:03 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-b79af62d36bso177703266b.3
- for <freedreno@lists.freedesktop.org>; Mon, 01 Dec 2025 10:15:03 -0800 (PST)
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
+ [74.125.224.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5A710E51B
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Dec 2025 04:18:41 +0000 (UTC)
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-640d790d444so4168706d50.0
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Dec 2025 20:18:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764612902; x=1765217702; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=uDFjPV2bCEcJMIJe+ovqNB08eGKarAnB/LsdrnkXVnc=;
- b=Bgv0i5/Ur0qhcBKZHSc1VUNBIflUQhTE0ZDhVZO/6bXxqG0Mh8RBmG0qVWwsV7Evzz
- ji1nqb3h+x0/8I1yRnTBgBW4RymDRkLaeLkwu11FiFr72wrp7r4ntOtiK/4s0didl3l0
- knDTcPqDTXKojKmzFAs6QZWhj0xpNUJjaZIblo0I2wOF/12sPukNWbKbcIXmlCqATxCf
- 5kSOISnQ4N1qjIS0ECA5EzwAIsnRmm/PisfJOEQXS8Y94CVnjaOxtg1yqhlq8uEDhv3J
- 9Y9yzRV9RUDhyhEcaGk1eVRiv9Epn6HQLP/TzDTo39+kWSbG9PxK3WfAHCCDrwUFr6fK
- /CwA==
+ d=linaro.org; s=google; t=1764649120; x=1765253920; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JAi2upxQHqXV6w3YAiIFw0Ei8pBZRTlw4L7PGEXhfmk=;
+ b=B47pu/MoqUNXZ278T7YbQ5fqo108ejt4051tcj+u1eDwmKCbUsGJAeSTt4//2e+5ON
+ S3DNySqg+9URPUqIKz+g2LDzXttyx31ei7O2yS81b/UtN1nRGx6HyJcepsqjqUKmZ0lF
+ vDLt74DVBcBo5KajwhcS1DxL+2E3EEbgqRe3FrNUltmuW8iSMKRa2HlJlZvsNhPU4TU+
+ fdPhM8aZ0wjDcP58dzNusKNoLjtUoBJTSfpYhei/2GHQ57SWCtZatrXnSJ2bUTcw7tAv
+ 7L/KnC5Fmpwo4vvTc/lkagBfd4+neCjCip4HReotXHiNSZn3jxgJVy9NcR+VIkqDkE/7
+ 9kbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764612902; x=1765217702;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uDFjPV2bCEcJMIJe+ovqNB08eGKarAnB/LsdrnkXVnc=;
- b=VsDHf5BZT7Urd+wY3u2WASRKgbOUxX6fFkGhzpcN+ERMjmv/ZEMl+HT+GB2ugkfx+3
- NthSS46ZGG+1aYYFdc6z71hhRUyg5doqn4wktJejBbUZDs8xHubgEqSH1TwvJT3EetOc
- K0nBBGwGWrhMctZxCxb7ceI79VwIGzMu3F+mLdUylUuXKFXvr0WjEwZTlp1dtt8Toq6+
- ZEHHI6sr29zn8tfzEczO8OplUlz8ClVZhUP5ChRyxg1uFQGAmRWg6NTe8TAtNF+81f3U
- ayYR1bU4APlyt/Jcpf+w+MeHTy/vb6h7kP+Xs9XI6iMjXh/UlRO7YxhlJ3b+RmJVUF1l
- G3eQ==
+ d=1e100.net; s=20230601; t=1764649120; x=1765253920;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JAi2upxQHqXV6w3YAiIFw0Ei8pBZRTlw4L7PGEXhfmk=;
+ b=M2nXq9Ge2CbznX2cYNdvbKsrEVzHK6w4br1p6mx2YGR+skb+1v8yayEisfUNtOO8uq
+ scxfcA26AkfGi9cR7p8jgejYkf72sh0ZsqRzK1HF007HA8XxS9bnm651vRLJDqUhfCoS
+ O2mqF6CvoOvCiYftE/jmNfDOOznVZ3zQMGnofcf7TXnDL0QTC64KAEx8DPxx3evJ7dWj
+ ePK9eOIswpfLld/WaqF9iEURlRevR49N6RsiSkyhuTb+H7e2XkYwbSMW8t8i76h1Ytzt
+ vEVH+a000CU29MlK66vNBu5PF6bBXjdDyMxNIFp+CytA19u840Q/UX+U9eoIs5iYF+Nh
+ tBaQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUiJjVQYTgOz3tYrxqx7ZvGmkNcPRFcyOM4FEkRk0DVyDQSfLOzfF3BVv57B9D4PUkymiW0yoBcOrc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4MYKwTcolMMFxoVM7gzCkqfO8YPSX3Ld8VPjUJd5m+UfaPJHc
- XEDSgZ9AbPQr/UefidP6Ubcuw35ink3SNz3wlFNxuNW9hhT+DkioutE=
-X-Gm-Gg: ASbGncsQS+OS9UmzfZ0Cq2eThXqZktWHJ2Y6YtPnIZaIexiUyYmbGnlXLh6kdTcD2as
- Uvo2+RJj4yqfrxCQ8t9EI/pnHys/kLke4bbXui36GFdOaqaplb6Tby/XWVphlCsGpIqWKBPmV14
- P86DB8j06AFcCjroNQhHUTY5l+FQVMcpaGh6zWy7lgDjQW7uSGxpsHrGHlBP4WDy95ZNFG/aHKK
- SN+3T3tqojmnjlX63bZNu1U4YDczrxK4cFs0fK0bBOehZh8pUyQEcrFApBnYmA2lLoooGh7yzal
- NAbXFk/hs7jvymFHoHpSvNNj4ZhynYm/UBsLVNM+leYLlgy3j3OSG/etvHX/vbpyklgkXnFvKlK
- dTVc2rPrFESDt3ilO5W32icGkhCsYQ8SeAsEc0BDSlCLxg8G51VAVmdf2UAZdfciHJ4RY6FfiZn
- giklzdvto8SOBgO7qw45skTQg4KH8mYTIPvMvU/THjXkPVJjsncdQZ7ZWdEayEfU7VuTN0ysdq5
- w==
-X-Google-Smtp-Source: AGHT+IFrteTmdKpXbAPM5X2OBc2eatrHMRgNBwNQjniHBNZv/OV/UcAPIc4J1u1StehmefDeVyKnvw==
-X-Received: by 2002:a17:907:6d1c:b0:b73:5936:77fc with SMTP id
- a640c23a62f3a-b76c54b85b0mr3000547266b.13.1764612902143; 
- Mon, 01 Dec 2025 10:15:02 -0800 (PST)
-Received: from [192.168.1.17] (host-79-32-234-137.retail.telecomitalia.it.
- [79.32.234.137]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f51c67e2sm1295011566b.27.2025.12.01.10.15.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Dec 2025 10:15:01 -0800 (PST)
-Message-ID: <2f93530c-7917-4169-8e17-9842f1b0c4ea@gmail.com>
-Date: Mon, 1 Dec 2025 19:15:00 +0100
+ AJvYcCVGYen0G8GGlR2nxBklsybbFGuEuKgUVtmtqEBQtrbuok30eNAhOLq24gTYHtLQoDPF5PfaKf88o4M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKxY4wEK/eIeh9XAmqtryJtLKXFAyyLRIVuRaEqPDa55kUlxyI
+ V7gZ05hcft3yrUSngam+9EBuz1rwOxxS8kw7CWvebgarn7Teytlf/M18ojZjko+SLsim4WlYViu
+ BVg++DwmiwJGH4NzRR2LN75ABaSPbA1+BzMSwGGz4kQ==
+X-Gm-Gg: ASbGncuYFZuJiq9ayPTYtMfbPhgK1Y3bIyZ2BAC+IIr0eoYOHRYFKQ1LdqKrzuAnSuP
+ g73bZt9UShYpCMHodISDqLqcXO6RJblvFfuONCD6h9NZi4nkAIEIKY8dCURUBVAQXdOAPMRCt3Y
+ 69GSn9+FCVaguk2AsatMM+Oz1Od6F2sRAtuJFoPXGiZ0yJ2A816l1g2urUPE588l6E6b7+pKE7R
+ bYXlj3d86mM9LRIn+B5ZnPMlohVrLaFrZ4WMpENWTzwPNu+mSPA6RNgmbW22xOWCDyuIMztQoxs
+ Y95gYPu72F3xf0es
+X-Google-Smtp-Source: AGHT+IHm2Lb3KR5gVidXp7FW07QIkyqamhFjHbL15N5fpaAs7gMhEGz5ghkqWBZy6gX1AwwN7GcT9+/zubzA9ATXx70=
+X-Received: by 2002:a05:690c:e3e6:b0:788:7f:9a5 with SMTP id
+ 00721157ae682-78a8b495634mr334380197b3.20.1764649119895; Mon, 01 Dec 2025
+ 20:18:39 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/msm: Fix a7xx per pipe register programming
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20251128-gras_nc_mode_fix-v2-1-634cda7b810f@gmail.com>
- <17b0f475-6c67-4cef-9277-251f45c1837c@oss.qualcomm.com>
-Content-Language: en-US
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <17b0f475-6c67-4cef-9277-251f45c1837c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org>
+ <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-10-ff6232e3472f@linaro.org>
+ <tjakx64c25gyakblncsvuoj2iquoknx4ngwujt2uf2clhhfvfl@lbvhrimf6gwp>
+In-Reply-To: <tjakx64c25gyakblncsvuoj2iquoknx4ngwujt2uf2clhhfvfl@lbvhrimf6gwp>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Tue, 2 Dec 2025 12:18:28 +0800
+X-Gm-Features: AWmQ_bmh31LDDZhLcB5X5diPs4fQyKerYqoKD4tX0pSTR_6U-SSLi0GjQw-lPdA
+Message-ID: <CABymUCN2rwfbBbSVe9oSWr9mio-ie38JzgcdvSxV-87aan7Nrg@mail.gmail.com>
+Subject: Re: [PATCH v16 10/10] drm/msm/dpu: Enable quad-pipe for DSC and
+ dual-DSI case
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,222 +94,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/1/25 5:14 AM, Akhil P Oommen wrote:
-> On 11/28/2025 10:47 PM, Anna Maniscalco wrote:
->> GEN7_GRAS_NC_MODE_CNTL was only programmed for BR and not for BV pipe
->> but it needs to be programmed for both.
->>
->> Program both pipes in hw_init and introducea separate reglist for it in
->> order to add this register to the dynamic reglist which supports
->> restoring registers per pipe.
->>
->> Fixes: 91389b4e3263 ("drm/msm/a6xx: Add a pwrup_list field to a6xx_info")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
->> ---
->> Changes in v2:
->> - Added missing Cc: stable to commit
->> - Added pipe_regs to all 7xx gens
->> - Null check pipe_regs in a7xx_patch_pwrup_reglist
->> - Added parentheses around bitwise and in a7xx_patch_pwrup_reglist
->> - Use A7XX_PIPE_{BR, BV, NONE} enum values
->> - Link to v1: https://lore.kernel.org/r/20251127-gras_nc_mode_fix-v1-1-5c0cf616401f@gmail.com
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 12 ++++++++++-
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 34 +++++++++++++++++++++++++++----
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 13 ++++++++++++
->>   4 files changed, 55 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> index 29107b362346..10732062d681 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> @@ -1376,7 +1376,6 @@ static const uint32_t a7xx_pwrup_reglist_regs[] = {
->>   	REG_A6XX_UCHE_MODE_CNTL,
->>   	REG_A6XX_RB_NC_MODE_CNTL,
->>   	REG_A6XX_RB_CMP_DBG_ECO_CNTL,
->> -	REG_A7XX_GRAS_NC_MODE_CNTL,
->>   	REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
->>   	REG_A6XX_UCHE_GBIF_GX_CONFIG,
->>   	REG_A6XX_UCHE_CLIENT_PF,
->> @@ -1448,6 +1447,12 @@ static const u32 a750_ifpc_reglist_regs[] = {
->>   
->>   DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
->>   
->> +static const struct adreno_reglist_pipe a7xx_reglist_pipe_regs[] = {
->> +	{ REG_A7XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
->> +};
->> +
->> +DECLARE_ADRENO_REGLIST_PIPE_LIST(a7xx_reglist_pipe);
->> +
->>   static const struct adreno_info a7xx_gpus[] = {
->>   	{
->>   		.chip_ids = ADRENO_CHIP_IDS(0x07000200),
->> @@ -1491,6 +1496,7 @@ static const struct adreno_info a7xx_gpus[] = {
->>   			.hwcg = a730_hwcg,
->>   			.protect = &a730_protect,
->>   			.pwrup_reglist = &a7xx_pwrup_reglist,
->> +			.pipe_reglist = &a7xx_reglist_pipe,
->>   			.gbif_cx = a640_gbif,
->>   			.gmu_cgc_mode = 0x00020000,
->>   		},
->> @@ -1513,6 +1519,7 @@ static const struct adreno_info a7xx_gpus[] = {
->>   			.hwcg = a740_hwcg,
->>   			.protect = &a730_protect,
->>   			.pwrup_reglist = &a7xx_pwrup_reglist,
->> +			.pipe_reglist = &a7xx_reglist_pipe,
->>   			.gbif_cx = a640_gbif,
->>   			.gmu_chipid = 0x7020100,
->>   			.gmu_cgc_mode = 0x00020202,
->> @@ -1548,6 +1555,7 @@ static const struct adreno_info a7xx_gpus[] = {
->>   			.protect = &a730_protect,
->>   			.pwrup_reglist = &a7xx_pwrup_reglist,
->>   			.ifpc_reglist = &a750_ifpc_reglist,
->> +			.pipe_reglist = &a7xx_reglist_pipe,
->>   			.gbif_cx = a640_gbif,
->>   			.gmu_chipid = 0x7050001,
->>   			.gmu_cgc_mode = 0x00020202,
->> @@ -1590,6 +1598,7 @@ static const struct adreno_info a7xx_gpus[] = {
->>   			.protect = &a730_protect,
->>   			.pwrup_reglist = &a7xx_pwrup_reglist,
->>   			.ifpc_reglist = &a750_ifpc_reglist,
->> +			.pipe_reglist = &a7xx_reglist_pipe,
->>   			.gbif_cx = a640_gbif,
->>   			.gmu_chipid = 0x7090100,
->>   			.gmu_cgc_mode = 0x00020202,
->> @@ -1623,6 +1632,7 @@ static const struct adreno_info a7xx_gpus[] = {
->>   			.hwcg = a740_hwcg,
->>   			.protect = &a730_protect,
->>   			.pwrup_reglist = &a7xx_pwrup_reglist,
->> +			.pipe_reglist = &a7xx_reglist_pipe,
->>   			.gbif_cx = a640_gbif,
->>   			.gmu_chipid = 0x70f0000,
->>   			.gmu_cgc_mode = 0x00020222,
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index 0200a7e71cdf..422ce4c97f70 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -849,9 +849,16 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
->>   		  min_acc_len_64b << 3 |
->>   		  hbb_lo << 1 | ubwc_mode);
->>   
->> -	if (adreno_is_a7xx(adreno_gpu))
->> -		gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
->> -			  FIELD_PREP(GENMASK(8, 5), hbb_lo));
->> +	if (adreno_is_a7xx(adreno_gpu)) {
->> +		for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
->> +			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
->> +				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
->> +			gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
->> +				  FIELD_PREP(GENMASK(8, 5), hbb_lo));
->> +		}
->> +		gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
->> +			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
->> +	}
->>   
->>   	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL,
->>   		  min_acc_len_64b << 23 | hbb_lo << 21);
->> @@ -865,9 +872,11 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
->>   	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>   	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>   	const struct adreno_reglist_list *reglist;
->> +	const struct adreno_reglist_pipe_list *pipe_reglist;
->>   	void *ptr = a6xx_gpu->pwrup_reglist_ptr;
->>   	struct cpu_gpu_lock *lock = ptr;
->>   	u32 *dest = (u32 *)&lock->regs[0];
->> +	u32 pipe_reglist_count = 0;
->>   	int i;
->>   
->>   	lock->gpu_req = lock->cpu_req = lock->turn = 0;
->> @@ -907,7 +916,24 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu *gpu)
->>   	 * (<aperture, shifted 12 bits> <address> <data>), and the length is
->>   	 * stored as number for triplets in dynamic_list_len.
->>   	 */
->> -	lock->dynamic_list_len = 0;
->> +	pipe_reglist = adreno_gpu->info->a6xx->pipe_reglist;
->> +	if (pipe_reglist) {
->> +		for (u32 pipe_id = A7XX_PIPE_BR; pipe_id <= A7XX_PIPE_BV; pipe_id++) {
-> This patch is probably not rebased on msm-next. On msm-next tip, we have
-> removed A7XX prefix for pipe enums.
-
-Oh no it is rebased that was down to some confusion I made when I was 
-testing with an older branch.
-
-Fixed in v3
-
+Marijn Suijten <marijn.suijten@somainline.org> =E4=BA=8E2025=E5=B9=B411=E6=
+=9C=8830=E6=97=A5=E5=91=A8=E6=97=A5 00:37=E5=86=99=E9=81=93=EF=BC=9A
 >
->> +			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
->> +				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
->> +			for (i = 0; i < pipe_reglist->count; i++) {
->> +				if ((pipe_reglist->regs[i].pipe & BIT(pipe_id)) == 0)
->> +					continue;
->> +				*dest++ = A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id);
->> +				*dest++ = pipe_reglist->regs[i].offset;
->> +				*dest++ = gpu_read(gpu, pipe_reglist->regs[i].offset);
->> +				pipe_reglist_count++;
->> +			}
->> +		}
->> +		gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
->> +			  A7XX_CP_APERTURE_CNTL_HOST_PIPE(A7XX_PIPE_NONE));
->> +	}
->> +	lock->dynamic_list_len = pipe_reglist_count;
->>   }
->>   
->>   static int a7xx_preempt_start(struct msm_gpu *gpu)
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->> index 6820216ec5fc..0a1d6acbc638 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->> @@ -46,6 +46,7 @@ struct a6xx_info {
->>   	const struct adreno_protect *protect;
->>   	const struct adreno_reglist_list *pwrup_reglist;
->>   	const struct adreno_reglist_list *ifpc_reglist;
->> +	const struct adreno_reglist_pipe_list *pipe_reglist;
-> nit: Maybe dyn_pwrup_reglist is a better name.
+> On 2025-09-18 21:29:02, Jun Nie wrote:
+> > To support high-resolution cases that exceed the width limitation of
+> > a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
+> > additional pipes are necessary to enable parallel data processing
+> > within the SSPP width constraints and MDP clock rate.
+> >
+> > Request 4 mixers and 4 DSCs for high-resolution cases where both DSC
+> > and dual interfaces are enabled. More use cases can be incorporated
+> > later if quad-pipe capabilities are required.
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 27 ++++++++++++++++=
++------
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 28 ++++++++--------=
+--------
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
+> >  6 files changed, 35 insertions(+), 32 deletions(-)
 >
-> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Agreed, I changed the name in v3. Thx for the review!
+> With this patch applied, I get the following crash on the Sony Xperia 1 I=
+II, a
+> dual-DSI dual-DSC device:
 >
-> -Akhil
+>         Unable to handle kernel NULL pointer dereference at virtual addre=
+ss 0000000000000020
+>         Mem abort info:
+>           ESR =3D 0x0000000096000004
+>           EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+>           SET =3D 0, FnV =3D 0
+>           EA =3D 0, S1PTW =3D 0
+>           FSC =3D 0x04: level 0 translation fault
+>         Data abort info:
+>           ISV =3D 0, ISS =3D 0x00000004, ISS2 =3D 0x00000000
+>           CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
+>           GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0, Xs =3D 0
+>         user pgtable: 4k pages, 48-bit VAs, pgdp=3D000000012d4e1000
+>         [0000000000000020] pgd=3D0000000000000000, p4d=3D0000000000000000
+>         Internal error: Oops: 0000000096000004 [#1]  SMP
+>         Modules linked in: msm drm_client_lib ubwc_config drm_dp_aux_bus =
+gpu_sched drm_gpuvm drm_exec
+>         CPU: 5 UID: 0 PID: 3081 Comm: (sd-close) Tainted: G     U        =
+      6.18.0-rc7-next-20251127-SoMainline-12422-g10b6db5b056d-dirty #21 NON=
+E
+>         Tainted: [U]=3DUSER
+>         Hardware name: Sony Xperia 1 III (DT)
+>         pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=3D--)
+>         pc : dpu_plane_atomic_check_sspp.isra.0+0x88/0x3f4 [msm]
+>         lr : dpu_plane_atomic_check_sspp.isra.0+0x84/0x3f4 [msm]
+>         sp : ffff800081e23940
+>         x29: ffff800081e23950 x28: ffff0000bf2700d0 x27: 0000000000000a00
+>         x26: ffff0000bf270000 x25: 0000000000000a00 x24: ffff0000bd0e5c18
+>         x23: ffff000087a6c080 x22: 0000000000000224 x21: ffff00008ce88080
+>         x20: 0000000000000002 x19: ffff0000bf270138 x18: ffff8000818350b0
+>         x17: 000000040044ffff x16: ffffc488ae2e37e0 x15: 0000000000000005
+>         x14: 0000000000000a00 x13: 0000000000000000 x12: 0000000000000138
+>         x11: 0000000000000000 x10: 0000000000000012 x9 : 0000000000000000
+>         x8 : 0000000000000a00 x7 : 0000000000000000 x6 : 0000000000000000
+>         x5 : 0000000000000002 x4 : 0000000000000000 x3 : ffffc48897741db0
+>         x2 : 0000000000000000 x1 : 0000000000000000 x0 : 0000000000000000
+>         Call trace:
+>          dpu_plane_atomic_check_sspp.isra.0+0x88/0x3f4 [msm] (P)
+>          dpu_plane_atomic_check+0x100/0x1a0 [msm]
+>          drm_atomic_helper_check_planes+0xd8/0x224
+>          drm_atomic_helper_check+0x50/0xb4
+>          msm_atomic_check+0xd0/0xe0 [msm]
+>          drm_atomic_check_only+0x4e0/0x928
+>          drm_atomic_commit+0x50/0xd4
+>          drm_client_modeset_commit_atomic+0x200/0x260
+>          drm_client_modeset_commit_locked+0x64/0x180
+>          drm_client_modeset_commit+0x30/0x60
+>          drm_fb_helper_lastclose+0x60/0xb0
+>          drm_fbdev_client_restore+0x18/0x38 [drm_client_lib]
+>          drm_client_dev_restore+0xac/0xf8
+>          drm_release+0x124/0x158
+>          __fput+0xd4/0x2e4
+>          fput_close_sync+0x3c/0xe0
+>          __arm64_sys_close+0x3c/0x84
+>          invoke_syscall.constprop.0+0x44/0x100
+>          el0_svc_common.constprop.0+0x3c/0xe4
+>          do_el0_svc+0x20/0x3c
+>          el0_svc+0x38/0x110
+>          el0t_64_sync_handler+0xa8/0xec
+>          el0t_64_sync+0x1a0/0x1a4
+>         Code: 2a1403e5 52800082 94008e28 f9400380 (f940101b)
+>         ---[ end trace 0000000000000000 ]---
+>         pstore: backend (ramoops) writing error (-28)
+>         [drm:dpu_encoder_frame_done_timeout:2726] [dpu error]enc33 frame =
+done timeout
 >
->
->>   	const struct adreno_reglist *gbif_cx;
->>   	const struct adreno_reglist_pipe *nonctxt_reglist;
->>   	u32 max_slices;
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> index 0f8d3de97636..1d0145f8b3ec 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> @@ -188,6 +188,19 @@ static const struct adreno_reglist_list name = {		\
->>   	.count = ARRAY_SIZE(name ## _regs),		\
->>   };
->>   
->> +struct adreno_reglist_pipe_list {
->> +	/** @reg: List of register **/
->> +	const struct adreno_reglist_pipe *regs;
->> +	/** @count: Number of registers in the list **/
->> +	u32 count;
->> +};
->> +
->> +#define DECLARE_ADRENO_REGLIST_PIPE_LIST(name)	\
->> +static const struct adreno_reglist_pipe_list name = {		\
->> +	.regs = name ## _regs,				\
->> +	.count = ARRAY_SIZE(name ## _regs),		\
->> +};
->> +
->>   struct adreno_gpu {
->>   	struct msm_gpu base;
->>   	const struct adreno_info *info;
->>
->> ---
->> base-commit: 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
->> change-id: 20251126-gras_nc_mode_fix-7224ee506a39
->>
->> Best regards,
+> I don't see any thought given to it in the extremely terse patch descript=
+ion,
+> but this patch seems to unconditionally select 4 DSCs and 4 LMs on this d=
+evice
+> because the underlying SM8350 SoC has 4 available in its catalog - while =
+it
+> was previously affixed to 2:2:2 matching the downstream and known-working
+> configuration of this device - and I can only imagine things are rolling
+> downhill from there.
 
+This patch expands pipe array size from 2 to 4, and changes the
+topology decision making.
+There is an assumption that 2 stages(4LMs) should be allocated in case
+of 2 interfaces with
+DSC enabled, because it is a very high resolution use case. This fails
+for your 2:2:2 use case.
+But I still expect there are only 2 pipes info filled for your case,
+and the later 2 pipes shall be
+ bypassed in dpu_plane_atomic_check_sspp() and does not introduce
+panic. So there is
+bug in SSPP handling.
 
-Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
-
+What's your IRC ID and timezone? IRC shall be much more efficient, if
+you want to discuss
+more detail and debug support.
+>
+> faddr2line seems to be failing for me, but this is the line
+> `dpu_plane_atomic_check_sspp.isra.0+0x88` seems to be referring to:
+>
+>         aarch64-linux-gnu-objdump .output/drivers/gpu/drm/msm/msm.ko -dS =
+| grep dpu_plane_atomic_check_sspp.isra.0\> -A80
+>         00000000000671ac <dpu_plane_atomic_check_sspp.isra.0>:
+>         static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
+>         ...
+>            67234:       f940101b        ldr     x27, [x0, #32]
+>                 if (!(sblk->scaler_blk.len && pipe->sspp->ops.setup_scale=
+r) &&
+>
+> Please help resolve this issue, as I am not understanding the thought pro=
+cess
+> behind this patch and unsure how to solve this issue short of just revert=
+ing it.
+>
+> Looking forward to some assistance, thanks;
+> - Marijn
