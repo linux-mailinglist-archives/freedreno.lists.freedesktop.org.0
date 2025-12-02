@@ -2,82 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AC66C99FD2
-	for <lists+freedreno@lfdr.de>; Tue, 02 Dec 2025 05:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE8F2C9AB7D
+	for <lists+freedreno@lfdr.de>; Tue, 02 Dec 2025 09:39:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9863A10E15C;
-	Tue,  2 Dec 2025 04:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9846B10E0F3;
+	Tue,  2 Dec 2025 08:39:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="B47pu/Mo";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="nw8PdnTn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
- [74.125.224.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5A710E51B
- for <freedreno@lists.freedesktop.org>; Tue,  2 Dec 2025 04:18:41 +0000 (UTC)
-Received: by mail-yx1-f53.google.com with SMTP id
- 956f58d0204a3-640d790d444so4168706d50.0
- for <freedreno@lists.freedesktop.org>; Mon, 01 Dec 2025 20:18:41 -0800 (PST)
+Received: from mail-ej1-f74.google.com (mail-ej1-f74.google.com
+ [209.85.218.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F342010E2D2
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Dec 2025 08:39:45 +0000 (UTC)
+Received: by mail-ej1-f74.google.com with SMTP id
+ a640c23a62f3a-b763bab126aso476681966b.3
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Dec 2025 00:39:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1764649120; x=1765253920; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JAi2upxQHqXV6w3YAiIFw0Ei8pBZRTlw4L7PGEXhfmk=;
- b=B47pu/MoqUNXZ278T7YbQ5fqo108ejt4051tcj+u1eDwmKCbUsGJAeSTt4//2e+5ON
- S3DNySqg+9URPUqIKz+g2LDzXttyx31ei7O2yS81b/UtN1nRGx6HyJcepsqjqUKmZ0lF
- vDLt74DVBcBo5KajwhcS1DxL+2E3EEbgqRe3FrNUltmuW8iSMKRa2HlJlZvsNhPU4TU+
- fdPhM8aZ0wjDcP58dzNusKNoLjtUoBJTSfpYhei/2GHQ57SWCtZatrXnSJ2bUTcw7tAv
- 7L/KnC5Fmpwo4vvTc/lkagBfd4+neCjCip4HReotXHiNSZn3jxgJVy9NcR+VIkqDkE/7
- 9kbg==
+ d=google.com; s=20230601; t=1764664784; x=1765269584;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+ :reply-to; bh=dQk6tHmJTUqAiCtnsgjTJG63u9eDINxbLO7NMykMICA=;
+ b=nw8PdnTnx1uY+U2Hovn29iq5RT6rXvg2cTbrDw32EmoJYosCQoZCklygmr1PFZoWTl
+ rZMmwcOGRvIjrYBvIWd2GxbtrLYomif/PZwEmLgQMw+Cca5VVSJH/Je3+1xlUz2q3KW3
+ NYvnqLCrHsFfXxkIgP/dLFUZrH7KhpoXAxwUAIlcI2YRo7y6VWi51mZC8ul6j6c2AkH9
+ UmB1ZDXgGyjosiEBqtwgM8PBnJnXCN743EyJ3k16+jMcCx/cxivH67f1CS71DJrllCCL
+ 4vu1DXytwvvbCG50WLTXZ2CiLM7puaF5F+jKqtE4bb+z0bklcJwLRl/AVKzwFps9tayg
+ BdKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764649120; x=1765253920;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=JAi2upxQHqXV6w3YAiIFw0Ei8pBZRTlw4L7PGEXhfmk=;
- b=M2nXq9Ge2CbznX2cYNdvbKsrEVzHK6w4br1p6mx2YGR+skb+1v8yayEisfUNtOO8uq
- scxfcA26AkfGi9cR7p8jgejYkf72sh0ZsqRzK1HF007HA8XxS9bnm651vRLJDqUhfCoS
- O2mqF6CvoOvCiYftE/jmNfDOOznVZ3zQMGnofcf7TXnDL0QTC64KAEx8DPxx3evJ7dWj
- ePK9eOIswpfLld/WaqF9iEURlRevR49N6RsiSkyhuTb+H7e2XkYwbSMW8t8i76h1Ytzt
- vEVH+a000CU29MlK66vNBu5PF6bBXjdDyMxNIFp+CytA19u840Q/UX+U9eoIs5iYF+Nh
- tBaQ==
+ d=1e100.net; s=20230601; t=1764664784; x=1765269584;
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=dQk6tHmJTUqAiCtnsgjTJG63u9eDINxbLO7NMykMICA=;
+ b=lB5sc1vl7oes1jrzckRJ17ORLRZBHRVp5yl28+AHY2ePYYu1hvPEvsOxmRtwrsb8+M
+ vbBRJntTTJevzSqivN52mR2BX1Wkjb6HA4ydGctPJC7Y4cdZojbtuZv8co7qL6THAVYX
+ 68gdTuHxUu6+nQdiYd0xzrb+kbx4qA82QIIgflldVcsT+fYYpRsR5KIgtC1ZrlH/xAr4
+ nFbJZkw/GHSdKP+T2V1OVrIh31iXZVFCIdHx5PUUukUsZpdkxU4PmyHUVzbMEjf1pzOk
+ m0H5RG6HkJwb6wmVtdEMLvsSpczMdDGleJpTgEM17CMsotxKDhxMs3N62FEgaVBFC8eI
+ 2pVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGYen0G8GGlR2nxBklsybbFGuEuKgUVtmtqEBQtrbuok30eNAhOLq24gTYHtLQoDPF5PfaKf88o4M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKxY4wEK/eIeh9XAmqtryJtLKXFAyyLRIVuRaEqPDa55kUlxyI
- V7gZ05hcft3yrUSngam+9EBuz1rwOxxS8kw7CWvebgarn7Teytlf/M18ojZjko+SLsim4WlYViu
- BVg++DwmiwJGH4NzRR2LN75ABaSPbA1+BzMSwGGz4kQ==
-X-Gm-Gg: ASbGncuYFZuJiq9ayPTYtMfbPhgK1Y3bIyZ2BAC+IIr0eoYOHRYFKQ1LdqKrzuAnSuP
- g73bZt9UShYpCMHodISDqLqcXO6RJblvFfuONCD6h9NZi4nkAIEIKY8dCURUBVAQXdOAPMRCt3Y
- 69GSn9+FCVaguk2AsatMM+Oz1Od6F2sRAtuJFoPXGiZ0yJ2A816l1g2urUPE588l6E6b7+pKE7R
- bYXlj3d86mM9LRIn+B5ZnPMlohVrLaFrZ4WMpENWTzwPNu+mSPA6RNgmbW22xOWCDyuIMztQoxs
- Y95gYPu72F3xf0es
-X-Google-Smtp-Source: AGHT+IHm2Lb3KR5gVidXp7FW07QIkyqamhFjHbL15N5fpaAs7gMhEGz5ghkqWBZy6gX1AwwN7GcT9+/zubzA9ATXx70=
-X-Received: by 2002:a05:690c:e3e6:b0:788:7f:9a5 with SMTP id
- 00721157ae682-78a8b495634mr334380197b3.20.1764649119895; Mon, 01 Dec 2025
- 20:18:39 -0800 (PST)
-MIME-Version: 1.0
-References: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org>
- <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-10-ff6232e3472f@linaro.org>
- <tjakx64c25gyakblncsvuoj2iquoknx4ngwujt2uf2clhhfvfl@lbvhrimf6gwp>
-In-Reply-To: <tjakx64c25gyakblncsvuoj2iquoknx4ngwujt2uf2clhhfvfl@lbvhrimf6gwp>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 2 Dec 2025 12:18:28 +0800
-X-Gm-Features: AWmQ_bmh31LDDZhLcB5X5diPs4fQyKerYqoKD4tX0pSTR_6U-SSLi0GjQw-lPdA
-Message-ID: <CABymUCN2rwfbBbSVe9oSWr9mio-ie38JzgcdvSxV-87aan7Nrg@mail.gmail.com>
-Subject: Re: [PATCH v16 10/10] drm/msm/dpu: Enable quad-pipe for DSC and
- dual-DSI case
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ AJvYcCXU0ZeFE9CF4yFRHXcrGtj3WmJ39D2jsVfPYpFyewbuXYAH9Y74DqqUpBDO5CUpzQhDNx0JaBU7zp0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7HIydjrHhTJhN4bW5LpOhgY1dtGJg3NEXyy8qQJ7kln+JJrMj
+ WG2Pvae1RSgJvMfEBnwqYFufpbGyZi8uF/V37XbCIuUPLZj0SPmciCNKg3zmCkCRkn52IHcDR44
+ +Df8eQYmp4nNMd/RJJA==
+X-Google-Smtp-Source: AGHT+IEc/TxQUgIpfEK5sufEIaSnr0GleDnpyvkysthlI+sYkIIqMQnKrFBu1nj0yiVqQjAh/i5hvFwh+Kb6vzw=
+X-Received: from ejcvt4.prod.google.com ([2002:a17:907:a604:b0:b73:5918:6cd0])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:6eaa:b0:b6d:6f46:9047 with SMTP id
+ a640c23a62f3a-b76718b4dcbmr4682286966b.59.1764664784573; 
+ Tue, 02 Dec 2025 00:39:44 -0800 (PST)
+Date: Tue, 2 Dec 2025 08:39:43 +0000
+In-Reply-To: <3727982A-91A4-447C-B53C-B6037DA02FF9@collabora.com>
+Mime-Version: 1.0
+References: <20251128-gpuvm-rust-v1-0-ebf66bf234e0@google.com>
+ <20251128-gpuvm-rust-v1-4-ebf66bf234e0@google.com>
+ <3727982A-91A4-447C-B53C-B6037DA02FF9@collabora.com>
+Message-ID: <aS6lz12BIysBVHSV@google.com>
+Subject: Re: [PATCH 4/4] rust: drm: add GPUVM immediate mode abstraction
+From: Alice Ryhl <aliceryhl@google.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ "Thomas =?utf-8?Q?Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Lyude Paul <lyude@redhat.com>, Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ "Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ Asahi Lina <lina+kernel@asahilina.net>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,145 +108,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Marijn Suijten <marijn.suijten@somainline.org> =E4=BA=8E2025=E5=B9=B411=E6=
-=9C=8830=E6=97=A5=E5=91=A8=E6=97=A5 00:37=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 2025-09-18 21:29:02, Jun Nie wrote:
-> > To support high-resolution cases that exceed the width limitation of
-> > a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
-> > additional pipes are necessary to enable parallel data processing
-> > within the SSPP width constraints and MDP clock rate.
-> >
-> > Request 4 mixers and 4 DSCs for high-resolution cases where both DSC
-> > and dual interfaces are enabled. More use cases can be incorporated
-> > later if quad-pipe capabilities are required.
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 27 ++++++++++++++++=
-+------
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 28 ++++++++--------=
---------
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
-> >  6 files changed, 35 insertions(+), 32 deletions(-)
->
-> With this patch applied, I get the following crash on the Sony Xperia 1 I=
-II, a
-> dual-DSI dual-DSC device:
->
->         Unable to handle kernel NULL pointer dereference at virtual addre=
-ss 0000000000000020
->         Mem abort info:
->           ESR =3D 0x0000000096000004
->           EC =3D 0x25: DABT (current EL), IL =3D 32 bits
->           SET =3D 0, FnV =3D 0
->           EA =3D 0, S1PTW =3D 0
->           FSC =3D 0x04: level 0 translation fault
->         Data abort info:
->           ISV =3D 0, ISS =3D 0x00000004, ISS2 =3D 0x00000000
->           CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
->           GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0, Xs =3D 0
->         user pgtable: 4k pages, 48-bit VAs, pgdp=3D000000012d4e1000
->         [0000000000000020] pgd=3D0000000000000000, p4d=3D0000000000000000
->         Internal error: Oops: 0000000096000004 [#1]  SMP
->         Modules linked in: msm drm_client_lib ubwc_config drm_dp_aux_bus =
-gpu_sched drm_gpuvm drm_exec
->         CPU: 5 UID: 0 PID: 3081 Comm: (sd-close) Tainted: G     U        =
-      6.18.0-rc7-next-20251127-SoMainline-12422-g10b6db5b056d-dirty #21 NON=
-E
->         Tainted: [U]=3DUSER
->         Hardware name: Sony Xperia 1 III (DT)
->         pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=3D--)
->         pc : dpu_plane_atomic_check_sspp.isra.0+0x88/0x3f4 [msm]
->         lr : dpu_plane_atomic_check_sspp.isra.0+0x84/0x3f4 [msm]
->         sp : ffff800081e23940
->         x29: ffff800081e23950 x28: ffff0000bf2700d0 x27: 0000000000000a00
->         x26: ffff0000bf270000 x25: 0000000000000a00 x24: ffff0000bd0e5c18
->         x23: ffff000087a6c080 x22: 0000000000000224 x21: ffff00008ce88080
->         x20: 0000000000000002 x19: ffff0000bf270138 x18: ffff8000818350b0
->         x17: 000000040044ffff x16: ffffc488ae2e37e0 x15: 0000000000000005
->         x14: 0000000000000a00 x13: 0000000000000000 x12: 0000000000000138
->         x11: 0000000000000000 x10: 0000000000000012 x9 : 0000000000000000
->         x8 : 0000000000000a00 x7 : 0000000000000000 x6 : 0000000000000000
->         x5 : 0000000000000002 x4 : 0000000000000000 x3 : ffffc48897741db0
->         x2 : 0000000000000000 x1 : 0000000000000000 x0 : 0000000000000000
->         Call trace:
->          dpu_plane_atomic_check_sspp.isra.0+0x88/0x3f4 [msm] (P)
->          dpu_plane_atomic_check+0x100/0x1a0 [msm]
->          drm_atomic_helper_check_planes+0xd8/0x224
->          drm_atomic_helper_check+0x50/0xb4
->          msm_atomic_check+0xd0/0xe0 [msm]
->          drm_atomic_check_only+0x4e0/0x928
->          drm_atomic_commit+0x50/0xd4
->          drm_client_modeset_commit_atomic+0x200/0x260
->          drm_client_modeset_commit_locked+0x64/0x180
->          drm_client_modeset_commit+0x30/0x60
->          drm_fb_helper_lastclose+0x60/0xb0
->          drm_fbdev_client_restore+0x18/0x38 [drm_client_lib]
->          drm_client_dev_restore+0xac/0xf8
->          drm_release+0x124/0x158
->          __fput+0xd4/0x2e4
->          fput_close_sync+0x3c/0xe0
->          __arm64_sys_close+0x3c/0x84
->          invoke_syscall.constprop.0+0x44/0x100
->          el0_svc_common.constprop.0+0x3c/0xe4
->          do_el0_svc+0x20/0x3c
->          el0_svc+0x38/0x110
->          el0t_64_sync_handler+0xa8/0xec
->          el0t_64_sync+0x1a0/0x1a4
->         Code: 2a1403e5 52800082 94008e28 f9400380 (f940101b)
->         ---[ end trace 0000000000000000 ]---
->         pstore: backend (ramoops) writing error (-28)
->         [drm:dpu_encoder_frame_done_timeout:2726] [dpu error]enc33 frame =
-done timeout
->
-> I don't see any thought given to it in the extremely terse patch descript=
-ion,
-> but this patch seems to unconditionally select 4 DSCs and 4 LMs on this d=
-evice
-> because the underlying SM8350 SoC has 4 available in its catalog - while =
-it
-> was previously affixed to 2:2:2 matching the downstream and known-working
-> configuration of this device - and I can only imagine things are rolling
-> downhill from there.
+On Mon, Dec 01, 2025 at 12:16:09PM -0300, Daniel Almeida wrote:
+> Hi Alice,
+>=20
+> I find it a bit weird that we reverted to v1, given that the previous gpu=
+vm
+> attempt was v3. No big deal though.
+>=20
+>=20
+> > On 28 Nov 2025, at 11:14, Alice Ryhl <aliceryhl@google.com> wrote:
+> >=20
+> > Add a GPUVM abstraction to be used by Rust GPU drivers.
+> >=20
+> > GPUVM keeps track of a GPU's virtual address (VA) space and manages the
+> > corresponding virtual mappings represented by "GPU VA" objects. It also
+> > keeps track of the gem::Object<T> used to back the mappings through
+> > GpuVmBo<T>.
+> >=20
+> > This abstraction is only usable by drivers that wish to use GPUVM in
+> > immediate mode. This allows us to build the locking scheme into the API
+> > design. It means that the GEM mutex is used for the GEM gpuva list, and
+> > that the resv lock is used for the extobj list. The evicted list is not
+> > yet used in this version.
+> >=20
+> > This abstraction provides a special handle called the GpuVmCore, which
+> > is a wrapper around ARef<GpuVm> that provides access to the interval
+> > tree. Generally, all changes to the address space requires mutable
+> > access to this unique handle.
+> >=20
+> > Some of the safety comments are still somewhat WIP, but I think the API
+> > should be sound as-is.
+> >=20
+> > Co-developed-by: Asahi Lina <lina+kernel@asahilina.net>
+> > Signed-off-by: Asahi Lina <lina+kernel@asahilina.net>
+> > Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> > Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+> > Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 
-This patch expands pipe array size from 2 to 4, and changes the
-topology decision making.
-There is an assumption that 2 stages(4LMs) should be allocated in case
-of 2 interfaces with
-DSC enabled, because it is a very high resolution use case. This fails
-for your 2:2:2 use case.
-But I still expect there are only 2 pipes info filled for your case,
-and the later 2 pipes shall be
- bypassed in dpu_plane_atomic_check_sspp() and does not introduce
-panic. So there is
-bug in SSPP handling.
+> > +//! DRM GPUVM in immediate mode
+> > +//!
+> > +//! Rust abstractions for using GPUVM in immediate mode. This is when =
+the GPUVM state is updated
+> > +//! during `run_job()`, i.e., in the DMA fence signalling critical pat=
+h, to ensure that the GPUVM
+>=20
+> IMHO: We should initially target synchronous VM_BINDS, which are the oppo=
+site
+> of what you described above.
 
-What's your IRC ID and timezone? IRC shall be much more efficient, if
-you want to discuss
-more detail and debug support.
->
-> faddr2line seems to be failing for me, but this is the line
-> `dpu_plane_atomic_check_sspp.isra.0+0x88` seems to be referring to:
->
->         aarch64-linux-gnu-objdump .output/drivers/gpu/drm/msm/msm.ko -dS =
-| grep dpu_plane_atomic_check_sspp.isra.0\> -A80
->         00000000000671ac <dpu_plane_atomic_check_sspp.isra.0>:
->         static int dpu_plane_atomic_check_sspp(struct drm_plane *plane,
->         ...
->            67234:       f940101b        ldr     x27, [x0, #32]
->                 if (!(sblk->scaler_blk.len && pipe->sspp->ops.setup_scale=
-r) &&
->
-> Please help resolve this issue, as I am not understanding the thought pro=
-cess
-> behind this patch and unsure how to solve this issue short of just revert=
-ing it.
->
-> Looking forward to some assistance, thanks;
-> - Marijn
+Immediate mode is a locking scheme. We have to pick one of them
+regardless of whether we do async VM_BIND yet.
+
+(Well ok immediate mode is not just a locking scheme: it also determines
+whether vm_bo cleanup is postponed or not.)
+
+> > +/// A DRM GPU VA manager.
+> > +///
+> > +/// This object is refcounted, but the "core" is only accessible using=
+ a special unique handle. The
+>=20
+> I wonder if `Owned<T>` is a good fit here? IIUC, Owned<T> can be refcount=
+ed,
+> but there is only ever one handle on the Rust side? If so, this seems to =
+be
+> what we want here?
+
+Yes, Owned<T> is probably a good fit.
+
+> > +/// core consists of the `core` field and the GPUVM's interval tree.
+> > +#[repr(C)]
+> > +#[pin_data]
+> > +pub struct GpuVm<T: DriverGpuVm> {
+> > +    #[pin]
+> > +    vm: Opaque<bindings::drm_gpuvm>,
+> > +    /// Accessed only through the [`GpuVmCore`] reference.
+> > +    core: UnsafeCell<T>,
+>=20
+> This UnsafeCell has been here since Lina=E2=80=99s version. I must say I =
+never
+> understood why, and perhaps now is a good time to clarify it given the ch=
+anges
+> we=E2=80=99re making w.r.t to the =E2=80=9Cunique handle=E2=80=9D thing.
+>=20
+> This is just some driver private data. It=E2=80=99s never shared with C. =
+I am not
+> sure why we need this wrapper.
+
+The sm_step_* methods receive a `&mut T`. This is UB if other code has
+an `&GpuVm<T>` and the `T` is not wrapped in an `UnsafeCell` because
+`&GpuVm<T>` implies that the data is not modified.
+
+> > +    /// Shared data not protected by any lock.
+> > +    #[pin]
+> > +    shared_data: T::SharedData,
+>=20
+> Should we deref to this?
+
+We can do that.
+
+> > +    /// Creates a GPUVM instance.
+> > +    #[expect(clippy::new_ret_no_self)]
+> > +    pub fn new<E>(
+> > +        name: &'static CStr,
+> > +        dev: &drm::Device<T::Driver>,
+> > +        r_obj: &T::Object,
+>=20
+> Can we call this =E2=80=9Creservation_object=E2=80=9D, or similar?
+>=20
+> We should probably briefly explain what it does, perhaps linking to the C=
+ docs.
+
+Yeah agreed, more docs are probably warranted here.
+
+> I wonder if we should expose the methods below at this moment. We will no=
+t need
+> them in Tyr until we start submitting jobs. This is still a bit in the fu=
+ture.
+>=20
+> I say this for a few reasons:
+>=20
+> a) Philipp is still working on the fence abstractions,
+>=20
+> b) As a result from the above, we are taking raw fence pointers,
+>=20
+> c) Onur is working on a WW Mutex abstraction [0] that includes a Rust
+> implementation of drm_exec (under another name, and useful in other conte=
+xts
+> outside of DRM). Should we use them here?
+>=20
+> I think your current design with the ExecToken is also ok and perhaps we =
+should
+> stick to it, but it's good to at least discuss this with the others.
+
+I don't think we can postpone adding the "obtain" method. It's required
+to call sm_map, which is needed for VM_BIND.
+
+> > +    /// Returns a [`GpuVmBoObtain`] for the provided GEM object.
+> > +    #[inline]
+> > +    pub fn obtain(
+> > +        &self,
+> > +        obj: &T::Object,
+> > +        data: impl PinInit<T::VmBoData>,
+> > +    ) -> Result<GpuVmBoObtain<T>, AllocError> {
+>=20
+> Perhaps this should be called GpuVmBo? That=E2=80=99s what you want to =
+=E2=80=9Cobtain=E2=80=9D in the first place.
+>=20
+> This is indeed a question, by the way.
+
+One could possibly use Owned<_> here.
+
+> > +/// A lock guard for the GPUVM's resv lock.
+> > +///
+> > +/// This guard provides access to the extobj and evicted lists.
+>=20
+> Should we bother with evicted objects at this stage?
+
+The abstractions don't actually support them right now. The resv lock is
+currently only here because it's used internally in these abstractions.
+It won't be useful to drivers until we add evicted objects.
+
+> > +///
+> > +/// # Invariants
+> > +///
+> > +/// Holds the GPUVM resv lock.
+> > +pub struct GpuvmResvLockGuard<'a, T: DriverGpuVm>(&'a GpuVm<T>);
+> > +
+> > +impl<T: DriverGpuVm> GpuVm<T> {
+> > +    /// Lock the VM's resv lock.
+>=20
+> More docs here would be nice.
+>=20
+> > +    #[inline]
+> > +    pub fn resv_lock(&self) -> GpuvmResvLockGuard<'_, T> {
+> > +        // SAFETY: It's always ok to lock the resv lock.
+> > +        unsafe { bindings::dma_resv_lock(self.raw_resv_lock(), ptr::nu=
+ll_mut()) };
+> > +        // INVARIANTS: We took the lock.
+> > +        GpuvmResvLockGuard(self)
+> > +    }
+>=20
+> You can call this more than once and deadlock. Perhaps we should warn abo=
+ut this, or forbid it?
+
+Same as any other lock. I don't think we need to do anything special.
+
+> > +    /// Use the pre-allocated VA to carry out this map operation.
+> > +    pub fn insert(self, va: GpuVaAlloc<T>, va_data: impl PinInit<T::Va=
+Data>) -> OpMapped<'op, T> {
+> > +        let va =3D va.prepare(va_data);
+> > +        // SAFETY: By the type invariants we may access the interval t=
+ree.
+> > +        unsafe { bindings::drm_gpuva_map(self.vm_bo.gpuvm().as_raw(), =
+va, self.op) };
+> > +        // SAFETY: The GEM object is valid, so the mutex is properly i=
+nitialized.
+>=20
+> > +        unsafe { bindings::mutex_lock(&raw mut (*self.op.gem.obj).gpuv=
+a.lock) };
+>=20
+> Should we use Fujita=E2=80=99s might_sleep() support here?
+
+Could make sense yeah.
+
+> > +/// ```
+> > +/// struct drm_gpuva_op_unmap {
+> > +/// /**
+> > +/// * @va: the &drm_gpuva to unmap
+> > +/// */
+> > +/// struct drm_gpuva *va;
+> > +///
+> > +/// /**
+> > +/// * @keep:
+> > +/// *
+> > +/// * Indicates whether this &drm_gpuva is physically contiguous with =
+the
+> > +/// * original mapping request.
+> > +/// *
+> > +/// * Optionally, if &keep is set, drivers may keep the actual page ta=
+ble
+> > +/// * mappings for this &drm_gpuva, adding the missing page table entr=
+ies
+> > +/// * only and update the &drm_gpuvm accordingly.
+> > +/// */
+> > +/// bool keep;
+> > +/// };
+> > +/// ```
+>=20
+> I think the docs could improve here ^
+
+Yeah I can look at it.
+
+> > +impl<T: DriverGpuVm> GpuVmCore<T> {
+> > +    /// Create a mapping, removing or remapping anything that overlaps=
+.
+> > +    #[inline]
+> > +    pub fn sm_map(&mut self, req: OpMapRequest<'_, T>) -> Result {
+>=20
+> I wonder if we should keep this =E2=80=9Csm=E2=80=9D prefix. Perhaps
+> =E2=80=9Cmap_region=E2=80=9D or =E2=80=9Cmap_range=E2=80=9D would be bett=
+er names IMHO.
+
+I'll wait for Danilo to weigh in on this. I'm not sure where "sm"
+actually comes from.
+
+> > +/// Represents that a given GEM object has at least one mapping on thi=
+s [`GpuVm`] instance.
+> > +///
+> > +/// Does not assume that GEM lock is held.
+> > +#[repr(C)]
+> > +#[pin_data]
+> > +pub struct GpuVmBo<T: DriverGpuVm> {
+>=20
+> Oh, we already have GpuVmBo, and GpuVmBoObtain. I see.
+
+Yeah, GpuVmBoObtain and GpuVmBoAlloc are pointers to GpuVmBo.
+
+> > +    #[pin]
+> > +    inner: Opaque<bindings::drm_gpuvm_bo>,
+> > +    #[pin]
+> > +    data: T::VmBoData,
+> > +}
+> > +
+> > +impl<T: DriverGpuVm> GpuVmBo<T> {
+> > +    pub(super) const ALLOC_FN: Option<unsafe extern "C" fn() -> *mut b=
+indings::drm_gpuvm_bo> =3D {
+> > +        use core::alloc::Layout;
+> > +        let base =3D Layout::new::<bindings::drm_gpuvm_bo>();
+> > +        let rust =3D Layout::new::<Self>();
+> > +        assert!(base.size() <=3D rust.size());
+>=20
+> We should default to something else instead of panicking IMHO.
+
+This is const context, which makes it a build assertion.
+
+> My overall opinion is that we=E2=80=99re adding a lot of things that will=
+ only be
+> relevant when we=E2=80=99re more advanced on the job submission front. Th=
+is
+> includes the things that Phillip is working on (i.e.: Fences + JobQueue).
+>=20
+> Perhaps we should keep this iteration downstream (so we=E2=80=99re sure i=
+t works
+> when the time comes) and focus on synchronous VM_BINDS upstream.
+> The Tyr demo that you=E2=80=99ve tested this on is very helpful for this =
+purpose.
+
+Yeah let's split out the prepare, GpuVmExec, and resv_add_fence stuff to
+a separate patch.
+
+I don't think sync vs async VM_BIND changes much in which methods or
+structs are required here. Only difference is whether you call the
+methods from a workqueue or not.
+
+Alice
