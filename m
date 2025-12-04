@@ -2,87 +2,140 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51854C9BA3F
-	for <lists+freedreno@lfdr.de>; Tue, 02 Dec 2025 14:42:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DAC5CA2FDD
+	for <lists+freedreno@lfdr.de>; Thu, 04 Dec 2025 10:29:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B94310E07B;
-	Tue,  2 Dec 2025 13:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF6D10E8E7;
+	Thu,  4 Dec 2025 09:29:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Ur0QWbxy";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ETC6BYax";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j4h9vfMC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sender3-pp-f112.zoho.com (sender3-pp-f112.zoho.com
- [136.143.184.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D76410E07B;
- Tue,  2 Dec 2025 13:42:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1764682964; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=J5deUpTOyfLgWnRYXLaCiZ03EGaxwW0kt/0yekjjDNostrWcaRdy0yOgBdL0doJiqIssx/0yAKflWnrl6Ac9TDoiAAm5Brhm6sYegPEyHEioe3JYe8zvrc9LvUW4DYAcwuq0z9oMcJgl8xM+qsk1oD+ik2JlvZBYvVN8B+sGSSQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1764682964;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=yxkYvGGrptWLGrGGwE3MPFxIX3T7694Py55+2kGg0W4=; 
- b=Fi1N2V9tGzzIMAYbDcKDXVs+e40qBPSTDoN5Bw3/gp1tgCQhaC0O6NROEl65Ufb4jdQvMjhqULM1I4WLL04BafQaD6wzlZM3/Wbyirwxroz/JKi1JmVcreSw5p+RbECfSnOtsXsi6nVaGTmoGyIBHmJRU0wJ7bj7/3ahvJxs4wQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764682964; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=yxkYvGGrptWLGrGGwE3MPFxIX3T7694Py55+2kGg0W4=;
- b=Ur0QWbxyte3VimXITPe7fKzCdcPj497RtWW093nZ3y4JuyzsjvgKxHLIozCWfwqw
- HiIxPXzSjkRcWbsxjlFsvANrzaXFKHiPinFznThI/GPIIZ8hZKCwjjn6YmlSv4OYC5t
- W14f3yELfaok3Y5GRLhmUgX6jkmWXogjPnoj0Obc=
-Received: by mx.zohomail.com with SMTPS id 1764682962561352.7419515680556;
- Tue, 2 Dec 2025 05:42:42 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH 4/4] rust: drm: add GPUVM immediate mode abstraction
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <aS6lz12BIysBVHSV@google.com>
-Date: Tue, 2 Dec 2025 10:42:23 -0300
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Frank Binns <frank.binns@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, Asahi Lina <lina+kernel@asahilina.net>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A15F2FAB-3D7C-4DF6-9399-DCFCF34C4D8F@collabora.com>
-References: <20251128-gpuvm-rust-v1-0-ebf66bf234e0@google.com>
- <20251128-gpuvm-rust-v1-4-ebf66bf234e0@google.com>
- <3727982A-91A4-447C-B53C-B6037DA02FF9@collabora.com>
- <aS6lz12BIysBVHSV@google.com>
-To: Alice Ryhl <aliceryhl@google.com>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07F9710E8E4
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Dec 2025 09:29:39 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5B468sRC560341
+ for <freedreno@lists.freedesktop.org>; Thu, 4 Dec 2025 09:29:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ unIHf2bLbiUgKgdZ9j/dH/WmTNgmy72TLalZZX9Pogw=; b=ETC6BYaxzg5F3HR8
+ UiNhSQUFxDv9gBs4HiRRhPOtnbNxORAAfBaQa0dxYFCrrtv9gVTIc7VMH5H7+MKy
+ O4OG2tB8AiYpn8YQu7BwplB+22Skx1faisvQtCP9mmdoW/ZbWB2sQsk8RVVM97/F
+ sux6WgakNdhMHjVrCoFM4XLTbh9fmK83znckLlLAxxFvULHLkb2lYAZysXUmwGtR
+ 6fHrHAPWhtBxM0cUXsyn9rGnDnouPvdpP39AlRcvWZZP1Wy6zIHZs0rvuzh9kQ6S
+ q2gkXLh0ndxkUJ79UifqnBpokgMmjX86YviFqH8UFXSVaL64AlI47rbpM3SuRbNF
+ XrmvoA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4attmhaaf8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Dec 2025 09:29:38 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4ed5ff5e770so1296231cf.3
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Dec 2025 01:29:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1764840578; x=1765445378;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=unIHf2bLbiUgKgdZ9j/dH/WmTNgmy72TLalZZX9Pogw=;
+ b=j4h9vfMCDCO0YVe3uyyMXfYxvVjsSngI38AcWhrmOUjpbD+PiUPXaT5BURLO6PGLXe
+ JMGQ/0L9IRaqUz8rBxTSC8RFWrzOK0seK1RqLtrI+yhZwe8uUbgrbFYFv7eyxPccpBcF
+ rAcVpNIexrA0AZBNKQ5tpcEcCGRCjTePyLrigMMW9WVSwqR8jIyUtuU8fBZyPlCDSJjc
+ grYhLBlqcl/+MMMQ45RfkD4cKXTVyTQqS//EtT6cY+iT5qfJmh40eeESlpT5AeurkbUT
+ Bvym0+XiSFyQX+JpoASpRQwJl8f+dV7DVKkNJs5gcHeU/Kj8XEAUvJeMDAw781TQlxZ4
+ isbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764840578; x=1765445378;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=unIHf2bLbiUgKgdZ9j/dH/WmTNgmy72TLalZZX9Pogw=;
+ b=BecWWfb1uVVQyGowGqdzwQJh54z0F0BRwo8aIEP+8aDDlG70zdPpjQYX/Wmf8gaO7L
+ TLdMoAmaFTPUJBeWJXWDXPJpKKS7AJhs/lcWJ++6zeCG28ckgzAqj/oL71JOirgDmJb6
+ 3cixGV/Nv+5JXzYdmuxQfTom1jjD/UREEZK8nc0ZcNUdhYLsJO/8+J8N2Ta4s1cJ+viO
+ o1tshyqNuoGILadnT0m7miJn3a1ssQys8aIl+jt+O+jPbDkRKtrnXXHlv9OrQcy3estu
+ m8HDZGoFWwZ1FBftXaArXpbyzxDCuZjxYliXAV9BoUvfq5dzo+SjpfSzm+6NyVNiG79x
+ q4PQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVuNxWZr3Z512fCE4Zecy00Q52uBKJN9reyQOw2Fdd5L4ygimrKq+7GxR2EEce6/jIKI6TZZlNEvVA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3C/B7sczKvMDXI3g5alKtiaC6ayT9z8ddPFBwlyvdKCa5o3gE
+ Cd9nwv0JB/Fp8JkYJvrWIFhWljMivXsHGhFoGeyhLCOFAml0t+URsF5x77/deGQtnRkGYzomhAV
+ oamAtfc37TKms+IxVGrk6N/r5rxJMCHX+mvl9J9c9E2TOfe4bORgS81/bayA/lb5PrGwYcyY=
+X-Gm-Gg: ASbGncshbXj6huYFgMmffw3w69glMWkzsnRgJ6ehVja1Mlo2c3qj3hwZ+p1TKUa4swY
+ +8ryXTSRI0m9wZ0JKhDAnHhEnlUB6sr3XVU+TkZOuw4tS5tGW+KSeLD8O+KHKE0rEkhTHGFTv5/
+ kh71w1Qe9JJc+PgHJatlgvjb+y7bVwVm6HjvgImbh1+MCpwF43lmonjQQmwdFu+hjPHDr+zU25d
+ yLe2F+6pRLvAnb1OYUaMhhTTFKhKll6P1+uqIpIPjnAQBpKpwr6FwyUsr/PqA8roX5b8830F7hO
+ ppVP/rLIyIpAj/1bEFnFYxAAhJVWmCSC4VRuz4zHbp0aOCMEk3a8Y3VPKHxtd1OjV0vkiEeYV68
+ EN9vXSN9dcrhgwlyYWgPHXB3+qJeg+pnXtONbu2ZNBkBveGUjp6DM6fq9m3RuM2J0KQ==
+X-Received: by 2002:ac8:5793:0:b0:4ee:1924:c6fc with SMTP id
+ d75a77b69052e-4f01b0b0959mr46305761cf.1.1764840578490; 
+ Thu, 04 Dec 2025 01:29:38 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEFmWJJcCfG7Cy5tFaCOZPMPZvEVSgfUyJYtupxfO2ZUtQKd8azbDaBAGnvDPz39Cxu2XF9rA==
+X-Received: by 2002:ac8:5793:0:b0:4ee:1924:c6fc with SMTP id
+ d75a77b69052e-4f01b0b0959mr46305491cf.1.1764840577963; 
+ Thu, 04 Dec 2025 01:29:37 -0800 (PST)
+Received: from [192.168.119.72] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b79f4975c88sm78004266b.35.2025.12.04.01.29.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Dec 2025 01:29:37 -0800 (PST)
+Message-ID: <71366611-980f-4991-b7e4-f3713b70be6c@oss.qualcomm.com>
+Date: Thu, 4 Dec 2025 10:29:33 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] arm64: dts: qcom: qcs8300-ride: add anx7625 DSI to
+ DP bridge node
+To: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: robdclark@gmail.com, dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com
+References: <20251125013302.3835909-1-quic_amakhija@quicinc.com>
+ <20251125013302.3835909-6-quic_amakhija@quicinc.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20251125013302.3835909-6-quic_amakhija@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: blKIyqCKkTTCzEp1XkgvJ0tfzILJ6VGB
+X-Authority-Analysis: v=2.4 cv=NcTrFmD4 c=1 sm=1 tr=0 ts=69315483 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=rm2exvCS1sBdD0tWXWIA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA0MDA3NiBTYWx0ZWRfX+ri/4O5ylpEP
+ jhglzdV6sCsgA3R50CCO3/4mOLATy3eTcc7l5yDo9xbzGBuHt7gtAFUe6AIHks/mORAVlNX9gdK
+ IuESWrHrwdoik1+GCMDR7c2qqpAbn37genpGm60HMcgOFSUz5uGoO6nrLk/6tiQcI7KLCCvTAnU
+ a2HhX2DAoRfkU+s8wHb4vjWi5ZhnQCw74DPGo5m1x3QyhNLlVVx6Bc/tyvUMdhlw1kabarexotv
+ eukden+AqLwaThLNg+Jq56bk82R2bmzfpxVTNe6FepM6gjs3SjyDZzlEj4+a/J6VQSZDr7rNOPp
+ SLZQ3scPGOjPYMr6gfKMjfJd0Td73B+zRb23xjzOdeQsVDC8jyxuiFxh/tVc58bYpzXbtHD4aGY
+ Vbj8bEcxG8z6G4H0I9inSp+4NS9v3w==
+X-Proofpoint-ORIG-GUID: blKIyqCKkTTCzEp1XkgvJ0tfzILJ6VGB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-04_02,2025-12-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2512040076
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,324 +151,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 11/25/25 2:33 AM, Ayushi Makhija wrote:
+> Add anx7625 DSI to DP bridge device node.
+> 
+> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
+Couple of nits
 
-> On 2 Dec 2025, at 05:39, Alice Ryhl <aliceryhl@google.com> wrote:
->=20
-> On Mon, Dec 01, 2025 at 12:16:09PM -0300, Daniel Almeida wrote:
->> Hi Alice,
->>=20
->> I find it a bit weird that we reverted to v1, given that the previous =
-gpuvm
->> attempt was v3. No big deal though.
->>=20
->>=20
->>> On 28 Nov 2025, at 11:14, Alice Ryhl <aliceryhl@google.com> wrote:
->>>=20
->>> Add a GPUVM abstraction to be used by Rust GPU drivers.
->>>=20
->>> GPUVM keeps track of a GPU's virtual address (VA) space and manages =
-the
->>> corresponding virtual mappings represented by "GPU VA" objects. It =
-also
->>> keeps track of the gem::Object<T> used to back the mappings through
->>> GpuVmBo<T>.
->>>=20
->>> This abstraction is only usable by drivers that wish to use GPUVM in
->>> immediate mode. This allows us to build the locking scheme into the =
-API
->>> design. It means that the GEM mutex is used for the GEM gpuva list, =
-and
->>> that the resv lock is used for the extobj list. The evicted list is =
-not
->>> yet used in this version.
->>>=20
->>> This abstraction provides a special handle called the GpuVmCore, =
-which
->>> is a wrapper around ARef<GpuVm> that provides access to the interval
->>> tree. Generally, all changes to the address space requires mutable
->>> access to this unique handle.
->>>=20
->>> Some of the safety comments are still somewhat WIP, but I think the =
-API
->>> should be sound as-is.
->>>=20
->>> Co-developed-by: Asahi Lina <lina+kernel@asahilina.net>
->>> Signed-off-by: Asahi Lina <lina+kernel@asahilina.net>
->>> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
->>> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
->>> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
->=20
->>> +//! DRM GPUVM in immediate mode
->>> +//!
->>> +//! Rust abstractions for using GPUVM in immediate mode. This is =
-when the GPUVM state is updated
->>> +//! during `run_job()`, i.e., in the DMA fence signalling critical =
-path, to ensure that the GPUVM
->>=20
->> IMHO: We should initially target synchronous VM_BINDS, which are the =
-opposite
->> of what you described above.
->=20
-> Immediate mode is a locking scheme. We have to pick one of them
-> regardless of whether we do async VM_BIND yet.
->=20
-> (Well ok immediate mode is not just a locking scheme: it also =
-determines
-> whether vm_bo cleanup is postponed or not.)
->=20
->>> +/// A DRM GPU VA manager.
->>> +///
->>> +/// This object is refcounted, but the "core" is only accessible =
-using a special unique handle. The
->>=20
->> I wonder if `Owned<T>` is a good fit here? IIUC, Owned<T> can be =
-refcounted,
->> but there is only ever one handle on the Rust side? If so, this seems =
-to be
->> what we want here?
->=20
-> Yes, Owned<T> is probably a good fit.
->=20
->>> +/// core consists of the `core` field and the GPUVM's interval =
-tree.
->>> +#[repr(C)]
->>> +#[pin_data]
->>> +pub struct GpuVm<T: DriverGpuVm> {
->>> +    #[pin]
->>> +    vm: Opaque<bindings::drm_gpuvm>,
->>> +    /// Accessed only through the [`GpuVmCore`] reference.
->>> +    core: UnsafeCell<T>,
->>=20
->> This UnsafeCell has been here since Lina=E2=80=99s version. I must =
-say I never
->> understood why, and perhaps now is a good time to clarify it given =
-the changes
->> we=E2=80=99re making w.r.t to the =E2=80=9Cunique handle=E2=80=9D =
-thing.
->>=20
->> This is just some driver private data. It=E2=80=99s never shared with =
-C. I am not
->> sure why we need this wrapper.
->=20
-> The sm_step_* methods receive a `&mut T`. This is UB if other code has
-> an `&GpuVm<T>` and the `T` is not wrapped in an `UnsafeCell` because
-> `&GpuVm<T>` implies that the data is not modified.
->=20
->>> +    /// Shared data not protected by any lock.
->>> +    #[pin]
->>> +    shared_data: T::SharedData,
->>=20
->> Should we deref to this?
->=20
-> We can do that.
->=20
->>> +    /// Creates a GPUVM instance.
->>> +    #[expect(clippy::new_ret_no_self)]
->>> +    pub fn new<E>(
->>> +        name: &'static CStr,
->>> +        dev: &drm::Device<T::Driver>,
->>> +        r_obj: &T::Object,
->>=20
->> Can we call this =E2=80=9Creservation_object=E2=80=9D, or similar?
->>=20
->> We should probably briefly explain what it does, perhaps linking to =
-the C docs.
->=20
-> Yeah agreed, more docs are probably warranted here.
->=20
->> I wonder if we should expose the methods below at this moment. We =
-will not need
->> them in Tyr until we start submitting jobs. This is still a bit in =
-the future.
->>=20
->> I say this for a few reasons:
->>=20
->> a) Philipp is still working on the fence abstractions,
->>=20
->> b) As a result from the above, we are taking raw fence pointers,
->>=20
->> c) Onur is working on a WW Mutex abstraction [0] that includes a Rust
->> implementation of drm_exec (under another name, and useful in other =
-contexts
->> outside of DRM). Should we use them here?
->>=20
->> I think your current design with the ExecToken is also ok and perhaps =
-we should
->> stick to it, but it's good to at least discuss this with the others.
->=20
-> I don't think we can postpone adding the "obtain" method. It's =
-required
-> to call sm_map, which is needed for VM_BIND.
->=20
->>> +    /// Returns a [`GpuVmBoObtain`] for the provided GEM object.
->>> +    #[inline]
->>> +    pub fn obtain(
->>> +        &self,
->>> +        obj: &T::Object,
->>> +        data: impl PinInit<T::VmBoData>,
->>> +    ) -> Result<GpuVmBoObtain<T>, AllocError> {
->>=20
->> Perhaps this should be called GpuVmBo? That=E2=80=99s what you want =
-to =E2=80=9Cobtain=E2=80=9D in the first place.
->>=20
->> This is indeed a question, by the way.
->=20
-> One could possibly use Owned<_> here.
->=20
->>> +/// A lock guard for the GPUVM's resv lock.
->>> +///
->>> +/// This guard provides access to the extobj and evicted lists.
->>=20
->> Should we bother with evicted objects at this stage?
->=20
-> The abstractions don't actually support them right now. The resv lock =
-is
-> currently only here because it's used internally in these =
-abstractions.
-> It won't be useful to drivers until we add evicted objects.
->=20
->>> +///
->>> +/// # Invariants
->>> +///
->>> +/// Holds the GPUVM resv lock.
->>> +pub struct GpuvmResvLockGuard<'a, T: DriverGpuVm>(&'a GpuVm<T>);
->>> +
->>> +impl<T: DriverGpuVm> GpuVm<T> {
->>> +    /// Lock the VM's resv lock.
->>=20
->> More docs here would be nice.
->>=20
->>> +    #[inline]
->>> +    pub fn resv_lock(&self) -> GpuvmResvLockGuard<'_, T> {
->>> +        // SAFETY: It's always ok to lock the resv lock.
->>> +        unsafe { bindings::dma_resv_lock(self.raw_resv_lock(), =
-ptr::null_mut()) };
->>> +        // INVARIANTS: We took the lock.
->>> +        GpuvmResvLockGuard(self)
->>> +    }
->>=20
->> You can call this more than once and deadlock. Perhaps we should warn =
-about this, or forbid it?
->=20
-> Same as any other lock. I don't think we need to do anything special.
->=20
->>> +    /// Use the pre-allocated VA to carry out this map operation.
->>> +    pub fn insert(self, va: GpuVaAlloc<T>, va_data: impl =
-PinInit<T::VaData>) -> OpMapped<'op, T> {
->>> +        let va =3D va.prepare(va_data);
->>> +        // SAFETY: By the type invariants we may access the =
-interval tree.
->>> +        unsafe { =
-bindings::drm_gpuva_map(self.vm_bo.gpuvm().as_raw(), va, self.op) };
->>> +        // SAFETY: The GEM object is valid, so the mutex is =
-properly initialized.
->>=20
->>> +        unsafe { bindings::mutex_lock(&raw mut =
-(*self.op.gem.obj).gpuva.lock) };
->>=20
->> Should we use Fujita=E2=80=99s might_sleep() support here?
->=20
-> Could make sense yeah.
->=20
->>> +/// ```
->>> +/// struct drm_gpuva_op_unmap {
->>> +/// /**
->>> +/// * @va: the &drm_gpuva to unmap
->>> +/// */
->>> +/// struct drm_gpuva *va;
->>> +///
->>> +/// /**
->>> +/// * @keep:
->>> +/// *
->>> +/// * Indicates whether this &drm_gpuva is physically contiguous =
-with the
->>> +/// * original mapping request.
->>> +/// *
->>> +/// * Optionally, if &keep is set, drivers may keep the actual page =
-table
->>> +/// * mappings for this &drm_gpuva, adding the missing page table =
-entries
->>> +/// * only and update the &drm_gpuvm accordingly.
->>> +/// */
->>> +/// bool keep;
->>> +/// };
->>> +/// ```
->>=20
->> I think the docs could improve here ^
->=20
-> Yeah I can look at it.
->=20
->>> +impl<T: DriverGpuVm> GpuVmCore<T> {
->>> +    /// Create a mapping, removing or remapping anything that =
-overlaps.
->>> +    #[inline]
->>> +    pub fn sm_map(&mut self, req: OpMapRequest<'_, T>) -> Result {
->>=20
->> I wonder if we should keep this =E2=80=9Csm=E2=80=9D prefix. Perhaps
->> =E2=80=9Cmap_region=E2=80=9D or =E2=80=9Cmap_range=E2=80=9D would be =
-better names IMHO.
->=20
-> I'll wait for Danilo to weigh in on this. I'm not sure where "sm"
-> actually comes from.
+[...]
 
-sm probably is a reference to =E2=80=9Csplit/merge=E2=80=9D.
+> +	vreg_12p0: regulator-vreg-12p0 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "VREG_12P0";
+> +
+> +		regulator-always-on;
+> +		regulator-boot-on;
 
->=20
->>> +/// Represents that a given GEM object has at least one mapping on =
-this [`GpuVm`] instance.
->>> +///
->>> +/// Does not assume that GEM lock is held.
->>> +#[repr(C)]
->>> +#[pin_data]
->>> +pub struct GpuVmBo<T: DriverGpuVm> {
->>=20
->> Oh, we already have GpuVmBo, and GpuVmBoObtain. I see.
->=20
-> Yeah, GpuVmBoObtain and GpuVmBoAlloc are pointers to GpuVmBo.
->=20
->>> +    #[pin]
->>> +    inner: Opaque<bindings::drm_gpuvm_bo>,
->>> +    #[pin]
->>> +    data: T::VmBoData,
->>> +}
->>> +
->>> +impl<T: DriverGpuVm> GpuVmBo<T> {
->>> +    pub(super) const ALLOC_FN: Option<unsafe extern "C" fn() -> =
-*mut bindings::drm_gpuvm_bo> =3D {
->>> +        use core::alloc::Layout;
->>> +        let base =3D Layout::new::<bindings::drm_gpuvm_bo>();
->>> +        let rust =3D Layout::new::<Self>();
->>> +        assert!(base.size() <=3D rust.size());
->>=20
->> We should default to something else instead of panicking IMHO.
->=20
-> This is const context, which makes it a build assertion.
->=20
->> My overall opinion is that we=E2=80=99re adding a lot of things that =
-will only be
->> relevant when we=E2=80=99re more advanced on the job submission =
-front. This
->> includes the things that Phillip is working on (i.e.: Fences + =
-JobQueue).
->>=20
->> Perhaps we should keep this iteration downstream (so we=E2=80=99re =
-sure it works
->> when the time comes) and focus on synchronous VM_BINDS upstream.
->> The Tyr demo that you=E2=80=99ve tested this on is very helpful for =
-this purpose.
->=20
-> Yeah let's split out the prepare, GpuVmExec, and resv_add_fence stuff =
-to
-> a separate patch.
+These properties usually go at the end of the node (e.g. x1-crd.dtsi)
 
-Ack
+[...]
 
->=20
-> I don't think sync vs async VM_BIND changes much in which methods or
-> structs are required here. Only difference is whether you call the
-> methods from a workqueue or not.
->=20
-> Alice
+> +&i2c8 {
+> +	clock-frequency = <400000>;
+> +	status = "okay";
 
+A \n before 'status' is customary
 
+[...]
+
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						dsi2dp_bridge_in: endpoint {
+
+Also before the last property and each following subnode
+
+[...]
+
+>  &remoteproc_adsp {
+>  	firmware-name = "qcom/qcs8300/adsp.mbn";
+>  	status = "okay";
+> @@ -419,6 +574,21 @@ dp_hot_plug_det: dp-hot-plug-det-state {
+>  		function = "edp0_hot";
+>  		bias-disable;
+>  	};
+> +
+> +	io_expander_intr_active: io-expander-intr-active-state {
+> +		pins = "gpio93";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+> +	io_expander_reset_active: io-expander-reset-active-state {
+> +		pins = "gpio66";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +		output-high;
+
+This conflicts with the ACTIVE_LOW definition, plus it's generally
+handled by the code via GPIO APIs => please drop output-high
+
+Please also keep the entries sorted by the GPIO pin index
+
+Konrad
