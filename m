@@ -2,139 +2,143 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E59A3CA2FFB
-	for <lists+freedreno@lfdr.de>; Thu, 04 Dec 2025 10:30:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3267CA3115
+	for <lists+freedreno@lfdr.de>; Thu, 04 Dec 2025 10:46:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFD8610E8F2;
-	Thu,  4 Dec 2025 09:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDF2B10E904;
+	Thu,  4 Dec 2025 09:46:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O5QddFXj";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Kz0dX23g";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QgAp/swa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h50MFfVg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 721E010E8F2
- for <freedreno@lists.freedesktop.org>; Thu,  4 Dec 2025 09:30:52 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0F6110E904
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Dec 2025 09:46:48 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5B468bq4551358
- for <freedreno@lists.freedesktop.org>; Thu, 4 Dec 2025 09:30:51 GMT
+ 5B468pZT560269
+ for <freedreno@lists.freedesktop.org>; Thu, 4 Dec 2025 09:46:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YHZIS/ifGG1Oi6aVWQjKLm6950VSJb+EI1VzQSHfDCA=; b=O5QddFXj5oDC78Eu
- AFD5D0c9iubG3vkR+/J2i1qxT3ElqH9myB2/Ni0eABOe4motCjDWJRqaRrzfrqmr
- rCqrsAW06wJ9Mdd+pN2kXo7dsrXcc/iAoOh5eOstWxEDjsbqDQRis+H+2rtbsdS8
- qioiEqo/yx7vrRucFB/2ccooRVd88Zf5F1qFJuS22jQvHC0nTkO4lKUPCX4VNQ6J
- dPnk2aMfigsN0+4dnNjpU3ExnmO/CEWqcr+BYlS7QncP05Jahf2jwcddRKDC5D60
- wSbIVCZZ2r3DQV9HrzD647Zkw6/IXXfQn/sPuTfJvyeLe85KIKzLCwwcXHdPVXl/
- O8mSoA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4atmmdbgs4-1
+ 7Z/HfXyX0h3h8yE4qzxHIWyVY2HabPVYbfFHG1no/2M=; b=QgAp/swaJ0IDrkam
+ xgFJVbyHR+m2S39k2olMMZEB7mKImEqRUh1FsllKFWMlaG3pksXDXclIbHnuwmC7
+ 5KRoMaekP6Dl9KUrxBPFtugJsiuDBtaBlKyUKlOgh0BGcJK9/0fdpsl3fdjOw7x1
+ WUvv1R3/jcXa+USJazKQrfEW/zB/O8Hm6MKl8JNcXjwpJYwlQhu9XZMNOe3fZLHl
+ RBiz32hL0Ax51A1JhqVwSPWX3VybRQFjO5wOUJCFo8jW6CptS+A5agK/vYLpX6CR
+ 0kUy6rlyfNquRCHCWH84taqraO6OOfhgwvMWYeGyTjQRKiEXfGPZr4LkRx8ZqirH
+ hnv0pg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4attmhadux-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 04 Dec 2025 09:30:50 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-88046bc20faso1939356d6.0
- for <freedreno@lists.freedesktop.org>; Thu, 04 Dec 2025 01:30:50 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Dec 2025 09:46:48 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8b30b6abb7bso145983285a.1
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Dec 2025 01:46:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1764840650; x=1765445450;
+ d=oss.qualcomm.com; s=google; t=1764841607; x=1765446407;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=YHZIS/ifGG1Oi6aVWQjKLm6950VSJb+EI1VzQSHfDCA=;
- b=Kz0dX23gkrHt7v8TNtMCkeVAd3vbuOxd/49bnV0b0JRx+AlkY7h57aZpyH9Ilsqm7Y
- kyS446fiGlsMvR4l7/5BiKt3i4d92oiLwKA/7IZipdltke168TU2vrNNq69DObYsHTaj
- lrYYCFjHxISGwSyFsnD3ABtxGZi4FFMa+hintDRxcqLbtV+hpqHC1aE6HBls+W3yFtin
- B+giVM550arGpgxrfL7wBbGqG4+SbC33wtbkS8uV6liZaLnm6lcMR1oOd378xSWWWw4V
- EVhGb3GL+LGqb2uW1Jdbo9Z8MaIgqQPVM9NOTFX0si/lF5k9SxcngIBX2H3Xyg/1vloc
- vaMg==
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=7Z/HfXyX0h3h8yE4qzxHIWyVY2HabPVYbfFHG1no/2M=;
+ b=h50MFfVgaJ4V9du5EtVv8O8Yi/Fjp/LW+iU1E94hjixS1Rg+nhi/rho1XtQP0qAxJO
+ AlrouDoh1Yz168/VqzBtpt+4usbyCXUBkmA1LCz+N1F401NXIZZ1035Z8BgdiU7X6TYH
+ CCaTgnC5zUmSi6ecAPMzC+8RiTabB8sx23AHIy/M9+fNd4GHqccrm+WEYdZW4/ss5Xvy
+ gistXBKRRGHX7nIfo6ct27WslRG6IysgN6CloJ/Daw5PMBkixsVYBn2+Pv17ucNbOKPc
+ qCDlEbUTNtA4O0a+emM6e//L7KYeVtSahN15/6vwv1t8kK1j1ePt3eta27okyduIuWST
+ 5VBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764840650; x=1765445450;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=YHZIS/ifGG1Oi6aVWQjKLm6950VSJb+EI1VzQSHfDCA=;
- b=hK1lc8KnSMP5cv6CfQet3WgPe0s6d8eBiizKlfz5RGxmxZINxX3TwwUivtPUr/Uf8R
- Y/lsIO6ef/PQiw6bJEMtux3XXnqZmLePl2DbVMFwg4o/JBYvor1SonSWQPR/yRN7hVqJ
- VRuQKoQDc4uGjU8I5v0LnnUX58B8CEbNQUtKdiaruKanDgWbbQwN0o5u1OztY7Ag1adD
- fwuMIPpA2Y8Wl5FE9seW+Pulb3rKKfWQHUVeggvvXhD/5BixkqXHCERlsLMC9iHLfZ2H
- PZ6c2YkDpWKILdD6JKUS38nF+sMBXkDw6kJjhnJ6KyKphOAkHSPZynLQOwVnOG+3U/aD
- YPJg==
+ d=1e100.net; s=20230601; t=1764841607; x=1765446407;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7Z/HfXyX0h3h8yE4qzxHIWyVY2HabPVYbfFHG1no/2M=;
+ b=e7QyvS7M7ltbJ7k3NkAISIJyiKoE12jZGR2dtl77VgyJUD1IW+DT72jg9z/1++feQI
+ CwXqlRoyVEIccxuuFeT2JNp9zlG+xCpRPVIn8o9UitjeYlNkbr4j/vDw8OLwI5jzKZou
+ aTT2SLHfuN+McFyc/1bhc8ZfC9T3USgF5Y4wiOxd0jtO0YybnCYFITww1WQ+st8HCDhG
+ X+uKezpfpiriPoIpL3ENU4M/RlFBTp+XkPkynZ3Hseq87yAHZiX2Af/bSuMrIcjHvtAs
+ CG2wqB+W8RNzeId5yLAAu0L29uS56AxAMpZOG71xEvzVbwWWYYKwtmbI7UKVFz4E0a7M
+ Qs1A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkXm9NMi0NkroVU+MJ5rl4DTcPRfjMYE9wk+e+r+ZiX+WnKYrJH4saTUSZ6VbqGSZM6cpFUEs77xE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRJueOBs3GRcE+NScbw3a4Si543y7wkaYrL8VOPLU0euEej2Jc
- 35cKxORG0H/1mYwZbLWqnNO5JB/D2gKq2xY9ikhog6Hx9C0+rTPo5IZaMPhfAo8piLn2s9mFlQs
- G5FunRDbrwmKedkkaXzfy6d6Dv1XxfpWGWI9P4UZswouw9GwsD8dVbxFFnComoAGUYZzew1s=
-X-Gm-Gg: ASbGncv2zhQRdoJB8Rqt7Wx+R8EcCWZrL0HiqNQ3EjJbQVqLkEDfrPZ8xLKWo20SGFK
- +DfuwlvWcPR3ltNXvgMGkiSY7tX4t8lF9B987QCd7myx7qqVTdKWHQpTia8ysexp2GLP92Wp9aG
- WjdMbaz4Sr4b++YM395qo86enWQZfazEMhw+mxX20i18Kw5H6YbB2olh7YdS4/uB5Y98DGOZn0z
- zbb0CDwf8tIaBPwZ7tO9ODcRIAJ3D1qBt3i+LqDbR1F0kPXLQZBDW3d2JtTW1TkfR1H14W8nu0Y
- B7IxlSoO8ZX/uiw4Q7QEnVJX+B1EJT6jsza2xTjmKlp4w1Mns0MhSamyPb6vtxJd8PQz4+HJHjn
- UlAs50KBpojvJymUdty/e+apIyQifpAoZxIIY3YhD12EMmh7uRcAjnegfm4YLpg6HPA==
-X-Received: by 2002:a05:620a:1985:b0:8b1:a4dd:3d66 with SMTP id
- af79cd13be357-8b5f8bffce1mr486936185a.1.1764840650293; 
- Thu, 04 Dec 2025 01:30:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHNiLdjRNKO9ZcI4TFhvnmYWWXLXzFWvAeb2BmQ6tBMrffZy9O/0DUsPB+d6zCalUQC5juiFg==
-X-Received: by 2002:a05:620a:1985:b0:8b1:a4dd:3d66 with SMTP id
- af79cd13be357-8b5f8bffce1mr486932885a.1.1764840649717; 
- Thu, 04 Dec 2025 01:30:49 -0800 (PST)
-Received: from [192.168.119.72] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b79f4975c88sm78208466b.35.2025.12.04.01.30.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Dec 2025 01:30:49 -0800 (PST)
-Message-ID: <46d2aa15-6866-4777-a080-f983ba3769d3@oss.qualcomm.com>
-Date: Thu, 4 Dec 2025 10:30:45 +0100
+ AJvYcCWptPMO3R5biRki8Ci+bnuR97ORuIuvYEZUzXUtYfl2uBXHj/s1p9ljP17aHx8LeLEFgWlxcruzGjo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcpWnAzTK5GVge+bXHcil6sbHa+fMCicJG8jPYlg8TNfo3ih+B
+ ijp3Iu3EwgGYwBdl8pJz4CMg2tnGPEHbBFOVMdETj4lJ6N7BYn+qg2ziaqoJVu1E4caASC6u6ic
+ Z0zq+NUsQK1jy/6f77VyGlvj6vmMRm5bTRIjO+C3kEM/Qat+ZARTMv7h2+zaNipiSKRjwCsk=
+X-Gm-Gg: ASbGncsvw98UOHoldLY2a3sBi5MGyRQ+bbKLJTwcAygOdJ+D1+OZh0JxvFjXOMS/bWl
+ 3elnrmikOVsp2kXyhKSr1LCVkV4asY8iclFOFA8EU153Stwyt79WDlAI1zIT27InxoG61Ew/ZnD
+ 4cMuX5MWNTG4EhzRpJ1QSQdW6hEujXg6Gs2wRDCmO6zZPl2BJt+1Clk4Dc/WNLTdzHIidkJiOXK
+ gkcr2WBF48ZY1HaEgOYRBZCnk2urJVtaR4G3nflaQfn5104n5Qrd83iyjrJQ8CcTBDyal3c81f3
+ Ak1GcbBz+Tkftf3tLpA8aBaGo/ifwJ00AeWsKaValq2Fdr7BsiKOzc/XaZcCdh5FJZXRpoqtwms
+ yRaRsxKU9YUkqRI6xOsajoOWUk/zgrtwigwk6NRf4FwQNbs31UipJuIW45mxYk9QgcHE1DKaans
+ I9Vlq7vdiXDUjeZoXUPN23v7Q=
+X-Received: by 2002:a05:620a:46a9:b0:8b2:eae0:bc02 with SMTP id
+ af79cd13be357-8b5e77339bfmr840433485a.88.1764841607437; 
+ Thu, 04 Dec 2025 01:46:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHdzqWVxp5iXvWLw/Xt83XL2+yu0WboXvnBGeW5ESLenPupRJ5hZEkM33PPmCIfET4k+FdNPg==
+X-Received: by 2002:a05:620a:46a9:b0:8b2:eae0:bc02 with SMTP id
+ af79cd13be357-8b5e77339bfmr840429685a.88.1764841606828; 
+ Thu, 04 Dec 2025 01:46:46 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-597d7b2495dsm344869e87.38.2025.12.04.01.46.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Dec 2025 01:46:46 -0800 (PST)
+Date: Thu, 4 Dec 2025 11:46:44 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Dale Whinham <daleyo@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ =?utf-8?B?SsOpcsO0bWU=?= de Bretagne <jerome.debretagne@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 5/8] drm/msm/dp: Add dpcd link_rate quirk for Surface
+ Pro 11 OLED
+Message-ID: <i46ywpjpe5ujrokpssqwaf2hcu4lwm5k3t3okyk25rfor3mhfj@hxl7zmpdgzte>
+References: <20251201011457.17422-1-daleyo@gmail.com>
+ <20251201011457.17422-6-daleyo@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] arm64: dts: qcom: qcs8300: add Display Serial
- Interface device nodes
-To: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: robdclark@gmail.com, dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
- quic_vproddut@quicinc.com
-References: <20251125013302.3835909-1-quic_amakhija@quicinc.com>
- <20251125013302.3835909-5-quic_amakhija@quicinc.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20251125013302.3835909-5-quic_amakhija@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Cjs08bqhxkUZNx3AWgYIYz4fxqqlJbUB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA0MDA3NyBTYWx0ZWRfX8NqyQy1tJqw2
- WjLAGEYt7g42rOz/tg2pGJFb2gRcO1zb4JZozkADSL/0Vei7ZZG/GyDNTgdO9eg5ornw8m5765y
- 4U178ss+dv0mljsO5S24VgdY2i+NDCinmhjUYXPiJ5auhOgG/M7DAmNQFfdsN6hw0N2dLhKMxjW
- XP3t2gz8BnIplbVMQMi2jL2fD93JnId7oMZwDoyvS9/sd1j30T94pZ33wxO7dxGaKfBYTQJLWcW
- V2tR/h6Y8Gp0lruj7MYt7E2AjBOI8XAyV/K8LCA3nM0gqvuieKIMM8GtFDVp3l9hjjrb3tvxzyC
- IIIoTUH4AkgrvwKLzilKbFqq9OQO4IlA7MOCtsFAH//GIO+N+tRSL1iSc5XKhUXGZBAH/VQTGVu
- Wx7+RI9zdBR2Qn5B+utlAhHu4anqig==
-X-Proofpoint-ORIG-GUID: Cjs08bqhxkUZNx3AWgYIYz4fxqqlJbUB
-X-Authority-Analysis: v=2.4 cv=Ctays34D c=1 sm=1 tr=0 ts=693154ca cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=OIU6w6j0321fZR4p8lUA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
- a=TjNXssC_j7lpFel5tvFf:22
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251201011457.17422-6-daleyo@gmail.com>
+X-Proofpoint-GUID: RCC6WYZxnJbtx6OqULJ0IiM7dJMxmLcW
+X-Authority-Analysis: v=2.4 cv=NcTrFmD4 c=1 sm=1 tr=0 ts=69315888 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=pGLkceISAAAA:8 a=6PeS3r3LZKgS9momG3EA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA0MDA3OSBTYWx0ZWRfXw3YzMoCzCLIq
+ HeVjP1q+R5x71dUsBAfmrhv5zRoVzY05UXppa4fW7a+KSLyf/DA43opnC8sldxD1rh028ZEVDZ7
+ Dem0ZQ3VXgfAV+8F3mTMYcNV+79SZCI1Anpgi90AhEhlOsNgqfWXeEZS2p2CShnPGsixx0odw83
+ g5b1cQ4vRcmjLyYFJHTMOM4ofLSy00xyN5RZKp9QbgqzzxcWyvaeH11oohsAZzKeYCjlE4Df4tl
+ r/Dg1Pr/F473u+rVggq/KvtDPcr14pntpI/qlU+awUhYxN8MIbSiOiadMmwFgVQVrBjdc8v3eCI
+ oUXTyZusH/2nXhMLm2RrEUYJSezpFEixyfAtErv0r9kbhjcL9QudpQiGm166BmuBOd+7GXV/RBT
+ BVwWqsK+JC8H7Ig9n8yXH5ENSsCbjw==
+X-Proofpoint-ORIG-GUID: RCC6WYZxnJbtx6OqULJ0IiM7dJMxmLcW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-04_02,2025-12-03_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512040077
+ clxscore=1015 suspectscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2512040079
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,48 +154,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/25/25 2:33 AM, Ayushi Makhija wrote:
-> Add device tree nodes for the DSI0 controller with their corresponding
-> PHY found on Qualcomm QCS8300 SoC.
+On Mon, Dec 01, 2025 at 01:14:46AM +0000, Dale Whinham wrote:
+> From: Jérôme de Bretagne <jerome.debretagne@gmail.com>
 > 
-> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> The Samsung ATNA30DW01-1 OLED panel in Microsoft Surface Pro 11 (Denali)
+> reports a max link rate value of 0 in the DPCD register, causing the
+> panel to fail to probe.
+> 
+> Add a quirk for this panel during DPCD read to set the max link rate
+> to 8.1Gbps (HBR3), which is the expected value as reported by the
+> "EDPOverrideDPCDCaps" block found in the DSDT (0x1E).
+> 
+> Signed-off-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
+> Tested-by: Dale Whinham <daleyo@gmail.com>
 > ---
+>  drivers/gpu/drm/display/drm_dp_helper.c |  2 ++
+>  drivers/gpu/drm/msm/dp/dp_panel.c       | 14 ++++++++++++++
+>  include/drm/display/drm_dp_helper.h     |  7 +++++++
+>  3 files changed, 23 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index 4aaeae4fa03c..a533fbb2988d 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -2543,6 +2543,8 @@ static const struct dpcd_quirk dpcd_quirk_list[] = {
+>  	{ OUI(0x00, 0x0C, 0xE7), DEVICE_ID_ANY, false, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
+>  	/* Apple MacBookPro 2017 15 inch eDP Retina panel reports too low DP_MAX_LINK_RATE */
+>  	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID(101, 68, 21, 101, 98, 97), false, BIT(DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS) },
+> +	/* Samsung ATNA30DW01-1 OLED panel in Microsoft Surface Pro 11 reports a DP_MAX_LINK_RATE of 0 */
+> +	{ OUI(0xBA, 0x41, 0x59), DEVICE_ID_ANY, false, BIT(DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_8_1_GBPS) },
 
-[...]
+NAK, DP_MAX_LINK_RATE = 0 is a part of the eDP standard. The driver
+should use alternative method (Link Rate Table) to identify supported
+link rates.
 
-> +					port@1 {
-> +						reg = <1>;
-> +						dpu_intf1_out: endpoint {
+>  };
+>  
+>  #undef OUI
 
-\n please
-
-[...]
-					port@0 {
-> +						reg = <0>;
-> +						mdss_dsi0_in: endpoint {
-
-here and the other one too
-
-> +							remote-endpoint = <&dpu_intf1_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						mdss_dsi0_out: endpoint {
-> +						};
-> +					};
-> +				};
-
-[...]
-
-> +				clocks = <&dispcc MDSS_DISP_CC_MDSS_AHB_CLK>,
-> +					 <&rpmhcc RPMH_CXO_CLK>;
-> +				clock-names = "iface", "ref";
-
-1 a line, please
-
-lgtm otherwise
-
-Konrad
+-- 
+With best wishes
+Dmitry
