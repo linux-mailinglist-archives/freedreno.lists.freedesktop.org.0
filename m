@@ -2,147 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E904BCB46A0
-	for <lists+freedreno@lfdr.de>; Thu, 11 Dec 2025 02:25:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A407CB8E32
+	for <lists+freedreno@lfdr.de>; Fri, 12 Dec 2025 14:21:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6EE10E6B5;
-	Thu, 11 Dec 2025 01:25:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1762410E72A;
+	Fri, 12 Dec 2025 13:21:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SjbV9boF";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j5SMCi31";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="aob9AFqO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B76AF10E6B5
- for <freedreno@lists.freedesktop.org>; Thu, 11 Dec 2025 01:25:40 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BALP3LT4126241
- for <freedreno@lists.freedesktop.org>; Thu, 11 Dec 2025 01:25:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=rASoLVyrBJXhrF0h1gSO14
- X7uGDfAWAuGu7uPdIWy1M=; b=SjbV9boFGKOPGU85sUP0uH1sXjWnDG0VWfsoYu
- 8fYFcsHGel8CLm8EU3thVz8dKEsSDAP8lkwQFtfYLprd+HJnTP2sl6qzyn4/g154
- Ykc9sAVzzvng7Al5Nj3ISKMs23Z5ffVimUopNm9J0PEMjRKxGqHcwN9L1pQItUTu
- C5VphfdxnqtFjMmWdipoJWDMNdypLQCD78BLYzgRDDe3gLibbqaHM52ZfrW1bYzh
- etxRD+CkkG3IeVbIQx01ICYYM94jFR9IgSYWa/OWtObiPVNHRH0FrPH22fgkhpxp
- 10bNwGrIKfNpFZvsGF6jCL7lzosfD9OyKRi7ObxfXmAVOYfQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4aybhp9qm1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 11 Dec 2025 01:25:39 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4edaf9e48ecso10980931cf.0
- for <freedreno@lists.freedesktop.org>; Wed, 10 Dec 2025 17:25:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1765416339; x=1766021139;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rASoLVyrBJXhrF0h1gSO14X7uGDfAWAuGu7uPdIWy1M=;
- b=j5SMCi31a/ITIB050rJUDKBTFXTgzHPWkcneuLpLVf2XBYgtHivZQwX7uy7SIsduSQ
- McRTr978cg+rTR0ekAwpVCMv6NysNeiUt6/X+ml83NJCJgqd5GwtUqOH8CC5XgYw+zfR
- JlAu6f2vv9ORkRWXzdF9QRD0JUEwHuyAZr0xD/Ay+flFkcJXJs8J392/stsn6NLV0qcF
- ELrOJ0EcOOzim3hzVgAuOZ6HNdqGaswgNYvBcowDemRhdan4y8b6zzyyYhzHl6N4WXHV
- UYPu94n6v+cv+4bpW1wmGjed16VPKE7YVxRt6luAuxcwYoyfItfmLjMNlNExHxc/C88R
- sd+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765416339; x=1766021139;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rASoLVyrBJXhrF0h1gSO14X7uGDfAWAuGu7uPdIWy1M=;
- b=UpHu50kVBYcxlYLjhk63QLNc48ueEkVdGquDh2YXez/AoN8suru3PjejM5PbUcJOtx
- kPx7P1uEAkCw10IhMaSoqNOqWtqSattAQDrt4sd5/wNDCSd2LRZ2m6Hipql+gbMHJpnb
- tz3xoQC7a8bpxD0SyEKao1NisAThn4yilRWbEzxAI1cwZ5URrx4dXT2w00vUaK+fB3ud
- VOB76gE1Eshj6ZmFb5m28df4s3Ix+oGoxv/mjxzBHjyYjsDDIhv/IFyV+Sii+pZkL7Km
- I4Fk9AC8mDa0NR6x/5PN6+jLBuqhreyQlrgaWPpU5pJrJ4dFvmcAJgiXZON8HZotlI/8
- ry5g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXe2BOFlJQ4dx7Iog1h/5OO0Rrdrlo/LMrqXUAwlfTR+nnlJR/nhYHHvb2LX3zcEwjvLlzqw1UtMtQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyofFA4V9DOstEJxa8rYQ8gO9TSUSR5zkPpen0xBwT+G6Y6bUQb
- DhKg+aFdUrM9eZM4tGLZ9AOw44HKqqLdm4ZLbMqKguIGNlwlbvMQfx8+w5b43Gq8yxWgZcv0IpP
- Qd0CsUxmCew+PFSZyVgrw+RNMBIZ6WVnII1SalPoDnau8gpZE2icIiDStBAuKKp1UYpzjass=
-X-Gm-Gg: ASbGncuXWhgFOpro6yRoFr5nEjxWeI0npSakgQqxPaYSKYYesGKfvlq5NU+pojM8+Xo
- tt98G+Xy3ldbCsh3Gx+zfq4+X+05AAX3nMpThEXlSIKnrkOjyJzY9Dj8evC+IDooJGkCno/Yt5o
- aI1WjEbDaMf7Ean0jOlZ9Lu0OJ21xYUvHkpwwRVnvRQyfmX1ciTD4AKG1/JTviVbQiH7I7iaZmY
- +HvCPV1qvR/Rw2DzYWgRalAnwfc9eT/qOGstmAxA1gpsOZCINGkJvIm/y9SbzFd0vWmela++b0y
- y2/EkXuPagvUxK6odoMhA2Sro2sjaRo7lqWsAQ8DnvzT4TamBcgX2pCIkLyXYGFSKh1D3KR0h0d
- eNd91wN6TLD5mQHS2R/8JrhdUvIhxUoqMby0E0CzWWjq5Lkft3yXN8ARtHztuMksDkncLN2QjEE
- tac7/mmTxmwcw9hxilBW4HzW0=
-X-Received: by 2002:ac8:5cc4:0:b0:4ee:ccd:7215 with SMTP id
- d75a77b69052e-4f1b1897abbmr64678491cf.0.1765416338808; 
- Wed, 10 Dec 2025 17:25:38 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEYu4ciIQEllUx8HjhR17H33wdlV8uzobQylA7fUJET6grh8RA5hdohpgJt/Dr2N3rxhiElYA==
-X-Received: by 2002:ac8:5cc4:0:b0:4ee:ccd:7215 with SMTP id
- d75a77b69052e-4f1b1897abbmr64678211cf.0.1765416338293; 
- Wed, 10 Dec 2025 17:25:38 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-598f2f44c70sm383122e87.39.2025.12.10.17.25.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Dec 2025 17:25:36 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 11 Dec 2025 03:25:31 +0200
-Subject: [PATCH] drm/msm/mdp5: drop support for MSM8998, SDM630 and SDM660
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251211-mdp5-drop-dpu3-v1-1-0a0186d92757@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAIodOmkC/x3MTQ5AMBBA4avIrE3SP4KriAVmMAvVtCEScXeN5
- bd474HEUThBVzwQ+ZIkh8/QZQHzNvqVUSgbjDKVak2NO4UKKR4BKZwWbTPNypFzWlnIUYi8yP0
- P++F9P9RLg+dgAAAA
-X-Change-ID: 20250926-mdp5-drop-dpu3-38bc04d44103
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+X-Greylist: delayed 437 seconds by postgrey-1.36 at gabe;
+ Thu, 11 Dec 2025 09:47:09 UTC
+Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net
+ [178.154.239.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B814E10E2AF;
+ Thu, 11 Dec 2025 09:47:09 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net
+ (mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net
+ [IPv6:2a02:6b8:c42:94a9:0:640:a3fa:0])
+ by forwardcorp1d.mail.yandex.net (Yandex) with ESMTPS id 889C5807A3;
+ Thu, 11 Dec 2025 12:39:49 +0300 (MSK)
+Received: from kniv-nix.yandex-team.ru (unknown [2a02:6bf:8080:c5c::1:37])
+ by mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net (smtpcorp/Yandex) with
+ ESMTPSA id MdLltr0FqCg0-XKazNBt7; Thu, 11 Dec 2025 12:39:49 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; t=1765445989;
+ bh=gZ19bStIXK8ZTYeaIB4Wio3OCyGR20Y3eysM2vFARVU=;
+ h=Message-Id:Date:Cc:Subject:To:From;
+ b=aob9AFqOPibHIQfZ9z38+gzDHxMpxstejtPnTKQO/EzicSIfSGqNyRh6d5m/WF5Nm
+ oDW7M1xsayyjBm1k9hLOCAkQOIGS1Q0nJ/F3V+ME4C4kYye8VWMq7jRTZYlaC3f2wX
+ 1vjFwfVpduMxoB8mv5sY5U5kF5EcH+VW2qYkNPFY=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net;
+ dkim=pass header.i=@yandex-team.ru
+From: Nikolay Kuratov <kniv@yandex-team.ru>
+To: linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Alexey Minnekhanov <alexeymin@postmarketos.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10816;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=kWKRDCJl43QsXqXvV30S0DLIHizgcKtZvlz0/nRqD9g=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ6aVbJ9Nc/uMWROqX3oGPm+4XZZgW1HspTtv48FnnzgX2
- LJXXdDqZDRmYWDkYpAVU2TxKWiZGrMpOezDjqn1MINYmUCmMHBxCsBEatnY/+lnaVuvO19d5N+v
- 99Gk8EHN2ZuWicfytzw9xid9ok5NIFf5yna9qQyH32UmO35pOxaT9PPUys3KkS1/zO/F7ZHxDZ2
- ZmVZ7xUDx/7xDDj90VP5HBc/82/enOVU6paX/4cXDmvcvcJ0u9eUwr3TunXy8UHhvD8/jP2//e/
- Nl9OtVS9zpn5ri+kv2dnaVb2n4xj1aylddPMriruoaHznMKDhztu6fhSrvVeQPi99fytShd0fX3
- PrK8pufPizs1Ql7e/TG71rvjuJTK6scmo/1rE266egdsecvY6D8m+tBEzaKxq9iYpH40Be25M+7
- j+KzfxdHTeXTOSSaesSvJlbOqO6HKaPqkX6Pljqfyq5YAA==
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjExMDAwOCBTYWx0ZWRfX2Ut8lt9hihae
- HNuymMs1xwjl39krgpah1n6q4pWcBlUR4xMCxzq26IahwjYVcfhg74rSMvrRY61JOfNki56Px9Y
- 856TRjZhvnc5liPB6MK/vvsy0yhTD/+YY0sXMLpvSQ9m8qhmu9TsdnXVMane2gjvTpsPkIJloQ1
- 0euZYqaenjDOsfYPyxV161RhHz+ZRpomYkxjd3WJ2YJ4qkdaV/L4CnikP+HbVUCHs2BUs+5rhM2
- c0ugSnkPU4jztmM8sLpBzpPIQhTA3IWysicdcYfdWTziz+sDbmck9haMmMGgf4iS9RpfgnvJ/+f
- MIGIp+I3MODQA9ZlJ00XYizPMCjclqnLSll7HeU7B1S9iO9SDKCzYNxe/E9YC7/KvbaRSosVTHW
- O3Zxuj+PKeQbi4JDv31ZJzMMunge5w==
-X-Proofpoint-ORIG-GUID: yxdWHQVFYvfObnG4bZOQXeigsMbGtTTS
-X-Proofpoint-GUID: yxdWHQVFYvfObnG4bZOQXeigsMbGtTTS
-X-Authority-Analysis: v=2.4 cv=LJ9rgZW9 c=1 sm=1 tr=0 ts=693a1d93 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=-7OkC1N2hDg87y89b1EA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-10_03,2025-12-09_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512110008
+ Sean Paul <sean@poorly.run>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Nikolay Kuratov <kniv@yandex-team.ru>, stable@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: Add missing NULL pointer check for pingpong
+ interface
+Date: Thu, 11 Dec 2025 12:36:30 +0300
+Message-Id: <20251211093630.171014-1-kniv@yandex-team.ru>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 12 Dec 2025 13:21:39 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,411 +69,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently MDP5 3.x (MSM8998, SDM630 and SDM660) platforms are support
-by both DPU and MDP5 drivers. Support for them in the DPU driver is
-mature enough, so it's no longer sensible to keep them enabled in the
-MDP5 driver. Not to mention that MSM8998 never used an MDP5 compatible
-string. Drop support for the MDP5 3.x genration inside the MDP5
-driver and migrate those to the DPU driver only.
+It is checked almost always in dpu_encoder_phys_wb_setup_ctl(), but in a
+single place the check is missing.
+Also use convenient locals instead of phys_enc->* where available.
 
-Note: this will break if one uses the DT generated before v6.3 as they
-had only the generic, "qcom,mdp5" compatible string for SDM630 and
-SDM660. However granted that we had two LTS releases inbetween I don't
-think it is an issue.
-
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: stable@vger.kernel.org
+Fixes: d7d0e73f7de33 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+Signed-off-by: Nikolay Kuratov <kniv@yandex-team.ru>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 314 -------------------------------
- drivers/gpu/drm/msm/msm_drv.c            |  16 +-
- 2 files changed, 13 insertions(+), 317 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-index df464f7c05bf..69fef034d0df 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-@@ -1097,310 +1097,6 @@ static const struct mdp5_cfg_hw msm8937_config = {
- 	.max_clk = 320000000,
- };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index 46f348972a97..6d28f2281c76 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -247,14 +247,12 @@ static void dpu_encoder_phys_wb_setup_ctl(struct dpu_encoder_phys *phys_enc)
+ 		if (hw_cdm)
+ 			intf_cfg.cdm = hw_cdm->idx;
  
--static const struct mdp5_cfg_hw msm8998_config = {
--	.name = "msm8998",
--	.mdp = {
--		.count = 1,
--		.caps = MDP_CAP_DSC |
--			MDP_CAP_CDM |
--			MDP_CAP_SRC_SPLIT |
--			0,
--	},
--	.ctl = {
--		.count = 5,
--		.base = { 0x01000, 0x01200, 0x01400, 0x01600, 0x01800 },
--		.flush_hw_mask = 0xf7ffffff,
--	},
--	.pipe_vig = {
--		.count = 4,
--		.base = { 0x04000, 0x06000, 0x08000, 0x0a000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SCALE	|
--			MDP_PIPE_CAP_CSC	|
--			MDP_PIPE_CAP_DECIMATION	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_rgb = {
--		.count = 4,
--		.base = { 0x14000, 0x16000, 0x18000, 0x1a000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SCALE	|
--			MDP_PIPE_CAP_DECIMATION	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_dma = {
--		.count = 2, /* driver supports max of 2 currently */
--		.base = { 0x24000, 0x26000, 0x28000, 0x2a000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_cursor = {
--		.count = 2,
--		.base = { 0x34000, 0x36000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			MDP_PIPE_CAP_CURSOR	|
--			0,
--	},
--
--	.lm = {
--		.count = 6,
--		.base = { 0x44000, 0x45000, 0x46000, 0x47000, 0x48000, 0x49000 },
--		.instances = {
--				{ .id = 0, .pp = 0, .dspp = 0,
--				  .caps = MDP_LM_CAP_DISPLAY |
--					  MDP_LM_CAP_PAIR, },
--				{ .id = 1, .pp = 1, .dspp = 1,
--				  .caps = MDP_LM_CAP_DISPLAY, },
--				{ .id = 2, .pp = 2, .dspp = -1,
--				  .caps = MDP_LM_CAP_DISPLAY |
--					  MDP_LM_CAP_PAIR, },
--				{ .id = 3, .pp = -1, .dspp = -1,
--				  .caps = MDP_LM_CAP_WB, },
--				{ .id = 4, .pp = -1, .dspp = -1,
--				  .caps = MDP_LM_CAP_WB, },
--				{ .id = 5, .pp = 3, .dspp = -1,
--				  .caps = MDP_LM_CAP_DISPLAY, },
--			     },
--		.nb_stages = 8,
--		.max_width = 2560,
--		.max_height = 0xFFFF,
--	},
--	.dspp = {
--		.count = 2,
--		.base = { 0x54000, 0x56000 },
--	},
--	.ad = {
--		.count = 3,
--		.base = { 0x78000, 0x78800, 0x79000 },
--	},
--	.pp = {
--		.count = 4,
--		.base = { 0x70000, 0x70800, 0x71000, 0x71800 },
--	},
--	.cdm = {
--		.count = 1,
--		.base = { 0x79200 },
--	},
--	.dsc = {
--		.count = 2,
--		.base = { 0x80000, 0x80400 },
--	},
--	.intf = {
--		.base = { 0x6a000, 0x6a800, 0x6b000, 0x6b800, 0x6c000 },
--		.connect = {
--			[0] = INTF_eDP,
--			[1] = INTF_DSI,
--			[2] = INTF_DSI,
--			[3] = INTF_HDMI,
--		},
--	},
--	.max_clk = 412500000,
--};
--
--static const struct mdp5_cfg_hw sdm630_config = {
--	.name = "sdm630",
--	.mdp = {
--		.count = 1,
--		.caps = MDP_CAP_CDM |
--			MDP_CAP_SRC_SPLIT |
--			0,
--	},
--	.ctl = {
--		.count = 5,
--		.base = { 0x01000, 0x01200, 0x01400, 0x01600, 0x01800 },
--		.flush_hw_mask = 0xf4ffffff,
--	},
--	.pipe_vig = {
--		.count = 1,
--		.base = { 0x04000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SCALE	|
--			MDP_PIPE_CAP_CSC	|
--			MDP_PIPE_CAP_DECIMATION	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_rgb = {
--		.count = 4,
--		.base = { 0x14000, 0x16000, 0x18000, 0x1a000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SCALE	|
--			MDP_PIPE_CAP_DECIMATION	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_dma = {
--		.count = 2, /* driver supports max of 2 currently */
--		.base = { 0x24000, 0x26000, 0x28000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_cursor = {
--		.count = 1,
--		.base = { 0x34000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			MDP_PIPE_CAP_CURSOR	|
--			0,
--	},
--
--	.lm = {
--		.count = 2,
--		.base = { 0x44000, 0x46000 },
--		.instances = {
--				{ .id = 0, .pp = 0, .dspp = 0,
--				  .caps = MDP_LM_CAP_DISPLAY |
--					  MDP_LM_CAP_PAIR, },
--				{ .id = 1, .pp = 1, .dspp = -1,
--				  .caps = MDP_LM_CAP_WB, },
--				},
--		.nb_stages = 8,
--		.max_width = 2048,
--		.max_height = 0xFFFF,
--	},
--	.dspp = {
--		.count = 1,
--		.base = { 0x54000 },
--	},
--	.ad = {
--		.count = 2,
--		.base = { 0x78000, 0x78800 },
--	},
--	.pp = {
--		.count = 3,
--		.base = { 0x70000, 0x71000, 0x72000 },
--	},
--	.cdm = {
--		.count = 1,
--		.base = { 0x79200 },
--	},
--	.intf = {
--		.base = { 0x6a000, 0x6a800 },
--		.connect = {
--			[0] = INTF_DISABLED,
--			[1] = INTF_DSI,
--		},
--	},
--	.max_clk = 412500000,
--};
--
--static const struct mdp5_cfg_hw sdm660_config = {
--	.name = "sdm660",
--	.mdp = {
--		.count = 1,
--		.caps = MDP_CAP_DSC |
--			MDP_CAP_CDM |
--			MDP_CAP_SRC_SPLIT |
--			0,
--	},
--	.ctl = {
--		.count = 5,
--		.base = { 0x01000, 0x01200, 0x01400, 0x01600, 0x01800 },
--		.flush_hw_mask = 0xf4ffffff,
--	},
--	.pipe_vig = {
--		.count = 2,
--		.base = { 0x04000, 0x6000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SCALE	|
--			MDP_PIPE_CAP_CSC	|
--			MDP_PIPE_CAP_DECIMATION	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_rgb = {
--		.count = 4,
--		.base = { 0x14000, 0x16000, 0x18000, 0x1a000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SCALE	|
--			MDP_PIPE_CAP_DECIMATION	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_dma = {
--		.count = 2, /* driver supports max of 2 currently */
--		.base = { 0x24000, 0x26000, 0x28000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			0,
--	},
--	.pipe_cursor = {
--		.count = 1,
--		.base = { 0x34000 },
--		.caps = MDP_PIPE_CAP_HFLIP	|
--			MDP_PIPE_CAP_VFLIP	|
--			MDP_PIPE_CAP_SW_PIX_EXT	|
--			MDP_PIPE_CAP_CURSOR	|
--			0,
--	},
--
--	.lm = {
--		.count = 4,
--		.base = { 0x44000, 0x45000, 0x46000, 0x49000 },
--		.instances = {
--				{ .id = 0, .pp = 0, .dspp = 0,
--				  .caps = MDP_LM_CAP_DISPLAY |
--					  MDP_LM_CAP_PAIR, },
--				{ .id = 1, .pp = 1, .dspp = 1,
--				  .caps = MDP_LM_CAP_DISPLAY, },
--				{ .id = 2, .pp = 2, .dspp = -1,
--				  .caps = MDP_LM_CAP_DISPLAY |
--					  MDP_LM_CAP_PAIR, },
--				{ .id = 3, .pp = 3, .dspp = -1,
--				  .caps = MDP_LM_CAP_WB, },
--				},
--		.nb_stages = 8,
--		.max_width = 2560,
--		.max_height = 0xFFFF,
--	},
--	.dspp = {
--		.count = 2,
--		.base = { 0x54000, 0x56000 },
--	},
--	.ad = {
--		.count = 2,
--		.base = { 0x78000, 0x78800 },
--	},
--	.pp = {
--		.count = 5,
--		.base = { 0x70000, 0x70800, 0x71000, 0x71800, 0x72000 },
--	},
--	.cdm = {
--		.count = 1,
--		.base = { 0x79200 },
--	},
--	.dsc = {
--		.count = 2,
--		.base = { 0x80000, 0x80400 },
--	},
--	.intf = {
--		.base = { 0x6a000, 0x6a800, 0x6b000, 0x6b800 },
--		.connect = {
--			[0] = INTF_DISABLED,
--			[1] = INTF_DSI,
--			[2] = INTF_DSI,
--			[3] = INTF_HDMI,
--		},
--	},
--	.max_clk = 412500000,
--};
--
- static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
- 	{ .revision = 0, .config = { .hw = &msm8x74v1_config } },
- 	{ .revision = 1, .config = { .hw = &msm8x26_config } },
-@@ -1416,12 +1112,6 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
- 	{ .revision = 16, .config = { .hw = &msm8x53_config } },
- };
+-		if (phys_enc->hw_pp->merge_3d && phys_enc->hw_pp->merge_3d->ops.setup_3d_mode)
+-			phys_enc->hw_pp->merge_3d->ops.setup_3d_mode(phys_enc->hw_pp->merge_3d,
+-					mode_3d);
++		if (hw_pp && hw_pp->merge_3d && hw_pp->merge_3d->ops.setup_3d_mode)
++			hw_pp->merge_3d->ops.setup_3d_mode(hw_pp->merge_3d, mode_3d);
  
--static const struct mdp5_cfg_handler cfg_handlers_v3[] = {
--	{ .revision = 0, .config = { .hw = &msm8998_config } },
--	{ .revision = 2, .config = { .hw = &sdm660_config } },
--	{ .revision = 3, .config = { .hw = &sdm630_config } },
--};
--
- const struct mdp5_cfg_hw *mdp5_cfg_get_hw_config(struct mdp5_cfg_handler *cfg_handler)
- {
- 	return cfg_handler->config.hw;
-@@ -1455,10 +1145,6 @@ struct mdp5_cfg_handler *mdp5_cfg_init(struct mdp5_kms *mdp5_kms,
- 		cfg_handlers = cfg_handlers_v1;
- 		num_handlers = ARRAY_SIZE(cfg_handlers_v1);
- 		break;
--	case 3:
--		cfg_handlers = cfg_handlers_v3;
--		num_handlers = ARRAY_SIZE(cfg_handlers_v3);
--		break;
- 	default:
- 		DRM_DEV_ERROR(dev->dev, "unexpected MDP major version: v%d.%d\n",
- 				major, minor);
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 7e977fec4100..abee7149a9e8 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -960,23 +960,33 @@ static bool prefer_mdp5 = true;
- MODULE_PARM_DESC(prefer_mdp5, "Select whether MDP5 or DPU driver should be preferred");
- module_param(prefer_mdp5, bool, 0444);
+ 		/* setup which pp blk will connect to this wb */
+-		if (hw_pp && phys_enc->hw_wb->ops.bind_pingpong_blk)
+-			phys_enc->hw_wb->ops.bind_pingpong_blk(phys_enc->hw_wb,
+-					phys_enc->hw_pp->idx);
++		if (hw_pp && hw_wb->ops.bind_pingpong_blk)
++			hw_wb->ops.bind_pingpong_blk(hw_wb, hw_pp->idx);
  
-+/* list all platforms that have been migrated from mdp5 to dpu driver */
-+static const char *const msm_mdp5_dpu_migrated[] = {
-+	/* there never was qcom,msm8998-mdp5 */
-+	"qcom,sdm630-mdp5",
-+	"qcom,sdm660-mdp5",
-+	NULL
-+};
-+
- /* list all platforms supported by both mdp5 and dpu drivers */
- static const char *const msm_mdp5_dpu_migration[] = {
- 	"qcom,msm8917-mdp5",
- 	"qcom,msm8937-mdp5",
- 	"qcom,msm8953-mdp5",
- 	"qcom,msm8996-mdp5",
--	"qcom,sdm630-mdp5",
--	"qcom,sdm660-mdp5",
- 	NULL,
- };
- 
- bool msm_disp_drv_should_bind(struct device *dev, bool dpu_driver)
- {
--	/* If it is not an MDP5 device, do not try MDP5 driver */
-+	/* If it is not an MDP5 device, use DPU */
- 	if (!of_device_is_compatible(dev->of_node, "qcom,mdp5"))
- 		return dpu_driver;
- 
-+	/* If it is no longer supported by MDP5, use DPU */
-+	if (of_device_compatible_match(dev->of_node, msm_mdp5_dpu_migrated))
-+		return dpu_driver;
-+
- 	/* If it is not in the migration list, use MDP5 */
- 	if (!of_device_compatible_match(dev->of_node, msm_mdp5_dpu_migration))
- 		return !dpu_driver;
-
----
-base-commit: f2d03d96ebe8f6948cea9a47d11728f42d62d0f9
-change-id: 20250926-mdp5-drop-dpu3-38bc04d44103
-
-Best regards,
+ 		phys_enc->hw_ctl->ops.setup_intf_cfg(phys_enc->hw_ctl, &intf_cfg);
+ 	} else if (phys_enc->hw_ctl && phys_enc->hw_ctl->ops.setup_intf_cfg) {
 -- 
-With best wishes
-Dmitry
+2.34.1
 
