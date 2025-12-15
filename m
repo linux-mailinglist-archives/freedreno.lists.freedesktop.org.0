@@ -2,96 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB0C7CBC009
-	for <lists+freedreno@lfdr.de>; Sun, 14 Dec 2025 21:48:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77CBECC31CA
+	for <lists+freedreno@lfdr.de>; Tue, 16 Dec 2025 14:14:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C182910E0A2;
-	Sun, 14 Dec 2025 20:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4818D10E94A;
+	Tue, 16 Dec 2025 13:14:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mjw2luNo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dppDmq23";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C7DC10E0D2
- for <freedreno@lists.freedesktop.org>; Sun, 14 Dec 2025 20:48:29 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id
- 5b1f17b1804b1-4775e891b5eso12207805e9.2
- for <freedreno@lists.freedesktop.org>; Sun, 14 Dec 2025 12:48:29 -0800 (PST)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B7B910E081
+ for <freedreno@lists.freedesktop.org>; Sun, 14 Dec 2025 20:59:19 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-7d26a7e5639so3132026b3a.1
+ for <freedreno@lists.freedesktop.org>; Sun, 14 Dec 2025 12:59:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765745308; x=1766350108; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=vNonSz/psu7LwKVFUVtvRRDRx4rkVmD2CMw/UAxEWwM=;
- b=mjw2luNoIFI1/qarVusjkQ8oJv8Ib9DOyfrAKA52TC6J+GoaTTYBLOYJLwSZNGWoHs
- SGnA8fMZyG9dRhYopdaUISh/pSGrHe6fEdVuInNCCMhRKAWWJ/1IZciog1T5Qcw7uzON
- g2eJBPS9jdjE/8M6Mrtl93ermfRptN/nQRbiyUKSNEWg1Pn4Z9Gks33P8geGTUXWBQLs
- 99VZ7hk2I1DlqJeiGVqSfocJpmmMT360XHw3sVBJRY3A9+AGPq2bF9K4mHBUOW3WnuNG
- xKTuRqok5R4SOI+o8Xt+isHrevTH4c6KCyuI5TzESAkvolEeR3kWcJfG6bfhJ8ByxZEq
- wGVA==
+ d=gmail.com; s=20230601; t=1765745959; x=1766350759; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Kf8/6K2teDNVpRcuyX4Rd2wH3CZRe6Wcte8AE2g3GNQ=;
+ b=dppDmq23nIS+zVigzn4i58GS929nNLCbAKzeBwJGeOZetbIothl5BPSCY2qlumjqhQ
+ IeYKrXrqskpvy/TgGG+yBvp3RKWnaBmMOcp6qNOf3++TJKeuVm4i3e7fXJ5kyCx+K9Nd
+ HTkog0UgwXKkjMvw4hnB887kxCN9rSGPa7gRlVxmRQJlq+Wcpgi2rMGNvsDDF5mDRx8h
+ BFt/TgvU4u3Ioxdq+uBvRhPFDN3shf60BRfjkCjkgoox5BBSk4LEknsZxu5AsTf/7gln
+ LId4UA+qzZDYin957LfsbkMjCY71/DxWKLtjTnO+BTARgE4EmjqH2RttN3q0No6j+wcP
+ mGtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765745308; x=1766350108;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1765745959; x=1766350759;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vNonSz/psu7LwKVFUVtvRRDRx4rkVmD2CMw/UAxEWwM=;
- b=vwLnaDn/acz73CgnmpnPGa252cyly5M6IjCFzUVH2Y5ZENhiaj7k73Ffj30qgD4Dhi
- tq04NcT5HQWQqQjhxtSDqMJ4fd1cSdcvFERYRjLPdQYfkRFqHPnsNkopaKUGNj+JcdnP
- cE9OFdxeimAnnFmEVXKvT2jKbZEnuBhEdzrB9qwsyyd/fiywPCuwwrqiAd7Nn7EU7s05
- 4qdlyAKx3XG53SBqcNVD/p30GS0boi9qfoIC4bONLLEksBnqIPWbO2oW67ZIr29F3wB7
- sJKe8ZQaT/IzlWjBA8WVrft7ngAIZFvfH8nVm/N9aSxw8E+O378eWNEtSWlIJTNAFtwR
- pyXg==
+ bh=Kf8/6K2teDNVpRcuyX4Rd2wH3CZRe6Wcte8AE2g3GNQ=;
+ b=lG52YUMm2tCoume7UdiCrw5XaukDGozAiSkAF5MNjAInJX0JnPzR/DpVgYfi1z1o02
+ ZYvmYw7QwMNzjU7onMAVVq95wmmxe/69JYExruwYs2qCbpGNwS4EmPYRpAtVXv1O9jqA
+ RnUNs//eM+MHM4XCwPN6mH2YxkXcdCbp6MSTzhW2EH31Q1iktBUYHrTyVmJQGSPSULg1
+ ZFTWutjsCe79OczMIxYaOzUWrFXKT2T46gHveyVoZcjutZu4Xfiz5SHXWQ29bhe2WaEc
+ k6iOSkay4rlsJUn65DYNFysZ0I2K9Nhg6ug8fUShStH6BXt7yWB4p9exFsT/4Zbz2YY0
+ 9JAg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVZffJOn7pj4AIft6LsPs2xm1qkmC9FpLCspfKQy5PaxykDn52JF3s2JLoRNVVHJltGqcYTx4mZZWc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyPmFTEDN5a71mpL9Oc+P+mUWrOD7UfiCiwei62rycVoVWQ06R
- YakV0ISC5OITV+AZTg2ygQLwgkOVMRrNEYfQLnd6qrygUo8z9dcC509u
-X-Gm-Gg: AY/fxX6g9rOJXzloJyVwG5aLLyDWQeAtO5Pf2QyKRxWUTrM8QmhGTKjk5L9nwnFCb6T
- 7UU3O6qHj4XTpiZ3RPPn5WkNtv6ZX1n3piOl7rPJiDck8ltfhrGe6CRxbgwbaOt2cTUnD5+yjTb
- rYlTPTYYfz3q0ymO0nNvvAcQCsEeuMXMh7WUhz+JD9+WpJrQFCSneLYHAkEIQapAyWfVhpuM6Hc
- nVqILYKr9b4tTCDSyDHTNvXB/W0PDDCdghY20+hK0impkBEF7uF1B4wZSPFZSKGUoYjUi953uiV
- ciIfPdlVCcoCDfiZfoHOGNMXAyJVBhQ1QiktRpcQJ/dD+UaQcGIxDMaM3tzNMgzWVdnWjiMqV+q
- qJe8V6TETWEb68xdRvgJbtom8gRnveBXAnV1+6JBzK0qRD9xhF0T/wxDybY8B/TFl8YZqmz1JhE
- i/u+qw2HPxmFEgFnPzSjGl50i6DHmrtBZSo0NMww502+dRKxxJIifysftT4CjNVWConkU=
-X-Google-Smtp-Source: AGHT+IFBCVvj6+os8tE0zn7I5CZGv9VZPVSZHJMl/dseBhLP5fj10TprRwFuaFPRpuk7nw+hKEUczA==
-X-Received: by 2002:a05:600c:3104:b0:477:af07:dd17 with SMTP id
- 5b1f17b1804b1-47a8f90634fmr86748335e9.24.1765745307477; 
- Sun, 14 Dec 2025 12:48:27 -0800 (PST)
-Received: from [192.168.1.6] (92.40.201.95.threembb.co.uk. [92.40.201.95])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f768936sm151673595e9.6.2025.12.14.12.48.26
+ AJvYcCXda0HbdTS1cD5reFTOIH23LStGHzdRULHoEMc0oow2021+vq8furVLsolYxmeoXvu19H2kLhiTjGI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyPHrRmkH0PD6Kr64c6ulDy7sMrgWTdRBsxrpqYu0tsM5i05Zv4
+ QmjY9zXAsnOQj34UUtRFAHqhW5ZMy9lpUUUWHNpQn+tfPpmL/JowKBbr
+X-Gm-Gg: AY/fxX7cKy4g6zyS229TIhweAnnhlBU6tbairaUaQ7cbG4vPdbNJXGXZa3KI9LsE5Or
+ 9mHSVIXYlwRR6KzKjJn41S5PGP/K7IKYIDiVxTp9pZo/OSpsXwLe7/rCnJUyG4bel9aLcfQP/vv
+ Sk3ky2ARUw9hAxe2USFQAcGwojI1gnsSOPQQbUMSdOlxQxVi/wtK7YAxf5qpY9jECfEyyd+smkQ
+ eub72REwm8AjZU8QpQn5LikN6W5S9yhq12dltX+oYxV8qq8SVeNHeKTdoEhP8aGwyQYhWKs6sRL
+ JLzyNKIjMIJpzui+1+LfDlMk+fL+UNwocPYjhA8LRisUJHUY0CXx0Og+/VuxdtE0FwB1+mCRpyr
+ 48AhTuorGjq2Y7koDBFTTwnFBDJqCOTLFlZgaaaDhCNABPzx8Z2lAkmZgn7+bnNuDWM6WqIZTkU
+ mP+ig4pVsSyUm+MCIavFQ=
+X-Google-Smtp-Source: AGHT+IHF24o2Ly7Mr/lxjtc1FrISspaWeGMsZpBG3wLNV1EITlc6cCBdDneNg0BsjDKnEHLcA8k40Q==
+X-Received: by 2002:a05:6a21:33a9:b0:363:b976:8f79 with SMTP id
+ adf61e73a8af0-369b6aa5600mr9846654637.43.1765745958939; 
+ Sun, 14 Dec 2025 12:59:18 -0800 (PST)
+Received: from LilGuy ([2409:40c2:105b:dc88:1107:395c:23c0:2b1b])
+ by smtp.googlemail.com with ESMTPSA id
+ 41be03b00d2f7-c0c2589d4f7sm10584880a12.3.2025.12.14.12.59.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Dec 2025 12:48:27 -0800 (PST)
-From: Dale Whinham <daleyo@gmail.com>
-Date: Sun, 14 Dec 2025 20:48:12 +0000
-Subject: [PATCH] drm/msm/dp: Enable support for eDP v1.4+ link rates table
+ Sun, 14 Dec 2025 12:59:18 -0800 (PST)
+From: Swaraj Gaikwad <swarajgaikwad1925@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org (open list:DRM DRIVER for Qualcomm display
+ hardware), 
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm display
+ hardware), 
+ freedreno@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm display
+ hardware), linux-kernel@vger.kernel.org (open list)
+Cc: skhan@linuxfoundation.org, david.hunter.linux@gmail.com,
+ Swaraj Gaikwad <swarajgaikwad1925@gmail.com>
+Subject: [PATCH] drm/msm: Replace custom dumb_map_offset with generic helper
+Date: Mon, 15 Dec 2025 02:28:50 +0000
+Message-ID: <20251215022850.12358-1-swarajgaikwad1925@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20251214-drm-msm-edp14-v1-1-45de8c168cec@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAIsiP2kC/x3MQQqAIBBA0avIrBPSNKKrRAtxxpqFJgoRSHdPW
- r7F/w0qFaYKq2hQ6ObKV+pQgwB/unSQZOwGPWqrtDISS5SxRkmYu5Zg0M8W/WQc9CYXCvz8v21
- /3w+xqy7RXwAAAA==
-X-Change-ID: 20251214-drm-msm-edp14-8f4dc65dc34a
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dale Whinham <daleyo@gmail.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Steev Klimaszewski <threeway@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1765745306; l=8083;
- i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
- bh=TcwMHoDEwaiNpVVENgTmjk5JwGFt7zB3QOd1uIX5JT8=;
- b=RnEdCGQ3MrJHIIbU35i5I0o3JLkQeHea3CMb/A3VD3uiOO0lL//YVE9vp0JMeb3O4NuwM4iRT
- MBAlvTWA7FiDQdWKuDO6ZNWqHK94C6Z0yslSnm+shkx4SWrUzUHxF98
-X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
- pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
+X-Mailman-Approved-At: Tue, 16 Dec 2025 13:14:19 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,245 +99,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The MSM DRM driver currently does not support panels which report their
-supported link rates via the SUPPORTED_LINK_RATES table.
+The msm driver implements a custom dumb_map_offset callback. This
+implementation acquires the msm_gem_lock, but the underlying
+drm_gem_create_mmap_offset() function is already thread-safe regarding
+the VMA offset manager (it acquires the mgr->vm_lock internally).
 
-For panels which do not offer the optional eDP v1.3 fallback via
-MAX_LINK_RATE, this will cause a panel probe failure (e.g. Samsung
-ATNA30DW01-1 as found in Microsoft Surface Pro 11).
+Switching to the generic drm_gem_dumb_map_offset() helper provides
+several benefits:
+1. Removes the unnecessary locking overhead (locking leftovers).
+2. Adds a missing check to reject mapping of imported objects, which is
+   invalid for dumb buffers.
+3. Allows for the removal of the msm_gem_dumb_map_offset() wrapper and
+   the msm_gem_mmap_offset() helper function.
 
-Detect eDP v1.4 panels and parse the SUPPORTED_LINK_RATES table when
-present.
+The logic from msm_gem_mmap_offset() has been inlined into
+msm_ioctl_gem_info() to maintain functionality without the separate
+helper.
 
-Additionally, set the rate using LINK_RATE_SET instead of LINK_BW_SET,
-but only if LINK_BW_SET hasn't already been written to.
+This addresses the TODO:
+"Documentation/gpu/todo.rst: Remove custom dumb_map_offset implementations"
 
-Signed-off-by: Dale Whinham <daleyo@gmail.com>
-Tested-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
-Tested-by: Steev Klimaszewski <threeway@gmail.com>
+Signed-off-by: Swaraj Gaikwad <swarajgaikwad1925@gmail.com>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c  | 57 +++++++++++++++++-----------
- drivers/gpu/drm/msm/dp/dp_link.h  |  3 ++
- drivers/gpu/drm/msm/dp/dp_panel.c | 79 +++++++++++++++++++++++++++++++++------
- 3 files changed, 107 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index cbcc7c2f0ffc..f00456902c10 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -175,20 +175,29 @@ static inline void msm_dp_write_link(struct msm_dp_ctrl_private *ctrl,
- static int msm_dp_aux_link_configure(struct drm_dp_aux *aux,
- 					struct msm_dp_link_info *link)
- {
--	u8 values[2];
-+	u8 lane_count, bw_code;
- 	int err;
- 
--	values[0] = drm_dp_link_rate_to_bw_code(link->rate);
--	values[1] = link->num_lanes;
-+	lane_count = link->num_lanes;
- 
- 	if (link->capabilities & DP_LINK_CAP_ENHANCED_FRAMING)
--		values[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
-+		lane_count |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
-+
-+	if (link->use_rate_set) {
-+		DRM_DEBUG_DP("using LINK_RATE_SET: 0x%02x", link->rate_set);
-+		err = drm_dp_dpcd_writeb(aux, DP_LINK_RATE_SET, link->rate_set);
-+	} else {
-+		bw_code = drm_dp_link_rate_to_bw_code(link->rate);
-+		DRM_DEBUG_DP("using LINK_BW_SET: 0x%02x", bw_code);
-+		err = drm_dp_dpcd_writeb(aux, DP_LINK_BW_SET, bw_code);
-+	}
- 
--	err = drm_dp_dpcd_write(aux, DP_LINK_BW_SET, values, sizeof(values));
- 	if (err < 0)
- 		return err;
- 
--	return 0;
-+	err = drm_dp_dpcd_writeb(aux, DP_LANE_COUNT_SET, lane_count);
-+
-+	return err;
- }
- 
- /*
-@@ -1474,26 +1483,32 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
- static int msm_dp_ctrl_link_rate_down_shift(struct msm_dp_ctrl_private *ctrl)
- {
- 	int ret = 0;
-+	struct msm_dp_link_info *link_params = &ctrl->link->link_params;
- 
--	switch (ctrl->link->link_params.rate) {
--	case 810000:
--		ctrl->link->link_params.rate = 540000;
--		break;
--	case 540000:
--		ctrl->link->link_params.rate = 270000;
--		break;
--	case 270000:
--		ctrl->link->link_params.rate = 162000;
--		break;
--	case 162000:
--	default:
--		ret = -EINVAL;
--		break;
-+	if (link_params->rate_set) {
-+		--link_params->rate_set;
-+		link_params->rate = link_params->supported_rates[link_params->rate_set];
-+	} else {
-+		switch (link_params->rate) {
-+		case 810000:
-+			link_params->rate = 540000;
-+			break;
-+		case 540000:
-+			link_params->rate = 270000;
-+			break;
-+		case 270000:
-+			link_params->rate = 162000;
-+			break;
-+		case 162000:
-+		default:
-+			ret = -EINVAL;
-+			break;
-+		}
- 	}
- 
- 	if (!ret) {
- 		drm_dbg_dp(ctrl->drm_dev, "new rate=0x%x\n",
--				ctrl->link->link_params.rate);
-+				link_params->rate);
- 	}
- 
+ Compile-tested only.
+
+ drivers/gpu/drm/msm/msm_drv.c |  8 +++---
+ drivers/gpu/drm/msm/msm_gem.c | 49 -----------------------------------
+ drivers/gpu/drm/msm/msm_gem.h |  3 ---
+ 3 files changed, 5 insertions(+), 55 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 7e977fec4100..bf20550c5814 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -588,7 +588,9 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+
+ 	switch (args->info) {
+ 	case MSM_INFO_GET_OFFSET:
+-		args->value = msm_gem_mmap_offset(obj);
++		ret = drm_gem_create_mmap_offset(obj);
++		if (ret == 0)
++		    args->value = drm_vma_node_offset_addr(&obj->vma_node);
+ 		break;
+ 	case MSM_INFO_GET_IOVA:
+ 		ret = msm_ioctl_gem_info_iova(dev, file, obj, &args->value);
+@@ -836,7 +838,7 @@ static const struct drm_driver msm_driver = {
+ 	.open               = msm_open,
+ 	.postclose          = msm_postclose,
+ 	.dumb_create        = msm_gem_dumb_create,
+-	.dumb_map_offset    = msm_gem_dumb_map_offset,
++	.dumb_map_offset    = drm_gem_dumb_map_offset,
+ 	.gem_prime_import   = msm_gem_prime_import,
+ 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
+ #ifdef CONFIG_DEBUG_FS
+@@ -859,7 +861,7 @@ static const struct drm_driver msm_kms_driver = {
+ 	.open               = msm_open,
+ 	.postclose          = msm_postclose,
+ 	.dumb_create        = msm_gem_dumb_create,
+-	.dumb_map_offset    = msm_gem_dumb_map_offset,
++	.dumb_map_offset    = drm_gem_dumb_map_offset,
+ 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 017411a0bf45..da74f1413f94 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -375,34 +375,6 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
  	return ret;
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-index b1eb2de6d2a7..725e08f75574 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.h
-+++ b/drivers/gpu/drm/msm/dp/dp_link.h
-@@ -17,6 +17,9 @@
- struct msm_dp_link_info {
- 	unsigned char revision;
- 	unsigned int rate;
-+	unsigned int supported_rates[DP_MAX_SUPPORTED_RATES];
-+	unsigned int rate_set;
-+	bool use_rate_set;
- 	unsigned int num_lanes;
- 	unsigned long capabilities;
- };
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index ad5d55bf009d..5f9ccc48ee6c 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -13,6 +13,8 @@
- #include <drm/drm_print.h>
- 
- #include <linux/io.h>
-+#include <linux/types.h>
-+#include <asm/byteorder.h>
- 
- #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
- 
-@@ -107,29 +109,84 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
- 	drm_dbg_dp(panel->drm_dev, "max_lanes=%d max_link_rate=%d\n",
- 		   link->max_dp_lanes, link->max_dp_link_rate);
- 
--	link_info->rate = drm_dp_max_link_rate(dpcd);
-+	max_lttpr_lanes = drm_dp_lttpr_max_lane_count(link->lttpr_common_caps);
-+	max_lttpr_rate = drm_dp_lttpr_max_link_rate(link->lttpr_common_caps);
-+
-+	/* For eDP v1.4+, parse the SUPPORTED_LINK_RATES table */
-+	if (link_info->revision >= DP_DPCD_REV_14) {
-+		__le16 rates[DP_MAX_SUPPORTED_RATES];
-+		u8 bw_set;
-+		int i;
-+
-+		rc = drm_dp_dpcd_read_data(panel->aux, DP_SUPPORTED_LINK_RATES,
-+					   rates, sizeof(rates));
-+		if (rc)
-+			return rc;
-+
-+		rc = drm_dp_dpcd_read_byte(panel->aux, DP_LINK_BW_SET, &bw_set);
-+		if (rc)
-+			return rc;
-+
-+		/* Find index of maximum supported link rate that does not exceed dtsi limits */
-+		for (i = 0; i < ARRAY_SIZE(rates); i++) {
-+			/*
-+			 * The value from the DPCD multiplied by 200 gives
-+			 * the link rate in kHz. Divide by 10 to convert to
-+			 * symbol rate, accounting for 8b/10b encoding.
-+			 */
-+			u32 rate = (le16_to_cpu(rates[i]) * 200) / 10;
-+
-+			if (!rate)
-+				break;
-+
-+			drm_dbg_dp(panel->drm_dev,
-+				   "SUPPORTED_LINK_RATES[%d]: %d\n", i, rate);
-+
-+			/* Limit link rate from link-frequencies of endpoint property of dtsi */
-+			if (rate > link->max_dp_link_rate)
-+				break;
-+
-+			/* Limit link rate from LTTPR capabilities, if any */
-+			if (max_lttpr_rate && rate > max_lttpr_rate)
-+				break;
-+
-+			link_info->rate = rate;
-+			link_info->supported_rates[i] = rate;
-+			link_info->rate_set = i;
-+		}
-+
-+		/* Only use LINK_RATE_SET if LINK_BW_SET hasn't already been written to */
-+		if (!bw_set && link_info->rate)
-+			link_info->use_rate_set = true;
-+	}
-+
-+	/* Fall back on MAX_LINK_RATE/LINK_BW_SET (eDP v1.3) */
-+	if (!link_info->rate) {
-+		link_info->rate = drm_dp_max_link_rate(dpcd);
-+
-+		/* Limit link rate from link-frequencies of endpoint property of dtsi */
-+		if (link_info->rate > link->max_dp_link_rate)
-+			link_info->rate = link->max_dp_link_rate;
-+
-+		/* Limit link rate from LTTPR capabilities, if any */
-+		if (max_lttpr_rate && max_lttpr_rate < link_info->rate)
-+			link_info->rate = max_lttpr_rate;
-+	}
-+
- 	link_info->num_lanes = drm_dp_max_lane_count(dpcd);
- 
- 	/* Limit data lanes from data-lanes of endpoint property of dtsi */
- 	if (link_info->num_lanes > link->max_dp_lanes)
- 		link_info->num_lanes = link->max_dp_lanes;
- 
--	/* Limit link rate from link-frequencies of endpoint property of dtsi */
--	if (link_info->rate > link->max_dp_link_rate)
--		link_info->rate = link->max_dp_link_rate;
--
- 	/* Limit data lanes from LTTPR capabilities, if any */
--	max_lttpr_lanes = drm_dp_lttpr_max_lane_count(panel->link->lttpr_common_caps);
- 	if (max_lttpr_lanes && max_lttpr_lanes < link_info->num_lanes)
- 		link_info->num_lanes = max_lttpr_lanes;
- 
--	/* Limit link rate from LTTPR capabilities, if any */
--	max_lttpr_rate = drm_dp_lttpr_max_link_rate(panel->link->lttpr_common_caps);
--	if (max_lttpr_rate && max_lttpr_rate < link_info->rate)
--		link_info->rate = max_lttpr_rate;
--
- 	drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
- 	drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
-+	drm_dbg_dp(panel->drm_dev, "link_rate_set=%d\n", link_info->rate_set);
-+	drm_dbg_dp(panel->drm_dev, "use_rate_set=%d\n", link_info->use_rate_set);
- 	drm_dbg_dp(panel->drm_dev, "lane_count=%d\n", link_info->num_lanes);
- 
- 	if (drm_dp_enhanced_frame_cap(dpcd))
+ }
 
----
-base-commit: 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
-change-id: 20251214-drm-msm-edp14-8f4dc65dc34a
+-/** get mmap offset */
+-static uint64_t mmap_offset(struct drm_gem_object *obj)
+-{
+-	struct drm_device *dev = obj->dev;
+-	int ret;
+-
+-	msm_gem_assert_locked(obj);
+-
+-	/* Make it mmapable */
+-	ret = drm_gem_create_mmap_offset(obj);
+-
+-	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "could not allocate mmap offset\n");
+-		return 0;
+-	}
+-
+-	return drm_vma_node_offset_addr(&obj->vma_node);
+-}
+-
+-uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj)
+-{
+-	uint64_t offset;
+-
+-	msm_gem_lock(obj);
+-	offset = mmap_offset(obj);
+-	msm_gem_unlock(obj);
+-	return offset;
+-}
 
-Best regards,
--- 
-Dale Whinham <daleyo@gmail.com>
+ static struct drm_gpuva *lookup_vma(struct drm_gem_object *obj,
+ 				    struct drm_gpuvm *vm)
+@@ -730,27 +702,6 @@ int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 			MSM_BO_SCANOUT | MSM_BO_WC, &args->handle, "dumb");
+ }
+
+-int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+-		uint32_t handle, uint64_t *offset)
+-{
+-	struct drm_gem_object *obj;
+-	int ret = 0;
+-
+-	/* GEM does all our handle to object mapping */
+-	obj = drm_gem_object_lookup(file, handle);
+-	if (obj == NULL) {
+-		ret = -ENOENT;
+-		goto fail;
+-	}
+-
+-	*offset = msm_gem_mmap_offset(obj);
+-
+-	drm_gem_object_put(obj);
+-
+-fail:
+-	return ret;
+-}
+-
+ static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
+ {
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index a4cf31853c50..92ada1d69250 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -262,7 +262,6 @@ struct msm_gem_object {
+ void msm_gem_vma_get(struct drm_gem_object *obj);
+ void msm_gem_vma_put(struct drm_gem_object *obj);
+
+-uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj);
+ int msm_gem_prot(struct drm_gem_object *obj);
+ int msm_gem_pin_vma_locked(struct drm_gem_object *obj, struct drm_gpuva *vma);
+ void msm_gem_unpin_locked(struct drm_gem_object *obj);
+@@ -285,8 +284,6 @@ struct page **msm_gem_pin_pages_locked(struct drm_gem_object *obj);
+ void msm_gem_unpin_pages_locked(struct drm_gem_object *obj);
+ int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 		struct drm_mode_create_dumb *args);
+-int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+-		uint32_t handle, uint64_t *offset);
+ void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj);
+ void *msm_gem_get_vaddr(struct drm_gem_object *obj);
+ void *msm_gem_get_vaddr_active(struct drm_gem_object *obj);
+
+base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
+--
+2.52.0
 
