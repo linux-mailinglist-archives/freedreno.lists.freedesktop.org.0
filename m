@@ -2,138 +2,133 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8DACC01BE
-	for <lists+freedreno@lfdr.de>; Mon, 15 Dec 2025 23:15:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2B8FCC119A
+	for <lists+freedreno@lfdr.de>; Tue, 16 Dec 2025 07:30:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C2310E532;
-	Mon, 15 Dec 2025 22:15:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C30810E6E2;
+	Tue, 16 Dec 2025 06:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lWE9OXZf";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f2xbTdTO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eNMP9DtO";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PvQ+S7a6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3A8310E530
- for <freedreno@lists.freedesktop.org>; Mon, 15 Dec 2025 22:15:16 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC3E510E6D2
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 06:30:13 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BFGlWZg1830952
- for <freedreno@lists.freedesktop.org>; Mon, 15 Dec 2025 22:15:15 GMT
+ 5BG2YLA31205744
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 06:30:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rQLvDYJJk0qcJ2pF2DqBAfMY9vdOKW2NRuLt1K8NIfY=; b=lWE9OXZfKxY9I60o
- NFXhwjX3bAKAEdFel4OQTg82hJPQnIEQzaYai6eFFg6fOxQ3K1CTRhvqHxLnhds/
- /GEGt2U4PIe7GDLadcChggmvU53mCUH5LGCi8KIM8r4lZgtb17ruTyYBdBhQ3MXK
- wDj6Cxssgxhfmrn+d+TeF6lVoIfaxHO7B0RjwHfANWmORhRvjORGGy1Dl8ZJ7rwz
- 4zmeMdszWYIEKyFurI5iVZUx7kN4tgm9Dg0qH62qFx8b22bt5LFyXjJckDGozJ2k
- XKjFwdNkXWufrbir5uRiK/p3msF8++cDASjOJOOmaraZcamHyKW5hmDNEjkHCCc7
- 26YYjQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b2p4f0wuf-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ZOKoVU0nO8MaG0cbLAOwDYoo
+ QPDcG7ORKxJsSltYtdI=; b=eNMP9DtO5xC1pnAdknWowTItD9/iL6uXQrNs6YJV
+ zqfEb8DNDRPCC8IyWFZ+a56YLNaNhaZqwgD8+oZDZYbAeviU4AT8/h2m9HqigJ4d
+ shxQesNTZPpiBM7JJxNlWNlDAQ1x7RAqBgzKkml8sZ/OGOj8AG09W69jXpBgnyWK
+ f6Q0+n+nMwVy2idyqwGM97a4m8f8iyF9JUzcvplbQpNFMAEzaLuB8RPR4wt6dNxA
+ VuZgEohVNjXbYS4CE7jF7BfXapoJtpQx6I0PY2HcjJviIKb8TQUJiTtARNmAOIL7
+ YfkU6ovsCSsnVykvAOVSBrvj2gQpnHW0HyY6JSOFjDw2ZA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b2pdajex6-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 15 Dec 2025 22:15:15 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4f1f42515ffso32955841cf.0
- for <freedreno@lists.freedesktop.org>; Mon, 15 Dec 2025 14:15:15 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 06:30:13 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8bb9f029f31so737483185a.2
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Dec 2025 22:30:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1765836915; x=1766441715;
+ d=oss.qualcomm.com; s=google; t=1765866612; x=1766471412;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=rQLvDYJJk0qcJ2pF2DqBAfMY9vdOKW2NRuLt1K8NIfY=;
- b=f2xbTdTOTMka4J/Bmoo19kolMm933m7p9+fl71gsWYvFYxHBUJUKLA472PzRx6DT4T
- TKFBdjZVbooJZMCQgFZkXQeiOuOPwNOHEqAaRMg8BsEIAshFjqX27IzXba2X9fcmuiBS
- dy9Oeha7IJPdo3CvPCJvBP6VH2pYOXuCE0/YJS/rB/DkiSYUYoYcgelqabAfLz309kEe
- 3wyQPhySM9Lw3OgiDiRe4+EW4K78FGJaJxu89m+UY6cqphGAno8EmpepLCqK1saCi5rK
- GS1vPov0x2QeDIuRYR0WqYPXLa9XOp2RQEkfUiBzl6Buy/fR/sUB7L4Vr7XSzzA0yMlz
- /Ldw==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZOKoVU0nO8MaG0cbLAOwDYooQPDcG7ORKxJsSltYtdI=;
+ b=PvQ+S7a6XxlFazlAgb4GOUKG8cFPCsQhTQYKaquafEM9qGd9zgulAloknCtSkhU3zn
+ fZNah+DSqh33oWDrspK40+ADMCyoKu1+nYUkOoblmz5t6Cn7PsPizx9k6ux1Kf99AFg6
+ A8FSlO5aDpJJMuwVGX/LbDaqbDTdNtW17yf4t6i4yOoHFIqhjDb3bLQoxFGo7+6TQGGm
+ tCfSzP3gopUjYvojkt35r4gvUa4JpuKNbUuCq8PJzMyqauQJd88CbCdZs2GANx7uqvqk
+ psTwGwEGWgPDFI4cMrhb/fRG0MhMdIgy5dmPWiDflJcvwXqPNiGHkuuVfyeyisHT4qNO
+ cCwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765836915; x=1766441715;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rQLvDYJJk0qcJ2pF2DqBAfMY9vdOKW2NRuLt1K8NIfY=;
- b=QzpqnI5EWXYZfdubG+dCNjauccN+iPjjw1sFrnB+uU3+JbmBdOFTXkwaQ/Ku/zZfJv
- 4vToqlAaRw/8EeoKm7Sa1o0y10e/Tx7k0Ow8nFaVYErxOj9ncAPe4Z/7yXGUAGaGrzDx
- KtHFGi6f4IWKc14RFwbOuZivnM8+pJ6OFr9UM7o92FvY+vu8QuxgLoV/w8t8tTf11o9x
- Gn+0xbEEC+IGfTgr87u5f7vpiKTElVA1Lc1cq3punS7HL48OIun7Bw4YanSpyo1iI6nr
- fXI3TQglH0D6oYYWZ2mQa261OOCLOR07rgT2dosrMD2loPHyOijuzLsHnR2Q9JLO5Mix
- wcfg==
+ d=1e100.net; s=20230601; t=1765866612; x=1766471412;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZOKoVU0nO8MaG0cbLAOwDYooQPDcG7ORKxJsSltYtdI=;
+ b=eo6gtg+dm83E5kSDtwjqpA/bKxU5cBtMqu40DazwssZsTMLwGGTlBZ1zwXYZH429nX
+ m7jDhNUojNN5GCSUlt3yEqzXLVzdHVj9BNACQ2LEjQu03VHe+13NZuLhp4dL6mrDovhm
+ quAfmzQYfXXY7mkXMmOEW9w+/JWOqNTFgNKYoBhjscp9oYQaBiXLAbty7HhCQWvMHv8K
+ 65q7q4ybvL22y4Yym/6g5sjZsIWcvqSvLz5grLuoOKeKugtlbkgyEnNn0POMluy3NU+d
+ sS6xefWphGbBMdd0soU79CQt4zZilcpl5J55X1G3GGVuHlaPmUbWmc2bwZkzZdyezfGN
+ r3eA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXXqzaPpkDtDDpcmnMCHCyG3RTUNl0QSiYQbDGbudLxS62tjMg3u69zIHg5sO95K7bOGwfg4pCmHZY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5g+v6N4WZvpYFRJHCHwHFk81qJROCQ+9TVtAmGlX7sXMsnmlb
- zxlWBjf+JKEeNnPJx4Oo4TX3oEpi1jFctQsU1qdaE0GdY+Wf97w5euB1WdbAwX52BU+sHIgpi9z
- Q0BLuEXDHi5BFf02VcJh+uT6wk7NpmELZrkqb1CVjKIQkslfvldUyJrsNoER6HCQ71V07Woo=
-X-Gm-Gg: AY/fxX76lyMJDSIZeTJm5b90HYUJlNd4gjdorkDe8wvjOW3hRGpcml98H9y6ubdO3lc
- 1b1hvCntqnPvqyAq1hB5tLTAOZ0BNrW/Mr0P5Ez6SgNut7W41e5iEP7WyptKcym4S2rbi+pclZn
- BRh7a+VRNeOZzgZhsQlooRykILkSAFxs0gIWfqrSAciRwwyx6SGex2AW+vyi5mFuMTHqgiWtRrz
- z5gMSq8ddB5VVI3laxpf7xM/UG2abkXdK60k9zuB2eODZnRbxxYv/0M5osSz/VqDH8KCA2a5tNo
- vE5694ASfwmN+FzYVArNo2HqMDo/cTZiM5qXY2hCTOsDfyqIScjixCUP2utNc1v3/4AjSmovq6M
- Lqn6oJJyCRMt1b5ry2Q3jxs1BxGIz+znj5JyYmVTP9kLbvyi97789ZNIvy4NDPMGppXxpHXUp87
- WWkkOz4a9SyIfNAE2pt1gJSM8=
-X-Received: by 2002:a05:622a:199a:b0:4b0:6205:d22b with SMTP id
- d75a77b69052e-4f1d05e2644mr154966201cf.52.1765836914730; 
- Mon, 15 Dec 2025 14:15:14 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGmFlAL5iT7Es9WwZWgZUy1aU5v/39pjanIxpYshlpMfNdiiBDd1KpBMYmrmk1uxL5vLSVKtQ==
-X-Received: by 2002:a05:622a:199a:b0:4b0:6205:d22b with SMTP id
- d75a77b69052e-4f1d05e2644mr154965581cf.52.1765836914176; 
- Mon, 15 Dec 2025 14:15:14 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5990da1a1dcsm205964e87.23.2025.12.15.14.15.13
+ AJvYcCWNKK5r5MMlwdLnNcL0X6lxCivBrx7EnJWkayVNwJ774s7EwZGUAVnAWtVQbdsZ48B2FfE52XZjmDg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxmw2ZjZCEa5LIFbA72myVihkiPEtc2YYzHyg4AGoayatHlcLdZ
+ wOrvoJvugU/2610q88VZzls8nltUBDG7SNwhqY/iLChU0lyPILCZsaopLSAyUboKrITWyee1XYU
+ yYLPh7opr6eWVB+WIfPrAOdN6hKiij7cx2HJDIH1t3n24lVQTOY5X7Nz3iT4d/CIqDNjhbZg=
+X-Gm-Gg: AY/fxX74fjMMMe25P5PraQYKH2rWa0abZ/hol7bbA7qnPKwsNPWa9Mezp7OlAVpUSSf
+ gTquRvJCdRPyMW6VTraWuQ8qdhqyCOgkSSVVt8Sf8xwTyiDoPqEB0uCxz9jG3EX7QtNw8MCE36Y
+ XOm44gia464CdMU6aMdMvDuwdRKa/VPSRkV7WN9fq9BTzv1+rG2LaMnsp5Bqdjpn64IYQXCdqCJ
+ aJkhTkR5eFYT8YyY8qRXj4llPp97pz1uMEpDl6p3JGalhgrrJdtMyBhR85ztqgSLFeARctOqmBD
+ kcqAWJp/af+QAkDTE5WnOJhjYGRnHLbXx8L5sAGKv1mJyowbqgQ89kpKda2pTV5ZHC1d3O3WsJ9
+ 7HV5GN32IFA/DqbnZJi6VmPVAr1qHaGxgmgubKBAE8UlVjLFMVfMh/bC7Ay+JsHnC4Nde3ws=
+X-Received: by 2002:a05:620a:1a87:b0:8b2:db27:425e with SMTP id
+ af79cd13be357-8bb3a2113camr1826050985a.50.1765866612065; 
+ Mon, 15 Dec 2025 22:30:12 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHmgbzqVkC2sXrT+x0ZCW9D4FsdZmJkOPQHKCtJ3rLA4qYdqbCXcJCXegubktDtZajGh89Q/A==
+X-Received: by 2002:a05:620a:1a87:b0:8b2:db27:425e with SMTP id
+ af79cd13be357-8bb3a2113camr1826047885a.50.1765866611625; 
+ Mon, 15 Dec 2025 22:30:11 -0800 (PST)
+Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8be303e7e51sm131155585a.7.2025.12.15.22.30.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 14:15:13 -0800 (PST)
-Date: Tue, 16 Dec 2025 00:15:11 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Dale Whinham <daleyo@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mon, 15 Dec 2025 22:30:11 -0800 (PST)
+Date: Tue, 16 Dec 2025 14:30:00 +0800
+From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ yongxing.mou@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?utf-8?B?SsOpcsO0bWU=?= de Bretagne <jerome.debretagne@gmail.com>,
- Steev Klimaszewski <threeway@gmail.com>
-Subject: Re: [PATCH] drm/msm/dp: Enable support for eDP v1.4+ link rates table
-Message-ID: <s43zm7ljm5cipjgkjllvplk6jcxrjo445rboirikivtr3n2alh@fvu66mkwkb5q>
-References: <20251214-drm-msm-edp14-v1-1-45de8c168cec@gmail.com>
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com
+Subject: Re: [PATCH v3 05/11] drm/msm/mdss: Add support for Kaanapali
+Message-ID: <aUD8aA/5J93KBZ8Q@yuanjiey.ap.qualcomm.com>
+References: <20251215083854.577-1-yuanjie.yang@oss.qualcomm.com>
+ <20251215083854.577-6-yuanjie.yang@oss.qualcomm.com>
+ <k7k7fpmlde4tjiqxhzbf67olcdzsfmctendyjeewwh6v2kkl3i@33t2qfjxhwdp>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251214-drm-msm-edp14-v1-1-45de8c168cec@gmail.com>
-X-Proofpoint-GUID: 9PNqlW4c9KrAY1quBewvrjVLTIN2RvIC
-X-Authority-Analysis: v=2.4 cv=OK8qHCaB c=1 sm=1 tr=0 ts=69408873 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=pGLkceISAAAA:8 a=EeVQeoITEpk-UB-pV00A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: 9PNqlW4c9KrAY1quBewvrjVLTIN2RvIC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE1MDE5MSBTYWx0ZWRfX0YAYmlkv9iN2
- qxGuNEru7Yn2L49XnsIN5KxNcPz2vbAQr93aywjhGdavKt8edjHJG8T48igOWF5tm090+MR5mBa
- 5XWOEPY+7FIjSe0ksGVqCrt1qIXRiV7l4or+3tgYQuc80IecetTU5ViRBpA/ONUGb9h7KTijL8c
- RdSMG096OcdcFQQy92lt9SSQlbNG7AMuRPp4rTtA709nDUdk1Cu+bwYDa8WxoxbjYbcZPQMqnu2
- PWLTGswz+tywVllp3ko2GwAi/sflxv+GlafwhVjVEIZvIIqYLqa6bpBYoNm2wT/lmgV0ui5OSAW
- DnAjEZVJOxNCUAg0PMTxc77aX0FbdaYDzuriAq/BrLVY5sz989i9BQfkeUXKxBRLrlWapR6nWZt
- 78QdIf/x/HppWHweGqu2xIjcUHkjxQ==
+In-Reply-To: <k7k7fpmlde4tjiqxhzbf67olcdzsfmctendyjeewwh6v2kkl3i@33t2qfjxhwdp>
+X-Proofpoint-GUID: duB2Jvg3oU1DyyZ-hEawTKdfqc_-nMCU
+X-Proofpoint-ORIG-GUID: duB2Jvg3oU1DyyZ-hEawTKdfqc_-nMCU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE2MDA1MSBTYWx0ZWRfXw7X6GloUp2Ds
+ OiD2+EFzvwjsjwpOZnHQGoCUNT4cz8Buh1CqqQRzj/Zo7MhLcUK42dxy23mrysDfhKhRJS3l1TO
+ dJbV0xfEpom1RBDDjqrEnPZVyUEa0j8sbkzv8LracVN98kmzJps6yc09YauRQNc0iQwnu1CYlHe
+ 3YAMMz/ISmtvQN0V+q2HpMLSpUvUkvmj6vGYPTPWh6BJU2sLLLQo1gvyLhEbHEcNSMtDCiOEXfp
+ es1Y5Pb1bCwTa6BPWwRVtwmoUEickrjb74ltyDFP+M32AmbJH3gXKyVgRzm4EUllkbMNOIpNK8E
+ s5PYE/EJE9KQ5dOW9IYTo2izrAhwcJ15arWAM+7usOWw9NTtViGNy1bnyYZFuWXTDdD8u7LGGQy
+ SiYlHa6sRdCtGOWFEBnp7zolPLHfEA==
+X-Authority-Analysis: v=2.4 cv=JYqxbEKV c=1 sm=1 tr=0 ts=6940fc75 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=kj9zAlcOel0A:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=K6Vp4ACmwqLtMlq4UooA:9
+ a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-15_05,2025-12-15_03,2025-10-01_01
+ definitions=2025-12-16_01,2025-12-15_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 malwarescore=0 suspectscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2512150191
+ suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512160051
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,257 +144,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Dec 14, 2025 at 08:48:12PM +0000, Dale Whinham wrote:
-> The MSM DRM driver currently does not support panels which report their
-> supported link rates via the SUPPORTED_LINK_RATES table.
+On Mon, Dec 15, 2025 at 09:58:27PM +0200, Dmitry Baryshkov wrote:
+> On Mon, Dec 15, 2025 at 04:38:48PM +0800, yuanjie yang wrote:
+> > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > 
+> > Add mdss support for the Qualcomm Kaanapali platform.
+> > 
+> > Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/msm_mdss.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> > index bf9a33e925ac..cd330870a6fb 100644
+> > --- a/drivers/gpu/drm/msm/msm_mdss.c
+> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> > @@ -239,7 +239,11 @@ static void msm_mdss_setup_ubwc_dec_50(struct msm_mdss *msm_mdss)
+> >  
+> >  	writel_relaxed(value, msm_mdss->mmio + REG_MDSS_UBWC_STATIC);
+> >  
+> > -	writel_relaxed(4, msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
+> > +	if (data->ubwc_dec_version == UBWC_5_0)
 > 
-> For panels which do not offer the optional eDP v1.3 fallback via
-> MAX_LINK_RATE, this will cause a panel probe failure (e.g. Samsung
-> ATNA30DW01-1 as found in Microsoft Surface Pro 11).
-> 
-> Detect eDP v1.4 panels and parse the SUPPORTED_LINK_RATES table when
-> present.
-> 
-> Additionally, set the rate using LINK_RATE_SET instead of LINK_BW_SET,
-> but only if LINK_BW_SET hasn't already been written to.
-> 
-> Signed-off-by: Dale Whinham <daleyo@gmail.com>
-> Tested-by: Jérôme de Bretagne <jerome.debretagne@gmail.com>
-> Tested-by: Steev Klimaszewski <threeway@gmail.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c  | 57 +++++++++++++++++-----------
->  drivers/gpu/drm/msm/dp/dp_link.h  |  3 ++
->  drivers/gpu/drm/msm/dp/dp_panel.c | 79 +++++++++++++++++++++++++++++++++------
->  3 files changed, 107 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index cbcc7c2f0ffc..f00456902c10 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -175,20 +175,29 @@ static inline void msm_dp_write_link(struct msm_dp_ctrl_private *ctrl,
->  static int msm_dp_aux_link_configure(struct drm_dp_aux *aux,
->  					struct msm_dp_link_info *link)
->  {
-> -	u8 values[2];
-> +	u8 lane_count, bw_code;
->  	int err;
->  
-> -	values[0] = drm_dp_link_rate_to_bw_code(link->rate);
-> -	values[1] = link->num_lanes;
-> +	lane_count = link->num_lanes;
->  
->  	if (link->capabilities & DP_LINK_CAP_ENHANCED_FRAMING)
-> -		values[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
-> +		lane_count |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
-> +
-> +	if (link->use_rate_set) {
-> +		DRM_DEBUG_DP("using LINK_RATE_SET: 0x%02x", link->rate_set);
-> +		err = drm_dp_dpcd_writeb(aux, DP_LINK_RATE_SET, link->rate_set);
-> +	} else {
-> +		bw_code = drm_dp_link_rate_to_bw_code(link->rate);
-> +		DRM_DEBUG_DP("using LINK_BW_SET: 0x%02x", bw_code);
-> +		err = drm_dp_dpcd_writeb(aux, DP_LINK_BW_SET, bw_code);
-> +	}
->  
-> -	err = drm_dp_dpcd_write(aux, DP_LINK_BW_SET, values, sizeof(values));
->  	if (err < 0)
->  		return err;
->  
-> -	return 0;
-> +	err = drm_dp_dpcd_writeb(aux, DP_LANE_COUNT_SET, lane_count);
+> This is the _dec_50 function, you can't make UBWC_5_0 into a special
+> case.
+will fix.
 
-I'd suggest following i915 and writing DP_LANE_COUNT_SET before
-DP_LINK_BW_SET.
-
-> +
-> +	return err;
->  }
->  
->  /*
-> @@ -1474,26 +1483,32 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
->  static int msm_dp_ctrl_link_rate_down_shift(struct msm_dp_ctrl_private *ctrl)
->  {
->  	int ret = 0;
-> +	struct msm_dp_link_info *link_params = &ctrl->link->link_params;
->  
-> -	switch (ctrl->link->link_params.rate) {
-> -	case 810000:
-> -		ctrl->link->link_params.rate = 540000;
-> -		break;
-> -	case 540000:
-> -		ctrl->link->link_params.rate = 270000;
-> -		break;
-> -	case 270000:
-> -		ctrl->link->link_params.rate = 162000;
-> -		break;
-> -	case 162000:
-> -	default:
-> -		ret = -EINVAL;
-> -		break;
-> +	if (link_params->rate_set) {
-> +		--link_params->rate_set;
-> +		link_params->rate = link_params->supported_rates[link_params->rate_set];
-> +	} else {
-> +		switch (link_params->rate) {
-> +		case 810000:
-> +			link_params->rate = 540000;
-> +			break;
-> +		case 540000:
-> +			link_params->rate = 270000;
-> +			break;
-> +		case 270000:
-> +			link_params->rate = 162000;
-> +			break;
-> +		case 162000:
-> +		default:
-> +			ret = -EINVAL;
-> +			break;
-> +		}
->  	}
->  
->  	if (!ret) {
->  		drm_dbg_dp(ctrl->drm_dev, "new rate=0x%x\n",
-> -				ctrl->link->link_params.rate);
-> +				link_params->rate);
->  	}
->  
->  	return ret;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-> index b1eb2de6d2a7..725e08f75574 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_link.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_link.h
-> @@ -17,6 +17,9 @@
->  struct msm_dp_link_info {
->  	unsigned char revision;
->  	unsigned int rate;
-> +	unsigned int supported_rates[DP_MAX_SUPPORTED_RATES];
-> +	unsigned int rate_set;
-> +	bool use_rate_set;
->  	unsigned int num_lanes;
->  	unsigned long capabilities;
->  };
-> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-> index ad5d55bf009d..5f9ccc48ee6c 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> @@ -13,6 +13,8 @@
->  #include <drm/drm_print.h>
->  
->  #include <linux/io.h>
-> +#include <linux/types.h>
-> +#include <asm/byteorder.h>
->  
->  #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
->  
-> @@ -107,29 +109,84 @@ static int msm_dp_panel_read_dpcd(struct msm_dp_panel *msm_dp_panel)
->  	drm_dbg_dp(panel->drm_dev, "max_lanes=%d max_link_rate=%d\n",
->  		   link->max_dp_lanes, link->max_dp_link_rate);
->  
-> -	link_info->rate = drm_dp_max_link_rate(dpcd);
-> +	max_lttpr_lanes = drm_dp_lttpr_max_lane_count(link->lttpr_common_caps);
-> +	max_lttpr_rate = drm_dp_lttpr_max_link_rate(link->lttpr_common_caps);
-> +
-> +	/* For eDP v1.4+, parse the SUPPORTED_LINK_RATES table */
-> +	if (link_info->revision >= DP_DPCD_REV_14) {
-
-No, eDP has separate versioning register. DP revision != eDP revision.
-
-> +		__le16 rates[DP_MAX_SUPPORTED_RATES];
-> +		u8 bw_set;
-> +		int i;
-> +
-> +		rc = drm_dp_dpcd_read_data(panel->aux, DP_SUPPORTED_LINK_RATES,
-> +					   rates, sizeof(rates));
-> +		if (rc)
-> +			return rc;
-> +
-> +		rc = drm_dp_dpcd_read_byte(panel->aux, DP_LINK_BW_SET, &bw_set);
-> +		if (rc)
-> +			return rc;
-> +
-> +		/* Find index of maximum supported link rate that does not exceed dtsi limits */
-> +		for (i = 0; i < ARRAY_SIZE(rates); i++) {
-> +			/*
-> +			 * The value from the DPCD multiplied by 200 gives
-> +			 * the link rate in kHz. Divide by 10 to convert to
-> +			 * symbol rate, accounting for 8b/10b encoding.
-> +			 */
-> +			u32 rate = (le16_to_cpu(rates[i]) * 200) / 10;
-> +
-> +			if (!rate)
-> +				break;
-> +
-> +			drm_dbg_dp(panel->drm_dev,
-> +				   "SUPPORTED_LINK_RATES[%d]: %d\n", i, rate);
-> +
-> +			/* Limit link rate from link-frequencies of endpoint property of dtsi */
-> +			if (rate > link->max_dp_link_rate)
-> +				break;
-> +
-> +			/* Limit link rate from LTTPR capabilities, if any */
-> +			if (max_lttpr_rate && rate > max_lttpr_rate)
-> +				break;
-> +
-> +			link_info->rate = rate;
-> +			link_info->supported_rates[i] = rate;
-> +			link_info->rate_set = i;
-> +		}
-> +
-> +		/* Only use LINK_RATE_SET if LINK_BW_SET hasn't already been written to */
-> +		if (!bw_set && link_info->rate)
-> +			link_info->use_rate_set = true;
-> +	}
-> +
-> +	/* Fall back on MAX_LINK_RATE/LINK_BW_SET (eDP v1.3) */
-> +	if (!link_info->rate) {
-> +		link_info->rate = drm_dp_max_link_rate(dpcd);
-> +
-> +		/* Limit link rate from link-frequencies of endpoint property of dtsi */
-> +		if (link_info->rate > link->max_dp_link_rate)
-> +			link_info->rate = link->max_dp_link_rate;
-> +
-> +		/* Limit link rate from LTTPR capabilities, if any */
-> +		if (max_lttpr_rate && max_lttpr_rate < link_info->rate)
-> +			link_info->rate = max_lttpr_rate;
-> +	}
-> +
->  	link_info->num_lanes = drm_dp_max_lane_count(dpcd);
->  
->  	/* Limit data lanes from data-lanes of endpoint property of dtsi */
->  	if (link_info->num_lanes > link->max_dp_lanes)
->  		link_info->num_lanes = link->max_dp_lanes;
->  
-> -	/* Limit link rate from link-frequencies of endpoint property of dtsi */
-> -	if (link_info->rate > link->max_dp_link_rate)
-> -		link_info->rate = link->max_dp_link_rate;
-> -
->  	/* Limit data lanes from LTTPR capabilities, if any */
-> -	max_lttpr_lanes = drm_dp_lttpr_max_lane_count(panel->link->lttpr_common_caps);
->  	if (max_lttpr_lanes && max_lttpr_lanes < link_info->num_lanes)
->  		link_info->num_lanes = max_lttpr_lanes;
->  
-> -	/* Limit link rate from LTTPR capabilities, if any */
-> -	max_lttpr_rate = drm_dp_lttpr_max_link_rate(panel->link->lttpr_common_caps);
-> -	if (max_lttpr_rate && max_lttpr_rate < link_info->rate)
-> -		link_info->rate = max_lttpr_rate;
-> -
->  	drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
->  	drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
-> +	drm_dbg_dp(panel->drm_dev, "link_rate_set=%d\n", link_info->rate_set);
-> +	drm_dbg_dp(panel->drm_dev, "use_rate_set=%d\n", link_info->use_rate_set);
->  	drm_dbg_dp(panel->drm_dev, "lane_count=%d\n", link_info->num_lanes);
->  
->  	if (drm_dp_enhanced_frame_cap(dpcd))
+Thanks,
+Yuanjie
+> > +		writel_relaxed(4, msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
+> > +	else
+> > +		writel_relaxed(5, msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
+> > +
+> >  	writel_relaxed(1, msm_mdss->mmio + REG_MDSS_UBWC_PREDICTION_MODE);
+> >  }
+> >  
+> > @@ -296,6 +300,9 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+> >  	case UBWC_5_0:
+> >  		msm_mdss_setup_ubwc_dec_50(msm_mdss);
+> >  		break;
+> > +	case UBWC_6_0:
+> > +		msm_mdss_setup_ubwc_dec_50(msm_mdss);
+> > +		break;
+> >  	default:
+> >  		dev_err(msm_mdss->dev, "Unsupported UBWC decoder version %x\n",
+> >  			msm_mdss->mdss_data->ubwc_dec_version);
+> > @@ -552,6 +559,7 @@ static const struct msm_mdss_data data_153k6 = {
+> >  };
+> >  
+> >  static const struct of_device_id mdss_dt_match[] = {
+> > +	{ .compatible = "qcom,kaanapali-mdss", .data = &data_57k },
+> >  	{ .compatible = "qcom,mdss", .data = &data_153k6 },
+> >  	{ .compatible = "qcom,glymur-mdss", .data = &data_57k },
+> >  	{ .compatible = "qcom,msm8998-mdss", .data = &data_76k8 },
+> > -- 
+> > 2.34.1
+> > 
 > 
-> ---
-> base-commit: 7bc29d5fb6faff2f547323c9ee8d3a0790cd2530
-> change-id: 20251214-drm-msm-edp14-8f4dc65dc34a
-> 
-> Best regards,
 > -- 
-> Dale Whinham <daleyo@gmail.com>
-> 
-
--- 
-With best wishes
-Dmitry
+> With best wishes
+> Dmitry
