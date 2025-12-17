@@ -2,138 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C22B5CC39A5
-	for <lists+freedreno@lfdr.de>; Tue, 16 Dec 2025 15:32:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 753C2CC5ACE
+	for <lists+freedreno@lfdr.de>; Wed, 17 Dec 2025 02:11:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF7110E2DF;
-	Tue, 16 Dec 2025 14:32:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49A3710E9BA;
+	Wed, 17 Dec 2025 01:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l52Ekt3/";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JsGrp4Dn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="u1LQeikH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38CD510E2DF
- for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 14:32:49 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BGD8lVk2869677
- for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 14:32:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- sSSMICGICe2f0YIccl2tqHqDQh0xExPvbuAKbmzyLo4=; b=l52Ekt3/3tztiqwG
- gVwiPPv7VlpREtpqvlh+JR4YQIKRXVgsl88qyfDFPt12ZTOjlfN5AA9jXn1Iq6kt
- UnlEGkX5kemeL+qfmIY+CzLK+ZE/zCZAXTIuOO7IsLnhJjZdzciHhcw2GaMcdfdS
- x48nkxLCX4zvGJJSEVk8Mw6wnQ1UQiRpzNGIZrn5zzU5EwzwH8W59EGWehMlzvv9
- 6U/Qk4IdbXbdQdJqzIYM+FONRucm04VVmDXNa1ac05LWk/38iB7KZjMUdd1TwsdE
- vxkW16kHscGUYs5HMVlKxdoJe8nnmHBzGyNvxosPwSUCEJUH9lypLw09kziVWvas
- pSOhlw==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b33kw9hng-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 14:32:48 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-93f667cacadso3150133241.3
- for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 06:32:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1765895568; x=1766500368;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=sSSMICGICe2f0YIccl2tqHqDQh0xExPvbuAKbmzyLo4=;
- b=JsGrp4DnLxrxmt/jtnwmVL3GgWom4DJXyptOOiJY5U9KnjqO/xZr09bT8D1HBFYPKv
- zoJrPH4G7DolKWR4pJXnCkoCEuiGcQNV0HfNHXaaW40fCSGa1VnCZERWQ9ZWaS/vajW7
- qFykriDprPzf8Wi1+zRX+0MtI5MtXxmblhbbgobISokwM94dShXtMAiFIDo2saoTcvRt
- acj6I7yMyvKwxO2VUa+dXIUUo3hbZBaCSyXK4yz1l/GWhbE6iw2DkYuZClpbHD4C7w1m
- vbL4I/aDeQ4sDd5Glo4QkH+iSyQ6g/gyjyVgvrADXp5pkDTmCNHvLcf4I6Fyj4Kvgpb8
- AeQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765895568; x=1766500368;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sSSMICGICe2f0YIccl2tqHqDQh0xExPvbuAKbmzyLo4=;
- b=iMfH44v9zwbH5RltqyVLYjfIq4DUhVeOt+tc1EMLsbSpwjZdCs88pj9WNxcZCL/80C
- PT2MDj+zLti3bPoPK3EcPYbrdct/e7cVmyJY9b/kbLyaVX9RZqVHOalX9B4ZrtQlR6o0
- IltF8Q7OX42R04bPv3QrsJackasrjGWTfAJIWxQAdYHDN7qB+lLwDLSzwXDmemABInQ/
- NBr24eYgWPxYqaSa+32Z3JtS+LWytDI6RAMsfTd12pMsvyUvPeeXCQdrku8eEHE56P1y
- uNI/cnACjd8Wrj0SJ1W3qD1hP3uYAuRNml/MbeBvhpZ6luPlQ1xkAq8N3og4vsk5WLnx
- L5OA==
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35D5210E9BA
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Dec 2025 01:11:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 184E044530
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Dec 2025 01:11:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2CC1C113D0
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Dec 2025 01:11:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1765933893;
+ bh=MXgPKG8iRfkTFawV2oSImacMVNXGvhEiH8MGNITDwA4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=u1LQeikHDGfXosrzGcp22UptYCCQOyl9Tk14ffMyBP5CANHx5X2Z0NHgn4o8bKSgj
+ d4+bLVSxpTp3EPeCLFX/Nrn4ASs/lwQt4AKipGlMUorhB0XsTOFqi97zVOeJlsPBAy
+ E3cxLEDycVAd6A47wb15N1LUuMESPZD5+N1b4HH/bb9zBqajV/e5u41hB//hm737No
+ PlsKP4dVggn7EoXZjmc5ZPXQ0kx3XXyYd6/qDYvXVutxdpafBzML4OyrYPXhc+QTJD
+ XLzuCNXxniC0R8b8jybpgAWx9Z2VnAOUzB7Da0RoNOp1R0VWzM7cakOpuMbCHn+4qE
+ toO4VfeuGp7zQ==
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-b7cee045187so17818766b.0
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Dec 2025 17:11:32 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXCsGdgpTbaiClCLLjJW4/GstmNF7offzQbng5s7FgWJR3SowZKMvwTcxr5XJgSbhOAvFeT5NgzkNw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw21t2IIbS7Dozsif8XBUxzivPedgK4e9gaVpXNO7gVVMVaIoX3
- mpJ3GaNgJybKxEva1/7/OVSHDT1ie1w4SA2mIhmVfDhgjEwtCWqmbM6QedPbsGYAMbUvBwXEKCg
- grsME9tETAAqF0f9RBYLNfluAeHrv1mCpBVF0lkeRvz79m87LpujGPnscVpYRuRLtYK6fOhI=
-X-Gm-Gg: AY/fxX5aLOBsxjC8BwpevR6SkrJgn9cZlGixUPI7+JV623/1+PjlfoyeS4GhWf2tZqy
- 7G8LRLt6ubqUTp2OXgk2qbopej+k3dzzFRMH/+YQ3uSp/0v/Tm8tHng0kIaEv6sNUfrQyoR9ZVv
- EGkMVR1NlrZDcWUhmBYROENCUsBk4/1LXHkpOImYI23IyWzw8l0H1vK21HeuAd3ahDILB3IEAhX
- bw9pHfVwnqhcCPerEMXDTfVfL0OoCK8BLo+3lOxOxZhDo+SCLiLQMIDjENAmieKSBRyi8PTJk55
- C9Rdv4fV5oppiWzO5LvPytgWDfc0Soh6p0/hM3D9OK7h7Mlow3KL8AgOpjmyL2Imi873enxUVcG
- NEtFKpJGYNjwGeE7Lwq8hu5BAHGJlDvTHDuE8wDtaOZoDctdzGr/x4NClMtmOUqIONuRQ
-X-Received: by 2002:a05:6102:4487:b0:5db:f615:1819 with SMTP id
- ada2fe7eead31-5e827488c7fmr4127717137.3.1765895567453; 
- Tue, 16 Dec 2025 06:32:47 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH5bvKhIUfXMFuxDOHV/Y5m3VNAwV/RECgvjwhUnC/dgoHjCv0Ee4gAMKdHTBXr7UcOFJElvA==
-X-Received: by 2002:a05:6102:4487:b0:5db:f615:1819 with SMTP id
- ada2fe7eead31-5e827488c7fmr4127698137.3.1765895566843; 
- Tue, 16 Dec 2025 06:32:46 -0800 (PST)
-Received: from [10.193.196.209] (82-128-196-119.bb.dnainternet.fi.
- [82.128.196.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5990da1a7d8sm954688e87.37.2025.12.16.06.32.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Dec 2025 06:32:46 -0800 (PST)
-Message-ID: <0e9c0f8d-c1f6-4c84-b467-37e11837882e@oss.qualcomm.com>
-Date: Tue, 16 Dec 2025 16:32:44 +0200
+ AJvYcCXCQh4/NXfeZCQ32RsbHn4EAj3NCj3FymIuNL0VEi5d6hAa4rXJ8QiZeXYMzSQtAbs8Cm4XDXoE1NA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJS/AVOLIs3s8w/qNcrDr0ON6GQjlqdp+H2z5XR42lkv5ql+Gm
+ YviOlPQm/ashMPgfBKAM9wQ2fVTRexhKWbtay2HaTEiW6sBfXiQ+pcqvWy9JW0xQkxpKT58jFvD
+ 2njMXhRXzXddG6Usw7w6TxMc86WfAJA==
+X-Google-Smtp-Source: AGHT+IH09y1FeXff7WBmHOEaH+Zc84L3PQbeNaF4MwmrKwymOAKuz5AT1JAJzHLecGEAbQVqo5eyKty7glWQNifAwAE=
+X-Received: by 2002:a17:907:7ba6:b0:b70:4f7d:24f8 with SMTP id
+ a640c23a62f3a-b7d2184b2c0mr1888659466b.22.1765933891233; Tue, 16 Dec 2025
+ 17:11:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dp: Enable support for eDP v1.4+ link rates table
-To: Dale Whinham <daleyo@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
- Steev Klimaszewski <threeway@gmail.com>
-References: <20251214-drm-msm-edp14-v1-1-45de8c168cec@gmail.com>
- <s43zm7ljm5cipjgkjllvplk6jcxrjo445rboirikivtr3n2alh@fvu66mkwkb5q>
- <2c1656ff-cba9-4122-a414-d22958f5857b@gmail.com>
-Content-Language: en-US
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <2c1656ff-cba9-4122-a414-d22958f5857b@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=TLpIilla c=1 sm=1 tr=0 ts=69416d90 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=UP4AmmvVc3sGQHJQO2VA4Q==:17
- a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=8z4_Mw9kuIkUejV11uIA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: Z66lIZkElQ5Lh1PrKP9oj-vNYyJTFVP-
-X-Proofpoint-ORIG-GUID: Z66lIZkElQ5Lh1PrKP9oj-vNYyJTFVP-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE2MDEyNCBTYWx0ZWRfX274WyThNsycz
- iM5JgJ/QN3tBauQKcOPP6QhmWxwoOFp5QmYx1e2ez4VmBYYIAH+UQkeCIYS4NhmlV727aQscIhx
- E6ghQYGjioQJZciG6Nd+ZEK7zW5YBYyGZdleEyDdyZf5+g7PwWueZXWXz05yFbNOKKFRE1U5JPQ
- cDEYuMk6ukc9yJHMyfMZn+P+jDUzFCVhrIyDjpcIlKaNMz/aGPkRG+8WmK2/8dVekIEpxWTE2jU
- PshG9VjEVqUD+LaKWIjaHSbeK5hDSNX4CJnVxxRRjFQDiqg9zAY5zoMVSmoq0y7mn+SwlHve7e+
- Vb6Fd84Ihx/tsatGL9A1EkEhaSX5INT8f2ahhiDWHbS9XQ4FIk7uVWTgZlMQVKoF5x3JJoscfLE
- rbxGYOAWTDYOydpOWWQp0VbOAcjlzA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-16_02,2025-12-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 adultscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512160124
+References: <20251215083854.577-1-yuanjie.yang@oss.qualcomm.com>
+ <20251215083854.577-5-yuanjie.yang@oss.qualcomm.com>
+ <176579137354.1486530.823295322686100207.robh@kernel.org>
+ <aUEG3TL34CM2V5Z+@yuanjiey.ap.qualcomm.com>
+In-Reply-To: <aUEG3TL34CM2V5Z+@yuanjiey.ap.qualcomm.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 16 Dec 2025 19:11:19 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqLR8e4FND5LfAVB+cJDMiFpgBTKZtpEDDQiuQfGJu2LKg@mail.gmail.com>
+X-Gm-Features: AQt7F2qrp-LAixPGVqyvJ3BRA4shV026jLgADH15ncdaEmvmHwSZG96LHZNTP68
+Message-ID: <CAL_JsqLR8e4FND5LfAVB+cJDMiFpgBTKZtpEDDQiuQfGJu2LKg@mail.gmail.com>
+Subject: Re: [PATCH v3 04/11] dt-bindings: display/msm: qcom,kaanapali-mdss:
+ Add Kaanapali
+To: yuanjiey <yuanjie.yang@oss.qualcomm.com>
+Cc: yongxing.mou@oss.qualcomm.com, robin.clark@oss.qualcomm.com, 
+ tzimmermann@suse.de, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, 
+ devicetree@vger.kernel.org, konrad.dybcio@oss.qualcomm.com, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ krzk+dt@kernel.org, neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com, 
+ linux-arm-msm@vger.kernel.org, lumag@kernel.org, simona@ffwll.ch, 
+ tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com, sean@poorly.run, 
+ marijn.suijten@somainline.org, abhinav.kumar@linux.dev, mripard@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,38 +82,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/12/2025 16:31, Dale Whinham wrote:
-> On 15/12/2025 22:15, Dmitry Baryshkov wrote:
->> I'd suggest following i915 and writing DP_LANE_COUNT_SET before
->> DP_LINK_BW_SET.
-> 
-> Thank you - made this change for v2.
-> 
->>> +    /* For eDP v1.4+, parse the SUPPORTED_LINK_RATES table */
->>> +    if (link_info->revision >= DP_DPCD_REV_14) {
->>
->> No, eDP has separate versioning register. DP revision != eDP revision.
-> 
-> You're absolutely right, this was a mistake.
-> Does something like this seem reasonable for v2?
+On Tue, Dec 16, 2025 at 1:14=E2=80=AFAM yuanjiey <yuanjie.yang@oss.qualcomm=
+.com> wrote:
+>
+> On Mon, Dec 15, 2025 at 03:36:13AM -0600, Rob Herring (Arm) wrote:
+> >
+> > On Mon, 15 Dec 2025 16:38:47 +0800, yuanjie yang wrote:
+> > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > >
+> > > Kaanapali introduces DPU 13.0.0 and DSI 2.10. Compared to SM8750,
+> > > Kaanapali has significant register changes, making it incompatible
+> > > with SM8750. So add MDSS/MDP display subsystem for Qualcomm Kaanapali=
+.
+> > >
+> > > Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > > ---
+> > >  .../display/msm/qcom,kaanapali-mdss.yaml      | 297 ++++++++++++++++=
+++
+> > >  1 file changed, 297 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/display/msm/qco=
+m,kaanapali-mdss.yaml
+> > >
+> >
+> > My bot found errors running 'make dt_binding_check' on your patch:
+> >
+> > yamllint warnings/errors:
+> >
+> > dtschema/dtc warnings/errors:
+> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings=
+/display/msm/qcom,kaanapali-mdss.example.dtb: phy@9ac1000 (qcom,kaanapali-d=
+si-phy-3nm): reg: [[0, 162271232], [0, 460], [0, 162271744], [0, 128], [0, =
+162272512], [0, 1024]] is too long
+> >       from schema $id: http://devicetree.org/schemas/display/msm/dsi-ph=
+y-7nm.yaml
+> >
+> > doc reference errors (make refcheckdocs):
+> >
+> > See https://patchwork.kernel.org/project/devicetree/patch/2025121508385=
+4.577-5-yuanjie.yang@oss.qualcomm.com
+> >
+> > The base for the series is generally the latest rc1. A different depend=
+ency
+> > should be noted in *this* patch.
+> >
+> > If you already ran 'make dt_binding_check' and didn't see the above
+> > error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> > date:
+> >
+> > pip3 install dtschema --upgrade
+>
+> pip3 install dtschema --upgrade
+>
+> After update package,
+> and use=EF=BC=9A  make dt_binding_check   I see the same issue.
+>
+> but use single check:
+> make dt_binding_check DT_SCHEMA_FILES=3DDocumentation/devicetree/bindings=
+/display/msm/qcom,kaanapali-mdss.yaml
+> I don't see any error/warning.
 
-Yes.
+Because DT_SCHEMA_FILES excludes display/msm/dsi-phy-7nm.yaml. Soon
+(in the next linux-next tree), you can do:
 
-> 
->      if (msm_dp_panel->dpcd[DP_EDP_CONFIGURATION_CAP]) {
->          u8 edp_rev;
-> 
->          rc = drm_dp_dpcd_read_byte(panel->aux, DP_EDP_DPCD_REV, &edp_rev);
->          if (rc)
->              return rc;
-> 
->          if (edp_rev >= DP_EDP_14) {
->              // parse the rates
->              // ...
->          }
->      }
+make display/msm/qcom,kaanapali-mdss.yaml
 
+Which will test the example in the specified schema against all schemas.
 
--- 
-With best wishes
-Dmitry
+Rob
