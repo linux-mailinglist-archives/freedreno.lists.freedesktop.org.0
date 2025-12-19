@@ -2,162 +2,151 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C16DCCF3BF
-	for <lists+freedreno@lfdr.de>; Fri, 19 Dec 2025 10:56:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 795EFCD005D
+	for <lists+freedreno@lfdr.de>; Fri, 19 Dec 2025 14:20:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23AE310EF02;
-	Fri, 19 Dec 2025 09:56:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42B4010E7A0;
+	Fri, 19 Dec 2025 13:20:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mBvM2Wno";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MS5JLhND";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dcfyx/aZ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fm8AJAvT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0865610EF0B
- for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 09:56:47 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10E9A10EF16
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 10:39:22 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BJ4c6ni3999335
- for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 09:56:46 GMT
+ 5BJ4d1iR3320327
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 10:39:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- k2n+SE5qOjIgQy6DMMGVLWGLkjFAmY3VbtNAYsRbVQs=; b=mBvM2WnoXkzYN/kC
- SJGG65cEd1jX1y37nhMNwPXoYap3kWJQ87NpviuiG/9EpW6RY1R2+65CQo0TacQK
- sg5g261EgUkzpSZNRyIQ5Tbq94grrpgA54RJf6dw7RiPrt9VvtizQFAgaUOcEl8M
- GWgnCmPqSj0yr1tNRU87wP08XWkpyiLLJXDEohVRQEIe6jqZ3UEAy9xpKoaXIU/+
- ForMEEIzdxlOZtKRPSjpS3PmCX2Ly5oARuhQGWCswtUnUjrxx7VjBJaXw4Eu3pbN
- YXSBkcSKxsz957JQmEVhedqMLHHF9ABw3MrRhNod1hp64Yv1Ut2wd6spRjrh8MHF
- YF2vfA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b4r29j80p-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=5WpkRzSjWUQP8YT/iPdEOd
+ s5AwcizwNwKhZAwGdgqG4=; b=dcfyx/aZ0inFWrCsE+V0e48utFdMCeCYtOOeQf
+ WZQDSjLYkXDgpGLx6WQMCjHZ3NtHsNZ8PyNNlG7pPnHSBrT3SBfcLvTF3/ETIhgN
+ dmYBc2u6STU2XlOAhHhZS09V4+PFg1bYuFhXw85qzJ/KBSSTubZF0t3T3JSQcufd
+ hEbKV79LhDrN6/Dm8uuLZ+xKdb68dQtWDnuW3lfFPVbrd1C2OQ67P1pSjdKPqPtn
+ Yi9a5trHL4IDPS4XFUqfGXgXauhhMsCYOvdmDTZO/EwtvzTTEcq3o0YzNuHXiXq8
+ Kau6A0FJFZwtX25IxbmSHueIhRoWWvbAB46Zk4HeRRjv0JJg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b4r2etadc-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 09:56:46 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-88a2f8e7d8dso36955846d6.1
- for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 01:56:46 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 10:39:22 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4f4a92bf359so22749801cf.2
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 02:39:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766138205; x=1766743005;
+ d=oss.qualcomm.com; s=google; t=1766140761; x=1766745561;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=k2n+SE5qOjIgQy6DMMGVLWGLkjFAmY3VbtNAYsRbVQs=;
- b=MS5JLhNDIdpPzeosItbNmBeXycAt2Ljut9seSUJBKYtvWn9qVpjpj4EHE6n3t6yGVu
- uqUiEev2p5sZEzYyIjojcu3TsnnViUjX1lDei15onO1NlyAvnbJNdCk+pnyDFL3cPn6w
- DxtNzLlV+0/BH0kj2/j9vXfsAHNPyrbc0Sp7gZcj3/l2B0whXnjCSFGJCyPZtqbln1kh
- 1ZUdouJtTGbOVbFlQoPU8L+xFUyFVhjz5AJ61dxb2DO1+Y73PTlNG1rfigM3xdjOkvAV
- en/LefgrAGCxLz9/gBSPALJVkU+F5A0h9MQx3Vz5DgP/2ihCEsYnHuZFxo9zVFqH7cVK
- Ha1A==
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5WpkRzSjWUQP8YT/iPdEOds5AwcizwNwKhZAwGdgqG4=;
+ b=fm8AJAvT2+xtudz0XJrKJV73bYWqAI0hxRl1UB8lkoZbNvHjjtIa+8/o9dQNctvgq6
+ X3T6fRkntiLKLAkVMhspxs3ZuoaAnMozTMM8ALJGHloX26NBQ2JTeepFvR3eu8mBGiJI
+ 6mIxz4aka4mcJDETsYAeMnuIb7qa5RJ9COVB4vqkexAfFBv1EoVJUK7d8/Z5TSxzj7nq
+ Oq2jxkKYTfaTuo9H81n/REa3BEWzudukD6pirveKijY20BdspXjj6YXVIkB0172xe9ST
+ Z0x28SRMKMeXlFM8gUa9SZ7mKpooPMsgiRuzTLo3/vm+dBZefMFxRM3BN4DBuufNMhWl
+ GMvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766138205; x=1766743005;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=k2n+SE5qOjIgQy6DMMGVLWGLkjFAmY3VbtNAYsRbVQs=;
- b=vMlJT1NP2cmgRR0ZlRfnKgP/3uU67pdrAulxlKvyGQ/ysabBQmXiDGh7Yjg2NBAvO5
- HNF/pxLGITM21AU2qPNHgkcx0Z6hAgtAe4sWut7uzQZzFwxtBlIv1AMy8nAlrkKzaGn+
- O3jUIJTH1U4vCDtCNtZB/F2RFwkY5CVFLu7aFCNWCVdwlTNkoVL4j1tx2N9ZMhUDaIqx
- U7Qjt1/I/PFpmRFJF+QGa+Fa4u1g9DsxQQul/P8yKqyAaz2yNCfhuo0Cam+5ZrXDSUB/
- etRXdSS6HhVT0WHjsPPAcKhbXAxYC8YDcWgwvyPz3CkqoaRJrhHqfgPwu4ZGaCE6791r
- MJRA==
+ d=1e100.net; s=20230601; t=1766140761; x=1766745561;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5WpkRzSjWUQP8YT/iPdEOds5AwcizwNwKhZAwGdgqG4=;
+ b=ZeZzNYbP3SL2fdhWIfDuk4EaE2Ij12Gqw/N5mtd1J26SZDEN4ZoisjQ2HDqA3cw+OZ
+ mVxoUC7AYfaMA9ymZg5hl1IDxwNSMuEerUaVmzSdwpGNiHD207mC+4mFbixwYMZ8YjJC
+ 0/PhRMmFcXqGwXUhj12WbxzhAZVMtMgWbjhZC76A1/aLR+dGb7fzPWG5tSwYWyUYWv6d
+ 3TnO0ZmFRmhqEord5gmKQwYGrrDCZfjzRmbh30yNHIW72EMiN8qt9uDFCVYxnpZQ1FtR
+ AYiLzHxiGfiSRyehT0uNUZN4fhic8OSiRe7iOjST7bMKRqdova6+B2vqID2zPok3SHQR
+ 5G2A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX5iocrVcn5IXkO5IZekpQvg1Sl9TLYJbQTuoFHMmFrhveldNMyNIDMPht22/ycUePD5OXXs3FGjl8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxiddUxpn3+Mr4+obBj3JKbTdLHmr9mcAkP+ezdIWT+hUMDNhgX
- DX8I1dxMfza2YUUg7p536PkO283Ba0q/hfeoHqUaBQEaG1JWmoPJ9rfwHF4gQS9BkaeeraJyIZ7
- NGfQpVv3JONctCufiM81A9Dadf1IWlMYHuzma8r5u6R/awkUC4ZMxfSTultFd/EwwsBgQlXw=
-X-Gm-Gg: AY/fxX5aUhDH2jV0og4gAyksV1Fc7JjzwDUT6YcX7u9Lt2u1ojdr/zz4pV/s7o3P+Oa
- IoszbYYHqo2rz4cDy1YPOez0KmeBkbABulMEOnTqmN+i35tdHrxphhsXVGMInh/PNx6D1hbmTtx
- DzKeM7IWjada4Vz7gNW/wcyminH2j2t5aEkws70spuuKLl5D18SWS8JLCigklxFiM1XsvdDUzvu
- JUJiHA3JEKejCVLkRVFx4MKx+SvYnz9xW7zKM4JLCMwcDdrfxbAqZlNYmNPgonWXUAzxvd3OHl8
- Czz5YdzPKm0XZBqU41jNiJuvfBfkyrwnPuVOyvNvScjiO8rJ+dA+Hc8HWSFF37hAXmNioSMfTXh
- 87QJ1N/kQl+nqG1PScOHYEKe7A/7bj6knFFEI63vRTuYsE+m5Il7awSgiZ2Dlcia5XRfu
-X-Received: by 2002:a05:6214:1c4a:b0:880:4ed1:ce32 with SMTP id
- 6a1803df08f44-88d833b580bmr40114596d6.45.1766138205409; 
- Fri, 19 Dec 2025 01:56:45 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEmL/9SGkWyvSpj/ayO4oxzYHHhXmjwsfj/l32rWMsHt4VSUg1NRyyPchBsCrruiDNCaZinHA==
-X-Received: by 2002:a05:6214:1c4a:b0:880:4ed1:ce32 with SMTP id
- 6a1803df08f44-88d833b580bmr40114456d6.45.1766138204950; 
- Fri, 19 Dec 2025 01:56:44 -0800 (PST)
-Received: from [10.193.196.209] (82-128-196-119.bb.dnainternet.fi.
- [82.128.196.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59a186f957asm542852e87.28.2025.12.19.01.56.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Dec 2025 01:56:44 -0800 (PST)
-Message-ID: <a0acccc3-00d9-4235-9b4a-f4498b2896ac@oss.qualcomm.com>
-Date: Fri, 19 Dec 2025 11:56:41 +0200
+ AJvYcCXrfyPj6S6nctGK5ZhXNjN+6zpRVcXIeF2MAintVUE94lUpOXIlTC9veZ2shhGlPEdN3bcF1xy2vfM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwIOZwmqvF69KjuGRK71TYUhBonn4kPwrlnMzwSgqMUUlgFikwu
+ Rw1nnMubM4DM58tUkYTzKOujDg+ThbEGJ3XlqyB3AQqZYJWVO7hdiGZ/IvXVHv4GERPAtb/T4oK
+ B5v4nU+Mkdi+IK22fiJpvhIHUWf2y33nT1z35E7/RVqvDAzz7Y1LSUdxR6bu1SnAqWyXp/0c=
+X-Gm-Gg: AY/fxX4F7fXXkSXp8B45JpywhKR3DYO0JFKA/ZcHnIbeh+w2O3nWrL/EXiYGqxxwfQT
+ xXEgx98ee0D+ogf3E3L7F4ryB9P9ebgCaTqsnT7YX5fEN5EOZvIZfw0jl6jz4oIQ2ZrMPs/tKaq
+ 8m0JnJ4XDE3t/QS/2hbbeRrZ5O8mncBwo4q0RSwQL+MlMlLX3p6Y9sUy3PKdTs7lAz73v93adJJ
+ wpbwbtHfgeN+S8C6BODG5ymfeW6vmDNcyeDcMAuw98SiFSDoY1wY/WPECbix1lbGGtmq9AbAXlz
+ 3NqjcJrfALcrdPixY7H+FTv9/RgZHc3XJDoXg0mo0iJSHprE2XjSlQs1Zyy4f+fYMN7RskFgJkB
+ OBrTv1R24gOyV2N8=
+X-Received: by 2002:a05:622a:a07:b0:4f1:ca4f:d480 with SMTP id
+ d75a77b69052e-4f4abd97f74mr34794771cf.45.1766140761299; 
+ Fri, 19 Dec 2025 02:39:21 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG54uLQpoAtFj+oMXbNkbve+ZM6hf/DHjVt1IKUPcHqipmFzkeIxiVd9pxY+UmnT0HbF+zwrg==
+X-Received: by 2002:a05:622a:a07:b0:4f1:ca4f:d480 with SMTP id
+ d75a77b69052e-4f4abd97f74mr34794491cf.45.1766140760794; 
+ Fri, 19 Dec 2025 02:39:20 -0800 (PST)
+Received: from hackbox.lan ([86.121.7.169]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8037ad8577sm198142066b.24.2025.12.19.02.39.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Dec 2025 02:39:20 -0800 (PST)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH 0/2] drm/msm/dpu: Revert broken parts of the quad pipe support
+Date: Fri, 19 Dec 2025 12:39:00 +0200
+Message-Id: <20251219-drm-msm-dpu-revert-quad-pipe-broken-v1-0-654b46505f84@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/11] drm/connector: hdmi: limit infoframes per driver
- capabilities
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Daniel Stone <daniel@fooishbar.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Liu Ying <victor.liu@nxp.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20250929-gregarious-worm-of-memory-c5354d@houat>
- <itgffxygopi7etkt7xhvmyuvyl5ad3k43nsxvjzw3ubtwiikn7@ocugfdaigtu7>
- <20251003-uptight-echidna-of-stamina-815305@houat>
- <zpygq4kapil3swsmhhqkdwny4ry2dznnzixsw5rkza5p2kqnvp@abvf2vxlbwif>
- <2a5fitdzr2bz235fj6rvqzxr6ckszkjbazjfszlvnizdh2cvbt@w3ypjo7vahhs>
- <pibxhl5hlcpuk3zsgyienfdlda5cwuxrnofwlw356scuzzplqy@zw3ofelgvwik>
- <bsoqyzxi45i67jpzhwr2d4illufa5ghqf25z6flbp67lsbvh22@rrlcihp2oxea>
- <cgzclxjubj5oca3rdnv44qwrkmpddxve4tlz76cc6p3b4hz3oc@3l7mt5ha7do6>
- <20251201-enlightened-zebu-from-asgard-5a20be@houat>
- <5dyhjur3hkhvtlwrl4h2m342byor7f3ssvkunj4cggnhbhlmnb@l2mfz7ypjj37>
- <20251219-honest-slim-crab-02e932@houat>
-Content-Language: en-US
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <20251219-honest-slim-crab-02e932@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=P6c3RyAu c=1 sm=1 tr=0 ts=6945215e cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=UP4AmmvVc3sGQHJQO2VA4Q==:17
+X-B4-Tracking: v=1; b=H4sIAEQrRWkC/yXNQQrCMBCF4auUWTtgQmuIVxEXTTPqKEnjTCNC6
+ d2NuvwW738rKAmTwrFbQejFynNuMLsOptuYr4Qcm8Hu7WCs8RglYdKEsVRsA5IFn3WMWLgQBpk
+ flNEF2/vh4LxxBK1UhC78/r2czn9rDXealm8atu0DxsdeW4cAAAA=
+X-Change-ID: 20251219-drm-msm-dpu-revert-quad-pipe-broken-7b249567917e
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Jun Nie <jun.nie@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1312;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=/u3nvXle1xbqy/IuGW/9vL0OVSJ020YRlDEhrJxnPis=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBpRStOgv3n6bkgMr1ZmWnTrO6Ri2kbxqxejW06l
+ ip8nZ7X4KeJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaUUrTgAKCRAbX0TJAJUV
+ Vi5nEACtwbm0IopDWK5GIQKXH19r7MV9q7QjXyGuhaaElQy7myNtVLl4DD+JP9VY8KfRMQdDNxB
+ N36gh5lsCDG+bNVKtJdJ2gANTEgJ3IhZxsuaNyQhj8iPLUONlxyS0ZEVm2kMzgL7Qew0mkxnFEF
+ IdFKw74UFHJ6nRi5MvOiNkbeNZ2z2X/M5Oay5MuJ9n8bzTzaCqqcBiM374bvYVPTcjVv6QJVDB+
+ yYnScHthLUmJio2uzCnTYfW490HE3UPeqGONcxHmZDZYXb/wgizy1idAJ4ktGtCVqMIcmDCQYL6
+ X+BCZZWG5IhC3i775MdMYAMZL0WbrkVHSDGIlgcTcDzZ94sX2EOKV69ggBByj9qDx1Gf8aQVM+w
+ c9yPPKS1MsYJomrebxP6V0ic6lJ0eaPaKzT03eAb7CZzmC4b04C0sZ//aP4h9u1520lGcdXnhxV
+ sC031PQIRZhk7gjjKjVzQ3NXMkfv1VrYHPvvEAtT59LxUN3fCTZiXCGKWDdrCEd6zUvOzoDFgG+
+ L/bsXrqduqxUVb8snRyL5NQOk0Vt8rIyZJnRRT/u0hdxyYaQ+Tpal0n5eYRhs3mMpHLGiLEnT98
+ 1FjAqGgwkiCnsRLqjvN6l2kI9B2HfiF6+UDnO1e3k6rmJkw2uhwHynUuCRrr2n6qeRmql3UHlgv
+ BWr1/b1M5xj+zFw==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-GUID: wIgW9Q8kGEIxkH8QOtXTAp8PFB9mPbl0
+X-Proofpoint-ORIG-GUID: wIgW9Q8kGEIxkH8QOtXTAp8PFB9mPbl0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE5MDA4NyBTYWx0ZWRfX4FfIdP+awwBA
+ Zf8hkdOnaS4t+9aSU8mU90ADgzDrbMJCTcmqFW2gNU8CqB6sBIOmAYrhXzPjp6xqpeFyFFsluUu
+ mxwoZGxL8p0Q2DUXq9pQJ6kwAdCr0ztBdNcwLtEz7iituuGkBuasYZfymI7N1LzL1O1b8nc7cc0
+ YDNAv4ZTQC9Dt/pmHgQaUDqZfOEXBuK9btm6+FdGGC94KjeXXEKz0EGn1jEq7WB4cz+HGOsCuRG
+ MtMMevC0N+t1qEhhNzVBah6P6CwJPHmtBGD8zD2cU4KTmDg3PYN5Lubb4HUwgnqFmrh7UyGPm7z
+ 7BGbuho14cOznn8XXqbfIYZP8ayHvHadn+m1yrSFTA0v08P71/QB15j6tOoVDXfX9wOomDWChPm
+ fkCkWQauSFt9R9n5aHu4RmoEYPabogLznf99Y3oiCwMZtoLDA2qBmBtbQHAOTtslKSV3qDgJ3Dz
+ 6vSZhMcPnM7mMM1SveA==
+X-Authority-Analysis: v=2.4 cv=Tp7rRTXh c=1 sm=1 tr=0 ts=69452b5a cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=DdBtMnqNxkYIvXj6ev4VzQ==:17
  a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=wWkPZpA8QBIs0yCpxSwA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: 2ta7HoZV1Q4VKfq8NA6n1tnUsvTDb3KC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE5MDA4MSBTYWx0ZWRfX1WomUM3hNjgd
- YrWYiZi0kuZn0hTqZxElZgr2anYUSk6xyMb+7GTV6TJ62nOYT4sT7e4DQASrefatfjy52Rc05XM
- ykEIR+sJ/EDtyF9zn8MAWrjL/gLv+C9ZCJqWEcTx2dyYxh+m/tKeTRRXTJhPXFvA+VTE01zZMuY
- TevqYyWn+5xacXrJ7W9p/CcU0VJIttA8fLd3EC8VhSp8mU1RweTpXVTKgxmdiLXtXNSo7v/kM3S
- o4srAqYIonz7I3A23LAmiRDQRmkNqF8l0T7+rH2ZY3z+j9MPSEMkFbPqiZTaqqW+OXTufUeYyAM
- IWcZ39wRdw9MH0ReDFbYtRpGsVMXaqm1dnNZHWIX9WP0Mf6ctcTb4aEMBDmwVnQyHJThSRCnAwi
- LFrGn6coM7WmSeYHfRyO7N2ToASxpZI6ltL9Cl4W5coWlLW13y+0h/jjocXjTDBReGGG7CwI8C7
- WAQ5ZOAkCDLJSI3ID2g==
-X-Proofpoint-GUID: 2ta7HoZV1Q4VKfq8NA6n1tnUsvTDb3KC
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=C3Rb7UmAfwJbGrY5-NcA:9
+ a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-19_03,2025-12-17_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
- suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512190081
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512190087
+X-Mailman-Approved-At: Fri, 19 Dec 2025 13:20:32 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,60 +162,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/12/2025 11:54, Maxime Ripard wrote:
-> On Sat, Dec 06, 2025 at 01:28:14PM +0200, Dmitry Baryshkov wrote:
->> On Mon, Dec 01, 2025 at 06:01:56PM +0100, Maxime Ripard wrote:
->>> On Fri, Nov 21, 2025 at 07:09:01PM +0200, Dmitry Baryshkov wrote:
->>>>> So it's not really impossible, you just need some hardware and a day's
->>>>> worth of work.
->>>>>
->>>>> There's no reason these should get a pass, it's breaking the spec for no
->>>>> reason.
->>>>>
->>>>>>> For SPD, It's really not clear to me why atomic_check should do that in
->>>>>>> the first place. Your initial concern was about exposing infoframes in
->>>>>>> debugfs that wouldn't be used by the driver.
->>>>>>>
->>>>>>> If the driver doesn't register a debugfs file for SPD, and ignores
->>>>>>> whatever is in the atomic state, what's should we force drivers to do
->>>>>>> that?
->>>>>>
->>>>>> I really don't think that drivers should mess up with debugfs on their
->>>>>> own. Making atomic_check() disable the unsupported InfoFrames makes the
->>>>>> picture perfect: the DRM no longer tries to program them to the
->>>>>> hardware, DebugFS files stay empty, so the whole state becomes
->>>>>> consistent.
->>>>>
->>>>> In the "bridge has no access to infoframes" case, there's really no
->>>>> infoframe. An empty file is "the infoframe can be there but isn't used",
->>>>> not "we don't have access to it and can't report them". Only drivers
->>>>> have those infos.
->>>>>
->>>>> If we do split up write_infoframe into multiple functions though, I
->>>>> guess we could create the debugfs file only if the function pointer is
->>>>> set, which removes drivers' involvement if you don't like that.
->>>>
->>>> I'm fine with not using HDMI connector framework for lt9611uxc.
->>>> Likewise, I think, it's fine to have empty files for the infoframes
->>>> which are not being sent over the wire for any reason (hw not supporting
->>>> it is one of the reasons).
->>>
->>> I can't think of any other example in the kernel where an empty file
->>> means that the driver doesn't support something.
->>
->> Okay. So we need to sort out implementing the split write_infoframes in
->> drm_bridge_connector. Any suggestions there? I'm asking, because I don't
->> want to end up exploding it.
-> 
-> I guess it's only really a problem if we want to make it const, but we
-> don't have to? We could just as well allocate the structure directly at
-> probe with a drmm helper and fill it as we need to.
+There are quite a few reports off-list that, at least on Hamoa based
+devices, there are some IOMMU faults and some abnormal artifacts on eDP.
+These have been traced to the quad pipe support introduced in 6.19-rc1.
 
+Meanwhile, Marijn reported some issues in some dual-DSI dual-DSC scenario.
 
-Yes, I wanted to keep it const, as we usually do for all function 
-tables. I will use drmm_alloc for it.
+Off-list discussion concluded into reverting these two commits to avoid
+the described issues.
 
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+Abel Vesa (2):
+      Revert "drm/msm/dpu: support plane splitting in quad-pipe case"
+      Revert "drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case"
 
--- 
-With best wishes
-Dmitry
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  38 ++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  29 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 137 +++++++----------------
+ 7 files changed, 73 insertions(+), 145 deletions(-)
+---
+base-commit: cc3aa43b44bdb43dfbac0fcb51c56594a11338a8
+change-id: 20251219-drm-msm-dpu-revert-quad-pipe-broken-7b249567917e
+
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
+
