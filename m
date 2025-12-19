@@ -2,71 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7CCDCCFC65
-	for <lists+freedreno@lfdr.de>; Fri, 19 Dec 2025 13:25:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB2A5CD023F
+	for <lists+freedreno@lfdr.de>; Fri, 19 Dec 2025 14:54:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DDCF10EF8A;
-	Fri, 19 Dec 2025 12:25:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 896E710EFD6;
+	Fri, 19 Dec 2025 13:54:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kDXoTy4J";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CtCFrIjt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C0EF10E481;
- Fri, 19 Dec 2025 12:25:16 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5651560018;
- Fri, 19 Dec 2025 12:25:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DEE8C4CEF1;
- Fri, 19 Dec 2025 12:25:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1766147115;
- bh=IKABffyNvPjVM+RzIL5ZAgHEXRXD7t+eDtpJ1JycBW0=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
- b=kDXoTy4JgoCQtYGg5/UHAbHNxZs3nuql9kLRBlRL08h4OgY6WohVAyq+6n5wjjjN4
- ZZ7BAsk+IxUf1OAJjfMLqsezJMiZTEDLMokOj+3p+oBqXBpbXSgX/PHtilfEzw0blp
- hI2uxR66pgVguorKq8YwmkyNG+YJG6ntsL7+PVOPC7iiav7mLXlrZCEYPzpNzwglj3
- LtPOVO5vSqBa06DClUFoH9b/rDV+mK9q3/3hxSbYNNEaKu+VQftOBZpinqYnnaPBwT
- 5O4vVWnTHYIEwcwdw47DpyJQ2jk04fUUqn/U+WPbVnna0WAAaaMD7NYx91omtEqNg+
- CM2oilI8Y6E0g==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 19 Dec 2025 13:25:05 +0100
-Message-Id: <DF26WBIDPMPU.3E6XTUPMZTHW1@kernel.org>
-To: "Alice Ryhl" <aliceryhl@google.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 2/4] drm/gpuvm: drm_gpuvm_bo_obtain() requires lock and
- staged mode
-Cc: "Daniel Almeida" <daniel.almeida@collabora.com>, "Matthew Brost"
- <matthew.brost@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, "Steven Price" <steven.price@arm.com>,
- "Liviu Dudau" <liviu.dudau@arm.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Frank Binns" <frank.binns@imgtec.com>, "Matt
- Coster" <matt.coster@imgtec.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jessica.zhang@oss.qualcomm.com>, "Sean Paul" <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, "Lyude Paul" <lyude@redhat.com>,
- "Lucas De Marchi" <lucas.demarchi@intel.com>, "Rodrigo Vivi"
- <rodrigo.vivi@intel.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-media@vger.kernel.org>,
- <linaro-mm-sig@lists.linaro.org>
-References: <20251128-gpuvm-rust-v1-0-ebf66bf234e0@google.com>
- <20251128-gpuvm-rust-v1-2-ebf66bf234e0@google.com>
-In-Reply-To: <20251128-gpuvm-rust-v1-2-ebf66bf234e0@google.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D9E10EFD3;
+ Fri, 19 Dec 2025 13:54:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=9Oc7SeDgIAn/pvJ2xdrtswjdqH4HQWnLutTcecIxOlM=; b=CtCFrIjtoPwsgCIeP3XvjQnyx3
+ trgD9NPDnXLwiX6XFnhLqkI/ayxtp6/uKZIXXHJP6k7BCKuYwui9YZbr9gRuWzHFed1Hwe01Qs212
+ Yn2NIBmTkPxMvcZ6PVYanszk3TD4PzQ6Md9frtZhYm8Cp+uBEdHITVjg8+b4FqDfXkMT8vjEcHa7p
+ VHUDTvTk14yB5t+paOk95ZtdtVLE1fTTj+bALwrGd5W34NWOIaIoVl1lhVstHV05wWWrjY0EmiG3D
+ Rc/+1n6gRrqY4d0YdkkVq4BXhmUn2uPs/igfth1GKj6TLRq2/M/hCQVs3b1aD8r6pTKghY6ccMUYO
+ HR2dSlfQ==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with utf8esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vWaw0-00Eejk-2m; Fri, 19 Dec 2025 14:54:20 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH v5 21/28] drm/msm: Remove drm_sched_init_args->num_rqs usage
+Date: Fri, 19 Dec 2025 13:53:43 +0000
+Message-ID: <20251219135351.25880-22-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
+References: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,28 +61,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri Nov 28, 2025 at 3:14 PM CET, Alice Ryhl wrote:
-> In the previous commit we updated drm_gpuvm_bo_obtain_prealloc() to take
-> locks internally, which means that it's only usable in immediate mode.
-> In this commit, we notice that drm_gpuvm_bo_obtain() requires you to use
-> staged mode. This means that we now have one variant of obtain for each
-> mode you might use gpuvm in.
->
-> To reflect this information, we add a warning about using it in
-> immediate mode, and to make the distinction clearer we rename the method
-> with a _locked() suffix so that it's clear that it requires the caller
-> to take the locks.
->
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Remove member no longer used by the scheduler core.
 
-Ultimately, the two different approaches of obtaining a VM_BO have always b=
-een
-desinged for the two different modes of operation -- great to see this refi=
-ned!
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+---
+ drivers/gpu/drm/msm/msm_gem_vma.c    | 1 -
+ drivers/gpu/drm/msm/msm_ringbuffer.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-Given that, I think it would be great to update the "Locking" section of th=
-e
-GPUVM's documentation and expand it with a new section "Modes of Operation"=
-.
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 71d5238437eb..dac6f190544f 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -829,7 +829,6 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
+ 	if (!managed) {
+ 		struct drm_sched_init_args args = {
+ 			.ops = &msm_vm_bind_ops,
+-			.num_rqs = 1,
+ 			.credit_limit = 1,
+ 			.timeout = MAX_SCHEDULE_TIMEOUT,
+ 			.name = "msm-vm-bind",
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index b2f612e5dc79..f7f0312a7dc0 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -67,7 +67,6 @@ struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+ {
+ 	struct drm_sched_init_args args = {
+ 		.ops = &msm_sched_ops,
+-		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = num_hw_submissions,
+ 		.timeout = MAX_SCHEDULE_TIMEOUT,
+ 		.dev = gpu->dev->dev,
+-- 
+2.51.1
 
-Mind sending a follow-up patch / series for this?
