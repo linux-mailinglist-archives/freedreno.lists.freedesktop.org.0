@@ -2,43 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3748CCF959
-	for <lists+freedreno@lfdr.de>; Fri, 19 Dec 2025 12:34:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46690CCFBB5
+	for <lists+freedreno@lfdr.de>; Fri, 19 Dec 2025 13:15:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF71410E227;
-	Fri, 19 Dec 2025 11:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC8E810EF69;
+	Fri, 19 Dec 2025 12:15:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GZI+KIIM";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F02E10E197
- for <freedreno@lists.freedesktop.org>; Fri, 19 Dec 2025 11:34:01 +0000 (UTC)
-Received: from ehlo.thunderbird.net (161-51-78-170.static.ef-service.nl
- [161.51.78.170])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 88F811F548;
- Fri, 19 Dec 2025 12:33:59 +0100 (CET)
-Date: Fri, 19 Dec 2025 12:34:00 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Alexey Minnekhanov <alexeymin@postmarketos.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] drm/msm/dpu: fix CMD panels on DPU 1.x - 3.x
-User-Agent: Thunderbird for Android
-In-Reply-To: <20251218-mdp5-drop-dpu3-v2-2-11299f1999d2@oss.qualcomm.com>
-References: <20251218-mdp5-drop-dpu3-v2-0-11299f1999d2@oss.qualcomm.com>
- <20251218-mdp5-drop-dpu3-v2-2-11299f1999d2@oss.qualcomm.com>
-Message-ID: <8895EC9F-E1E3-487D-A8E5-F9909BEE0CCF@somainline.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C037E10E3F7;
+ Fri, 19 Dec 2025 12:15:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 53C5940651;
+ Fri, 19 Dec 2025 12:15:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36E2C4CEF1;
+ Fri, 19 Dec 2025 12:15:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1766146514;
+ bh=zr3MOIdRIiLo5rQVA/Ls8ftqQmh9k+HKygN/fGUhHUM=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=GZI+KIIMKdrldmwo7anW9rvr4aLsQBZAC9pHRgRsTbVfoUDi8BU6ovBSAJYDNojJh
+ 4AYAUZonScKOOogC43EkXDdgB04ocA8/I5WdYaWRnXC8I6s6hlfcjVZrZOmk0glcjQ
+ iPgk0U6tK4L20VCTNJbufSlESIsU620vyTVv/beEcIAlqx1m/rD8o2RM228EyXbNiZ
+ SDBQgev8wOx9x0nh0FR1geOg+/5LPLtX1dOYq7Sevx09h/yPEn8K5XoCwW9UwIVKHl
+ fuKOEaTs33EyjO4TMdIoTR0BvTGHRMJrgHgQ1rHBQT/rIyqGZzr+qbMfvwOcuHZHyT
+ GmcaQve3a1qGg==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 19 Dec 2025 13:15:04 +0100
+Message-Id: <DF26ONGZ03KH.31FVI22UBGJFX@kernel.org>
+Subject: Re: [PATCH 1/4] drm/gpuvm: take GEM lock inside
+ drm_gpuvm_bo_obtain_prealloc()
+Cc: "Daniel Almeida" <daniel.almeida@collabora.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>, "Steven Price" <steven.price@arm.com>,
+ "Liviu Dudau" <liviu.dudau@arm.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Frank Binns" <frank.binns@imgtec.com>, "Matt
+ Coster" <matt.coster@imgtec.com>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jessica.zhang@oss.qualcomm.com>, "Sean Paul" <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>, "Lyude Paul" <lyude@redhat.com>,
+ "Lucas De Marchi" <lucas.demarchi@intel.com>, "Rodrigo Vivi"
+ <rodrigo.vivi@intel.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-media@vger.kernel.org>,
+ <linaro-mm-sig@lists.linaro.org>
+To: "Alice Ryhl" <aliceryhl@google.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20251128-gpuvm-rust-v1-0-ebf66bf234e0@google.com>
+ <20251128-gpuvm-rust-v1-1-ebf66bf234e0@google.com>
+In-Reply-To: <20251128-gpuvm-rust-v1-1-ebf66bf234e0@google.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,49 +82,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18 December 2025 15:38:24 CET, Dmitry Baryshkov <dmitry=2Ebaryshkov@oss=
-=2Equalcomm=2Ecom> wrote:
->DPU units before 4=2Ex don't have a separate CTL_START IRQ to mark the
->begin of the data transfer=2E In such a case, wait for the
+On Fri Nov 28, 2025 at 3:14 PM CET, Alice Ryhl wrote:
+> +static void
+> +drm_gpuvm_bo_destroy_not_in_lists(struct drm_gpuvm_bo *vm_bo)
+> +{
+> +	struct drm_gpuvm *gpuvm =3D vm_bo->vm;
+> +	const struct drm_gpuvm_ops *ops =3D gpuvm->ops;
+> +	struct drm_gem_object *obj =3D vm_bo->obj;
+> +
+> +	if (ops && ops->vm_bo_free)
+> +		ops->vm_bo_free(vm_bo);
+> +	else
+> +		kfree(vm_bo);
+> +
+> +	drm_gpuvm_put(gpuvm);
+> +	drm_gem_object_put(obj);
+> +}
 
-Unfinished sentence=2E And would it make sense to note this down in a code=
--comment as well?
-
-E=2Eg=2E
-
-=2E=2E=2Ewait for the "transfer complete" IRQ if there's no CTL_START IRQ =
-(or the ctl is already started)=2E
-
-Is there a significant timing difference on the two irqs, or does it not m=
-atter?
-
-- Marijn
-
->
->Fixes: 050770cbbd26 ("drm/msm/dpu: Fix timeout issues on command mode pan=
-els")
->Reported-by: Alexey Minnekhanov <alexeymin@postmarketos=2Eorg>
->Closes: https://lore=2Ekernel=2Eorg/r/8e1d33ff-d902-4ae9-9162-e00d17a5e6d=
-1@postmarketos=2Eorg
->Signed-off-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@oss=2Equalcomm=2Ecom>
->---
-> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd=2Ec | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->
->diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd=2Ec b/dri=
-vers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd=2Ec
->index 0ec6d67c7c70=2E=2Ee6f55902e355 100644
->--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd=2Ec
->+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd=2Ec
->@@ -681,7 +681,8 @@ static int dpu_encoder_phys_cmd_wait_for_commit_done(
-> 	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
-> 		return 0;
->=20
->-	if (phys_enc->hw_ctl->ops=2Eis_started(phys_enc->hw_ctl))
->+	if (phys_enc->hw_ctl->ops=2Eis_started(phys_enc->hw_ctl) ||
->+	    !phys_enc->irq[INTR_IDX_CTL_START])
-> 		return dpu_encoder_phys_cmd_wait_for_tx_complete(phys_enc);
->=20
-> 	return _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
->
-
+I think to us it seems obvious, but I think for new people it might not be.=
+ Can
+you please add a comment that mentions that this is about the evict and ext=
+obj
+lists and explains how this is related to locking?
