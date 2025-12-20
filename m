@@ -2,93 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5000BCD33FC
-	for <lists+freedreno@lfdr.de>; Sat, 20 Dec 2025 17:52:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70EFECD3416
+	for <lists+freedreno@lfdr.de>; Sat, 20 Dec 2025 18:02:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE75810E241;
-	Sat, 20 Dec 2025 16:52:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5111D10E241;
+	Sat, 20 Dec 2025 17:02:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lew08moB";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lb1V3Nji";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V0ZtsFbp";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jr6nr912";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B5E10E241
- for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 16:52:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2302310E0D2
+ for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 17:02:28 +0000 (UTC)
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BKCUH1b3941953
- for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 16:52:09 GMT
+ 5BKEhXaE011468
+ for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 17:02:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=md820MSJFmMhxzBhoy9K+H94
- 1G1BAf7npRq1mwTR9kI=; b=Lew08moBKmsRyNrL9SesOrsXUaVNS0HMRZ6xjred
- dIzNReB6N8e/4pAtN4YPXoTQR6By4GSvBp+61ubKABL2PmWQk8+SR8swpBmSHbbN
- QfhgGr2697eMHBLSs9TYNAcgC4U0NpgdgYk+WGPCRM7EFJgoHyX2vMCw2Q670yrz
- 55yenpkIGWRxOnV9Iei8/HLHV98+BffG+4SdXsVnaEMNkWVkZxXs6YsDYAjRwzJG
- FKrW3pQtblUqMgk3I9sTqH3BU7KD/EZ1GoQ9c4styrV2QeWcVr8TASDSHVs1umf5
- Kl3UQmcl0aB5ulsv5svVbeRcjyyTFsiVvVy0Ifs55vncAw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b5mru1075-1
+ :references:subject:to; s=qcppdkim1; bh=muHpxzp0mWPMtZXrnlHeN3Ky
+ e5NXimJKWqyDnE2yCnY=; b=V0ZtsFbpdQnnyNQFamV4ZQY28x1B0+H7xzHfvdLJ
+ MnALC/9UVit5qx+ZzMPrbeDRG7efFVOvjTr4VXjDWThcL1MVP1eALYiSmvNs7SLN
+ fS651V0Djfw2o/SOJNVWaOmscOz52uCppGfexd8ma8/R+cEvh6uM/gmEBVMmXy7P
+ +zKWuZQYe0N0Tyh8O2k6WwtQufSu40SqEYTF+8yDE+pLEzcJeOHYVEVN4GiVMZle
+ tw5Gz/FaRt4Rk+daGTIGRA+8U6GlzXN/De0znTnNS69V116ZiZB9gmKbmi/4sJwP
+ UjHLjLEAVA0OdTuB2FPlcnODhcpswiVTLDwun78tFqchrg==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b5mru10mx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 16:52:08 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4ee0c1d1b36so83594311cf.0
- for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 08:52:08 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 17:02:27 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-88233d526baso74889666d6.1
+ for <freedreno@lists.freedesktop.org>; Sat, 20 Dec 2025 09:02:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766249528; x=1766854328;
+ d=oss.qualcomm.com; s=google; t=1766250147; x=1766854947;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=md820MSJFmMhxzBhoy9K+H941G1BAf7npRq1mwTR9kI=;
- b=Lb1V3NjidmLlNxT4Al+0+H7CMopsjx9YVdnsWq/zHpLyoOxHdTn1wRjTNJLxS4gOXj
- Jf6F8eYTtGaJAgt1RFmFCDpNSgeIZHq8qHx8rPaKDqMGJURC3f1/UfWlcFOV30wCik3v
- yXWD28p2xHl8H9A2tOLVd2T8jiIG2L+wVnm5oPOMTBUBOBWzyC2qWN/muL3Zao19vl3x
- Ss1RHdePONPry1H0Kb6RlHUZNHZKV2/7KxHNiCrBYCM220WJfvHmzClq8I1SEsybxe0D
- wqszm4RMTc2dkl76wBhlM73bhOXxhll8AxjUd2ThdLaXF6EAuBaRPiQCG7j0Qvux2J7k
- Fjkg==
+ bh=muHpxzp0mWPMtZXrnlHeN3Kye5NXimJKWqyDnE2yCnY=;
+ b=Jr6nr912xolmYjuiiX3efSOgKei4rwnbVruo1+3eDpkvR30ulLSEz1wsC5bNAdzjC9
+ mEE7vvrHKQptPwmkM6QYgroFEdc9E4VE3KG1PAQZb6PRuHe9fPFH4GphX1g6tz+WHada
+ o3vCORyFYHNAq/LF/jEp40vfCSajRcVhFis/RK9Rm47EKtksZ3lq1WjqSeTmz/Od0T/V
+ b4BbmF0iLiDn+Ki4OTFXoZR+fMxF3rfmJsyu8EywMDBBqPDH1LcpDg1CRNHVqeCDlzyp
+ tIvkUXS/kKBtMRQEqKF7nFNfIYlVQ29GHoLZv/+rLCJiTNSgfex9YZVB7plh350GPxXJ
+ n1hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766249528; x=1766854328;
+ d=1e100.net; s=20230601; t=1766250147; x=1766854947;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=md820MSJFmMhxzBhoy9K+H941G1BAf7npRq1mwTR9kI=;
- b=gBiAqMOKIG1D7S6iqeBUCfdJ92QWLw/7kFYiyF6EBlj4Z3qOcJA+i49Mm3yvWSr4IN
- IRYMHTnCkfdzFfntYv5XhGzy0Tyj0TeOeRQa/7ou3dseTvqgKD99SgR29T9bh/+X42am
- ttlrIlp8oH3lUIz9FmGs3OwFr+gWhDJzAmdbDNRPC5snsBgq1zKOhQzIBtlLu0udxGP0
- UyK+TljJrkJ4enHlG1aCv3Pm0mRTiMH+/uQIwQm/OLtVmoZWdGgCZ0tjlvwffARBX8Pe
- vCp68YXOuIO67IBLZbUOPho92OchKkVZxdanjQBEsIJv7f9EYyTbuO4ewvNreo0QkUse
- jMgw==
+ bh=muHpxzp0mWPMtZXrnlHeN3Kye5NXimJKWqyDnE2yCnY=;
+ b=Q3if8MVqESSsVwzL0Z9upBoefCGrwC/87XF0inT5jxMA9cR9fLyCmr8aOW6p3SS5A+
+ XVEY+cgTIekViZJcLAOdaNGw5k8zpv0mn+5sPwx8scwDFBBp6caJLxsGuTa2wzQEZB8G
+ KTCB0Ft3r0tHsfHHNQxR0NNEM53LnPEIQW1wK8e+Fn1IP7UCV4RPl6oMTNQL76EmRE33
+ LveLCkRo/WtkcDDOhYWk1lDoSgDg5qYpihMe5M5TMEVbcy+QTVvvTvl5G+Pufs8oW7bB
+ LVQvfw26s4sP3XRQMa5IyPOWrnidEBhaoFwt7aPIjNtyNYj45iKMP9ZpPXMJims3vFdw
+ CQFg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXBl+LrXsvjhsjCNgG5os6ogu8/CN3S/fezJoZ+Q5hQfqzmw28yoP4u1Q4t48G5+kMzJG9fgLlyZ7o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0TRb5WW6hNP/rw1y8DKDummqCKyC1uEwaL45tMkfOiQorqu1F
- CsDk/hrr3q18rB1RzDxj0fy866iqmpgX9CP9NDEXvXom54j70NHZIAOhx88RsOXMCKIgjq87Qjk
- qRmBjxoymygW/5NnKe6Le/TOCl0sobUvXoZXriQtM68KYWGl1UafKWcQXIj4+/LpWlz+xjjk=
-X-Gm-Gg: AY/fxX6c3V2win+ZxYeU1YqVMKNEDRxcnCFr5H+uUFe78OYtRNsg0Q4FnoNxY+zjpmj
- GTjtTbRKFHKCyAwvZfnY0RnmQm94/psrVwzI/91WWD/Qv0t1cvr3FOLsrKvaVIkQ8F/2Pefu63j
- oaDd5cwCfc55MTbu8dfGAk4KmU30EjHr053UvkPexH/Mwyj/di6Uz0wFrTf0VAS62bQ5RkAuMN7
- Q/3vDwgnh0aVlw8v8yWSFdW+z65q+Z13rsKQGK3ujppqnljq7t3oNiTRI/ig1Fjg3Uwk0dxONj/
- 3aRBwjRMGiaXWlKQymmo2nYFzNtYJXW4kE1e+RmwmHFvCoRaLHu6wwAwBc/Tcgco/swDWwcJUk4
- Q9E4Wll9Ug7UD5WmBjZxxKRP3cXTQbLkoLGUe2+AhuLzZdn9uKlQr8VWML115WvhFJbOphlAioO
- 1COtc8BLA5uV0RXQyDYmCHzNo=
-X-Received: by 2002:ac8:7f81:0:b0:4f3:4b53:a917 with SMTP id
- d75a77b69052e-4f35f43a9damr148412011cf.22.1766249528044; 
- Sat, 20 Dec 2025 08:52:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH6MpmVZ7ZQhZ40pLdCdrBIOL53YEAOVIlZxLQot31bDGrYAK4K35/1+HqCakHdqkzMA7+JTA==
-X-Received: by 2002:ac8:7f81:0:b0:4f3:4b53:a917 with SMTP id
- d75a77b69052e-4f35f43a9damr148411641cf.22.1766249527582; 
- Sat, 20 Dec 2025 08:52:07 -0800 (PST)
+ AJvYcCX9x9ZWmflihRVMbR61LEnc8eT76QUfK0lQRido3JWJfmQCc7auHoz7smojmkXWU2saEco49h0E0PM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLyKowUztOHlTDfVnhlAPW7Xu5ooMt9/+sfZhIKk3jNYWm32UI
+ WpVY72L/qleqJmqOfR2AE4B2SbQXpaYaoZVjb8ZF1OBzfeJlpdHyuhGK63Hu4hx2cgNGHXc/UYs
+ znz3tdKVyHVUA4eGbi8uxHZiTeC+Zx7mgHFtnYgy3TChLcLzEM8YeFESYfDRkrNknrN/Vw30=
+X-Gm-Gg: AY/fxX79feUQ/R2XwF6EtLHfQTG05YTHcsmsvy6KHyXbgAPv1nfzFnqiCEwxUaUtlvr
+ rtOTd6OT16KSldMHeax+zt3FNIrK9+lA6u2bR0dI6NJa12j3W2vN63l+yIRRWmYhi1YJo2omad5
+ w9zfMrrTBTzQEMrMaBJljUVArfphBT/PYg6mSWlUnjskI7/ESpLOu+hzl+6/G+f9YguR9tZioRj
+ t1mLBaMXxrE5AHx4cctWXjv82g7sTe8h6OMNyxoBO/FNDBRoCCwJwVL4Pwjnsm5J0PCDmnKuABF
+ LfNXhj7D1TDAVCCTQ+OqVkxBsFC8vaMq/VcL6hRava2OKUsXhViSXR3q2WcYEBdd5CTWT2tH/XI
+ zkGqN7N5kzS788ZFU6Cwh99lwHp3/CDD1WhvyefcDlmkqqZJFy5at9mBoV5E4j9ln1ZF77Rl808
+ Yv2hWrttzYJpsCG4sLXtbUd5I=
+X-Received: by 2002:a05:6214:5082:b0:88a:2b73:db72 with SMTP id
+ 6a1803df08f44-88d87af3aacmr113092136d6.55.1766250146505; 
+ Sat, 20 Dec 2025 09:02:26 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEg/1RBfHw+woAUc0vABdJ/opFRYi37tNkSwPvNj8QYal/2x+X0HQjAbtdaZCmo1lf7JXhkXg==
+X-Received: by 2002:a05:6214:5082:b0:88a:2b73:db72 with SMTP id
+ 6a1803df08f44-88d87af3aacmr113091166d6.55.1766250145815; 
+ Sat, 20 Dec 2025 09:02:25 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3812262b36dsm13394911fa.30.2025.12.20.08.52.05
+ 2adb3069b0e04-59a186f957asm1600493e87.28.2025.12.20.09.02.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Dec 2025 08:52:05 -0800 (PST)
-Date: Sat, 20 Dec 2025 18:52:03 +0200
+ Sat, 20 Dec 2025 09:02:25 -0800 (PST)
+Date: Sat, 20 Dec 2025 19:02:23 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Luca Weiss <luca.weiss@fairphone.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
@@ -106,29 +106,29 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 3/6] drm/msm: mdss: Add Milos support
-Message-ID: <475izg5bi56oefqtqkvqeyspx2por66zrw4tgqbb3f2ziaghyt@tccm73sl2u2e>
+Subject: Re: [PATCH RFC 4/6] drm/msm/dpu: Add Milos support
+Message-ID: <aez6lla3spda5au6krk7z65gbtis43ww7tf34tk6pyc6o53ulk@x64q7r43ddi7>
 References: <20251219-milos-mdss-v1-0-4537a916bdf9@fairphone.com>
- <20251219-milos-mdss-v1-3-4537a916bdf9@fairphone.com>
+ <20251219-milos-mdss-v1-4-4537a916bdf9@fairphone.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251219-milos-mdss-v1-3-4537a916bdf9@fairphone.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjIwMDE0NiBTYWx0ZWRfX/G4ElKn/LIyk
- P91B6Pk910AOQRQJB/d+fz7PNyhdf4V0RCQ8BWGQ36nneoNfxqBGVGUOAbsXZHNIYBuLMKzWMFC
- RfnpjGBpEZJ8qbcJWzyIKme3feFvaL0dpzsY97HrEbh3qaR0+86x87f3bH4YjmTFmFoDYGw7O/S
- YpeqafFE+QawXOqk6saICFwxpEIJ5KYqYqrkyWys6Kqh/NzUsmGiCXENfWJtsJHBk7iUNLFi86K
- JM7XG+KYE0wbVV/ZwxxsRXRJi+PgU3F8HY7cRhJyR0LwIXKAEk59QGdp0Ct14qkCX6NTXfQv8Vl
- QULATd4HQq/Mwbu/xnPR64gNmRgDEvHiF35rcWK+rZl36qjUmOcJiXlsgEf1NiVdsE9NLsFgqbu
- F/ISCtnBrQc7I/TojsWxOHmXyxmedEzlA7x1Jg2R38shib7WXrT4t2yLgpKAxBJPKMaN0cyV440
- sBbanjuSO++qAW5eGCw==
-X-Authority-Analysis: v=2.4 cv=VMnQXtPX c=1 sm=1 tr=0 ts=6946d439 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20251219-milos-mdss-v1-4-4537a916bdf9@fairphone.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjIwMDE0OSBTYWx0ZWRfX8eTjqNqayauZ
+ SsN9K5Eie0+un51SZ5rsCRWhTD4DQNZnBiTrdXwYdahL6EKA08A6Vf4emfp50OywUX50fdUA0Ej
+ 6dh1TmqIIntAdfaumB7qfO3kpWrhcgt3UwOZ/DjafLnpMGsPBJIiXAj8XD1K3/RiOYIH90ES4Ti
+ j1EqUVNt0jlnO32NyxAy7c0IJPBRGRkJEf5rXadseGymL38/BtfI3VuNbFUP7eXPJnVTg6uP6fJ
+ jBlxstcO7ukLExsl4WOlN/fPRhcpJBvmEjdOKU7ur2dnsyoMtJICMPV3HkC5FTpAAH2o4v6IDOB
+ gP/5tDnBnLkui1F+O4di/IioCGC5Hw3zCwma6UXAUqQxMf3c/X8j5DgfZxrfaRpSDrwKO4kL1iS
+ vQRDXdboVh+D80XZX5bOOubtIgAl8RDFZTYJzNC948HZYWOgNSZnUp+c0/zJxyGX4f1mMHs3Qyf
+ XGXRcDorhdAeCcOS6+g==
+X-Authority-Analysis: v=2.4 cv=VMnQXtPX c=1 sm=1 tr=0 ts=6946d6a3 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=Ybx_Rsa12JF0X6GijNIA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-ORIG-GUID: eCfdRh1TLzYx5hKHlBpUf_KwT3QOqPTQ
-X-Proofpoint-GUID: eCfdRh1TLzYx5hKHlBpUf_KwT3QOqPTQ
+ a=6H0WHjuAAAAA:8 a=-pIA5zGUeOoPg8vqJHkA:9 a=CjuIK1q_8ugA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-ORIG-GUID: ZUgkCt39QlMli2q3cepJPSGS5-gOeQsz
+X-Proofpoint-GUID: ZUgkCt39QlMli2q3cepJPSGS5-gOeQsz
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-20_03,2025-12-19_02,2025-10-01_01
@@ -136,7 +136,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  clxscore=1015 malwarescore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
  spamscore=0 adultscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512200146
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512200149
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,18 +152,426 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Dec 19, 2025 at 05:41:09PM +0100, Luca Weiss wrote:
-> Add support for MDSS on Milos.
+On Fri, Dec 19, 2025 at 05:41:10PM +0100, Luca Weiss wrote:
+> Add definitions for the display hardware used on the Qualcomm Milos
+> platform.
 > 
 > Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h | 284 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  22 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  4 files changed, 308 insertions(+)
 > 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h
+> new file mode 100644
+> index 000000000000..75deec923897
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h
+> @@ -0,0 +1,284 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2025, Luca Weiss <luca.weiss@fairphone.com>
+> + */
+> +
+> +#ifndef _DPU_10_2_MILOS_H
+> +#define _DPU_10_2_MILOS_H
+> +
+> +static const struct dpu_caps milos_dpu_caps = {
+> +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH, // OK
+> +	.max_mixer_blendstages = 0x7, // OK
+> +	.has_src_split = true, // OK
+> +	.has_dim_layer = true, // OK
+> +	.has_idle_pc = true, // OK?
+> +	.has_3d_merge = true, // OK?
+> +	.max_linewidth = 8192, // OK
+> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE, // OK
+> +};
+> +
+> +static const struct dpu_mdp_cfg milos_mdp = {
+> +	.name = "top_0",
+> +	.base = 0, .len = 0x494, // TODO? maybe qcom,sde-len = <0x488>;
+> +	.clk_ctrls = {
+> +		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 }, // OK
+> +	},
+> +};
+> +
+> +static const struct dpu_ctl_cfg milos_ctl[] = { // number of ctl is okay, base probably also
+> +	{
+> +		.name = "ctl_0", .id = CTL_0,
+> +		.base = 0x15000, .len = 0x1000,
+> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9), // FIXME?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Why is it questionable?
 
-Though 14000 seems lower than the value for all other platforms.
+> +	}, {
+> +		.name = "ctl_1", .id = CTL_1,
+> +		.base = 0x16000, .len = 0x1000,
+> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+> +	}, {
+> +		.name = "ctl_2", .id = CTL_2,
+> +		.base = 0x17000, .len = 0x1000,
+> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+> +	}, {
+> +		.name = "ctl_3", .id = CTL_3,
+> +		.base = 0x18000, .len = 0x1000,
+> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+> +	},
+> +};
+> +
+> +static const struct dpu_sspp_cfg milos_sspp[] = {
+> +	{
+> +		.name = "sspp_0", .id = SSPP_VIG0, // OK
+> +		.base = 0x4000, .len = 0x344, // OK
+> +		.features = VIG_SDM845_MASK_SDMA, // TODO?
+> +		.sblk = &dpu_vig_sblk_qseed3_3_3, // TODO?
+
+Yes  to both.
+
+> +		.xin_id = 0, // OK
+> +		.type = SSPP_TYPE_VIG, // OK
+> +	}, {
+> +		.name = "sspp_8", .id = SSPP_DMA0, // FIXME name?
+
+ok
+
+> +		.base = 0x24000, .len = 0x344,
+> +		.features = DMA_SDM845_MASK_SDMA,
+> +		.sblk = &dpu_dma_sblk,
+> +		.xin_id = 1, // OK
+> +		.type = SSPP_TYPE_DMA, // OK
+> +	}, {
+> +		.name = "sspp_9", .id = SSPP_DMA1,
+> +		.base = 0x26000, .len = 0x344,
+> +		.features = DMA_SDM845_MASK_SDMA,
+> +		.sblk = &dpu_dma_sblk,
+> +		.xin_id = 5, // OK
+> +		.type = SSPP_TYPE_DMA, // OK
+> +	}, {
+> +		.name = "sspp_10", .id = SSPP_DMA2,
+> +		.base = 0x28000, .len = 0x344,
+> +		.features = DMA_SDM845_MASK_SDMA,
+> +		.sblk = &dpu_dma_sblk,
+> +		.xin_id = 9, // OK
+> +		.type = SSPP_TYPE_DMA, // OK
+> +	},
+> +};
+> +
+> +static const struct dpu_lm_cfg milos_lm[] = {
+> +	{
+> +		.name = "lm_0", .id = LM_0, // OK
+> +		.base = 0x44000, .len = 0x400,// OK
+> +		.features = MIXER_MSM8998_MASK, // TODO
+> +		.sblk = &sdm845_lm_sblk, // OK
+> +		.pingpong = PINGPONG_0, // TODO
+> +		.dspp = DSPP_0, // TODO
+
+Yes to both
+
+> +	}, {
+> +		.name = "lm_2", .id = LM_2,
+> +		.base = 0x46000, .len = 0x400,
+> +		.features = MIXER_MSM8998_MASK,
+> +		.sblk = &sdm845_lm_sblk, // OK
+> +		.lm_pair = LM_3, // OK
+> +		.pingpong = PINGPONG_2,
+> +		//.dspp = DSPP_2, // FIXME?
+
+none
+
+> +	}, {
+> +		.name = "lm_3", .id = LM_3,
+> +		.base = 0x47000, .len = 0x400,
+> +		.features = MIXER_MSM8998_MASK,
+> +		.sblk = &sdm845_lm_sblk, // OK
+> +		.lm_pair = LM_2, // OK
+> +		.pingpong = PINGPONG_3,
+> +		//.dspp = DSPP_3, // FIXME?
+
+none
+
+> +	},
+> +};
+> +
+> +static const struct dpu_dspp_cfg milos_dspp[] = {
+> +	{
+> +		.name = "dspp_0", .id = DSPP_0, // OK
+> +		.base = 0x54000, .len = 0x1800, // OK
+> +		.sblk = &sdm845_dspp_sblk, // TODO
+
+yes
+
+> +	},
+> +};
+> +
+> +static const struct dpu_pingpong_cfg milos_pp[] = {
+> +	{
+> +		.name = "pingpong_0", .id = PINGPONG_0, // OK
+> +		.base = 0x69000, .len = 0, // OK
+> +		.sblk = &sc7280_pp_sblk, // OK
+> +		.merge_3d = MERGE_3D_0, // OK
+
+none
+
+> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8), // TODO
+
+assumingly correct
+
+> +	}, {
+> +		.name = "pingpong_2", .id = PINGPONG_2, // TODO
+
+Yes
+
+> +		.base = 0x6b000, .len = 0, // OK
+> +		.sblk = &sc7280_pp_sblk, // OK
+> +		.merge_3d = MERGE_3D_1, // OK
+> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
+> +	}, {
+> +		.name = "pingpong_3", .id = PINGPONG_3,
+> +		.base = 0x6c000, .len = 0, // OK
+> +		.sblk = &sc7280_pp_sblk, // OK
+> +		.merge_3d = MERGE_3D_1, // OK
+> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
+> +	}, {
+> +		.name = "pingpong_cwb_0", .id = PINGPONG_CWB_0,
+> +		.base = 0x66000, .len = 0, // OK
+> +		.sblk = &sc7280_pp_sblk, // OK
+> +	},
+> +};
+> +
+> +static const struct dpu_merge_3d_cfg milos_merge_3d[] = {
+> +	{
+> +		.name = "merge_3d_1", .id = MERGE_3D_1, // TODO
+> +		.base = 0x4f000, .len = 0x8,
+> +	},
+> +};
+> +
+> +/*
+> + * NOTE: Each display compression engine (DCE) contains dual hard
+> + * slice DSC encoders so both share same base address but with
+> + * its own different sub block address.
+> + */
+> +static const struct dpu_dsc_cfg milos_dsc[] = {
+> +	{
+> +		.name = "dce_0_0", .id = DSC_0, // OK
+> +		.base = 0x80000, .len = 0x6, // OK
+> +		.features = BIT(DPU_DSC_NATIVE_42x_EN), // TODO
+> +		.sblk = &dsc_sblk_0, // TODO
+
+Yes
+
+> +	}, {
+> +		.name = "dce_0_1", .id = DSC_1, // OK
+> +		.base = 0x80000, .len = 0x6, // OK
+> +		.features = BIT(DPU_DSC_NATIVE_42x_EN), // TODO
+> +		.sblk = &dsc_sblk_1, // TODO
+> +	},
+> +};
+> +
+> +static const struct dpu_wb_cfg milos_wb[] = {
+> +	{
+> +		.name = "wb_2", .id = WB_2, // TODO
+> +		.base = 0x65000, .len = 0x2c8, // OK
+> +		.features = WB_SDM845_MASK, // TODO
+> +		.format_list = wb2_formats_rgb_yuv, // TODO
+> +		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv), // TODO
+> +		.xin_id = 6, // OK
+> +		.vbif_idx = VBIF_RT, // TODO
+> +		.maxlinewidth = 4096, // OK
+> +		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4), // TODO
+
+Yes
+
+> +	},
+> +};
+> +
+> +static const struct dpu_cwb_cfg milos_cwb[] = {
+> +	{
+> +		.name = "cwb_0", .id = CWB_0,
+> +		.base = 0x66200, .len = 0x8,
+> +	},
+> +};
+> +
+> +static const struct dpu_intf_cfg milos_intf[] = {
+> +	{
+> +		.name = "intf_0", .id = INTF_0, // OK
+> +		.base = 0x34000, .len = 0x280, // OK size=0x300?
+
+I think, 0x280 is correct
+
+> +		.type = INTF_DP, // OK
+> +		.controller_id = MSM_DP_CONTROLLER_0, // OK?
+> +		.prog_fetch_lines_worst_case = 24, // TODO
+> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24), // TODO
+> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25), // TODO
+> +	}, {
+> +		.name = "intf_1", .id = INTF_1, // OK
+> +		.base = 0x35000, .len = 0x300, // OK size=0x300?
+> +		.type = INTF_DSI, // OK
+> +		.controller_id = MSM_DSI_CONTROLLER_0, // OK?
+> +		.prog_fetch_lines_worst_case = 24, // TODO
+> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26), // TODO
+> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27), // TODO
+> +		.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2), // TODO
+> +	}, {
+> +		.name = "intf_3", .id = INTF_3, // TODO?
+> +		.base = 0x37000, .len = 0x280, // OK size=0x300?
+> +		.type = INTF_DP, // OK
+> +		.controller_id = MSM_DP_CONTROLLER_1, // FIXME, only one DP controller?
+
+It should be INTF_NONE / MSM_DP_CONTROLLER_0 for now, it's an MST
+counterpart of INTF_0
+
+> +		.prog_fetch_lines_worst_case = 24, // TODO
+> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30), // TODO
+> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31), // TODO
+> +	},
+> +};
+> +
+> +static const struct dpu_perf_cfg milos_perf_data = {
+> +	.max_bw_low = 7100000,
+> +	.max_bw_high = 9800000,
+> +	.min_core_ib = 2500000,
+> +	.min_llcc_ib = 0,
+> +	.min_dram_ib = 1600000,
+> +	.min_prefill_lines = 35, // TODO
+
+40
+
+> +	/* FIXME: lut tables */
+> +	.danger_lut_tbl = {0x3ffff, 0x3ffff, 0x0}, // TODO
+> +	.safe_lut_tbl = {0xfe00, 0xfe00, 0xffff}, // TODO
+
+0xff00, 0xfff0, 0xfff
+
+> +	.qos_lut_tbl = { // TODO
+> +		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
+> +		.entries = sc7180_qos_linear
+> +		},
+> +		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
+> +		.entries = sc7180_qos_macrotile
+> +		},
+> +		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
+> +		.entries = sc7180_qos_nrt
+> +		},
+> +		/* TODO: macrotile-qseed is different from macrotile */
+> +	},
+> +	.cdp_cfg = { // TODO
+> +		{.rd_enable = 1, .wr_enable = 1},
+> +		{.rd_enable = 1, .wr_enable = 0}
+> +	},
+> +	.clk_inefficiency_factor = 105, // TODO
+> +	.bw_inefficiency_factor = 120, // TODO
+> +};
+> +
+> +static const struct dpu_mdss_version milos_mdss_ver = {
+> +	.core_major_ver = 10,
+> +	.core_minor_ver = 2,
+> +};
+> +
+> +const struct dpu_mdss_cfg dpu_milos_cfg = {
+> +	.mdss_ver = &milos_mdss_ver,
+> +	.caps = &milos_dpu_caps,
+> +	.mdp = &milos_mdp,
+> +	.cdm = &dpu_cdm_5_x,
+> +	.ctl_count = ARRAY_SIZE(milos_ctl),
+> +	.ctl = milos_ctl,
+> +	.sspp_count = ARRAY_SIZE(milos_sspp),
+> +	.sspp = milos_sspp,
+> +	.mixer_count = ARRAY_SIZE(milos_lm),
+> +	.mixer = milos_lm,
+> +	.dspp_count = ARRAY_SIZE(milos_dspp),
+> +	.dspp = milos_dspp,
+> +	.pingpong_count = ARRAY_SIZE(milos_pp),
+> +	.pingpong = milos_pp,
+> +	.dsc_count = ARRAY_SIZE(milos_dsc),
+> +	.dsc = milos_dsc,
+> +	.merge_3d_count = ARRAY_SIZE(milos_merge_3d),
+> +	.merge_3d = milos_merge_3d,
+> +	.wb_count = ARRAY_SIZE(milos_wb),
+> +	.wb = milos_wb,
+> +	.cwb_count = ARRAY_SIZE(milos_cwb),
+> +	.cwb = milos_cwb,
+> +	.intf_count = ARRAY_SIZE(milos_intf),
+> +	.intf = milos_intf,
+> +	.vbif_count = ARRAY_SIZE(milos_vbif),
+> +	.vbif = milos_vbif,
+> +	.perf = &milos_perf_data,
+> +};
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 9f8d1bba9139..4d5b57d6295f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -555,6 +555,26 @@ static const struct dpu_vbif_cfg sdm845_vbif[] = {
+>  	},
+>  };
+>  
+> +static const struct dpu_vbif_cfg milos_vbif[] = {
+> +	{
+> +	.name = "vbif_rt", .id = VBIF_RT, // OK
+> +	.base = 0, .len = 0x1074, // OK
+> +	.features = BIT(DPU_VBIF_QOS_REMAP), // TODO
+> +	.xin_halt_timeout = 0x4000, // TODO
+> +	.qos_rp_remap_size = 0x40, // TODO
+> +	.qos_rt_tbl = { // TODO
+> +		.npriority_lvl = ARRAY_SIZE(sm8650_rt_pri_lvl),
+> +		.priority_lvl = sm8650_rt_pri_lvl,
+> +		},
+> +	.qos_nrt_tbl = { // TODO
+> +		.npriority_lvl = ARRAY_SIZE(sdm845_nrt_pri_lvl),
+> +		.priority_lvl = sdm845_nrt_pri_lvl,
+> +		},
+> +	.memtype_count = 16, // OK
+> +	.memtype = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, // OK?
+
+Yep
+
+> +	},
+> +};
+> +
+>  static const struct dpu_vbif_cfg sm8550_vbif[] = {
+>  	{
+>  	.name = "vbif_rt", .id = VBIF_RT,
+> @@ -725,4 +745,6 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+>  #include "catalog/dpu_9_2_x1e80100.h"
+>  
+>  #include "catalog/dpu_10_0_sm8650.h"
+> +#include "catalog/dpu_10_2_milos.h"
+> +
+>  #include "catalog/dpu_12_0_sm8750.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index f0768f54e9b3..1f6b14f1c4d6 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -749,6 +749,7 @@ struct dpu_mdss_cfg {
+>  	const struct dpu_format_extended *vig_formats;
+>  };
+>  
+> +extern const struct dpu_mdss_cfg dpu_milos_cfg;
+>  extern const struct dpu_mdss_cfg dpu_msm8917_cfg;
+>  extern const struct dpu_mdss_cfg dpu_msm8937_cfg;
+>  extern const struct dpu_mdss_cfg dpu_msm8953_cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 4e5a8ecd31f7..7afd7dc7a0b4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1505,6 +1505,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
+>  };
+>  
+>  static const struct of_device_id dpu_dt_match[] = {
+> +	{ .compatible = "qcom,milos-dpu", .data = &dpu_milos_cfg, },
+>  	{ .compatible = "qcom,msm8917-mdp5", .data = &dpu_msm8917_cfg, },
+>  	{ .compatible = "qcom,msm8937-mdp5", .data = &dpu_msm8937_cfg, },
+>  	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
+> 
+> -- 
+> 2.52.0
+> 
 
 -- 
 With best wishes
