@@ -2,56 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B882ECDBD1E
-	for <lists+freedreno@lfdr.de>; Wed, 24 Dec 2025 10:39:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F61CDBE17
+	for <lists+freedreno@lfdr.de>; Wed, 24 Dec 2025 11:00:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDE8810EA50;
-	Wed, 24 Dec 2025 09:39:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jC5YlRCD";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9D310EA65;
+	Wed, 24 Dec 2025 10:00:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29EBF10EA4F;
- Wed, 24 Dec 2025 09:39:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 07BF760127;
- Wed, 24 Dec 2025 09:39:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB549C16AAE;
- Wed, 24 Dec 2025 09:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1766569169;
- bh=XTv2qlMyC0ohRJj/nW7GhRyn3CHdHat7GiQHo+rf9HE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jC5YlRCD2v0O0qCk4x2W/x5/e6JMZ9GK1ReZ4m/T3SH9GhpaYIN9EEH1zT/NPeajH
- cVkWxKDYdY+i989hhzxDDh9JIrD5zmnAWsfYfTDLvQK1249zj7M1r1z9D5DbVRp8bQ
- GUIiJtBpIdEm4gilByXRPYBTBVamAYYJ16jIqYySfF1Q3KRJBJdLDtfWx50u2JA3U3
- H82FU1r9a+N9GTsa8KrhvW9KrpdDm0rMAItjBx0AhP0w6+ahnWmH2ogc3DGmxLj7Ih
- hSUV5+eXNsZjYWEhzHvPbudxcswkL82T/ch0QGO0gdzILOJwgqotWfsCVe2uYSNeqI
- q+1FFjm/3m8gw==
-Date: Wed, 24 Dec 2025 10:39:26 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, jesszhan0024@gmail.com, 
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- neil.armstrong@linaro.org, konrad.dybcio@oss.qualcomm.com,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
- aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH v4 04/11] dt-bindings: display/msm: qcom,kaanapali-mdss:
- Add Kaanapali
-Message-ID: <20251224-shaggy-brass-dinosaur-4da3d2@quoll>
-References: <20251222102400.1109-1-yuanjie.yang@oss.qualcomm.com>
- <20251222102400.1109-5-yuanjie.yang@oss.qualcomm.com>
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46A5D10EA64
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 10:00:26 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 4AB612083D;
+ Wed, 24 Dec 2025 11:00:24 +0100 (CET)
+Date: Wed, 24 Dec 2025 11:00:23 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Teguh Sobirin <teguh@sobir.in>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dpu: Set vsync source irrespective of mdp top
+ support
+Message-ID: <aUu4RyJyZROn-FzQ@SoMainline.org>
+References: <TYUPR06MB6099C539BD2C937F8630FF8EDDD5A@TYUPR06MB6099.apcprd06.prod.outlook.com>
+ <52avqc3n4fxuypv6fkejuxkmuounxa67e5lsnfeynek6yxq6tm@ink6yoklpxes>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251222102400.1109-5-yuanjie.yang@oss.qualcomm.com>
+In-Reply-To: <52avqc3n4fxuypv6fkejuxkmuounxa67e5lsnfeynek6yxq6tm@ink6yoklpxes>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +53,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 22, 2025 at 06:23:53PM +0800, yuanjie yang wrote:
-> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+On 2025-11-21 14:16:55, Dmitry Baryshkov wrote:
+> On Fri, Nov 21, 2025 at 02:02:08PM +0800, Teguh Sobirin wrote:
+> > Since DPU 5.x the vsync source TE setup is split between MDP TOP and
+> > INTF blocks.  Currently all code to setup vsync_source is only exectued
+> > if MDP TOP implements the setup_vsync_source() callback. However on
+> > DPU >= 8.x this callback is not implemented, making DPU driver skip all
+> > vsync setup. Move the INTF part out of this condition, letting DPU
+> > driver to setup TE vsync selection on all new DPU devices.
+> > 
+> > Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> > ---
+> > Changes in v2:
+> > - Corrected commit message suggested by Dmitry Baryshkov.
+> > - Link to v1: https://lore.kernel.org/linux-arm-msm/TYUPR06MB6099CBBE5090DB12A2C187E3DDFDA@TYUPR06MB6099.apcprd06.prod.outlook.com/
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++------------
+> >  1 file changed, 9 insertions(+), 13 deletions(-)
 > 
-> Kaanapali introduces DPU 13.0.0 and DSI 2.10. Compared to SM8750,
-> Kaanapali has significant register changes, making it incompatible
-> with SM8750. So add MDSS/MDP display subsystem for Qualcomm Kaanapali.
-> 
-> Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> ---
->  .../display/msm/qcom,kaanapali-mdss.yaml      | 297 ++++++++++++++++++
->  1 file changed, 297 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
+> Fixes: e955a3f0d86e ("drm/msm/dpu: Implement tearcheck support on INTF block")
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Back at that commit, setup_vsync_source was still always assigned:
 
-Best regards,
-Krzysztof
+https://github.com/torvalds/linux/blob/e955a3f0d86e4a789364af62495ac37546eb71c8/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c#L260-L263
 
+While that was technically a wrong assumption by me - I should've put this loop
+outside the hw_mdptop check in case that ever happened, it got unassigned in
+commit 2f69e5458447 ("drm/msm/dpu: skip watchdog timer programming through TOP
+on >= SM8450").
+
+Note that this patch is a severe regression on DPU <5 and doesn't set up the WD
+timer on DPU [5, 8), but I'll comment in-line on the diff.
+
+- Marijn
