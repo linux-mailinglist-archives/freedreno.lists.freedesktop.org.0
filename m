@@ -2,136 +2,152 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5498CDA82A
-	for <lists+freedreno@lfdr.de>; Tue, 23 Dec 2025 21:31:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2580CDAEE9
+	for <lists+freedreno@lfdr.de>; Wed, 24 Dec 2025 01:37:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C3610E13E;
-	Tue, 23 Dec 2025 20:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD84810E2EC;
+	Wed, 24 Dec 2025 00:37:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NTLYo+gh";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Exa5U6uC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NpN6maSq";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d/urrWgO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE7410E1CE
- for <freedreno@lists.freedesktop.org>; Tue, 23 Dec 2025 20:31:01 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 751A410E2DE
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 00:37:42 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BNJrF9e721258
- for <freedreno@lists.freedesktop.org>; Tue, 23 Dec 2025 20:31:00 GMT
+ 5BNHwUmK1245478
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 00:37:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=4yTVMLxBUXz2CKuwVwliNlCR
- EofHqymY8nVV9CVfBco=; b=NTLYo+ghkVY3NoHrMcq+VeAlcZ77iHAfH8Le/LeC
- Tflsjyif2npVjh/H33xLZkqVr504NG6E5+xqv1sn0951bMLjnADSp/eFm4F0J9sp
- C+euByLRthWqa47IjYbbAOeP/R1AuAvQ7gW3zb4NRK2Ml0zYWXofO+Bhg/hBD+qn
- MRFwTDRuBaG9CBMYazT7eTulPYlEaXHIfYJxxJpWpYs2Opb/GYUWylSjj06SC3Lv
- I73MuvKxytl9I3g3HxWn4TO07XaChpInDpFbh5XF7h09V3JivpChGcQB8l5QqGhb
- wv6AvOFQauimwNcG2LzjAqc/Ye2pLKHa9AcfAC94LmGrHg==
+ :references:subject:to; s=qcppdkim1; bh=/YAOKhWKH3N+K9qVaMcFeCT/
+ m/bw8c2nGx7bTrdKtjQ=; b=NpN6maSqHBF7RVEmVtfCqYcla8mfWT8tuuhwSGex
+ 5xH78XHdLEQclnttiOQMthgjVM2u23agcnF7foPWo+YGF8Oi8j0nAH2vQSO53+lv
+ 5Ma/MndSB8xU9Fg/xKM5T8QIIUdU+kEIAXzVJvqTghra6zePSNUlNUbrBhsxTTyZ
+ z59Y9ZO8Jn8taN3CV7yQtilK53YEN1s/yUD4BJ0D27HxY/AnSfoq0M1ccHGuLT3J
+ LGKJqfOU2vdH0fUJCXeJF2q85TZ+9LRnHUhtBAN/aw5rMu2grSZPJ9SbnSqHMQl8
+ tV9sVvKyELEQnpVoLOBblPsI8Qz9NkNc9s5ZZu2nYIhtaw==
 Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
  [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b81mt850d-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b7u9csw6y-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 23 Dec 2025 20:31:00 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 00:37:41 +0000 (GMT)
 Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4ee0995fa85so149506931cf.1
- for <freedreno@lists.freedesktop.org>; Tue, 23 Dec 2025 12:31:00 -0800 (PST)
+ d75a77b69052e-4ed74ab4172so129568121cf.1
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Dec 2025 16:37:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766521860; x=1767126660;
+ d=oss.qualcomm.com; s=google; t=1766536660; x=1767141460;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4yTVMLxBUXz2CKuwVwliNlCREofHqymY8nVV9CVfBco=;
- b=Exa5U6uCXG/XdZdj3dxXxvlweXIPCKq+nn8tnZsCjcgv/qoCUe4f5XWUKf/yadZfzc
- mRVPPT87JAiKXT9holOW+whtYSeHqwR5cOXVPh0xbdtWobvFUH6GWDIN2behh8mW7o5v
- nc1lwvw03waPKCv8Lf9F7pU/TJTJmivA7ypC/hufPQ8Kra7utj05iDUx4MvRXCyF8Pla
- Yy3OfPwZgRMqLSaviml3tumNOWeoKFrkadym/fc/Ae5QLYQvkWharzzM+hvFJ7YmbRQf
- 7/aC7/z9ctUGb/SIlqgi8VGXeHcojPwlpvrYPVzR/gDqARHVTh8wB5N12llenRc9DWJL
- SK/w==
+ bh=/YAOKhWKH3N+K9qVaMcFeCT/m/bw8c2nGx7bTrdKtjQ=;
+ b=d/urrWgOjM9BxFu9fAWgCJDaODFL4fSFzkHOX0BprLSgtvVBFwZkZW3fwBEmwXocb9
+ 38UQtNZJ5UcfbEU3mY47FCU8NOp59DitYTO0tgEr6nCNlnObz9oz3OzIVHi/j+F2xzfl
+ qRXYPF0GNSY0XTsRBCXqjh8nIpJZA7TqC1cfEoLpjUn5ONdNPw7n0VZguTyd/EINF102
+ wWrVeBVoglYU18iEIneK6QuJ9LLpE0rDrnTOCCBB++DIJcZ7swnyI2T7kMvAkIakEhu2
+ izZiyMmoDHTExHOiIfcIyoxiav+rc0r4HrTQyX/PGrTIFxy/sj8yLCApbnTKkArf+SJa
+ npHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766521860; x=1767126660;
+ d=1e100.net; s=20230601; t=1766536660; x=1767141460;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4yTVMLxBUXz2CKuwVwliNlCREofHqymY8nVV9CVfBco=;
- b=lmHkqR/NBe4Ezz+8m6jp85M7448KIOsXgsldfUqQcOnZVwK2OzwjIa67UACiRWsVkQ
- X7Yw02f27BkRwp0ENDj1yJRzEQYOkUhWQCdHsnbTcgcWdayxM+lBdkI7nVaDeZ0zgwMy
- LmNEFM/1Z0LO/2WwNGwFAcYX9FCKr96AeeJd+eIVGZMllhMgxzUYamUr7dzX8891gbeH
- bZfP7yZWtIpoqj8FE3cyJfehJcLIp/mDmnLlzLMGYPK6TGjJnJrbmC31ZanWOufUUt6t
- EyW4MCzVGwHigyKOD7izH1PQg250jf5Tptzui90P9km49nP4MjI3E4HouS9YxIsnDIDl
- lcPw==
+ bh=/YAOKhWKH3N+K9qVaMcFeCT/m/bw8c2nGx7bTrdKtjQ=;
+ b=c8BdlJvQ9fmV+kq+18ABbB5rgsTmgHJBBn+Oy7FyUpfIp6sR/aQWjq83LFxMvseJsX
+ ArqiIAKgn6ureW6tIEBxMkPZ0zJkHewi3OYM+pQ5Nkbc2fUodP7trLApn4vHas8UervE
+ RoENVBqIphsmsNq20w5O2XIUPuQU6dXUBeF4YLSUmrOszfYtj+FsIPSuZc0e2yMCGky/
+ g7Xkr19CPnIwEA7X7Lbk803o82ovNAzT8XOVrySY/fJOZN+gANeddDdSya0qTMBAz70H
+ KGqDYy2xHbClREj6WfLjlpfXbdiMWjCyGdsJz/F5GV2+sKGVm3NgjWTqii6aYgeXjzW6
+ TVVQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUGzxzQp1bHT7nSS6mrDf2HZERa59WmkzXCHJrWecHrE2rgvtZwciFQz1gRa33K7HBLQ9rVpkoR5pw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7DElqadeiCjxtu+yXSl45jfBKv8m6V4GiQ0CNHuMfuP0T5FOM
- f3pS1as8QNRth/VKv7miO3GBCvq1W41HXPDY2pLxSR7pYKPtYPZILUSWg4sQySOHbRwptOUmzxB
- VLYHqt3KTiwLKmkpFBng5MPXr5ZSP6C7tFzbOIdklERE4q0Y7i8JRuo/P142LnoDcqilqYgI=
-X-Gm-Gg: AY/fxX6ZyBdS2GTLW3FaMSWdSU4BxxBHj4od503aXnwvbpPuFnuCAsDPybeiq+3oPTd
- fzEOfNWjYiHiVFFVh+EsJroNj3HYkmj1x1xuTyr2z5M0kbOf2HfzS16zdtB8OzNSn9v+J0jyhvh
- 0jUSuISp05UjPXcfWmDLNnNDJPV3PfcfKu94XmLV5N4BZfx3kWbinNuYF0B8MkJmqa98o7IdnNE
- aBJ55zA9v02zQ8A/C3ZxGwCOXiYqUYixGHaQxwIJ7Fk+Czhn9cIf+25ve8mGlMLk3qe4CE8auyQ
- go4HPlFRahF3fqgybRHClP8gr+c3T/TU93VsKTxI0yik2ti6FwL9Dc/7KNPdQ3pl/kZ01CA6P1T
- VpDEDuF+SfVGkpUulbsYhDi9rsIQluBYZj4rR7S+JhFvcdEz6mQB8b8/WMHgeMhIAVfEml3hk6x
- dDd6Nmf0U5MswSOPtbSKK5sPo=
-X-Received: by 2002:a05:622a:2515:b0:4e8:a8fd:e00 with SMTP id
- d75a77b69052e-4f4abd6fd05mr238717531cf.43.1766521859699; 
- Tue, 23 Dec 2025 12:30:59 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGkymYoqedGNX8RtCYK8eQPHwf5IoC9fyqOpxWcuOypEFxU4OUDP0i1kmyNmN0ZGRkzYM4p+w==
-X-Received: by 2002:a05:622a:2515:b0:4e8:a8fd:e00 with SMTP id
- d75a77b69052e-4f4abd6fd05mr238716991cf.43.1766521859184; 
- Tue, 23 Dec 2025 12:30:59 -0800 (PST)
+ AJvYcCWEGJ+SzHKjToXH69VJ/jFhGdgKeeNNwmF4rAMYLzLHhZ138Do8AgrnjBC/HNzbebNnNSqUw3r9MK4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtcjylRhPyv9fg+RD9j91amzyO5F6yweWqXHxxxZ67NfCn7THP
+ uQR2QiIvKLxJ1PUF71KGGUfIw34iFVrnGU1WBOuAXsYIVU8NP43DEtKXBef2Syvtq6H+pjb+Rr0
+ 7Q1jMnY4tNE3W2dQdK11niI4Uw3315tKgY0PbkT16gTh2yzw7AKcOxEyKyDKzcSD20Ama0e0=
+X-Gm-Gg: AY/fxX4FMbD0FRwhAhadLUc8NlY/eyQzEW0I82Hsl77vLQ621iK19ZAMgP22nHgMVN9
+ aIQMfXtB4iN+5wBtigvOwsX5L4wmiTNyn8wo2D6wIDeIG51MbDfGyRyeAXG0opItCAUOVXWozEh
+ ZoFfjloaRyb/RJWbAj0d0rB3MPrCzqYhXyjG4hOkAho0PR1O6MQn1qkp1wk379ood4/4wNNcBzy
+ eUAMKw+oIW2eXE1bMYVBRokjs6qGQEE0JT7w0xr/Dyt8EKGgmmGjNftJ2SGY/YiUOPcUfFg4u+k
+ hwhKax7lddtYWBZ55c7UYVonN20HZ1CY2C9m9TcgzlAI71TfEkGb3SKbVKZ3vDPI3mJ843LBYxI
+ ptIC+w+Ci80OXQAa3pCvVpdZZULJqmmJ8GyoDRFBICbJGN8EvMkQ0q6mCf2fA3szqrBZHKO6gtc
+ 7ya8awORL0T4EEf/TYNDLDMOQ=
+X-Received: by 2002:a05:622a:418d:b0:4ee:275c:28d7 with SMTP id
+ d75a77b69052e-4f4abdd6345mr233834461cf.75.1766536660497; 
+ Tue, 23 Dec 2025 16:37:40 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEQYqcQ8RAiUkM6fn5wm/C8SIkuv5CfLdFvlE6k7nnbLNWz1dAHdDImDOJx97hVRvZEtVA3Qw==
+X-Received: by 2002:a05:622a:418d:b0:4ee:275c:28d7 with SMTP id
+ d75a77b69052e-4f4abdd6345mr233834171cf.75.1766536660002; 
+ Tue, 23 Dec 2025 16:37:40 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59a1861f2e6sm4377066e87.69.2025.12.23.12.30.58
+ 2adb3069b0e04-59a1861fcccsm4441056e87.85.2025.12.23.16.37.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Dec 2025 12:30:58 -0800 (PST)
-Date: Tue, 23 Dec 2025 22:30:56 +0200
+ Tue, 23 Dec 2025 16:37:37 -0800 (PST)
+Date: Wed, 24 Dec 2025 02:37:36 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, jesszhan0024@gmail.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, neil.armstrong@linaro.org,
- konrad.dybcio@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
- yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH v4 10/11] drm/msm/dpu: Add Kaanapali SSPP sub-block support
-Message-ID: <fto47ksvr6i4fxl52yqcdgatut7oqepgc7d2slrn4gr7yi2xei@s3bnte4sdk5f>
-References: <20251222102400.1109-1-yuanjie.yang@oss.qualcomm.com>
- <20251222102400.1109-11-yuanjie.yang@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Jie Zhang <quic_jiezh@quicinc.com>
+Subject: Re: [PATCH v3 5/6] arm64: dts: qcom: sm6150: Add gpu and rgmu nodes
+Message-ID: <vv7o5wuxqcg6jbj3jnzrsk6fmsdmshvq63syutxd3jfxgdkjsv@tunwxas2ebc5>
+References: <57706b2e-becf-47ac-a874-79ce17d12b74@oss.qualcomm.com>
+ <812cfa55-269d-4b19-8e18-4815608b6bbb@oss.qualcomm.com>
+ <6agidc2r2d2jevtiizj77mtlytoo3raxaoe6b53rvk3obmmiha@x7pqjco4ulhg>
+ <030a8eb3-c79e-4be0-8305-7c9bb2005785@oss.qualcomm.com>
+ <wwrc637p5nkz6ptuef2hrhyjgqnyifcztlkjrqyw4764vg6jpf@wso4tp6onb5l>
+ <1afebfb7-00aa-4f19-b6c7-dd6fadb83664@oss.qualcomm.com>
+ <CAO9ioeXqP5i9hEa-DfrEvK3U-3py9KjdMmWnjzZ9kGd4BPqdYw@mail.gmail.com>
+ <9fd21cf7-6576-4091-81ab-a09be6b7579b@oss.qualcomm.com>
+ <CAO9ioeXKBD0ab2+FmNnFQozKq_cp+hFwc5B6LtgfEC2FLULUYQ@mail.gmail.com>
+ <b01eedc2-24b6-43fd-b729-85eded2d6b34@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251222102400.1109-11-yuanjie.yang@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=e/ILiKp/ c=1 sm=1 tr=0 ts=694afc04 cx=c_pps
+In-Reply-To: <b01eedc2-24b6-43fd-b729-85eded2d6b34@oss.qualcomm.com>
+X-Proofpoint-GUID: jf1MDmBSQMGeviI_sm1T-ZjvPNCmOSPo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI0MDAwMyBTYWx0ZWRfXzqNSwi3mryjC
+ q3RIW2QwhinUvEGfsvK1fnwEBezD4ZkhZUA94FEw/WINmx0DBAgaymPI87oEKsGuYY8dIZHd3kf
+ fuR6bvS73n48QzonlSjfddWxPadNJ6pB/Ds9rXh87IVgvnspfsoiTpDw+pb4XfuPQQdEJDnkiVG
+ SGFk5uDvd1I6CwsTsyL2bZffH1tBBJBUS1q1j8ccwrgHv+UwKm22bm70M0a0/AGG7M3X6rq70Sl
+ JnZ8oTbfKoSUXOwy0s3pqS3VhKBwLUiiiBuCFy1xME7M+t97swDTV9Ex/bzgc9FTBJN+whl05IU
+ Wjkid7+J804Sswm3goh4WS0gmJ5McaNPQll0GYsx9gjO4H9F6giW4fVUtJ3Gem6FCw971IZ2h1W
+ nnkLmPMww4QRY69QwriqyRP/x4tXfllQaUv6UyamSRpc6X+5Tbrt70lZtIzfMwIP6NpQmeA6/Mo
+ BTylDwAp9UlupU9ddCw==
+X-Authority-Analysis: v=2.4 cv=HsN72kTS c=1 sm=1 tr=0 ts=694b35d5 cx=c_pps
  a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=T7gXAn62BuYQ5x_KxX0A:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: ZTkns0Ar8CNEBnXm6lmpHlHSYEql-8SJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjIzMDE3MiBTYWx0ZWRfXyKrOwnAotLQc
- vwLJYHgMqsne2Ru5hB5pHpHDlkCXvEfoyctiMOYkLVxJQkY1lk3csf2w3OtfGBEAZ5BrESG8H9p
- Xnt8GihL0lrDncjswrpkE0o0zsde/kKl1nV81zrWeE1cKNEcFZPBi2kYXEj8UiQznpiI9qK9bPc
- TPkJOIP3kjy8yyuGqED2eZ4bjvXVvdZzXNYdN8pbXWem+65cHow+pb+AFn/UPVgJYkfVIgM8cZg
- nyCA+Wf027DJ+Kajc963oj62VMuHw8BiCL+dJuH22t+bb9+LqF+/J/t30tB0KcrRORB1o4rnmRf
- 88Me07xMggM9ABd/xefS7AYjRE/RdUoLXjVSBqn/4nNb901kiH8MX8j6DKwP/Zjyniic61JACFl
- WcbJhqAhDsCsRTzxtkn9ZIpXzn6w6NhjlmI5iT2Jp+6N5g9LCSYiWb3PA3QfkW2QV8Y7AZttN9Q
- KTx2f2G8Nul2KCC5DGQ==
-X-Proofpoint-ORIG-GUID: ZTkns0Ar8CNEBnXm6lmpHlHSYEql-8SJ
+ a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=uDjLizC7a5IkTmk2YkYA:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: jf1MDmBSQMGeviI_sm1T-ZjvPNCmOSPo
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-23_04,2025-12-22_01,2025-10-01_01
+ definitions=2025-12-23_05,2025-12-22_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 phishscore=0 adultscore=0 suspectscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512230172
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512240003
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,88 +163,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 22, 2025 at 06:23:59PM +0800, yuanjie yang wrote:
-> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+On Mon, Dec 22, 2025 at 11:59:34PM +0530, Akhil P Oommen wrote:
+> On 12/22/2025 4:54 PM, Dmitry Baryshkov wrote:
+> > On Mon, 22 Dec 2025 at 12:54, Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
+> >>
+> >> On 12/22/2025 2:45 PM, Dmitry Baryshkov wrote:
+> >>> On Mon, 22 Dec 2025 at 09:19, Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
+> >>>>
+> >>>> On 12/13/2025 12:58 AM, Dmitry Baryshkov wrote:
+> >>>>> On Fri, Dec 12, 2025 at 01:01:44AM +0530, Akhil P Oommen wrote:
+> >>>>>> On 12/11/2025 6:56 PM, Dmitry Baryshkov wrote:
+> >>>>>>> On Thu, Dec 11, 2025 at 05:22:40PM +0530, Akhil P Oommen wrote:
+> >>>>>>>> On 12/11/2025 4:42 PM, Akhil P Oommen wrote:
+> >>>>>>>>> On 12/11/2025 6:06 AM, Dmitry Baryshkov wrote:
+> >>>>>>>>>> On Thu, Dec 11, 2025 at 02:40:52AM +0530, Akhil P Oommen wrote:
+> >>>>>>>>>>> On 12/6/2025 2:04 AM, Dmitry Baryshkov wrote:
+> >>>>>>>>>>>> On Fri, Dec 05, 2025 at 03:59:09PM +0530, Akhil P Oommen wrote:
+> >>>>>>>>>>>>> On 12/4/2025 7:49 PM, Dmitry Baryshkov wrote:
+> >>>>>>>>>>>>>> On Thu, Dec 04, 2025 at 03:43:33PM +0530, Akhil P Oommen wrote:
+> >>>>>>>>>>>>>>> On 11/26/2025 6:12 AM, Dmitry Baryshkov wrote:
+> >>>>>>>>>>>>>>>> On Sat, Nov 22, 2025 at 03:03:10PM +0100, Konrad Dybcio wrote:
+> >>>>>>>>>>>>>>>>> On 11/21/25 10:52 PM, Akhil P Oommen wrote:
+> >>>>>>>>>>>>>>>>>> From: Jie Zhang <quic_jiezh@quicinc.com>
+> >>>>>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>>>>> Add gpu and rgmu nodes for qcs615 chipset.
+> >>>>>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>>>>> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+> >>>>>>>>>>>>>>>>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> >>>>>>>>>>>>>>>>>> ---
+> >>>>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>>>> [...]
+> >>>>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>>>>> +                        gpu_opp_table: opp-table {
+> >>>>>>>>>>>>>>>>>> +                                compatible = "operating-points-v2";
+> >>>>>>>>>>>>>>>>>> +
+> >>>>>>>>>>>>>>>>>> +                                opp-845000000 {
+> >>>>>>>>>>>>>>>>>> +                                        opp-hz = /bits/ 64 <845000000>;
+> >>>>>>>>>>>>>>>>>> +                                        required-opps = <&rpmhpd_opp_turbo>;
+> >>>>>>>>>>>>>>>>>> +                                        opp-peak-kBps = <7050000>;
+> >>>>>>>>>>>>>>>>>> +                                };
+> >>>>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>>>> I see another speed of 895 @ turbo_l1, perhaps that's for speedbins
+> >>>>>>>>>>>>>>>>> or mobile parts specifically?
+> >>>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>>> msm-4.14 defines 7 speedbins for SM6150. Akhil, I don't see any of them
+> >>>>>>>>>>>>>>>> here.
+> >>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>> The IoT/Auto variants have a different frequency plan compared to the
+> >>>>>>>>>>>>>>> mobile variant. I reviewed the downstream code and this aligns with that
+> >>>>>>>>>>>>>>> except the 290Mhz corner. We can remove that one.
+> >>>>>>>>>>>>>>>
+> >>>>>>>>>>>>>>> Here we are describing the IoT variant of Talos. So we can ignore the
+> >>>>>>>>>>>>>>> speedbins from the mobile variant until that is supported.
+> >>>>>>>>>>>>>>
+> >>>>>>>>>>>>>> No, we are describing just Talos, which hopefully covers both mobile and
+> >>>>>>>>>>>>>> non-mobile platforms.
+> >>>>>>>>>>>>>
+> >>>>>>>>>>>>> We cannot assume that.
+> >>>>>>>>>>>>>
+> >>>>>>>>>>>>> Even if we assume that there is no variation in silicon, the firmware
+> >>>>>>>>>>>>> (AOP, TZ, HYP etc) is different between mobile and IoT version. So it is
+> >>>>>>>>>>>>> wise to use the configuration that is commercialized, especially when it
+> >>>>>>>>>>>>> is power related.
+> >>>>>>>>>>>>
+> >>>>>>>>>>>> How does it affect the speed bins? I'd really prefer if we:
+> >>>>>>>>>>>> - describe OPP tables and speed bins here
+> >>>>>>>>>>>> - remove speed bins cell for the Auto / IoT boards
+> >>>>>>>>>>>> - make sure that the driver uses the IoT bin if there is no speed bin
+> >>>>>>>>>>>>   declared in the GPU.
+> >>>>>>>>>>>>
+> >>>>>>>>>>>
+> >>>>>>>>>>> The frequency plan is different between mobile and IoT. Are you
+> >>>>>>>>>>> proposing to describe a union of OPP table from both mobile and IoT?
+> >>>>>>>>>>
+> >>>>>>>>>> Okay, this prompted me to check the sa6155p.dtsi from msm-4.14... And it
+> >>>>>>>>>> has speed bins. How comes we don't have bins for the IoT variant?
+> >>>>>>>>>>
+> >>>>>>>>>> Mobile bins: 0, 177, 187, 156, 136, 105, 73
+> >>>>>>>>>> Auto bins:   0, 177,      156, 136, 105, 73
+> >>>>>>>>>>
+> >>>>>>>>>> Both Mobile and Auto chips used the same NVMEM cell (0x6004, 8 bits
+> >>>>>>>>>> starting from bit 21).
+> >>>>>>>>>>
+> >>>>>>>>>> Mobile freqs:
+> >>>>>>>>>> 0:         845M, 745M, 700M,       550M,       435M,       290M
+> >>>>>>>>>> 177:       845M, 745M, 700M,       550M,       435M,       290M
+> >>>>>>>>>> 187: 895M, 845M, 745M, 700M,       550M,       435M,       290M
+> >>>>>>>>>> 156:             745M, 700M,       550M,       435M,       290M
+> >>>>>>>>>> 136:                         650M, 550M,       435M,       290M
+> >>>>>>>>>> 105:                                     500M, 435M,       290M
+> >>>>>>>>>> 73:                                                  350M, 290M
+> >>>>>>>>>>
+> >>>>>>>>>> Auto freqs:
+> >>>>>>>>>> 0:         845M, 745M, 650M, 500M, 435M
+> >>>>>>>>>> 177:       845M, 745M, 650M, 500M, 435M
+> >>>>>>>>>> 156:             745M, 650M, 500M, 435M
+> >>>>>>>>>> 136:                   650M, 500M, 435M
+> >>>>>>>>>> 105:                         500M, 435M
+> >>>>>>>>>> 73:                                      350M
+> >>>>>>>>>>
+> >>>>>>>>>> 290M was a part of the freq table, but later it was removed as "not
+> >>>>>>>>>> required", so probably it can be brought back, but I'm not sure how to
+> >>>>>>>>>> handle 650 MHz vs 700 MHz and 500 MHz vs 550 MHz differences.
+> >>>>>>>>>>
+> >>>>>>>>>> I'm a bit persistent here because I really want to avoid the situation
+> >>>>>>>>>> where we define a bin-less OPP table and later we face binned QCS615
+> >>>>>>>>>> chips (which is possible since both SM and SA were binned).
+> >>>>>>>>>
+> >>>>>>>>> Why is that a problem as long as KMD can handle it without breaking
+> >>>>>>>>> backward compatibility?
+> >>>>>>>>
+> >>>>>>>> I replied too soon. I see your point. Can't we keep separate OPP tables
+> >>>>>>>> when that happen? That is neat-er than complicating the driver, isn't it?
+> >>>>>>>
+> >>>>>>> I have different story in mind. We ship DTB for IQ-615 listing 845 MHz
+> >>>>>>> as a max freq without speed bins. Later some of the chips shipped in
+> >>>>>>> IQ-615 are characterized as not belonging to bin 0 / not supporting 845
+> >>>>>>> MHz. The users end up overclocking those chips, because the DTB doesn't
+> >>>>>>> make any difference.
+> >>>>>>
+> >>>>>> That is unlikely, because the characterization and other similiar
+> >>>>>> activities are completed and finalized before ramp up at foundries.
+> >>>>>> Nobody likes to RMA tons of chipsets.
+> >>>>>>
+> >>>>>> Anyway, this hypothetical scenarios is a problem even when we use the
+> >>>>>> hard fuse.
+> >>>>>
+> >>>>> So, are you promising that while there were several characterization
+> >>>>> bins for SM6150 and SA6155P, there is only one bin for QCS615, going up
+> >>>>> to the max freq?
+> >>>>
+> >>>> I have cross checked with our Product team. I can confirm that for both
+> >>>> internal and external SKUs of Talos IoT currently, there is only a
+> >>>> single bin for GPU with Fmax 845Mhz.
+> >>>
+> >>> Okay. Thanks for the confirmation.
+> >>>
+> >>> What happens when somebody starts working on a phone using SM6150 SoC
+> >>> (e.g. Xiaomi Redmi Note 7 Pro)?
+> >>
+> >> Update it in a way without disturbing the qcs615-ride.dtb? It is safe if
+> >> we add speedbin for Mobile in future, because KMD can correctly handle both.
+> > 
+> > Corresponding entry in a6xx_catalog.c will receive speed bin
+> > information. Will that break compatibility with the existing
+> > qcs615-ride.dtb?
+> > 
 > 
-> Add support for Kaanapali platform SSPP sub-blocks, which
-> introduce structural changes including register additions,
-> removals, and relocations. Add the new common and rectangle
-> blocks, and update register definitions and handling to
-> ensure compatibility with DPU v13.0.
+> It won't. KMD will select a bin in OPP table only when a speedbin nvmem
+> cell is present. If the nvmem cell is not present, it will ignore the
+> speedbin table in the catalog.
+
+I'm not extremely happy (and I'd prefer if we have added GPU bins in
+this patchset), but  technically you are correct and it can be done
+separately, when somebody will work on those phones.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
 > 
-> Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/Makefile                  |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  13 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   4 +
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c   | 321 ++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c   |  18 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   3 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |  17 +-
->  7 files changed, 371 insertions(+), 6 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c
+> -Akhil
 > 
-
-> @@ -291,9 +292,10 @@ void dpu_hw_setup_format_impl(struct dpu_sw_pipe *pipe, const struct msm_format
->  		if (MSM_FORMAT_IS_UBWC(fmt))
->  			opmode |= MDSS_MDP_OP_BWC_EN;
->  		src_format |= (fmt->fetch_mode & 3) << 30; /*FRAME_FORMAT */
-> -		DPU_REG_WRITE(c, SSPP_FETCH_CONFIG,
-> -			DPU_FETCH_CONFIG_RESET_VALUE |
-> -			ctx->ubwc->highest_bank_bit << 18);
-> +		if (core_major_ver < 13)
-> +			DPU_REG_WRITE(c, SSPP_FETCH_CONFIG,
-> +				DPU_FETCH_CONFIG_RESET_VALUE |
-> +				ctx->ubwc->highest_bank_bit << 18);
-
-I'd prefer if this is pulled into dpu_hw_sspp_setup_format().
-
->  		switch (ctx->ubwc->ubwc_enc_version) {
->  		case UBWC_1_0:
->  			fast_clear = fmt->alpha_enable ? BIT(31) : 0;
-
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-> index 478a091aeccf..006dcc4a0dcc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-
-This commit was about SSPPs. Why are you touching WB?
-
-> @@ -148,6 +148,15 @@ static void dpu_hw_wb_setup_qos_lut(struct dpu_hw_wb *ctx,
->  			      cfg);
->  }
->  
-> +static void dpu_hw_wb_setup_qos_lut_v13(struct dpu_hw_wb *ctx,
-> +					struct dpu_hw_qos_cfg *cfg)
-> +{
-> +	if (!ctx || !cfg)
-> +		return;
-> +
-> +	_dpu_hw_setup_qos_lut_v13(&ctx->hw, cfg);
-> +}
-> +
->  static void dpu_hw_wb_setup_cdp(struct dpu_hw_wb *ctx,
->  				const struct msm_format *fmt,
->  				bool enable)
-> @@ -202,8 +211,12 @@ static void _setup_wb_ops(struct dpu_hw_wb_ops *ops,
->  	if (test_bit(DPU_WB_XY_ROI_OFFSET, &features))
->  		ops->setup_roi = dpu_hw_wb_roi;
->  
-> -	if (test_bit(DPU_WB_QOS, &features))
-> -		ops->setup_qos_lut = dpu_hw_wb_setup_qos_lut;
-> +	if (test_bit(DPU_WB_QOS, &features)) {
-> +		if (mdss_rev->core_major_ver >= 13)
-> +			ops->setup_qos_lut = dpu_hw_wb_setup_qos_lut_v13;
-> +		else
-> +			ops->setup_qos_lut = dpu_hw_wb_setup_qos_lut;
-> +	}
->  
->  	if (test_bit(DPU_WB_CDP, &features))
->  		ops->setup_cdp = dpu_hw_wb_setup_cdp;
-> -- 
-> 2.34.1
+> >>
+> >>> Likewise, If I understand correctly, QCS615 RIDE aka ADP Air uses an
+> >>> auto SKU rather than the IoT one (please correct me if I'm wrong
+> >>> here).
+> >>>
+> >>
+> >> AFAIK, IoT variant is QCS615 and Auto variants uses SA6155P chipset.
+> >> Both chipsets are functionally same except some fuses.
+> > 
+> > Ah, ok. I wasn't sure if we are using QCS615 or SA6155P in the Ride devices.
+> > 
 > 
 
 -- 
