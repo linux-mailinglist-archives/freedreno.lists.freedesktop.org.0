@@ -2,42 +2,149 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD80DCDCF5C
-	for <lists+freedreno@lfdr.de>; Wed, 24 Dec 2025 18:46:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 083BDCDD1E7
+	for <lists+freedreno@lfdr.de>; Wed, 24 Dec 2025 23:32:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99372112890;
-	Wed, 24 Dec 2025 17:46:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9252113140;
+	Wed, 24 Dec 2025 22:32:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nHdIk1d9";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gVHFqAx6";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28A61112890
- for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 17:46:47 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 1C1483EDC6;
- Wed, 24 Dec 2025 18:46:45 +0100 (CET)
-Date: Wed, 24 Dec 2025 18:46:43 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Teguh Sobirin <teguh@sobir.in>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] drm/msm/dpu: fix WD timer handling on DPU 8.x
-Message-ID: <aUwia8142ACgDWBM@SoMainline.org>
-References: <20251224-intf-fix-wd-v4-0-07a0926fafd2@oss.qualcomm.com>
- <20251224-intf-fix-wd-v4-2-07a0926fafd2@oss.qualcomm.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 258D0113140
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 22:32:34 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5BOJBiG7464492
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 22:32:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UraNFuYrxpgysjCGoBJLWahHGNJ2HdExFYPsS3LkjKw=; b=nHdIk1d96Qc6MtkX
+ xuvXp/Zbi6UWSasbYHp5vrUsvuW6ONDvVuD4YhdeIkQeli60rQRn0B+IapRcPmtu
+ bA+yn/4P/jRcga0RPZqlbubnY8u/SYKA1rb2tct2YleWM5jAJRdXuzAB7u6oVzRp
+ 6fJdt2KfdwCxQUxSo5ejZac6gkbEFft1VO9cZ1e1MGc3bcOFCpMIPKql526f9NJF
+ W783TpjL3LzjyO7lAv9BZgdd3yxY5rn6MTLB+gquC+uOG+7Eh6UbYs0Mbq56WXQ0
+ zfnqQ0TBm06NuVdpu76zM8JgzZR2g59EDvRf7T72H1Aq7cnS5vRh+mVe4rv+fYOV
+ 6+PoGA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b8p49075u-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 22:32:33 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4f1f42515ffso149421381cf.0
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 14:32:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1766615552; x=1767220352;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UraNFuYrxpgysjCGoBJLWahHGNJ2HdExFYPsS3LkjKw=;
+ b=gVHFqAx6vMpzIwa2cvbt4C3tNLuvTxxDisozCj0o0UUMR466RsOCs97a7XXPS4hgaB
+ G5e0SWjG1cK2t6Un+efO37gOxmLKu4AGRLIVvtIzr+Qot0GLW6ZYfXmc9HLEhK0ozZ0t
+ 7y3D2fT1SrZ6bwDjAtsPdZg4T4KEmSVMKRU+/+hgdZ6zotV+3+dVJ3oRaQ+P0AoKBKC3
+ CXw4Qcvcbw6gViXmlbJjXgM/9aUOmg2aV5zn5/mQwsGMe4BeSuBMF5elQJcRD0v2eQ0A
+ buTH8Qq55hC1QZkVBzelm+oC0OdfPg6E5/xhmf6G7DRkW6bB7/XDTHu4dJxskASocco3
+ wHMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766615552; x=1767220352;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=UraNFuYrxpgysjCGoBJLWahHGNJ2HdExFYPsS3LkjKw=;
+ b=YXVgcd1sUaCHNt3CeIC7Lr0WsMoc9tbo+7iO+mx6qC/mlTblxrCipg5buzBYIE/ymH
+ AxgYcYXftuzcI5hWuK7xqFWrgoYTCT+ZXF0ZHs4b2V1T8EXIFhmMtv9NPzf+fOvXhTTE
+ BggLg95kjZlgVLSexnQ+S/zUIFSL7PCy/EyAwfuErme7cjTcEmpsC8atdnG4d5bV3Yyb
+ f516ho/lrGL0nQg5Sp+OGrBLBrh/1+TA5YN4W3GSYqVxEOTFnkyNK9PJ4ij8uIivUirf
+ 2y5YXjh9YclBYNHcFdxTW2nQr3K4rJ68+I7QCZgSZ7qo4mQDXBGg7VkuALvKmeIec87q
+ SGKQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUhHNu5UhoFq+9dFUudkBrN5M9yIM0fa4k73K4sRmhgOc2i2Tj2cSI8vnmhLaAXC7VRqgzOV8O5cGs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyz3kTgDquvpkXr9Q7jPaQYLjBFCJ+Cxjn1XgzznwpzTM2X4YF9
+ ozsAWC9L6g+EXtoDGINJWh/k2vej+JaTY6mgD4DL7lS9qK611YTDRF8zQi0pgirDJM9L7tiN20q
+ a4yMzfUQTDAhR4b63batfm/fdkvSlRQRI/ILRd4wk2kWT8O3XWM1nQ+rXnP6k0UACKCBmokM=
+X-Gm-Gg: AY/fxX5peJIUZuZSvtcVEGUCUZPKDrmv0M0m8IieGsZ0riKCnMfFEQnAU4B4/OTrZxV
+ ttT1STgAhRiKt+HgC300i348aEaxl6Qdzc3FQ38f5t43yBK6nJYWbrlL0w7ebZHYl3n34KvNKx+
+ k8U31Y/K6aPPMeICt40H//SLInCiYrjEeDYvsCgkE9eAZBUOw2hV1mecReZWOkMIIIj4Ebyzu35
+ unw1ujfMQ+/xgQsAOZ9No2g7Yql9xfsJJEiXYCWrHK/145xP2pcKThCMHd+IZn3tKPWoWSd7OC7
+ IlB+X3rJsIGFqm79r15QKGGEKiWA/27Lu3Di1wOr7cGUroeis/uMQq/dfHxiMf4tIgAO7J+74I5
+ JYHGSDHtERtu4sDfYQI7pOIGllVVi8yxsXI3wokl3Y9sJcmit0AeTSj1UbrKj8sLsFt4MpbtEq+
+ cW3TIVejCIuB/NaFgjDVpV+UA=
+X-Received: by 2002:a05:622a:4ccc:b0:4e2:e58a:57e1 with SMTP id
+ d75a77b69052e-4f4abd1fd20mr319277321cf.37.1766615552546; 
+ Wed, 24 Dec 2025 14:32:32 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGn3E7ooVJGy2fcsFLgGKtHFkRwVCp/umZC4k5RBMwllPtRmK2vC1IGq6txC+42jL9b+1gxOg==
+X-Received: by 2002:a05:622a:4ccc:b0:4e2:e58a:57e1 with SMTP id
+ d75a77b69052e-4f4abd1fd20mr319277151cf.37.1766615552154; 
+ Wed, 24 Dec 2025 14:32:32 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38122693ad3sm42746951fa.49.2025.12.24.14.32.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Dec 2025 14:32:29 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+In-Reply-To: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
+References: <20250803-lt9611uxc-hdmi-v1-0-cb9ce1793acf@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND 0/2] drm/bridge: lontium-lt9611uxc: switch to
+ DRM_BRIDGE_OP_HDMI_AUDIO
+Message-Id: <176661554772.2411515.14289224108428205133.b4-ty@oss.qualcomm.com>
+Date: Thu, 25 Dec 2025 00:32:27 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251224-intf-fix-wd-v4-2-07a0926fafd2@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: gZZ-cgST81pAttBIAwfzfmMeWcWv4ZVb
+X-Authority-Analysis: v=2.4 cv=esbSD4pX c=1 sm=1 tr=0 ts=694c6a01 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jdnYiPbrDYKY_qMFIeYA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI0MDIwMyBTYWx0ZWRfX94qW1QAbcgqS
+ gDPcGSoX9PSjifsDqMLQu387eU2X7zIfNHTtaDVP/Js9pOs1uh17ZPl2MubfpAvoAbujn7W/mJI
+ AtD90n2OHEJOtpZDL/rnaoQPXZKkY6O9Cr/6q4J0LIkmjnnwP3p4K4lt3EcvjGMBzwBZpsmru8a
+ NjZCmp0DPbinVIfb8LRee5awy3ekulvTFhLy2jxS3Mf7GdYmJm/2tyCguMopE8WbUbgl2PDZw34
+ jN8vOzNCuNAu3spNd+hVulmxyxUr0doZQWV87M3wEKRHQMz6mZOOwV2YFFm2Y2ud3xvFH8v049i
+ qt8A5uHbLNM9zr9a9mO58lMVP/zWCB5CT2jOkNvlYKakb9J2rK3yFpoRKbwmqNY05Q7/bBlU39K
+ UvD/6xtqAUzLEPEfU4XVAwS9DkXCgVL6vaweLaySTk45V4w9uEjCl8bbCtH+Byaq0FHZj62Pj0O
+ WB5H15E1uw9UNpYwJEA==
+X-Proofpoint-GUID: gZZ-cgST81pAttBIAwfzfmMeWcWv4ZVb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-24_04,2025-12-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512240203
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,218 +160,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2025-12-24 17:33:50, Dmitry Baryshkov wrote:
-> Since DPU 8.x Watchdog timer settings were moved from the TOP to the
-> INTF block. Support programming the timer in the INTF block.
+On Sun, 03 Aug 2025 14:53:50 +0300, Dmitry Baryshkov wrote:
+> Use DRM HDMI audio helpers in order to implement HDMI audio support for
+> Lontium LT9611UXC bridge.
 > 
-> Fixes: e955a3f0d86e ("drm/msm/dpu: Implement tearcheck support on INTF block")
-
-I was somewhat fine with keeping this tag in patch 1/2; while that doesn't
-necessarily trigger a bug because the condition was not reached back then,
-the logic was still in the wrong place (which I may have blindly inferred from
-downstream, and/or because the initialization of vsync_cfg was there despite not
-being used yet).
-
-However I don't think that patch resulted in any invalid behaviour regarding the
-watchdog timer.  The entire setup was already wrong to begin with and my patch
-only made it *slightly less wrong* by at least moving the TE setup to the INTF
-for 5.x; it made sure to keep the WD setup in the original spot.  That it was
-later moved for DPU 8.x was not something that patch intended to concern itself
-with.
-
-If anything (and in other words) my patch should have had a Fixes: on the first
-commit that added DPU 5.0 support - for not checking the registers properly -
-and this patch should have a Fixes: on the first introduction of DPU 8.x for the
-same reason instead?
-
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 48 +++++++++++++++++++++++++++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h |  3 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c  |  7 -----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h |  7 +++++
->  5 files changed, 55 insertions(+), 12 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 0482b2bb5a9e..0e53d9869ae9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -792,7 +792,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
->  
->  		if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
->  			phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
-> -							 vsync_cfg.vsync_source);
-> +							 &vsync_cfg);
 
-Be sure to also move the initialization of vsync_cfg, at least ->frame_rate
-outside of the if (hw_mdptop->ops.setup_vsync_source) above (related to the
-first patch).
+Applied to drm-misc-next, thanks!
 
-This vsync_sel function is using frame_rate now in your
-dpu_hw_intf_vsync_sel_v8().
+[1/2] drm/bridge: add connector argument to .hpd_notify callback
+      commit: 8a717c16ddf261118e9128d7f146d68a2567f087
+[2/2] drm/bridge: lontium-lt9611uxc: switch to HDMI audio helpers
+      commit: c08c123d4cd6ec3ee482d607e29388d0db2d3f1d
 
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index a80ac82a9625..7967d9bd2f44 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -67,6 +67,10 @@
->  #define INTF_MISR_CTRL                  0x180
->  #define INTF_MISR_SIGNATURE             0x184
->  
-> +#define INTF_WD_TIMER_0_CTL		0x230
-> +#define INTF_WD_TIMER_0_CTL2		0x234
-> +#define INTF_WD_TIMER_0_LOAD_VALUE	0x238
+Best regards,
+-- 
+With best wishes
+Dmitry
 
-All other constants use spaces for alignment, making this look odd.
 
-> +
->  #define INTF_MUX                        0x25C
->  #define INTF_STATUS                     0x26C
->  #define INTF_AVR_CONTROL                0x270
-> @@ -475,7 +479,7 @@ static int dpu_hw_intf_get_vsync_info(struct dpu_hw_intf *intf,
->  }
->  
->  static void dpu_hw_intf_vsync_sel(struct dpu_hw_intf *intf,
-> -				  enum dpu_vsync_source vsync_source)
-> +				  struct dpu_vsync_source_cfg *cfg)
->  {
->  	struct dpu_hw_blk_reg_map *c;
->  
-> @@ -484,7 +488,42 @@ static void dpu_hw_intf_vsync_sel(struct dpu_hw_intf *intf,
->  
->  	c = &intf->hw;
->  
-> -	DPU_REG_WRITE(c, INTF_TEAR_MDP_VSYNC_SEL, (vsync_source & 0xf));
-> +	DPU_REG_WRITE(c, INTF_TEAR_MDP_VSYNC_SEL, (cfg->vsync_source & 0xf));
-> +}
-> +
-> +static void dpu_hw_intf_vsync_sel_v8(struct dpu_hw_intf *intf,
-> +				  struct dpu_vsync_source_cfg *cfg)
-> +{
-> +	struct dpu_hw_blk_reg_map *c;
-> +
-> +	if (!intf)
-> +		return;
-> +
-> +	c = &intf->hw;
-> +
-> +	if (cfg->vsync_source >= DPU_VSYNC_SOURCE_WD_TIMER_4 &&
-> +	    cfg->vsync_source <= DPU_VSYNC_SOURCE_WD_TIMER_1) {
-
-It's quite nasty that those timers are defined in reverse order, otherwise one
-might think this wouldn't match anything at all.
-
-Does it make sense to also mention INTF sources in the warning below,
-and/or change the condition to explicitly check for GPIO and INTF sources?  Perhaps
-in an ELSE to the ==TIMER0 so that it's all clearly separated?
-
-> +		pr_warn_once("DPU 8.x supports only GPIOs and timer0 as TE sources\n");
-> +		return;
-> +	}
-> +
-> +	if (cfg->vsync_source == DPU_VSYNC_SOURCE_WD_TIMER_0) {
-> +		u32 reg;
-> +
-> +		DPU_REG_WRITE(c, INTF_WD_TIMER_0_LOAD_VALUE,
-> +			      CALCULATE_WD_LOAD_VALUE(cfg->frame_rate));
-
-Repeat: it's used here, but you didn't assign it on the call-side
-because hw_mdptop->ops.setup_vsync_source is NULL.
-
-> +
-> +		DPU_REG_WRITE(c, INTF_WD_TIMER_0_CTL, BIT(0)); /* clear timer */
-> +		reg = DPU_REG_READ(c, INTF_WD_TIMER_0_CTL2);
-> +		reg |= BIT(8);		/* enable heartbeat timer */
-> +		reg |= BIT(0);		/* enable WD timer */
-> +		DPU_REG_WRITE(c, INTF_WD_TIMER_0_CTL2, reg);
-> +
-> +		/* make sure that timers are enabled/disabled for vsync state */
-> +		wmb();
-> +	}
-> +
-> +	dpu_hw_intf_vsync_sel(intf, cfg);
->  }
->  
->  static void dpu_hw_intf_disable_autorefresh(struct dpu_hw_intf *intf,
-> @@ -598,7 +637,10 @@ struct dpu_hw_intf *dpu_hw_intf_init(struct drm_device *dev,
->  		c->ops.enable_tearcheck = dpu_hw_intf_enable_te;
->  		c->ops.disable_tearcheck = dpu_hw_intf_disable_te;
->  		c->ops.connect_external_te = dpu_hw_intf_connect_external_te;
-> -		c->ops.vsync_sel = dpu_hw_intf_vsync_sel;
-> +		if (mdss_rev->core_major_ver >= 8)
-> +			c->ops.vsync_sel = dpu_hw_intf_vsync_sel_v8;
-> +		else
-> +			c->ops.vsync_sel = dpu_hw_intf_vsync_sel;
->  		c->ops.disable_autorefresh = dpu_hw_intf_disable_autorefresh;
->  	}
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> index f31067a9aaf1..e84ab849d71a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> @@ -12,6 +12,7 @@
->  #include "dpu_hw_util.h"
->  
->  struct dpu_hw_intf;
-> +struct dpu_vsync_source_cfg;
->  
->  /* intf timing settings */
->  struct dpu_hw_intf_timing_params {
-> @@ -107,7 +108,7 @@ struct dpu_hw_intf_ops {
->  
->  	int (*connect_external_te)(struct dpu_hw_intf *intf, bool enable_external_te);
->  
-> -	void (*vsync_sel)(struct dpu_hw_intf *intf, enum dpu_vsync_source vsync_source);
-> +	void (*vsync_sel)(struct dpu_hw_intf *intf, struct dpu_vsync_source_cfg *cfg);
-
-Should we rename it now?
-
-- Marijn
-
->  
->  	/**
->  	 * Disable autorefresh if enabled
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-> index 96dc10589bee..1ebd75d4f9be 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-> @@ -22,13 +22,6 @@
->  #define TRAFFIC_SHAPER_WR_CLIENT(num)     (0x060 + (num * 4))
->  #define TRAFFIC_SHAPER_FIXPOINT_FACTOR    4
->  
-> -#define MDP_TICK_COUNT                    16
-> -#define XO_CLK_RATE                       19200
-> -#define MS_TICKS_IN_SEC                   1000
-> -
-> -#define CALCULATE_WD_LOAD_VALUE(fps) \
-> -	((uint32_t)((MS_TICKS_IN_SEC * XO_CLK_RATE)/(MDP_TICK_COUNT * fps)))
-> -
->  static void dpu_hw_setup_split_pipe(struct dpu_hw_mdp *mdp,
->  		struct split_pipe_cfg *cfg)
->  {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-> index 67b08e99335d..6fe65bc3bff4 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-> @@ -21,6 +21,13 @@
->  
->  #define TO_S15D16(_x_)((_x_) << 7)
->  
-> +#define MDP_TICK_COUNT                    16
-> +#define XO_CLK_RATE                       19200
-> +#define MS_TICKS_IN_SEC                   1000
-> +
-> +#define CALCULATE_WD_LOAD_VALUE(fps) \
-> +	((uint32_t)((MS_TICKS_IN_SEC * XO_CLK_RATE)/(MDP_TICK_COUNT * fps)))
-> +
->  extern const struct dpu_csc_cfg dpu_csc_YUV2RGB_601L;
->  extern const struct dpu_csc_cfg dpu_csc10_YUV2RGB_601L;
->  extern const struct dpu_csc_cfg dpu_csc10_rgb2yuv_601l;
-> 
-> -- 
-> 2.47.3
-> 
