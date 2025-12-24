@@ -2,168 +2,135 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 717C0CDB08B
-	for <lists+freedreno@lfdr.de>; Wed, 24 Dec 2025 02:04:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E55FFCDB25C
+	for <lists+freedreno@lfdr.de>; Wed, 24 Dec 2025 03:18:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEFD910E318;
-	Wed, 24 Dec 2025 01:04:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB75B10E30E;
+	Wed, 24 Dec 2025 02:18:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jlqhWfoS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gh2c7/bI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="o8/7f4N+";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BhgpvGtK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CECD110E307
- for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 01:04:05 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D976810E30E
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 02:18:37 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BNElp0Z4044542
- for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 01:04:05 GMT
+ 5BNENBmf913517
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 02:18:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CHgg9IL7FE026ch0/W9DThBQX+0QxyHh6wbnCQb/hR4=; b=jlqhWfoSus3AvDYQ
- rNg9bNMgYw3zocQdvrdxXy5zd9+nVPnYik3umQeq7Mmy5TnJxJsd+oTkcbSg02YL
- tJRoDy8grzJPGgruw6Maxu+YfHm6coLBuXuwydQGMU91gsjihn+disnYvNpaiYxJ
- ykGhPxjB8pKv76xpOyCwQX9Jwr5wSrHlYaXtQRIGxIyXo3f7NLyRqyhx4oI+pjR+
- k7YNcJdVZdT/hUIB2ZMPZ0Tj1SbWVvQ677CmJNXRRGCrosb8XlOFzSxJs4jjCygl
- uLcRnnKQV0wPWFIkJtQoSnI3IhTy89qHQ5TuDEMuzVZsBV+ghOHxSGDhxLmU5Uk2
- wzPqvQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b7cuhckab-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=tQh2uyWtEkYSbjZSvJtcdk3s
+ 4J7dVAuke1UBIGUMQ8Y=; b=o8/7f4N+27ErkkhenfoZ0tzOz0EXDlwC+7ogtcdt
+ eIS/92TzYJEtVLZD3RVoziDhGaPScTu5iel4sEMlG1mSLQHWkCfSAfihwWOWOx9j
+ BcoLko+UQ5MNIvAP05Rpcm030xdgdelXhnkKW//g4tzNAl1OLcXVq8W7bsVi+SzS
+ kqxOFzHPAI9wFczpD2RP6j5v9vhADcqdWAZxpAdO/gcdElEVqVVndNuUQAvSGOUu
+ mu8K30g00dppK+mPXMzzOV09a8EJBJuNfRdJmJzboTTntxOakFNBu2X/lb6OVWaF
+ 95OI7eaBZ8cDAxSPu6nV4mdYxANdsAQpZu2e+mDFRAmO/w==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b7vt2hsrb-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 01:04:05 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-88a2ea47fa5so149348466d6.0
- for <freedreno@lists.freedesktop.org>; Tue, 23 Dec 2025 17:04:05 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Dec 2025 02:18:36 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-88883a2cabbso190034736d6.0
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Dec 2025 18:18:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766538244; x=1767143044;
+ d=oss.qualcomm.com; s=google; t=1766542716; x=1767147516;
  darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=CHgg9IL7FE026ch0/W9DThBQX+0QxyHh6wbnCQb/hR4=;
- b=gh2c7/bIR9bPaHOjE8NFdYFgf1qP/D22RzN8bbmmen9lZtSwj9YtwmH2q82PkZTKj3
- hD2FuYh4KLSbwpp3iQ1Nd5w1DxuTS6LLTZRa90qkVMvnkZckcAprDvNFsS2Op8uNHeNW
- iVALGk1JHGytHUXR3Sjyuh0x9CvuDxXMmOMrg5GoxjxV77ppC1lyjJ+TjNV+gOuFLO3b
- X3FLznbHEe0i0TpbTn35mBt3xGEAUf46i3TAgXKzNe0xKehw4xZaeSYslRfaCiryNhWj
- htwaGkpAsvq87xxAtB9iBUpZ3q+6Eopt/G0v5ocy/Bk6jji1rn4w5fthawBP7Eeah+WI
- 704A==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=tQh2uyWtEkYSbjZSvJtcdk3s4J7dVAuke1UBIGUMQ8Y=;
+ b=BhgpvGtKayzBa5c8jrsnjkm2+JR4ft7VDDmQTn8MjIx/3ujUo64O+0F6YBUF6uSef/
+ nkby5llFmNKwK8NkcYA41p/XNYl791W8i38MgSPNidQ1B65FuZa8oZHVho416VpA4azE
+ ej0hEZv81CFB1Kf+BvrQzBAfqgfaGOQ5Quhpi7blIOA6wQJHsh3Rt+4FdDqxzb0JNgZ+
+ ZIXNmE+PamVYtWvgXMIuf6PQNJ3C6nvyESek1lAvzlM8hs0J0w9v1DzCI5DuUZxu7EKc
+ Gv7KYUuOVQtgPdeL0QIuME7Govw19TZzOlm4IVQbSZWHnFHET/3YdtDRawGBBsy2qvyT
+ AbSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766538244; x=1767143044;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=CHgg9IL7FE026ch0/W9DThBQX+0QxyHh6wbnCQb/hR4=;
- b=U3T5V0SY1/fBv1EDZBBiBmyw6o1sb4rvqsdH7vgVcznqUdtSWriTXeGePN+e/uoDqB
- wp3rLE9FTWBQTB6n6gs/D0a/JKXxx8xKIHZr3MzmYpBB11/MpCOat+bCukmak5zbitRZ
- 5W7JER2kgnlgffX9yVGQ7RzxrpTNW6lR+t9YaZbsKgYfDHEKlS2zQ9vhJoPValIBSq3A
- PftSOWBZPPRireF+JHsaIEAjfpmcO/UWtTs/MmVWLoOBIxib7923XE/A87/NqXlNJWSQ
- OD4KnlXfBfYuWGWS2Mj2Wik+mWPwdCfrFMi8+PJMOfyPSxPvt6Xj2rZCCtdDaq7+FyTG
- DQHg==
+ d=1e100.net; s=20230601; t=1766542716; x=1767147516;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tQh2uyWtEkYSbjZSvJtcdk3s4J7dVAuke1UBIGUMQ8Y=;
+ b=HSbzqbXrbnY0wT9zWuoD21LdqZYB/rNWrnlJ3GQVy393xEQscBXIOlqSPyEv2A258i
+ s9oYJpGlDhXLVgjGGWghUp7l9juh39ylta5T1RKR+CXBsoeXEcmpYLNdZ9Ipb4fTphN1
+ gsIC0Oj6hxNaNOpOUJ2jX/uUt3ojLrq6zdtS4o5jk89jX4xIclxPuaRKrKm96AmFXoni
+ zeERFGk7NAwxxCJXgqu4VyWUMvhkqjuu5gTJbJQg9PvjhZl+LOveWr/LbKD5phdzXVtz
+ F7Vqo1GcS70tIythL4/wfuZYOaVB4bhOWOYjpKsZCLA8m4F0tZ4xdIIQGGSDsf0ncxvC
+ ce1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX8sSNhTGiBFsZncYmIZ1n9WopoLqvByT540WAqP2cUOkAtvcTogeG8CldxcfBKdWc6IUzHkZrSFLI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5WwrkqJxbZIv44gk+62rkSo4dqhIyLWVjyxn5cfmPl8BAsNVE
- 0OqRwrdN+bXSlNpT59yyDctGhu8mRccK3CdCQyub+Zt0nq4/5zeWRmCcn7kVsf8QL36XVhgiYh7
- Oxh3qqzVkZboZKBNLclXAXXZsMGqK7y6F1WH5Vmnnz/GJOJKJZ30ZVepTtjMknPgQB2/ymIA=
-X-Gm-Gg: AY/fxX5YO+T0PabhFlUE0QLqdelHOM8Ne5//oU7dxuar2d34LrrBQ50o/dI/EdQhmGl
- /7qh20wGfsT5v/5PkZVtuu9pmmkbADIFrOAPNZ8ROYhu4/JAZT0Io8uH5qeLRa+iXC8WcoKOxz0
- cAauagwCa4D2f86ynXzRAXu1A1S66BtJbsdEQEaFfMt22MoSGpqc7RCKikGyMf9fJrXF2YNq/iw
- 0dWB7/b1DOteeuugjJ8JSu/9wZfaT4i+oXUAqiDyhIZORjUUXnnRBm4VZF3zPFlNIlGD2WdzIX2
- T0+NFnGJqr7oO0eb9jWSy+R1JnIyd8Y3W7mNNSQ4t8WEsdvbFBDCDllQ8iCTyujgGZx0ERSjSKy
- NisjYVtimVQ86+W6vb2LssJSJUK8K5GANuoYyxBhyc0QqEVoBboabYyaLWbl8wOPuMPnDtGUINU
- P2S0vvjwOc5Io8RDkkUBrFCqk=
-X-Received: by 2002:ad4:4e8f:0:b0:888:7d61:b218 with SMTP id
- 6a1803df08f44-88d81d47b5fmr175846786d6.11.1766538244311; 
- Tue, 23 Dec 2025 17:04:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFu7+HH145K//WnhennzRUAZ/qC4YMZkCHH5OOgkflOfdjzzhnjIk8vQXkFQam/FvXO84smjQ==
-X-Received: by 2002:ad4:4e8f:0:b0:888:7d61:b218 with SMTP id
- 6a1803df08f44-88d81d47b5fmr175846286d6.11.1766538243819; 
- Tue, 23 Dec 2025 17:04:03 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59a18628284sm4545268e87.93.2025.12.23.17.04.01
+ AJvYcCWSWivPovk3LFdajetCCj1labVJE6mQpbJIzS3oP0eUT9VQT9KZW5cdZoq/mrtwPuF54MFxVn+Gp9c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5QEEsc4ApDw+zu4zJvaSGNZDsJIaCp6gUW5WRo0+LX4s487f6
+ wbvfF0sx66NSXBW98n9i+enE0cAdEwFUJ7sUVbDpJfd95EIGHyaQ8XVotSbP6O0+fdNkboL8mXd
+ IsZ7t3o+sA/Okqk2QIQXDR81oyXwXoI02t1Rt4WPiTD6R25sBMexHxyramlG4UufAAFTxR9k=
+X-Gm-Gg: AY/fxX7sFdWIdqPfyXmmYmo62A0ZNg8VCww5TqjXWSmMx/uKmDhbI0H4436/6t5BEzd
+ /bYORe0ylN2HDjBC5vMGCSP4SQoJjN+ODrDMt59+J8LDQ6eut/ggVj+TXE92NtQLdTzibjKzvAD
+ Y2vDdRaVCHZyPt0swWhV1jsLSPi+vfoQ0WDYAsAwgJGeIBaLX2W761GpDvr2ZvsXOqGyfNsRdPS
+ vDRaXX0Ir+e/gBzGRHc31qgxEqrXLV59cD3MZyDzhWlAP32Y4GMrbAj3vAquC/bnGOdzIvMqVmt
+ DZQvpc4rpxn0r+5ikdsQyrn8s7OSbbfU0CSzZDiYNMiVF0ZmEmj6ahsOW5krHVPli3JLH94ui3t
+ 7bWsDlWAGSnW8bMuOxFsjDjwPHgiOgzy1N0JosvjeCoSTWWYXcjPuO7r/HOYj67bjXkMUBKI=
+X-Received: by 2002:a05:6214:620b:b0:882:42e6:171a with SMTP id
+ 6a1803df08f44-88d85e98d6fmr208913046d6.29.1766542716365; 
+ Tue, 23 Dec 2025 18:18:36 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHce/OgseXundlepJPywtUfFR71gFQZx99NpJKoPLugRkc5EhYW+YXWFPBqYlzsNAVukmJu7A==
+X-Received: by 2002:a05:6214:620b:b0:882:42e6:171a with SMTP id
+ 6a1803df08f44-88d85e98d6fmr208912696d6.29.1766542715942; 
+ Tue, 23 Dec 2025 18:18:35 -0800 (PST)
+Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-88d997aef2esm117824486d6.32.2025.12.23.18.18.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Dec 2025 17:04:03 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 24 Dec 2025 03:02:59 +0200
-Subject: [PATCH v3 10/10] drm/debug: don't register files for unsupported
- HDMI InfoFrames
+ Tue, 23 Dec 2025 18:18:35 -0800 (PST)
+Date: Wed, 24 Dec 2025 10:18:23 +0800
+From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, jesszhan0024@gmail.com,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, neil.armstrong@linaro.org,
+ konrad.dybcio@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+ yongxing.mou@oss.qualcomm.com
+Subject: Re: [PATCH v4 09/11] drm/msm/dpu: Refactor SSPP to compatible DPU
+ 13.0.0
+Message-ID: <aUtNb1nkpfa8hSCA@yuanjiey.ap.qualcomm.com>
+References: <20251222102400.1109-1-yuanjie.yang@oss.qualcomm.com>
+ <20251222102400.1109-10-yuanjie.yang@oss.qualcomm.com>
+ <bqmk32aahvxzhpzvtzpvxcbstbrozjocmx6enkry5z7owdavax@7xtgdizvjomt>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251224-limit-infoframes-2-v3-10-7fd3cacfefed@oss.qualcomm.com>
-References: <20251224-limit-infoframes-2-v3-0-7fd3cacfefed@oss.qualcomm.com>
-In-Reply-To: <20251224-limit-infoframes-2-v3-0-7fd3cacfefed@oss.qualcomm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Liu Ying <victor.liu@nxp.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sandy Huang <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1244;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=e83riHemz7jmVSC1s86WzW2uTf0LnBtD9CtSbMUNt3o=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpSzvaPmw40jATyUWTrYBTNEusZxIc+obHstv5S
- b4iElplUN6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaUs72gAKCRCLPIo+Aiko
- 1di3B/95raEOH5VDkaGoqgK45/yZh46TpjSkI0p4xAQ5QWmsMaaCn7Newqpeo25B8E3VpDS52aa
- up3rolkowr24CN+AOTFNP4qaLU+wQ5ufsLePmUId4/Sf7f/3uLCmTjU2bAAc7WkBJDBOUgESVoE
- VPOds3GCRBLX3X0qEONZ6Q6pJmz9433H5cMK5o5GZz3dTS0dZZqphPcLWyxJSLEmmZrEn2G8Wyx
- MZQXEWNaui7oT4aHMyYoZX0z2RTqrLwJAAmkkLQISa4jHnSF5bBJb4YQauizaBu+BJqV1TOmbVf
- WZtZHkfsakdCoN6Xjk8QGpdcOMYzMgS1IQv2DEwSOdtfE7Y8
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: qWP0X-qHE4xQbT7wR9plXkCLNnBz2Ms4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI0MDAwNyBTYWx0ZWRfX4r3kxY9pFAuu
- QyjJk1Af0TL7xbeRyuiCLLUFQfDKRtzOtpwsCnBG9SV9qxBJOz3Old414Tchg59kWg4Jt4QPWwd
- pF7bnjwTz8Sj6XOT33ufsifMB+1yfVQbFYUC/QQO4yDmza0fPBiO97kECPO5t/Mbrn/T0QGk/hn
- yYuLZ/lnHdlS1udp5FH/4gXUum5t3//obQUIkGPGSv92xPrJ4luG/kL7ZvSNIwKw9CI4Uf8iu7L
- dsdOEfTpMkljIkNmv/G8JmQz0cWzaxLBUDnckTCeFoKWNRbUHTguffzNF2KTBEl08Mh2w3Cf0+b
- Di2pkuEdUBf1jegnzXFm26UeQ0JcSYk48JvkdrvEEeAwnKr/iqu/Us+cqMQv7FYykjufhK09hwi
- ioWmH0kd9rbkiAdoDWzHmwf1pHsByBOCXPZ5WSodscz8/RlkxURr5A9KInMyb4ntaXNs5csB1yE
- 3Ir4kz2VYMomYZw9QNg==
-X-Proofpoint-GUID: qWP0X-qHE4xQbT7wR9plXkCLNnBz2Ms4
-X-Authority-Analysis: v=2.4 cv=NZDrFmD4 c=1 sm=1 tr=0 ts=694b3c05 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=tIAOKlZC_mo2NaXw_9IA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bqmk32aahvxzhpzvtzpvxcbstbrozjocmx6enkry5z7owdavax@7xtgdizvjomt>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI0MDAxNSBTYWx0ZWRfX5opPJmQXwf7b
+ G3OxEGfy9gltjgQVa+mttORP0yuEmISSfXu4f9x2oguIvsGzoNeiG6dxLswh7AkBKANWAXRVUnD
+ yJcWwTy/FXH0AeoITqdCc8CLJZjtGmEaPDo7doAb1wy2adW2F3V0XtZERfTJnlc08RGTIPuoxhi
+ tEWb1mzi/anjTj9GEFOzC/80CUbWAnhymTMM3MOm2biVlzOFIu8Dknc7jKeghwpGjU+E68iwUb9
+ CiKFZyWEeU/OZ/EKUhOHdz+BZJvOCjKwDuyc0KkvrZxIesDf+csFS2XW+gIv3JD6Yc7GeK1JYZy
+ nBtNcJ/HiR/kK/wy81SO24dP+P5u583kmx0LYIjKTcrZnCXzQlcUaWGCwvlT9f62W09CZsm5Osw
+ /RuBQDUvz3aFYGCO9hDWltgHKg+d1sXcvMgFftatf+YHNDU6MHt3eML1hwEvEED0fiKblYcVdrF
+ 6y03VWaUE1mpr6gciLQ==
+X-Proofpoint-GUID: _OQ1I_j29oFx0EKE_sIRYJYlhwZQMlLY
+X-Proofpoint-ORIG-GUID: _OQ1I_j29oFx0EKE_sIRYJYlhwZQMlLY
+X-Authority-Analysis: v=2.4 cv=brtBxUai c=1 sm=1 tr=0 ts=694b4d7c cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=kj9zAlcOel0A:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=g2-dxqoBfl5MPgs3cbgA:9
+ a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-23_05,2025-12-22_01,2025-10-01_01
+ definitions=2025-12-24_01,2025-12-22_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512240007
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512240015
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,40 +146,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Having debugfs files for the InfoFrames that are not supported by the
-driver is confusing, stop registering those in the debugfs.
+On Tue, Dec 23, 2025 at 10:26:03PM +0200, Dmitry Baryshkov wrote:
+> On Mon, Dec 22, 2025 at 06:23:58PM +0800, yuanjie yang wrote:
+> > From: Yuanjie Yang <yuanjiey@qti.qualcomm.com>
+> > 
+> > DPU version 13.0.0 introduces structural changes including
+> > register additions, removals, and relocations.
+> > 
+> > Refactor SSPP-related code to be compatible with DPU 13.0.0
+> > modifications.
+> > 
+> > Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > ---
+> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  14 +++
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   | 110 ++++++++++--------
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  52 +++++++++
+> >  3 files changed, 130 insertions(+), 46 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > index 336757103b5a..b03fea1b9cbd 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > @@ -208,6 +208,18 @@ struct dpu_dsc_blk {
+> >  	u32 len;
+> >  };
+> >  
+> > +/**
+> > + * struct dpu_sspp_v13_rec_blk - SSPP REC sub-blk information
+> > + * @name: string name for debug purposes
+> > + * @base: offset of this sub-block relative to the block offset
+> > + * @len: register block length of this sub-block
+> > + */
+> > +struct dpu_sspp_v13_rec_blk {
+> > +	char name[DPU_HW_BLK_NAME_LEN];
+> > +	u32 base;
+> > +	u32 len;
+> > +};
+> > +
+> >  /**
+> >   * enum dpu_qos_lut_usage - define QoS LUT use cases
+> >   */
+> > @@ -294,6 +306,8 @@ struct dpu_sspp_sub_blks {
+> >  	u32 qseed_ver;
+> >  	struct dpu_scaler_blk scaler_blk;
+> >  	struct dpu_pp_blk csc_blk;
+> > +	struct dpu_sspp_v13_rec_blk sspp_rec0_blk;
+> > +	struct dpu_sspp_v13_rec_blk sspp_rec1_blk;
+> 
+> This is a refactoring patch. Don't add fields (and structs) which are
+> not used inside the patch.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/drm_debugfs.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+OK, will add in Kaanapali SSPP v13 patch in next patch.
 
-diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index 365cf337529f..ae1c6126c2c5 100644
---- a/drivers/gpu/drm/drm_debugfs.c
-+++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -672,6 +672,10 @@ static int create_hdmi_audio_infoframe_file(struct drm_connector *connector,
- {
- 	struct dentry *file;
- 
-+	if (!connector->hdmi.funcs ||
-+	    !connector->hdmi.funcs->audio.write_infoframe)
-+		return 0;
-+
- 	file = debugfs_create_file("audio", 0400, parent, connector, &audio_infoframe_fops);
- 	if (IS_ERR(file))
- 		return PTR_ERR(file);
-@@ -726,6 +730,9 @@ static int create_hdmi_## _f ## _infoframe_file(struct drm_connector *connector,
- { \
- 	struct dentry *file; \
- 	\
-+	if (!connector->hdmi.funcs || \
-+	    !connector->hdmi.funcs->_f.write_infoframe) \
-+		return 0; \
- 	file = debugfs_create_file(#_f, 0400, parent, connector, &_f ## _infoframe_fops); \
- 	if (IS_ERR(file)) \
- 		return PTR_ERR(file); \
-
--- 
-2.47.3
-
+Thanks,
+Yuanjie
+> >  
+> >  	const u32 *format_list;
+> >  	u32 num_formats;
+> 
+> Other than that, LGTM.
+> 
+> -- 
+> With best wishes
+> Dmitry
