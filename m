@@ -2,105 +2,159 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE1FCDDE3C
-	for <lists+freedreno@lfdr.de>; Thu, 25 Dec 2025 16:22:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 264B1CDEE21
+	for <lists+freedreno@lfdr.de>; Fri, 26 Dec 2025 19:30:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0E5712A3A1;
-	Thu, 25 Dec 2025 15:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9F210E138;
+	Fri, 26 Dec 2025 18:30:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="EywHsUYV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QT762RqC";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BzE4FfO0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 144E112A3A1;
- Thu, 25 Dec 2025 15:21:55 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A65410E138
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Dec 2025 18:30:07 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BPESWI02505444; Thu, 25 Dec 2025 15:21:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=/4F526mnmA1
- dpNXOIzVljAysEGPsj7fLjWpRMm6pkqk=; b=EywHsUYVJSRH7GgJlGdWXMYTcuM
- p+jrmsolXjZ9XImzrxFqLEynhB8J4/zNrK58/c2kbtj34Jqd5ntyte49WtFBRM81
- VMak8zavJg1n66oORIPc468uTvyXX+EBpLELR6D3NBIqrtFrXeEC5WYzzH9hfOAI
- nEF8GaXtT0cwJGAVTCQHUB6I8xQOIFy8567m+DbGlPZfkPWm5ucdquuY4znhQUxR
- 5heNTd66tSHEdJdH9N0z8CQ6eUkSHE9Ite6LTjGzPxwmxK9eis0nyC/LBt8e27ps
- KLw4zeFHOvK0YdflWM91cdaVQX5cCvHbYj8uJS7jXCfLDU0yeo5dEjUG01g==
-Received: from apblrppmta01.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b8kywhsnr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Dec 2025 15:21:41 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BPFLbHe006306; 
- Thu, 25 Dec 2025 15:21:38 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4b5mvn0fwk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Dec 2025 15:21:38 +0000
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 5BPFLahn006254;
- Thu, 25 Dec 2025 15:21:37 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com
- [10.213.99.91])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 5BPFLbJG006293
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Dec 2025 15:21:37 +0000
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
- id 95F665A5; Thu, 25 Dec 2025 20:51:35 +0530 (+0530)
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
- dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
- quic_vproddut@quicinc.com
-Subject: [PATCH v4 5/5] arm64: dts: qcom: qcs8300-ride: add anx7625 DSI to DP
- bridge node
-Date: Thu, 25 Dec 2025 20:51:34 +0530
-Message-Id: <20251225152134.2577701-6-quic_amakhija@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251225152134.2577701-1-quic_amakhija@quicinc.com>
-References: <20251225152134.2577701-1-quic_amakhija@quicinc.com>
+ 5BQ8bl3r890032
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Dec 2025 18:30:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=lsexRv5oeh3abptMWa+e6/
+ J7GN5XUkLyYBJT9ad91TA=; b=QT762RqCtlhfkxcld50j9LC4rr6no3EAvjoDhL
+ BMH5xLGCmqy0FCbN+qTytxWlXT/zdeC9/DDiBakJW2lt889+wogbAuZOHm3XPuVA
+ quB6BdIVRWzrEcwq597RZjPrh0SKUC/ZwVh2n3b1B94TexNu7fZGeRdasb/7zY0z
+ udtce1jRfy20Rn0qIVxWk16siZYu4RKUizCQSE8l9NVVcUU/i0OO0GT5FkIkQvQV
+ 17KLpENEaOoTajVEFQuZqtPU4J6J9rxSED3+NmCev+xT6Iqs18w4YEczC2uOu+Ii
+ dCkbC+du3mZllCTNjYINazdpFzkjZ+aNefEr3DE/d1BPt7Bw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b8xvcbh3d-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Dec 2025 18:30:05 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-34aa6655510so9709437a91.1
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Dec 2025 10:30:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1766773805; x=1767378605;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lsexRv5oeh3abptMWa+e6/J7GN5XUkLyYBJT9ad91TA=;
+ b=BzE4FfO0/LAyZgz5ytaX4FNroquqPdE5+ldQvsl8MZ/Om63U3vs6SpwlN0hXteMm51
+ diil/t/8LUqcYizTcFn4fQGiulzjxYNAvU255tfnPdHG6KzdB/7NBZsb1mp3OGwcUu2c
+ r/0XhhtkA/c5ueDBWXUXFx27IRtUhJJ6qWqqT4fmFvVXVJGC/W5Fm3W6cJSpo0WOvAV3
+ TzcewmV6dqNYrn2AK5P/kasur0MWFZh47sIoO/gOHVNhmGQLRHtaxmEnwPD//pJ4rwgZ
+ ZpqTkXcjOu2GWB1rGr1llINdUAKKOdIHrgNQvlZNU0Pz6fgVYpY4nGmZItTKF5hfC2Zr
+ zB1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766773805; x=1767378605;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lsexRv5oeh3abptMWa+e6/J7GN5XUkLyYBJT9ad91TA=;
+ b=U3oRQifQvyfBPiI700qYhR5p9MATk+q59a6IvtpbzvAWZsNLE+cF4C5KuKOa73/d/x
+ VuUsMaiWsGcn5OXvIE1yhXPrpou76DiPORGIr4Jjs/9yYzJKCi7SftZPAX1QnRM780fl
+ MsSfhc7XPLuOfUSQEIhZ7H6H/FeQVmjJ4VSMFpHhiBszUHz7nWkWmJkAcaN9Rh41QXb2
+ 8AcIb5zu6v69NGtLxHYTw2kXVd1gACNNVCozDJ8j2DA7p6bjVPmXIHJxd5iSP/Xnxwde
+ ndVxoUbEbhGu+pt3iINY0bpLjZhxypBXOdkWjUpEt1dqg2PTeHMUDwnbGJpF7DjWAiDh
+ 9q5A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVV4uSHTCDmGT1ZpcpeUWu6PMkUI37yCLneEdL6UvLZlmhEUCWB54E/LyiOKH+d/b8OM3eO5FXEBLA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBDgvJemGprRplqddC7tPAtO2ru3fs8suzizFBGwblUKTQNaFT
+ CoYzRhT1D/4dNop3X1wVVmGxduLOzOpdlxPZ4rOYvrsoBiZzKMXnQxG0xx/x/bcgrseuysPLFBZ
+ EhATpE/+GVr1WLiAuJI/S7qsCTjMksG3glakM/hj/pfotKTD/B+gDrE75lvTnbCk9DuxwvJU=
+X-Gm-Gg: AY/fxX5i+D/Jq2eNnaqxKmRaCsrs4nk/HgzVKai7GEizwSEVN+rAxr7c2+JiQgBchy6
+ PJc7G7hBodwOoU+JlDwo1PDyZ6gveokKKmTY70uouiOyenElIL7a33mhLvxuBEsmXbeUSKo6Jl0
+ gm2vA7HQms2ym7vQp+jlgzNWOaIL3eh/4TDIzgMT+SHkC7JY5UXU+EbcaL75b8Qni+wsq9WwoY1
+ 33G3mbZzfTBHJV8Ti/bVEDaZg8BQuNGJrM0XwVuqC7A/4WeynrW0O62A3Em2JChGYeD0hdnK1Gh
+ IW/k0aKuI3feX7s7492yFkgEe6qZC2UbPbCW4ZwBZFF6GlAdPoB4xcCbUNtRLiEPDaxqoycXI8c
+ DguVXtjjWAu2cbVpgGzCamHKt0jDOGS+ZwQ==
+X-Received: by 2002:a17:90b:2b47:b0:33b:bf8d:6172 with SMTP id
+ 98e67ed59e1d1-34e921ec340mr18266886a91.34.1766773804764; 
+ Fri, 26 Dec 2025 10:30:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFjkMYWlmQ5T0oFHflGVoyOcrDyxQHAWE9NtU1v1SUQAgfmrUWLYWCIerYl6Uz3xkRR2bcnVQ==
+X-Received: by 2002:a17:90b:2b47:b0:33b:bf8d:6172 with SMTP id
+ 98e67ed59e1d1-34e921ec340mr18266850a91.34.1766773804228; 
+ Fri, 26 Dec 2025 10:30:04 -0800 (PST)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-34e70d65653sm23808883a91.5.2025.12.26.10.29.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Dec 2025 10:30:03 -0800 (PST)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: [PATCH v5 0/8] Support for Adreno 612 GPU - Respin
+Date: Fri, 26 Dec 2025 23:59:33 +0530
+Message-Id: <20251226-qcs615-spin-2-v5-0-354d86460ccb@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI1MDE0NyBTYWx0ZWRfXw+/jDqZvGRoT
- nyR88FHnzK+uhqKWn4e8eUL9muPNtQUMley+zdQtnMV9i1eyGrNViVvsCLgmO53KWjTFNxMSKWT
- NVXgkiqEWbirDJqXbjypSeYAF+VdcaVzqvLIL/uzS0FY1cOzo40sFCppfE66J2S8CxBoF+Fp6sa
- 5oT0Px4Tefu9jtT14OZllZB6zwpvAMJv+rJxOdRlndc2H0/gfw1DHcMqbBltzrbqaLpjDotKPH8
- 786g7LNyFeX8qX77/5fneSDYBAw1QubnZA8Xl7HMM0zdvMRhiNPmq5CaUvofJssWx4RDyhjRWM2
- DC9BZRRdT2dB7G5walePu8ie+57U9cbsz2BzYjSb1YGT6n7pb4tXmkstiwsg1m0/CHL4P7BBnoF
- fMB+GRZw+VBxcggA2kYgCRp+Pc8R9G73hOUL5GGz111Hv2ez5D35Db6ceJABGR5T/ESH8oOoqaS
- eQeiHMgNzoWrPrYPU9A==
-X-Proofpoint-GUID: dKyWY9RCRqtCar4Tl6F4ufW5Boa88oDG
-X-Authority-Analysis: v=2.4 cv=MKVtWcZl c=1 sm=1 tr=0 ts=694d5685 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=PkzH0pPD3_lowiemrhkA:9 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: dKyWY9RCRqtCar4Tl6F4ufW5Boa88oDG
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA3UTmkC/3XOzW7DIAwH8FeJOI/IOECSnvoe0w58rkhr0kCKW
+ lV599F0UqdsvWD9LftnbiS5GFwiu+pGosshhXEoQbxVxBzU8OlosCUTBBQMmKCTSbKUdAoDReo
+ sFxqs033fkbJzis6Hy+q9fzxydNO5sPOjSbRKjprxeAzzrsqyZj2NBsl9+BDSPMbr+pfM1umfs
+ +3mbGYUKGilOPcd9CD2Y0r1dFZfd7kuzwpmfCIM/iBYEIW2NdxrL518gTS/EMQt0hSk99xy07V
+ eMPsC4U8EgW8RXhAvFIARWsrG/4Msy/INxQt5jq0BAAA=
+X-Change-ID: 20251015-qcs615-spin-2-ed45b0deb998
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Jie Zhang <jie.zhang@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Qingqing Zhou <quic_qqzhou@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Jie Zhang <quic_jiezh@quicinc.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1766773796; l=4424;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=8qviCg3tVu0OI3dD01WjaLx86rinUn0YtzTxpnh3jwY=;
+ b=i4sxMnFwHHhJgi+ec1FMO+y/9M+hNkxQGswjg084sBzo4wvHNT6q2ScZF25kAsJ3BS0s8FLct
+ tIvGORXqiJqC9il67FQAbr52uS4ZAKauYbo2PoNv5DteMa6Y56H+IRM
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Proofpoint-GUID: 0J7fzwtmavhHAvlDR8k6HmyD6wpvOFSm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI2MDE3MyBTYWx0ZWRfX6ZR+tlafbpq1
+ kp/rLmgXKBn7poQ7BsoYBrFwrSYV7Lr6g+GRVPyeqBEvu+GEJ1AhbbzCzC8nsGr4LzBKSyTfJc/
+ o578Ea25lt585mbKbXa/s0TAnonN6rhhmu7ouuPs8TZaFGclunD31hr1Sf7eOFFRjOVVZzhpo53
+ dFTOyl8hzfDZ58O5SxKlDTnww0LduM4YfO1rzZPvfNGQ190NNxavnkVqg4QZ9QSIlujwYUsd/Wr
+ Jte+uSwvm2vzsWM8E9fO3ouaStI8BL0h3OCutRVWqEIQBVwIRWRyz+UgZPy6Z2x5oFflQ3q//ZK
+ qQW8kfYlYlR8vKyBqjdutGWx8pv5IAFxMyYVnuH+eQHf46ly17L560qZgRPuSI904Hqxz2CCzp0
+ kZ+cAXeRYSyj5ZautstrHKmdNZdfDg2gx4YiareDAsBvVObFtJcNKaC0mV2zObusCqnnUFfGDAR
+ Hn/SyeDFVIvgv8dLmDA==
+X-Proofpoint-ORIG-GUID: 0J7fzwtmavhHAvlDR8k6HmyD6wpvOFSm
+X-Authority-Analysis: v=2.4 cv=M4xA6iws c=1 sm=1 tr=0 ts=694ed42d cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=nlYtN0jpdUqXxw8MpYQA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-25_01,2025-12-22_01,2025-10-01_01
+ definitions=2025-12-26_05,2025-12-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 bulkscore=0 impostorscore=0 phishscore=0
- adultscore=0 clxscore=1015 suspectscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512250147
+ clxscore=1015 bulkscore=0 malwarescore=0 adultscore=0 suspectscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512260173
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,234 +170,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add anx7625 DSI to DP bridge device node.
+This is a respin of an old series [1] that aimed to add support for
+Adreno 612 GPU found in SM6150/QCS615 chipsets. In this version, we
+have consolidated the previously separate series for DT and driver
+support, along with some significant rework.
 
-Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Regarding A612 GPU, it falls under ADRENO_6XX_GEN1 family and is a cut
+down version of A615 GPU. A612 has a new IP called Reduced Graphics
+Management Unit or RGMU, a small state machine which helps to toggle
+GX GDSC (connected to CX rail) to implement the IFPC feature. Unlike a
+full-fledged GMU, the RGMU does not support features such as clock
+control, resource voting via RPMh, HFI etc. Therefore, we require linux
+clock driver support similar to gmu-wrapper implementations to control
+gpu core clock and GX GDSC.
+
+In this series, the description of RGMU hardware in devicetree is more
+complete than in previous version. However, the RGMU core is not
+initialized from the driver as there is currently no need for it. We do
+perform a dummy load of RGMU firmware (now available in linux-firmware)
+to ensure that enabling RGMU core in the future won't break backward
+compatibility for users.
+
+Due to significant changes compared to the old series, all R-b tags have
+been dropped. Please review with fresh eyes.
+
+Last 3 patches are for Bjorn and the rest are for Rob Clark for pick up.
+
+[1] Driver: https://lore.kernel.org/lkml/20241213-a612-gpu-support-v3-1-0e9b25570a69@quicinc.com/
+    Devicetree: https://lore.kernel.org/lkml/fu4rayftf3i4arf6l6bzqyzsctomglhpiniljkeuj74ftvzlpo@vklca2giwjlw/
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/qcs8300-ride.dts | 177 ++++++++++++++++++++++
- 1 file changed, 177 insertions(+)
+Changes in v5:
+- Rebase on v6.19-rc2
+- Make the reg list in A612 GPU's binding doc stricter (Krzysztof)
+- Link to v4: https://lore.kernel.org/r/20251204-qcs615-spin-2-v4-0-f5a00c5b663f@oss.qualcomm.com
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-index 4a8ac26846c6..8d324bf85e4d 100644
---- a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-@@ -24,6 +24,69 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	vreg_12p0: regulator-vreg-12p0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_12P0";
-+
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_5p0: regulator-vreg-5p0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_5P0";
-+
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+
-+		vin-supply = <&vreg_12p0>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_1p8: regulator-vreg-1p8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		vin-supply = <&vreg_5p0>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_1p0: regulator-vreg-1p0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P0";
-+
-+		regulator-min-microvolt = <1000000>;
-+		regulator-max-microvolt = <1000000>;
-+
-+		vin-supply = <&vreg_1p8>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_3p0: regulator-vreg-3p0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_3P0";
-+
-+		regulator-min-microvolt = <3000000>;
-+		regulator-max-microvolt = <3000000>;
-+
-+		vin-supply = <&vreg_12p0>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
- 	dp0-connector {
- 		compatible = "dp-connector";
- 		label = "DP0";
-@@ -36,6 +99,18 @@ dp0_connector_in: endpoint {
- 		};
- 	};
- 
-+	dp-dsi0-connector {
-+		compatible = "dp-connector";
-+		label = "DSI0";
-+		type = "full-size";
-+
-+		port {
-+			dp_dsi0_connector_in: endpoint {
-+				remote-endpoint = <&dsi2dp_bridge_out>;
-+			};
-+		};
-+	};
-+
- 	regulator-usb2-vbus {
- 		compatible = "regulator-fixed";
- 		regulator-name = "USB2_VBUS";
-@@ -316,6 +391,73 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/qcs8300/a623_zap.mbn";
- };
- 
-+&i2c8 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+
-+	io_expander: gpio@74 {
-+		compatible = "ti,tca9539";
-+		reg = <0x74>;
-+		interrupts-extended = <&tlmm 93 IRQ_TYPE_EDGE_BOTH>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&io_expander_intr_active>,
-+			    <&io_expander_reset_active>;
-+		pinctrl-names = "default";
-+	};
-+
-+	i2c-mux@70 {
-+		compatible = "nxp,pca9543";
-+		reg = <0x70>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		i2c@0 {
-+			reg = <0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			bridge@58 {
-+				compatible = "analogix,anx7625";
-+				reg = <0x58>;
-+				interrupts-extended = <&io_expander 2 IRQ_TYPE_EDGE_FALLING>;
-+				enable-gpios = <&io_expander 1 GPIO_ACTIVE_HIGH>;
-+				reset-gpios = <&io_expander 0 GPIO_ACTIVE_HIGH>;
-+				vdd10-supply = <&vreg_1p0>;
-+				vdd18-supply = <&vreg_1p8>;
-+				vdd33-supply = <&vreg_3p0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						dsi2dp_bridge_in: endpoint {
-+
-+							remote-endpoint = <&mdss_dsi0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dsi2dp_bridge_out: endpoint {
-+
-+							remote-endpoint = <&dp_dsi0_connector_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &pmm8650au_1_gpios {
- 	usb2_en: usb2-en-state {
- 		pins = "gpio7";
-@@ -353,10 +495,31 @@ &mdss_dp0_phy {
- 	status = "okay";
- };
- 
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l5a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&dsi2dp_bridge_in>;
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
- &remoteproc_adsp {
- 	firmware-name = "qcom/qcs8300/adsp.mbn";
- 	status = "okay";
-@@ -414,6 +577,20 @@ ethernet0_mdio: ethernet0-mdio-pins {
- 		};
- 	};
- 
-+	io_expander_reset_active: io-expander-reset-active-state {
-+		pins = "gpio66";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	io_expander_intr_active: io-expander-intr-active-state {
-+		pins = "gpio93";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	dp_hot_plug_det: dp-hot-plug-det-state {
- 		pins = "gpio94";
- 		function = "edp0_hot";
+Changes in v4:
+- Rebased on top of next-20251204 tag
+- Added a new patch to simplify gpu dt schema (Krzysztof)
+- Added a new patch for GPU cooling support (Gaurav)
+- Updated the gpu/gmu register range in DT to be more accurate
+- Remove 290Mhz corner for GPU as that is not present in downstream
+- Link to v3: https://lore.kernel.org/r/20251122-qcs615-spin-2-v3-0-9f4d4c87f51d@oss.qualcomm.com
+
+Changes in v3:
+- Rebased on top of next-20251121 tag
+- Drop a612 driver support patch as it got picked up
+- Rename rgmu.yaml -> qcom,adreno-rgmu.yaml (Krzysztof)
+- Remove reg-names property for rgmu node (Krzysztof)
+- Use 'gmu' instead of 'rgmu' as node name (Krzysztof)
+- Describe cx_mem and cx_dgc register ranges (Krzysztof)
+- A new patch to retrieve gmu core reg resource by id
+- Link to v2: https://lore.kernel.org/r/20251107-qcs615-spin-2-v2-0-a2d7c4fbf6e6@oss.qualcomm.com
+
+Changes in v2:
+- Rebased on next-20251105
+- Fix hwcg configuration (Dan)
+- Reuse a few gmu-wrapper routines (Konrad)
+- Split out rgmu dt schema (Krzysztof/Dmitry)
+- Fixes for GPU dt binding doc (Krzysztof)
+- Removed VDD_CX from rgmu dt node. Will post a separate series to
+address the gpucc changes (Konrad)
+- Fix the reg range size for adreno smmu node and reorder the properties (Konrad)
+- Link to v1: https://lore.kernel.org/r/20251017-qcs615-spin-2-v1-0-0baa44f80905@oss.qualcomm.com
+
+---
+Akhil P Oommen (3):
+      drm/msm/a6xx: Retrieve gmu core range by index
+      dt-bindings: display/msm: gpu: Simplify conditional schema logic
+      dt-bindings: display/msm: gpu: Document A612 GPU
+
+Gaurav Kohli (1):
+      arm64: dts: qcom: talos: Add GPU cooling
+
+Jie Zhang (3):
+      dt-bindings: display/msm/rgmu: Document A612 RGMU
+      arm64: dts: qcom: talos: Add gpu and rgmu nodes
+      arm64: dts: qcom: qcs615-ride: Enable Adreno 612 GPU
+
+Qingqing Zhou (1):
+      arm64: dts: qcom: talos: add the GPU SMMU node
+
+ .../devicetree/bindings/display/msm/gpu.yaml       |  89 +++++++++---
+ .../bindings/display/msm/qcom,adreno-rgmu.yaml     | 126 +++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ arch/arm64/boot/dts/qcom/qcs615-ride.dts           |   8 ++
+ arch/arm64/boot/dts/qcom/talos.dtsi                | 149 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  14 +-
+ 6 files changed, 357 insertions(+), 30 deletions(-)
+---
+base-commit: 2408853dde584f01950a0f976b743739cce30eca
+change-id: 20251015-qcs615-spin-2-ed45b0deb998
+
+Best regards,
 -- 
-2.34.1
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
