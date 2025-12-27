@@ -2,61 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A4A4CDF817
-	for <lists+freedreno@lfdr.de>; Sat, 27 Dec 2025 11:45:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20130CDF893
+	for <lists+freedreno@lfdr.de>; Sat, 27 Dec 2025 12:13:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43EC410E180;
-	Sat, 27 Dec 2025 10:45:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 021FD10E549;
+	Sat, 27 Dec 2025 11:13:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DTkHdSHe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kgEROTIV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2362D10E180;
- Sat, 27 Dec 2025 10:45:28 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E825B10E549;
+ Sat, 27 Dec 2025 11:13:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BC27F408A4;
- Sat, 27 Dec 2025 10:45:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0884DC4CEF1;
- Sat, 27 Dec 2025 10:45:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2260A6000A;
+ Sat, 27 Dec 2025 11:13:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BE4C4CEF1;
+ Sat, 27 Dec 2025 11:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1766832327;
- bh=91/IDRS7+naE1B3qreo98hBY1XEXwd2plCFPqcbhK08=;
+ s=k20201202; t=1766833996;
+ bh=/MjssVrvX9CHLhuDFc+A3P/Ke3FSefMxQfbPdX0ryF4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DTkHdSHemrEQstc/kDpzmFCcBQm4wvgVReNbFSw9cbLaGX++MeeZiKVyDpKeXfT7I
- xCR/VjXnS7UfbiYXWIZcXC2uF8QUZsy2JAT3AEAA+kIaanYjtnT59XoldfOMjqHeQR
- f2y4xFUbOfs2Ju6pyH70zILf2pDsbiy7o/1sy1U8XRQrkYuAmcX4idflIutDIgdk4q
- M9tBl3wkXNZqlrpY3akAwZXTXOKpOPMUGMsG+4VfHhNks1FDMfsrvuvsV8CGXrHB9K
- XBEbfpNz6H2y9FEjipr8nQVol7XypztOhhroJRjE6HJevt+9+qJG5/goYCDx0xMn/F
- xDhXMUtfWHOkg==
-Date: Sat, 27 Dec 2025 11:45:25 +0100
+ b=kgEROTIV5EPkII/T4M0ZmNq/tGPPe9Sa77Ycy84xKYddUqBUzfC0zcW5HjEwePCet
+ rwyWq6du85hxrrlZiZdtLZyfADgN+mqveqS0XM4wutX0bKsfCKnIBLCHrmTo0jCIUM
+ sJXVnq9KJxDnpbQ0RpNWt5+m4CpCcUhN90g4kvlERpQmChFIMKSyInxTm6kUmTJN5g
+ l1JAcaKg0EiOdM2DTpc5NSYCvzyiJ5tH/EvU+OlD3l2KZNB1lVXM855soYDNNT2ZQB
+ 6WC8Yr2DJkFY9a7dvM58PIlYkmgOUYs5neFBpODCnvVH7Qk8MUJj445HKi8RyKlJ7+
+ sgUsIFP5WBqzA==
+Date: Sat, 27 Dec 2025 12:13:14 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
- Dan Carpenter <dan.carpenter@linaro.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Jie Zhang <jie.zhang@oss.qualcomm.com>
-Subject: Re: [PATCH v5 3/8] dt-bindings: display/msm: gpu: Document A612 GPU
-Message-ID: <20251227-statuesque-rational-wolverine-7edacc@quoll>
-References: <20251226-qcs615-spin-2-v5-0-354d86460ccb@oss.qualcomm.com>
- <20251226-qcs615-spin-2-v5-3-354d86460ccb@oss.qualcomm.com>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ robdclark@gmail.com, dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run, 
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, 
+ krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org, 
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, 
+ quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com
+Subject: Re: [PATCH v4 1/5] dt-bindings: display: msm-dsi-phy-7nm: document
+ the QCS8300 DSI PHY
+Message-ID: <20251227-doberman-of-radical-variation-d30aaf@quoll>
+References: <20251225152134.2577701-1-quic_amakhija@quicinc.com>
+ <20251225152134.2577701-2-quic_amakhija@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20251226-qcs615-spin-2-v5-3-354d86460ccb@oss.qualcomm.com>
+In-Reply-To: <20251225152134.2577701-2-quic_amakhija@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,19 +68,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Dec 26, 2025 at 11:59:36PM +0530, Akhil P Oommen wrote:
-> A612 GPU has a new IP called RGMU (Reduced Graphics Management Unit)
-> which replaces GMU. But it doesn't do clock or voltage scaling. So we
-> need the gpu core clock in the GPU node along with the power domain to
-> do clock and voltage scaling from the kernel. Update the bindings to
-> describe this GPU.
-> 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/display/msm/gpu.yaml       | 33 ++++++++++++++++++++--
->  1 file changed, 31 insertions(+), 2 deletions(-)
+On Thu, Dec 25, 2025 at 08:51:30PM +0530, Ayushi Makhija wrote:
+> The QCS8300 MDSS DSI PHY is the same 5nm PHY IP as on SA8775P, with
+> identical register layout and programming model. Model this by using
+> a QCS8300 specific compatible with a qcom,sa8775p-dsi-phy-5nm fallback,
+> and update the schema to require this two entry form for QCS8300 while
+> keeping existing single compatible users valid.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Last sentence is redundant. I asked to explain the hardware, not to tell
+us how Devicetree works. Write concise and informative commit msgs which
+tell non-obvious things. Not what you did. I alreaded asked this - do
+not state the obvious, do not copy the subject.
+
+The only useful part of your commit msg is first sentence - two lines,
+so 33%. Remaining four lines, so 66%, is obvious.
 
 Best regards,
 Krzysztof
