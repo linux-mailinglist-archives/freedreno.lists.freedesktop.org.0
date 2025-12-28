@@ -2,104 +2,102 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C1E5CE48F0
-	for <lists+freedreno@lfdr.de>; Sun, 28 Dec 2025 05:02:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4050CCE48F6
+	for <lists+freedreno@lfdr.de>; Sun, 28 Dec 2025 05:02:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C30E210F8D4;
-	Sun, 28 Dec 2025 04:02:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF5C11A894;
+	Sun, 28 Dec 2025 04:02:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Uni5/zho";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RauoAGd7";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Muz37/He";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eQq14eTz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBE2A10F8D4
- for <freedreno@lists.freedesktop.org>; Sun, 28 Dec 2025 04:02:41 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE0511A8A0
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Dec 2025 04:02:44 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BS1frWO1430318
- for <freedreno@lists.freedesktop.org>; Sun, 28 Dec 2025 04:02:41 GMT
+ 5BS1s2a61798320
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Dec 2025 04:02:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=yjyk35jIf9nu7s4uHxWxaY
- Z7kPYBr0xMnxEiqxa1se8=; b=Uni5/zhokroNeQkSls4taIDgp1cOar5rrxxwJy
- WiE4CFm3U1dMvN+MWj0InHaaBkI7TiIMjhF6KyFX8YzHMANA5o/UNF4on9bMYPnW
- i7QKoY6rV+R92OOI+LU1g46W7K8DAQ8Lui4ZdkltFxU4DDfbQcUxefww+lIVrgdI
- 6vcRsnPTiLc1+h2pxQe5ngalIRRNtLeZWDVMdFrP15Vf980+i5nDevouTEMyQq2P
- m05yMAQUnP1Vxew08HDYbbNxZFd24llnuO1+dNArG52V4qRywGDXZtQs9qbXlUOL
- ZoeB6DSSvqIh/Ec6iPBW1yH/E40aOa1qtHpWHqqhCdfiU2Mg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ba6dr1rr5-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ arjhpi8+qGbxWhcL6W8JUcOjwqn6XDw6bd+kn0lzFcM=; b=Muz37/Hej5t/bkPw
+ VaS8uOKDyUTIDL7rtceX2OwSn6XhhJ6kNRdasFTr9dB7L86exxH8GJh/lLxReQ9b
+ 4prBZfExpufj3C7OP53ojUGaLMC5rB54RXY1p0UIRBIU9pKS8N15jCF81TiQqkC/
+ cIEomWXGEzhxWqRtQKcH/juo1XEamUJh9D9tx/cmUHSfnNzSQf3qhKL5uIJ4gLif
+ A9dA7nte3kTzI30V6i94AgShtCbn9vGEVIT732qFp8LisqG6LglPmHbQtx7KLNWU
+ 3WAMJcdWTbOVwwNwSfG6Jrxwj822W9g0M7GKBgPaUg6kZPqHwEq5m9YHChO71lIM
+ exMXKg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ba71wsn5m-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 28 Dec 2025 04:02:41 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4f183e4cc7bso153904331cf.0
- for <freedreno@lists.freedesktop.org>; Sat, 27 Dec 2025 20:02:41 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Dec 2025 04:02:43 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4ee0c1c57bcso308099191cf.2
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Dec 2025 20:02:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766894560; x=1767499360;
+ d=oss.qualcomm.com; s=google; t=1766894563; x=1767499363;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=yjyk35jIf9nu7s4uHxWxaYZ7kPYBr0xMnxEiqxa1se8=;
- b=RauoAGd7hnp0S0MDJIWB8eYBrfvhuAU7GA/suDm12FQ5b7iPVU6b4eCYW97CqlCVdA
- 4tjC8+GVV9K7iGGgtqBrtLKWknbOB+WXW/YSVoc4k9jw3UUrXw7FJ96tmmUEjrmLOLxI
- Gtj2aFJ2JdpbrA1TJreXRKC1bXLuuKAW0zlkOWmvTstfoKxqhal0iL2WHCGXp4DX+ppU
- NZ4uGFnWsbeJYXbldAOsc1otKBaVRqQ4OrQGZobHpmdJ8enMnAH3PtxLej5ODsl9ydbE
- x2OjW/FhQTQ5Lf/WOOb0b57NSg4Fb36VwoDqC2FAwZkEenzcmcZGustYoYoHg1W2RjOE
- sbZQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=arjhpi8+qGbxWhcL6W8JUcOjwqn6XDw6bd+kn0lzFcM=;
+ b=eQq14eTz3sul10XzD65Dt1V4PxwFbAVNXNwjw1KjZvTBDk4Fww3JUgFoBvPVKZY17t
+ o8pV8azxRspHcY8LA2138OheYscme9YkImDh2iC+xldDaHgk8OpHg6cZZc9duTrNQxk6
+ ryAc22hZ8QyuGvRIHn1a6J5oXMX8NKgMEedyCffptefyVhuiLBjaaC9C0ejyiJ45lxJt
+ PBDlTNaho2PYIubcSni8QTAj9u5xAfOyw+kWLbqqsvJdb7taTKnmbNj7OjKYt7VhUeQa
+ FLpyA5y5hMMYEzErZl+r39WwwNPJGTClrHH1MHSeXQASqgU81tl2QpsFHLcfc0x5JdjF
+ DtMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766894560; x=1767499360;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yjyk35jIf9nu7s4uHxWxaYZ7kPYBr0xMnxEiqxa1se8=;
- b=gxyjIFuxeqi/f/NfyNE93FvtDWwXkCBqOb59AFwGNLAmAwoDv4vr8abNKbo7aW791M
- 5G/cARgL/PQDZD5KagqHm2qRzKdH0N3lrnc25lqo2NcZZa8+3DMeJ/M8gBkTMK58nc39
- 3QdCeKeBAK03kF66ccF6g3ATt7WfDcGB2nShZX+1g0/uPelBpHG/xVViz9wwcqXblvMY
- K1VklJ4/TCfm2rsOMh9ax7eVBthQk/47efKjDMBkKqsOYGS2p+TrnIIKIEowghSAMkog
- mWHwDU5T2uFfWM7b7FoSOWnxWHwLPTnGbUgIS+4nazpotFDYAsWIPJwXfInne3Rn/pnk
- XZPQ==
+ d=1e100.net; s=20230601; t=1766894563; x=1767499363;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=arjhpi8+qGbxWhcL6W8JUcOjwqn6XDw6bd+kn0lzFcM=;
+ b=he50ZX5cjpAzhqFYRDFck+vUBSil3FCKx3pi19K2Za5vCwhW8dOrpa/8zjmOo9VzGi
+ EEsxVJKBw94oxxK+c8fZYLSiBBB/+KJk46N6mfebbJF06lf9syYCxj4K4Z/hIpHTcLkK
+ 0BKqj/m9tq9kSx+iaX9O80Lsf+yGxOf1ATMbArPLmlWVj4KpovcpmcVZoy73lxx5cobG
+ Is9o/6N8WrzKQ3YAyIwflXNxEz9PJCfX8/AkuwbMrTjkDPAsPb+XovNYh10wG1t8L6VV
+ k1915eozq+JEZfPE4eW2Z2VzcOZ91m3B/zxoL+H0NTMLresDyAxWtVFg4qRz0LHPPSZt
+ T73Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsVT+u/prD7thEQtHFjxkjB0EoCJa/di0a7RBAFmXLX7BX+oEN5VXrgecIbWZrOTK/WhD7uOkfC1U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRn63msCK1HKErT7k/s1hFs9TRHaGylOrj8ooMKhAJDi/6lAFG
- gQaVGngf8bSKN+BgI1aPZrHUO/EghUSqlum4y+kw5qqjUMzTMpuVUeAAUqmr18ygCTgSwYuF5DZ
- 1dBbsZcPXeyn07ZfER5ehhn5Hwgs8waqB6TNT/yB6euxZKYftuBTxZsQhsLZRCExgyVGYtZM=
-X-Gm-Gg: AY/fxX6gap8+TQNQrA/S+ibXUjt3M9TW5Pixxbc9UdaoFuh+2NhzlkK6HxNqDhbpX18
- rKSusayFEkjZqm0eLl0ZIOu8LXoeCPwvkBVQAIwzS3u2nijn5hJJqs2ncmuKtPMypjM8i87t2OP
- sh0wsdgoDcU7CBOudt+ZWLcELdF5rjg073y9tjUdoirC4tNLKCFUTI/SbKyFMg8vGKBVSe9BVH4
- qB7xHSJaApEITtfJgfuYzK1ySCLNfa68+M5ZcInPfMeTQaoHTD/QO32L5/zBNbH1vp15iEvmmj3
- kN6BHNTzKHGTHMkp75aZuL2FCDJVIwh8HAetvHw6M+01hw4/TZHgULiIcZ37WCwnSXCssV7ONHU
- fcCZbnrQQAQvvCRPKbrlANLpm8OIktZtP9sYjXL+0ke+XX80OwyIvYIF95u/+Qr73PTByRfxKS/
- 0JzAowL9miM/ghqFD2e2mGCEc=
-X-Received: by 2002:a05:622a:28f:b0:4ec:f628:ea6c with SMTP id
- d75a77b69052e-4f4abd75109mr435966381cf.48.1766894560241; 
- Sat, 27 Dec 2025 20:02:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHlIWPeKQp2TTh9o13CbNammyTEmgMkAQ6zhpjyqaSCJj8cT3OGg0tcgjDdtOL0q1vypMIKkw==
-X-Received: by 2002:a05:622a:28f:b0:4ec:f628:ea6c with SMTP id
- d75a77b69052e-4f4abd75109mr435966081cf.48.1766894559805; 
- Sat, 27 Dec 2025 20:02:39 -0800 (PST)
+ AJvYcCUlwMV8lIsFaAtviqLkjo9ZhvSJjWk2gZJ6I0wsp/pO3vr1KJxPOM2EgeJFdbQN/hLbx0IwkLKC5os=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOqx5Lhc1tZ74fPBVizjv+9POsYtw+4NoQhcBZPGZyqN3t064V
+ mG5aCFuc6QO/NHT4K/3tfBxvHJotns/M3jAXgQAVWg/yPPLxWEhLpPFCdGqK1W5+MHp/0+rOcJE
+ C1Jcqesg6NiywEkWW9TP2AKEzM/kLW5iH9QummEH6IJTgoqsgxE0pSK0ApvD3OaRcWU/XiKA=
+X-Gm-Gg: AY/fxX44h75ib5nFeTuRBX31hje+f0fUKI5MHoMDyf208/I+Od8tmR42CfFRjW0yFdS
+ mL6kIsETLQJY39eXrdfzScj05rAIDe8oRUOjptAlsnawI6lYn32pyIhms2zdZBmBpJvvlZi1GAP
+ YCkjqpoOCwGhl/e/pdlGf7Wguup99s3wz8pTbmiw0bkZjlXlEa6kO8K2bgKnXcsRTf1+LNCzTX7
+ iiASE/7JP28cZTryjOUoOly6OnlnIZ0FGsGpv+ZQ7glgj+0Q2LBS6Ry8uGV4D166rA6tMeeIX4C
+ 3iZDrNTHe6knrc3qGPS9zEZmQ1jfXj6DdaWoMRUnfj3CO4ndOKCwMBeeya8olpLLFCiCvPNz/cK
+ fdt2vu6OiUm+Lu3PITTGYHDZRcub+0elIEZ3RuAui4ZmbTKiXACsIjsaXQjMIroaYVrVi7P81di
+ vQzs9PY16fWqbKY1c+DG3/E/s=
+X-Received: by 2002:a05:622a:19a5:b0:4ed:aece:b331 with SMTP id
+ d75a77b69052e-4f4abcef65bmr405971921cf.27.1766894562580; 
+ Sat, 27 Dec 2025 20:02:42 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHjwlhdAkWEKQJLXeipUEE3TsK0r68DKPQO32dQw5IES/ATdDN83UnZEGSb7qmG18xos6ZFkg==
+X-Received: by 2002:a05:622a:19a5:b0:4ed:aece:b331 with SMTP id
+ d75a77b69052e-4f4abcef65bmr405971741cf.27.1766894562139; 
+ Sat, 27 Dec 2025 20:02:42 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59a185d5f07sm7840348e87.12.2025.12.27.20.02.36
+ 2adb3069b0e04-59a185d5f07sm7840348e87.12.2025.12.27.20.02.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Dec 2025 20:02:37 -0800 (PST)
+ Sat, 27 Dec 2025 20:02:40 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v4 0/3] drm/msm: drop DPU 3.x support from the MDP5 driver
-Date: Sun, 28 Dec 2025 06:02:26 +0200
-Message-Id: <20251228-mdp5-drop-dpu3-v4-0-7497c3d39179@oss.qualcomm.com>
+Date: Sun, 28 Dec 2025 06:02:27 +0200
+Subject: [PATCH v4 1/3] drm/msm/dpu: drop intr_start from DPU 3.x catalog files
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANKrUGkC/3XMTQ6CMBCG4auYrh3SmZafuvIexgXQIk2EYqtEY
- 7i7hRUR3UzyTvI9bxaMtyaww+7NvBltsK6PIfc7VrdlfzFgdWxGnFKuKINODylo7wbQw0OAKKq
- aSy0lcsHiaPCmsc8FPJ1jtzbcnX8t/ojzd6GQEL+pEQGBlxyLTCvK0/zoQkhuj/Jau65L4mGzO
- NJaKTYKAQdEUqpBpZSmP4pYKSQ3iohKo/OqKlKZ1YL/UKZp+gAZTW8HPwEAAA==
-X-Change-ID: 20250926-mdp5-drop-dpu3-38bc04d44103
+Message-Id: <20251228-mdp5-drop-dpu3-v4-1-7497c3d39179@oss.qualcomm.com>
+References: <20251228-mdp5-drop-dpu3-v4-0-7497c3d39179@oss.qualcomm.com>
+In-Reply-To: <20251228-mdp5-drop-dpu3-v4-0-7497c3d39179@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -111,39 +109,39 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1644;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3891;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=8F0/aAwRBj858vZ8ct+6ltrWoHhyWEPgLsSprjV+b54=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpUKvbrVT5D6fwbauZ4LESnuJVsMYI28B2gdTqe
- O0yb+g5K4uJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaVCr2wAKCRCLPIo+Aiko
- 1ZyRB/4uiiQnBr5u3EFLFbgnFAsfZtK+NRBJuJYZaWG+Zdgvo9jYzCjl54QMR3XumfDMeCAZNJe
- AAikANRM2/hQ4fRt2LpbY6g9jW3mvAH6hs0A199/m7i/MkLjZ+RGUsPKOUoo7DbAFCGhiFxiXyl
- l2j43A8MT52Cv+9ERuMjFSxHzsMmQfw//YsouSQTH76GoGjTg15DguNR2iYBuJvm0Es4UDX+TIa
- DUGOrI8ZSQ8e3M2NiEhPg/EV8FiDWbK+jsMJ5hub2yQjqKK+pYhIx30tc6TCk4hHMrmvG84ZMXu
- Z98BDCmueD/jirWSBk85kL6QRO8LS1gsQGf2jhIPPJrDkIrp
+ bh=KGT0ib6f0S9x+W7J89kuc0HaNX2OlP5UrNenSreVEj4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpUKvbjejpcXIDufPZRcwKyaBy2RNUdXd4ttop2
+ FP3OZLwRx2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaVCr2wAKCRCLPIo+Aiko
+ 1QbXB/9B1mhe4T41K7aJyN0cYdhvDYqNU+LDp9NdJ/cExGkosJ7mVG3PE1Vi531K/aKKAqJwvVh
+ UqWZlZwrQ1hYIWcatRCRn9VXlj5Me0azR99qyjvGEU3VGCMPYAkZrXsBDiHHNQYA9IYF8mp06jK
+ nnCU3abw0xK+aZBmmaTh9mXBxE++Ppk2u/78WrSECtoQ9X2cOqD3sm7AuFN8LOFuszMg4n9akb1
+ oRDU6W/CspOwKmUhmj7QXtQ899nKhORkYN99ZIwTt7TpYFvBRoku4DD7eqO66+87CG8k4CYUrcN
+ f5W6flKFzieHKk0b1YXjzXtQ9tT6HppIQb2eIwTKMUaCI0sH
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI4MDAzNSBTYWx0ZWRfX4JW6z1Bkt2L5
- 2WrOqpTXAJb43P1FF0hCh/n9xoRslZGIHOtV88tNV2xMnX71b3I4AzP7LBmUrWEIYVxvCDv7r15
- vi6mtAxGZqs/pQhrxIDW5aCwZ42JjEhDku4YXej2vCuRnEBDqNHkekGchiCakJNC+6LLaqaUJbG
- Vo9/pRXI8tWSxdhWtfMw9BhZbOYUs/sj4934SDymPN+7PFBahLJw84PbDRbz6CMc03WmrIc8KLD
- xd09ld5WREjjCWJ0k/TF/xlkWZegM5ugRV4tZ5GYFY8Vo/BP0nXkVrVC+q/iNC6YmRS9K9xjIKX
- 4FWBvT9BzxBcvVyJWwKj+G6I2BQEUC7G5coruc47/X3fT3YKTenn+zgJPT8GUtXyZPLZ3FC7aoz
- PE31UK7BSEI4tOrkKdXJ4XEoe0Pd0ouENW4RdmlIvnig48U89HWdCk0Do2m4eGz8wsQFYZZVz6y
- CGPuLwjhfDyzYhC0q/A==
-X-Authority-Analysis: v=2.4 cv=VdP6/Vp9 c=1 sm=1 tr=0 ts=6950abe1 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI4MDAzNSBTYWx0ZWRfX8fuIq5S6dR2r
+ /WYduPBIlBTBo0lIt63f9COp+kDPy3WgypzV/naRozpk+WfQdGNXwHH8HLsqFgL7LA+vz8879AK
+ vTQfG5nsU/U9OyWyTqH1s5VvThyKoyLLgO9r2ziftcmbkOFUSPetbiD+sDBHj4L0nqjGeWmrkvH
+ 08Hn8lI5UdbVkNYyNP6U7r1BXziXV+HJyRoDwWW7GZkGrLOWdoRbL3Cl65xhK1sZmf8/4WO2Pf/
+ 6D//zsXR78/Pd1ncshnkVH4O83o2waZZqMSfTabhswMGO3KlGoaQ+IWb540IORlytahk4I0gQQ8
+ neFCaJSzxVy3K49ADulg95mruCdAY0mVZJwBHfMNsJE/aOS6DtaanXGkCtu32UJnm3YtGZbtQhG
+ N0mGcMM3ozvBPvx6QWCxTKzUPx/n6Sh5Q7VCVSqlJ9Gxev4RBDWCJucfm05YKxkm23tNU2tr3wz
+ /x4s14ciPenvEp06nqg==
+X-Proofpoint-ORIG-GUID: rIQ_ygYZtXXgWigb938BovFYs9oLzK1_
+X-Proofpoint-GUID: rIQ_ygYZtXXgWigb938BovFYs9oLzK1_
+X-Authority-Analysis: v=2.4 cv=CK4nnBrD c=1 sm=1 tr=0 ts=6950abe3 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=4sc70ZTd7FF4WO1t3xwA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: 8lVTUOi2AvuSIc0NSHk-l8euilpPUefr
-X-Proofpoint-ORIG-GUID: 8lVTUOi2AvuSIc0NSHk-l8euilpPUefr
+ a=EUspDBNiAAAA:8 a=-wdOMmJq3JXEukoY-DMA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-28_02,2025-12-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- adultscore=0 clxscore=1015 malwarescore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512280035
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -161,44 +159,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix commands pannels support on DPU 3.x platforms and drop support for
-those platforms (MSM8998, SDM660 / SDM636, SDM630) from the MDP5 driver.
+DPU 3.x don't have separate intr_start interrupt, drop it from catalog
+files.
 
+Fixes: 94391a14fc27 ("drm/msm/dpu1: Add MSM8998 to hw catalog")
+Fixes: 7204df5e7e68 ("drm/msm/dpu: add support for SDM660 and SDM630 platforms")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-Changes in v4:
-- Inverted logic in dpu_encoder_phys_cmd_wait_for_commit_done(), check
-  for the feature rather than the lack of it.
-- Link to v3: https://lore.kernel.org/r/20251224-mdp5-drop-dpu3-v3-0-fd7bb8546c30@oss.qualcomm.com
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h | 5 -----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h  | 5 -----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h  | 5 -----
+ 3 files changed, 15 deletions(-)
 
-Changes in v3:
-- Fixed commit message (Marijn)
-- Reordered CTL_START checks to be more logical (Marijn)
-- Link to v2: https://lore.kernel.org/r/20251218-mdp5-drop-dpu3-v2-0-11299f1999d2@oss.qualcomm.com
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+index f91220496082..b1b03d8b30fa 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+@@ -42,24 +42,19 @@ static const struct dpu_ctl_cfg msm8998_ctl[] = {
+ 		.name = "ctl_0", .id = CTL_0,
+ 		.base = 0x1000, .len = 0x94,
+ 		.features = BIT(DPU_CTL_SPLIT_DISPLAY),
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+ 	}, {
+ 		.name = "ctl_1", .id = CTL_1,
+ 		.base = 0x1200, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+ 	}, {
+ 		.name = "ctl_2", .id = CTL_2,
+ 		.base = 0x1400, .len = 0x94,
+ 		.features = BIT(DPU_CTL_SPLIT_DISPLAY),
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+ 	}, {
+ 		.name = "ctl_3", .id = CTL_3,
+ 		.base = 0x1600, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+ 	}, {
+ 		.name = "ctl_4", .id = CTL_4,
+ 		.base = 0x1800, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
+index 8f9a097147c0..64df4e80ea43 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
+@@ -37,24 +37,19 @@ static const struct dpu_ctl_cfg sdm660_ctl[] = {
+ 		.name = "ctl_0", .id = CTL_0,
+ 		.base = 0x1000, .len = 0x94,
+ 		.features = BIT(DPU_CTL_SPLIT_DISPLAY),
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+ 	}, {
+ 		.name = "ctl_1", .id = CTL_1,
+ 		.base = 0x1200, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+ 	}, {
+ 		.name = "ctl_2", .id = CTL_2,
+ 		.base = 0x1400, .len = 0x94,
+ 		.features = BIT(DPU_CTL_SPLIT_DISPLAY),
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+ 	}, {
+ 		.name = "ctl_3", .id = CTL_3,
+ 		.base = 0x1600, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+ 	}, {
+ 		.name = "ctl_4", .id = CTL_4,
+ 		.base = 0x1800, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
+index 0ad18bd273ff..b409af899918 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
+@@ -36,24 +36,19 @@ static const struct dpu_ctl_cfg sdm630_ctl[] = {
+ 		.name = "ctl_0", .id = CTL_0,
+ 		.base = 0x1000, .len = 0x94,
+ 		.features = BIT(DPU_CTL_SPLIT_DISPLAY),
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+ 	}, {
+ 		.name = "ctl_1", .id = CTL_1,
+ 		.base = 0x1200, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+ 	}, {
+ 		.name = "ctl_2", .id = CTL_2,
+ 		.base = 0x1400, .len = 0x94,
+ 		.features = BIT(DPU_CTL_SPLIT_DISPLAY),
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+ 	}, {
+ 		.name = "ctl_3", .id = CTL_3,
+ 		.base = 0x1600, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+ 	}, {
+ 		.name = "ctl_4", .id = CTL_4,
+ 		.base = 0x1800, .len = 0x94,
+-		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
+ 	},
+ };
+ 
 
-Changes in v2:
-- Fixed CTL_START interrupt handling on DPU 3.x
-- Link to v1: https://lore.kernel.org/r/20251211-mdp5-drop-dpu3-v1-1-0a0186d92757@oss.qualcomm.com
-
----
-Dmitry Baryshkov (3):
-      drm/msm/dpu: drop intr_start from DPU 3.x catalog files
-      drm/msm/dpu: fix CMD panels on DPU 1.x - 3.x
-      drm/msm/mdp5: drop support for MSM8998, SDM630 and SDM660
-
- .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |   5 -
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h |   5 -
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h |   5 -
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   7 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           | 314 ---------------------
- drivers/gpu/drm/msm/msm_drv.c                      |  16 +-
- 6 files changed, 17 insertions(+), 335 deletions(-)
----
-base-commit: 4ba14a6add891fe9b2564e3049b7447de3256399
-change-id: 20250926-mdp5-drop-dpu3-38bc04d44103
-
-Best regards,
 -- 
-With best wishes
-Dmitry
+2.47.3
 
