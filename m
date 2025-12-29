@@ -2,73 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2817ACE54E7
-	for <lists+freedreno@lfdr.de>; Sun, 28 Dec 2025 18:37:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6A6CCE61D5
+	for <lists+freedreno@lfdr.de>; Mon, 29 Dec 2025 08:24:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 063A71129D0;
-	Sun, 28 Dec 2025 17:37:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B412F10E855;
+	Mon, 29 Dec 2025 07:24:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V/wDRMsQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BiM82rFJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D9E1129D0;
- Sun, 28 Dec 2025 17:37:44 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-152.bb.dnainternet.fi
- [81.175.209.152])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 9F8DB4BB;
- Sun, 28 Dec 2025 18:37:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1766943448;
- bh=BVyrGvuZxQ32vWuyuPyWhvaKJBjsen6sagC/3IcqpSs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V/wDRMsQYkz61hN+SmAYpeteMIET3dbzn84NCONg5GqGOSmCMYHVprroRZOofKUvp
- DRAuP2Wwl2hgYN0uyopjD1EL+FUTeQO+9puw4xsQJ8TneYfOeVS0YyqMSoQJZ/tDcm
- CJXJJ354O2ddLgV05A9JT32LE2IQcIyZmKoXDAzs=
-Date: Sun, 28 Dec 2025 19:37:24 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH v4 5/8] drm: renesas: rcar-du: use
- drmm_writeback_connector_init()
-Message-ID: <20251228173724.GR4094@pendragon.ideasonboard.com>
-References: <20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com>
- <20251228-wb-drop-encoder-v4-5-58d28e668901@oss.qualcomm.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 241A010E855;
+ Mon, 29 Dec 2025 07:24:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 81D3D42A79;
+ Mon, 29 Dec 2025 07:24:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2503C4CEF7;
+ Mon, 29 Dec 2025 07:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1766993045;
+ bh=+tdCpRj8osX1FlMe16CEO5gvakw+XTaV+BWAlaWaJCw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BiM82rFJWh+d5G+g7fCxEzjTRz0rAd7so+8bFVS2luT51DEjM7qVwyV16Uzrr/VlD
+ 0JJKDu4uLzoqytQ78qPkNfTWHAG77Ba3lC0KL/kWFWGQvUB3ppDnK0KXaMSxQuSSAY
+ f7+2QM3AxsTRlTNLE+nQ0gm1njzp9I0CjQp0TNkpqEE6aNy2+YneU0kZK5gTlKch8O
+ fKQQoXzKaI9nLAz2qrLSG3kiiBxV2nzsC7CyddvrgXP+SvY3K9B1kz7XlqIMTk0fTh
+ VhuMMOinkbFUW9JlkW7DSZj5AWmk7LrY6eOKSOIbRdIadzgAe/M5KbxTHszlesJnuz
+ +l3OR0+MQbbQw==
+Message-ID: <8288af85-13da-46e3-8d89-71995fbd17f8@kernel.org>
+Date: Mon, 29 Dec 2025 08:23:56 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20251228-wb-drop-encoder-v4-5-58d28e668901@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display/msm/gpu: Narrow reg and
+ reg-names for Adreno 610.0 and alike
+To: rob.clark@oss.qualcomm.com
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20251227110504.36732-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <CACSVV03H_oii=fuhaeBhUZSJk-2mr08jGqAs30Z_h9tzeDgdtw@mail.gmail.com>
+ <2a35d31a-1a3e-4cd4-ac3a-27104ff12801@kernel.org>
+ <CACSVV03FfvZVzuKGfaJrsXmE7VVxEF5zN4-R7h1PXA11jOO3gw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CACSVV03FfvZVzuKGfaJrsXmE7VVxEF5zN4-R7h1PXA11jOO3gw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,69 +117,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Dec 28, 2025 at 07:21:37PM +0200, Dmitry Baryshkov wrote:
-> Use drmm_plain_encoder_alloc() to allocate simple encoder and
-> drmm_writeback_connector_init() in order to initialize writeback
-> connector instance.
-
-The patch makes the driver more complex, so the commit message should
-explain why this is a good idea.
-
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
+On 28/12/2025 15:59, Rob Clark wrote:
+> On Sat, Dec 27, 2025 at 11:56 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 27/12/2025 23:01, Rob Clark wrote:
+>>> On Sat, Dec 27, 2025 at 3:05 AM Krzysztof Kozlowski
+>>> <krzysztof.kozlowski@oss.qualcomm.com> wrote:
+>>>>
+>>>> DTS files for qcom,adreno-610.0 and qcom,adreno-07000200 contain only one
+>>>> "reg" entry, not two, and the binding defines the second entry in
+>>>> "reg-names" differently than top-level part, so just simplify it and
+>>>> narrow to only one entry.
+>>>
+>>> I'll defer to Akhil about whether this is actually needed (vs just
+>>> incomplete gpu devcoredump support for certain GPUs).  In general
+>>> cx_dbgc is needed to capture state for gpu devcoredump state
+>>> snapshots, but not directly used in normal operations.  It seems
+>>> similar to the situation with mapping gpucc as part of gmu, ie. not
+>>> something the CPU normally deals with directly, but necessary to
+>>> capture crash state.
+>>
+>> I don't get why binding was added with cx_dbgc, but DTS not. Neither
+>> binding nor DTS depends on actual usage, so I assume someone
+>> intentionally did not want DTS to contain cx_dbgc and binding should
+>> follow. Otherwise we should make the DTS complete and make the binding
+>> strict (leading to warnings if DTS is not updated).
 > 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> index 8cd37d7b8ae2..64cea20d00b3 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> @@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
->  static const struct drm_connector_funcs rcar_du_wb_conn_funcs = {
->  	.reset = rcar_du_wb_conn_reset,
->  	.fill_modes = drm_helper_probe_single_connector_modes,
-> -	.destroy = drm_connector_cleanup,
->  	.atomic_duplicate_state = rcar_du_wb_conn_duplicate_state,
->  	.atomic_destroy_state = rcar_du_wb_conn_destroy_state,
->  };
-> @@ -202,15 +201,25 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
->  {
->  	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
->  
+> I'm not sure about the history.. but I can say that cx_dbgc is only
+> used for gpu state snapshot / devcoredump.  So it would be easy to not
+> notice if it were missing.
+> 
+> We have a similar slightly ugly thing where gpucc is included in the
+> gmu map.. only for devcoredump.  Maybe we need a different way to
+> handle these things that are only mapped for state capture?
 
-Extra blank line.
+No. Either hardware has it or not. If hardware has it, then both DTS and
+binding should have it. If people decided that DTS should not have it
+(for whatever reason), then apparently that's the desired hardware
+description and let's remove it from the binding to match the ABI.
 
-> +	struct drm_encoder *encoder;
-> +
-> +	encoder = drmm_plain_encoder_alloc(&rcdu->ddev, NULL,
-> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-> +	if (IS_ERR(encoder))
-> +		return PTR_ERR(encoder);
-> +
-> +	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
-> +
-> +	encoder->possible_crtcs = drm_crtc_mask(&rcrtc->crtc);
-> +
->  	drm_connector_helper_add(&wb_conn->base,
->  				 &rcar_du_wb_conn_helper_funcs);
->  
-> -	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
-> -					    &rcar_du_wb_conn_funcs,
-> -					    &rcar_du_wb_enc_helper_funcs,
-> -					    writeback_formats,
-> -					    ARRAY_SIZE(writeback_formats),
-> -					    1 << drm_crtc_index(&rcrtc->crtc));
-> +	return drmm_writeback_connector_init(&rcdu->ddev, wb_conn,
-> +					     &rcar_du_wb_conn_funcs,
-> +					     encoder,
-> +					     writeback_formats,
-> +					     ARRAY_SIZE(writeback_formats));
->  }
->  
->  void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
--- 
-Regards,
-
-Laurent Pinchart
+Best regards,
+Krzysztof
