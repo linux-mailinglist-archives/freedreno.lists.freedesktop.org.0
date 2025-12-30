@@ -2,147 +2,153 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E347FCE8DF6
-	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 08:18:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA21CE9AA3
+	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 13:34:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 342D210E842;
-	Tue, 30 Dec 2025 07:18:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5234710E8D7;
+	Tue, 30 Dec 2025 12:34:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V89rM2kS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZIZ1OdU/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="J43SkAqB";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NfCiqIMX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC1C310E842
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:04 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9312910E8D7
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:05 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BTKdS9U2723214
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:03 GMT
+ 5BUB8mkY3971206
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- F+D4XhZHUVaMEju2IS5PSFW4hWSDl2cHPlefbnaZtT0=; b=V89rM2kS7v1fuYrA
- MkqlJLlJjtn2+ecHwS00KXmQxeUbEl1kE9KgF0/U9tflmVllTL2nZQNmQUFlES+7
- 24L/IIOd6aE+lQ7zEpXZdktbpyOVcGXtkrUcn5BQDCTbKUg6QNY0AIAh2ZBINDDG
- Urr0DHlD9tYVLfrjnu3a5EQfhO5EQ4dlO3WgpnK77mVVchwVUvLB5jH4jAlZ9vqe
- 25B4a5jdZ10JnMj7tpAlDuxqPawsAQUH0frYAwtSbfvEa1mBmxnAwAdad16MWJ4t
- KKGNRgRIUK8oskX5RNCOKmkd6+OuCI7rRZAsrqEiHVR3gRqtcJzrPRsrx2v+Zb/u
- p/1NmQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bc0vdh48q-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=e1EJpHuhHtgin191Z1rYYK
+ gqk35MDf2jz1zjH1Q2Oqo=; b=J43SkAqBxQeiaPEKOBpDHwee5U953tHh555fky
+ /aevh/9Iq3GzUKnwtMGj7QFlmsQj8MwTZ3Gq+vDplE2fjXhLuYHv1+nPUWQamcqP
+ jN2jUVcWjbSBh7RJ1xHdLZqPsZouXbxAPjlJJMYAZTc5pRCKnvrV22h5LDDHIotI
+ dv8AhZaRwiPcT5e2swN3YQI5mqr/qMNfP2gvlKiCQYtuqw/86Q3h0I9UA2MX3TbU
+ d1cuplNJjw7r5k2vrF+Ncn1ioP0Pfrvmv7dBc+/oAdi2PNsA7EXfo7iRBkB1i59L
+ fSijAU0I3Sh58Xwy9swp7hLlxP/Yp/TdguUFlvzqKIpYKugw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bcdky05qr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:03 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4ed6ff3de05so271863811cf.3
- for <freedreno@lists.freedesktop.org>; Mon, 29 Dec 2025 23:18:03 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:04 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2a0e952f153so329473055ad.0
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 04:34:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767079083; x=1767683883;
+ d=oss.qualcomm.com; s=google; t=1767098044; x=1767702844;
  darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=F+D4XhZHUVaMEju2IS5PSFW4hWSDl2cHPlefbnaZtT0=;
- b=ZIZ1OdU/KZWmfajX6URYKzkgeEdWFHS3uC2rzG6ZJkizsUQ4WrYMwJFms/iZHylen5
- CYju4ysGG3DtLFelMOEk5ymZ2CH+RN6lvKyhNzI9tHqaFhY69mOuvKdYZ7isCrxdpyHE
- jijY2W3GL64dywTotU58nc7PF+ueVRKZJaCyLRT9w0YOQbLIokkSOY8haykpEwdf9RuM
- gxz8XeyW7xslQsrRehkUKYodHxP2yYd/aotVImpXEGBwJgXQ3jQCsgfZybr1QVzE8F3F
- jjnZmv6KsCLod3p5yBsYbpM0mTURcLnyP6+RG4EeyoCre240CoHubJjjUjq3O3VKu8iL
- agXg==
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=e1EJpHuhHtgin191Z1rYYKgqk35MDf2jz1zjH1Q2Oqo=;
+ b=NfCiqIMX05Gq2HHUPSo9zGN1UDT64Lsaz3bY66MPMmV8g0WP7uIyRoE4L1nE48SEFF
+ ILZJrR81DRqWYjddOWBDRn83n+4t8gp3/+UFaiVMdY9P2b9s2Kw2S84gDVByF1MCebnt
+ 4fUq5BbC7Ir96vwfs3eIVRC/jPZsWU7822NY5+YVJxuR0Xa1np/U/zMi4PEl+SYrAzcy
+ 76Ytnx/1zw7/GuUGbdeod+mfS+lez3iXBgfkgAAE4Bv+03FueP+ckESIluKvoY/8+VIP
+ KewINCET/FF8VbcbGjU0lVhsBB1h8tyQzzLQkO8xJ200PFZT7OGK6EhZhunW/HxowNWe
+ JVgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767079083; x=1767683883;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=F+D4XhZHUVaMEju2IS5PSFW4hWSDl2cHPlefbnaZtT0=;
- b=DJDHN6N3XpE746DFWleE5c6el2TX5maWMsvuOAzTQFS8Wz0aYuRCG0rHYXkyuL126e
- AW2i4kRlZHtcFAe8dYMycxZFwG98/4HmF5i7sJc7gkU80z2kHYvKKKOKLT8di306i/cs
- KMA8WbYrBPpLstIMhr2NeCu3AvGrOqTwVlWzOFdDSPm1M+15e+bP5l113CTNyOQsw0nC
- 2ah8TWsBcUki0isCrGxTkXpxhlsxUOn1yKrLQ2sY7DNSR9rS2SPgwKxvdnYMaRB0Jouu
- YnbrbdZ6Nu1qIREF9FypZr3oMpr0bQwlv3SmKrwbi9bBFE+zVQE+h8EfZ+3CW+G5Dcis
- uVBA==
+ d=1e100.net; s=20230601; t=1767098044; x=1767702844;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=e1EJpHuhHtgin191Z1rYYKgqk35MDf2jz1zjH1Q2Oqo=;
+ b=bYT3jx3wrczrrkYYwD6vjBXNn4sdtetrvf0fYiE7SK40YmtUx3uH0s7Adll6GxxbHf
+ lu7YeH0ep1/cLAZ8YutvmHCd6EnqUPxS4glUVGlGPbroOUncG42OvdbH+CscqVWVsUEU
+ rcIntMUbnGjeDmklb5elD4rhivAKOngfPKlSZK3AaaEDMRdvuHll1RUMBPAohFalM959
+ WA9A7IlLr+P8rsuwgFixTe1iIGGw5D+1PcLVf7FsvTl7dGCN9Y7LICgAvgsIS/bCs6kA
+ O+MFVBhednxxP7nhvGXTnfScPrgy1z1/xVzfflCy6nCHKfg06N508A+B/jumG8VfaD5y
+ /Zyg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUyMjq/VQoRBuzQ7BU+jshbnWHCjvT97zmWz3VteY460WhGV6aE1zXp9TLV8FT4jrpnGroplvLMFNE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwulUg7s//tAerGmj2PvVPWL7VvBIK8zB/soBUeGZtCxjGiYeTz
- F7D5fg7Yo2GWqkz0vW719fNUroqxsuKZ40upXFc1xSzoJbHItbxyPJKrtppMQ9x6G0MAFks7AfM
- mTYQyzLc+BgY5AtqOymI1NiOSbqVladup9LX8ZJR1b8hUgdtcuJU4wkuEo9RNoE9hVpiVheU=
-X-Gm-Gg: AY/fxX73TyXDKP8+8mqj8hGfuL/eO/vJZ8NYqpdZa1F4K7rrsEkQAUG58NeLqSzkp4I
- 3pZknTUn7rAPDM6f03jXLEev8sSGwYlRWbalcQBqua7rpXEFpN7DL7zm1SNf0GHdsV4VUxhDken
- 3Zen1s+qOVKnqMN+JX3Vf9gXSrxQi0qPVKXc/rF+LaripTfjXJIHFUx4RJSqoRPawU7njNhIdvT
- YePx8YQv+uC9XeIB+yaKw6pL6muimgfRNCO9nw1pbzlrPt5XAqJvbClKkwFPnAn65jQ5AKQYYfP
- 8UDOPOtKBf7sTPiJ+MNcvM32+qgqtsNETQpMy3v1xzddtnLGmQGT93j9Q42ZA5WCHwcFihnr/Oj
- KzbHzJmy34da6WmWebPzcF6GtLVp35mLhjHHJEAwfm4WkgAnBiaD8UIn0ivWN2FfTWKp95XGsIW
- 9O9Lx13j0FfIb4WVP6vrcq/Gc=
-X-Received: by 2002:ac8:6f0c:0:b0:4ed:8ab:e7aa with SMTP id
- d75a77b69052e-4f4abccf14emr457763141cf.11.1767079082992; 
- Mon, 29 Dec 2025 23:18:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEFaJvSyv2J4sH5R2VzNO8GX+fPMJwUSte+MeeSAQ2QvB5gf/gpGeQ0AU7jz52r9OUytBM+2w==
-X-Received: by 2002:ac8:6f0c:0:b0:4ed:8ab:e7aa with SMTP id
- d75a77b69052e-4f4abccf14emr457763031cf.11.1767079082561; 
- Mon, 29 Dec 2025 23:18:02 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AJvYcCUDnjLZcAutJ6uXUlRXiIZxt9vasaYQHQAML0Kt5kzR5hB9Ve30OCfqWQHzWQO8QSxLMjdZmCFmlR4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YweSh1qaKeSaVQC3rQ1l2Dy0LQZ6Uuo+BMpZwbSMolv5x3jxi4p
+ 6oQLaMWdji/edwhSCP9362/a8BC51WLpSNQ/f/o68/BWxuwGlFYdUuqbD+f1FtsHSFTYWAIcLay
+ cC0+vnlh6z1rBMFYzTUYXxWVyoBWjy/Gpe/FquAw4P7Iv8dCsV5l5Nvs4TLCr/HkUNzOrIz0=
+X-Gm-Gg: AY/fxX6xASDYlkXveR+6pmaBjlqNs6+W1G2cdK02DpFQwAVFf3oVvG8BEZaBV3EPRSF
+ BoPruTVRJJOzMjGoB4mT16B4s2lttlwO4qd/NeEdBu9CsNSlx6gdYfhpcCMUVQreqh2RL4/rBhT
+ s2uMT0UNYJp+sbLPUtJ4QTXJnNgd300+8hVtoRZTe2zMnjGGdaSWgiXZAaaKBNlye6qWCSxonOj
+ 1MafQ1ePjMW6asZZOTRa+KOjJei4w94wBtRxKTWsv6ivyGKZDoVSYDJUeabrZuWYRqwHuIIXBQg
+ aKf09L7KYlx6HMlkUKlrsC/D0yjNrsMe2Q0lnm9jOzzH/mMi8NIPJEZbHScRlKcpACOhogLM0MQ
+ DRxQONJ1/lQk93fusVhwTHJpOzsoTjPh5GA==
+X-Received: by 2002:a17:903:19c8:b0:29e:e925:1abb with SMTP id
+ d9443c01a7336-2a2f2428bffmr302949885ad.27.1767098043874; 
+ Tue, 30 Dec 2025 04:34:03 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IENyF+WPIkSCef75cAbbFwXBGFHVz0cB9iQySZ5v8vKBfyeFO1nsdl5NeVeEPctYc/krqYECw==
+X-Received: by 2002:a17:903:19c8:b0:29e:e925:1abb with SMTP id
+ d9443c01a7336-2a2f2428bffmr302949455ad.27.1767098043327; 
+ Tue, 30 Dec 2025 04:34:03 -0800 (PST)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59a185ea2d8sm9924615e87.45.2025.12.29.23.18.01
+ d9443c01a7336-2a2f3c6a803sm295748695ad.6.2025.12.30.04.33.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Dec 2025 23:18:01 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Tue, 30 Dec 2025 09:17:57 +0200
-Subject: [PATCH v6 2/2] drm/msm/dpu: fix WD timer handling on DPU 8.x
+ Tue, 30 Dec 2025 04:34:02 -0800 (PST)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: [PATCH v9 0/4] DRM/MSM: Support for Adreno 663 GPU
+Date: Tue, 30 Dec 2025 18:03:24 +0530
+Message-Id: <20251230-a663-gpu-support-v9-0-186722e25387@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251230-intf-fix-wd-v6-2-98203d150611@oss.qualcomm.com>
-References: <20251230-intf-fix-wd-v6-0-98203d150611@oss.qualcomm.com>
-In-Reply-To: <20251230-intf-fix-wd-v6-0-98203d150611@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+X-B4-Tracking: v=1; b=H4sIAJTGU2kC/2WOQQ6DIBBFr2JYdwygIHXVezQuRotKUkVBTBvj3
+ Yu67GaSP5n/3mzEa2e0J2WyEadX440dY7jfEtL0OHYazCtmwinP6Z0VgFJm0E0BfJgm6xaoWV6
+ IRnElqSSxNjndms+JfFYx98Yv1n1Pw6qO7QETjFHxD1sVUJAcC0QUgunsYb1P54Dvxg5DGgep9
+ kvi9Bziu8tlIjV6DceRWcoE3SBzaK0DmXIaK/sPgvJdxOkAAAA=
+X-Change-ID: 20240917-a663-gpu-support-b1475c828606
+To: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Teguh Sobirin <teguh@sobir.in>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Gaurav Kohli <quic_gkohli@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7052;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=YDk3hQizRJFfND4exXbw9nbbup2xzJMiVS497+/zF94=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ2ZwzXLOuHkBJa4TZJKZdZcyXtPt3OMlzqp4elr9YeYT2
- va5dlKdjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZiIaBUHwxJO17KVu90MRCcI
- VPkd1u/3kWmV/H+GPfvaa2e/+V8irx/K83u55O80z5IdsmdVkrz7m8We+B/a/cS7kVnncl9fVvR
- /bwGRwnUTYpY+EBC8dbKLwcv8w+wEwRVdX+XfWzot3RLBGnB57rJ5TjzGvTWZb2R+Kfa9cI9O+i
- NkwVl4JEald5+/QJXrbNsSlxVrp/I2ze2blb9hLv/TVtZ/qq1KO8Ibl3/r2yobXuU6g8sg0cQnP
- yxi3b3Xrgl3LrxcqX5FM06gxVn9t2Rc9LTroZLd8dbShofK71g8ePVWmc9V8t5JG37u4vb3Oh94
- Re/OenprSaLuknfK7QuvxE7tZ/v21uVcrFDS4fjfex4CAA==
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=dfONHHXe c=1 sm=1 tr=0 ts=69537cab cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=tVI0ZWmoAAAA:8 a=EUspDBNiAAAA:8 a=VmWmgm_EPZb_nnVC2x0A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=-BPWgnxRz2uhmvdm1NTO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDA2NSBTYWx0ZWRfX79fd5oJj+V89
- E61Clcru/ew3DqHpm1AmUjujNwO25Zknre/VY+LmCup8P0TjcHFlYx0WOmpkV7MQ9LoTud+aTmg
- 8xL1lt4KioUGZd9FesH/dvB6nGyIiXukLSi3T5qlSnZ/DOxgkcZicXnQlnMvznGwhdWkkKIAOc0
- D2ZICzzPHwovG/KOavRXQHawyvQ3hhDKbPr31K0xBOD0jBKkSMZN92542LK5XhS/sU5P/kjK7sA
- jKUkpd/pHkEwXtszi02lzVUBHC/CU8BD3O8Ovn5e05UHflCxlYhoGfkg7mSqckabQ94hAq7aTs1
- Lmthu9RpWVkfzgY/GwCeGcdjYZeXv4oUUydj6vdnsdzqnSif1Ki4Q/AuxDObyLb/3Fw8J2X57Rq
- set6nOxtDoixQX9EioJVokK6j7eaNhIuU7NDY1+EF+dG4Zm6I6/4qOWUAwQzDAxtPcwwHxch6sj
- TGuMfCao7Divs4lGBsw==
-X-Proofpoint-GUID: Hcr1NIexWN70m0SKZYkhaQl0ojG7IAka
-X-Proofpoint-ORIG-GUID: Hcr1NIexWN70m0SKZYkhaQl0ojG7IAka
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1767098036; l=3289;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=FdqG9zrZ6rbteItBZ4Klh3Dym5joJY1hFv9zmxGAJeo=;
+ b=ijannswjECqxNrfPcXOhcEvxUr3Qf/PjtIcNRbeD7PQbwVOFwoEbGGc730H3mXsXqOqrtLt3q
+ mTxS/TWG605AUYn7iYLDZ4XxexXiYan9oIJXRiD2DyJmWTfvZtinyM5
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDExMyBTYWx0ZWRfX6breGNjKL0sD
+ w61kkKFjcywANzIWIEEl+Xsc58tg/CezI4IFH4fp8C8SBe5yqoSgXUAYLGv8L6vBpA0ke45tCDa
+ EzR/vRV0CFt7X/Ej8QIjpo+nFlroFt6tWqNx8WXzJjHkok9Myonn/XYxMRPBJuLD0y1G1GJbkrn
+ oTmRp9nhAZI0V3JiPsp+oodWepf1vVmurMF0XNaMkhmi/dpSUBV/6fDTv9zastqKSoGrvo58pdp
+ r0CzLuhAejbpqir7/GzeGctEKP0A+vNNb3foS8r8eemaz/Y6Gq6flUTrX3+X2kWlkgJctEmZDf5
+ DKCe01IEfMV8COcxnYumpq5AQrK4fW9nXFP77kpVEys08wQVxe5+LTSqh+ivlMuPpCUn5Mrecq9
+ UrQ9BfUhF9gx1yRHU5hRNf8QLPgm9HPx8rgJ4zYzeOHpT8Y2RuUY3asxf/lcMqks7+l4ftNPYsn
+ iGsrXuMtN+a1gOSviJA==
+X-Authority-Analysis: v=2.4 cv=Wskm8Nfv c=1 sm=1 tr=0 ts=6953c6bc cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
+ a=XWgRTdVboDXnaEeUzZ0A:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: 2eKsy6OkrOXo4h8R51DCGE_CILXFYQ-H
+X-Proofpoint-ORIG-GUID: 2eKsy6OkrOXo4h8R51DCGE_CILXFYQ-H
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-29_07,2025-12-29_01,2025-10-01_01
+ definitions=2025-12-30_01,2025-12-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 malwarescore=0
- suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512300065
+ malwarescore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512300113
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,190 +164,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since DPU 8.x Watchdog timer settings were moved from the TOP to the
-INTF block. Support programming the timer in the INTF block. Fixes tag
-points to the commit which removed register access to those registers on
-DPU 8.x+ (and which also should have added proper support for WD timer
-on those devices).
+This series adds support for Adreno 663 gpu found in SA8775P (Lemans)
+chipsets. The closest gpu which is currently supported in drm-msm is A660.
+Following are the major differences with that:
+        1. gmu/zap firmwares
+        2. Recommended to disable Level2 swizzling
 
-Fixes: 43e3293fc614 ("drm/msm/dpu: add support for MDP_TOP blackhole")
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Verified kmscube/weston/glmark2-es2.
+
+Bjorn, only DT patches are pending in this series. And all of them are ready
+to pick up right away.
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  4 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 49 +++++++++++++++++++++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h |  3 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c  |  7 -----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h |  7 +++++
- 5 files changed, 57 insertions(+), 13 deletions(-)
+Changes in v9:
+- Rebased on top of Bjorn's arm64-for-6.20 tree (Dec/30 tip)
+- Link to v8: https://lore.kernel.org/r/20251105-a663-gpu-support-v8-0-62a7aaa551e3@oss.qualcomm.com
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 3921c15aee98..058a7c8727f7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -775,13 +775,13 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
- 	}
- 
- 	vsync_cfg.vsync_source = disp_info->vsync_source;
-+	vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
- 
- 	if (hw_mdptop->ops.setup_vsync_source) {
- 		for (i = 0; i < dpu_enc->num_phys_encs; i++)
- 			vsync_cfg.ppnumber[i] = dpu_enc->hw_pp[i]->idx;
- 
- 		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
--		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
- 
- 		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
- 	}
-@@ -791,7 +791,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
- 
- 		if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
- 			phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
--							 vsync_cfg.vsync_source);
-+							 &vsync_cfg);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-index a80ac82a9625..7e620f590984 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-@@ -67,6 +67,10 @@
- #define INTF_MISR_CTRL                  0x180
- #define INTF_MISR_SIGNATURE             0x184
- 
-+#define INTF_WD_TIMER_0_CTL		0x230
-+#define INTF_WD_TIMER_0_CTL2		0x234
-+#define INTF_WD_TIMER_0_LOAD_VALUE	0x238
-+
- #define INTF_MUX                        0x25C
- #define INTF_STATUS                     0x26C
- #define INTF_AVR_CONTROL                0x270
-@@ -475,7 +479,20 @@ static int dpu_hw_intf_get_vsync_info(struct dpu_hw_intf *intf,
- }
- 
- static void dpu_hw_intf_vsync_sel(struct dpu_hw_intf *intf,
--				  enum dpu_vsync_source vsync_source)
-+				  struct dpu_vsync_source_cfg *cfg)
-+{
-+	struct dpu_hw_blk_reg_map *c;
-+
-+	if (!intf)
-+		return;
-+
-+	c = &intf->hw;
-+
-+	DPU_REG_WRITE(c, INTF_TEAR_MDP_VSYNC_SEL, (cfg->vsync_source & 0xf));
-+}
-+
-+static void dpu_hw_intf_vsync_sel_v8(struct dpu_hw_intf *intf,
-+				  struct dpu_vsync_source_cfg *cfg)
- {
- 	struct dpu_hw_blk_reg_map *c;
- 
-@@ -484,7 +501,30 @@ static void dpu_hw_intf_vsync_sel(struct dpu_hw_intf *intf,
- 
- 	c = &intf->hw;
- 
--	DPU_REG_WRITE(c, INTF_TEAR_MDP_VSYNC_SEL, (vsync_source & 0xf));
-+	if (cfg->vsync_source >= DPU_VSYNC_SOURCE_WD_TIMER_4 &&
-+	    cfg->vsync_source <= DPU_VSYNC_SOURCE_WD_TIMER_1) {
-+		pr_warn_once("DPU 8.x supports only GPIOs and timer0 as TE sources\n");
-+		return;
-+	}
-+
-+	if (cfg->vsync_source == DPU_VSYNC_SOURCE_WD_TIMER_0) {
-+		u32 reg;
-+
-+		DPU_REG_WRITE(c, INTF_WD_TIMER_0_LOAD_VALUE,
-+			      CALCULATE_WD_LOAD_VALUE(cfg->frame_rate));
-+
-+		DPU_REG_WRITE(c, INTF_WD_TIMER_0_CTL, BIT(0)); /* clear timer */
-+
-+		reg  = BIT(8);		/* enable heartbeat timer */
-+		reg |= BIT(0);		/* enable WD timer */
-+		reg |= BIT(1);		/* select default 16 clock ticks */
-+		DPU_REG_WRITE(c, INTF_WD_TIMER_0_CTL2, reg);
-+
-+		/* make sure that timers are enabled/disabled for vsync state */
-+		wmb();
-+	}
-+
-+	dpu_hw_intf_vsync_sel(intf, cfg);
- }
- 
- static void dpu_hw_intf_disable_autorefresh(struct dpu_hw_intf *intf,
-@@ -598,7 +638,10 @@ struct dpu_hw_intf *dpu_hw_intf_init(struct drm_device *dev,
- 		c->ops.enable_tearcheck = dpu_hw_intf_enable_te;
- 		c->ops.disable_tearcheck = dpu_hw_intf_disable_te;
- 		c->ops.connect_external_te = dpu_hw_intf_connect_external_te;
--		c->ops.vsync_sel = dpu_hw_intf_vsync_sel;
-+		if (mdss_rev->core_major_ver >= 8)
-+			c->ops.vsync_sel = dpu_hw_intf_vsync_sel_v8;
-+		else
-+			c->ops.vsync_sel = dpu_hw_intf_vsync_sel;
- 		c->ops.disable_autorefresh = dpu_hw_intf_disable_autorefresh;
- 	}
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-index f31067a9aaf1..e84ab849d71a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-@@ -12,6 +12,7 @@
- #include "dpu_hw_util.h"
- 
- struct dpu_hw_intf;
-+struct dpu_vsync_source_cfg;
- 
- /* intf timing settings */
- struct dpu_hw_intf_timing_params {
-@@ -107,7 +108,7 @@ struct dpu_hw_intf_ops {
- 
- 	int (*connect_external_te)(struct dpu_hw_intf *intf, bool enable_external_te);
- 
--	void (*vsync_sel)(struct dpu_hw_intf *intf, enum dpu_vsync_source vsync_source);
-+	void (*vsync_sel)(struct dpu_hw_intf *intf, struct dpu_vsync_source_cfg *cfg);
- 
- 	/**
- 	 * Disable autorefresh if enabled
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-index 96dc10589bee..1ebd75d4f9be 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-@@ -22,13 +22,6 @@
- #define TRAFFIC_SHAPER_WR_CLIENT(num)     (0x060 + (num * 4))
- #define TRAFFIC_SHAPER_FIXPOINT_FACTOR    4
- 
--#define MDP_TICK_COUNT                    16
--#define XO_CLK_RATE                       19200
--#define MS_TICKS_IN_SEC                   1000
--
--#define CALCULATE_WD_LOAD_VALUE(fps) \
--	((uint32_t)((MS_TICKS_IN_SEC * XO_CLK_RATE)/(MDP_TICK_COUNT * fps)))
--
- static void dpu_hw_setup_split_pipe(struct dpu_hw_mdp *mdp,
- 		struct split_pipe_cfg *cfg)
- {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-index 67b08e99335d..6fe65bc3bff4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-@@ -21,6 +21,13 @@
- 
- #define TO_S15D16(_x_)((_x_) << 7)
- 
-+#define MDP_TICK_COUNT                    16
-+#define XO_CLK_RATE                       19200
-+#define MS_TICKS_IN_SEC                   1000
-+
-+#define CALCULATE_WD_LOAD_VALUE(fps) \
-+	((uint32_t)((MS_TICKS_IN_SEC * XO_CLK_RATE)/(MDP_TICK_COUNT * fps)))
-+
- extern const struct dpu_csc_cfg dpu_csc_YUV2RGB_601L;
- extern const struct dpu_csc_cfg dpu_csc10_YUV2RGB_601L;
- extern const struct dpu_csc_cfg dpu_csc10_rgb2yuv_601l;
+Changes in v8:
+- Corrected patch#1 subject (Dmitry)
+- Dropped the patch for qfrom binding doc as it is already picked up.
+- Link to v7: https://lore.kernel.org/r/20251105-a663-gpu-support-v7-0-1bcf7f151125@oss.qualcomm.com
 
+Changes in v7:
+- Rebased on next-20251105
+- Dropped drm-msm speedbin patch which is already picked up
+- Picked up trailers
+- Link to v6: https://lore.kernel.org/r/20250910-a663-gpu-support-v6-0-5da15827b249@oss.qualcomm.com
+
+Changes in v6:
+- Keep the efuse's reg range 4K aligned (Konrad)
+- Update GMU's opp table to bump frequency to 500Mhz (Konrad)
+- Link to v5: https://lore.kernel.org/r/20250909-a663-gpu-support-v5-0-761fa0a876bf@oss.qualcomm.com
+
+Changes in v5:
+- Remove unnecessary labels in the gpu cooling patch (Konrad)
+- Update the RPMH corner for 530 Mhz
+- Wire up the gpu speedbin node to the gpu
+- Link to v4: https://lore.kernel.org/r/20250822-a663-gpu-support-v4-0-97d26bb2144e@oss.qualcomm.com
+
+Changes in v4:
+- Rebased on top of another series which renames DT files
+- Enabled GPU on IoT boards as per the latest definition
+- Picked up SKU detection support
+- Added GPU passive cooling support
+- Link to v3: https://lore.kernel.org/r/20241030-a663-gpu-support-v3-0-bdf1d9ce6021@quicinc.com
+
+Changes in v3:
+- Rebased on the latest msm-next tip
+- Added R-b tags from Dmitry
+- Dropped patch #1 and #2 from v2 revision since they are already
+picked up in msm-next
+- Link to v2: https://lore.kernel.org/r/20241022-a663-gpu-support-v2-0-38da38234697@quicinc.com
+
+Changes in v2:
+- Fixed ubwc configuration (dimtry)
+- Split out platform dt patch (dimtry)
+- Fix formatting in the dt patch (dimtry)
+- Updated Opp table to include all levels
+- Updated bw IB votes to match downstream
+- Rebased on top of msm-next tip
+- Link to v1: https://lore.kernel.org/r/20240918-a663-gpu-support-v1-0-25fea3f3d64d@quicinc.com
+
+---
+Akhil P Oommen (2):
+      arm64: dts: qcom: lemans-evk: Enable Adreno 663 GPU
+      arm64: dts: qcom: qcs9100-ride: Enable Adreno 663 GPU
+
+Gaurav Kohli (1):
+      arm64: dts: qcom: lemans: Add GPU cooling
+
+Puranam V G Tejaswi (1):
+      arm64: dts: qcom: lemans: Add gpu and gmu nodes
+
+ arch/arm64/boot/dts/qcom/lemans-evk.dts          |   8 ++
+ arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi |   8 ++
+ arch/arm64/boot/dts/qcom/lemans.dtsi             | 174 ++++++++++++++++++++++-
+ 3 files changed, 184 insertions(+), 6 deletions(-)
+---
+base-commit: 0e31dcfefd21ed76ff1b2d05647cd34336ab9772
+change-id: 20240917-a663-gpu-support-b1475c828606
+
+Best regards,
 -- 
-2.47.3
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
