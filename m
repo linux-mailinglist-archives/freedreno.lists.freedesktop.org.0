@@ -2,101 +2,100 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA076CE8DED
-	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 08:18:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E347FCE8DF6
+	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 08:18:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28CCB10E845;
-	Tue, 30 Dec 2025 07:18:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 342D210E842;
+	Tue, 30 Dec 2025 07:18:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V8ePar5P";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HZ91mazb";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V89rM2kS";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZIZ1OdU/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BBCC10E837
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:03 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC1C310E842
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:04 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BTNnKFY045224
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:02 GMT
+ 5BTKdS9U2723214
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7IWCWQHb5RZkH9xPpsD5CAr5iVUdZiuMhuEQ/RcAPNY=; b=V8ePar5PZas27O0N
- XepAp/AYHkQaYpj8qJVyocRxKNWb+EsapEwSKeSVwf8KGX6vmK2+C/duGaqbD4h/
- 78Hi2IzDJT2YJ6sDNIae5006SZdFGy7UoXUTV+UpHU7OzZNlm0iqKtyys41VswVJ
- zuMjqL9DUHpna0nIsafXXHKM9vqn73uIYkpLwqS/Y/8K/RVZ5v3eJAUaITb7564a
- VzoWIey6iPgoY7vCqvfgk80vSi5AEuqRGjnlY0gs1eIgUYozd9seWWktdqzm96W0
- jKnAkyq63/wT0m9ZTlCAjFj2tHVP9yfA8hHHvP56zWDJxutkMAZ6+ncaPMDeqR1C
- v4bAag==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bbc9v3pye-1
+ F+D4XhZHUVaMEju2IS5PSFW4hWSDl2cHPlefbnaZtT0=; b=V89rM2kS7v1fuYrA
+ MkqlJLlJjtn2+ecHwS00KXmQxeUbEl1kE9KgF0/U9tflmVllTL2nZQNmQUFlES+7
+ 24L/IIOd6aE+lQ7zEpXZdktbpyOVcGXtkrUcn5BQDCTbKUg6QNY0AIAh2ZBINDDG
+ Urr0DHlD9tYVLfrjnu3a5EQfhO5EQ4dlO3WgpnK77mVVchwVUvLB5jH4jAlZ9vqe
+ 25B4a5jdZ10JnMj7tpAlDuxqPawsAQUH0frYAwtSbfvEa1mBmxnAwAdad16MWJ4t
+ KKGNRgRIUK8oskX5RNCOKmkd6+OuCI7rRZAsrqEiHVR3gRqtcJzrPRsrx2v+Zb/u
+ p/1NmQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bc0vdh48q-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:02 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4eff973c491so242627291cf.1
- for <freedreno@lists.freedesktop.org>; Mon, 29 Dec 2025 23:18:02 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 07:18:03 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4ed6ff3de05so271863811cf.3
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Dec 2025 23:18:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767079082; x=1767683882;
+ d=oss.qualcomm.com; s=google; t=1767079083; x=1767683883;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=7IWCWQHb5RZkH9xPpsD5CAr5iVUdZiuMhuEQ/RcAPNY=;
- b=HZ91mazbXNeke7CVDhuPWf59s6g5sBqpnNR28Dx/DgEBurRx3i2B/6UycZI5Q6uzof
- 2kB5aQL2Qo6qWHaLnkF9IKTiRY3stW3ieLDrWTBou3GgRYJS+Wvs5q90N6vr2mwxK2JY
- JTBnfJQ4H/Hvxv3DU9p1fPrIL+Ok+LntE7PO43AI3bkvTOtTJbO3q+gh5OPQs8DB9G7/
- a77LgX1/2fNoWgknqR+0dQS82ZZm/WqfyseI1P145hgS9GKsA1W5SwaA36aieb51+zFj
- 3hn7pm36lpueiF/FoZTr1B+rvHtZSfPaQqxtrPJlPc7F1nRnXJngi0FiWzUINoTfdjyb
- Lqjw==
+ :reply-to; bh=F+D4XhZHUVaMEju2IS5PSFW4hWSDl2cHPlefbnaZtT0=;
+ b=ZIZ1OdU/KZWmfajX6URYKzkgeEdWFHS3uC2rzG6ZJkizsUQ4WrYMwJFms/iZHylen5
+ CYju4ysGG3DtLFelMOEk5ymZ2CH+RN6lvKyhNzI9tHqaFhY69mOuvKdYZ7isCrxdpyHE
+ jijY2W3GL64dywTotU58nc7PF+ueVRKZJaCyLRT9w0YOQbLIokkSOY8haykpEwdf9RuM
+ gxz8XeyW7xslQsrRehkUKYodHxP2yYd/aotVImpXEGBwJgXQ3jQCsgfZybr1QVzE8F3F
+ jjnZmv6KsCLod3p5yBsYbpM0mTURcLnyP6+RG4EeyoCre240CoHubJjjUjq3O3VKu8iL
+ agXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767079082; x=1767683882;
+ d=1e100.net; s=20230601; t=1767079083; x=1767683883;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=7IWCWQHb5RZkH9xPpsD5CAr5iVUdZiuMhuEQ/RcAPNY=;
- b=kozSNjr6wlHDGcp7AJqgXnUIhSCH/5gBmyeaWK31bUjx61cmgZnz8zszlPB3IxBFhL
- JAA+pkxqo0/qNN71BrMxjm4bZb4gvKhb8N9Tn0dCmkL0l3F2SKEKs3yoEzbGloYeNgXM
- YLEQ9DXgQo2TyBlHi2wjirhofiKuq+ybCzEkXOYAYNcOR7SklZpZZTzVesV8CkDShKD2
- rliYTq15gFO1F2RpLXqQp0ndw41GNWdA09ue8ZqlZec3XtWGx0Y7UFc5Kz/++5tzdWWG
- wAHHI53MrtZ5R0PA8RzJCFqpTmxkdpgGzDfc258ccY90+t0cdr0ESEOvYrQbd/8Y8Jr0
- FQ6A==
+ bh=F+D4XhZHUVaMEju2IS5PSFW4hWSDl2cHPlefbnaZtT0=;
+ b=DJDHN6N3XpE746DFWleE5c6el2TX5maWMsvuOAzTQFS8Wz0aYuRCG0rHYXkyuL126e
+ AW2i4kRlZHtcFAe8dYMycxZFwG98/4HmF5i7sJc7gkU80z2kHYvKKKOKLT8di306i/cs
+ KMA8WbYrBPpLstIMhr2NeCu3AvGrOqTwVlWzOFdDSPm1M+15e+bP5l113CTNyOQsw0nC
+ 2ah8TWsBcUki0isCrGxTkXpxhlsxUOn1yKrLQ2sY7DNSR9rS2SPgwKxvdnYMaRB0Jouu
+ YnbrbdZ6Nu1qIREF9FypZr3oMpr0bQwlv3SmKrwbi9bBFE+zVQE+h8EfZ+3CW+G5Dcis
+ uVBA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXz3HDBdfMzkyMm5aoMqJjeYW9qzONXP1hJGgdjV7SJ6S4bZoARYfChtQm6qmds5TpR6l9B0y2gcWA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAHrNWWDil4+kMS4DITUx7avvj7TwRlrpN6j6QPv28ae7bnPuw
- vpMnLnwslQZytwQbOsufWAw2to2v5xSgvhpQP5vAhjAqq6Rer4grVzwJ40yyz36/7GipRwn1yDj
- U44O92UilWEtCOkTDoWnJM6AFxSwe8QQKaKV7+knrIh8QrQJuh8qyanC6390BJqafQ91Y9MU=
-X-Gm-Gg: AY/fxX7zRi1KcLFfOBGnzz0EHJF8GqQ6QU7Xg6/W4XQSUfe9sZkxLsRSqxZWj78FaFL
- VIVDLmvW8ayBylwL7vLLpBnsOq0IHUR6DwOVSKx16RakZe1w6L5OvLsLmNUMRddZOZxuThqou1Q
- ZF2wrL/iPMCNfjb3sSC38DTdg5yZfF4Wt4CbWeNOqrf6INAmJSRBBbbk1j1sscrSoBV87C1tN9B
- u1qZey62RuZoniOM1ajXfnyp9rgaGqIxo+NNMnwG88q421YOzGIaKVghwgBLmZhWqT4MsXvGkag
- tWTD6WFQ69ddM1gCvXdfk/wTx9R69bsurm1mC8IkEsZKPxUo3OqxE/gcsnx2YW+gUCGCpbyyAUa
- NyRhkIYOXoVJSmN1sstQhuzcWXE+k8tR6KDHcDAQcUvXFhoYY4UWziCVRZe1H/KJEZ5qhtLHMCm
- +y4t0HXI9WwBzQo/X9q+a0mnM=
-X-Received: by 2002:ac8:5acf:0:b0:4f1:b1f5:277b with SMTP id
- d75a77b69052e-4f4abcf1700mr411938111cf.23.1767079081973; 
- Mon, 29 Dec 2025 23:18:01 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG324K85m7yDjEZXYmsG5fS9ySOTai8im//gka+9/vEjIqBTgdbRhgCp3G1/uyWeNikKwr0YA==
-X-Received: by 2002:ac8:5acf:0:b0:4f1:b1f5:277b with SMTP id
- d75a77b69052e-4f4abcf1700mr411937941cf.23.1767079081510; 
- Mon, 29 Dec 2025 23:18:01 -0800 (PST)
+ AJvYcCUyMjq/VQoRBuzQ7BU+jshbnWHCjvT97zmWz3VteY460WhGV6aE1zXp9TLV8FT4jrpnGroplvLMFNE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwulUg7s//tAerGmj2PvVPWL7VvBIK8zB/soBUeGZtCxjGiYeTz
+ F7D5fg7Yo2GWqkz0vW719fNUroqxsuKZ40upXFc1xSzoJbHItbxyPJKrtppMQ9x6G0MAFks7AfM
+ mTYQyzLc+BgY5AtqOymI1NiOSbqVladup9LX8ZJR1b8hUgdtcuJU4wkuEo9RNoE9hVpiVheU=
+X-Gm-Gg: AY/fxX73TyXDKP8+8mqj8hGfuL/eO/vJZ8NYqpdZa1F4K7rrsEkQAUG58NeLqSzkp4I
+ 3pZknTUn7rAPDM6f03jXLEev8sSGwYlRWbalcQBqua7rpXEFpN7DL7zm1SNf0GHdsV4VUxhDken
+ 3Zen1s+qOVKnqMN+JX3Vf9gXSrxQi0qPVKXc/rF+LaripTfjXJIHFUx4RJSqoRPawU7njNhIdvT
+ YePx8YQv+uC9XeIB+yaKw6pL6muimgfRNCO9nw1pbzlrPt5XAqJvbClKkwFPnAn65jQ5AKQYYfP
+ 8UDOPOtKBf7sTPiJ+MNcvM32+qgqtsNETQpMy3v1xzddtnLGmQGT93j9Q42ZA5WCHwcFihnr/Oj
+ KzbHzJmy34da6WmWebPzcF6GtLVp35mLhjHHJEAwfm4WkgAnBiaD8UIn0ivWN2FfTWKp95XGsIW
+ 9O9Lx13j0FfIb4WVP6vrcq/Gc=
+X-Received: by 2002:ac8:6f0c:0:b0:4ed:8ab:e7aa with SMTP id
+ d75a77b69052e-4f4abccf14emr457763141cf.11.1767079082992; 
+ Mon, 29 Dec 2025 23:18:02 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEFaJvSyv2J4sH5R2VzNO8GX+fPMJwUSte+MeeSAQ2QvB5gf/gpGeQ0AU7jz52r9OUytBM+2w==
+X-Received: by 2002:ac8:6f0c:0:b0:4ed:8ab:e7aa with SMTP id
+ d75a77b69052e-4f4abccf14emr457763031cf.11.1767079082561; 
+ Mon, 29 Dec 2025 23:18:02 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59a185ea2d8sm9924615e87.45.2025.12.29.23.18.00
+ 2adb3069b0e04-59a185ea2d8sm9924615e87.45.2025.12.29.23.18.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Dec 2025 23:18:00 -0800 (PST)
+ Mon, 29 Dec 2025 23:18:01 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Tue, 30 Dec 2025 09:17:56 +0200
-Subject: [PATCH v6 1/2] drm/msm/dpu: Set vsync source irrespective of mdp
- top support
+Date: Tue, 30 Dec 2025 09:17:57 +0200
+Subject: [PATCH v6 2/2] drm/msm/dpu: fix WD timer handling on DPU 8.x
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251230-intf-fix-wd-v6-1-98203d150611@oss.qualcomm.com>
+Message-Id: <20251230-intf-fix-wd-v6-2-98203d150611@oss.qualcomm.com>
 References: <20251230-intf-fix-wd-v6-0-98203d150611@oss.qualcomm.com>
 In-Reply-To: <20251230-intf-fix-wd-v6-0-98203d150611@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -109,39 +108,39 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2331;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7052;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=s/p//pRO52a+gehzMR/sFVop1oTXxVfxhzjK9LP7fJQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpU3ynsSsMlMuwtytXfGI1rhjTQi+MYEO3VVZBX
- HlRlgx3voGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaVN8pwAKCRCLPIo+Aiko
- 1ee6CACq3OfuJrvP77XQZe6UwVZrm/81YzJyAC5ty6b8U4ZvOX4WVCvZoCQCkfFSYJipc7NEHeB
- T+IrEw2xOsyFblk+ID3LPSXBsxP0M6CS8I0AoL9/tj+L12IctyNKZKRvVZ9qVM4RGBnBWmQA9er
- oXAS//or68Ynx772Qbso4w10bnJiUGFbBz/bFb4Z+zueUoZ58QLva4F+k2/nFbKY064kq2KZmgV
- 3F31T3CQW4kjPkah3zNI7qgJhzE0Vq5kGLaAxLvnQf2WzCghGWQkgcWGHyMEpcATjfKp73RZMqz
- Pdjn72VrfqsKm8Q1MSi7ZeUsZhcs1kJn29z5G6VYaaFpvZ04
+ bh=YDk3hQizRJFfND4exXbw9nbbup2xzJMiVS497+/zF94=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ2ZwzXLOuHkBJa4TZJKZdZcyXtPt3OMlzqp4elr9YeYT2
+ va5dlKdjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZiIaBUHwxJO17KVu90MRCcI
+ VPkd1u/3kWmV/H+GPfvaa2e/+V8irx/K83u55O80z5IdsmdVkrz7m8We+B/a/cS7kVnncl9fVvR
+ /bwGRwnUTYpY+EBC8dbKLwcv8w+wEwRVdX+XfWzot3RLBGnB57rJ5TjzGvTWZb2R+Kfa9cI9O+i
+ NkwVl4JEald5+/QJXrbNsSlxVrp/I2ze2blb9hLv/TVtZ/qq1KO8Ibl3/r2yobXuU6g8sg0cQnP
+ yxi3b3Xrgl3LrxcqX5FM06gxVn9t2Rc9LTroZLd8dbShofK71g8ePVWmc9V8t5JG37u4vb3Oh94
+ Re/OenprSaLuknfK7QuvxE7tZ/v21uVcrFDS4fjfex4CAA==
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: FQOF62Wl94h3XD9obGB17K5LqEonASY3
-X-Authority-Analysis: v=2.4 cv=R/sO2NRX c=1 sm=1 tr=0 ts=69537caa cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=dfONHHXe c=1 sm=1 tr=0 ts=69537cab cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=tVI0ZWmoAAAA:8 a=EUspDBNiAAAA:8 a=JyrEbUn3yN3s6GbRLFEA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=-BPWgnxRz2uhmvdm1NTO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDA2NSBTYWx0ZWRfX8YsU+dV8be2m
- NoLJawO27a2ClzPjFsknSbCdD3UHB/gaWFWt850KOBigRQz3IW51yljvCDUjIMgFxPOhyi6al0s
- J9cd8C1FziznnbqwLmmarCebYAOT/Wr2GFnV/+ETU6kJUA5i2a82VxXjbcc2iE57JKq3fgRpr5F
- A7VDdOI9yxOb3K05s7lCKLyHQMMpquyTBoZjhQXp2EbBkG9sVCCTI8s0IHn9svuUSmqpv+0VgjI
- yCIV9uXilySybh0Cnl8KBolDKrY5OFTlkblDVU/4UWaT3BwiBlgY42jyXuBiKAF5eULijLK4Wz1
- Gi6wFua8FUv+AdTdn0ThxBmAHtRkVQM5wmjANQz8gybYrP9ZirB3QIt137vb+plwUubOBeYWa8g
- cin5nechd+yGkbdHAU9Ly5b3FwTnyT0+wyvQjLVSkSXNGKd9BQCgJEyb0/sEbykqPTbTRc1+UrN
- Wr0Pa8Bxx6qg+c0iUgw==
-X-Proofpoint-ORIG-GUID: FQOF62Wl94h3XD9obGB17K5LqEonASY3
+ a=tVI0ZWmoAAAA:8 a=EUspDBNiAAAA:8 a=VmWmgm_EPZb_nnVC2x0A:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=-BPWgnxRz2uhmvdm1NTO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDA2NSBTYWx0ZWRfX79fd5oJj+V89
+ E61Clcru/ew3DqHpm1AmUjujNwO25Zknre/VY+LmCup8P0TjcHFlYx0WOmpkV7MQ9LoTud+aTmg
+ 8xL1lt4KioUGZd9FesH/dvB6nGyIiXukLSi3T5qlSnZ/DOxgkcZicXnQlnMvznGwhdWkkKIAOc0
+ D2ZICzzPHwovG/KOavRXQHawyvQ3hhDKbPr31K0xBOD0jBKkSMZN92542LK5XhS/sU5P/kjK7sA
+ jKUkpd/pHkEwXtszi02lzVUBHC/CU8BD3O8Ovn5e05UHflCxlYhoGfkg7mSqckabQ94hAq7aTs1
+ Lmthu9RpWVkfzgY/GwCeGcdjYZeXv4oUUydj6vdnsdzqnSif1Ki4Q/AuxDObyLb/3Fw8J2X57Rq
+ set6nOxtDoixQX9EioJVokK6j7eaNhIuU7NDY1+EF+dG4Zm6I6/4qOWUAwQzDAxtPcwwHxch6sj
+ TGuMfCao7Divs4lGBsw==
+X-Proofpoint-GUID: Hcr1NIexWN70m0SKZYkhaQl0ojG7IAka
+X-Proofpoint-ORIG-GUID: Hcr1NIexWN70m0SKZYkhaQl0ojG7IAka
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-29_07,2025-12-29_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 suspectscore=0 phishscore=0
- spamscore=0 adultscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512300065
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -159,61 +158,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Teguh Sobirin <teguh@sobir.in>
+Since DPU 8.x Watchdog timer settings were moved from the TOP to the
+INTF block. Support programming the timer in the INTF block. Fixes tag
+points to the commit which removed register access to those registers on
+DPU 8.x+ (and which also should have added proper support for WD timer
+on those devices).
 
-Since DPU 5.x the vsync source TE setup is split between MDP TOP and
-INTF blocks. Currently all code to setup vsync_source is only executed
-if MDP TOP implements the setup_vsync_source() callback. However on
-DPU >= 8.x this callback is not implemented, making DPU driver skip all
-vsync setup. Move the INTF part out of this condition, letting DPU
-driver to setup TE vsync selection on all new DPU devices.
-
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
-Fixes: 2f69e5458447 ("drm/msm/dpu: skip watchdog timer programming through TOP on >= SM8450")
-[DB: restored top->ops.setup_vsync_source call]
+Fixes: 43e3293fc614 ("drm/msm/dpu: add support for MDP_TOP blackhole")
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  4 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 49 +++++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h |  3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c  |  7 -----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h |  7 +++++
+ 5 files changed, 57 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index d1cfe81a3373..3921c15aee98 100644
+index 3921c15aee98..058a7c8727f7 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -774,6 +774,8 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
- 		return;
+@@ -775,13 +775,13 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
  	}
  
-+	vsync_cfg.vsync_source = disp_info->vsync_source;
-+
+ 	vsync_cfg.vsync_source = disp_info->vsync_source;
++	vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
+ 
  	if (hw_mdptop->ops.setup_vsync_source) {
  		for (i = 0; i < dpu_enc->num_phys_encs; i++)
  			vsync_cfg.ppnumber[i] = dpu_enc->hw_pp[i]->idx;
-@@ -781,17 +783,15 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
+ 
  		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
- 		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
+-		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
  
--		vsync_cfg.vsync_source = disp_info->vsync_source;
--
  		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
-+	}
+ 	}
+@@ -791,7 +791,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
  
--		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
--			phys_enc = dpu_enc->phys_encs[i];
-+	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-+		phys_enc = dpu_enc->phys_encs[i];
- 
--			if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
--				phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
--						vsync_cfg.vsync_source);
--		}
-+		if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
-+			phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
-+							 vsync_cfg.vsync_source);
+ 		if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
+ 			phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
+-							 vsync_cfg.vsync_source);
++							 &vsync_cfg);
  	}
  }
  
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+index a80ac82a9625..7e620f590984 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+@@ -67,6 +67,10 @@
+ #define INTF_MISR_CTRL                  0x180
+ #define INTF_MISR_SIGNATURE             0x184
+ 
++#define INTF_WD_TIMER_0_CTL		0x230
++#define INTF_WD_TIMER_0_CTL2		0x234
++#define INTF_WD_TIMER_0_LOAD_VALUE	0x238
++
+ #define INTF_MUX                        0x25C
+ #define INTF_STATUS                     0x26C
+ #define INTF_AVR_CONTROL                0x270
+@@ -475,7 +479,20 @@ static int dpu_hw_intf_get_vsync_info(struct dpu_hw_intf *intf,
+ }
+ 
+ static void dpu_hw_intf_vsync_sel(struct dpu_hw_intf *intf,
+-				  enum dpu_vsync_source vsync_source)
++				  struct dpu_vsync_source_cfg *cfg)
++{
++	struct dpu_hw_blk_reg_map *c;
++
++	if (!intf)
++		return;
++
++	c = &intf->hw;
++
++	DPU_REG_WRITE(c, INTF_TEAR_MDP_VSYNC_SEL, (cfg->vsync_source & 0xf));
++}
++
++static void dpu_hw_intf_vsync_sel_v8(struct dpu_hw_intf *intf,
++				  struct dpu_vsync_source_cfg *cfg)
+ {
+ 	struct dpu_hw_blk_reg_map *c;
+ 
+@@ -484,7 +501,30 @@ static void dpu_hw_intf_vsync_sel(struct dpu_hw_intf *intf,
+ 
+ 	c = &intf->hw;
+ 
+-	DPU_REG_WRITE(c, INTF_TEAR_MDP_VSYNC_SEL, (vsync_source & 0xf));
++	if (cfg->vsync_source >= DPU_VSYNC_SOURCE_WD_TIMER_4 &&
++	    cfg->vsync_source <= DPU_VSYNC_SOURCE_WD_TIMER_1) {
++		pr_warn_once("DPU 8.x supports only GPIOs and timer0 as TE sources\n");
++		return;
++	}
++
++	if (cfg->vsync_source == DPU_VSYNC_SOURCE_WD_TIMER_0) {
++		u32 reg;
++
++		DPU_REG_WRITE(c, INTF_WD_TIMER_0_LOAD_VALUE,
++			      CALCULATE_WD_LOAD_VALUE(cfg->frame_rate));
++
++		DPU_REG_WRITE(c, INTF_WD_TIMER_0_CTL, BIT(0)); /* clear timer */
++
++		reg  = BIT(8);		/* enable heartbeat timer */
++		reg |= BIT(0);		/* enable WD timer */
++		reg |= BIT(1);		/* select default 16 clock ticks */
++		DPU_REG_WRITE(c, INTF_WD_TIMER_0_CTL2, reg);
++
++		/* make sure that timers are enabled/disabled for vsync state */
++		wmb();
++	}
++
++	dpu_hw_intf_vsync_sel(intf, cfg);
+ }
+ 
+ static void dpu_hw_intf_disable_autorefresh(struct dpu_hw_intf *intf,
+@@ -598,7 +638,10 @@ struct dpu_hw_intf *dpu_hw_intf_init(struct drm_device *dev,
+ 		c->ops.enable_tearcheck = dpu_hw_intf_enable_te;
+ 		c->ops.disable_tearcheck = dpu_hw_intf_disable_te;
+ 		c->ops.connect_external_te = dpu_hw_intf_connect_external_te;
+-		c->ops.vsync_sel = dpu_hw_intf_vsync_sel;
++		if (mdss_rev->core_major_ver >= 8)
++			c->ops.vsync_sel = dpu_hw_intf_vsync_sel_v8;
++		else
++			c->ops.vsync_sel = dpu_hw_intf_vsync_sel;
+ 		c->ops.disable_autorefresh = dpu_hw_intf_disable_autorefresh;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+index f31067a9aaf1..e84ab849d71a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+@@ -12,6 +12,7 @@
+ #include "dpu_hw_util.h"
+ 
+ struct dpu_hw_intf;
++struct dpu_vsync_source_cfg;
+ 
+ /* intf timing settings */
+ struct dpu_hw_intf_timing_params {
+@@ -107,7 +108,7 @@ struct dpu_hw_intf_ops {
+ 
+ 	int (*connect_external_te)(struct dpu_hw_intf *intf, bool enable_external_te);
+ 
+-	void (*vsync_sel)(struct dpu_hw_intf *intf, enum dpu_vsync_source vsync_source);
++	void (*vsync_sel)(struct dpu_hw_intf *intf, struct dpu_vsync_source_cfg *cfg);
+ 
+ 	/**
+ 	 * Disable autorefresh if enabled
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+index 96dc10589bee..1ebd75d4f9be 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+@@ -22,13 +22,6 @@
+ #define TRAFFIC_SHAPER_WR_CLIENT(num)     (0x060 + (num * 4))
+ #define TRAFFIC_SHAPER_FIXPOINT_FACTOR    4
+ 
+-#define MDP_TICK_COUNT                    16
+-#define XO_CLK_RATE                       19200
+-#define MS_TICKS_IN_SEC                   1000
+-
+-#define CALCULATE_WD_LOAD_VALUE(fps) \
+-	((uint32_t)((MS_TICKS_IN_SEC * XO_CLK_RATE)/(MDP_TICK_COUNT * fps)))
+-
+ static void dpu_hw_setup_split_pipe(struct dpu_hw_mdp *mdp,
+ 		struct split_pipe_cfg *cfg)
+ {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+index 67b08e99335d..6fe65bc3bff4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+@@ -21,6 +21,13 @@
+ 
+ #define TO_S15D16(_x_)((_x_) << 7)
+ 
++#define MDP_TICK_COUNT                    16
++#define XO_CLK_RATE                       19200
++#define MS_TICKS_IN_SEC                   1000
++
++#define CALCULATE_WD_LOAD_VALUE(fps) \
++	((uint32_t)((MS_TICKS_IN_SEC * XO_CLK_RATE)/(MDP_TICK_COUNT * fps)))
++
+ extern const struct dpu_csc_cfg dpu_csc_YUV2RGB_601L;
+ extern const struct dpu_csc_cfg dpu_csc10_YUV2RGB_601L;
+ extern const struct dpu_csc_cfg dpu_csc10_rgb2yuv_601l;
 
 -- 
 2.47.3
