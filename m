@@ -2,93 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A49CEA6F8
-	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 19:11:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4119CEA70A
+	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 19:11:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA8C10E935;
-	Tue, 30 Dec 2025 18:11:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95FC710E935;
+	Tue, 30 Dec 2025 18:11:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HkHkLzC1";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TJXc8LXO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JcUq3ATE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LoYS38jU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E93510E935
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 18:11:32 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA2D110E93A
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 18:11:42 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BU8k2gt2284786
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 18:11:32 GMT
+ 5BUFaPob899679
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 18:11:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ej/ApFqNdphEtfmeqgYyj1S3
- vcF2Qmw7AIsFCVJzhFg=; b=HkHkLzC10QI4itLspMEQZnpvg+AqSGlDJTfqv/Px
- k4J2WrllXCdoWSR57JgYLxhowAD1LMBm+arBEAa2f1bP9ROEHz+aVPx3krEa7wgy
- adU2eOHuJnuaGDUG81InInuirG63l/BZyfGSSw77o6Aq9B+jK2Q0WEtiqTmw3BEf
- f83aB8Gd1encwxOsiq2o0Fto1IVuqtC0Oddte3uU7ZHBnJE+lF7JOcfg9zV97B0i
- M3I6fOSk/XnHsMJFWXrXbvDtJh1AfaXjXzMkodehAG2TO7qCNtdf7gF9D8xFl7z4
- zmo5YmL6FaeF/RZlQzt1Ru6C2hCruXyzzmMgIUzP9o0GVw==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bc06gtqa0-1
+ :references:subject:to; s=qcppdkim1; bh=HPNCoFW0b1ET+3JulFr+b4L0
+ SqkCQC1DxA4qIwg6NPc=; b=JcUq3ATEUmLzbxJpIZjjgwKJrX2YQkrbILoNvTKJ
+ PqFopB2qaDTGSp3+zgEqlrlZE/oos1WDqrWj7a0wE+miIj/T1IETgS+DxqFL7Wmw
+ XG//pFvAJ+pgqNEruX1NHNFFJjrGI7bszquBxmkuVAqP9nSqVZZmn1nvFWoQ5vfv
+ SjgOS43JCEVWOZO/qB2s6g2JCek1lEo7VqXI4m5O5qjLpqNFXdtVWim6SX/E1SzL
+ yasCK/nhu/fdaZkvt4NM3H3WIozK+4Z7VLWaf72s3/Lj+iGjZIP+oSZuoQcD/O4v
+ 22qMk5ekGf4hLaVpc/YwzSQZbXJnT8Z0fJ4OEFhoFKZ53w==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bc8ky1qgs-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 18:11:31 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id
- ada2fe7eead31-5e81d6c2ff5so8377637137.2
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 10:11:31 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 18:11:42 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4fb2f0cb59bso11380781cf.3
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 10:11:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767118291; x=1767723091;
+ d=oss.qualcomm.com; s=google; t=1767118301; x=1767723101;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ej/ApFqNdphEtfmeqgYyj1S3vcF2Qmw7AIsFCVJzhFg=;
- b=TJXc8LXOShfcE990TfNilp4e0IB/D+EatU6Z4vLwdW1CmSxAI78aektWzMuEfkE1T/
- hKD+YjkLaSkLW/4icONFIwK7wEU01HiM9zO3iGYXEcNBsDaAHuKbS7M4A0MHE9X+gxyM
- geskTKF+ZbSKoa1sv2IhCezm0D+vuM/LhN9FrjSR0BeAiV1SWLxWtMpW7CABR6+GBsGQ
- oxMzuCBB+VyjUlGCYGBd31b1eswPqd4ZSy0IV6y474emR6RT6jbQ0umkiQpAJvemFdNk
- WkZNcBzrEd/OMYiWbNgeFO6lmUWXvEmN8+ucyjNzK+WjmIjLmwRGvkdPr7q2LkClO6k5
- vCnA==
+ bh=HPNCoFW0b1ET+3JulFr+b4L0SqkCQC1DxA4qIwg6NPc=;
+ b=LoYS38jUjCYdpqC3RMUeWpS3jpKvx2Oys1a2uKGr8MSeKCxd0UuTyIKfZr+8FZfBZt
+ jE9NY/xKaApPf+VsEE88Y7Gsuz+NRFDLYu5mk+PMS5xVdDqSfegleShTT83SoY2xA2Di
+ DzsvbPk+EGCzIBWB9LIsvLhcus7FrQeKm6yJnqFdT0iia7WDwCka+WkNuqa15O7grpsd
+ n0xuUiDQ6a2LgvUFhaFlywr2u5kTxNCQemr0EGwx9K48QHBA414hSSd82WJdi6QoRV0j
+ NMWt4i2dmpaVTqgODEBfPf901g8izYpjgpfmJdMjnbslKgM0F2uasvFmsbCeRJtOvGIz
+ 4TSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767118291; x=1767723091;
+ d=1e100.net; s=20230601; t=1767118301; x=1767723101;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ej/ApFqNdphEtfmeqgYyj1S3vcF2Qmw7AIsFCVJzhFg=;
- b=fPb86UhY6NSQ47iC0sHtLNPAw/vbyNkwxvx7jNiwFqY4O0oZCTbeFgCCtUriryvKfG
- k2yjJVjumgnRL56CVl7u++WyiIA9MN9dQaxzzDz4K2Hqwyf8y6qzDZW38Z6BJ4UZyVQa
- tK96lTGCYECdXMXFcuxwd7KDWTd5K53O9pMtn+Yu00TAZiPZMxVHIzmIbpzWWPGxZAKa
- 6RwthC4y28d6xsbaTRTkMUfLJ4lNJdT4tf0WptlEFZKhYla1rrRrno7bnnsO0KjcY2Zg
- uHJcQ20p48VF62CGWSiNLPrOrzypZFgPIDhw2q0kPFrJWQVDJ7BScIbkHU9Kk/zu2IP4
- vYWA==
+ bh=HPNCoFW0b1ET+3JulFr+b4L0SqkCQC1DxA4qIwg6NPc=;
+ b=mBBKtOsy11r/pomKPlcj6PF+KAGKklEjt+mgEPWv+K6m2vMld5OnZEE5JD/H60u/Lf
+ 7xsLTrK36SBJrmNt9G4lsqN0c/hhH+D8L5Wl/YiiCLgrQf1runZK56WW6fFYidVA6RTJ
+ RferEqZJKQKEvrrgzFOB3FMdn9w2v8JbBA8uBQZSGLgmH01lpVdNQDvcRPkOcPXf+jjI
+ ni18hR5gQYWR9y5yGXVuIcRUjrL2DmFOIQSKVbJwML1mygjS5ydN5y1ti154rj8Lx2Dv
+ +pbz6Q7iunILoF2k7zfG2GiDXq1WxLoq6WSQ7/xThZL/0g6DzLrLlhBBzvsxUmFF81Bx
+ EtxA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCCt3tSHPTpQDT2rcOtSak6Atazh8OvtoTeCtG8OOnSt2gOzdZvTGwhnawxBzDxzVppbH/WDEfOUU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzflKk607Mbo6VHkKiXaTckLu5VBYamNufzg9meqBNPDQhHrSCR
- CAUmL4vYUqnQdAsxX7kzeTAnjvNlrhKByIw12eEz3edpTF3GygA6qbNgD/6BNjtuuvAXtEYrTf+
- vXjJXKs6K64vp0VHGronj2wzEmRCRE79H3/cXptUu+86xNKI3f5A/Z7NxRGpoXZUJH25JFeQ=
-X-Gm-Gg: AY/fxX6g4Nsn0Ec9/bbpUn8sl1nPLe3lvXny1H9B6urm0HSmlBlYf8h2QlDgOB9jDO0
- kEqwg3el2O0S64AjN03yimPy+G/QoHwhY1r/IcruAJtWRzN+tgTbnsuBQCAxFqNFSLDvhk1EP2V
- GisGbtMPL64gTMp+M6NagiaGoygECfGjKS6dc2yIPhLjssSvLIAqwUoaOiuIqaIcCvoGpSnwA9J
- KLUcUB9aTYoRywkAbw/KqXvno4dANe0JAWhVEbcpmAp9N3B0+VklJEPej4JfXo0tIqfaZTQ4J+U
- HKxPv4t4+i+7Mlr7BKuScaNgw/j5De5GG3Lh4wnV/nW4BEZz4jv3g3/w079pFpoCueu62B1m/S0
- gJVtDFtztUi4yO6RqTspKyiWpiyCxrqKHQBjIhyOfimQSzoqKR6Dbk98iCEI5NBZcyR4MFmzdl9
- 0gYDMWUxpFFDxuimqKIbAlTtk=
-X-Received: by 2002:a05:6102:26d6:b0:5df:bcf7:3d97 with SMTP id
- ada2fe7eead31-5eb1a67daeamr9566736137.12.1767118290892; 
- Tue, 30 Dec 2025 10:11:30 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEvQiOanAfcwfTRv9Sgpjgsp3BBWdBuvnkFbbf/gTfSGQBT5Y1WMqoxr7PBGV1JmHipp/wckg==
-X-Received: by 2002:a05:6102:26d6:b0:5df:bcf7:3d97 with SMTP id
- ada2fe7eead31-5eb1a67daeamr9566712137.12.1767118290349; 
- Tue, 30 Dec 2025 10:11:30 -0800 (PST)
+ AJvYcCWNf/CD23xU2KIsF9jjgWbl97tbyo8hcxYycONqrdLBniPXWxTkpDxtMfM969O3vJyLpfE4vvjRXpI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxdM14vwIt0BD0si131bOL4nOtgmD87AXE15Erxb1Q3DmKAMXDy
+ o0gqi6Wzou3zlE1PwTpBp9W3lYuQ8ew2BpB/yziL5IOx99FeWJugCd0ZValhnt9Oei4MP6+B9/i
+ thFqwJbqf1+8tUj/VRDjld9wQPDZp8Db4tl2YiNkomIVTVYduUre9ORTMF37h7gJiJ1DQYkk=
+X-Gm-Gg: AY/fxX7BKanvubABYB7iqN8WeeJXxmHdr+7dyh5nUEGvnYktvvEJQKO7vNcpNA5mIAi
+ YYiQ71OZw2EYCKI3sL9Icp9DMq8coJHr8cvvxXlddFOszVuG2D7cbg/qpc0svijz8E6g1U48Xhl
+ beEv/8GUVNP3yNNs3/QBim+dcy8pJKw846TbGpu23AaUsmNqCVXWb0j4r+R//wV0Cj90lTT6ysp
+ 1UMFyk4M3iuwboMpfM6bF7qkXLONPrU4gWVXTmi+WgGdSXxcmFbEzwOHQ8Wchcj9QHhJpiGEKej
+ N+FsVGUbwUeyqYc//rvPQ0DKKDO5gUD5XjM+wq74ERbpRdJHD5iOQtAuFdgH1i75+XF//LVZVY0
+ t1yJWN5ne90D8uViKBkeu87GDv0F3q0KBfbUiP1K1MH3fYkjctqWjehDbr+fI/0f46sB1kHOYAI
+ 4PiyF8poqsT6ea7TFmRao0sug=
+X-Received: by 2002:ac8:6f11:0:b0:4f3:530f:d752 with SMTP id
+ d75a77b69052e-4f4abdf0a9fmr509773071cf.81.1767118301275; 
+ Tue, 30 Dec 2025 10:11:41 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHIGCnUN1Iw2knaNpvsFWnvKFe/sZ9X6NUNsCPxK4IICAv/qOnSJjlR9vMcYrxElHEnMhkGxw==
+X-Received: by 2002:ac8:6f11:0:b0:4f3:530f:d752 with SMTP id
+ d75a77b69052e-4f4abdf0a9fmr509772661cf.81.1767118300838; 
+ Tue, 30 Dec 2025 10:11:40 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3812267a438sm96506141fa.41.2025.12.30.10.11.28
+ 2adb3069b0e04-59a185d5cbesm10707751e87.13.2025.12.30.10.11.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Dec 2025 10:11:28 -0800 (PST)
-Date: Tue, 30 Dec 2025 20:11:26 +0200
+ Tue, 30 Dec 2025 10:11:40 -0800 (PST)
+Date: Tue, 30 Dec 2025 20:11:37 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Konrad Dybcio <konradybcio@kernel.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -107,37 +107,37 @@ Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH RFT 3/3] arm64: dts: qcom: sm6115: Add CX_MEM/DBGC GPU
+Subject: Re: [PATCH RFT 2/3] arm64: dts: qcom: agatti: Add CX_MEM/DBGC GPU
  regions
-Message-ID: <g4tduho4sdxmuugfwbz5ovh7yr36hfwlvuq5xzebgvesxpj2my@3vedhofnrexr>
+Message-ID: <n2tagk2qxv3bhblivjjhrjaahzhyscz4gi7s2vvwadikgphtka@rxv7rmhxbshn>
 References: <20251229-topic-6115_2290_gpu_dbgc-v1-0-4a24d196389c@oss.qualcomm.com>
- <20251229-topic-6115_2290_gpu_dbgc-v1-3-4a24d196389c@oss.qualcomm.com>
+ <20251229-topic-6115_2290_gpu_dbgc-v1-2-4a24d196389c@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251229-topic-6115_2290_gpu_dbgc-v1-3-4a24d196389c@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: FHz2A4t8DW99EKyNtZcejJVGyLvz1AgV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDE2MyBTYWx0ZWRfXx3kQRIIy3I0L
- 4kpqc3lH7jhvoLSqDQPbqO+8V/5qCbgdroRgvksIMol4Mu2GeL+gtCrB2aQVl0Pbv4rQDzFS1pQ
- FQ7ALN5oeETH/5rSK+PLxFGIiHPCnGMIkax6uEQYPYfaRpiJM/Za1RS78thYF97wUqu5xsrgoH/
- 6IUfRVaRxD0vsUOXZhdAn6jQjddXi+T3JhSIyk86zlXVTOh9uyn2JrYE9T7d7XL6xgVmL7WaDLL
- FJ6Tap2CRKx2IeMkW9WnkmeifXwklB9iOCoT/DTaZp7mXfLukr344+co1KJ5WDYWYk7iqKtgqZ1
- WE1tcQcLPfg8Qh9Oca95msC5L6BWWpXASkgkNSQ5SjTriify7drv5BGjncDs/vYiEEAjZojjuYk
- Bywc9OcEJsltAHOTNBwqvbBCQVz++GuLTLPVj+E7+NNx6s0tQmh1fupkdUyyFrxYxtQvmbJNqKr
- BFmrP+WDpBqYgUOkKQw==
-X-Authority-Analysis: v=2.4 cv=A45h/qWG c=1 sm=1 tr=0 ts=695415d3 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20251229-topic-6115_2290_gpu_dbgc-v1-2-4a24d196389c@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDE2MyBTYWx0ZWRfX8NHS3OgexuO5
+ gujwXlD9T6W/UXArUABr7oTBLeSSxf8EF/DjCGpwtRa1ylfeiQXfu6z9H4DaDioksJ7///6y/66
+ kcaa7QYj3IeB0muuj5PhiJZcBFnqZDbMhjQdqAPr8hJSt3TTJ/gFZySw0HGE1N8F7mQ+GyHRNr2
+ +Fi4DVccoM38uMNBOhHLBOhz755nZtZrJChJVoF4HxM41wMMa1KFEVxFuEL3Ne0rjqStnbHP322
+ P5zkuF6/hxIiB4DVVP5kKRd7OROffKuJ10ExrrxjGkJ+lFyXL1H4Tf2AhPkyS0Hen6nPvIeeIB4
+ cNq96/4v28Mvk3zzVsWeSXEXqZLRgAqABKhOp9uGYlxEf1QK7zbzBZF4Mmm4PDdXSMdxsbh9KGB
+ /OhYkHAbgi9GgiIRw7vFISldr4XG94S2tVHaRioaX68xzd/IzZ5Xn5qOLp1lRVkswyUo09Tz1d7
+ baR2g9/5V9JzgSFnCtg==
+X-Proofpoint-ORIG-GUID: qXIFg97mDAGc9qb_RIvXyO-hLXGUEFmV
+X-Authority-Analysis: v=2.4 cv=BuuQAIX5 c=1 sm=1 tr=0 ts=695415de cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kF9o915wj9thlku2Yt8A:9 a=CjuIK1q_8ugA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-GUID: FHz2A4t8DW99EKyNtZcejJVGyLvz1AgV
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZSAiGDBkxcGykqJOsrAA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: qXIFg97mDAGc9qb_RIvXyO-hLXGUEFmV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-30_02,2025-12-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 suspectscore=0
- bulkscore=0 phishscore=0 impostorscore=0 spamscore=0 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ impostorscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ spamscore=0 adultscore=0 bulkscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
  definitions=main-2512300163
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -155,7 +155,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 29, 2025 at 09:47:41PM +0100, Konrad Dybcio wrote:
+On Mon, Dec 29, 2025 at 09:47:40PM +0100, Konrad Dybcio wrote:
 > From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
 > Describe the GPU register regions, with the former existing but not
@@ -163,12 +163,12 @@ On Mon, Dec 29, 2025 at 09:47:41PM +0100, Konrad Dybcio wrote:
 > various debugging levers generally related to dumping the state of
 > the IP upon a crash.
 > 
-> Fixes: 11750af256f8 ("arm64: dts: qcom: sm6115: Add GPU nodes")
+> Fixes: 4faeef52c8e6 ("arm64: dts: qcom: qcm2290: Add GPU nodes")
 > Reported-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > Closes: https://lore.kernel.org/linux-arm-msm/8a64f70b-8034-45e7-86a3-0015cf357132@oss.qualcomm.com/T/#m404f1425c36b61467760f058b696b8910340a063
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/sm6115.dtsi | 8 ++++++--
+>  arch/arm64/boot/dts/qcom/agatti.dtsi | 8 ++++++--
 >  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
 
