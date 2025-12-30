@@ -2,97 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DC1BCE9AA9
-	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 13:34:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0429CE9AB5
+	for <lists+freedreno@lfdr.de>; Tue, 30 Dec 2025 13:34:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5952D10E8D9;
-	Tue, 30 Dec 2025 12:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C33110E8DC;
+	Tue, 30 Dec 2025 12:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dl4P3y3I";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F4rwomHv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z/0WLklH";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ew60EQNy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A00F710E8D9
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:11 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3158110E8DA
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:18 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BU5RR8Q898837
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:11 GMT
+ 5BU9cEH92379791
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- LTjCczxQCkLPK+WbOPH5ASioIp3bZ0Vd00BaHxdQa/M=; b=dl4P3y3IpZiPrazE
- b1D31Q2RUYl4c/3P84/+48wx1jcO5u8fDRX+v7xIkZgu/uDwfyIrrTjCH7HdhtgB
- KZHrAoBIYyvX4/A5zTcmEJyli+cpEVVditFuXSjkIUHNZXtZS3sWxqUCu1n9HR9G
- 1aA1o8xm6C20+3Vu0/lC1JLzQvCj5V6/A6iM1D3P5sTPMFyJ5uPXg/8+bUOnzSea
- YxBzO7mLGy6YI5FvLdpgux6YQaG010EXGbnS0oXKc6Fc6FIJ9Ep+3iaQTaEWhJJ0
- QecX4oZ5XTcofZlj5buLNBwVeyjSKwHk16wbm1C0W3Fx6XhQDF0TaG+r/uwhu6+e
- k4Hxzg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bc8ky0x4h-1
+ 9i+TijLF64GEMoWt7XWC3BovVWIVdUBTCj/UJkqJaDM=; b=Z/0WLklH9cggt3si
+ vrC7rTuGkk/uDe+KtSp/E11Q5zNxWmkZLZGaofhKXaOOCmf0Lqt6vl6oSq4Mh5hJ
+ mMqP8H4gIWglpm29+VQwUcKBFWIlaysUbn1lS/+EUo7g0m93K/sFHzCUD39+S3uZ
+ i+CL6GtsSeeaexF8iDtykzpe39dv0eMI4Vde5H+O/+OFH+9YG994nnNc6n7gONiY
+ GhNp6SN5VValtNM1A2+MGdFC2ccleLrN+w0LygQ4pdVrF/Uq+V3he1hQBMm2eK7Z
+ YUd9HGHRjFs3bT9k1lqmioArVPLRaqPBP3rbTtfTatwdh2y3R+KDlhjLZvZtFeU4
+ NTv1AQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bc06gswup-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:11 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2a0c495fc7aso143532435ad.3
- for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 04:34:11 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 12:34:17 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2a0e9e0fd49so111695315ad.0
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Dec 2025 04:34:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767098050; x=1767702850;
+ d=oss.qualcomm.com; s=google; t=1767098057; x=1767702857;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=LTjCczxQCkLPK+WbOPH5ASioIp3bZ0Vd00BaHxdQa/M=;
- b=F4rwomHvQDvP10/+Ut3SoVHTq2siEuYFR0/VYBWuhoRkvSFQ4qkgTVENo4MVceFBuI
- m8dwQnZ+NZque7tbrVck02HNpqjzmQFqxdwQ3FCCssU9hg/32n0AgKKR9Qd58ipJtsr/
- nLaHR67ltk8gyEDeReA2jLE9A12OXY897Vj5bot0NjIJJyt0cc8sCuRpSpEMwG+5Pavq
- 3FMtt9gsD4VGv0TUXiFKhVPayfcTTbGCoTY1Vqpro8z+7nECd11E2IC42liv1N+smkDu
- 2Qe2HkYRYPcbE4c0QMsKUv66frUT/SqtqN8Jh3ZX5kVt+lkge++Uxhqu6rjnzkCOA2CQ
- SYJA==
+ :reply-to; bh=9i+TijLF64GEMoWt7XWC3BovVWIVdUBTCj/UJkqJaDM=;
+ b=Ew60EQNyJs/7JatUEFtCsaX/Ky62zqz/h5eXZUeF59FLOToZIt3Im3JTUrYObxn/aZ
+ je+2q9zKuVkU4be/UHQDH17/e02WRVnTp4A8Ur2oXDxA1VoRHL+tezxHUgr4wRfCkojE
+ atMUUwTlEjEOU9xpX/gVKE5Lnj1A4xWRp8mYXYov5B1OxfkOifDJvWpXLOlHiWd1MWSS
+ kmyB/p01vroO7PpZ8poLotfJ43O4dgSyZR88GhORRID79eg0eE1Muyjckpp3AWtrY4Fj
+ jVy33W1NAHsO5fX/JE/ooa3ti+gu8RaFubdadR2oObXnoSy1TjGqhwRho4N41rHRBAjQ
+ qALQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767098050; x=1767702850;
+ d=1e100.net; s=20230601; t=1767098057; x=1767702857;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=LTjCczxQCkLPK+WbOPH5ASioIp3bZ0Vd00BaHxdQa/M=;
- b=EXaW3DNEnE9Sw1QmhAtXKl92XnZYNzjXTH6xwVYeMglDB+Db7/7ZhW0OOmWHtBvv4M
- PEHyvbNNhbAiL1xQ1JTPI0KjqnXbY6rWf335BsjtEkwdo3T9fnNDP3aDtDH9yQtqt/A4
- gBXhOO73MmiMTxt5ijzEnocEYTVun7+Alt8RczC5W0h83YRzNUKrQ1BAjxRCylMdqsX2
- WidoM5nE1iZSA01pBhG6dM+spaG1eo6zzQ1B8xeHbiBOByfSxDqPaPQpR6QzNyMOtDF1
- Q77P0s81hUBHUaSiQAW5Oj+UZ8YyAT0JR9q1ftylMTuj021eBT9nzO7tsHImtvJqH7fm
- 6sng==
+ bh=9i+TijLF64GEMoWt7XWC3BovVWIVdUBTCj/UJkqJaDM=;
+ b=HP1pEfEmsMC23OLiNab8dt2KhO27M4M8z8shW7cRWEXz/3XEK5u4SCNVoq4ZpWyMbS
+ FxGqoGTui6sV7/GT33JJGRNqMyUJvdnkn1RTccX9NDVhyAydnnnKQMCSrwc2pmi13IJH
+ tG9KAeTeb7+ss4MueDu2ZFOZhSg4nH6205yRO25ubIsIi5qEXaKoLkjQPdEGDrA39iwe
+ aQ8dzL1O/7dp8UmCv0tg4SGd/ayLZHHKvw32qfdcT6ROBopZZRT3g4ZfxShslviat78C
+ Bwv0qPqcYZHCFZ5alTJVzoXrwsWMMcRyeaeeRcslfdlN8DmKlmChTpdkAFmP8kVIgIYt
+ sb6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVwHDppPwFnNEFP6//nbiGJFxun23rWqxQ8iPi34nJUioMMVr0qcNHH0POtTUqMmxc8kCE+8B+qjkI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFTqr6taWRjgzmEs3FxbD0hTlsXFPaGHMVMwg2vOe4uemSmq7i
- JuMnwdDAUSC/mfG7AMv5Lp8gZc+/9yuokG+kRtXLhbfs+Us7CKm8mubvmmx2j2/inknJap1xdeg
- FyE6N/OJOB2lYMPliorl/PwAeWAF4h3qPsYVnTARur6+bE4TNqoAlDVPw2bn6a7bsOBflsVA=
-X-Gm-Gg: AY/fxX41JJocWnHCzyZs/ODZcP9lzrL+oNhIINN/7oK9ow6yhbDveySOb6eRTvjJfcv
- hEaI8InNZ3mo8zZs66DBWM9QDsQyFQMsLTD9ynTAtYHEzj6SsNHu+OGLFzMwlOQ0/dyAne9RIag
- Ra3F/4gWbYmbaJXb+staHz9WyI82uGBsRt8IwstOEHpwSLPvMKYIpZlySdglymi+gKEVMZY9/tF
- f3xSA61hZNpbvyaCyITbWzt0IZ1yGAp1adYBnb4gVEJgxPo/e2k1sBmk3IfIhPntGGI1UjBsCMI
- 1e4ld83Z9LvTb6eycILR3mRpjl+4re7cxJqF63UBDVom9LR7C5H6iVrs3sa1IkUccA119i07bvF
- RV9KDoDxEhOEHZ/wSKkCmC58SGccJNpZ3KQ==
-X-Received: by 2002:a17:902:e5c7:b0:2a0:be5d:d53d with SMTP id
- d9443c01a7336-2a2f2a361c2mr339112405ad.53.1767098050447; 
- Tue, 30 Dec 2025 04:34:10 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGqfJN2cDWF92584+Re8lu9EnvElmXUCIzeEsW46GW7kzA49cBbpur4men3WRQAZBhkjEfkVA==
-X-Received: by 2002:a17:902:e5c7:b0:2a0:be5d:d53d with SMTP id
- d9443c01a7336-2a2f2a361c2mr339112065ad.53.1767098049898; 
- Tue, 30 Dec 2025 04:34:09 -0800 (PST)
+ AJvYcCVCIdqJem/EuFqYo3F47IO0sOzMo96Y6O9cB3AF5IXzqpcFQh6XE4xPuDnLabfNqL+AP9bXfyv4J7A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzg5BeWWB19RoydsxVqQXV9K/PiIEiSu3tlJ0mA/igYbACCTgQ4
+ KBXCSH0bJ78qkhOV1IgSxTJHPkPDz7VDL6WkQ430guy1HZPb6W9r8wyw6JCt30rvVGA+vlTEnQ0
+ 5uVOkccr77jfIhtwsna9mYVO6LER5F3u0FDyl+iWQJ5d4xDVQlmqpoLTg+jXWPH4NQd3HrJw=
+X-Gm-Gg: AY/fxX79t8SFTuh5L4DVNIfEmhwSKevP4bhk1SD80gC17/y0nnzYfGeZAjTdcKfGvYz
+ lAtR7L2L15/waJ8ioBkA9rvJYQ+r1mIEu7H0eC5wnE4SNfCKEm8nfoUA2nodkU7eF4hYZ9fYe6b
+ n4B2zaIixG8LxdnOjv76C/b3XrwfcPmZ5+jxOoFm6hJk2JUj3BooSGnbg2HhhO//SCnJNq4kw2q
+ YPBJbSHgyOANn6Wky/VQgUAVMWPdIYWBxQR05rNFctSMmZgX2h6CHU4cYC2CzvgMNqOi+mGy+0I
+ F2KrIMeIZMmqQx3/+aS5CfrHBod6cgKeefhkTgMTEIOwhiNFZp1dbiItZ/+QV7CaS7nJyA2g5J7
+ p/+tANxwZ4F3mBiD133ln9b4h5bKtloCUWg==
+X-Received: by 2002:a17:902:e78c:b0:2a0:d0ae:454d with SMTP id
+ d9443c01a7336-2a2cab4335fmr319392705ad.22.1767098056808; 
+ Tue, 30 Dec 2025 04:34:16 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFrM2UN+Y82XZkc5nOEFcYcN7ZxH4Wg15L+v1/oOBV4Zj9+VYylBC8tim4oYjHqa5s0NoqK2g==
+X-Received: by 2002:a17:902:e78c:b0:2a0:d0ae:454d with SMTP id
+ d9443c01a7336-2a2cab4335fmr319392295ad.22.1767098056227; 
+ Tue, 30 Dec 2025 04:34:16 -0800 (PST)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2a2f3c6a803sm295748695ad.6.2025.12.30.04.34.03
+ d9443c01a7336-2a2f3c6a803sm295748695ad.6.2025.12.30.04.34.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Dec 2025 04:34:09 -0800 (PST)
+ Tue, 30 Dec 2025 04:34:15 -0800 (PST)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Tue, 30 Dec 2025 18:03:25 +0530
-Subject: [PATCH v9 1/4] arm64: dts: qcom: lemans: Add gpu and gmu nodes
+Date: Tue, 30 Dec 2025 18:03:26 +0530
+Subject: [PATCH v9 2/4] arm64: dts: qcom: lemans: Add GPU cooling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251230-a663-gpu-support-v9-1-186722e25387@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20251230-a663-gpu-support-v9-2-186722e25387@oss.qualcomm.com>
 References: <20251230-a663-gpu-support-v9-0-186722e25387@oss.qualcomm.com>
 In-Reply-To: <20251230-a663-gpu-support-v9-0-186722e25387@oss.qualcomm.com>
 To: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
@@ -111,39 +111,38 @@ Cc: Gaurav Kohli <quic_gkohli@quicinc.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1767098036; l=4549;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1767098036; l=3278;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=eEQqZKz8fM0bUMyLjCoySTD/m7pD/4v7DydcvS7v3q8=;
- b=WiGGQTgFluvR4nj9kEstt4ZKHjjLbE6J8pu112pVqDNsz05hGsahiVDcCNU7McHwUCLpiWZqR
- knS9NiEK8UcA5Ewm/ABSM3e8JYXk73MyF/U58CRNXU5gZ4T52qaDdSD
+ bh=R4OHgwavFPBUUNXN7fDYr29JC1Dp27qpcc3H4svA8eM=;
+ b=rXIv0lmEqito8LRolKjl5lPh3fvR5MOxO6iWW3xgZegxyqP1j8VZUPAN7yadA3+i7iPVlZ53U
+ M+woS+mud/9Cdyqk2jojKbe16jBamxSZyYr0Dpw+BNx4Wt2vgJJay41
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDExMyBTYWx0ZWRfX6RS7+agQyiDK
- eOgF/O+exB7qaJQTm+eUw/5/bA+qTaEIIuGuEA1x+MqBGnPO0/eoHxqwKi5NS66iBqHFyRYvZzS
- k0cU/xG2VLdv+zl/S1m9teXcoeXeyDe0clBi/EH4w1mE7IjqEFyI1Kab1zmVqj2R2TEJfn8+kbe
- YlK0RKTj7SDZ5IHliKQsb2rzDnDf2iGylBeGoe1ytBvFtt2j80VdBdS4nBCN1jtoonygGIrFjPU
- WNVKu/cM75tckvqfTiPMVqV2MI4hC+VMRGXJsrIKFDFoS05wEbLLRs3MzY0/c3Bg47c3Qbaj6VI
- uVp2IKE+T3LrM+rRjHDIEdEgCcJPSkD0eAJJuzhRL50dURVtTYw6cwJHO45moTQmg2gAQsLfEt8
- iVx01aVZWY5Fxwv5HTebmtiyJGWxK9vN/1n9bC0U3SWHlsVdstpozu1R3h0tul4yIk5U2rQbty7
- VCEiK6nvfu7WwvChKiA==
-X-Proofpoint-ORIG-GUID: nEcn4xG7iloELuD6lkLzs01QAolRvxp8
-X-Authority-Analysis: v=2.4 cv=BuuQAIX5 c=1 sm=1 tr=0 ts=6953c6c3 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: EbMJ6EMtBe336RgZGBaHDN-gugk4nhxw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMwMDExMyBTYWx0ZWRfX4ZcAuE182l1i
+ i3DgQt/fmZvMKrHphhu8L6mxdUxKLzB37W2I2Ck5ZstD9vgj2vOXmpjq8yYrZ4bpbBHuW7eC+Pa
+ IsFJiI8jsn+4XqGjvhGI8yNQXRPVfFDvwxOSCl1OXaMnF+dDleSFKkwXbee1Erk7MUJKtADc4Rm
+ Sq8RsnsfBjyWYANF6/7R+m2lhKMrHNZ/7YeZqN2RAPvcopDBpQJI+OMUtg1rL5kPo9fSVXeoDt6
+ XEGB0BYZn1A2M24RJ7zWg3PYgmBaHKXAjiV89/WGhl/N/owRb5JriEKjWmXubDIDDu/tRO82QLK
+ 5i+qlDa7CmuuatANWr8BMZcofqsk6qWdnv1iXstMweykDG9h3Zk/BluMpBSOEMMK+ykzxxCwNKA
+ 1TAue97yvd8+9PxSI98+p9Qeku79wfuN9g7dK8flf7nXL7kqFXHqnaEqmv8w+M7CpP4k/V+taz4
+ LHniPSUFtsdQnowD+7g==
+X-Authority-Analysis: v=2.4 cv=A45h/qWG c=1 sm=1 tr=0 ts=6953c6c9 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
- a=D_IGQ_qLm8RrHFHUsBgA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
- a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: nEcn4xG7iloELuD6lkLzs01QAolRvxp8
+ a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=e3DMr3DmCBmV6l14PKUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: EbMJ6EMtBe336RgZGBaHDN-gugk4nhxw
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-30_01,2025-12-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- spamscore=0 adultscore=0 bulkscore=0 suspectscore=0 clxscore=1015
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 suspectscore=0
+ bulkscore=0 phishscore=0 impostorscore=0 spamscore=0 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
  definitions=main-2512300113
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -161,156 +160,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+From: Gaurav Kohli <quic_gkohli@quicinc.com>
 
-Add gpu and gmu nodes for Lemans chipset. Also, add the speedbin
-qfprom node and wire it up with GPU node.
+Unlike the CPU, the GPU does not throttle its speed automatically when it
+reaches high temperatures.
 
-Signed-off-by: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Set up GPU cooling by throttling the GPU speed
+when reaching 105°C.
+
+Signed-off-by: Gaurav Kohli <quic_gkohli@quicinc.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/lemans.dtsi | 119 +++++++++++++++++++++++++++++++++++
- 1 file changed, 119 insertions(+)
+ arch/arm64/boot/dts/qcom/lemans.dtsi | 55 ++++++++++++++++++++++++++++++++----
+ 1 file changed, 49 insertions(+), 6 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-index 0b154d57ba24..883f9e0ab45c 100644
+index 883f9e0ab45c..14d9f31e7086 100644
 --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
 +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-@@ -1098,6 +1098,18 @@ ipcc: mailbox@408000 {
- 			#mbox-cells = <2>;
- 		};
+@@ -21,6 +21,7 @@
+ #include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
++#include <dt-bindings/thermal/thermal.h>
  
-+		qfprom: efuse@784000 {
-+			compatible = "qcom,sa8775p-qfprom", "qcom,qfprom";
-+			reg = <0x0 0x00784000 0x0 0x3000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			gpu_speed_bin: gpu_speed_bin@240c {
-+				reg = <0x240c 0x1>;
-+				bits = <0 8>;
-+			};
-+		};
-+
- 		gpi_dma2: dma-controller@800000  {
- 			compatible = "qcom,sa8775p-gpi-dma", "qcom,sm6350-gpi-dma";
- 			reg = <0x0 0x00800000 0x0 0x60000>;
-@@ -4135,6 +4147,113 @@ tcsr: syscon@1fc0000 {
- 			reg = <0x0 0x1fc0000 0x0 0x30000>;
- 		};
+ / {
+ 	interrupt-parent = <&intc>;
+@@ -7514,8 +7515,15 @@ gpuss-0-thermal {
  
-+		gpu: gpu@3d00000 {
-+			compatible = "qcom,adreno-663.0", "qcom,adreno";
-+			reg = <0x0 0x03d00000 0x0 0x40000>,
-+			      <0x0 0x03d9e000 0x0 0x1000>,
-+			      <0x0 0x03d61000 0x0 0x800>;
-+			reg-names = "kgsl_3d0_reg_memory",
-+				    "cx_mem",
-+				    "cx_dbgc";
-+			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-+			iommus = <&adreno_smmu 0 0xc00>,
-+				 <&adreno_smmu 1 0xc00>;
-+			operating-points-v2 = <&gpu_opp_table>;
-+			qcom,gmu = <&gmu>;
-+			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+			interconnect-names = "gfx-mem";
-+			#cooling-cells = <2>;
-+
-+			nvmem-cells = <&gpu_speed_bin>;
-+			nvmem-cell-names = "speed_bin";
-+
-+			status = "disabled";
-+
-+			gpu_zap_shader: zap-shader {
-+				memory-region = <&pil_gpu_mem>;
-+			};
-+
-+			gpu_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-405000000 {
-+					opp-hz = /bits/ 64 <405000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <5285156>;
-+					opp-supported-hw = <0x3>;
-+				};
-+
-+				opp-530000000 {
-+					opp-hz = /bits/ 64 <530000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <12484375>;
-+					opp-supported-hw = <0x2>;
-+				};
-+
-+				opp-676000000 {
-+					opp-hz = /bits/ 64 <676000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <8171875>;
-+					opp-supported-hw = <0x1>;
-+				};
-+
-+				opp-778000000 {
-+					opp-hz = /bits/ 64 <778000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+					opp-peak-kBps = <10687500>;
-+					opp-supported-hw = <0x1>;
-+				};
-+
-+				opp-800000000 {
-+					opp-hz = /bits/ 64 <800000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+					opp-peak-kBps = <12484375>;
-+					opp-supported-hw = <0x1>;
+ 			thermal-sensors = <&tsens0 5>;
+ 
++			cooling-maps {
++				map0 {
++					trip = <&gpuss0_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 +				};
 +			};
-+		};
 +
-+		gmu: gmu@3d6a000 {
-+			compatible = "qcom,adreno-gmu-663.0", "qcom,adreno-gmu";
-+			reg = <0x0 0x03d6a000 0x0 0x34000>,
-+			      <0x0 0x03de0000 0x0 0x10000>,
-+			      <0x0 0x0b290000 0x0 0x10000>;
-+			reg-names = "gmu", "rscc", "gmu_pdc";
-+			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "hfi", "gmu";
-+			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-+				 <&gpucc GPU_CC_CXO_CLK>,
-+				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-+				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-+				 <&gpucc GPU_CC_AHB_CLK>,
-+				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
-+				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
-+			clock-names = "gmu",
-+				      "cxo",
-+				      "axi",
-+				      "memnoc",
-+				      "ahb",
-+				      "hub",
-+				      "smmu_vote";
-+			power-domains = <&gpucc GPU_CC_CX_GDSC>,
-+					<&gpucc GPU_CC_GX_GDSC>;
-+			power-domain-names = "cx",
-+					     "gx";
-+			iommus = <&adreno_smmu 5 0xc00>;
-+			operating-points-v2 = <&gmu_opp_table>;
-+
-+			gmu_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-500000000 {
-+					opp-hz = /bits/ 64 <500000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+ 			trips {
+-				trip-point0 {
++				gpuss0_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <5000>;
+ 					type = "passive";
+@@ -7534,8 +7542,15 @@ gpuss-1-thermal {
+ 
+ 			thermal-sensors = <&tsens0 6>;
+ 
++			cooling-maps {
++				map0 {
++					trip = <&gpuss1_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 +				};
 +			};
-+		};
 +
- 		gpucc: clock-controller@3d90000 {
- 			compatible = "qcom,sa8775p-gpucc";
- 			reg = <0x0 0x03d90000 0x0 0xa000>;
+ 			trips {
+-				trip-point0 {
++				gpuss1_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <5000>;
+ 					type = "passive";
+@@ -7554,8 +7569,15 @@ gpuss-2-thermal {
+ 
+ 			thermal-sensors = <&tsens0 7>;
+ 
++			cooling-maps {
++				map0 {
++					trip = <&gpuss2_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
+ 			trips {
+-				trip-point0 {
++				gpuss2_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <5000>;
+ 					type = "passive";
+@@ -7744,8 +7766,15 @@ gpuss-3-thermal {
+ 
+ 			thermal-sensors = <&tsens1 5>;
+ 
++			cooling-maps {
++				map0 {
++					trip = <&gpuss3_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
+ 			trips {
+-				trip-point0 {
++				gpuss3_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <5000>;
+ 					type = "passive";
+@@ -7764,8 +7793,15 @@ gpuss-4-thermal {
+ 
+ 			thermal-sensors = <&tsens1 6>;
+ 
++			cooling-maps {
++				map0 {
++					trip = <&gpuss4_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
+ 			trips {
+-				trip-point0 {
++				gpuss4_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <5000>;
+ 					type = "passive";
+@@ -7784,8 +7820,15 @@ gpuss-5-thermal {
+ 
+ 			thermal-sensors = <&tsens1 7>;
+ 
++			cooling-maps {
++				map0 {
++					trip = <&gpuss5_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
+ 			trips {
+-				trip-point0 {
++				gpuss5_alert0: trip-point0 {
+ 					temperature = <105000>;
+ 					hysteresis = <5000>;
+ 					type = "passive";
 
 -- 
 2.51.0
