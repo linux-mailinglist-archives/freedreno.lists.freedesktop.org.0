@@ -2,101 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 945ACCEB964
-	for <lists+freedreno@lfdr.de>; Wed, 31 Dec 2025 09:46:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D54CEBF5E
+	for <lists+freedreno@lfdr.de>; Wed, 31 Dec 2025 13:29:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC1B10E99E;
-	Wed, 31 Dec 2025 08:46:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979E510E153;
+	Wed, 31 Dec 2025 12:29:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M+FYPg+h";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YRNHNCtA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="e85aK0XT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eH+keLmv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0F6010E99D
- for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 08:46:40 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C17A10E153
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 12:29:33 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BV3dQRe1830468
- for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 08:46:40 GMT
+ 5BVCF72s2916852
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 12:29:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- hSJVO4tK87kiMBy9KdDNkzWDHU8geTacMo07r2QMtRA=; b=M+FYPg+h+wwGyt4K
- J4uNakAEcu7oXIxs1dMPENFXZuor+sO7IM9qoWGbpH4xca/tqPZS7HmZYH/YOJbF
- 5lf1QgnlYHGvqBEi4jEeTcXUzVvodN9SecSqF1FqfoZanZ6fNPz2qfOuqXsXQyJi
- 0HcobTvHj/iHlEeAWbGw3A7IbJLwtFXE8muYNx5WqEDB/892IBuFnBuqgRg4cvaR
- SYT5ycuikmKO0zjIrSpTY6QzpcpRDkCzYcNeWuMhKJDmcJOqPin54Cmv+xbnSAMF
- M5YH1ytZ/meYgC0NEFjEKXGG2I0va8li2jIrFXWZlA+zrolGEJcoDVtIYWFseMYP
- 2Nmbyg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bcv4agh0n-1
+ KFud8qCRw7D7DQF64mtGmDdTqmMXZ97Xc4c1B/Av8pM=; b=e85aK0XT7X6B556g
+ rSxyb4cR/aBwAXUbyRNOcVz2c+e9H99AQXq5xS9XRXEfpes7PKwtVHRQRte8T/12
+ ymrAgYI30cJoBKrp+D0r9b8EtAP4mzPTd7YuyxkHnT8khKUy68xOuR0/CcOuka46
+ D8pOTkH1rx0J70wek8q7vjW6l0hD6S0uiF6lCS75DebTMSVwBLNBGKSOP30zqvCL
+ L5i9IbPWnOVEZSAEoMjRtC3BLq23yT+j8XnfTzkndecFzf97ygjQePjL7+07txuY
+ TXTXWBTZ4g/t4qdKEr/lexZrQKrGG3F3YRtEbQwCC81lbnJXm4s1seEKW8xOMvzb
+ rVj3zA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bc8ky3eh1-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 08:46:40 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-7aa9f595688so16266788b3a.2
- for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 00:46:40 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 12:29:32 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-4f357ab5757so48491041cf.0
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Dec 2025 04:29:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767170800; x=1767775600;
+ d=oss.qualcomm.com; s=google; t=1767184171; x=1767788971;
  darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hSJVO4tK87kiMBy9KdDNkzWDHU8geTacMo07r2QMtRA=;
- b=YRNHNCtAjRv/OHWCYyE4Qh6GsnYx0YBsLjkzJpUXQnj7Tkrs9ug2bTdlfzEIf0V1sa
- DmA9cQAlqJYKvBg3R7Azn6BBCB+1Jyt/XE05VYigcSYtq0V4W4ZEh84o7tIfhFycxZdW
- z/U9//mGxR4BYY0gfr3JGWMoBK0/D1MyP7scYGgr8G9q6tX7jUIrqwX9hCLnKKtlmsfq
- Dydf+8wS9EKj0BVyiumjUgd3TzFcgVkdh3wK8kujCaiEt1hk3Gq3QLh3LyVcsDH61aGx
- xTHv2TNGALXf/MwrCR6TdX728lNtzIKraNip050124YEcHQ+lXtD0YwpepQ31U2U1pdq
- QpXg==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=KFud8qCRw7D7DQF64mtGmDdTqmMXZ97Xc4c1B/Av8pM=;
+ b=eH+keLmv3K5GhHPPDIjjL5YYaZL69nnslEKi/eWU6nFL1eKt4i8eXGdJI/u2alaVWS
+ QjzhE2H44Ghd7RMSBeeD+Ai7l3w//W46xFraSzIhzXmpo2ejYPkqVQ3+3AV3t0ikvNvA
+ 0frFTurQeJ9Bcu6FRnpdh3G1YlC8T9zdE0uTeGXajP+eOALddBYSd9VXHqvOCx2KMh+x
+ pMA6iP1E8riT3iF7wBMvRK/9vxiWFF6S9gss8OZTaIjbqRGG324w/khjcPEVa28fkfZu
+ CNK4ZkdXuX0BXIIViIjk9hK/XaQIobtNiqrcZTftK8DMyYJ07ZOirPRhaGs+h5nVUrcM
+ UbPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767170800; x=1767775600;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=hSJVO4tK87kiMBy9KdDNkzWDHU8geTacMo07r2QMtRA=;
- b=Cm6x3AzGP2g2eOH55HF/yPX2+l//Fd3t5xlkCvCZOd5xzJNJQiBMUYa4SlaihtBhH2
- HOaSQuvi4auo86ZG+Bt7NnjzWdI0aR9FH8WGut3yhcrB0L40zYzKn3FEkB+jMMvdtKnr
- g1fVaTzaOgFwpLn+lHq9jTcUoxO2SwPqkTqC0Wyf7a6FFilwqqxb6oiEA3TkaGMOfQI7
- SrGg0UKvF92Eu2uXXwM0zJlfFw48eMrxKGMBaBwz2YEIpoWWgH8euM0fnxyCovSARRS7
- MVyYKA6R8tlT93T1NiOmYyyjMxd1DtChpSGcWVTwVM657ArT6SCKTuI9nYnKnR1Mc8c7
- rzlg==
+ d=1e100.net; s=20230601; t=1767184171; x=1767788971;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=KFud8qCRw7D7DQF64mtGmDdTqmMXZ97Xc4c1B/Av8pM=;
+ b=eZ4GoCImzPp6zzoxk8EiMhL2otkQM3x/fGc14g4WjayWJKyjCvLETAtziIvU27LUjS
+ ueucfGJiwI3fNo6davjK0sDC8z2PqkKPxf1rjeIyAitH8hnkBAOvEAHc20xrRIbZItdD
+ XPQRANlCjlncNQyGQM0wqxppnnVYiRYfDqMvWjoVOqNjz+EAMYqsS9gaWWraPEIlA2TF
+ P5BaqwVPl8XZ/rBrnw8Daky0zfZOqXnlie5av3oufwtPqi1wFZqFrsn1XVHX+QizETK5
+ fBHJh1aKK0m+32ceDmlhFe1OYiboaS7kGs/Oo5tOXvcojDw9fL/WjSUKFdtbUy2Nn3Bj
+ 63Fg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUwqluydIUIgFQoPX/8cKvQFmYQC6CMOLHNkTxGsxPjMk3PA/WJYta5s35Eug0YxmNIhWdYc5earbM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKsAe0S7+nsWf4HNCQPWamVd6zj+LdUmjCQZqufifygbS1ADUu
- eT/qhgpH6FNVd7kI4ui+h5Q0QbYkT1XFQVTg5WDQlqkbhCfzpFOpeRIcxaK3pGtTehTxEp606AF
- MVlrDHb/SsQOAuK44hIupwHXj6+rsc/7TXxkKkImRmkkdCf9kw+PaTpQeD0yoA/yMuouzGB0=
-X-Gm-Gg: AY/fxX5AlgHri4d8P9B80mzXxX4PefoR3iAwn6RDSXdynlflNFdjO0vs5FRe8kImFbk
- 9hGSa3rN5Hm1JXMC53CrCKLcVY8Jih7a4en7GpY8Od9yCU98LbNxOT3fzmAjgVMlbLQ6GJgwPCI
- 0HmXvKoIG7Gy/Qmp/XIERmgxNw3cKvIjAtt6rhg5a43SwwN7aVGDX42EiDPPyLMI9Lo47Xgauez
- h7KQRnoFEqxJ0JKF0LfzcOqemzrvZDsH3C9JnqAIkMzXWJ461Vbkwlffii6RvQMmt9HPN+Xbxd3
- /ANLIu2r6oeAY/ZxzeWzc6MVOZeyqlNDpSbKZRoeSI042mfElEpaKLGo7wuzUTmiGc9bJYmYSib
- jbi7KzhaNH1twOokUM/9a/UqWrla6wovA/A==
-X-Received: by 2002:a05:6a21:3287:b0:342:a261:e2bc with SMTP id
- adf61e73a8af0-376a75ef289mr36084147637.10.1767170799747; 
- Wed, 31 Dec 2025 00:46:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF3LZj3aQ3RmMZbRWDxlR3G3JhJ3X0q7dn5q/A2YUImhvN5Ny7zsayFNxHV8gsdTQfjWlbRwA==
-X-Received: by 2002:a05:6a21:3287:b0:342:a261:e2bc with SMTP id
- adf61e73a8af0-376a75ef289mr36084134637.10.1767170799263; 
- Wed, 31 Dec 2025 00:46:39 -0800 (PST)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c1e7a018eb5sm31356070a12.16.2025.12.31.00.46.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Dec 2025 00:46:39 -0800 (PST)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Wed, 31 Dec 2025 14:15:29 +0530
-Subject: [PATCH v6 8/8] arm64: dts: qcom: qcs615-ride: Enable Adreno 612
- GPU
+ AJvYcCUfiDmBgWHjW9t7PigyFaMk2W4nML/JzVCp47KrFP0O8cmpt9o5cOaMjtjV7xxb5/TTss7lzeNKKdw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywh33iU0x6aGFJg0hV/DOfoQjJDCVntARD1VNHBmAIN09gFK39U
+ 3pANmgtDUKoeLUQYQmU5J6e+X5NY8F/fkRRqbEhHNVaYsVnfu8FGlg3X31Sff6ZSYrltPejJDQ1
+ WRPEk46SHIlWEzxEdT7yF3gpOzCIJKqTKJVpdX5T6FoWZXFAdSLKeboK4+gRxklNI3b/BDGE=
+X-Gm-Gg: AY/fxX44dKpiRRp2Io7Ek0uMoKFci0T1GKaiUFuI9nGHAKTLATJpO8Ylfo2EIg25taf
+ ObcgB9syRIJ7SaPzfS6fYPotZNvhFCFRdqgYJaLyqiuut/8m1JSqsT/LMyUh3Lz5PpkERJp0EDH
+ kQgCcLwfkOU87fVWw0kFQovg+hIMQZmIN+PCFEFtvQ07wz9ywlF8Gab4WjqIbcbhkA70dsyChnY
+ deqRnJTwqG3CJ1sgvUvp1Lud54MHwo8l5kBKCNEA3B9tFZWqtRRRPDfVLgRrp1+843vlgcQPP0e
+ Ovwj1nLX7tNz9BWkysI7T336l0OKEg0uvOm72iHcQypKl3E+ISTmAIf4JVk4AXqA2h+xoql/+pT
+ 4orrUVgsLNBcX9KtnHoBC2AkTm/iFcLlSqVRC+qTHGsOlNfCxrAHGmft8JplArsP7Wg==
+X-Received: by 2002:ac8:5891:0:b0:4f1:840a:c90f with SMTP id
+ d75a77b69052e-4f4abccd72amr410542511cf.2.1767184171272; 
+ Wed, 31 Dec 2025 04:29:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHhDVqUtx8723JBX42anoDu6k15qa+jqxNz2Sh0hjnvTQAr+BDlp8CHnTosrIcyTDnpDaKPvQ==
+X-Received: by 2002:ac8:5891:0:b0:4f1:840a:c90f with SMTP id
+ d75a77b69052e-4f4abccd72amr410542181cf.2.1767184170897; 
+ Wed, 31 Dec 2025 04:29:30 -0800 (PST)
+Received: from [192.168.119.72] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8037f0ecb9sm3877057366b.56.2025.12.31.04.29.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Dec 2025 04:29:30 -0800 (PST)
+Message-ID: <f30d26e1-068d-4af7-adc3-9cd03617ecd1@oss.qualcomm.com>
+Date: Wed, 31 Dec 2025 13:29:27 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251231-qcs615-spin-2-v6-8-da87debf6883@oss.qualcomm.com>
-References: <20251231-qcs615-spin-2-v6-0-da87debf6883@oss.qualcomm.com>
-In-Reply-To: <20251231-qcs615-spin-2-v6-0-da87debf6883@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/8] drm/msm/a6xx: Retrieve gmu core range by index
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -113,42 +111,38 @@ Cc: Dan Carpenter <dan.carpenter@linaro.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Jie Zhang <jie.zhang@oss.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Jie Zhang <quic_jiezh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1767170740; l=885;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=svB5zAKLQ4ilLlulEeGxv7KOsmVUcgmPTb7ChJwfn9M=;
- b=SKf1bNvomDSWmG3I8m4P7wZQxwQfsnNcfm+afJ+hVBPYV2hrCwZL4JR/ccPbJ5L1auWMMFXym
- jLF8qQlA3EoDRG8q2Cgu1Ohk4yJFgA49MCX9/x51y4BAwFJrJjdAWNM
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-ORIG-GUID: 9XdHQc20yfjflOnGHdFOgrRfwnsojSAh
-X-Authority-Analysis: v=2.4 cv=Ps6ergM3 c=1 sm=1 tr=0 ts=6954e2f0 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+References: <20251231-qcs615-spin-2-v6-0-da87debf6883@oss.qualcomm.com>
+ <20251231-qcs615-spin-2-v6-1-da87debf6883@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20251231-qcs615-spin-2-v6-1-da87debf6883@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMxMDEwOSBTYWx0ZWRfX0jZGt+luzYOo
+ XfhItQ3gb/B/t2/Ie5CvZN2gteb9A0xuhQPqj52uHdud3xXT448BzChXncy6Lw4654GD8eSKPpi
+ cQVxdw4rS2VsFVbNxCbrDSUB7y14YRrslWYLioGKPX/99EV4lGbkQYzAocPlEDM4UetfJiawg+v
+ dpwDiKz8ToY6NvC0Xf9nAf1zDz46ue3arlnmt5Y9ToHY9qB6pWfzEo9DaM3zKWz7rl7QIkCKxoM
+ Mt0Ab583rQc45RPFFfjEAVagydaLVhPexseeFTKQclzmAhFTruSvxHfiI6ftHP0Gj+OBdxWkFrO
+ FinqkYUxJ2yydaa/oYQ9baG0P60NiKUROILFxYbf9MxoGiUbUnorg482BWsa3DPblbNLniQgvmk
+ odPcs2xYBeHGvFaiWGoWGYg3Lj0J57M6clPTnAQhNpDvmsSpkwHSDbS3WnRTiz6Prob21LDrPqd
+ LMWEacevmBlViYTIcxA==
+X-Proofpoint-ORIG-GUID: UM0Idjj2whorIL1SCvOlrmkCzjG6P2Je
+X-Authority-Analysis: v=2.4 cv=BuuQAIX5 c=1 sm=1 tr=0 ts=6955172c cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=DDenb0FKNr3EH7qfFfMA:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjMxMDA3NSBTYWx0ZWRfX+3KzkqJgsWe6
- ckzv5x60XQPYs56D7QsdFhB0jyzCnpxI//mJM3lRSP+hJoQJsG55JSOUl6qnEk+p/tOJbOAs9y/
- BfvGflnGnixZU2m/gMA12UUKF5pWbmlQyuxZYZn/Kkni/SBMwdknSYWgh1Lp7xpMFfH75hECjY7
- +xwWsycSRN7Xkysigad6aNob+Xlounf3rpj0Uk7EhVTQFuYvcNnU5plsgoQyvKCmUvwu1URAveI
- Auk2zy0QyX9Y2sTP00c/wPxrmeOo5gR7OH7j6IEgNeRzqHB7V9e8LW4H4JxITBZ5hJtizE07N2k
- JuA4uqRbGwGwU69q7U3vbC/7OAE726KsgxEZvkf8ukqh/LyLL5bnI3boAY0ZR92uVhtrRS0gql1
- jwpqyyMToLFKsTVBQ8JghewcNDQXsDvPzJbULjx/A4aAs36njxJ7R6/p5lPFYhBLbybyLwhKrGA
- OOzLuM81dzZ92B8OS9w==
-X-Proofpoint-GUID: 9XdHQc20yfjflOnGHdFOgrRfwnsojSAh
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=bmOu7kEL96IPmD5EUUcA:9
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: UM0Idjj2whorIL1SCvOlrmkCzjG6P2Je
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-31_02,2025-12-31_01,2025-10-01_01
+ definitions=2025-12-31_03,2025-12-31_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 spamscore=0 impostorscore=0 malwarescore=0
- adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512310075
+ impostorscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ spamscore=0 adultscore=0 bulkscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512310109
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,39 +158,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Jie Zhang <quic_jiezh@quicinc.com>
+On 12/31/25 9:45 AM, Akhil P Oommen wrote:
+> Some GPUs like A612 doesn't use a named register range resource. This
+> is because the reg-name property is discouraged when there is just a
+> single resource.
+> 
+> To address this, retrieve the 'gmu' register range by its index. It is
+> always guaranteed to be at index 0.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Enable GPU for qcs615-ride platform and provide path for zap
-shader.
-
-Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs615-ride.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-index be67eb173046..33e33aa54691 100644
---- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-@@ -358,6 +358,14 @@ vreg_l17a: ldo17 {
- 	};
- };
- 
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/qcs615/a612_zap.mbn";
-+};
-+
- &i2c2 {
- 	clock-frequency = <400000>;
- 	status = "okay";
-
--- 
-2.51.0
-
+Konrad
