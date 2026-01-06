@@ -2,57 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57B3BCF23D4
-	for <lists+freedreno@lfdr.de>; Mon, 05 Jan 2026 08:40:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57AFACF9DD6
+	for <lists+freedreno@lfdr.de>; Tue, 06 Jan 2026 18:53:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09E1110E37A;
-	Mon,  5 Jan 2026 07:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA0310E09D;
+	Tue,  6 Jan 2026 17:53:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DfmW3yBd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tQiYK3UX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D495C10E37A;
- Mon,  5 Jan 2026 07:40:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A90D10E09D;
+ Tue,  6 Jan 2026 17:52:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A960B6000A;
- Mon,  5 Jan 2026 07:40:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED5CC116D0;
- Mon,  5 Jan 2026 07:40:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ACD5B4074D;
+ Tue,  6 Jan 2026 17:52:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66F5C116C6;
+ Tue,  6 Jan 2026 17:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767598805;
- bh=PpycFFVo6d67uW2ow6i4VxbFkB3D1IT1U43lxSm7wyI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DfmW3yBdeIvQmgnN9TGVTTvCcg6+b7eQPcT9mmTXwQwhcKULc796jY5y+eIP8bWOt
- 6C9mojhFOdZAwLjTHhogh1yN1so+rHLXmiHkzUdHTdcY3C15EvvtfekHuVpJtjNXe1
- zhl6tFaF5zV9Xi0otmT67DWcXX+tJSjZB1Z9W/xA9xyvW+ufyg+JJxh0RHw/Xedmfu
- yaVFroXhPQ//dt2vaHxaoDZESfv5PZqgtVaaEzg7pVvMeMQKWaTFqetLv99lhEVqzp
- AaiRASeY6QQxNEEhFVTTA0g7+Pn5Uj/ESaqWJEVnGXt2quDm19rGdOtArk+LmPXMPm
- ADBHHiu28L8cg==
-Date: Mon, 5 Jan 2026 08:40:02 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ayushi Makhija <quic_amakhija@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ s=k20201202; t=1767721978;
+ bh=J49Ah6r3ppiaT0Ccz51lpd4pEOWs7B7UD75ItEoFIzE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=tQiYK3UXUjhruabV0TEB87eqcDD8yGQHz/zC5Qr6s9pFNQMNkOrM2Gu5bIL9b7dgl
+ eoQr5tItFOr4rqvdfUbcoXExCZE2DqcXquPXXkQj+ZhlZo5+PMJMNWqP59Ud+NqmBc
+ UUjeIiSMbVzoz/eYmAgkxHosjp7HjYXJfO4wfareJzA/LNN3sOu4w0DzHR3bU0QiSD
+ nHbiI24Dv4FYKUawiWsFHdxVyHJGPAHzdEBSlNKBvwChhcvg8uq8bKUgAUz5FMtdHg
+ Nu0ZUFDI53GPBDxqKyvXG1GzLm5D3RBBWGHGOZkj0fP4RKmXjH99KtPMHDquLdv+r1
+ 7XaURL/dJMkiw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- robdclark@gmail.com, dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run, 
- marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
- robh+dt@kernel.org, 
- krzk+dt@kernel.org, konradybcio@kernel.org, conor+dt@kernel.org, 
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
- Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, 
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com
-Subject: Re: [PATCH v5 2/5] dt-bindings: msm: dsi-controller-main: document
- the QCS8300 DSI CTRL
-Message-ID: <20260105-enchanted-overjoyed-caracal-1c8ff4@quoll>
-References: <20260104134442.732876-1-quic_amakhija@quicinc.com>
- <20260104134442.732876-3-quic_amakhija@quicinc.com>
+ linux-kernel@vger.kernel.org, fange.zhang@oss.qualcomm.com,
+ yongxing.mou@oss.qualcomm.com, li.liu@oss.qualcomm.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v7 0/4] Add DisplayPort support to QCS615
+ devicetree
+Date: Tue,  6 Jan 2026 11:52:52 -0600
+Message-ID: <176772196932.3106040.4674734843475910105.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251104-add-displayport-support-to-qcs615-devicetree-v7-0-e51669170a6f@oss.qualcomm.com>
+References: <20251104-add-displayport-support-to-qcs615-devicetree-v7-0-e51669170a6f@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260104134442.732876-3-quic_amakhija@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,17 +74,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jan 04, 2026 at 07:14:39PM +0530, Ayushi Makhija wrote:
-> QCS8300 MDSS DSI controller reuses the same IP as SA8775P, with
-> identical register layout and programming model. Introduce a
-> QCS8300-specific compatible with a fallback to
-> `qcom,sa8775p-dsi-ctrl` to reflect this hardware reuse.
-> 
-> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-> ---
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Tue, 04 Nov 2025 09:33:22 +0800, Xiangxu Yin wrote:
+> This series enables DisplayPort functionality on QCS615 platforms.
+> It introduces the required bindings, updates SM6150 dtsi for DP controller
+> and QMP USB3-DP PHY, and enables DP on the QCS615 Ride board with
+> connector and link configuration.
+> 
+> Depends-on:
+> https://lore.kernel.org/all/20250916-add-dp-controller-support-for-sm6150-v3-1-dd60ebbd101e@oss.qualcomm.com/
+> https://lore.kernel.org/all/20250926-add-displayport-support-for-qcs615-platform-v7-1-dc5edaac6c2b@oss.qualcomm.com/
+> 
+> [...]
+
+Applied, thanks!
+
+[3/4] arm64: dts: qcom: talos: Add DisplayPort and QMP USB3-DP PHY
+      commit: b7ad04269d6825b1c88de17e698a356bac5f3197
+[4/4] arm64: dts: qcom: qcs615-ride: Enable DisplayPort
+      commit: b5a3112bfd5742a5d831c0bdfac2cf6e6796ac9d
 
 Best regards,
-Krzysztof
-
+-- 
+Bjorn Andersson <andersson@kernel.org>
