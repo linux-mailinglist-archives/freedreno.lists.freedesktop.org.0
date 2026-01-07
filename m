@@ -2,41 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4960BCFDA19
-	for <lists+freedreno@lfdr.de>; Wed, 07 Jan 2026 13:23:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6918BCFDAE8
+	for <lists+freedreno@lfdr.de>; Wed, 07 Jan 2026 13:32:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE7C10E5A5;
-	Wed,  7 Jan 2026 12:23:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16C7310E5A8;
+	Wed,  7 Jan 2026 12:32:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IFJ5sp8f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ivCOlkKs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9B4510E5A3;
- Wed,  7 Jan 2026 12:23:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF6D610E5A5;
+ Wed,  7 Jan 2026 12:32:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A454143392;
- Wed,  7 Jan 2026 12:23:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6F3C4CEF7;
- Wed,  7 Jan 2026 12:23:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E94936000A;
+ Wed,  7 Jan 2026 12:32:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E98FC4CEF7;
+ Wed,  7 Jan 2026 12:32:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767788631;
- bh=b8Etf9Ux2d/4mljHjahgtB9DZrTyWaQ9AiYmAkqWiiQ=;
+ s=k20201202; t=1767789142;
+ bh=2Nqjd5umGqQTshG/6KasLg0SyW2HMZV1B1Lxjp2ecFg=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
- b=IFJ5sp8fiVS99y8gOAM4iABccbY1d+5f1Mf0fJtCVx9tusrJ4qVgCssKPQL5h3i1I
- c9Ac9h/h6V6DtuzySwROCCPfpp3BAAdyc9MK+8x/vVuVYF6yyAVJ1MlgniNkZzf8ax
- fwFepEaKVZLDUhKgCZLH+vXV/qExuYvgBohl10UQVZAihqhUQqNpC2TQHdZN1Qo51P
- HYp+EbzAG8SQ6YdrIRf2v9Oc+inbXg3aAUM77lr1SDmkiAdjp4Hdozzq0zhhIwZ+Vr
- c5lIvP9fRJse7vzi8Qg/8IGTv5vdo5FDSbKZ7bFZph3AwUDH4cZgZWVhwYMg3jeWdR
- I8sUlKhCJ8B5g==
-Message-ID: <49d2e8155d4ab283053c79f08c3e5334@kernel.org>
-Date: Wed, 07 Jan 2026 12:23:48 +0000
+ b=ivCOlkKs/3FPom4CAQW/8n5+RtJ+Ktgpa46WuEDsbvA9PTBeWuC7vV4+xBeDgQh6I
+ F+ikAwBIMxkTYm3UK5stlQN0iulvCSSl6E2JV1u4QXCSkGcTAkSB2mkHdzw/EdIDvc
+ FUSAzwPfQKz6h4ZHo8/hDOFRATtO4FNaGq9u8a+Hb0DB/mfzr37+BspAyH9jtluOP9
+ BThkvDxk9LJUGONm+dsYPaEtV1NScUVsoM3A4nX+KbKavoAkonyRlYC4BOBp/n+kNt
+ uNOpMaeFLn9fsFJzYYAUv+hgwkrlZmLWtZDdw79Ff4blsc6mcmnifNIw3KUSZqGA+X
+ RP1wITi7KGfyw==
+Message-ID: <57ad1884d9080ebc37abf8b96ab71abf@kernel.org>
+Date: Wed, 07 Jan 2026 12:32:20 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v3 02/10] drm/vc4: hdmi: implement clear_infoframe
-In-Reply-To: <20251224-limit-infoframes-2-v3-2-7fd3cacfefed@oss.qualcomm.com>
-References: <20251224-limit-infoframes-2-v3-2-7fd3cacfefed@oss.qualcomm.com>
+Subject: Re: [PATCH v3 04/10] drm/connector: make clear_infoframe callback
+ mandatory for HDMI connectors
+In-Reply-To: <20251224-limit-infoframes-2-v3-4-7fd3cacfefed@oss.qualcomm.com>
+References: <20251224-limit-infoframes-2-v3-4-7fd3cacfefed@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
@@ -81,11 +82,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 24 Dec 2025 03:02:51 +0200, Dmitry Baryshkov wrote:
-> Implement the clear_infoframe callback, disabling corresponding
-> InfoFrame type.
+On Wed, 24 Dec 2025 03:02:53 +0200, Dmitry Baryshkov wrote:
+> We already require both hdmi_write_infoframe and hdmi_clear_infoframe
+> for bridges implementing DRM_BRIDGE_OP_HDMI. It makes sense to require
+> the clear_infoframes callback for HDMI connectors utilizing
+> drmm_connector_hdmi_init().
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> 
+> [ ... ]
 
 Acked-by: Maxime Ripard <mripard@kernel.org>
 
