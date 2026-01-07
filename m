@@ -2,85 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE0B7CFD757
-	for <lists+freedreno@lfdr.de>; Wed, 07 Jan 2026 12:45:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C58F0CFD840
+	for <lists+freedreno@lfdr.de>; Wed, 07 Jan 2026 12:58:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A410E10E597;
-	Wed,  7 Jan 2026 11:45:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74BB110E597;
+	Wed,  7 Jan 2026 11:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="aq/OpJsY";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="M+YCveE8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B17310E595
- for <freedreno@lists.freedesktop.org>; Wed,  7 Jan 2026 11:45:39 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id
- 4fb4d7f45d1cf-64c893f3a94so1094860a12.0
- for <freedreno@lists.freedesktop.org>; Wed, 07 Jan 2026 03:45:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1767786338; x=1768391138; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ob3g5q5jWnPVuY+nnqbiqZRINNocwJ2SJ68hLxsq1uU=;
- b=aq/OpJsYNN0kWw5qu6CQjphtw+eDNPfwF8DTO72RBJC9d/k9oQSJWOIZtIDT2QMYFb
- 6buZE1hg1ua02+ihdZ4NE/3ZUN+BiSTyLESdFSGosL1YUmPCHmF7Y4LEX7sI5EGialPB
- 6C4osroRQg4Z2hMG9Q6g6U8Hbhkk9axrs1wpajTg7IHerD+hqvTlGs2DTy3TBQF33KZf
- 0zPp89bOZXyIHIR5wibfNiKHDx+ZP05ep6u5149xKGmXwlztvdv0nm95u+TvcROm1/dD
- YOfOuAW8aOSiJd13mwTKsoOeoWA7O65j8H842KlazO7sP1LnJugHjYTv4vO5OZM39Fnq
- NKog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767786338; x=1768391138;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ob3g5q5jWnPVuY+nnqbiqZRINNocwJ2SJ68hLxsq1uU=;
- b=UCYy7Ew8Gpchi+VgBGlTBAhGRzwr/thBttB70S9mT0jfqyVd6yZggMZ/+4Z6+axjji
- 3DlKKANwYH6XG5VPlDyf9oriNITbQeeNQnrE6kYLUFSBLFHD+Iz8utkcUPvDpmuTMgHI
- ygmRerTssOVN1fBpvEkPYItFC8iN0nXmuBVxRXPeAwnBmeAuwVfc+GBahxw4BEAk458T
- 7CXB+0lZDJeB5lwV6m6uif4rrvAovp5lYdMRKMOuBZ1V/Dhu/5RgoIwz+iBOTVB44Ph6
- 9iKyJO6xNSeBG6nxXesTVTU8ZF3j+XITZbdn/UIEgA3+omr4WbghGPTD6W13iEllbAPt
- pkGw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU1qeZUSGQbJLdbTX9tQSc+POyZ3fDPRjf0Hkmx+7sJ0bbn+JaI3JVU4LNO2Ic6nI4ptUFAhfAJYU0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYPXP2/flLOcK0/7pj/VpOiDC7+bi4hhXE64XnrYHoseSHQoqL
- 6zpxuHzoLneTT8XV78ZxEGAfkAqF7nyptS/Dxgl9ks0ND63QK5VqQymedOuewHAacdw=
-X-Gm-Gg: AY/fxX7AsZ0VRxw2j2n3JBTsminILnev2/e+0QfivSoWQcp2PrVD/jku75A1oXyBURH
- qklOaPlYQAMahQ+fvxWd1kYfpHitPs9tvrVkicku91d8yFQOVUwprVjOGnIzZOZd085nn11xcbH
- wfNVJOjyivN9uAoNhQP7yTarYsAbsZfWNnx0X+9NKmsWUi1Qb9n69xVAXCFSWloRsfdtLNtxczP
- +pT29vv0QzWhRDjuUoxME+sUpvxIyEk7aZFxlFhFa4oOawnzZ+uPGz+lP/lJVe7lFjalkMfhkfk
- 7OW1gtQaa53EC4FjdSqieVhKhW9RSPeD4VO6ofaKDVit3kQS+y08xGi2LJjkHbaJf8T8Tnj56fd
- HLJyFlKSXYJBvvZEmH61y0YFDOy47SIginXnWRrvGxiJiB0S95ITwQ3Eu5TlCjwFCCZIIzXvLAE
- pwNKSmnk4A/WiuTg==
-X-Google-Smtp-Source: AGHT+IF+cPqxULnBUelcUpCMFoIf2W5SbdC3yAUiVTr+97+8pbT8Xepe9yvm6GNT+o8qSLb+2Lu6+w==
-X-Received: by 2002:a17:906:ef0c:b0:b79:eba9:83b4 with SMTP id
- a640c23a62f3a-b8444c5a60bmr291635566b.6.1767786337696; 
- Wed, 07 Jan 2026 03:45:37 -0800 (PST)
-Received: from localhost ([195.169.149.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a4d0290sm483752666b.32.2026.01.07.03.45.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Jan 2026 03:45:37 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Jan 2026 12:45:37 +0100
-Message-Id: <DFIBYFY6L63Q.1A8WFXEQ7DYUT@fairphone.com>
-Cc: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Jessica
- Zhang" <jessica.zhang@oss.qualcomm.com>
-Subject: Re: [PATCH v3 00/12] drm/msm/dpu: rework format handling code
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Sean Paul" <sean@poorly.run>,
- "Marijn Suijten" <marijn.suijten@somainline.org>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jordan Crouse"
- <jordan@cosmicpenguin.net>, "Jessica Zhang" <jesszhan0024@gmail.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20251114-dpu-formats-v3-0-cae312379d49@oss.qualcomm.com>
-In-Reply-To: <20251114-dpu-formats-v3-0-cae312379d49@oss.qualcomm.com>
+X-Greylist: delayed 368 seconds by postgrey-1.36 at gabe;
+ Wed, 07 Jan 2026 11:58:56 UTC
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 471B510E597
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Jan 2026 11:58:56 +0000 (UTC)
+Received: from [192.168.1.229] (unknown [194.212.224.132])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519) (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id C5299534070B;
+ Wed, 07 Jan 2026 12:52:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1767786765;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=aS/cRuQZc4+qVgpsY1PgxDG7HqC1Gqd9wTGV+veBTSM=;
+ b=M+YCveE8YUEnmv4Qhy186TMdCkwO+f+fHaOkNNvNjx1mvqRmunnMxZRj7+NuEMa70dbtG2
+ 6uwfX3D1Cx3Qb//Svp2E4x8FaeW+5leTFmFQq7B3m5BsWQkCj6metG4H1FjXUH/Nf7sOzd
+ J3BAu1Iq9Lh6oF47EyL4gbUvuWFcwQ8=
+Message-ID: <3d5868e7-13df-4608-95c7-02f08ae2024e@ixit.cz>
+Date: Wed, 7 Jan 2026 12:52:44 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] clk: qcom: dispcc-sdm845: Enable parents for pixel
+ clocks
+To: petr.hodina@protonmail.com, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Taniya Das <quic_tdas@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260107-stability-discussion-v2-1-ef7717b435ff@protonmail.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260107-stability-discussion-v2-1-ef7717b435ff@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,62 +114,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri Nov 14, 2025 at 4:43 AM CET, Dmitry Baryshkov wrote:
-> - Rework mdp_format.c in order to make format table manageable
-> - Rework layout population for UBWC formats in DPU driver
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On 07/01/2026 12:44, Petr Hodina via B4 Relay wrote:
+> From: Petr Hodina <petr.hodina@protonmail.com>
+> 
+> Add CLK_OPS_PARENT_ENABLE to MDSS pixel clock sources to ensure parent
+> clocks are enabled during clock operations, preventing potential
+> stability issues during display configuration.
+> 
+> Fixes: 81351776c9fb ("clk: qcom: Add display clock controller driver for SDM845")
+> Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
 > ---
-> Changes in v3:
-> - Readded disappeared YUV flag to PSEUDO_YUV_FMT_TILED
-> - Link to v2: https://lore.kernel.org/r/20250905-dpu-formats-v2-0-7a67402=
-8c048@oss.qualcomm.com
->
+> We are currently running the latest linux-next snapshots (next-202511*
+> and next-202512*) and have encountered random freezes and crashes on the
+> Pixel 3, as well as crash dumps on the OnePlus 6 and 6T.
+> 
+> This commit fixes the stability issue. I've checked other SDM dispcc
+> files and they also contain this configuration.
+> 
+> For safety I also set the configuration for `disp_cc_mdss_pclk1_clk_src`
+> though it should be sufficient only for `disp_cc_mdss_pclk0_clk_src`.
+> 
+> Kind regards,
+> Petr
+> ---
 > Changes in v2:
-> - Dropped DX flag from the tiled NV12 format structure (Jessica)
-> - Changed round_up(foo, 192) to the roundup() as the former one is
->   supposed to be used with power of 2 argument (Jessica)
-> - Fixed undefined varuables warning in
->   _dpu_format_populate_plane_sizes_ubwc() by dropping the always-true
->   condition (LKP)
-> - Link to v1: https://lore.kernel.org/r/20250705-dpu-formats-v1-0-40f0bb3=
-1b8c8@oss.qualcomm.com
->
+> - Remove commits from v1 and introduce proper fix.
+> - Link to v1: https://lore.kernel.org/r/20251213-stability-discussion-v1-0-b25df8453526@ixit.cz
 > ---
-> Dmitry Baryshkov (12):
->       drm/msm/disp: set num_planes to 1 for interleaved YUV formats
->       drm/msm/disp: set num_planes and fetch_mode in INTERLEAVED_RGB_FMT
->       drm/msm/disp: set num_planes, fetch_mode and tile_height in INTERLE=
-AVED_RGB_FMT_TILED
->       drm/msm/disp: simplify RGB{,A,X} formats definitions
->       drm/msm/disp: simplify tiled RGB{,A,X} formats definitions
->       drm/msm/disp: pull in common YUV format parameters
->       drm/msm/disp: pull in common tiled YUV format parameters
->       drm/msm/disp: drop PSEUDO_YUV_FMT_LOOSE_TILED
->       drm/msm/dpu: simplify _dpu_format_populate_plane_sizes_*
->       drm/msm/dpu: drop redundant num_planes assignment in _dpu_format_po=
-pulate_plane_sizes*()
->       drm/msm/dpu: rewrite _dpu_format_populate_plane_sizes_ubwc()
->       drm/msm/dpu: use standard functions in _dpu_format_populate_plane_s=
-izes_ubwc()
+>   drivers/clk/qcom/dispcc-sdm845.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
 
-Seems to work as expected according to our messages in IRC, no issues
-seen booting up Phosh or SuperTuxKart.
-
-Tested-by: Luca Weiss <luca.weiss@fairphone.com> # qcm6490-fairphone-fp5
-
-Regards
-Luca
-
->
->  drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c    |  174 ++--
->  drivers/gpu/drm/msm/disp/dpu1/msm_media_info.h | 1155 ------------------=
-------
->  drivers/gpu/drm/msm/disp/mdp_format.c          |  614 +++++++------
->  3 files changed, 391 insertions(+), 1552 deletions(-)
-> ---
-> base-commit: b179ce312bafcb8c68dc718e015aee79b7939ff0
-> change-id: 20250705-dpu-formats-0d5ae4d1a1b9
->
-> Best regards,
-
+Reviewed-by: David Heidelberg <david@ixit.cz>
