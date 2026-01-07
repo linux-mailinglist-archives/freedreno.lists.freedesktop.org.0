@@ -2,133 +2,143 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6744D01B49
-	for <lists+freedreno@lfdr.de>; Thu, 08 Jan 2026 09:59:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A635D02EAE
+	for <lists+freedreno@lfdr.de>; Thu, 08 Jan 2026 14:14:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3A4310E6C0;
-	Thu,  8 Jan 2026 08:59:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20FA510E71B;
+	Thu,  8 Jan 2026 13:14:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dUKaqXIy";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eEHVP7n6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="esLRBjqq";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="emjKKWOM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A02C710E6BD
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jan 2026 08:59:08 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DA9210E63F
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Jan 2026 16:26:50 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6087VTcV1838244
- for <freedreno@lists.freedesktop.org>; Thu, 8 Jan 2026 08:59:08 GMT
+ 6078dqZU2577900
+ for <freedreno@lists.freedesktop.org>; Wed, 7 Jan 2026 16:26:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=Tf2VczJ0ukV
- lwvxqKbMFPXgG9ia9Xoo25/cEspWuIOY=; b=dUKaqXIyFmgNu38xsLLN3v5X6ka
- HVWfwbaaxMkFO+OqajhE8CrZbZ7XLi8u2PpBOTr9ptQPjo+0yPLkR/FelGR0NgET
- HCAvQR+YW/A2LRpzZ5BvZMVes3Zi0CTNY/Ef3P+u6LQAt2o0GoRqFaeW1u5Cs6qZ
- 20jtUSvLz0wJ+omqy+sKyz1Hlbv9lpTtubEYHh/XPivosGyb6lr7V+edoRv5ZdHA
- +c9AFzkm/KHQRNEWY62wAXre9Hvhl8npBhwHhUClwskTTgGu/X7nPbEQWmyx+n2s
- fYJiZ74AS5kbr0rBRYCTh0ykx1uZiC7heCE2XqWJiQQp7axf1IO5TP5mGqg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bj892083d-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ d5wxY3w6nk1EMOzJrQAcU/6BJWx1PGSRo+JS7Wyl/dA=; b=esLRBjqqLnzL1eWg
+ btTcXwq6QWcEVWyXOuxTHoX6LNhhS5pZeIM/n3RKsSCnnmE6syAb9UNvN1EiKz5W
+ 5GAb29vWcPaGoMJ3xOAjFh3aVITPxIRlrEdjeix3HgIb754PGnY4+3/2KiTi5XR7
+ +y+QG9EHAWI6xlPUWQ04Nyob7yE5Irt608LxWsSJFwKfdrsprL49m7sQgp6R5hQo
+ /RpgVL4Ci2GEgzU7vVDC3owtCvqT+1ssM4wO+85VqWnudolMfWl0aj5MPw6LC+DS
+ qQeI7K93AJSQ+5uYdqm3ns4WURb/f9OYq483Hlr5IoWNgrHFPiTB26cvh1RlnUvB
+ cyAb0g==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bhm659eyt-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 08:59:07 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4ed69f9ce96so97889501cf.3
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 00:59:07 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Jan 2026 16:26:49 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2a089575ab3so29125565ad.0
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Jan 2026 08:26:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767862746; x=1768467546;
+ d=oss.qualcomm.com; s=google; t=1767803209; x=1768408009;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Tf2VczJ0ukVlwvxqKbMFPXgG9ia9Xoo25/cEspWuIOY=;
- b=eEHVP7n6hle8P4BewWxig0R38tNoQgPOAYVk+c9/gND1g+jzNQde+wtZslTxJttRjG
- +bJKAOdH/KHCGGZ2ryZqoJwULKpri/3daOsHDpyGGNUbjrowMgJBFc1LStwcoqMs7Hlk
- g2djmWNUchhHmcyFVothDxX4gvCjNooXeb6C8MAMWzZ9pWwdnGK3M8wWUnB3ttBnFHdj
- FjB19kr0lwj3kfSMg0IlPb+lVwsfDMmHqeVqXYsGaKgDKx2wHIjp7psgCgdRKZRcgW+k
- hzAAkbFMJ/AuzDfIFKR7AdGbT6AcfKGCBAULIZg32ZS3ck+I8zB+JIl2ds6EoOVFc3ns
- Yl8A==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=d5wxY3w6nk1EMOzJrQAcU/6BJWx1PGSRo+JS7Wyl/dA=;
+ b=emjKKWOMO+btGTjTC6FManxJpMnarvEhM/FAzvXPEZ0JS7rFHl3SgJoy+Aq8Te+vJD
+ Q436otKU40xAjvjk6fVxr+9ob+Y/l/NQTt8eyfrCpFqyiTEVBzJDHzQbfkMtTlQ6dJQ7
+ tbZ9y11+I4H6VYd/JW5OGeN7TK3rMuIXM8y4lCX2RMmeQGRyiD9Nhxla6+ZnCFicW7oz
+ CUiuJfdNHdei0MkdsCbiG4VXMcptKy6k1cEVDP0fcBH88WVn13GzajZ+W2CWR9p5faaL
+ S8aek6483eimjh+2GsNxqf9BDnh/EDSvFpVa7rxqbYe7NNGGdyFIe7WXLkjfPt7rCqFU
+ qCiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767862746; x=1768467546;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Tf2VczJ0ukVlwvxqKbMFPXgG9ia9Xoo25/cEspWuIOY=;
- b=J78RYHkw26FLNvcmUkF3Q8lBvR92ekUd/vtAKfdYLqqO8eFSYoZUGdnIlg59pAR437
- ZrM0mYleblA9tVm4XJ12mahxG98tsLhaD7Jd2VBPpFXOj4P8iv/n1KQKuo6LqU3x25fF
- gGeMh0iusajkWgjLpHzgu5b3+AWYDkQzgffV4pa01VRrRODlDr2S94WP2mUCu5n9A8Qo
- lrmEboRnd433oRY1olNloThSkR6nJi+74zU1mbKIprcZ4kwOvI4ARmwqViaMi+6Nb5D9
- gw4Y9yZZT0kHwr2l6VXtjzX4/9Ku04nUTBnO+m+d0kMRMXkjKCquHocl/UL7VDLez2Yf
- zmlg==
+ d=1e100.net; s=20230601; t=1767803209; x=1768408009;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=d5wxY3w6nk1EMOzJrQAcU/6BJWx1PGSRo+JS7Wyl/dA=;
+ b=PZ9e/5DQLdD/xWNvc75Wx4fgFDJxtJNrXrf/i+9EaMDYCNf9XUlYt+/02WPDSDNFjf
+ JLsjxKTH8C3btkaP25k6ND/e/aq34DHbwcgzbkvhTQYQz4XwDq9pBBKP15+qkZriMf4O
+ t9j3J+eAp+/3bU1iGNi4+BhjGERazTG4ool8xnvVZoyPzT9wcJPoe7mwUSeLY4Y51HRK
+ kc/mHV3IEaH7S3pnFqRGcAVjAhWhnyY5FI7r2qxCr/SbGAHRjtG5hCClyhERaLh72JXz
+ uDQI8fzFCl6L5NyTLGwfucTAix3Xa1QT/bkVVNgm9wuZLQ157wtQtgUkTGR8qUTFxNua
+ YP7Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXMzFLCwEJ/FCvfzH4FH6IavO41rgsrPsWBayd7YZpiYYO7+8D1lv0IY+0DG3WqlF/LKtEpkrqbWS0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHik9Vm+j3hNjY5aS2R2/jkgQbgZuu6nvV1Rg/wex8KYPTny+P
- jR/tS8e3qFxRKXSULhEWVGURmTClRtReYMR7hFz9VIytHU0KEP5Kev4yodBU0Qft81twb1zHksZ
- CzoZtOIv6vi3HPdUQHLC65/Qi3ndID/F+cZET3Go5buGmLeLiM9iWULWkE7GbZ6EUo+jWOgc=
-X-Gm-Gg: AY/fxX5fb1G+p4iJi17Lz4iTgZIt5JjLeX9Xl/qjSyPP0mAzTgpKqdtWqYyPoyO3n4y
- a7Dks682uOhfMUKe1dSGuXfJfco/Zs0Sgn+KHZ7LrBt2LAWxahFqwWF7KfbDKZWG0KJ8FD+Wc4h
- C34T2Low0fr76EI30ohEIQQzo4MLsj3V698+irvWaRIi0YcXUBz5wtbJ9cnp3ztV3S6ZJJcAGIq
- laRrLJavLiM06Mw9If/VK04SoB3MtY935tYl/ndRm1e5owysVaIZLGkKV/UCFaVt8M/RhTDGLLt
- hyjwRvsD/3e0+qJRZBiVGDwdHn/lpLqqh/KWbGIqSYEoDYX0JOC3ONk49OJnFQkFwHqzMun69Ss
- eviQ8sYwgs4Uk8SdC9gZJaec/P/eHuQxKawXcOq97kRGzy0r9mt8uCskLFYE8iwOT+9A=
-X-Received: by 2002:ac8:5849:0:b0:4f4:c107:34ed with SMTP id
- d75a77b69052e-4ffb497ba1dmr70654031cf.49.1767862746329; 
- Thu, 08 Jan 2026 00:59:06 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEh6U1kkws8hZmCNYQD+6iUacbMXQRcbenjXvDEV5LPICJGkOoePwQmvhEWUCA71sj3arhPrg==
-X-Received: by 2002:ac8:5849:0:b0:4f4:c107:34ed with SMTP id
- d75a77b69052e-4ffb497ba1dmr70653681cf.49.1767862745828; 
- Thu, 08 Jan 2026 00:59:05 -0800 (PST)
-Received: from yuanjiey.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-890770cc7eesm49680326d6.2.2026.01.08.00.58.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jan 2026 00:59:05 -0800 (PST)
-From: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
-To: robin.clark@oss.qualcomm.com, lumag@kernel.org, jesszhan0024@gmail.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, neil.armstrong@linaro.org,
- konrad.dybcio@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
- aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v5 12/12] drm/msm/dpu: Add support for Kaanapali DPU
-Date: Thu,  8 Jan 2026 16:56:59 +0800
-Message-Id: <20260108085659.790-13-yuanjie.yang@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260108085659.790-1-yuanjie.yang@oss.qualcomm.com>
-References: <20260108085659.790-1-yuanjie.yang@oss.qualcomm.com>
+ AJvYcCW8OdWqwSGnh8ESn9FcGVUJzfUZdBvDAlSNIZaQVwcQzZD/+4XF273mq4c9qlGFxDmamQwe6agt1U4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxfPIoMTQnZ6cxSgg086530HZbYNdMpjEbmDuyoFPc3B+agMl90
+ 3ngnJBEf238jkR43OuCdNfl6TqlN9iIeeRagJqX6KsgHqMaD0izyY4MEeqRtSVtXk7D3mZHUqZA
+ wR6BR4kTSfSs8wEXbKwc/d7L+HDBHfqHSy/bvQxWKU4CqJZeSH3E5m1cnKf49joawDwUEcf4=
+X-Gm-Gg: AY/fxX6aX4r/E9v6HsvsrH7aZ916PT9BlPld8K/gTObFVBLi4kSqDW39RnCcc56J8P3
+ ovLHfaKM+RjxRPvGUJs6P17qsSpYt1Lv4UQEtkDVgaHqo8/UmlzqgOELOI+jSMnNauKAqhm+2GY
+ tmmAzl8lwLx5KZ5OGFOatFso1lkMXY26OQd9TwFRNlnbE1Yo9POvDTRHPvy8cVsHouTUdqZyWhs
+ GtRFquNut/E5RMIm4SH7NrABfB8EmuFOViMH1qeao/tv6JQkqrLUQIQfiyttF92gw5aCrZKt6iD
+ K3tF5H72MVeELfngBCz9WlMIs7I7Q8igmnU/2jT1EEj2zGHulKrsuKH1OWoSbdMMAtFtFuNc0PR
+ XoNAROS06AQxg/9HrRXXNQpj2mg69OWE0FzD4rA==
+X-Received: by 2002:a17:903:b07:b0:295:b46f:a6c2 with SMTP id
+ d9443c01a7336-2a3ee4aaebamr26013615ad.37.1767803208645; 
+ Wed, 07 Jan 2026 08:26:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFhDyZ20m0wTcSTXbF6lfqRcelUkGiEtoEtFdPGDtyUaLrGrVdvkZP+XFYxhXeMEZoWEcVI0Q==
+X-Received: by 2002:a17:903:b07:b0:295:b46f:a6c2 with SMTP id
+ d9443c01a7336-2a3ee4aaebamr26013275ad.37.1767803208116; 
+ Wed, 07 Jan 2026 08:26:48 -0800 (PST)
+Received: from [192.168.0.195] ([49.204.25.122])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2a3e3cb2df6sm55741685ad.61.2026.01.07.08.26.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Jan 2026 08:26:47 -0800 (PST)
+Message-ID: <fff70f1c-3c5c-4e50-b0b5-c3eb10f67cdd@oss.qualcomm.com>
+Date: Wed, 7 Jan 2026 21:56:40 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=M45A6iws c=1 sm=1 tr=0 ts=695f71db cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=iVC9QAuiRl3Xz_40r_EA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: PjFkb9Cr2yexDOZoXwjoGlfQRAsKx1M_
-X-Proofpoint-GUID: PjFkb9Cr2yexDOZoXwjoGlfQRAsKx1M_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA4MDA1OSBTYWx0ZWRfX3X48Pzif3TiN
- Q2/KO4uI8dcv9OEXWdvUmLsjkQkVPIlTsg0vUzGh4GfjJYjF2LUFga+dhMgLGyxj5GcZCJegwSe
- GfCNIPouHE66dHKEQueIvFVI3dy6CTcbA5fOkW8ivhe6/1EYcS1xLlncOmb+mR89RINyKqMv9zT
- 735Bu5/5Az/ubcpwXfd4NyXDkcio2KRcNMEbF3TPqrrtnS2311o/HQIfzYfz+G+xJAOcr7hmXEd
- y4DOoB59NdomistUh4QvdTxbabab4XViQJstHOjdBM7gc4N6sEmHVGomB/1P4zlnLQXXd4usy/A
- rNGwKdhT1SV0gKnxWhszEuPQfZZUIGNz31W89TQReN5RZAOTpgTa3L+ufS9bmYgshOTIDftBHOV
- 2bJYcX9hR6oL6MQVw8CtSps9j5z+tcBlZMCkD4fnpoktepahi5txgvYsHgsj2QA34Dx0eWNhWMm
- FcOLAzeCIcgsn/AzCfg==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] clk: qcom: dispcc-sdm845: Enable parents for pixel
+ clocks
+To: petr.hodina@protonmail.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, David Heidelberg <david@ixit.cz>,
+ Taniya Das <quic_tdas@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260107-stability-discussion-v2-1-ef7717b435ff@protonmail.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20260107-stability-discussion-v2-1-ef7717b435ff@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=XpL3+FF9 c=1 sm=1 tr=0 ts=695e8949 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=9zcPrCpDFr6Yft4RwatP3w==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=sfOm8-O8AAAA:8
+ a=fry8jdqtyFT-MZpSCxoA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+ a=TvTJqdcANYtsRzA46cdi:22
+X-Proofpoint-ORIG-GUID: pJ007iHtliO7gjyD34hY2q8gFrOC1Uw5
+X-Proofpoint-GUID: pJ007iHtliO7gjyD34hY2q8gFrOC1Uw5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA3MDEyOSBTYWx0ZWRfX760wVh7cRgel
+ 7ARAgPkaUpdL53Ef5QoUf5kQaUUsAwHXiefSrXtWnC70+I/TPJdNUY/ffNFuqtP5IqdXNUz3zSS
+ rX5tCnFO72Hu/aZsDcYM0OvgOjqcJpHoH0iSTyVGrXMHdAueDEOD8EXJUvb+vQtDd/eVqqn2Y5U
+ NRSXnTUG1r37H3tFMpfCveRieUg/ULQ8mBrvQCB7+GgoLpLS8E1NDz+Xo5BGfFqTdbhIG7nb5lc
+ bfC+BELOfbxgGzonn4sHupd6PAv1D/hK8WoTsLL7C9o4F/CFWFCU6y2XX3ONRD/cUUcewirTjqT
+ XVqplmkRhR6DL509QNzfa5nJUahqkAb4Wz5l+0dwBHmW6DFbGivazqgw0tJ+0KqK+hnaOkUi2oR
+ sY5G/2+GJiit01UBY86Vjrr5zRa9ZGNtYuZe8yTFSA4ghUSEyciZ8tXwL1DbTvxsUVKUI0cngyI
+ TYBhWS3hgYfKvI98rfg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-08_01,2026-01-07_03,2025-10-01_01
+ definitions=2026-01-07_02,2026-01-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 bulkscore=0
- phishscore=0 suspectscore=0 clxscore=1015 spamscore=0 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
- definitions=main-2601080059
+ malwarescore=0 bulkscore=0 clxscore=1011 suspectscore=0 priorityscore=1501
+ adultscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601070129
+X-Mailman-Approved-At: Thu, 08 Jan 2026 13:14:13 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,639 +154,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
-Add support for Display Processing Unit (DPU) version 13.0
-on the Kaanapali platform. This version introduces changes
-to the SSPP sub-block structure. Add common block and rectangle
-blocks to accommodate these structural modifications for
-compatibility.
 
-Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
----
- .../disp/dpu1/catalog/dpu_13_0_kaanapali.h    | 492 ++++++++++++++++++
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  41 ++
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
- 4 files changed, 535 insertions(+)
- create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h
+On 1/7/2026 5:14 PM, Petr Hodina via B4 Relay wrote:
+> From: Petr Hodina <petr.hodina@protonmail.com>
+> 
+> Add CLK_OPS_PARENT_ENABLE to MDSS pixel clock sources to ensure parent
+> clocks are enabled during clock operations, preventing potential
+> stability issues during display configuration.
+> 
+> Fixes: 81351776c9fb ("clk: qcom: Add display clock controller driver for SDM845")
+> Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+> ---
+> We are currently running the latest linux-next snapshots (next-202511*
+> and next-202512*) and have encountered random freezes and crashes on the
+> Pixel 3, as well as crash dumps on the OnePlus 6 and 6T.
+> 
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h
-new file mode 100644
-index 000000000000..0b20401b04cf
---- /dev/null
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h
-@@ -0,0 +1,492 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef _DPU_13_0_KAANAPALI_H
-+#define _DPU_13_0_KAANAPALI_H
-+
-+static const struct dpu_caps kaanapali_dpu_caps = {
-+	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
-+	.max_mixer_blendstages = 0xb,
-+	.has_src_split = true,
-+	.has_dim_layer = true,
-+	.has_idle_pc = true,
-+	.has_3d_merge = true,
-+	.max_linewidth = 8192,
-+	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-+};
-+
-+static const struct dpu_mdp_cfg kaanapali_mdp = {
-+	.name = "top_0",
-+	.base = 0, .len = 0x494,
-+	.clk_ctrls = {
-+		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
-+	},
-+};
-+
-+static const struct dpu_ctl_cfg kaanapali_ctl[] = {
-+	{
-+		.name = "ctl_0", .id = CTL_0,
-+		.base = 0x1f000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
-+	}, {
-+		.name = "ctl_1", .id = CTL_1,
-+		.base = 0x20000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
-+	}, {
-+		.name = "ctl_2", .id = CTL_2,
-+		.base = 0x21000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
-+	}, {
-+		.name = "ctl_3", .id = CTL_3,
-+		.base = 0x22000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
-+	}, {
-+		.name = "ctl_4", .id = CTL_4,
-+		.base = 0x23000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
-+	}, {
-+		.name = "ctl_5", .id = CTL_5,
-+		.base = 0x24000, .len = 0x1000,
-+		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
-+	},
-+};
-+
-+static const struct dpu_sspp_cfg kaanapali_sspp[] = {
-+	{
-+		.name = "sspp_0", .id = SSPP_VIG0,
-+		.base = 0x2b000, .len = 0x84,
-+		.features = VIG_SDM845_MASK_SDMA,
-+		.sblk = &dpu_vig_sblk_qseed3_3_5,
-+		.xin_id = 0,
-+		.type = SSPP_TYPE_VIG,
-+	}, {
-+		.name = "sspp_1", .id = SSPP_VIG1,
-+		.base = 0x34000, .len = 0x84,
-+		.features = VIG_SDM845_MASK_SDMA,
-+		.sblk = &dpu_vig_sblk_qseed3_3_5,
-+		.xin_id = 4,
-+		.type = SSPP_TYPE_VIG,
-+	}, {
-+		.name = "sspp_2", .id = SSPP_VIG2,
-+		.base = 0x3d000, .len = 0x84,
-+		.features = VIG_SDM845_MASK_SDMA,
-+		.sblk = &dpu_vig_sblk_qseed3_3_5,
-+		.xin_id = 8,
-+		.type = SSPP_TYPE_VIG,
-+	}, {
-+		.name = "sspp_3", .id = SSPP_VIG3,
-+		.base = 0x46000, .len = 0x84,
-+		.features = VIG_SDM845_MASK_SDMA,
-+		.sblk = &dpu_vig_sblk_qseed3_3_5,
-+		.xin_id = 12,
-+		.type = SSPP_TYPE_VIG,
-+	}, {
-+		.name = "sspp_8", .id = SSPP_DMA0,
-+		.base = 0x97000, .len = 0x84,
-+		.features = DMA_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 1,
-+		.type = SSPP_TYPE_DMA,
-+	}, {
-+		.name = "sspp_9", .id = SSPP_DMA1,
-+		.base = 0xa0000, .len = 0x84,
-+		.features = DMA_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 5,
-+		.type = SSPP_TYPE_DMA,
-+	}, {
-+		.name = "sspp_10", .id = SSPP_DMA2,
-+		.base = 0xa9000, .len = 0x84,
-+		.features = DMA_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 9,
-+		.type = SSPP_TYPE_DMA,
-+	}, {
-+		.name = "sspp_11", .id = SSPP_DMA3,
-+		.base = 0xb2000, .len = 0x84,
-+		.features = DMA_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 13,
-+		.type = SSPP_TYPE_DMA,
-+	}, {
-+		.name = "sspp_12", .id = SSPP_DMA4,
-+		.base = 0xbb000, .len = 0x84,
-+		.features = DMA_CURSOR_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 14,
-+		.type = SSPP_TYPE_DMA,
-+	}, {
-+		.name = "sspp_13", .id = SSPP_DMA5,
-+		.base = 0xc4000, .len = 0x84,
-+		.features = DMA_CURSOR_SDM845_MASK_SDMA,
-+		.sblk = &dpu_dma_sblk,
-+		.xin_id = 15,
-+		.type = SSPP_TYPE_DMA,
-+	},
-+};
-+
-+static const struct dpu_lm_cfg kaanapali_lm[] = {
-+	{
-+		.name = "lm_0", .id = LM_0,
-+		.base = 0x103000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_1,
-+		.pingpong = PINGPONG_0,
-+		.dspp = DSPP_0,
-+	}, {
-+		.name = "lm_1", .id = LM_1,
-+		.base = 0x10b000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_0,
-+		.pingpong = PINGPONG_1,
-+		.dspp = DSPP_1,
-+	}, {
-+		.name = "lm_2", .id = LM_2,
-+		.base = 0x113000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_3,
-+		.pingpong = PINGPONG_2,
-+		.dspp = DSPP_2,
-+	}, {
-+		.name = "lm_3", .id = LM_3,
-+		.base = 0x11b000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_2,
-+		.pingpong = PINGPONG_3,
-+		.dspp = DSPP_3,
-+	}, {
-+		.name = "lm_4", .id = LM_4,
-+		.base = 0x123000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_5,
-+		.pingpong = PINGPONG_4,
-+	}, {
-+		.name = "lm_5", .id = LM_5,
-+		.base = 0x12b000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_4,
-+		.pingpong = PINGPONG_5,
-+	}, {
-+		.name = "lm_6", .id = LM_6,
-+		.base = 0x133000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_7,
-+		.pingpong = PINGPONG_6,
-+	}, {
-+		.name = "lm_7", .id = LM_7,
-+		.base = 0x13b000, .len = 0x400,
-+		.features = MIXER_MSM8998_MASK,
-+		.sblk = &sm8750_lm_sblk,
-+		.lm_pair = LM_6,
-+		.pingpong = PINGPONG_7,
-+	},
-+};
-+
-+static const struct dpu_dspp_cfg kaanapali_dspp[] = {
-+	{
-+		.name = "dspp_0", .id = DSPP_0,
-+		.base = 0x105000, .len = 0x1800,
-+		.sblk = &sm8750_dspp_sblk,
-+	}, {
-+		.name = "dspp_1", .id = DSPP_1,
-+		.base = 0x10d000, .len = 0x1800,
-+		.sblk = &sm8750_dspp_sblk,
-+	}, {
-+		.name = "dspp_2", .id = DSPP_2,
-+		.base = 0x115000, .len = 0x1800,
-+		.sblk = &sm8750_dspp_sblk,
-+	}, {
-+		.name = "dspp_3", .id = DSPP_3,
-+		.base = 0x11d000, .len = 0x1800,
-+		.sblk = &sm8750_dspp_sblk,
-+	},
-+};
-+
-+static const struct dpu_pingpong_cfg kaanapali_pp[] = {
-+	{
-+		.name = "pingpong_0", .id = PINGPONG_0,
-+		.base = 0x108000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_0,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-+	}, {
-+		.name = "pingpong_1", .id = PINGPONG_1,
-+		.base = 0x110000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_0,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
-+	}, {
-+		.name = "pingpong_2", .id = PINGPONG_2,
-+		.base = 0x118000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_1,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
-+	}, {
-+		.name = "pingpong_3", .id = PINGPONG_3,
-+		.base = 0x120000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_1,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
-+	}, {
-+		.name = "pingpong_4", .id = PINGPONG_4,
-+		.base = 0x128000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_2,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
-+	}, {
-+		.name = "pingpong_5", .id = PINGPONG_5,
-+		.base = 0x130000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_2,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
-+	}, {
-+		.name = "pingpong_6", .id = PINGPONG_6,
-+		.base = 0x138000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_3,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 20),
-+	}, {
-+		.name = "pingpong_7", .id = PINGPONG_7,
-+		.base = 0x140000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_3,
-+		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 21),
-+	}, {
-+		.name = "pingpong_cwb_0", .id = PINGPONG_CWB_0,
-+		.base = 0x169000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_4,
-+	}, {
-+		.name = "pingpong_cwb_1", .id = PINGPONG_CWB_1,
-+		.base = 0x169400, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_4,
-+	}, {
-+		.name = "pingpong_cwb_2", .id = PINGPONG_CWB_2,
-+		.base = 0x16a000, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_5,
-+	}, {
-+		.name = "pingpong_cwb_3", .id = PINGPONG_CWB_3,
-+		.base = 0x16a400, .len = 0,
-+		.sblk = &kaanapali_pp_sblk,
-+		.merge_3d = MERGE_3D_5,
-+	},
-+};
-+
-+static const struct dpu_merge_3d_cfg kaanapali_merge_3d[] = {
-+	{
-+		.name = "merge_3d_0", .id = MERGE_3D_0,
-+		.base = 0x163000, .len = 0x1c,
-+	}, {
-+		.name = "merge_3d_1", .id = MERGE_3D_1,
-+		.base = 0x164000, .len = 0x1c,
-+	}, {
-+		.name = "merge_3d_2", .id = MERGE_3D_2,
-+		.base = 0x165000, .len = 0x1c,
-+	}, {
-+		.name = "merge_3d_3", .id = MERGE_3D_3,
-+		.base = 0x166000, .len = 0x1c,
-+	}, {
-+		.name = "merge_3d_4", .id = MERGE_3D_4,
-+		.base = 0x169700, .len = 0x1c,
-+	}, {
-+		.name = "merge_3d_5", .id = MERGE_3D_5,
-+		.base = 0x16a700, .len = 0x1c,
-+	},
-+};
-+
-+/*
-+ * NOTE: Each display compression engine (DCE) contains dual hard
-+ * slice DSC encoders so both share same base address but with
-+ * its own different sub block address.
-+ */
-+static const struct dpu_dsc_cfg kaanapali_dsc[] = {
-+	{
-+		.name = "dce_0_0", .id = DSC_0,
-+		.base = 0x181000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_0,
-+	}, {
-+		.name = "dce_0_1", .id = DSC_1,
-+		.base = 0x181000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_1,
-+	}, {
-+		.name = "dce_1_0", .id = DSC_2,
-+		.base = 0x183000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_0,
-+	}, {
-+		.name = "dce_1_1", .id = DSC_3,
-+		.base = 0x183000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_1,
-+	}, {
-+		.name = "dce_2_0", .id = DSC_4,
-+		.base = 0x185000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_0,
-+	}, {
-+		.name = "dce_2_1", .id = DSC_5,
-+		.base = 0x185000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_1,
-+	}, {
-+		.name = "dce_3_0", .id = DSC_6,
-+		.base = 0x187000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_0,
-+	}, {
-+		.name = "dce_3_1", .id = DSC_7,
-+		.base = 0x187000, .len = 0x8,
-+		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-+		.sblk = &sm8750_dsc_sblk_1,
-+	},
-+};
-+
-+static const struct dpu_wb_cfg kaanapali_wb[] = {
-+	{
-+		.name = "wb_2", .id = WB_2,
-+		.base = 0x16e000, .len = 0x2c8,
-+		.features = WB_SDM845_MASK,
-+		.format_list = wb2_formats_rgb_yuv,
-+		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
-+		.xin_id = 6,
-+		.vbif_idx = VBIF_RT,
-+		.maxlinewidth = 4096,
-+		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-+	},
-+};
-+
-+static const struct dpu_cwb_cfg kaanapali_cwb[] = {
-+	{
-+		.name = "cwb_0", .id = CWB_0,
-+		.base = 0x169200, .len = 0x20,
-+	},
-+	{
-+		.name = "cwb_1", .id = CWB_1,
-+		.base = 0x169600, .len = 0x20,
-+	},
-+	{
-+		.name = "cwb_2", .id = CWB_2,
-+		.base = 0x16a200, .len = 0x20,
-+	},
-+	{
-+		.name = "cwb_3", .id = CWB_3,
-+		.base = 0x16a600, .len = 0x20,
-+	},
-+};
-+
-+static const struct dpu_intf_cfg kaanapali_intf[] = {
-+	{
-+		.name = "intf_0", .id = INTF_0,
-+		.base = 0x18d000, .len = 0x4bc,
-+		.type = INTF_DP,
-+		.controller_id = MSM_DP_CONTROLLER_0,
-+		.prog_fetch_lines_worst_case = 24,
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
-+	}, {
-+		.name = "intf_1", .id = INTF_1,
-+		.base = 0x18e000, .len = 0x4bc,
-+		.type = INTF_DSI,
-+		.controller_id = MSM_DSI_CONTROLLER_0,
-+		.prog_fetch_lines_worst_case = 24,
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-+		.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2),
-+	}, {
-+		.name = "intf_2", .id = INTF_2,
-+		.base = 0x18f000, .len = 0x4bc,
-+		.type = INTF_DSI,
-+		.controller_id = MSM_DSI_CONTROLLER_1,
-+		.prog_fetch_lines_worst_case = 24,
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
-+		.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2),
-+	}, {
-+		.name = "intf_3", .id = INTF_3,
-+		.base = 0x190000, .len = 0x4bc,
-+		.type = INTF_DP,
-+		.controller_id = MSM_DP_CONTROLLER_1,
-+		.prog_fetch_lines_worst_case = 24,
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
-+	},
-+};
-+
-+static const struct dpu_perf_cfg kaanapali_perf_data = {
-+	.max_bw_low = 21400000,
-+	.max_bw_high = 30200000,
-+	.min_core_ib = 2500000,
-+	.min_llcc_ib = 0,
-+	.min_dram_ib = 800000,
-+	.min_prefill_lines = 35,
-+	.danger_lut_tbl = {0x0ffff, 0x0ffff, 0x0},
-+	.safe_lut_tbl = {0xff00, 0xff00, 0xffff},
-+	.qos_lut_tbl = {
-+		{.nentry = ARRAY_SIZE(kaanapali_qos_linear),
-+		.entries = kaanapali_qos_linear
-+		},
-+		{.nentry = ARRAY_SIZE(kaanapali_qos_macrotile),
-+		.entries = kaanapali_qos_macrotile
-+		},
-+		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
-+		.entries = sc7180_qos_nrt
-+		},
-+		/* TODO: macrotile-qseed is different from macrotile */
-+	},
-+	.cdp_cfg = {
-+		{.rd_enable = 1, .wr_enable = 1},
-+		{.rd_enable = 1, .wr_enable = 0}
-+	},
-+	.clk_inefficiency_factor = 105,
-+	.bw_inefficiency_factor = 120,
-+};
-+
-+static const struct dpu_mdss_version kaanapali_mdss_ver = {
-+	.core_major_ver = 13,
-+	.core_minor_ver = 0,
-+};
-+
-+const struct dpu_mdss_cfg dpu_kaanapali_cfg = {
-+	.mdss_ver = &kaanapali_mdss_ver,
-+	.caps = &kaanapali_dpu_caps,
-+	.mdp = &kaanapali_mdp,
-+	.cdm = &dpu_cdm_13_x,
-+	.ctl_count = ARRAY_SIZE(kaanapali_ctl),
-+	.ctl = kaanapali_ctl,
-+	.sspp_count = ARRAY_SIZE(kaanapali_sspp),
-+	.sspp = kaanapali_sspp,
-+	.mixer_count = ARRAY_SIZE(kaanapali_lm),
-+	.mixer = kaanapali_lm,
-+	.dspp_count = ARRAY_SIZE(kaanapali_dspp),
-+	.dspp = kaanapali_dspp,
-+	.pingpong_count = ARRAY_SIZE(kaanapali_pp),
-+	.pingpong = kaanapali_pp,
-+	.dsc_count = ARRAY_SIZE(kaanapali_dsc),
-+	.dsc = kaanapali_dsc,
-+	.merge_3d_count = ARRAY_SIZE(kaanapali_merge_3d),
-+	.merge_3d = kaanapali_merge_3d,
-+	.wb_count = ARRAY_SIZE(kaanapali_wb),
-+	.wb = kaanapali_wb,
-+	.cwb_count = ARRAY_SIZE(kaanapali_cwb),
-+	.cwb = sm8650_cwb,
-+	.intf_count = ARRAY_SIZE(kaanapali_intf),
-+	.intf = kaanapali_intf,
-+	.vbif_count = ARRAY_SIZE(sm8650_vbif),
-+	.vbif = sm8650_vbif,
-+	.perf = &kaanapali_perf_data,
-+};
-+
-+#endif
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 23bb39b471b7..be3492df8bde 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -241,6 +241,23 @@ static const u32 wb2_formats_rgb_yuv[] = {
- 	.rotation_cfg = NULL, \
- 	}
- 
-+/* kaanapali SSPP common configuration */
-+#define _VIG_SBLK_REC0_REC1(scaler_ver) \
-+	{ \
-+	.sspp_rec0_blk = {.name = "sspp_rec0", \
-+		.base = 0x1000, .len = 0x180,},	\
-+	.csc_blk = {.name = "csc", \
-+		.base = 0x1800, .len = 0x100,}, \
-+	.scaler_blk = {.name = "scaler", \
-+		.version = scaler_ver, \
-+		.base = 0x2000, .len = 0xec,}, \
-+	.sspp_rec1_blk = {.name = "sspp_rec1", \
-+		.base = 0x3000, .len = 0x180,},	\
-+	.format_list = plane_formats_yuv, \
-+	.num_formats = ARRAY_SIZE(plane_formats_yuv), \
-+	.rotation_cfg = NULL, \
-+	}
-+
- #define _VIG_SBLK_ROT(scaler_ver, rot_cfg) \
- 	{ \
- 	.scaler_blk = {.name = "scaler", \
-@@ -329,6 +346,9 @@ static const struct dpu_sspp_sub_blks dpu_vig_sblk_qseed3_3_3 =
- static const struct dpu_sspp_sub_blks dpu_vig_sblk_qseed3_3_4 =
- 				_VIG_SBLK(SSPP_SCALER_VER(3, 4));
- 
-+static const struct dpu_sspp_sub_blks dpu_vig_sblk_qseed3_3_5 =
-+				_VIG_SBLK_REC0_REC1(SSPP_SCALER_VER(3, 5));
-+
- static const struct dpu_sspp_sub_blks dpu_rgb_sblk = _RGB_SBLK();
- 
- static const struct dpu_sspp_sub_blks dpu_dma_sblk = _DMA_SBLK();
-@@ -412,6 +432,11 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
- 	.len = 0x20, .version = 0x20000},
- };
- 
-+static const struct dpu_pingpong_sub_blks kaanapali_pp_sblk = {
-+	.dither = {.name = "dither", .base = 0xc0,
-+	.len = 0x40, .version = 0x30000},
-+};
-+
- /*************************************************************
-  * DSC sub blocks config
-  *************************************************************/
-@@ -452,6 +477,13 @@ static const struct dpu_cdm_cfg dpu_cdm_5_x = {
- 	.base = 0x79200,
- };
- 
-+static const struct dpu_cdm_cfg dpu_cdm_13_x = {
-+	.name = "cdm_0",
-+	.id = CDM_0,
-+	.len = 0x240,
-+	.base = 0x19e000,
-+};
-+
- /*************************************************************
-  * VBIF sub blocks config
-  *************************************************************/
-@@ -639,6 +671,10 @@ static const struct dpu_qos_lut_entry sc7180_qos_linear[] = {
- 	{.fl = 0, .lut = 0x0011222222335777},
- };
- 
-+static const struct dpu_qos_lut_entry kaanapali_qos_linear[] = {
-+	{.fl = 0, .lut = 0x0011223344556666},
-+};
-+
- static const struct dpu_qos_lut_entry sm6350_qos_linear_macrotile[] = {
- 	{.fl = 0, .lut = 0x0011223445566777 },
- };
-@@ -668,6 +704,10 @@ static const struct dpu_qos_lut_entry sc7180_qos_macrotile[] = {
- 	{.fl = 0, .lut = 0x0011223344556677},
- };
- 
-+static const struct dpu_qos_lut_entry kaanapali_qos_macrotile[] = {
-+	{.fl = 0, .lut = 0x0011223344556666},
-+};
-+
- static const struct dpu_qos_lut_entry sc8180x_qos_macrotile[] = {
- 	{.fl = 10, .lut = 0x0000000344556677},
- };
-@@ -727,3 +767,4 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
- #include "catalog/dpu_10_0_sm8650.h"
- #include "catalog/dpu_12_0_sm8750.h"
- #include "catalog/dpu_12_2_glymur.h"
-+#include "catalog/dpu_13_0_kaanapali.h"
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index a056920f890a..24a14f8f8ad6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -764,6 +764,7 @@ struct dpu_mdss_cfg {
- };
- 
- extern const struct dpu_mdss_cfg dpu_glymur_cfg;
-+extern const struct dpu_mdss_cfg dpu_kaanapali_cfg;
- extern const struct dpu_mdss_cfg dpu_msm8917_cfg;
- extern const struct dpu_mdss_cfg dpu_msm8937_cfg;
- extern const struct dpu_mdss_cfg dpu_msm8953_cfg;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index f4c9767c418d..0623f1dbed97 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1506,6 +1506,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
- 
- static const struct of_device_id dpu_dt_match[] = {
- 	{ .compatible = "qcom,glymur-dpu", .data = &dpu_glymur_cfg, },
-+	{ .compatible = "qcom,kaanapali-dpu", .data = &dpu_kaanapali_cfg, },
- 	{ .compatible = "qcom,msm8917-mdp5", .data = &dpu_msm8917_cfg, },
- 	{ .compatible = "qcom,msm8937-mdp5", .data = &dpu_msm8937_cfg, },
- 	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
+Are there any changes between next-202511* and next-202512* on the
+display PLL side which is causing a side effect on the pixel clock(pclk)?
+
+> This commit fixes the stability issue. I've checked other SDM dispcc
+> files and they also contain this configuration.
+> 
+> For safety I also set the configuration for `disp_cc_mdss_pclk1_clk_src`
+> though it should be sufficient only for `disp_cc_mdss_pclk0_clk_src`.
+> 
+> Kind regards,
+> Petr
+> ---
+> Changes in v2:
+> - Remove commits from v1 and introduce proper fix.
+> - Link to v1: https://lore.kernel.org/r/20251213-stability-discussion-v1-0-b25df8453526@ixit.cz
+> ---
+>  drivers/clk/qcom/dispcc-sdm845.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/clk/qcom/dispcc-sdm845.c b/drivers/clk/qcom/dispcc-sdm845.c
+> index 2f9e9665d7e9..78e43f6d7502 100644
+> --- a/drivers/clk/qcom/dispcc-sdm845.c
+> +++ b/drivers/clk/qcom/dispcc-sdm845.c
+> @@ -280,7 +280,7 @@ static struct clk_rcg2 disp_cc_mdss_pclk0_clk_src = {
+>  		.name = "disp_cc_mdss_pclk0_clk_src",
+>  		.parent_data = disp_cc_parent_data_4,
+>  		.num_parents = ARRAY_SIZE(disp_cc_parent_data_4),
+> -		.flags = CLK_SET_RATE_PARENT,
+> +		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
+>  		.ops = &clk_pixel_ops,
+>  	},
+>  };
+> @@ -295,7 +295,7 @@ static struct clk_rcg2 disp_cc_mdss_pclk1_clk_src = {
+>  		.name = "disp_cc_mdss_pclk1_clk_src",
+>  		.parent_data = disp_cc_parent_data_4,
+>  		.num_parents = ARRAY_SIZE(disp_cc_parent_data_4),
+> -		.flags = CLK_SET_RATE_PARENT,
+> +		.flags = CLK_SET_RATE_PARENT | CLK_OPS_PARENT_ENABLE,
+>  		.ops = &clk_pixel_ops,
+>  	},
+>  };
+> 
+> ---
+> base-commit: f96074c6d01d8a5e9e2fccd0bba5f2ed654c1f2d
+> change-id: 20251212-stability-discussion-d16f6ac51209
+> 
+> Best regards,
+
 -- 
-2.34.1
+Thanks,
+Taniya Das
 
