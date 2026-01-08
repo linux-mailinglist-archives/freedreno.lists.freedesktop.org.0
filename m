@@ -2,65 +2,140 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B20D7D034DF
-	for <lists+freedreno@lfdr.de>; Thu, 08 Jan 2026 15:22:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38414D03759
+	for <lists+freedreno@lfdr.de>; Thu, 08 Jan 2026 15:45:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94EB110E73D;
-	Thu,  8 Jan 2026 14:22:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 135FD10E756;
+	Thu,  8 Jan 2026 14:45:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xa9p18R/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hElMPaWp";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="THQmiDbA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9FF410E751;
- Thu,  8 Jan 2026 14:22:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4894560131;
- Thu,  8 Jan 2026 14:22:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F8FC116C6;
- Thu,  8 Jan 2026 14:22:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767882143;
- bh=0hY9JelA00ZEkrC7+2oNgWXngE5MpTczcLOf3S0rzvw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Xa9p18R/CYw8HZX364CEj6bdpfUoIngst996QFzwnZloIOVlrs4JYPOlV5Lf13+f5
- u3arwHIrXUjSlndMHQKztRmek++C5yUfk+Uh/j3CJ4+WbFm860ithOP6OkNWMZMwww
- Kq63DW5zMPtffqiXbQlZJECGHgjpI1qwStauFUezVUIeeVS+x2aC2EnRtFs7GoPaOU
- AduV82cD28JT+NSTSXFkXZIHrU5HgMZV8dCqsqYUgJ0iNbxUhYBLeObfAYt5Wz+6hR
- YZz1A98/1h7+Wj+7WjsS0H8Deqc6oc/4zPTOljkM7ZXqxWya76k9Pq+4R/Zlv5FNvS
- 4KXK+b03at1rw==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 08 Jan 2026 15:21:52 +0100
-Subject: [PATCH v3 3/3] drm/msm/adreno: Trust the SSoT UBWC config
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260108-topic-smem_dramc-v3-3-6b64df58a017@oss.qualcomm.com>
-References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
-In-Reply-To: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, 
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E44010E756
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Jan 2026 14:45:55 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 608EVoHr1496298
+ for <freedreno@lists.freedesktop.org>; Thu, 8 Jan 2026 14:45:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=pq2wpHyoeSeo3GqHlkYEI4kR
+ dN2xjLc7p2A7VL8bab8=; b=hElMPaWpSDnK8Nl8T293takM/9sTGm+HwaY6o1Jg
+ TYLvhwxU0qLR7N21twWwDB9dbQcH0YpCAsnrJ+n/78w3UaaQGh3HzOaCm4Vhwtn9
+ +nogCtGxpb38KlvyCqI1k9mKGyBiBkaUKEFkG2RpuY1Oy90HHI/g2r7IVNwz95CX
+ lMO1JdmAzquKjonEadUKAT/KIDZ7YYICF/MFpkyLfUPKhASu1oHDYQZzS8vXjIOq
+ Lb7QwxQ74NgUZ/oO3Zyroq/mE+0C9EGMRthaURzydqwp+eq7EaeGoRfvNW+DGZ2W
+ Tn3SQOz3i1rC+Vz2dv8BoChN3VJQSeaXG9oOWBGokkEqFA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bj7ua9b1j-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 14:45:54 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8c38129a433so798024885a.2
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 06:45:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1767883553; x=1768488353;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=pq2wpHyoeSeo3GqHlkYEI4kRdN2xjLc7p2A7VL8bab8=;
+ b=THQmiDbA00LDpxDqKUv9tNnddLH6n0UaMVH6pF1LIAyXD9AKE+LkxKPrqER8WnPJys
+ yp/7qraZ5kXkwsb5Cd+mHqlH+GstH1fvGC5guNAYjtI4fQMKEIZIdVDS2Fj85HDk+w9Q
+ G37aAARDoZG+dEWJv25PtcH3ZsNE8RIXyP/n1+ADzN1EqjkXJzDuo1mSt3ULFgNyz0Kh
+ qM/YG2b+y1C+YraQpukTWL6M2kef22MSs8LLFrGq8Glm10W1eaIWgH62ScAtk/k8EB6J
+ BO8WAwhRdV107R6dMuWLeZ2UeHv4nqktPrIKWuxRFgccbBIuQPQFG6n5lj0GXn48T+tF
+ uHjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767883553; x=1768488353;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pq2wpHyoeSeo3GqHlkYEI4kRdN2xjLc7p2A7VL8bab8=;
+ b=crZw0CqBOhi7+paEw4pg8Cor6P4uKKJ1LhBpKN2GocBBw/ePrkmgBuHY32ePAvCZiZ
+ GsZJcsZYliBj0nGCUnGsD7vnnSYq0JcM1SV60C6e9rbbLAyQUT5MpBW1UTRsPQwDUdry
+ fPdlLhG7mIgJRCgYiJVZPpENf9ie9wrXTcCA4rLqfYTzRnaKSGsTGKki06xOewgRBiRb
+ ZyYS519afDE8vMrjQqK4X7Xk0+5ldsVhkT2VSFINI9Nv3MUQEmBSXRHXo3OHO+DE92W/
+ TiDjS5coV4pziyh1J8Ks9CgIlEBqbknWHExPe6uUKwa6CGJGsT18SX0Fki8jOxFGaFEI
+ fZpA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUTS/K7blUvZck9H9joPantK7OKl0KMMGsbKOWZkFmXEZRBK5c2QmhOi7au+jBQDvMeS/Gusae0PNQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9wYvqzTXWcxYejPdDW9JTipS0WXxaoDZDwOLZCPOhuBG8B+wj
+ 0/tJ3paqxvIZv+kEHn5eU78iArpo4H8dZcRH+vntzSkxTFZkpFxfw2b0yyb9jGDnwq5FVLnppzM
+ JuyxBXxed7cCICuQWbTp+XELvWaBehQ+N8NkKy6IqxnTZoGbqb/z7wcDHPbzhxuKrOSsbQGE=
+X-Gm-Gg: AY/fxX76RQ+apb7uRm8rzPReYV70nBXrmprrG6iYVbqX8V4oWMtHRtRu+hroEIq7F7T
+ hK7sNuCPAvB8g8mlAMf3rPDAn6Y1cIRztxXigOS9W+Esrqp/Eg3cnR3++FbLFNJlK84XWoMEH7C
+ agIDImSOzjO0SVbCfVj0Gf0G1x31O4xIWCGlSgYBlArFZlDID+SZY0pUm4VRE2MrlU8ufnADzOL
+ m8BffDd1CPwXGVrqxtLKjx23zP8q9jbgnKqS9swv9kPwpLwSlwny+XwA93rWJjS5LF1BNgk4iLz
+ kLbH3QUx3lLr818QsoiVj+h2eE3jvqQfZUyUJpbaybG27x+W5pr6xFzk7xgFHRgTfT3U4KIF0GU
+ /MpT1B681mFnx3kjHgMg+TQP2iZyz1FXR8+mFobxpwYfzHeRsbCUv2QxnTcpbwXXBxZaDy3G3I4
+ 9KKlJkqcTuz3GSKVwErU5QPe0=
+X-Received: by 2002:a05:620a:3714:b0:8b2:ec1e:fe24 with SMTP id
+ af79cd13be357-8c3893ef768mr859428185a.42.1767883553341; 
+ Thu, 08 Jan 2026 06:45:53 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGwxcTdCeqYmfFw81rrVjX1o3tZ6HAubMUWOlK6ohdXbyRzc6ZAmRhgkWfEBnW4WJG0MWoThw==
+X-Received: by 2002:a05:620a:3714:b0:8b2:ec1e:fe24 with SMTP id
+ af79cd13be357-8c3893ef768mr859422685a.42.1767883552810; 
+ Thu, 08 Jan 2026 06:45:52 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-382eb8ad930sm16527261fa.28.2026.01.08.06.45.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Jan 2026 06:45:52 -0800 (PST)
+Date: Thu, 8 Jan 2026 16:45:49 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1767882123; l=5689;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=aTiejsPtfF2C+UvMvN1X8HZ/alQLAnwLRugfA9Gd7pc=;
- b=UjmQRKA9IH21fUaxqBYt5irSAUkUhy+Es7pOm2Z5NFVDKfc2ml4W4kBdGRaHyAs8d7AV7G92I
- e/hv5XcKzAFCpChVUBWNSPKYA5MDbmS55KybMHemL3qJ/ZlFy/m3Dwl
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: Re: [PATCH v3 2/3] soc: qcom: ubwc: Get HBB from SMEM
+Message-ID: <you4xijwc5g4ngcnhxm4ecn7opexnsdfayvd5wiiqpl7734r7w@bdkpjqmlzxre>
+References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
+ <20260108-topic-smem_dramc-v3-2-6b64df58a017@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260108-topic-smem_dramc-v3-2-6b64df58a017@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA4MDEwNiBTYWx0ZWRfX8w7AM/wFyz7p
+ 4ooZ4A0jNv5jhSf8R0jf4++1QnJ+618Yx+Qq4QzwqiWJ2198Kejv3oJje4ypnUzkYQ7hRQOrE3j
+ U69MAiSgNxjlsHFc6az94nNcnLTAeAZPtTEoLliokP73DPjr9ejrbqz7A2v1xajsb1oVcPnIY0+
+ wzKW/RmEYsqEBZWReErykLndFX07pR/aBNlVOq7AReuB44dg6jbuxo+epQul4Ww4ZRAtnsnlI6v
+ J1D9zdqYUFHoE+IeCHr2xjUNhscLktC+KsDgn9pU5Rjm8KZNV5eNfJhu7boUFs6KiKtZBKbz/Ey
+ g/xcH2aRNjujwW45JdG2LMvIdYvkMxVbZ1TbG7Mh9B0F4sUF8GDIoDJYS/ppfYCq5LHI0oAobj4
+ e2ipSi074ppLWnvBXKwTnrAVXluUzwCyixxPjDyda72om0XUwzvNs4Z3WTOQEenfoPVEBZF5nZr
+ LZjWzITRaq4c2VzKwkw==
+X-Proofpoint-GUID: TgMelQ0317NL363y6JwMSCqfnhmHdUyE
+X-Proofpoint-ORIG-GUID: TgMelQ0317NL363y6JwMSCqfnhmHdUyE
+X-Authority-Analysis: v=2.4 cv=XMM9iAhE c=1 sm=1 tr=0 ts=695fc322 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=7S24nFsuF8Kv7I6KVrkA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
+ a=zZCYzV9kfG8A:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-08_03,2026-01-07_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
+ suspectscore=0 bulkscore=0 phishscore=0 spamscore=0 malwarescore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2601080106
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,170 +151,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Thu, Jan 08, 2026 at 03:21:51PM +0100, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> To make sure the correct settings for a given DRAM configuration get
+> applied, attempt to retrieve that data from SMEM (which happens to be
+> what the BSP kernel does, albeit with through convoluted means of the
+> bootloader altering the DT with this data).
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> ---
+> I'm not sure about this approach - perhaps a global variable storing
+> the selected config, which would then be non-const would be better?
 
-Now that the highest_bank_bit value is retrieved from the running
-system and the global config has been part of the tree for a couple
-of releases, there is no reason to keep any hardcoded values inside
-the GPU driver.
+I'd prefer if const data was const, split HBB to a separate API.
 
-Get rid of them.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 11 ++---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 82 ++-------------------------------
- drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 --
- 3 files changed, 6 insertions(+), 92 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 56eaff2ee4e4..eba6e74d0084 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1728,7 +1728,6 @@ static struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct platform_device *pdev = priv->gpu_pdev;
- 	struct adreno_platform_config *config = pdev->dev.platform_data;
--	const struct qcom_ubwc_cfg_data *common_cfg;
- 	struct a5xx_gpu *a5xx_gpu = NULL;
- 	struct adreno_gpu *adreno_gpu;
- 	struct msm_gpu *gpu;
-@@ -1766,13 +1765,9 @@ static struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- 	a5xx_preempt_init(gpu);
- 
- 	/* Inherit the common config and make some necessary fixups */
--	common_cfg = qcom_ubwc_config_get_data();
--	if (IS_ERR(common_cfg))
--		return ERR_CAST(common_cfg);
--
--	/* Copy the data into the internal struct to drop the const qualifier (temporarily) */
--	adreno_gpu->_ubwc_config = *common_cfg;
--	adreno_gpu->ubwc_config = &adreno_gpu->_ubwc_config;
-+	adreno_gpu->ubwc_config = qcom_ubwc_config_get_data();
-+	if (IS_ERR(adreno_gpu->ubwc_config))
-+		return ERR_CAST(adreno_gpu->ubwc_config);
- 
- 	adreno_gpu->uche_trap_base = 0x0001ffffffff0000ull;
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 2129d230a92b..3a2429632225 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -729,82 +729,6 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
- 	gpu_write(gpu, REG_A6XX_CP_PROTECT(protect->count_max - 1), protect->regs[i]);
- }
- 
--static int a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
--{
--	const struct qcom_ubwc_cfg_data *common_cfg;
--	struct qcom_ubwc_cfg_data *cfg = &gpu->_ubwc_config;
--
--	/* Inherit the common config and make some necessary fixups */
--	common_cfg = qcom_ubwc_config_get_data();
--	if (IS_ERR(common_cfg))
--		return PTR_ERR(common_cfg);
--
--	/* Copy the data into the internal struct to drop the const qualifier (temporarily) */
--	*cfg = *common_cfg;
--
--	/* Use common config as is for A8x */
--	if (!adreno_is_a8xx(gpu)) {
--		cfg->ubwc_swizzle = 0x6;
--		cfg->highest_bank_bit = 15;
--	}
--
--	if (adreno_is_a610(gpu)) {
--		cfg->highest_bank_bit = 13;
--		cfg->ubwc_swizzle = 0x7;
--	}
--
--	if (adreno_is_a612(gpu))
--		cfg->highest_bank_bit = 14;
--
--	if (adreno_is_a618(gpu))
--		cfg->highest_bank_bit = 14;
--
--	if (adreno_is_a619(gpu))
--		/* TODO: Should be 14 but causes corruption at e.g. 1920x1200 on DP */
--		cfg->highest_bank_bit = 13;
--
--	if (adreno_is_a619_holi(gpu))
--		cfg->highest_bank_bit = 13;
--
--	if (adreno_is_a621(gpu))
--		cfg->highest_bank_bit = 13;
--
--	if (adreno_is_a623(gpu))
--		cfg->highest_bank_bit = 16;
--
--	if (adreno_is_a650(gpu) ||
--	    adreno_is_a660(gpu) ||
--	    adreno_is_a690(gpu) ||
--	    adreno_is_a730(gpu) ||
--	    adreno_is_a740_family(gpu)) {
--		/* TODO: get ddr type from bootloader and use 15 for LPDDR4 */
--		cfg->highest_bank_bit = 16;
--	}
--
--	if (adreno_is_a663(gpu)) {
--		cfg->highest_bank_bit = 13;
--		cfg->ubwc_swizzle = 0x4;
--	}
--
--	if (adreno_is_7c3(gpu))
--		cfg->highest_bank_bit = 14;
--
--	if (adreno_is_a702(gpu))
--		cfg->highest_bank_bit = 14;
--
--	if (cfg->highest_bank_bit != common_cfg->highest_bank_bit)
--		DRM_WARN_ONCE("Inconclusive highest_bank_bit value: %u (GPU) vs %u (UBWC_CFG)\n",
--			      cfg->highest_bank_bit, common_cfg->highest_bank_bit);
--
--	if (cfg->ubwc_swizzle != common_cfg->ubwc_swizzle)
--		DRM_WARN_ONCE("Inconclusive ubwc_swizzle value: %u (GPU) vs %u (UBWC_CFG)\n",
--			      cfg->ubwc_swizzle, common_cfg->ubwc_swizzle);
--
--	gpu->ubwc_config = &gpu->_ubwc_config;
--
--	return 0;
--}
--
- static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-@@ -2721,10 +2645,10 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
- 	msm_mmu_set_fault_handler(to_msm_vm(gpu->vm)->mmu, gpu,
- 				  adreno_gpu->funcs->mmu_fault_handler);
- 
--	ret = a6xx_calc_ubwc_config(adreno_gpu);
--	if (ret) {
-+	adreno_gpu->ubwc_config = qcom_ubwc_config_get_data();
-+	if (IS_ERR(adreno_gpu->ubwc_config)) {
- 		a6xx_destroy(&(a6xx_gpu->base.base));
--		return ERR_PTR(ret);
-+		return ERR_CAST(adreno_gpu->ubwc_config);
- 	}
- 
- 	/* Set up the preemption specific bits and pieces for each ringbuffer */
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 1d0145f8b3ec..da9a6da7c108 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -237,12 +237,7 @@ struct adreno_gpu {
- 	/* firmware: */
- 	const struct firmware *fw[ADRENO_FW_MAX];
- 
--	/*
--	 * The migration to the central UBWC config db is still in flight - keep
--	 * a copy containing some local fixups until that's done.
--	 */
- 	const struct qcom_ubwc_cfg_data *ubwc_config;
--	struct qcom_ubwc_cfg_data _ubwc_config;
- 
- 	/*
- 	 * Register offsets are different between some GPUs.
 
 -- 
-2.52.0
-
+With best wishes
+Dmitry
