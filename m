@@ -2,139 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6700ED0378A
-	for <lists+freedreno@lfdr.de>; Thu, 08 Jan 2026 15:47:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6AE1D042B2
+	for <lists+freedreno@lfdr.de>; Thu, 08 Jan 2026 17:07:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E2AF10E759;
-	Thu,  8 Jan 2026 14:47:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C323E10E78E;
+	Thu,  8 Jan 2026 16:07:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kJD08MEM";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bBLX05Yp";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Jk+B4jyO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA5A10E755
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jan 2026 14:47:04 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 608BP0re3751449
- for <freedreno@lists.freedesktop.org>; Thu, 8 Jan 2026 14:47:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=E05euwxAEaPxLzxhkVp86rla
- Fr3gpWYqRJx6YmxUvFY=; b=kJD08MEMU3oCMp/3slFjqu7ezHmKWErinn/XqRgi
- 0q9pYByq/0orhd+I/qyFuE3H1hh/bbNBW9vL/2UruGtjD6rgQY9Q6u0KmPDpk6Ac
- QWgN7rN0sHPRkO1omlyAnjifkCRpDac5JKDE1LCTS23jpgeBG/VwLjKpl+GO3klO
- GUHknwAENLc8HD8WPOP7Q8CPeDR/vOqIDq0kunl16GTRV5qiDiqoVCr/cxZ6jtDm
- OPIK3JacwO+cR/biYvoa9dDY61WJNAalsUFvyzIeVnhh1bgeNuogfar/+ttv0aZk
- 1ok28kt2jwyQGKeK1HCABvba2NloJk9Y23MYJNJ6v0LKuQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bhuxcukuf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 14:47:03 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-8c38129a433so798218785a.2
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 06:47:03 -0800 (PST)
+Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
+ [209.85.221.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80C1D10E791
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Jan 2026 16:07:44 +0000 (UTC)
+Received: by mail-wr1-f73.google.com with SMTP id
+ ffacd0b85a97d-432c05971c6so1488745f8f.1
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 08:07:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767883622; x=1768488422;
+ d=google.com; s=20230601; t=1767888463; x=1768493263;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=E05euwxAEaPxLzxhkVp86rlaFr3gpWYqRJx6YmxUvFY=;
- b=bBLX05Yp5KzNn+0Nt3lJkoTXaqn4OF6kDeULUq8Zj4+5PCIhgGh9B2OLbx59k5uHz/
- fp0jeuSZTZT6f4FF6a+31DUxCZJX9eWRtYMpMNdp/0QGi4lh/vXCUbY61e9wuBpc4IiM
- 2F5+9tNXyehp/7m2/FIEnfF6Eu+0E2Mw41GDsoP3iagVOS9NCmesLgmUdASQ9fSh5cMH
- JXj0QpzdDOFNDzI2CwMqexHGwvXLIWYXSbEp2E9LmlrocYg6KpUIgUJu59bL3FeiSBjL
- zd7Jx8xsT7oYHM61u0VlSBtaSwqFeDhk0M88ehVFC8/ypxpDWnkTEYjNEQywARFil7sn
- 5YPQ==
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=GgFTUVqrsSYoJNwoFQtQbYpFqJVNoWHrRDOGPnWEKHg=;
+ b=Jk+B4jyOvOuXxgeUpRzb7YIjkGjGJ1NbhNgZmxRYFmp81daBUzVdz1EEqT7bMGfzeY
+ 8hJQbIWG95wDR8BjSQ9mJ1hMnnGn/PvUqkHbPNkwKHmOND54J0x3ARvf7BYGH6K/ugvd
+ VCt0ZjoygON1r6xGKIEMh7PEbHEKQStuRfBaboecjCaKUiEB571V+ETtR1R7LTnSSEdh
+ P6Hir3y57P9wfM/wUAXeBibIDks5d4uvPPaIlCE30ZGRdkYKuHPgbDoppC7bPkdESaEB
+ 1NXCTvCYX7TOUXVZZOaZOOYLs3Fn0UOzYgJFPmJJgUvCBbOeuV8FX021gw0YdRB4jJY4
+ 1qnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767883622; x=1768488422;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=E05euwxAEaPxLzxhkVp86rlaFr3gpWYqRJx6YmxUvFY=;
- b=KEQRX/nIXnRdL4kFfIpPR5jAm4nECjs6M3bAeyORzfdEAdGG5ONLGq0hTm27E/e/MG
- bJX/fuO3xSe8K+1HJExDZAFKleuIIEqDVqbqs5aIGiwS/G7jkwZuBqa6xmC1z/a2mpqa
- 4g9ABV7YjX58LCsclDgz4l/yOWqerhg8LfDvkN7ae37DEBvwLYHIDNdNPrdwsyrhBB5m
- z3BRtExJvDdrYSu2DFDVuhUny8DwquttSf02LbkVDKlI4SmTSwJOqKukfhKgB0CWCitB
- APoQHE4Z4QM2BR40w2T4TSh3HCqb1jHzCjmC55kBoh8YUaEQp5AGSPdEnbO6fGgULPcm
- Cmrw==
+ d=1e100.net; s=20230601; t=1767888463; x=1768493263;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GgFTUVqrsSYoJNwoFQtQbYpFqJVNoWHrRDOGPnWEKHg=;
+ b=kxA9Mk+e7GbeJQ9EZwCByjzc9hC+9Z5Uphum9AGvVCVlbanA5nicsC99JLL3mE17xK
+ 3oPl2hq1fBkNFfOFkQomvNTDsUHtq2kEHAHE5+MYZ7JdKRY0gwKhhvq/e1akfumUj0tE
+ TvySFYbB1OY6h6N4B/Yg0h8jpreJJ7biNKEe6h0LBqdVf9QtFS2BM9zcPhp2imt345/7
+ nUzQyw9yJvRtrB6wKSk5T711NMAnAXsKlWKIqq4VNNpxZZd44Pz47V9ia0V8Ef/1Uo+h
+ qM2fL4vhswi+uTZZDGmNbM7VWSyi2zUpzJfBwL3ps8GKoPvB6IDIvYB1fywyTextompR
+ e52Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjTIh+ysLUNnAVbavfxemHD//D/Zfac1ztw0Ejm5nKj1Ms1BpzY41iw4DSLWLliSQT3HRVMkqahf0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRbZG4RLWpZwwnJlOdSK5gpMj67p+lbk/E6gQZ0KvbPUxh0/xe
- WLzJkAUmZ/KVsmuAjRumiXwWtVPyjPcxj/rC8Opuc/UNxNt7xuV6ZddwA35a4W5ubxugg10k7h7
- PVmbyPZhrwvGQ5xLkavbGz78AlWrbnmmqC1fkzWAT1BJsDlRH3AZdv3N5tglK+zAmKEr1wi0=
-X-Gm-Gg: AY/fxX5jlAKQB2F1j8jcLi80WArlmaBg7ig0HW3rYAfomUVmBi3oCnyy5jcNmjsU3FJ
- jvn3Mm9OQx7MSPIci+YrT3ojSDS+NgD+9OlGtKQ6/klvTUz8id1EBd1iuLUB0U8dSDcFq1Jg980
- 3+osdw6ZtWYx3mwuMNYTTd8ghef9fwMK9wkzM2LsWjvYQVB4RFSv8IxSsWlULMogzC2B3tW2B2B
- N6b0o64vadStlg0vhbFLCAQaTuRS8Ovm3zm9GJs/4DO4xta6UX3hVN9KKTduHucg2+Ripd8RC3n
- pa08jy1NifrysaA9K5w2uDViiRfN1hZ4QAEL4LbNUGaUeD3EzdvpdM15wpJS4igv889Nu00+XfL
- zdHVsAcRPNR3/YLw4UD8dQuihF5v07KiscdnTfXGvc0YPInxjhaTHOR6+GJ8VtwbfGPKjXhiRGX
- HDbgj6p+p+qRfLx/a4W00WAJA=
-X-Received: by 2002:a05:620a:7088:b0:8b2:e4f7:bfc3 with SMTP id
- af79cd13be357-8c3893ef8f2mr824071785a.55.1767883622332; 
- Thu, 08 Jan 2026 06:47:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGZdKHI6y1PJg4kw3AOKfreiD9CPsGiS2albZ66Zp0/O0JjiGxU4Fura7f1B/vNXX4L1WRSNg==
-X-Received: by 2002:a05:620a:7088:b0:8b2:e4f7:bfc3 with SMTP id
- af79cd13be357-8c3893ef8f2mr824066785a.55.1767883621894; 
- Thu, 08 Jan 2026 06:47:01 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-382fd34bc69sm10292881fa.19.2026.01.08.06.47.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jan 2026 06:47:01 -0800 (PST)
-Date: Thu, 8 Jan 2026 16:46:59 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 3/3] drm/msm/adreno: Trust the SSoT UBWC config
-Message-ID: <65qhwotmxkxoa434qxtiflkb77espumpnacrw4nymvf37ozhcg@d6ouxfisuylv>
-References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
- <20260108-topic-smem_dramc-v3-3-6b64df58a017@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260108-topic-smem_dramc-v3-3-6b64df58a017@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA4MDEwNiBTYWx0ZWRfX5aqBYMpAscFA
- +bY86Y6mrzBKyZupmnNJSzvZpvuM1v2C7fRNoy695NBpK6YyndmC1czoGy4wQ+onGyzdLR8pa5I
- 7/UW/M6560Ip+2ku/R+6Z3NwspU/SOGZPQ5z2zucTL3JK+k/KYSIXNWiAS2xQVFSmXi6Cl+QeeS
- tI93TeDKAqsUp2rTd7B1t/IW6Cdyezq9q/TjNFQWK+GMyCEHlTPJ8k0Enm1me3vIDe+uRk2H5U9
- N+fU/dA6HadBGJWLteDbDhdTAlrHHrkXDW6ZTU4ISO8tlANQ5UVY+JAaUG5R9Akac3YvPIu0rGT
- XiX+JW7CwR/kK3aKbOLgUDZFo3ZJRO70qcQSTt4f9Lk0HrqcLHlrb84ybmn+jLT4SYAiWsd3Hi3
- p0CwPdYWmff4I2hFXwhJJsjOTXjZdRCdVgv5nJYga4YA8gIBAU3eJaUKJXQefmkFDDbRA5tx3EY
- ETwc1FqyKi7RHx1MJUw==
-X-Proofpoint-ORIG-GUID: UaNfnkgTHuPsgni7xl7bfr21rJbtz4uS
-X-Authority-Analysis: v=2.4 cv=SPdPlevH c=1 sm=1 tr=0 ts=695fc367 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=3LDqQxKG0DOzahDZ0EMA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: UaNfnkgTHuPsgni7xl7bfr21rJbtz4uS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-08_03,2026-01-07_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
- bulkscore=0 spamscore=0 clxscore=1015 suspectscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601080106
+ AJvYcCUkKwnI/msj7r7fhqboj58z8o+yyIDsutferEdLgVog95DFmw4KnS0vxhO3GhWlIi/W+8gG0v9++ho=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSNNPyIglgrfR0gtjqnaDyOTypzWUJFWhebmM5zcvou6Y0VS3R
+ nx5faatA/5GGmkxFcdy55mXMpOvOYLRajtDfMPHodBaxuZsRW/YQyWC2aDlomDWx9jPYx5RIk7k
+ FSztCWJUMB2YIeNt6ww==
+X-Google-Smtp-Source: AGHT+IELwgIWCY/J1hvJcROgHHhPtNfYmVFPy3DR5T4AF6N3+oYhJGrZ8GFSbPrxOSUZVlJIw2ilobL0+dO9O/E=
+X-Received: from wrbay21.prod.google.com ([2002:a5d:6f15:0:b0:430:f9bd:2c6a])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:2207:b0:429:b963:cdd5 with SMTP id
+ ffacd0b85a97d-432c362bf78mr8482438f8f.5.1767888462740; 
+ Thu, 08 Jan 2026 08:07:42 -0800 (PST)
+Date: Thu, 08 Jan 2026 16:07:30 +0000
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAELWX2kC/23MQQ7CIBCF4as0sxYDo1J15T1MF0AHSmJLAy3RN
+ Nxd7Nrl/5L3bZAoekpwbzaIlH3yYaqBhwbMoCZHzPe1ATlehMArc/OaRxbXtDDdiptRBlvVS6i
+ HOZL17x17drUHn5YQP7udxW/9y2TBOCNtpdQWT2fiDxeCe9HRhBG6UsoXJH5RoKUAAAA=
+X-Change-Id: 20251128-gpuvm-rust-b719cac27ad6
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
+ fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1173; i=aliceryhl@google.com; 
+ h=from:subject:message-id;
+ bh=snxThI8cYlPfWm0VQSv1csU1h0GPhmXiSH+DK97/5yY=; 
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBpX9ZH3Tr28HEcClQ+ZDYSEkR/L6fUjzsnzmv5F
+ BeIx0yoLAKJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCaV/WRwAKCRAEWL7uWMY5
+ Rt0REAChUrcJne916D6faDvqGiRD5g231h04N9otKKhmpsWolA2a/ys2BTZD3POx29KNCGGwvon
+ rqbEXw+izw0oLt8nyONEyDJ0FQEzYNg3U3XCwhcafeEAwjXPl/qShu2jZqWKJpckQbpZfrxMBP5
+ RAjMWIalnaE9hAQGspLSNAatkA1Dp/mAA7/zZFc2+mRr3BzsnRMOHZNJoIxQWwdAmXAHjdy4nvC
+ cUHwu1MetM2WGhE9cNzEB84RdpIc59o68meuQ4a0odTAt2r2yIdpcLSgQIGgefFrYhCstjzFy8/
+ hIWLbWwxUfP6l3Ie0u09nLOHn8/tHETnuZ4soTrvi7bBIsBIhgibrnFyefgrRPUdl+g5vkZbS87
+ xoqIjxnjwBJYD7QrIw04iFmCSArVo1bjZ8piHoXzCmwDJhI4rc326Lm5pO8ivgdz7o/i8UiBEF3
+ MywNzDyTMwsUjle/HG2/Z5lhRpT+Chm5BCjtirWXP3EAp0h1wJcsH8AF1avryc5CqDVIBBU6kc5
+ sweGcqQFhTo5Ra5bDr2K9LENRjSmkHwzmHFnipDJph8IELNzuEdGGeba2EGzaszhlCzmTENVrbb
+ vx9a86rmbiUuivhvyCcNbH8dRQG7mvTc3kLjBaRKM8UmIVKm95dXUMV9sYrIm0rJurciOILvVyx
+ gsvtgtvLv6p7qBA==
+X-Mailer: b4 0.14.2
+Message-ID: <20260108-gpuvm-rust-v2-0-dbd014005a0b@google.com>
+Subject: [PATCH v2 0/3] Rust GPUVM prerequisites
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Matthew Brost <matthew.brost@intel.com>, 
+ "=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ "=?utf-8?q?Christian_K=C3=B6nig?=" <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,27 +122,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 08, 2026 at 03:21:52PM +0100, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Now that the highest_bank_bit value is retrieved from the running
-> system and the global config has been part of the tree for a couple
-> of releases, there is no reason to keep any hardcoded values inside
-> the GPU driver.
-> 
-> Get rid of them.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 11 ++---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 82 ++-------------------------------
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 --
->  3 files changed, 6 insertions(+), 92 deletions(-)
-> 
+See v1 for the Rust code that uses these C changes.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+Changes in v2:
+- For this version, only the C prerequisites are included. Rust will be
+  sent as follow-up.
+- Link to v1: https://lore.kernel.org/r/20251128-gpuvm-rust-v1-0-ebf66bf234e0@google.com
 
+---
+Alice Ryhl (3):
+      drm/gpuvm: take GEM lock inside drm_gpuvm_bo_obtain_prealloc()
+      drm/gpuvm: drm_gpuvm_bo_obtain() requires lock and staged mode
+      drm/gpuvm: use const for drm_gpuva_op_* ptrs
 
+ drivers/gpu/drm/drm_gpuvm.c            | 91 ++++++++++++++++++++++++----------
+ drivers/gpu/drm/imagination/pvr_vm.c   |  2 +-
+ drivers/gpu/drm/msm/msm_gem.h          |  2 +-
+ drivers/gpu/drm/msm/msm_gem_vma.c      |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c |  2 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c  | 10 ----
+ drivers/gpu/drm/xe/xe_vm.c             |  4 +-
+ include/drm/drm_gpuvm.h                | 12 ++---
+ 8 files changed, 76 insertions(+), 49 deletions(-)
+---
+base-commit: 44e4c88951fa9c73bfbde8269e443ea5343dd2af
+change-id: 20251128-gpuvm-rust-b719cac27ad6
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Alice Ryhl <aliceryhl@google.com>
+
