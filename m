@@ -2,107 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B03D06402
-	for <lists+freedreno@lfdr.de>; Thu, 08 Jan 2026 22:19:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 360E2D068BF
+	for <lists+freedreno@lfdr.de>; Fri, 09 Jan 2026 00:29:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 564C910E381;
-	Thu,  8 Jan 2026 21:19:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A460B10E7D7;
+	Thu,  8 Jan 2026 23:29:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ArUW+S0A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LaDAOUIY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7DA410E7CD
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jan 2026 21:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767907158;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3iSY8oAi4l99NVbVblMxVH7Z37bTmCz2IXU4yciXqd0=;
- b=ArUW+S0A01e2gRafi4S8qWwTOL/9dZTVXhzWHLSgAwfTFLi3dKzxj1GT8CewnsKEiCo0lf
- QmwBqHAnB7m+HgbLa0xaQ4FS1Kb3DvrCKnqQzvFbdzj2fFy2RGaA4WEQBGf1v4D9L/+iLm
- A2FrXb0mRQE/jeTDTMr46MXiCjIIWrA=
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-228-zFOnKKcQO6SMcjn8CrVdqQ-1; Thu, 08 Jan 2026 16:19:17 -0500
-X-MC-Unique: zFOnKKcQO6SMcjn8CrVdqQ-1
-X-Mimecast-MFC-AGG-ID: zFOnKKcQO6SMcjn8CrVdqQ_1767907157
-Received: by mail-ua1-f70.google.com with SMTP id
- a1e0cc1a2514c-94120e0acbdso3871897241.1
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jan 2026 13:19:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767907157; x=1768511957;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=3iSY8oAi4l99NVbVblMxVH7Z37bTmCz2IXU4yciXqd0=;
- b=cIrW6d89MrxcmuGcTm9a03Ahu/1gEL1Th0bnGCFfmWJmNUmP6OB4N9ONVmb/GcvUsM
- Z/lLOcpMfUwi9U9xxwaBmdkXGOeZ5LvYZogl7RWVS1hvjlBVlLIBqx94LbyF+4kvkpGu
- gnt2rgsOjP6zu0QoclOJr7pW1pjVzJ5Z55RE5z/L7nupiG+jcF9Qut1DJ7IpLThS5SPW
- w3FEPnIYXaanse7ZhDH6JyZUJRU6G5pkQh0sSvZuCZs+nabDkDr84GgKUOfIiSlyrWqX
- dChWa9b/K3yaLa2UK5BfqzGnbh4t9BE9FBhdqE79hPlnsxDM413UKUmtwn46sYBn43Ws
- 2QAA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrSaDnuV3jUAyllyBTwNl/DBaRUM5l4Ms+UkzBtjpDRkwsWcoqoq3eS0eRmexTXAjc/JHqw9IDPrk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzdkMJyf/TuznkuPK2KaDtPJ3B8BvH+I4yJmYCELvK1Fv4mACsF
- WfJlmExoZn2IOkvZD6qMR/4f+oWRyhe51Mzu8nmrkPXqaubwqqjTWXBsWyvzeaqPawzfGkGcQWy
- TAZmiNQ69bXsQRFaqVsz1aE0rUeJHhQBzYAbODvmBnuc9NvpnBd3Rz4Z8aK6WWSbqpqlwmw==
-X-Gm-Gg: AY/fxX6PomdN/QaQ3I8mJTBZhd7Effif28UmORdCamry/vMNj1gLSG7AsOXF8PCR+pf
- lhBJLtAlBEIOBsYZd2tvk9fWq6wfGOq/qXTKUwkvRlbQr0dJWq2q/lDVIdMw+5wtIofktMNFvTw
- 3b8KrbvdkFDhSbLYkYNrS0YKUw1DuhW1R6FS54Bbiwfe69TIExV/tm9gdhjtLRqQrs0PxtyMYjK
- IinKSlbCWcZVvWycVZRwDUpvyHlsRCaH3eqEeQzABXLYiIBlDKA+B1j4/W/6jFlv5E/w3LKnywX
- pCJ/7hCriRjx4snUci36fwFKiRaZOLeHEhqf41VAr9pa2JxXf7RgI1Z8nSONg9EAFFnJXElQr8N
- Zpob2EmZC1Hr+KDc=
-X-Received: by 2002:a05:6102:3a0f:b0:5dd:83de:badc with SMTP id
- ada2fe7eead31-5ecb690ac30mr2675971137.38.1767907157168; 
- Thu, 08 Jan 2026 13:19:17 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF0uRMIjA7XLKaSnU3wOhkRdxgxZI3Tqx0E2gNf3CGsOIh420QNoFs2vKVMT8dIcPxOmBSZqA==
-X-Received: by 2002:a05:6102:3a0f:b0:5dd:83de:badc with SMTP id
- ada2fe7eead31-5ecb690ac30mr2675959137.38.1767907156687; 
- Thu, 08 Jan 2026 13:19:16 -0800 (PST)
-Received: from [10.30.226.224] ([2600:382:811f:d757:daa5:b867:12a3:9d12])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-5ec77064e86sm7623329137.7.2026.01.08.13.19.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jan 2026 13:19:16 -0800 (PST)
-From: Brian Masney <bmasney@redhat.com>
-Date: Thu, 08 Jan 2026 16:16:42 -0500
-Subject: [PATCH 24/27] drm/msm/dsi_phy_14nm: convert from
- divider_round_rate() to divider_determine_rate()
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01B8E10E19C;
+ Thu,  8 Jan 2026 23:29:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B6E71435BB;
+ Thu,  8 Jan 2026 23:29:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BCEC116C6;
+ Thu,  8 Jan 2026 23:29:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1767914978;
+ bh=Rw3b/I81KHL7rDt7WZsRA6q5wG50TRlXUqsg2VrqzSg=;
+ h=From:Date:Subject:To:Cc:From;
+ b=LaDAOUIYfdcS1TELNDZjf6/2IqXXfGW9tJJF8AlT3amw0KHLz9m4RzhPpyFj0eUwO
+ NkBhHLaa4ImtevJtSzL/7gXNCnJEsHk79Z3H1XX8ESpkJ59wXKL+/6RpIq2l15CV0N
+ zCQSF+DO1Z38ppubYSyswD8prBuFDD+RBJW9PxrDck8LviJp+WGDOhzsjBOKKS1GY/
+ UWleuMUSKLsIeCBFE4EexrdxldpVclpji9HV49gz9eb4QvdVZvkBRt33eEbZbnFk+Y
+ aiGKhCCqHynXF3WvHn8yik682hKDChFuk+YnPkVGwQy9Jg+7feUnHXmCQgX9xOBMU1
+ FwUSkYrQcnf4g==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Thu, 08 Jan 2026 16:29:25 -0700
+Subject: [PATCH] drm/msm/dp: Avoid division by zero in msm_dp_ctrl_config_msa()
 MIME-Version: 1.0
-Message-Id: <20260108-clk-divider-round-rate-v1-24-535a3ed73bf3@redhat.com>
-References: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
-In-Reply-To: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Brian Masney <bmasney@redhat.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1932; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=sZzvWmWZLBAg2O8T5kHMnq76Z89GPT7Dybdt2RJStY0=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGDIT5Hb1v5vpP9/g2Zw1x0vb3l5Xs8vY4qIY9ZTV6M3/p
- vSpfvMlO0pZGMS4GGTFFFmW5BoVRKSusr13R5MFZg4rE8gQBi5OAZjIVyGG/znrI46vWXPXmZ1n
- evhLw6XT1O2//926j2222YecHWXuxbMZ/mm/r2e/wuzs0x9mvcteoup47ENm0fYpEwKEL07zVn7
- mzAEA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: LixsHBaeYkuGjjMwSy2C5I8MYOYyBX_FgCAW5Glba7A_1767907157
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260108-drm-msm-dp_ctrl-avoid-zero-div-v1-1-6a8debcb3033@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXN0QrCMAxA0V8ZeTbQDifDXxGRNYkasetIZxHH/
+ n1VH8/LvQtkMZUMx2YBk6JZ01jhdw3QfRhvgsrV0Lr24LzrkS1izBF5utBsTxxKUsaPWELWgkE
+ 6pr2jQL6HGplMrvr+DU7nv/MrPITmbxXWdQMS7Q8DggAAAA==
+X-Change-ID: 20260108-drm-msm-dp_ctrl-avoid-zero-div-be5dc40cbc18
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, llvm@lists.linux.dev, 
+ patches@lists.linux.dev, kernel test robot <lkp@intel.com>, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2225; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=Rw3b/I81KHL7rDt7WZsRA6q5wG50TRlXUqsg2VrqzSg=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDJkJtvckMppmf1ITXfHmyfb7Mzas2bhW59SuK76O7ketn
+ kTdWRa5t6OUhUGMi0FWTJGl+rHqcUPDOWcZb5yaBDOHlQlkCAMXpwBMZOYERobLr3oXTIlLNNns
+ qfGj32ri40sRd+SPHXM9f9HMNfvJkSYlhv8uosfs1tsuObR9s++ClsJ9u15fTJVmZdraah9R+mM
+ P91UGAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,56 +74,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The divider_round_rate() function is now deprecated, so let's migrate
-to divider_determine_rate() instead so that this deprecated API can be
-removed.
+An (admittedly problematic) optimization change in LLVM 20 [1] turns
+known division by zero into the equivalent of __builtin_unreachable(),
+which invokes undefined behavior if it is encountered in a control flow
+graph, destroying code generation. When compile testing for x86_64,
+objtool flags an instance of this optimization triggering in
+msm_dp_ctrl_config_msa(), inlined into msm_dp_ctrl_on_stream():
 
-Note that when the main function itself was migrated to use
-determine_rate, this was mistakenly converted to:
+  drivers/gpu/drm/msm/msm.o: warning: objtool: msm_dp_ctrl_on_stream(): unexpected end of section .text.msm_dp_ctrl_on_stream
 
-    req->rate = divider_round_rate(...)
+The zero division happens if the else branch in the first if statement
+in msm_dp_ctrl_config_msa() is taken because pixel_div is initialized to
+zero and it is not possible for LLVM to eliminate the else branch since
+rate is still not known after inlining into msm_dp_ctrl_on_stream().
+Change pixel_div to one to make the division well defined in the
+presence of an unsupported rate, relying on the DRM_ERROR print to
+indicate the error to the user.
 
-This is invalid in the case when an error occurs since it can set the
-rate to a negative value.
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Link: https://github.com/llvm/llvm-project/commit/37932643abab699e8bb1def08b7eb4eae7ff1448 [1]
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202601081959.9UVJEOfP-lkp@intel.com/
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Fixes: cc41f29a6b04 ("drm/msm/dsi_phy_14nm: convert from round_rate() to determine_rate()")
-Signed-off-by: Brian Masney <bmasney@redhat.com>
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index cbcc7c2f0ffc..e4731c059ed8 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -2395,7 +2395,7 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
+ 			       bool is_ycbcr_420)
+ {
+ 	u32 pixel_m, pixel_n;
+-	u32 mvid, nvid, pixel_div = 0, dispcc_input_rate;
++	u32 mvid, nvid, pixel_div = 1, dispcc_input_rate;
+ 	u32 const nvid_fixed = DP_LINK_CONSTANT_N_VALUE;
+ 	u32 const link_rate_hbr2 = 540000;
+ 	u32 const link_rate_hbr3 = 810000;
 
 ---
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+base-commit: 66691e272e40c91305f1704695e0cb340cd162ff
+change-id: 20260108-drm-msm-dp_ctrl-avoid-zero-div-be5dc40cbc18
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-index fdefcbd9c2848a1c76414a41b811b29e5fed9ddc..a156c7e7cea83286e7ad47aa9818761670c68e89 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-@@ -628,12 +628,7 @@ static int dsi_pll_14nm_postdiv_determine_rate(struct clk_hw *hw,
- 
- 	DBG("DSI%d PLL parent rate=%lu", pll_14nm->phy->id, req->rate);
- 
--	req->rate = divider_round_rate(hw, req->rate, &req->best_parent_rate,
--				       NULL,
--				       postdiv->width,
--				       postdiv->flags);
--
--	return 0;
-+	return divider_determine_rate(hw, req, NULL, postdiv->width, postdiv->flags);
- }
- 
- static int dsi_pll_14nm_postdiv_set_rate(struct clk_hw *hw, unsigned long rate,
-
--- 
-2.52.0
+Best regards,
+--  
+Nathan Chancellor <nathan@kernel.org>
 
