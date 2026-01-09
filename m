@@ -2,38 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799DFD0BCBA
-	for <lists+freedreno@lfdr.de>; Fri, 09 Jan 2026 19:08:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3163D0C046
+	for <lists+freedreno@lfdr.de>; Fri, 09 Jan 2026 20:11:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178B010E915;
-	Fri,  9 Jan 2026 18:08:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA4E10E932;
+	Fri,  9 Jan 2026 19:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lMv78pFu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q72Emv9f";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF22610E913;
- Fri,  9 Jan 2026 18:08:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9085943C03;
- Fri,  9 Jan 2026 18:08:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37486C4CEF1;
- Fri,  9 Jan 2026 18:08:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767982091;
- bh=dLaDk4A28vd+9dAphpzqG8U7UomWQsL8BpomS9WzYX0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lMv78pFuYBmz9R+uDzhDLQxxyfzJVieJkUn/t2oDyJoZST0tPAna76FVyhiWYvyIa
- t1v9FTPBRtoTPV4Qo3FSdpvXY8uGF4l+cDwCy4A8kPZYDlwQwn85GlzcX5EekDo+GM
- KD5VswRk6Z4scBOUBrWsTitkKi3cqJOHLqhJQSTiXlrRlGoFl8ejFT7o9BWUOjTxya
- dwLXZlYd3N6cbnqYYUjAyw9pfl0UeADaVEuHOY7P8C0CT4KPnKWUumFBQhcNA3vlma
- pGVyPB91jDcmTroCS0Tmo9XvVuRRS8fuCBiAtz3WyQ36980GhGrCpMMpHvy3LgHu5K
- VN8mg3Gkkbp+g==
-Date: Fri, 9 Jan 2026 12:08:08 -0600
-From: Bjorn Andersson <andersson@kernel.org>
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 410A010E931
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jan 2026 19:11:31 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2a08cb5e30eso8597255ad.1
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jan 2026 11:11:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1767985891; x=1768590691; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jGucWZxG4H0oACzMuTEPVrhVqGkXJT23twyUUE6h0GU=;
+ b=Q72Emv9friIIkC1SSj3ZlU0nQH+CsYho8Zp+J8J3XsFvN1dqnS6m1QaDoL+PU5QLIQ
+ RcQC+oBuKn9V30sGVj3U4pZM//moDX7FHsgG6OplQ+6tCt4hyX2vlZ5pQH4IGGZBMxdL
+ tSUpqqTlRPQGFEmZFRrtBdUBt80QtwUVbEgHmlanqaKEBuu2Y3wYfJJCgFNmc4NtYdyS
+ euyp+51eMA6rmOw1yzhb7ME/Qvt8UQ1f9YwMsU9S84ZFJx6ZnmchYzqn+we7906w0hwo
+ dnh5AbRzQq5TYlIHRSslc1q2rrGaXgPXO8ZytzfeideBApHpzfkY1HDaffWGqnZsY8xr
+ 1w0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767985891; x=1768590691;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=jGucWZxG4H0oACzMuTEPVrhVqGkXJT23twyUUE6h0GU=;
+ b=mCI2rdSYcFGQU7t/S/LB+LWbUJe1rCMlScbzkhRx685hsvJuP42IjcKBYvVYmoXQRE
+ M01Y78qcnehyqg2q4TtZDnMNv6IcdQPVTYs8qMFBgB6ZVIMq4+r0hC3IDLyoO+HxqH+J
+ mLzPK6T3QVzzE73ISF/3GNGXGfHfWdZ82scnEJOHJXyhEuqw1T82RfGUOe6snON12HFl
+ gXj93YuSsIQr57uy5P7auOVAEWRGOv6ne9xvuRC71LkF1VsSM/Rsk/KXdGg0ubqg+rdv
+ 7fqNUSKB4Mui600lfy7G0axgMFk+UvDeTgkOhY7IO5bAs2GjzA8UuSPo5uFjX5Y12qxy
+ lPNQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXzppklnIi0qolp/Q02roSan0VYP9O1sRoAbI1Irgkjm/l+qyFAczkzyvI8ed3UVDnT3lGfKVS40Nw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2/anCPgew4IzmfWj3K9vrZn6dFDXuKCv8GNThhosa4ru+fstF
+ BhEi9C3PwnLhn9Yl50svbzTNjV8soTNabuF2v/mjE6MMHe8V0olM7DNCLyPkVwjs3qews/rhmXB
+ 3wlVEYw7YrksCSiTmIpdPHO8tFqCrNZk=
+X-Gm-Gg: AY/fxX4J3yrhIh27Gz7YctDSxfLeU1RJTflWh/TR035oLaRIV5Bctw+ATLqU2DbfBiO
+ 4iLE6eakzdJkd0HYfVQxULVYMrClbESXMGV1MRrkHRhl0DSijE+m51X6OvNFzKnZhPA19tVBMSb
+ 85ZpxYhMKd8mTpaQgGx73WLUq2BojHbDhiolbPHncJpS0veMuQ44lCr5kwG4OyK1lEBvUWGpj8g
+ 18cv58uZKL4/1tGPrl9i1epLEiG0ybNkgSc4rJ0tzjCElpHYRiggNCdVkgEYtWtRzYnTck=
+X-Google-Smtp-Source: AGHT+IF7dTGSqJqWZzwnIHslSdlw6WekSrgn4f0+hOUkO918cHCqTxp+XTuZOMvQz9g2tVbmrdlQKCQmnYtBYPnHFfw=
+X-Received: by 2002:a17:90b:2e0c:b0:343:e480:49f1 with SMTP id
+ 98e67ed59e1d1-34f68c28ea4mr7819215a91.5.1767985890668; Fri, 09 Jan 2026
+ 11:11:30 -0800 (PST)
+MIME-Version: 1.0
+References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
+In-Reply-To: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Fri, 9 Jan 2026 14:11:19 -0500
+X-Gm-Features: AQt7F2qD5NQlHCyqdD_zHjmxV20bvOEGT_rKXFuqrKobJujnG-hNvI21StHEA5Q
+Message-ID: <CACu1E7EDmLPhUFyouD=W6n+U7=oo7+6PY0Gz9=3pVpT2Qu9Z6w@mail.gmail.com>
+Subject: Re: [PATCH v3 0/3] Retrieve information about DDR from SMEM
 To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, 
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
  "Gustavo A. R. Silva" <gustavoars@kernel.org>,
  Rob Clark <robin.clark@oss.qualcomm.com>, 
  Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
@@ -42,17 +74,11 @@ Cc: Kees Cook <kees@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/3] soc: qcom: smem: Expose DDR data from SMEM
-Message-ID: <nsjzp77f7btdziurip3v6nu5utcwni253mrx6orkefz5mibb3s@cp7c6tv3joxk>
-References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
- <20260108-topic-smem_dramc-v3-1-6b64df58a017@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260108-topic-smem_dramc-v3-1-6b64df58a017@oss.qualcomm.com>
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,241 +94,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 08, 2026 at 03:21:50PM +0100, Konrad Dybcio wrote:
-> diff --git a/drivers/soc/qcom/smem_dramc.c b/drivers/soc/qcom/smem_dramc.c
-[..]
-> +struct ddr_regions_v5 {
-> +	u32 ddr_region_num; /* We expect this to always be 4 or 6 */
-> +	u64 ddr_rank0_size;
-> +	u64 ddr_rank1_size;
-> +	u64 ddr_cs0_start_addr;
-> +	u64 ddr_cs1_start_addr;
-> +	u32 highest_bank_addr_bit;
+On Thu, Jan 8, 2026 at 9:22=E2=80=AFAM Konrad Dybcio <konradybcio@kernel.or=
+g> wrote:
+>
+> SMEM allows the OS to retrieve information about the DDR memory.
+> Among that information, is a semi-magic value called 'HBB', or Highest
+> Bank address Bit, which multimedia drivers (for hardware like Adreno
+> and MDSS) must retrieve in order to program the IP blocks correctly.
+>
+> This series introduces an API to retrieve that value, uses it in the
+> aforementioned programming sequences and exposes available DDR
+> frequencies in debugfs (to e.g. pass to aoss_qmp debugfs). More
+> information can be exposed in the future, as needed.
+>
+> Patch 3 should really be merged after 1&2
 
-Aren't all these structs encoded in little endian? __leXX?
+No. The HBB value currently returned by the bootloader is *not* always
+the same as what we use currently, because some SoCs (like SM8250)
+with the same DT ship with multiple different DRAM configurations and
+we've been using a sub-optimal value the whole time. After all, that's
+the whole point of using the bootloader value. But patches 1&2 will
+only make the DPU use the bootloader value for HBB, not the GPU. So on
+one of the affected SoCs, it will introduce a mismatch. You can't
+change anything until the GPU side uses the new ubwc config as its
+source of truth.
 
-> +	struct ddr_region_v5 ddr_region[] __counted_by(ddr_region_num);
+Connor
 
-Was going to joke about this one, but realized that there's a
-__counted_by_le()
-
-> +};
-> +
-> +struct ddr_details_v5 {
-> +	u8 manufacturer_id;
-> +	u8 device_type;
-> +	struct ddr_part_details ddr_params[MAX_CHAN_NUM];
-> +	struct ddr_freq_plan_v5 ddr_freq_tbl;
-> +	u8 num_channels;
-> +	u8 _padding;
-> +	struct ddr_regions_v5 ddr_regions;
-> +};
-> +
-> +/* V6 */
-> +struct ddr_misc_info_v6 {
-> +	u32 dsf_version;
-> +	u32 reserved[10];
-> +};
-> +
-> +/* V7 */
-> +struct ddr_details_v7 {
-> +	u8 manufacturer_id;
-> +	u8 device_type;
-> +	struct ddr_part_details ddr_params[MAX_CHAN_NUM];
-> +	struct ddr_freq_plan_v5 ddr_freq_tbl;
-> +	u8 num_channels;
-> +	u8 sct_config;
-> +	struct ddr_regions_v5 ddr_regions;
-> +};
-> +
-> +/**
-> + * qcom_smem_dram_get_hbb(): Get the Highest bank address bit
-> + *
-> + * Context: Check qcom_smem_is_available() before calling this function.
-> + * Because __dram * is initialized by smem_dram_parse(), which is in turn
-> + * called from * qcom_smem_probe(), __dram will only be NULL if the data
-> + * couldn't have been found/interpreted correctly.
-> + *
-> + * Return: 0 on success, -ENODATA on failure.
-
-Seems more like "highest bank bit on success, -ENODATA on failure.
-
-> + */
-> +int qcom_smem_dram_get_hbb(void)
-> +{
-> +	int hbb;
-> +
-> +	if (!__dram)
-> +		return -ENODATA;
-> +
-> +	hbb = __dram->hbb;
-> +	if (hbb == 0)
-> +		return -ENODATA;
-> +	else if (hbb < DDR_HBB_MIN || hbb > DDR_HBB_MAX)
-> +		return -EINVAL;
-
-Not really "Invalid argument", -ENODATA is probably better here as well.
-
-> +
-> +	return hbb;
-> +}
-> +EXPORT_SYMBOL_GPL(qcom_smem_dram_get_hbb);
-> +
-[..]
-> +/* The structure contains no version field, so we have to perform some guesswork.. */
-> +static int smem_dram_infer_struct_version(size_t size)
-> +{
-> +	/* Some early versions provided less bytes of less useful data */
-> +	if (size < sizeof(struct ddr_details_v3))
-> +		return -EINVAL;
-> +
-> +	if (size == sizeof(struct ddr_details_v3))
-> +		return INFO_V3;
-> +
-> +	if (size == sizeof(struct ddr_details_v3)
-> +		 + sizeof(struct ddr_freq_table))
-
-Don't you find it weird to have the + after the wrap?
-
-> +		return INFO_V3_WITH_14_FREQS;
-> +
-> +	if (size == sizeof(struct ddr_details_v4))
-> +		return INFO_V4;
-> +
-> +	if (size == sizeof(struct ddr_details_v5)
-> +		 + 4 * sizeof(struct ddr_region_v5))
-> +		return INFO_V5;
-> +
-> +	if (size == sizeof(struct ddr_details_v5)
-> +		 + 4 * sizeof(struct ddr_region_v5)
-> +		 + sizeof(struct ddr_xbl2quantum_smem_data)
-> +		 + sizeof(struct shub_freq_plan_entry))
-> +		return INFO_V5;
-> +
-> +	if (size == sizeof(struct ddr_details_v5)
-> +		 + 6 * sizeof(struct ddr_region_v5))
-> +		return INFO_V5_WITH_6_REGIONS;
-> +
-> +	if (size == sizeof(struct ddr_details_v5)
-> +		 + 6 * sizeof(struct ddr_region_v5)
-> +		 + sizeof(struct ddr_xbl2quantum_smem_data)
-> +		 + sizeof(struct shub_freq_plan_entry))
-> +		return INFO_V5_WITH_6_REGIONS;
-> +
-> +	if (size == sizeof(struct ddr_details_v5)
-> +		 + 6 * sizeof(struct ddr_region_v5)
-> +		 + sizeof(struct ddr_misc_info_v6)
-> +		 + sizeof(struct shub_freq_plan_entry))
-> +		return INFO_V6;
-> +
-> +	if (size == sizeof(struct ddr_details_v7)
-> +		 + 4 * sizeof(struct ddr_region_v5)
-> +		 + sizeof(struct ddr_misc_info_v6)
-> +		 + sizeof(struct shub_freq_plan_entry))
-> +		return INFO_V7;
-> +
-> +	if (size == sizeof(struct ddr_details_v7)
-> +		 + 6 * sizeof(struct ddr_region_v5)
-> +		 + sizeof(struct ddr_misc_info_v6)
-> +		 + sizeof(struct shub_freq_plan_entry))
-> +		return INFO_V7_WITH_6_REGIONS;
-> +
-> +	return INFO_UNKNOWN;
-> +}
-> +
-[..]
-> +
-> +struct dentry *smem_dram_parse(struct device *dev)
-> +{
-> +	struct dentry *debugfs_dir;
-> +	enum ddr_info_version ver;
-> +	struct smem_dram *dram;
-> +	size_t actual_size;
-> +	void *data = NULL;
-> +
-> +	/* No need to check qcom_smem_is_available(), this func is called by the SMEM driver */
-> +	data = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_DDR_INFO_ID, &actual_size);
-> +	if (IS_ERR_OR_NULL(data))
-> +		return ERR_PTR(-ENODATA);
-> +
-> +	ver = smem_dram_infer_struct_version(actual_size);
-> +	if (ver < 0) {
-> +		/* Some SoCs don't provide data that's useful for us */
-> +		return ERR_PTR(-ENODATA);
-> +	} else if (ver == INFO_UNKNOWN) {
-> +		/* In other cases, we may not have added support for a newer struct revision */
-> +		pr_err("Found an unknown type of DRAM info struct (size = %zu)\n", actual_size);
-
-Is there a reason why this isn't dev_err(dev, ...)?
-
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	dram = devm_kzalloc(dev, sizeof(*dram), GFP_KERNEL);
-> +	if (!dram)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	switch (ver) {
-> +	case INFO_V3:
-> +		smem_dram_parse_v3_data(dram, data, false);
-> +		break;
-> +	case INFO_V3_WITH_14_FREQS:
-> +		smem_dram_parse_v3_data(dram, data, true);
-> +		break;
-> +	case INFO_V4:
-> +		smem_dram_parse_v4_data(dram, data);
-> +		break;
-> +	case INFO_V5:
-> +	case INFO_V5_WITH_6_REGIONS:
-> +	case INFO_V6:
-> +		smem_dram_parse_v5_data(dram, data);
-> +		break;
-> +	case INFO_V7:
-> +	case INFO_V7_WITH_6_REGIONS:
-> +		smem_dram_parse_v7_data(dram, data);
-> +		break;
-> +	default:
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	/* Both the entry and its parent dir will be cleaned up by debugfs_remove_recursive */
-> +	debugfs_dir = debugfs_create_dir("qcom_smem", NULL);
-> +	debugfs_create_file("dram_frequencies", 0444, debugfs_dir, dram,
-> +			    &smem_dram_frequencies_fops);
-> +	debugfs_create_file("hbb", 0444, debugfs_dir, dram, &smem_hbb_fops);
-> +
-> +	/* If there was no failure so far, assign the global variable */
-> +	__dram = dram;
-> +
-> +	return debugfs_dir;
-> +}
-> diff --git a/include/linux/soc/qcom/smem.h b/include/linux/soc/qcom/smem.h
-> index f946e3beca21..223cd5090a2a 100644
-> --- a/include/linux/soc/qcom/smem.h
-> +++ b/include/linux/soc/qcom/smem.h
-> @@ -2,6 +2,8 @@
->  #ifndef __QCOM_SMEM_H__
->  #define __QCOM_SMEM_H__
->  
-> +#include <linux/platform_device.h>
-
-I'm not able to see why.
-
-Regards,
-Bjorn
-
-> +
->  #define QCOM_SMEM_HOST_ANY -1
->  
->  bool qcom_smem_is_available(void);
-> @@ -17,4 +19,6 @@ int qcom_smem_get_feature_code(u32 *code);
->  
->  int qcom_smem_bust_hwspin_lock_by_host(unsigned int host);
->  
-> +int qcom_smem_dram_get_hbb(void);
-> +
->  #endif
-> 
-> -- 
-> 2.52.0
-> 
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+> Changes in v3:
+> - Support v6 and v7 DDRInfo (v7 is used on e.g. Hamoa)
+> - Handle rare cases of DDRInfo v5 with additional trailing data
+> - Rebase/adjust to SSoT UBWC
+> - Expose hbb value in debugfs
+> - cosmetic changes
+> - Link to v2: https://lore.kernel.org/r/20250410-topic-smem_dramc-v2-0-de=
+ad15264714@oss.qualcomm.com
+>
+> Changes in v2:
+> - Avoid checking for < 0 on unsigned types
+> - Overwrite Adreno UBWC data to keep the data shared with userspace
+>   coherent with what's programmed into the hardware
+> - Call get_hbb() in msm_mdss_enable() instead of all UBWC setup
+>   branches separately
+> - Pick up Bjorn's rb on patch 1
+> - Link to v1: https://lore.kernel.org/r/20250409-topic-smem_dramc-v1-0-94=
+d505cd5593@oss.qualcomm.com
+>
+> ---
+> Konrad Dybcio (3):
+>       soc: qcom: smem: Expose DDR data from SMEM
+>       soc: qcom: ubwc: Get HBB from SMEM
+>       drm/msm/adreno: Trust the SSoT UBWC config
+>
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  11 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  82 +------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |   5 -
+>  drivers/soc/qcom/Makefile               |   3 +-
+>  drivers/soc/qcom/smem.c                 |  14 +-
+>  drivers/soc/qcom/smem.h                 |   9 +
+>  drivers/soc/qcom/smem_dramc.c           | 408 ++++++++++++++++++++++++++=
+++++++
+>  drivers/soc/qcom/ubwc_config.c          |  69 ++++--
+>  include/linux/soc/qcom/smem.h           |   4 +
+>  9 files changed, 485 insertions(+), 120 deletions(-)
+> ---
+> base-commit: fc4e91c639c0af93d63c3d5bc0ee45515dd7504a
+> change-id: 20250409-topic-smem_dramc-6467187ac865
+>
+> Best regards,
+> --
+> Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>
