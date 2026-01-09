@@ -2,119 +2,127 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB5CAD07D36
-	for <lists+freedreno@lfdr.de>; Fri, 09 Jan 2026 09:31:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07AF4D07DBA
+	for <lists+freedreno@lfdr.de>; Fri, 09 Jan 2026 09:38:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 873D310E817;
-	Fri,  9 Jan 2026 08:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 027FE10E819;
+	Fri,  9 Jan 2026 08:38:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cmxysUpD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YTFN+ebc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gvjQza99";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
- [209.85.221.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF65F10E817
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jan 2026 08:31:14 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id
- ffacd0b85a97d-42fbc305914so2664626f8f.0
- for <freedreno@lists.freedesktop.org>; Fri, 09 Jan 2026 00:31:14 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56E1010E810
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jan 2026 08:38:33 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6096cPa61953482
+ for <freedreno@lists.freedesktop.org>; Fri, 9 Jan 2026 08:38:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=Ab9wCYRkmov4ycBmObTVv+xkLNr5lZZSiXR
+ gMeIKMe8=; b=YTFN+ebchL/FAJkmfL6/p4an5Fruo9Nwi/vxyT5ow/TMJH3iObi
+ GCzcEdl6xBfszxT5qN2kcEKiPseExgopt2EXU79jYz+fOZQhzsJuTL04gocqVRt3
+ CjIl8PT5fqzntdLp1ojzxHnptjG78IgXElBZgDD120pz0vnwHGAGdwL7YmidcerF
+ xxZNm9o15HNaVHtkg5QCEdS/MP4NWSfSB4yuV2mOeY89VEvdMLqecAS45n4mexjt
+ Eo2LapRC77qOC+RurgQtXZYGX0ulqO/k2iMoD/qhBnIZVPxMaDRvKhJIGTb/qeBw
+ NABziYK/KMse6ty1lGSmZErUwFiaOT21+2Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bjfdaamsb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jan 2026 08:38:32 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8b2217a9c60so888745385a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jan 2026 00:38:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1767947473; x=1768552273; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:from:references:cc:to:subject:reply-to:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=ScHhY7gthksnfmgH6uljC923NNYDsVbTgY/cHmeyxX0=;
- b=cmxysUpD4e1nzRrqpjjdFSP3TaaKbMwk1Z1ZtbPIIOpvyrMlzDAvcgyh/MOeSn1qTK
- VDEJbn91bMnnLhVoP7b4rA63iqLV3TD1iyrtHLncoQEwTeAHzSNbhrqDAzcOhvxgB6ei
- dI31wxTU+Gm7Oo5xVM3VVfE4majlvD8lYUZ0nKMk9g49OlhGRi6sF/9FdmjLkMo/uvK8
- k9FB276lZ3WFDHLuzH0UD9jG31EQiZAKfd6yvh5D90b0CaUU+GpvS7GNHc9ogpeMImeV
- teXJkBLKn1lbK7IsAX8ZBBltpc39P95vPrTPVuiRHN+sxZz2kcbslSpLhYYfIHYJml5a
- XxWA==
+ d=oss.qualcomm.com; s=google; t=1767947911; x=1768552711;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ab9wCYRkmov4ycBmObTVv+xkLNr5lZZSiXRgMeIKMe8=;
+ b=gvjQza99X+yEh2mXiIJSO04fdsEahX8K0LxGdYaRKppqpuGVnqeNc+0unB0b0lOMQk
+ riAINt/Ekskb6zQPZlueRZHaMTWUSylTWif0c3ZUqXEwNGEeh6+UD0MjxMj6panxDAaB
+ okyeO8YHoDaYHjwwJI9FM+rhM9vHbpATFYZWhmZI4VMXQ4RUA18axLncznGGB0I92jdS
+ RdL0ZO3prwzoCOqpto5oFzmVHGwN08F7s9j/6sBFZNpx4q8PrzXaqOpD/994Y+X4cbNs
+ nXegm/5y4qgcDo/ibyfSgE0n0qsYXipeZ3z2GDfNAFth+7rLOWcQxSWLh829Obpz/129
+ XOmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767947473; x=1768552273;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:from:references:cc:to:subject:reply-to:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ScHhY7gthksnfmgH6uljC923NNYDsVbTgY/cHmeyxX0=;
- b=uLvrqPJkhslyYllOXHTu5+4AP2PWOiWWypTKPrEaysaMi2VfwvIVgQF32F72nsm90j
- K3hxgLMD2rslQsPfttdPouxj8ilZXO1196qN3PclcWTNcGe336ZzYto2tVArNs1XtrlS
- tS/HQ3h9x4Xg0RUO16+4nqvlQkN+nICImmA9AXHse7hl1JJ/iMsIJPTMRJAB4Wa5lVcC
- r8KtXiSWfi4N2UeM5Uao917HT9gIlD66eN3p5Mhtr7Lpr/29mWK/6aRJA0EJkzsjZMPh
- WU2JU7BbV3qDIVMpS2lvD2gEwSKllpwsqTl/gqolYq/m0NWGKFG4Ah59dxkqMAVJsdBG
- pXKQ==
+ d=1e100.net; s=20230601; t=1767947911; x=1768552711;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ab9wCYRkmov4ycBmObTVv+xkLNr5lZZSiXRgMeIKMe8=;
+ b=l54jTe7yUQaOpZIcIXBoC66BbIrAyi3DiFmZr8yHbCBHUow10J9rHpwvgPTYzxuZi5
+ oPO8GXZJYNGH57CH1BW0nYTcq6t7n6ROWU4G9LxZ/VDI4qh69gcOJU13oMb9p+KBfmz7
+ gAqRlDO6KjhYukrkTl3IcIsXwYMLX594pXYu5cdMOVgy0gdTf3ydmfL8I6B+EIBOrof+
+ AjhHZmE9cSrX4YGeIeEz04fMmmnAtkqpFiwypzQsTtSmCXcc24cCtDt9mIc9RczRlBJZ
+ OlM2vGnMj4/xKaarKr+lavGyH3zI0CRmIzgfg3u3svMhy7omjsFPzRdQExHGWLIc30yd
+ SfcQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfnHP2Kjm4wQZiNY4yU06S1AIf/QrpwCsQ9SR/gDdFOI79fzrkeUHEFx/cbZ2C/CN4j2pL5DBEJSU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtBHGEmA/rBR+F6HKp8cxs7zz8VnLHe+pd8dUIIwhMRpj+5Eon
- pfwmXpm6n6KLXsROjTjbGh48UvVLHsT6gItt28Xlgw50yyluB6poU4cKJjE0rSwU/5N77b4YJGK
- VLkjk
-X-Gm-Gg: AY/fxX6HC2Go+fey84cu/vZcWc2nmMVfi6EiNLXNs1mdXo4jZluMhAxStEfSoBiikKH
- x0sEcovo71oCCEfdCfBLjQQlxDVFx7Lekn2m2FEluR46aGof9uH6mQy1b9VtZqB659x961ZNKkw
- Ccng4BJXaD8iOxcVP79IAapJh0LxVEHRgNWJ4qxYrIN1CJ7MuFB5v4ZB/XmVgcO0FcQds1ebO7O
- vbIIYPZSoW2rDqyFeFWVmMwmSD/rxJF5xaV0bWEI1fDfnpQuSdK6fXTw5CrPpKOIpOWKJxw5xIQ
- PBpiw6VZTU1qVzL/OSxfzbCooVmQFZtWLXG1qWgsYXBFyHVd7dgeUUNq5DmSoupgqBwD8BIfj4s
- rm5Wxfzoz4YWmo6udk4EEcDCkSypKYa0TVQtdtl68JakMO6+jAhFU1D6DxyuFqcOUI/QQ/ApiTj
- FbRutBrNqgvDrBVV/n1x0MsnvAOwvlBdfj7trsfqoEOGZi6YKARZ9v5gq51GVCNzk=
-X-Google-Smtp-Source: AGHT+IHsXjfVMgqUU883lNdJMdHku+hLNkk+zQ+G0NK84h/s8sm1XXRkmzNxWJiENK0PtpaJaMtafw==
-X-Received: by 2002:a05:6000:26ca:b0:430:f5ed:83fc with SMTP id
- ffacd0b85a97d-432c3760facmr12321898f8f.11.1767947473278; 
- Fri, 09 Jan 2026 00:31:13 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:3d9:2080:d283:7a7e:4c57:678d?
- ([2a01:e0a:3d9:2080:d283:7a7e:4c57:678d])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e16f4sm21785092f8f.11.2026.01.09.00.31.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 00:31:13 -0800 (PST)
-Message-ID: <34590271-0e34-45cd-ac6f-6f901e833087@linaro.org>
-Date: Fri, 9 Jan 2026 09:31:12 +0100
+ AJvYcCUWUAqUO41hdZgnBRVgNVa9g8eUHLmJSDSXGm1YrOi6G7w/HlA9M+LlF6EBcXu58NAbwiy3gRfoXIM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhHw+KTp18IcJM3+wB+gQR1/xCUsg5vSssvBjS45XQKV/RTaUa
+ lbynC0Hrm/mRsEAmRHdDJAFu3EG+6AykNEfGjHKXwyaV25+g+WTrP2l0DKLMUFNHEb9rw/yCj/l
+ bka5pHAjXvvRqNBvQEXxYLtXEjAqVc02uIIYvZlWUxDunR1k9gCnk+OGxwGw+bMbiqm0PSHM=
+X-Gm-Gg: AY/fxX5VDd6nua5GuEA8UtPiLQ3mOafumLq3VIoZwiYPHBcB2e73GxVNOA1U1ODtG3Z
+ Nv4h1EeHasuh8BRqSutL8me+4+stWJEEyCQJ61BUYR0JEZITA91b0NE56WzQpchv/KiRBVzHpIM
+ cZTKRC/Qv5qy7uO1Wc58CdPPRMJOMA1We97N0LWmP77nKSeCMf7XxDxFD2sIjydpDM571a5tRbT
+ oSKPiK/fDVZ1q/69Hi7aqqnvlUrxQdKP4FToi639GD0lnyuoLCuIn87ucSrwQzaPpzik3idFXZu
+ AwO4os0mVxtf2PzIgodsVkNMVDJbbXluvAURt2VGmUyPBfE+vyHPw9m1YfZJkICx+YTkre2HnhL
+ uL3TsXAcGSYMWcurKAAoGFOTQYbbXSDOx7kVswMxUtZZ4jvhroG2Q0Y2AxdXUkUDIDnk=
+X-Received: by 2002:a05:620a:f07:b0:8b2:e70c:427a with SMTP id
+ af79cd13be357-8c3893f25c2mr1163409585a.44.1767947911482; 
+ Fri, 09 Jan 2026 00:38:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGmvZp6qYc6nvl7QjoP23G7Tn8tnuiGzqnKjzAsBMKfKV8jYCRV9KKhnZzaf4a45tyoLt4qww==
+X-Received: by 2002:a05:620a:f07:b0:8b2:e70c:427a with SMTP id
+ af79cd13be357-8c3893f25c2mr1163407685a.44.1767947911053; 
+ Fri, 09 Jan 2026 00:38:31 -0800 (PST)
+Received: from yuanjiey.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8c37f530c35sm771262185a.40.2026.01.09.00.38.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Jan 2026 00:38:30 -0800 (PST)
+From: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, krzysztof.kozlowski@linaro.org,
+ konrad.dybcio@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+ yongxing.mou@oss.qualcomm.com
+Subject: [PATCH 0/2] drm/msm: fix mismatch between power and frequency
+Date: Fri,  9 Jan 2026 16:38:06 +0800
+Message-Id: <20260109083808.1047-1-yuanjie.yang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] Retrieve information about DDR from SMEM
-To: Konrad Dybcio <konradybcio@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Ue1ciaSN c=1 sm=1 tr=0 ts=6960be88 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=dKC2B17Pv8Kfw1TXKb0A:9 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 9ag8DxzYrTOQeGnKOq7iLbPnp6UzSDUR
+X-Proofpoint-GUID: 9ag8DxzYrTOQeGnKOq7iLbPnp6UzSDUR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA5MDA2MCBTYWx0ZWRfX2fxJeXTetboO
+ KqRg3jXSpeYzG5Gne3KhuX4qhS75XafzkU7RZpYoVGgNw6+PyMtyrFk2cil5ib3rCDtDpm0vKAm
+ aPW9iwhH+mZYOFSRpSsAhb7ZYtnYXGhgSXIo+UW6V5ThDA2IgunijSI9J10lpvoywq0FX+Cpk+P
+ noQ1iqH5psuIdgUFSRbilnMa9edUplL6iq5CvSNB5Pdue4RE8lM4tCS9tvPcRovZZ8SP5LCd87j
+ cuH7wuy57TMlxZILlJXPH9SGYyfOjRgVdk/nsvGfkPiAtGtPcSdR3lYiSYeC7yhFop0uJoItani
+ cvX8lC0G17kerKqeOknK6wUMqZXAH3zsw54aDa9m46Gb0nM7eAdudhlpX62Z1WxT91U5S7c1yfW
+ H+gxlAokNZx10xu8jDXcodbPhiIg69qMod+MJf9dZlsoATviP2BwCTNmLBlNu1hFI7TmzTgwcJT
+ sxj2helcG/J1L8cMKEQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-09_02,2026-01-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ bulkscore=0 suspectscore=0 phishscore=0 spamscore=0 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2601090060
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,81 +135,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/8/26 15:21, Konrad Dybcio wrote:
-> SMEM allows the OS to retrieve information about the DDR memory.
-> Among that information, is a semi-magic value called 'HBB', or Highest
-> Bank address Bit, which multimedia drivers (for hardware like Adreno
-> and MDSS) must retrieve in order to program the IP blocks correctly.
-> 
-> This series introduces an API to retrieve that value, uses it in the
-> aforementioned programming sequences and exposes available DDR
-> frequencies in debugfs (to e.g. pass to aoss_qmp debugfs). More
-> information can be exposed in the future, as needed.
-> 
-> Patch 3 should really be merged after 1&2
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Support v6 and v7 DDRInfo (v7 is used on e.g. Hamoa)
-> - Handle rare cases of DDRInfo v5 with additional trailing data
-> - Rebase/adjust to SSoT UBWC
-> - Expose hbb value in debugfs
-> - cosmetic changes
-> - Link to v2: https://lore.kernel.org/r/20250410-topic-smem_dramc-v2-0-dead15264714@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Avoid checking for < 0 on unsigned types
-> - Overwrite Adreno UBWC data to keep the data shared with userspace
->    coherent with what's programmed into the hardware
-> - Call get_hbb() in msm_mdss_enable() instead of all UBWC setup
->    branches separately
-> - Pick up Bjorn's rb on patch 1
-> - Link to v1: https://lore.kernel.org/r/20250409-topic-smem_dramc-v1-0-94d505cd5593@oss.qualcomm.com
-> 
-> ---
-> Konrad Dybcio (3):
->        soc: qcom: smem: Expose DDR data from SMEM
->        soc: qcom: ubwc: Get HBB from SMEM
->        drm/msm/adreno: Trust the SSoT UBWC config
-> 
->   drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  11 +-
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  82 +------
->   drivers/gpu/drm/msm/adreno/adreno_gpu.h |   5 -
->   drivers/soc/qcom/Makefile               |   3 +-
->   drivers/soc/qcom/smem.c                 |  14 +-
->   drivers/soc/qcom/smem.h                 |   9 +
->   drivers/soc/qcom/smem_dramc.c           | 408 ++++++++++++++++++++++++++++++++
->   drivers/soc/qcom/ubwc_config.c          |  69 ++++--
->   include/linux/soc/qcom/smem.h           |   4 +
->   9 files changed, 485 insertions(+), 120 deletions(-)
-> ---
-> base-commit: fc4e91c639c0af93d63c3d5bc0ee45515dd7504a
-> change-id: 20250409-topic-smem_dramc-6467187ac865
-> 
-> Best regards,
+From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
+During DPU runtime suspend, calling dev_pm_opp_set_rate(dev, 0) drops
+the MMCX rail to MIN_SVS while the core clock frequency remains at its
+original (highest) rate. When runtime resume re-enables the clock, this
+may result in a mismatch between the rail voltage and the clock rate.
 
-root@qemuarm64:~# cat /sys/kernel/debug/qcom_smem/
-dram_frequencies  hbb
-root@qemuarm64:~# cat /sys/kernel/debug/qcom_smem/dram_frequencies
-200000000
-547200000
-768000000
-1555200000
-1708800000
-2092800000
-2736000000
-3187200000
-3686400000
-4224000000
-root@qemuarm64:~# cat /sys/kernel/debug/qcom_smem/hbb
-16
+Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+---
+Yuanjie Yang (2):
+  drm/msm/dpu: fix mismatch between power and frequency
+  drm/msm/dpu: use max_freq replace max_core_clk_rate
 
-Thanks,
-Neil
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 22 ++++++++++++++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  3 +++
+ 2 files changed, 17 insertions(+), 8 deletions(-)
+
+-- 
+2.34.1
+
