@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92117D07C37
-	for <lists+freedreno@lfdr.de>; Fri, 09 Jan 2026 09:21:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB5CAD07D36
+	for <lists+freedreno@lfdr.de>; Fri, 09 Jan 2026 09:31:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5998110E807;
-	Fri,  9 Jan 2026 08:21:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 873D310E817;
+	Fri,  9 Jan 2026 08:31:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DmuZ6sYR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cmxysUpD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 895BA10E805
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jan 2026 08:21:02 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id
- 5b1f17b1804b1-4779cb0a33fso42684185e9.0
- for <freedreno@lists.freedesktop.org>; Fri, 09 Jan 2026 00:21:02 -0800 (PST)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF65F10E817
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jan 2026 08:31:14 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id
+ ffacd0b85a97d-42fbc305914so2664626f8f.0
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jan 2026 00:31:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1767946861; x=1768551661; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1767947473; x=1768552273; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:from:references:cc:to:subject:reply-to:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=f9uKMSt4+hDezkXTZIi9m3T1AtMKx1vNqIx/d02r4Ps=;
- b=DmuZ6sYRp+8Rw79YDyUW5174v4JaoQyOP+lgTjFJS0yUzvy0rNO6tpgemDfdWTlNoH
- Y3CqGHy+a90VES6fLbMHQBLM9dktLfZf+EuJ22nrhh4jGz2iOT5+32TqAYwy4FgfLtyi
- b8o75V+fpvUM1Rc0cAH2DGKMZ212ryZ/AF+DYto2JzSQGdDU7b3n0d310OQ+kSaSi20p
- UJCd/NtGyrRL+N5J7+EIgB751QDEV0PqgZUN9gzM5pzqKVogcIV47dzs7kBnXpK5Pdk5
- d33IAtQEywPNgz+EHEE7Ek17h1Fi5SzDI6LDXNc8M0GqWEJIXvIoeh+1dACKxUsx8axg
- ngZw==
+ :reply-to; bh=ScHhY7gthksnfmgH6uljC923NNYDsVbTgY/cHmeyxX0=;
+ b=cmxysUpD4e1nzRrqpjjdFSP3TaaKbMwk1Z1ZtbPIIOpvyrMlzDAvcgyh/MOeSn1qTK
+ VDEJbn91bMnnLhVoP7b4rA63iqLV3TD1iyrtHLncoQEwTeAHzSNbhrqDAzcOhvxgB6ei
+ dI31wxTU+Gm7Oo5xVM3VVfE4majlvD8lYUZ0nKMk9g49OlhGRi6sF/9FdmjLkMo/uvK8
+ k9FB276lZ3WFDHLuzH0UD9jG31EQiZAKfd6yvh5D90b0CaUU+GpvS7GNHc9ogpeMImeV
+ teXJkBLKn1lbK7IsAX8ZBBltpc39P95vPrTPVuiRHN+sxZz2kcbslSpLhYYfIHYJml5a
+ XxWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767946861; x=1768551661;
+ d=1e100.net; s=20230601; t=1767947473; x=1768552273;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:from:references:cc:to:subject:reply-to:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=f9uKMSt4+hDezkXTZIi9m3T1AtMKx1vNqIx/d02r4Ps=;
- b=ZOvOooee9AO5C097ArD3PrrRBrvSaYWtVnj9Ckx/szbxjvpRAqNiAkWkLp54hPH5ii
- +ylJlLwSY8XNApboOYiWpSUichasPbOID70GBl5u9RpX24+R+rIHZ3On/j9U9ECwgexW
- BfrsLqxSFRbEf86eoLLNMzh3p7Du+/B8n5U+Vm+eARB2ZHBXvRHnLDWenFCHWwKX48ez
- ESqbWxJz3MNtdZponpmnMC9TNPwOKE/7KysKMpdd1hqAFjnxvm2K/t8iaWYi87sWHjaV
- houvE2q1j2OxursylTsnAeTbZQuwYT1+lamSy+rFXde/6SRc+/HXZS2fudpdgAe1Bvnu
- gBIg==
+ bh=ScHhY7gthksnfmgH6uljC923NNYDsVbTgY/cHmeyxX0=;
+ b=uLvrqPJkhslyYllOXHTu5+4AP2PWOiWWypTKPrEaysaMi2VfwvIVgQF32F72nsm90j
+ K3hxgLMD2rslQsPfttdPouxj8ilZXO1196qN3PclcWTNcGe336ZzYto2tVArNs1XtrlS
+ tS/HQ3h9x4Xg0RUO16+4nqvlQkN+nICImmA9AXHse7hl1JJ/iMsIJPTMRJAB4Wa5lVcC
+ r8KtXiSWfi4N2UeM5Uao917HT9gIlD66eN3p5Mhtr7Lpr/29mWK/6aRJA0EJkzsjZMPh
+ WU2JU7BbV3qDIVMpS2lvD2gEwSKllpwsqTl/gqolYq/m0NWGKFG4Ah59dxkqMAVJsdBG
+ pXKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVL0sXiJy3lVjNitYfjXht/K4Lnr92zEPQoE7PvGzK93uWIVWrtLsZ/sx3GvqzMyPGJzJ8T88Zm6G8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzU6vWl7kQswsae8XCkNW3gpN+SUx8nTNC2wMTHJSoAor5kqUOn
- TOAf7ricLYL1sIXRR3RuLlAGdMNgTZhPPfS10EtVtRstA3aOE3P338pBi++lNc31dvHr94tLtD7
- ZoDKu
-X-Gm-Gg: AY/fxX4yMdw5WRPy+sInXbG20d8VFdgT2XwA7ACgYkTmS/Y6R8/dz2Lxoe6iJgmsxs5
- i9HMS+IxhWSWbUwoKLyjEXr2vlkM0eHU2hGKKX46zO17vDCUt73NVCf4Xi3DasHUfnQYTi5SWVd
- T0TxJ7fJmtYLiS13kXeHZNdx+2twJuRR7Fhfk4N98up3NroCCX9OaCPEf2x8TDj2dJD3HDZd9vC
- 76ZRuGko43g8GGU29PfSpEAg0njll1OGnQvI7gC2aEciUrCDR4Si03zoLzp4TUOPXlMTNgxj+I3
- ukxmB6wkDZgHkA/f7c8hmKJn68ZSK/PyFU7kZgd6sabNgXQd346gJKEZ0a8LmDF+hrjHb0gHToM
- hPm8VxD6wd/Rhs5Bc2e1zeiFWcWEKbicwtdCLqKRcPqxVUb3jl/pCMJyUjA7mplMN7BhjcvthVD
- XAPPzTeybWY7SAWfwjNKgt7YS9H2c6Aawf4IjQ2pa+Tu0vxxLQtt53iigMfsNGsoI=
-X-Google-Smtp-Source: AGHT+IH0OJfkjAgMzQqRakprSyrN6tCPxBuCGvpfdT55BzOyLssSQCuBpAQ8A1Mu0tIEefB/dW4VNw==
-X-Received: by 2002:a05:600c:8b43:b0:479:1ac2:f9b8 with SMTP id
- 5b1f17b1804b1-47d84b33b7bmr99212625e9.21.1767946860895; 
- Fri, 09 Jan 2026 00:21:00 -0800 (PST)
+ AJvYcCXfnHP2Kjm4wQZiNY4yU06S1AIf/QrpwCsQ9SR/gDdFOI79fzrkeUHEFx/cbZ2C/CN4j2pL5DBEJSU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtBHGEmA/rBR+F6HKp8cxs7zz8VnLHe+pd8dUIIwhMRpj+5Eon
+ pfwmXpm6n6KLXsROjTjbGh48UvVLHsT6gItt28Xlgw50yyluB6poU4cKJjE0rSwU/5N77b4YJGK
+ VLkjk
+X-Gm-Gg: AY/fxX6HC2Go+fey84cu/vZcWc2nmMVfi6EiNLXNs1mdXo4jZluMhAxStEfSoBiikKH
+ x0sEcovo71oCCEfdCfBLjQQlxDVFx7Lekn2m2FEluR46aGof9uH6mQy1b9VtZqB659x961ZNKkw
+ Ccng4BJXaD8iOxcVP79IAapJh0LxVEHRgNWJ4qxYrIN1CJ7MuFB5v4ZB/XmVgcO0FcQds1ebO7O
+ vbIIYPZSoW2rDqyFeFWVmMwmSD/rxJF5xaV0bWEI1fDfnpQuSdK6fXTw5CrPpKOIpOWKJxw5xIQ
+ PBpiw6VZTU1qVzL/OSxfzbCooVmQFZtWLXG1qWgsYXBFyHVd7dgeUUNq5DmSoupgqBwD8BIfj4s
+ rm5Wxfzoz4YWmo6udk4EEcDCkSypKYa0TVQtdtl68JakMO6+jAhFU1D6DxyuFqcOUI/QQ/ApiTj
+ FbRutBrNqgvDrBVV/n1x0MsnvAOwvlBdfj7trsfqoEOGZi6YKARZ9v5gq51GVCNzk=
+X-Google-Smtp-Source: AGHT+IHsXjfVMgqUU883lNdJMdHku+hLNkk+zQ+G0NK84h/s8sm1XXRkmzNxWJiENK0PtpaJaMtafw==
+X-Received: by 2002:a05:6000:26ca:b0:430:f5ed:83fc with SMTP id
+ ffacd0b85a97d-432c3760facmr12321898f8f.11.1767947473278; 
+ Fri, 09 Jan 2026 00:31:13 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:3d9:2080:d283:7a7e:4c57:678d?
  ([2a01:e0a:3d9:2080:d283:7a7e:4c57:678d])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d86c6ff40sm123761785e9.2.2026.01.09.00.20.59
+ ffacd0b85a97d-432bd0e16f4sm21785092f8f.11.2026.01.09.00.31.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 00:21:00 -0800 (PST)
-Message-ID: <6ef89318-5fa4-47f5-8027-04a91656d81e@linaro.org>
-Date: Fri, 9 Jan 2026 09:20:59 +0100
+ Fri, 09 Jan 2026 00:31:13 -0800 (PST)
+Message-ID: <34590271-0e34-45cd-ac6f-6f901e833087@linaro.org>
+Date: Fri, 9 Jan 2026 09:31:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 0/3] Retrieve information about DDR from SMEM
@@ -114,7 +114,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
 Organization: Linaro
 In-Reply-To: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,8 +131,6 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
 On 1/8/26 15:21, Konrad Dybcio wrote:
 > SMEM allows the OS to retrieve information about the DDR memory.
 > Among that information, is a semi-magic value called 'HBB', or Highest
@@ -145,21 +143,6 @@ On 1/8/26 15:21, Konrad Dybcio wrote:
 > information can be exposed in the future, as needed.
 > 
 > Patch 3 should really be merged after 1&2
-
-
-While trying it, I got the following warning:
-
-In function ‘smem_dram_parse_v3_data’,
-     inlined from ‘smem_dram_parse’ at drivers/soc/qcom/smem_dramc.c:380:3:
-drivers/soc/qcom/smem_dramc.c:216:31: warning: iteration 13 invokes undefined behavior [-Waggressive-loop-optimizations]
-   216 |                 if (freq_entry->freq_khz && freq_entry->enabled)
-       |                     ~~~~~~~~~~^~~~~~~~~~
-drivers/soc/qcom/smem_dramc.c:213:27: note: within this loop
-   213 |         for (int i = 0; i < num_freq_entries; i++) {
-       |                         ~~^~~~~~~~~~~~~~~~~~
-
-Neil
-
 > 
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
@@ -202,3 +185,23 @@ Neil
 > 
 > Best regards,
 
+Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
+
+root@qemuarm64:~# cat /sys/kernel/debug/qcom_smem/
+dram_frequencies  hbb
+root@qemuarm64:~# cat /sys/kernel/debug/qcom_smem/dram_frequencies
+200000000
+547200000
+768000000
+1555200000
+1708800000
+2092800000
+2736000000
+3187200000
+3686400000
+4224000000
+root@qemuarm64:~# cat /sys/kernel/debug/qcom_smem/hbb
+16
+
+Thanks,
+Neil
