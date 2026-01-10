@@ -2,101 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D3FBD0DB92
+	by mail.lfdr.de (Postfix) with ESMTPS id 88D43D0DB93
 	for <lists+freedreno@lfdr.de>; Sat, 10 Jan 2026 20:38:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A3E310E1DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD0DE10E202;
 	Sat, 10 Jan 2026 19:38:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="meN+wm9H";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eQTylc8w";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="E6VOGJUG";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HT7Gr9H0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF0D410E1C1
- for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:05 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38AB810E1DB
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:07 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60AGkIWR094947
- for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:05 GMT
+ 60AIgYlR607056
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- phFObqSVTNQ2TW4bvrM5rdj1a9b0rssNIUHLJzOhHY4=; b=meN+wm9HFNYDDdz/
- bah9j1YQ2f6Yckc/k/3X4dNb1O7NwaR/boY+2gbznFpxUv+4YCfN/zmPcwlBo4/p
- 40ACkzEieN7VwR10VYXfV+E47z6sEfS1Exh6/BTWrQ5H6tgccXpCbfh7FvZqhXFx
- gBar0a9gdXydIEKs5Ip9HqVcAOTOazT1Hx+CLlfC4BDN6G9Y0ocHYbntLzXAsxPC
- bclZoPq+URZoiAVAEXBRMuNkLcKFZLFtVspepeP+QPYd3lfMgdO6OBFjaQMrSLDa
- rOlT5hmuV8l6mtCF5oAS+b83WrDga+BduJ+0Pd8u0N22iKN79SjVUGON8sr3+WKY
- vyGgIw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bkjvxruay-1
+ gK+pnJ21j1i9U/bbLvHtPo8Y26e9MJOkY3Hs+TWsP98=; b=E6VOGJUGy61sVQhC
+ sTL6ONEeLNvGbeqIEZSCr7OTYTbQQKSl3okuOUlb6Ptntc4xzteoRxhxUZQaFXVm
+ 2RRSkCuTUdH6U0C/yz9XjzGgt84YdUDtukdixmVfzQ+Yu6vdUY6+Tiz/mk8in0zn
+ uRXBI7v49eCpFQnRyIVh1GY5sY6lIDAMgH4HJUelFLIE84mD36TPNUSpUNYqmbSv
+ JpaO1Cn5n5wkV6xrCLGJQ0WV60idtUdXl8ZH5gB4bMQ2RWr+vjFchfgPwaj/IlYZ
+ vWaCmBZBQAXKATq5U9fFmQQJ1xZhaJ9BpXBROTmu2ZFdFs0dTsp5Nwmn6PsbT0xk
+ +jgc9g==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bkdqqs9kp-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:05 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-88a2d8b7ea5so62142986d6.0
- for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 11:38:05 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:06 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8b234bae2a7so1472432485a.3
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 11:38:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768073884; x=1768678684;
+ d=oss.qualcomm.com; s=google; t=1768073885; x=1768678685;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=phFObqSVTNQ2TW4bvrM5rdj1a9b0rssNIUHLJzOhHY4=;
- b=eQTylc8ws3VvBL7PmxJn7uBxqi4vN58sv595Iot8FBu9xthbuTuCjixF9CBJAO7ULA
- U4xotnyIaC94VSJcdZzV3N0Txn9OX7y1dthnYQlQJp1y79MumM0M2m+ye08u40j8y3a0
- pwjggrGpOTE0que6HbzJJPLVCgyZu0CYKZ7cTg/M/s6Tj6U4OtgiVD2c+5NhdMtbpl3W
- tmQM184d7uZthh3YfD2HlCS8b5L1gu+eyD+hOzgPOdALi0fnHBWHETVKLN3QuMXvvy9G
- 8S9MtQNHAFQ8ocxFub3Dy5BMfVeXh70VtqI9Nnmu9Mmop/GJUzrwYxv6dEVaYb2N/5xx
- RTtg==
+ :reply-to; bh=gK+pnJ21j1i9U/bbLvHtPo8Y26e9MJOkY3Hs+TWsP98=;
+ b=HT7Gr9H0YQjQ4043x9XQ7Bpva7TcinAaFLJJq1TjX+7fRDAAqOTEiUfqgj34471xBJ
+ tCQ7yQWGxgjyxTfBuhmxm2gppP9TkaOTlRIvVxZh68bb2XuHAbX7fUN3q+Mbb6ZI1olP
+ x7DECQO3sfBU7dA4MQ06oC+KrVe8Fcr6qqUuoZHQgl5kBNEOMXrfyn1EwUi1TeKtqB1W
+ 31ilyAW154N96pghPTmxRo6qde/uRhNXrpT1P+f50/VWiHf15NIG91jd9cVpasCltn1B
+ R3ASlWaZjTIvu8/GPAercam/DtdP8yIiGHN2auZBxn1gM1801GctqH+cYqIz+HL5QbGX
+ 7QRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768073884; x=1768678684;
+ d=1e100.net; s=20230601; t=1768073885; x=1768678685;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=phFObqSVTNQ2TW4bvrM5rdj1a9b0rssNIUHLJzOhHY4=;
- b=pk3wZeM/+JhfqqvY0hxKXiHDAr9awCRsvQ61pKOrFcTyfCZolsq9LEZGRU8QUsw3cj
- ANP/7Yk03iobwiZilEm/aUP93tZJbtuAf2qRA6zlABPPtOq9aeL+f1Pcr0dkN8Ol6Kty
- TQvSUlh1bfEbyBblzTyC7Spd4Lf0Pz8fFzJWvX4PSw1wVAOiU70RUhhh/7i3zL7YwOQP
- DrHZxVGAHNwQxZ4v96t4VsM5TgurTQS6/7wfR3H7g8Nbegvb7jXzIozoEq11YGqLOr3s
- BKhcPABJFbAO4YLbsSNbSnton1t9L+RqJI48rkoHVwObDHogcyISRdc23EqzoNas1Hk+
- C3Ng==
+ bh=gK+pnJ21j1i9U/bbLvHtPo8Y26e9MJOkY3Hs+TWsP98=;
+ b=vC21Sh9DFThshpGHDfwkn515GtoiFlJeVM21KIcayhBkSfrkxlrMUeQzPvy44yqZ3B
+ rnhQ0VHpPSd196oFSZdC98xmX0gutUt0CbBQDmfupi26uecXe8jYdRMrS+Ktlv43lIiB
+ 5gexdU6sR2CUchPLu0mZr0Ono5UdFwDNj4MfzRo3fHIBf8Yl18IWCIHP0IUg5NckWcTY
+ wznYIUSc/Uw51RivP9B3+sRR4mDZjmRqr73cFF6ZOfnCyv7hu85KsD1CLAv+mo8dR+27
+ ezHGm4V2U5e6Z7KW2lJBqyJ0rZK/0trYGtRkSR8UFb0Kbw6mo++qxEQq/6ZhPjSCZcW8
+ +vSg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVDrNii0zqeV8LFeuucp26RlSFos9lPQRKT2VfKoHLe2/hKsQetawSiIGG0hTnTT5+OhTHklTmtGXA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywp3HpHoKZLJkug+iVAPGHth+uw8hzLlDM6fGWf2YQFPYysHwHS
- 1CVgbvMHygXMzv3jtt6fxpl2ayPp7+aEOQCek8MrSU4rqoY9LEfLO4BqK7b+0KFXkzdfL+LVD6X
- f/Hsxb93bhzq7LDNhROMYe/tz4g6Nn5z1RltRMUPcJerlpz3cET39uWDd4w0dPvry9h/3VOE=
-X-Gm-Gg: AY/fxX5he1XRwc1Gc5sV+7UT4vGEufUxGY2zcP+RQzXCS+N0iHqsAS6PPtwyn9WF4kC
- JuaWVIJQ1GtUQK9eQio+HQL8fmlAIwbQem7TLaO9xUlOl17LoEVwGfZCjVQq8aE92Q10tN0z6Sw
- icpgASeYKk7IlYmtxhr4pKWAfoGR4RxdClh6mGyMGrP5X1ywBVcxADH1VZiEQgmWNQO8n09/nuV
- 41vOLlgND+LPCnfDEpXPNQExzHgJW/tiM4Lx/q/wf/tp9NOTYvODpLdR0YtlbXm0A2QiS8J0O9w
- pUc6xtTlP7bLDDVNvsnleUZNrx0fAySkTvi+Gswirvz4LmhtmY9MWa6iW7n/iQ9fAM90AAzV5Dk
- dDG9NllB7+RQ2YxoOiS5QqpElToqsFeTKSp7penI1h4yPFfbxEiBre37SL3pFdF3ng21gHcDnuo
- aGEVTGqUgtXe5NVb033CP46JY=
-X-Received: by 2002:a05:6214:202b:b0:87d:e456:4786 with SMTP id
- 6a1803df08f44-8908426ab50mr179708656d6.45.1768073884427; 
- Sat, 10 Jan 2026 11:38:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFrvCJxK5E/lItE74kRDCtOeI+UlaEXrEZFIHoPd9qyQkcxz9NSymG2Cfr+eVovwlWWnTIhyg==
-X-Received: by 2002:a05:6214:202b:b0:87d:e456:4786 with SMTP id
- 6a1803df08f44-8908426ab50mr179708326d6.45.1768073883937; 
- Sat, 10 Jan 2026 11:38:03 -0800 (PST)
+ AJvYcCVDCYhTo7Lt2044b0poX4OElpXLjYLRBprrzKrGXSfbRWVN1cxWbmRNM5Lvl09GA7w5YG6UKe5W30U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwMssAZfxnovI1t3oKHTcTXzfSR2+0OM2qYmCIpxYZCs2pH3dJ7
+ LqGYTRhiT4NRgyKMivKaeJD1ctg80UJFG4IdKsF6/y2JNl2+4dSOfKhmPa2OKNGRUCXKWoiUU6l
+ ynrym8BQK+A3yBHOWRbhASNvdLcJEU7fGjgS0edH5h7eDtDVK68OzCwnS+iiI4AxtyiHt0Ww=
+X-Gm-Gg: AY/fxX4hswCNp9DOfXDp5wrPcPT7gbVuSDr+9LPqkuvMsK72AzY9l1VdjS9cBdJz6/m
+ EeMr35GTbrkjRQd0s5eKoUZRCPkcCV250y0OCwUKk6MDP9cON/+G8/sCUZTGrIUOgkHTbjNWUWX
+ Am9flC5sdl/4xbomO6zo3ZTrDVc8LBgD2XP/F8/ghuKhPB3Ao/UPAmTFCvOckrRWE90t1Om1oMg
+ zgPDPKr8nXsRUWi1HWFAAUcNqEF0HR3wWz02APWEMZsGOuCoPL2BOtnbxuSRA09dN/0nyo/oIe9
+ NTMS303sgrQmhskPTqwD/DwPAqH5qsjCjpBaO4y96VH277mw05Zyx+R6fOfXE1WH3SUvrfrgoK+
+ 9g/QX8j8fnBqMk4iWbMxPHPwEVyAUe4IPqeckkg++OMOMX7d0jGgZoLRBH9y3TOLs7KdAZTCHkk
+ O7c4+8A69QWmRaLREtnek1Ic8=
+X-Received: by 2002:a05:620a:1925:b0:8b2:ea3f:2f91 with SMTP id
+ af79cd13be357-8c38941be22mr1791695385a.81.1768073885491; 
+ Sat, 10 Jan 2026 11:38:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEIKWgn/ESS0qupy6xBZrxuNNEEt1VDukrNT5CaPVcHGZGReo2NFsBi2b+nv6ZXh9qRMm0aJg==
+X-Received: by 2002:a05:620a:1925:b0:8b2:ea3f:2f91 with SMTP id
+ af79cd13be357-8c38941be22mr1791693585a.81.1768073885052; 
+ Sat, 10 Jan 2026 11:38:05 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59b65d0f6absm3539700e87.42.2026.01.10.11.38.03
+ 2adb3069b0e04-59b65d0f6absm3539700e87.42.2026.01.10.11.38.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Jan 2026 11:38:03 -0800 (PST)
+ Sat, 10 Jan 2026 11:38:04 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 10 Jan 2026 21:37:57 +0200
-Subject: [PATCH 05/11] media: iris: don't specify highest_bank_bit in the
+Date: Sat, 10 Jan 2026 21:37:58 +0200
+Subject: [PATCH 06/11] media: iris: don't specify ubwc_swizzle in the
  source code
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260110-iris-ubwc-v1-5-dd70494dcd7b@oss.qualcomm.com>
+Message-Id: <20260110-iris-ubwc-v1-6-dd70494dcd7b@oss.qualcomm.com>
 References: <20260110-iris-ubwc-v1-0-dd70494dcd7b@oss.qualcomm.com>
 In-Reply-To: <20260110-iris-ubwc-v1-0-dd70494dcd7b@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -117,39 +117,39 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-media@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2205;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3036;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Vy9tVwOAA5YcL1Np1wJJTKlwneoNR0tSHzfBWTZUVqY=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpYqqTpbtQDEaVekUIxIorLinJK+7zjJlGSZMwM
- IVJk9KPFVqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaWKqkwAKCRCLPIo+Aiko
- 1eHlB/4kUeCqrKqRYoiDCTdAHwW+RQxJdDp+scPXwVIAisZhOAeXVsPpYM+t0YOd1l7pRcUZ1nh
- KKM5HfETppQXrnooOWhfprp32HjTruoZvQ/ySA7bMZk7n8IaLyW+Z7Ute1JeebTfVfWWm+p+Sc5
- nAOeI8+T/0TxChsPUAgiucmG8gotqLveV4inEzeyoUVZTuZ7abJUn/3CG5NmlakEt321MQy15VI
- 80fRTK63d3lAwlw1js6cuGlSp1PTyWK2bk3B56afJghYwHnKg3mwE6nK6FVjrJ8gf+4EEMNGB2r
- NahK5yVFqDXNOzCLivlIoHa9GoccIsmhk01fIiI6MXDJQceA
+ bh=wPApkxuh4lfLkguH9VNNQc3BFntt8VOiO6TMdbr3Zds=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpYqqTqJmApBFFw10nL1vWSv+/MlslTeTh12Vy7
+ IceARZggeaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaWKqkwAKCRCLPIo+Aiko
+ 1QHuB/9SDh8YAvc7H5s3wL2CsuB8vGeKPCPurzevmcKRHH1YnrOFa7QKcZ37MhNPhXNFF6K1xxp
+ jsh+JHZLsbflUJExjO1oH36XdfZg2hDrpk47mqwbOhd6x6RKZJBVUwJOxbYS+qofypTKBbliKEw
+ qMJfjCjO8jHHO7/a7U5SSxk+QREto7FgnTdDPK0DbjzWAPIh9E/RX05mQmDDqq/VFCXNHyk8YJR
+ Ka8rPLLcuK6cTDY8ZxwEhTMtt8934hmWXJEikYkHY90pN6ShtsSOU0N69ORl5JUbekwAuxb9nHz
+ bCX2FMRAD/6/NTjuZQvhq8GbuxVkYsnoaCdJ8cwYzGuYjoPH
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=Wrsm8Nfv c=1 sm=1 tr=0 ts=6962aa9d cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: hpfhV4gi2u6LrYp8gQVyB5i4hM2qB9Rc
+X-Proofpoint-GUID: hpfhV4gi2u6LrYp8gQVyB5i4hM2qB9Rc
+X-Authority-Analysis: v=2.4 cv=a9M9NESF c=1 sm=1 tr=0 ts=6962aa9e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=EUspDBNiAAAA:8 a=DVbmZvK3Bkzfg3EmCNkA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: NoVO33JgT1uP9oRaph0bYz4NPbcD-IJO
-X-Proofpoint-ORIG-GUID: NoVO33JgT1uP9oRaph0bYz4NPbcD-IJO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEwMDE3MyBTYWx0ZWRfX/Z8OmsRxnvcs
- Cn87jUUA5UWYzTlRFAB95/BIGHm/sSKrDnb2Mh7ESKMQAZr81PJU+LcFF/hRFA/9gKTfGsMjf6g
- P8PsvpqQ/9eo9AljqpdPslMXf5DwsXFZ3iXlgnRaf0q3FsN9xpH6OQuFZSjyTvyL3MsF1EPtcdg
- u1nimj34TuKgu7MU3ovwtLzrou3j0Qmr1WmgSRfJWPW/6AF2ZYDGLMgRrdOEmSmRh03iYphZiGE
- I5KrZcUnuVBklojttfs8P6Sg4xjpQ1zL1H6uAhhR9x5QGfc5KB1hC32jKz1jDn/NsPjTddwPZFM
- wOPKG7c7+dBE0V8h90v8h4+u6MVUHmbfIl01gGrDF4yCgVJp96ieMSqxOxkJl8IQpIjrYf6WR0m
- n8TPiECbpUxMVfagkZIvCB5Aa2QvNi7XG4BXD++U166Rp/Xh3jM1a7GFyhBR+E+gRD3vNSuJUKt
- Q4Zkak8UVcxbmDIzjqw==
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEwMDE3MyBTYWx0ZWRfX5kEQcaZBVnCI
+ 6YlYle2UnnOrlMcSXgzQSlaV6gN5YzLyaBytOj3XGnKZDMdIT+FxEXw7YJ8nLVHnw/BKFOvC5aV
+ HU82M1pUBEQwJrtRS3EhFKQFHW7XtIHYEil824MZlKvLbrBfUWms2NGyg/uSWaqiXCtPMMd9WbE
+ 8HG2aQuGVZqbG5etoji5YB0uGMSYLROCRuppZ6pCF8wUMlDEtpqJ9rSTPuBxT6PE1bsWU8MYNnq
+ eMDWy/yyByg3Q53JMrrPw2TBl7Qj1yWcV2FWjLWCwtOk5s3b/5Ao6TbspgNqRZSzP6xcWZcUewd
+ auti/w7La+GXKVpmOzUxYVS9Nb7afesXbtZTmcAnQIxUaAUeqbWfUXgU1TwadDZfjjKSHJ+6Oh1
+ Xnh/9g+yc9hL60+hoz/mqJxEsXWNyO+9EqhLuJo0D1x12goYNEhsgAIot00E6Je2FUKwEPeVzP5
+ AKkddZf8DCn/AWcHgVg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-10_06,2026-01-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
+ bulkscore=0 priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601100173
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -167,54 +167,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The highest_bank_bit param is specified both in the Iris driver and in
-the platform UBWC config. Use the platform UBWC configuration instead of
+The UBWC swizzle is specified both in the Iris driver and in the
+platform UBWC config. Use the platform UBWC configuration instead of
 specifying it directly in the source.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c | 2 +-
- drivers/media/platform/qcom/iris/iris_platform_common.h | 1 -
- drivers/media/platform/qcom/iris/iris_platform_gen2.c   | 1 -
- 3 files changed, 1 insertion(+), 3 deletions(-)
+ drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c | 6 +++---
+ drivers/media/platform/qcom/iris/iris_platform_common.h | 3 ---
+ drivers/media/platform/qcom/iris/iris_platform_gen2.c   | 3 ---
+ 3 files changed, 3 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
-index 878e61aa77c3..a4e60e9d32a4 100644
+index a4e60e9d32a4..a880751107c7 100644
 --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
 +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
-@@ -159,7 +159,7 @@ void iris_hfi_gen2_packet_sys_init(struct iris_core *core, struct iris_hfi_heade
+@@ -169,7 +169,7 @@ void iris_hfi_gen2_packet_sys_init(struct iris_core *core, struct iris_hfi_heade
  				    &payload,
  				    sizeof(u32));
  
--	payload = core->iris_platform_data->ubwc_config->highest_bank_bit;
-+	payload = ubwc->highest_bank_bit;
+-	payload = core->iris_platform_data->ubwc_config->bank_swzl_level;
++	payload = !!(ubwc->ubwc_swizzle & UBWC_SWIZZLE_ENABLE_LVL1);
  	iris_hfi_gen2_create_packet(hdr,
- 				    HFI_PROP_UBWC_HBB,
+ 				    HFI_PROP_UBWC_BANK_SWZL_LEVEL1,
+ 				    HFI_HOST_FLAGS_NONE,
+@@ -179,7 +179,7 @@ void iris_hfi_gen2_packet_sys_init(struct iris_core *core, struct iris_hfi_heade
+ 				    &payload,
+ 				    sizeof(u32));
+ 
+-	payload = core->iris_platform_data->ubwc_config->bank_swz2_level;
++	payload = !!(ubwc->ubwc_swizzle & UBWC_SWIZZLE_ENABLE_LVL2);
+ 	iris_hfi_gen2_create_packet(hdr,
+ 				    HFI_PROP_UBWC_BANK_SWZL_LEVEL2,
+ 				    HFI_HOST_FLAGS_NONE,
+@@ -189,7 +189,7 @@ void iris_hfi_gen2_packet_sys_init(struct iris_core *core, struct iris_hfi_heade
+ 				    &payload,
+ 				    sizeof(u32));
+ 
+-	payload = core->iris_platform_data->ubwc_config->bank_swz3_level;
++	payload = !!(ubwc->ubwc_swizzle & UBWC_SWIZZLE_ENABLE_LVL3);
+ 	iris_hfi_gen2_create_packet(hdr,
+ 				    HFI_PROP_UBWC_BANK_SWZL_LEVEL3,
  				    HFI_HOST_FLAGS_NONE,
 diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index 3c5f3f68b722..8421711dbe60 100644
+index 8421711dbe60..9f9ee67e4732 100644
 --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
 +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -73,7 +73,6 @@ struct tz_cp_config {
+@@ -73,9 +73,6 @@ struct tz_cp_config {
  
  struct ubwc_config_data {
  	u32	max_channels;
--	u32	highest_bank_bit;
- 	u32	bank_swzl_level;
- 	u32	bank_swz2_level;
- 	u32	bank_swz3_level;
+-	u32	bank_swzl_level;
+-	u32	bank_swz2_level;
+-	u32	bank_swz3_level;
+ 	u32	bank_spreading;
+ };
+ 
 diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen2.c b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-index c70cfc2fc553..5ae996d19ffd 100644
+index 5ae996d19ffd..0f06066d814a 100644
 --- a/drivers/media/platform/qcom/iris/iris_platform_gen2.c
 +++ b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-@@ -633,7 +633,6 @@ static const struct platform_clk_data sm8550_clk_table[] = {
+@@ -633,9 +633,6 @@ static const struct platform_clk_data sm8550_clk_table[] = {
  
  static struct ubwc_config_data ubwc_config_sm8550 = {
  	.max_channels = 8,
--	.highest_bank_bit = 16,
- 	.bank_swzl_level = 0,
- 	.bank_swz2_level = 1,
- 	.bank_swz3_level = 1,
+-	.bank_swzl_level = 0,
+-	.bank_swz2_level = 1,
+-	.bank_swz3_level = 1,
+ 	.bank_spreading = 1,
+ };
+ 
 
 -- 
 2.47.3
