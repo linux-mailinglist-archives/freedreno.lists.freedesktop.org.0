@@ -2,101 +2,100 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E48AD0DBAB
-	for <lists+freedreno@lfdr.de>; Sat, 10 Jan 2026 20:38:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4037D0DBB1
+	for <lists+freedreno@lfdr.de>; Sat, 10 Jan 2026 20:38:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC14D10E25A;
-	Sat, 10 Jan 2026 19:38:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEA4110E209;
+	Sat, 10 Jan 2026 19:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cM0rv2L7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eG8Z0qVh";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="c1V10UK/";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SiB2k25c";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4665010E209
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D86E910E209
  for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:13 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60ACrWMV013954
- for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:12 GMT
+ 60AGpg7I210503
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- hmMTvh72OFH8FK9hNkeC+EXJs6ndcsPRG+SpIhVihcQ=; b=cM0rv2L7FzHFwqx3
- 5xsBMgokLqYubG/twV09VpVAINuUEz+vV6TQr6xCto2pGIxTSRegI5eQQuv5G9U7
- Of26l3Yydm/RRPmVXKgbRK4KDt7k55yv619ls1VxHlqRN9xJhpF6AIJD6jD3TF4A
- waNGPZHS7kh5EDzKH6QjCk4c8JFQpJcb66dx9PwBgSUOQtPww9zyX0sGwbVLps5G
- Rp5WeDxWROxJBUs44Ns7c6Uy8ijIKvqWRBwN9g1UnOFQ1744R2k9hoRfCnIBzTUA
- bR3k3cAkGycdV6UEIdgiiUYy/NsOyVepJsgNcAtxmOzV7olJFkhWMKTch929Ln4L
- TyDgYw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bkeush6nh-1
+ WX+tpGOx/XtA3egSToWa4xfPKV46G8xjtDhhWctRh90=; b=c1V10UK/4Z7EOUEL
+ VubWdwbGMKEsMipAXSUStR+oQKY7IVA5K9MHTFKF8s/1oZ9ZEoTpGrebj7LiAdqZ
+ gDkbpBDZcfjFKnBFuRgXkuE7uzQ2/maSo/pFN+hI1onRY9wNjyk1fxvTWQG/iD3Q
+ RNX0wCtUMJPaMZF4kqdB+DDROPlCPQnxALABJrZg5DpvxBmEIgQe4cIz+fe45K/H
+ wsbxGo82Phzgo0vb1VnYW84uVP9650YV2R0dC53O0iDTOQL2LyXwYPXPJtKqoNUt
+ LTj+9VCS3qLTVLPR5C6Maafl8hlM8fXK9XSK7HYfpwkTYYbpQkr1vrzBdfL7kAiq
+ 8Niplw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bks258bjp-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:12 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8c277fe676eso1587514885a.0
- for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 11:38:12 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 19:38:13 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-890586c53e0so128844046d6.2
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jan 2026 11:38:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768073891; x=1768678691;
+ d=oss.qualcomm.com; s=google; t=1768073892; x=1768678692;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hmMTvh72OFH8FK9hNkeC+EXJs6ndcsPRG+SpIhVihcQ=;
- b=eG8Z0qVh8w9LnhB6rBcKucoxusGvBa3YwfQe6Hb+JWtsk2w/X3tcjUm3DOBKOWbxcY
- H1sublB4hlrFeX+AQuqE7g1g4A+arCWYUrVhw3kIWSev5VV7qtENH+38rzfje+nqGHUX
- 1h6yDA6aWv1ESMnNHueSJ0jRS0EO/jGfZwVKllbpvcG/gVUX6xRXW2qQP/Rqtw8mW6kA
- Vcj9feEwT4jqw35p97zNW1tSEE0n9oowkJ+G454NSapqW48Eszc78/7D7lkR5hM/7rDE
- e702c0P472tgMNu5MlSRG3dfofJFLGSM8V9JWDGr/JY1Qvj6KEYGnrzA+4/NaKTb0ah2
- rWOQ==
+ :reply-to; bh=WX+tpGOx/XtA3egSToWa4xfPKV46G8xjtDhhWctRh90=;
+ b=SiB2k25cO6QdWkXgMWZOam7z3F8dfmpMIVrxI3xPS0NFcFvIsIjAzON7eKgE5fcVJ6
+ p8MWfo7rD5hNVDCEQ1yzCEeovCMDufzjKQnL1U3wct3ACpD2OqzvgjHn1DNRcN2Sk27i
+ uALD6GNOdjmsTQ44Ts2wqVek3vVVDiLB5uNy4Xf4YXY2PZi82Mns5wXPy30LE6sK+DGu
+ KE68V/imq9W8HGiNrqaVUXIAhD0KFaOBYZR8QwKL5pCki0O0wlXDSxhUOpZNkm7Ybcwf
+ y/bpmgX3RGRM2Sfdl4QsbPdx7ICnku5NTTQkBDi2niOpoLjC+Twt/+xvXLsqwFPRRkPS
+ rFFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768073891; x=1768678691;
+ d=1e100.net; s=20230601; t=1768073892; x=1768678692;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=hmMTvh72OFH8FK9hNkeC+EXJs6ndcsPRG+SpIhVihcQ=;
- b=j/AFz0MJHl0y5RIwASNg9SnckvK8L7Uy3//0B3pkOjEP1jcyYD4Z8Ue1mu6WEs25Sr
- I036c6v8pHkfnToDv8VRnzJh1DLRYL+iap2I1CibBprzDu5zLYeJMgvwY01FQI4R29Qt
- SW7nyZX3wDCJEzNfKcHUfRi/DlHmaOPoFyuLUkMDPzeW7/3TmnMHlI+fDbXn9t0cjkCc
- TsGmLqoeSaG01PCRHu0igwpNXRLUkg2Z+cex1NdDd92b6UGbrlq06Wn6k+uc4yHz0ZMy
- nS4tv/x4nNS6C1G5Zw8dBOnzc45ejOZBiCWxZwGzEpPEep/hFuSqdate5MyZ7ZwBNrHf
- N+Bw==
+ bh=WX+tpGOx/XtA3egSToWa4xfPKV46G8xjtDhhWctRh90=;
+ b=s/7oLmI5enBARxoywsoagQxnZ6XqZtdTzvhV+7fFKeVPr2R7ZCN6TlvLrt5bHrY/tj
+ ZLZcfyf/cIppsG35oB3iKGuIo++7/6n/Hw+i7fYCD35S9TQPwOBlg6omHEOyW5U2gNzw
+ 8EPKcB5SMQQOMH1xMiwQYYne15up5Ldds5s2YSG6hUw2d/BKE9pjuDrye/6jatSLBkz+
+ g3r2LBeV0BWG2mScwqqb4k/oDUZ/giQ7LGpDLqsZDW/iY4aAIO4FPPFhR6SWuXz2QpQJ
+ f6e9yV8rfDu+fCS67Y9Q+O7//AvmSRh6rIb8gimvKvZZZzw2i4noybL5kG7/Y0OhhYHz
+ eO9Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW95daw3T6c/RtboLrUq3ur1FvT1zJu09ugKusNxmvqI3jnSTiVEUT3oIfrmfBMfsOD4b/Q5oes6tg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyii7BvtM/WSdcFO5zjohGasAERhw9PqVFfNVw/2IYtyPf+84KQ
- 9p8DUZQVS62MXT3kPtlcOLzrtbikopZf4F/sn3NG2VdshDuo6irU027QFZPQH5TqrGK5xMe4iYi
- fYxDr99MMlx2PdWPv62nx+hc7aoZLWAJMawD0VGq4S31QScybxDRS2hjhZOSlLeSfRaBh2z4+cE
- OZ9DQyoMRa
-X-Gm-Gg: AY/fxX4CP9O2Mlmd+ewSkp3E1vWepfmO0uSJg/3gsmIP7IVZwSBLEFfveG2epzu8AbN
- 5VRDLNJKsLnr3cpMe3I+cHc2pcC1f6TLYosO4TJ98mFiezDtFdhsLFIoqXuK2Jy4moUplnL/dOI
- wFt9Yh74Sr+88Q/FlqewLZI/4zKJVlJlUnOnWN/GJV3XweFpxvwmZ2b8TEMq9ppbraJ8CkQQoCz
- JaKkbBKCyqg6v7u/YFrwlDy3TdwXoCtno35plOrCB5hY5PgIOp2nGQ46uJthYp6G2XV7+ZdfqKn
- vACVHIpb0r36OVi1Jlirlr0Uoea7kTmXSoRxs8C37x23Y8bR+nH6vEWt5fc2cEHJKHFwVbBj0JM
- TjPaGTOHTqJI569kQpI7JRCzVcbnA2SORE2s8iPaZWMiPsVtmdsvLeLwi08mAQTLhprOYCDbv7S
- ArJvW8NDLZKg3AGmxtlJPh2T4=
-X-Received: by 2002:a05:620a:1927:b0:8b2:e666:70d with SMTP id
- af79cd13be357-8c389408f8amr1840281185a.43.1768073891373; 
- Sat, 10 Jan 2026 11:38:11 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFMsd7h31KX1mnTrGNWla1MwkNmRGDFHNZeJ1PT0MjzybGjjVFj5LqvVdzivB0mlUVpjdv3AQ==
-X-Received: by 2002:a05:620a:1927:b0:8b2:e666:70d with SMTP id
- af79cd13be357-8c389408f8amr1840278785a.43.1768073890922; 
- Sat, 10 Jan 2026 11:38:10 -0800 (PST)
+ AJvYcCUXk+qNMztH3pZSVb3aG0XG/jeJQ+XRUYTkJWDSTjtKCHVT9Lfl8cfjzfoTIavn1hLyiaktTVYYLVs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3AjY2UpUyha1PvHii9YTjgCaGJRSCliYq7vc85LX4Xx9uDJwh
+ nIvBnY/+y5YV+0vnbYp7vI4OiNqkop+oQN/lGfxLlum3dgCGOcEXzx0xGCnzv6/sSiHKS/3uxtf
+ hQw5zLC0ILsV5dox7px7RCvsqK8SECXY3+ljDNRI1Kl1+QOtplHHot2Rf0ZH+jw9rAl7RRsk=
+X-Gm-Gg: AY/fxX6AhM1M3Y7ojse/QZy8kk30YxhL4WqSxwsgmWGNCfcqoJwy9Z4J7yxxAEYWWRS
+ TL/3RPwI58XXV/s7wKwcN6j2JjVE3RX/BZpWKI6r9hI3GuzckRz9vhu8GqR+Ja7cdSVuZkAWrgQ
+ B7lfeIvBxvN7vnXBljd0pUssP1aEayh+9ps33jznebdxZIxJlwsQzfxLE1m75kaqPp58sMPupsE
+ XPoKlTbKR3CdbLNn5UxuMSz5grPQJyGpwlyvOYdpcREUiGFQuRer/DqgGVcJA0VgKFnhmtpCZVF
+ 6CSdZgqBkictXwG6mstPDZSgkDjX1BYDJhktkMQ7lFz2yODXUJlGzjxssIOHlOIxEgLNdmfIMlt
+ UVaNm0zU/zYy8DRZHAQVK/fkpAt3bkvM5Bt4F3WI5QHLRiykw0hnFr2sdqHuLkmx5Z5NDzeAo+p
+ rTfPe371jIlB3Quk3uDz5Ve94=
+X-Received: by 2002:ad4:5968:0:b0:7e3:cc6e:3c89 with SMTP id
+ 6a1803df08f44-89084270b69mr217618706d6.56.1768073892494; 
+ Sat, 10 Jan 2026 11:38:12 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IECeV6PNptdKbFZIIGvq91wxzn+Aus3ciw0GrkSflBtIOmUWwgKzzKf5agxfyj92y7TK4QHFg==
+X-Received: by 2002:ad4:5968:0:b0:7e3:cc6e:3c89 with SMTP id
+ 6a1803df08f44-89084270b69mr217618496d6.56.1768073892115; 
+ Sat, 10 Jan 2026 11:38:12 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59b65d0f6absm3539700e87.42.2026.01.10.11.38.09
+ 2adb3069b0e04-59b65d0f6absm3539700e87.42.2026.01.10.11.38.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Jan 2026 11:38:09 -0800 (PST)
+ Sat, 10 Jan 2026 11:38:11 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 10 Jan 2026 21:38:01 +0200
-Subject: [PATCH 09/11] media: iris: drop remnants of UBWC configuration
+Date: Sat, 10 Jan 2026 21:38:02 +0200
+Subject: [PATCH 10/11] drm/msm/mdss: use new helper to set min_acc length
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260110-iris-ubwc-v1-9-dd70494dcd7b@oss.qualcomm.com>
+Message-Id: <20260110-iris-ubwc-v1-10-dd70494dcd7b@oss.qualcomm.com>
 References: <20260110-iris-ubwc-v1-0-dd70494dcd7b@oss.qualcomm.com>
 In-Reply-To: <20260110-iris-ubwc-v1-0-dd70494dcd7b@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -117,42 +116,41 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-media@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3040;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1301;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=yWAITFzIqCVqkhPtfTK3lcYC7LituzgMl9ErY9SPTQQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpYqqUdOk1GN3B+fr9J8h//iZ8sbN9u3DK0Nfvd
- 3L6vfx/WmOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaWKqlAAKCRCLPIo+Aiko
- 1bdCB/9sdjozx6Pz6/pggn/5UdIs4Hv+8ncK4PPaFiKEAwQoEaOogM/Lx9l4rUjddfcxllUL5RU
- 7WhCAuVjAfywRtkD0x4KrNS0CZuoi7mamYGUZj/e7ThvKJvczCeGPBSwm9VporfBkQWrH0RNYn4
- XIHOpIv3KtwllwrylmYLkzMzFIRAxiVIQENxYoTBlKK9ez7bQbiA/A/FqqPq24BTWorAtJRm9MW
- 7XIvyt37Z0QuSjsFg2LJyY1EAOxwdWXhakhpoW8npwKo3pqGRotjyqgiSqQwYMqAFy9WwFWv/mo
- xfKiM6nLtbrxaE5aW+/NlX1key3GFp8zh2QzYiG0MFKqPNAt
+ bh=JslXq2UN0h55ZGQKK6W5GartLCm1dfjuGB41CNjkyvM=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpYqqUNvcF+p8D3B3QRC8FSeYNjnIpYwnquqU/d
+ 9hcYY8M45eJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaWKqlAAKCRCLPIo+Aiko
+ 1SZfB/9ZRCI45bpqc/DRBI659ZGLEIRrafmzdVFMrFYbxdM09ocXLYE6qaempIc6CfhkqVsz63h
+ M8N9L0NnAADdAbLKM/cb2NF5wV+ZYT6hO84trAB3IeziCx64FjWpU/xbdTZQZYmCpFD9doXruqV
+ akdyqY9fQ2BPYpAdqu3vmDV7EmUcVABo5ki8FLdI4o/eCbpvFrm8MRA9yddaE8weXm1o2Vk98/N
+ aDZ4zQHoq+le9fRJ8254bJKU2Pq2yhqBrnXz3OsyPaRr2I54yVXTfSRzCcUw3LzTsDNIJWK7j7y
+ UxsDTmxpaOgAXIw7+9kNFJBaW6tgdzayNJ/hF1XZ+63weYoN
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: FzIIdLvUbPa1F9Q_G7r34700PJvxd_Yc
-X-Authority-Analysis: v=2.4 cv=GNMF0+NK c=1 sm=1 tr=0 ts=6962aaa4 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEwMDE3MyBTYWx0ZWRfX+/Zcdclf2I+Y
+ R2YYSTPOrhg5bSPyJkPw4mnfSBFxKt/12GtgxLS+o7LupIBL494s4v+BLoHysHomHeT1ZGCoytP
+ 3HVOvtmfk8Zj1oXlkGmFpm73wsfeAShnF4Txj5lJ5aM4aM4qddK4lzmi7PnxQQC+I73L+3YFOV5
+ ZKmiFyh7kLn7tStMigYwJqJpfjoYwjyuFIRnFh6e2FRoVZkWg6TKFq8vDyNnVW2qvJVLO46UlYo
+ BXKqFpiuZelwzQSuQRu4R8u/ubuJN6HLVb0kMLXuh4TBEYwPTtXsdEHgF0EaoF7pGDOFdt/Jli9
+ wkc+qrCFeRqDjSEiX5rD7M9MFdYfhzF64rr+cgH639RADypd5Hxm7B20opHwVuHyXgPwRu1bNot
+ aT5rEgzI3rC1yE9Z+vQbp0QmhyZp5D4pPGaJNsNrOtpjBamkSq9nl34rWCLDLRNcgG/96H/nLQv
+ 4rCrZpOSkmmnPOtwujg==
+X-Proofpoint-GUID: -yhiJqhGNwW-wAR9uvyjqTShDdHQRlSl
+X-Proofpoint-ORIG-GUID: -yhiJqhGNwW-wAR9uvyjqTShDdHQRlSl
+X-Authority-Analysis: v=2.4 cv=EMELElZC c=1 sm=1 tr=0 ts=6962aaa5 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=1FtADzHzBfM7Pcki91sA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: FzIIdLvUbPa1F9Q_G7r34700PJvxd_Yc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEwMDE3MyBTYWx0ZWRfX3gTVOpncbsiV
- /dgapk9C5kLzbVH6/a1VXY11kTdNjrl519MxuFUlA+SCTLms1VkyaNQ3IAFHMOxzXRdWAYsFC+4
- VqcCyQi3wPB+9cCKt0eb0kSMcnTKlWpghMwX7PCq9f0CKl76/qxG/ZGejr+F8ZNI7qMunWPRTuB
- YfQ3pL/T09m07gmlxkOyjExj3ZeTOjt73JZRppYmBAWzzy+sYq29NDTPKB247y7QObdYrgfcdu6
- JWUlfSYw3wV+zlNMWMMIxEgWhiFB6S67nvrGlh3eAlcQ3rVrjRYLo+G4CniYRDowGQeAvg8LXQc
- nrBrw/Cu3p2pUUNwYQO0gktxNhsJRzE4SJRFHsxodXCCNAPPsreeUAJxfT3JFMiLmDOUnFoDLxS
- dI2y4n9LBpJeagHo+9Uz6aJGVG6FdaXMlYA428HwX0cAWVQ86UVxT8alIXeZ/yF7++oqrN8hWEJ
- QuJXso1riOAmir0ckhw==
+ a=EUspDBNiAAAA:8 a=F1F9tmq6QbaLjm51Hh4A:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-10_06,2026-01-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 bulkscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
- definitions=main-2601100173
+ impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601100173
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,84 +166,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now as all UBWC configuration bits were migrated to be used or derived
-from the global UBWC platform-specific data, drop the unused struct and
-field definitions.
+Use freshly defined helper instead of hardcoding the checks in the
+driver.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/iris/iris_platform_common.h | 4 ----
- drivers/media/platform/qcom/iris/iris_platform_gen2.c   | 7 -------
- 2 files changed, 11 deletions(-)
+ drivers/gpu/drm/msm/msm_mdss.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index 4abaf4615cea..3b0e9e3cfecb 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -71,9 +71,6 @@ struct tz_cp_config {
- 	u32 cp_nonpixel_size;
- };
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index bf9a33e925ac..da266753df69 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -175,8 +175,7 @@ static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss)
+ 	if (data->ubwc_bank_spread)
+ 		value |= MDSS_UBWC_STATIC_UBWC_BANK_SPREAD;
  
--struct ubwc_config_data {
--};
--
- struct platform_inst_caps {
- 	u32 min_frame_width;
- 	u32 max_frame_width;
-@@ -218,7 +215,6 @@ struct iris_platform_data {
- 	struct tz_cp_config *tz_cp_config_data;
- 	u32 core_arch;
- 	u32 hw_response_timeout;
--	struct ubwc_config_data *ubwc_config;
- 	u32 num_vpp_pipe;
- 	bool no_aon;
- 	u32 max_session_count;
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen2.c b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-index e78cda7e307d..5c4f108c14a2 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-@@ -631,9 +631,6 @@ static const struct platform_clk_data sm8550_clk_table[] = {
- 	{IRIS_HW_CLK,   "vcodec0_core" },
- };
+-	if (data->ubwc_enc_version == UBWC_1_0)
+-		value |= MDSS_UBWC_STATIC_UBWC_MIN_ACC_LEN(1);
++	value |= MDSS_UBWC_STATIC_UBWC_MIN_ACC_LEN(qcom_ubwc_min_acc_length_64b(data));
  
--static struct ubwc_config_data ubwc_config_sm8550 = {
--};
--
- static struct tz_cp_config tz_cp_config_sm8550 = {
- 	.cp_start = 0,
- 	.cp_size = 0x25800000,
-@@ -760,7 +757,6 @@ const struct iris_platform_data sm8550_data = {
- 	.tz_cp_config_data = &tz_cp_config_sm8550,
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -852,7 +848,6 @@ const struct iris_platform_data sm8650_data = {
- 	.tz_cp_config_data = &tz_cp_config_sm8550,
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -934,7 +929,6 @@ const struct iris_platform_data sm8750_data = {
- 	.tz_cp_config_data = &tz_cp_config_sm8550,
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -1020,7 +1014,6 @@ const struct iris_platform_data qcs8300_data = {
- 	.tz_cp_config_data = &tz_cp_config_sm8550,
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 2,
- 	.max_session_count = 16,
- 	.max_core_mbpf = ((4096 * 2176) / 256) * 4,
+ 	writel_relaxed(value, msm_mdss->mmio + REG_MDSS_UBWC_STATIC);
+ }
+@@ -193,8 +192,7 @@ static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss)
+ 	if (data->ubwc_enc_version == UBWC_3_0)
+ 		value |= MDSS_UBWC_STATIC_UBWC_AMSBC;
+ 
+-	if (data->ubwc_enc_version == UBWC_1_0)
+-		value |= MDSS_UBWC_STATIC_UBWC_MIN_ACC_LEN(1);
++	value |= MDSS_UBWC_STATIC_UBWC_MIN_ACC_LEN(qcom_ubwc_min_acc_length_64b(data));
+ 
+ 	writel_relaxed(value, msm_mdss->mmio + REG_MDSS_UBWC_STATIC);
+ }
 
 -- 
 2.47.3
