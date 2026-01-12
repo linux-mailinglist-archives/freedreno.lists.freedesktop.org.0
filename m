@@ -2,68 +2,138 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F4CD1127F
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 09:19:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36993D11324
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 09:25:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7F8E10E18A;
-	Mon, 12 Jan 2026 08:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F12B10E305;
+	Mon, 12 Jan 2026 08:25:44 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lnqoxx1S";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c/IC+y8u";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.64.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7EF710E099;
- Mon, 12 Jan 2026 08:19:05 +0000 (UTC)
-X-QQ-mid: zesmtpsz6t1768205812t38f57e53
-X-QQ-Originating-IP: JenX008UtBUgmVb+GIfITQaaGDhQIQLlw7MDTXfP+iQ=
-Received: from [127.0.0.1] ( [116.234.96.45]) by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 12 Jan 2026 16:16:50 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4988554758296933567
-Message-ID: <76B3416F7865BD83+6448d6be-8c58-494b-9287-da0f550dffb5@radxa.com>
-Date: Mon, 12 Jan 2026 16:16:51 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drm/msm/dpu: check mode against PINGPONG or DSC
- max width
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBC3110E306
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:25:42 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60C85G3l4066607
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:25:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 7eUOrm48pVIkwjT7mhYkGDB3wIt6XmnD5l2NmrqDlFQ=; b=Lnqoxx1S/lwnqyKi
+ m82SCGrXOVPKKD2qaEKwbbW5WY00DKcikxm0YPmyGCYFfHvSScI+vb8O1unbwVo+
+ HUC14QfGbwTaVlc3K+Pi9TyM7yAhgNLsfDdN3S8O244EBjkZ/n3cYmuxskNhE6xO
+ xTMuNBQbyuOg87c5Do9u6i1jII9WquIf7KSdakM57JhJxNwabWDbM1dJo82ec5RK
+ b/Uyj2pV6xbPVQINVocDMkwic0xBpK6JJEyl0ori0VYqXK3nAEDBNLGHgtl9WQyJ
+ 7ZoI5NJT/VidImJKLup0M50pFttvW/ODd+jIxtS481K30Qfde9dhWIBMqNGAdxVp
+ d62SsQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bkfham575-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:25:42 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8bb0ae16a63so688611985a.3
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 00:25:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1768206341; x=1768811141;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=7eUOrm48pVIkwjT7mhYkGDB3wIt6XmnD5l2NmrqDlFQ=;
+ b=c/IC+y8ugtvyvfx9oVzhvMENb2paK7Gf6+zcSGO+WGV0uOkA7T1mivmgp284GSUQ/X
+ eSkBeIY5zzJhgJ1kOhQuUc3nGdNmNVPTRn8paT3hSZpDEOfwQxZlUvdFto2abVmtoaUx
+ clSjLVjxRwVo+6T08o2amrIYSN/pCIksUViGChhhI0eUeSEb8/sLIoo0xFOmcia1BIco
+ J8nSo2JT9vhWIHLpW7bHhxkCPm3UKTiOflHhawC7zjl5b5E4RMl8d8d/KZbalBoEjWfs
+ Xe5UH16L5yHCAVJTArUDvbb8/bEeNK0lJgOHIYRfaBCX69usSC5/uQyw+p3hkCf7O8HI
+ WRXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768206341; x=1768811141;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7eUOrm48pVIkwjT7mhYkGDB3wIt6XmnD5l2NmrqDlFQ=;
+ b=rLaF+lbhdteaH9QDlMYnqCG3bYmLJOwyDhv6yD/1DJ1TewAYsHzrAGdaZL+r15fp8l
+ 3nzD/wkDZv4R6EkQg2Khq8qANUdpZR6F0xWoltnZstVGbn7+37/s6zlAyFB7G7xHWaTQ
+ 46bYp4G9is+1TpL9WqzJKh3Y46FsX6Eempec7RFyX0rRewK2vb2cgj09Pua81oS3+xsc
+ suGgM9S5fCGSQTL3H1WyQ6myMQOnNlovGi4LLXjXvxNVjXuOERwozRHYfpuYTwbe8YAT
+ sNj3IqhloinC5h/jlJs0XBbzzKn+mEgAi86EIS/SEWzGLUiczCJKaNHQQhhdtleu+eIE
+ z17g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUe3mUnQU1BsM0FIj/dogEYtZJmS+Gzn9y67q3PGUD0hhQTODRX+HuIIdz18j6IslZSZj/YygpNMx0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBZxetpIl7J/mFvaqoqi+zepIwrl2dRxSEtBmUCGI3dYL7E0DW
+ 0pkQ+L/43SC3SQXrSuINQXc87X/p+M9lwgCLdlOIwzZKOT+8vNhsuZmP2FMjTMQnFm1fvy9sDcM
+ ChhLJ9rfk2deV165w1Nx9FhABQ0Orj+NaJacCK9GBkCR4qwx6HQ2zpGyOoQdWfleA9usYslg=
+X-Gm-Gg: AY/fxX72Hr+cEOW9sHOwTfMB65ry+XHnZqbDlGRmlcmLp95mWNVxaWF8S/WehMPJFD0
+ KlUZdasfcsKBvxJbhN7HIi0DWZHOTakw4qp5q18XOlKM1pBrPC0oZsYVw2A5OEQ0tMaJGrq+dtL
+ M5ysJRYIg3GQJzQHiOnG7NG1JPtdWkRuxtxBoFO9r7lqIgsZ+OflBEdYOopXsKhhu1VzKB9odKj
+ I2/JUJdlz4LlArsqq4COBFXMaDjm8SeuH2qHSEChTTwoyON9vP9AjxIp3V4ImyuEaKjyPHnwTKM
+ VfmVMC7neAvAxQdvBGxe42jEO4gp04+R1f3OEI/DTRNKHdYYZxeSUJm3CuwIU6cE2nSJp/nqpw5
+ 4lkWh+ZoHfjXm1gkFKc9myf5K+AVAAx33QgWxSnlIR/IxxkHnwL7vpF82Ih6GXaNRK+9nfoE=
+X-Received: by 2002:a05:620a:4143:b0:89e:a9ea:a374 with SMTP id
+ af79cd13be357-8c3893e042dmr2325403585a.67.1768206341080; 
+ Mon, 12 Jan 2026 00:25:41 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHqUgoQ0GCP62X1wdfQgILxQr4zc6ioMmvxHh5zsjlzgNHwrmBI204t3AI/afaZeiXkQyR08A==
+X-Received: by 2002:a05:620a:4143:b0:89e:a9ea:a374 with SMTP id
+ af79cd13be357-8c3893e042dmr2325400685a.67.1768206340519; 
+ Mon, 12 Jan 2026 00:25:40 -0800 (PST)
+Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8c37f544674sm1430752785a.54.2026.01.12.00.25.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jan 2026 00:25:40 -0800 (PST)
+Date: Mon, 12 Jan 2026 16:25:30 +0800
+From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-References: <20260112-max-mixer-width-v3-0-f98063ea21f5@oss.qualcomm.com>
- <20260112-max-mixer-width-v3-1-f98063ea21f5@oss.qualcomm.com>
- <2E7090A0C462255A+6658f83c-4e5b-4f49-a90b-54eecd61fcbf@radxa.com>
- <lknvr4qwhsnkuaujuilapcpiykqu7n2bzo7dwimmz5gpfklr57@wod3hszretls>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <lknvr4qwhsnkuaujuilapcpiykqu7n2bzo7dwimmz5gpfklr57@wod3hszretls>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MWdgP8+gtiFROBOHaAbsuEQgJ5RMFxzjtF6r16K1Bjv9TfRk7kwnlZgf
- nZdUvxJk7IDRtbXJEnMvyyS7eGSvJNPGv/XxlbaFWbVL2mp2MKd554cfcux68juK62HF82/
- hu/zJMoeJbQqHeKfGPSaF4bR+Jj6M4NgaYWlA9K5Vu/gj6w9UEY6BLB/kyY3OhKHprPZRZz
- FzzcDG+DqwV74vsJj1ukxvHcqrta7Tu37P5ZgK9o0ElnFybEYvXot8Ymh9i8jiJis9MUT0G
- StcSUx4IiPbYBhH/v/elJGc99yhqYDtyCI0PuHW/gqrAfkXW97Y1/URCBgoyAM6JkS2S6/4
- NzpHuj43eWhnVVGTgEd7FIKK2hhO10rlhBXwyJAkZOFDcZQHlrHBM/A733H6vXI4+vkO/YQ
- /njLs+4wfAWnxxAArRYb8os+3I3IueZnluPsyooaB/MzIw5tD1AFwvWJ5vJ0BpZktO8Dz77
- bPi2KO7ptrnzBmgnC4Aa3VXlGiQG2jMZnvK0ju9AbiDLCywzQtFC80HTLcyajL822B47Jni
- O9QP0EjtXMox7Blw6lQruYu32iGIKJPJAGAXEya2rdbLjBanmMQ8sgeR9YFTSMeHgRK6yTm
- 88BzI1awXXvrsyFQc1kKJOv2EtqGTZbaich5NwyMsO2PEyLUVcKzDSKKFtZW7+M/8SLXAaq
- Bz2RPaBKjaytlS2aKlTOgznxxi6ZnKPkmRLbf/oXJJMrBaaLVHJa6mLj9hes/TmrvNk0/PQ
- 7dprdEQnuOoDFSqbm25OxRgCtRWRw+366Jkn7ND+cxCufdBPchc44AH4yi+Z2u9UHyZSvTZ
- 0p1nZSlGaUdGqqYe+k6j0sVNytWfQ33lzoPpIj7i//bGrW+Fkw1EOq+4eWdspr0cULZBs5h
- jf/UEZ5UK0/a0zlTRMywi2bbS+GL7ltRtW4kqHq2U7L0witmYLLCa7Q+OF9leu9yvaIU/3P
- bXxsvZDKYLE+8e8b5hW9mhGhAML/B3IndDubhF8VhHEh4yp5XKZLufhC3EuKFYAYUlXG3TL
- BVQzz8heuiYf5Ch2IwPPsxwcR1QBJkAvx32sABRsrR0WroJClr8jIs+5esG7j+Bd2eHVoYT
- Sn1JeDji7BYcJ5OE3TCf6M=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, krzysztof.kozlowski@linaro.org,
+ konrad.dybcio@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
+Subject: Re: [PATCH 1/2] drm/msm/dpu: fix mismatch between power and frequency
+Message-ID: <aWSv+kVV3G18I/NJ@yuanjiey.ap.qualcomm.com>
+References: <20260109083808.1047-1-yuanjie.yang@oss.qualcomm.com>
+ <20260109083808.1047-2-yuanjie.yang@oss.qualcomm.com>
+ <kusxzlezvsuwcwwdtm7yqwnqea6gdeolkepxpx3estabaiqymo@edj7pgccli3y>
+ <aWSTcI6H6+7AXkEN@yuanjiey.ap.qualcomm.com>
+ <CAO9ioeVrQ_TfU5-auxNHG=dL8VmeWtBaC_NE09UECodkYrFv-w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO9ioeVrQ_TfU5-auxNHG=dL8VmeWtBaC_NE09UECodkYrFv-w@mail.gmail.com>
+X-Proofpoint-ORIG-GUID: zZfDiwG2qGTqMk4--LqdSD4b6pupu-u_
+X-Authority-Analysis: v=2.4 cv=bOEb4f+Z c=1 sm=1 tr=0 ts=6964b006 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=b9kIr6_pAvzuZN9lwc0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: zZfDiwG2qGTqMk4--LqdSD4b6pupu-u_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEyMDA2NSBTYWx0ZWRfX/o0xXIH4+GeC
+ 0we5jJX6pkrB6aKOQcjgEQRR2ia2rAWZIgRm/ndN3bn7wVAZlYyTLo4vWCnSjqFT04K3A67Oid0
+ 4WS7AfI+ZPrvC2JUN8PThOab3jkjr3ausG0D9yrSuaGM29I5kYlftHIzgElxUe0Td+nB3wH5ile
+ JcbzZAsUwC9Zg01wn0ki+ZUmirfdLhPC6Za7IjPmFRIHviNSwfNgfhO3ul/8edg6R6WOECIDqlw
+ /ewF77KPuKtTHjvJASv4nZ9iRmJym9PfT/prHvH0V57gIEoDNuFeY3GHkkznKkjmxSfEOlQEhJg
+ m0SqndiRzTUvL0j7bIIKnTJ0fGqL2z+AidkIpEC5VWn+aNDDWEheqsEQLSdv9KQE0NMJ+tOxm5w
+ /4W298qDMXlQ6A+0gkzL3AyaXlBflfjR9+2K8TvDiC0RtTDab+44AhcfIW776WaJ0sO/3rklZ2J
+ OZncOCErUEPAMgwpFtw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-12_02,2026-01-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 impostorscore=0 adultscore=0 suspectscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2601120065
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,405 +149,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/12/2026 3:48 PM, Dmitry Baryshkov wrote:
-> On Mon, Jan 12, 2026 at 03:25:05PM +0800, Xilin Wu wrote:
->> On 1/12/2026 11:11 AM, Dmitry Baryshkov wrote:
->>> From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
->>>
->>> LM block doesn't have a hardware buffer (unlike PINGPONG and DSC
->>> encoders). As such, don't use ephemeral max_mixer_width and
->>> MAX_HDISPLAY_SPLIT to validate requested modes. Instead use PP and DSC
->>> buffer widths.
->>>
->>> While on the DPU 8.x+ supports a max linewidth of 8960 for PINGPONG_0,
->>> there is some additional logic that needs to be added to the resource
->>> manager to specifically try and reserve PINGPONG_0 for modes that are
->>> greater than 5k.
->>>
->>> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
->>> Tested-by: Xilin Wu <sophon@radxa.com> # qcs6490-radxa-dragon-q6a
->>> [DB: reworked to drop catalog changes, updated commit message]
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>
->> Sorry for the late reply, my colleagues are still testing the new series on
->> qcs6490.
->>
->> However, this completely breaks 4K 120Hz display on SC8280XP CRD, which was
->> previously functional (albeit with the clock check bypassed [1]). The
->> display now shows a solid blue screen. Kernel logs indicate that only one
->> layer mixer is being used, instead of the two that were used previously.
+On Mon, Jan 12, 2026 at 09:38:41AM +0200, Dmitry Baryshkov wrote:
+> On Mon, 12 Jan 2026 at 08:23, yuanjiey <yuanjie.yang@oss.qualcomm.com> wrote:
+> >
+> > On Fri, Jan 09, 2026 at 05:22:37PM +0200, Dmitry Baryshkov wrote:
+> > > On Fri, Jan 09, 2026 at 04:38:07PM +0800, yuanjie yang wrote:
+> > > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > > >
+> > > > During DPU runtime suspend, calling dev_pm_opp_set_rate(dev, 0) drops
+> > > > the MMCX rail to MIN_SVS while the core clock frequency remains at its
+> > > > original (highest) rate. When runtime resume re-enables the clock, this
+> > > > may result in a mismatch between the rail voltage and the clock rate.
+> > > >
+> > > > For example, in the DPU bind path, the sequence could be:
+> > > >   cpu0: dev_sync_state -> rpmhpd_sync_state
+> > > >   cpu1:                                     dpu_kms_hw_init
+> > > > timeline 0 ------------------------------------------------> t
+> > > >
+> > > > After rpmhpd_sync_state, the voltage performance is no longer guaranteed
+> > > > to stay at the highest level. During dpu_kms_hw_init, calling
+> > > > dev_pm_opp_set_rate(dev, 0) drops the voltage, causing the MMCX rail to
+> > > > fall to MIN_SVS while the core clock is still at its maximum frequency.
+> > >
+> > > Ah, I see. dev_pm_set_rate(0) transforms to  _disable_opp_table(), which
+> > > doesn't do anything with clocks. I think we should have a call to
+> > > clk_disable_unprepare() before that and clk_prepare_enable() in the
+> > > resume path.
+> >
+> > I do check the backtrace on kaanapali:
+> >
+> > active_corner = 3 (MIN_SVS)
+> > rpmhpd_aggregate_corner+0x168/0x1d0
+> > rpmhpd_set_performance_state+0x84/0xd0
+> > _genpd_set_performance_state+0x50/0x198
+> > genpd_set_performance_state.isra.0+0xbc/0xdc
+> > genpd_dev_pm_set_performance_state+0x60/0xc4
+> > dev_pm_domain_set_performance_state+0x24/0x3c
+> > _set_opp+0x370/0x584
+> > dev_pm_opp_set_rate+0x258/0x2b4
+> > dpu_runtime_suspend+0x50/0x11c [msm]
+> > pm_generic_runtime_suspend+0x2c/0x44
+> > genpd_runtime_suspend+0xac/0x2d0
+> > __rpm_callback+0x48/0x19c
+> > rpm_callback+0x74/0x80
+> > rpm_suspend+0x108/0x588
+> > rpm_idle+0xe8/0x190
+> > __pm_runtime_idle+0x50/0x94
+> > dpu_kms_hw_init+0x3a0/0x4a8
+> >
+> > dev_pm_opp_set_rate(dev, 0); just low power to MIN_SVS.
+> > And freq MDP: 650MHz
+> >
+> >
+> > And I try change the order:
+> > from:
+> >         dev_pm_opp_set_rate(dev, 0);
+> >         clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
+> > to:
+> >         clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
+> >         dev_pm_opp_set_rate(dev, 0);
+> >
+> > But the issue is still here.
 > 
-> Could you please post debugfs/dri/0/state and debugfs/dri/0/debug/core_perf/*?
+> But which clock is still demanding higher MMCX voltage? All DPU clocks
+> should be turned off at this point.
+Yes, no DPU clock demand higher MMCX voltage here. But next time pm_runtime_get_sync
+need higher MMCX voltagei due to high freq.
+ 
+> >
+> >
+> > > > When the power is re-enabled, only the clock is enabled, leading to a
+> > > > situation where the MMCX rail is at MIN_SVS but the core clock is at its
+> > > > highest rate. In this state, the rail cannot sustain the clock rate,
+> > > > which may cause instability or system crash.
+> > > >
+> > > > Fix this by setting the corresponding OPP corner during both power-on
+> > > > and power-off sequences to ensure proper alignment of rail voltage and
+> > > > clock frequency.
+> > > >
+> > > > Fixes: b0530eb11913 ("drm/msm/dpu: Use OPP API to set clk/perf state")
+> > > >
+> > > > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> > >
+> > > No empty lines between the tags. Also please cc stable.
+> >
+> > Sure, will fix.
+> >
+> > > > ---
+> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 16 ++++++++++++----
+> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  3 +++
+> > > >  2 files changed, 15 insertions(+), 4 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > > > index 0623f1dbed97..c31488335f2b 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > > > @@ -1306,9 +1306,14 @@ static int dpu_kms_init(struct drm_device *ddev)
+> > > >     struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+> > > >     struct dev_pm_opp *opp;
+> > > >     int ret = 0;
+> > > > -   unsigned long max_freq = ULONG_MAX;
+> > > > +   dpu_kms->max_freq = ULONG_MAX;
+> > > > +   dpu_kms->min_freq = 0;
+> > > >
+> > > > -   opp = dev_pm_opp_find_freq_floor(dev, &max_freq);
+> > > > +   opp = dev_pm_opp_find_freq_floor(dev, &dpu_kms->max_freq);
+> > > > +   if (!IS_ERR(opp))
+> > > > +           dev_pm_opp_put(opp);
+> > > > +
+> > > > +   opp = dev_pm_opp_find_freq_ceil(dev, &dpu_kms->min_freq);
+> > > >     if (!IS_ERR(opp))
+> > > >             dev_pm_opp_put(opp);
+> > > >
+> > > > @@ -1461,8 +1466,8 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
+> > > >     struct msm_drm_private *priv = platform_get_drvdata(pdev);
+> > > >     struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+> > > >
+> > > > -   /* Drop the performance state vote */
+> > > > -   dev_pm_opp_set_rate(dev, 0);
+> > > > +   /* adjust the performance state vote to low performance state */
+> > > > +   dev_pm_opp_set_rate(dev, dpu_kms->min_freq);
+> > >
+> > > Here min_freq is the minumum working frequency, which will keep it
+> > > ticking at a high frequency.  I think we are supposed to turn it off
+> > > (well, switch to XO). Would it be enough to swap these two lines
+> > > instead?
+> >
+> > Yes, just clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks) to
+> > disable clk is OK.
+> > we can drop change here.
+> >
+> > > >     clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
+> > > >
+> > > >     for (i = 0; i < dpu_kms->num_paths; i++)
+> > > > @@ -1481,6 +1486,9 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
+> > > >     struct drm_device *ddev;
+> > > >
+> > > >     ddev = dpu_kms->dev;
+> > > > +   /* adjust the performance state vote to high performance state */
+> > > > +   if (dpu_kms->max_freq != ULONG_MAX)
+> > > > +           dev_pm_opp_set_rate(dev, dpu_kms->max_freq);
+> > >
+> > > This one should not be necessary, we should be setting the performance
+> > > point while comitting the DRM state.
+> >
+> > No, issue is during dpu binding path. And in msm_drm_kms_init driver just
+> > pm_runtime_resume_and_get enable power and pm_runtime_put_sync disable power.
+> > But We do not set the appropriate OPP each time the power is enabled.
+> > As a result, a situation may occur where the rail stays at MIN_SVS while the
+> > MDP is running at a high frequency.
 > 
+> Please move dev_pm_opp_set_rate() from dpu_kms_init() to dpu_kms_hw_init().
 
-Sure, this is when the display is working:
+During dpu_kms_hw_init and msm_drm_kms_init and msm_drm_kms_post_init.
 
-$ cat /sys/kernel/debug/dri/ae01000.display-controller/state
-plane[36]: plane-0
-         crtc=crtc-0
-         fb=89
-                 allocated by = kwin_wayland
-                 refcount=2
-                 format=AR30 little-endian (0x30335241)
-                 modifier=0x500000000000001
-                 size=3840x2160
-                 layers:
-                         size[0]=3840x2160
-                         pitch[0]=15360
-                         offset[0]=0
-                         obj[0]:
-                                 name=0
-                                 refcount=5
-                                 start=00105bee
-                                 size=33554432
-                                 imported=no
-         crtc-pos=3840x2160+0+0
-         src-pos=3840.000000x2160.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=1
-         sspp[0]=sspp_8
-         multirect_mode[0]=parallel
-         multirect_index[0]=rect_0
-         src[0]=1920x2160+0+0
-         dst[0]=1920x2160+0+0
-         sspp[1]=sspp_8
-         multirect_mode[1]=parallel
-         multirect_index[1]=rect_1
-         src[1]=1920x2160+1920+0
-         dst[1]=1920x2160+1920+0
-plane[42]: plane-1
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[48]: plane-2
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[54]: plane-3
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[60]: plane-4
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[66]: plane-5
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[72]: plane-6
-         crtc=crtc-0
-         fb=93
-                 allocated by = kwin_wayland
-                 refcount=2
-                 format=AB24 little-endian (0x34324241)
-                 modifier=0x500000000000001
-                 size=512x512
-                 layers:
-                         size[0]=512x512
-                         pitch[0]=2048
-                         offset[0]=0
-                         obj[0]:
-                                 name=0
-                                 refcount=5
-                                 start=0010f8ca
-                                 size=1310720
-                                 imported=no
-         crtc-pos=512x512+1913+1073
-         src-pos=512.000000x512.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=1
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=2
-         sspp[0]=sspp_9
-         multirect_mode[0]=none
-         multirect_index[0]=solo
-         src[0]=512x512+0+0
-         dst[0]=512x512+1913+1073
-plane[78]: plane-7
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-crtc[84]: crtc-0
-         enable=1
-         active=1
-         self_refresh_active=0
-         planes_changed=1
-         mode_changed=0
-         active_changed=0
-         connectors_changed=0
-         color_mgmt_changed=0
-         plane_mask=41
-         connector_mask=1
-         encoder_mask=1
-         mode: "3840x2160": 120 1188000 3840 4016 4104 4400 2160 2168 
-2178 2250 0x40 0x5
-         lm[0]=0
-         ctl[0]=0
-         lm[1]=1
-         ctl[1]=0
-connector[34]: DP-1
-         crtc=crtc-0
-         self_refresh_aware=0
-         interlace_allowed=0
-         ycbcr_420_allowed=1
-         max_requested_bpc=0
-         colorspace=Default
-resource mapping:
-         pingpong=84 84 # # # # - - - - - - -
-         mixer=84 84 # # # # - -
-         ctl=84 # # # # #
-         dspp=# # # #
-         dsc=# # # # # # - -
-         cdm=#
-         sspp=# # # # - - - - 84 84 # # - - - -
-         cwb=- - - -
+There are multiple places where pm_runtime_get_sync(pm_runtime_resume_and_get)and pm_runtime_put_sync are called.
+And each time after pm_runtime_get_sync(pm_runtime_resume_and_get) will access register depond on MDP clk.
 
+Do I need to add dev_pm_opp_set_rate after every pm_runtime_get_sync and pm_runtime_resume_and_get?
 
-And this is when this series is applied:
+pm_runtime_get_sync
+dev_pm_opp_set_rate
+"access register"
+pm_runtime_put_sync
 
-$ cat /sys/kernel/debug/dri/ae01000.display-controller/state
-plane[36]: plane-0
-         crtc=crtc-0
-         fb=89
-                 allocated by = kwin_wayland
-                 refcount=2
-                 format=AR30 little-endian (0x30335241)
-                 modifier=0x500000000000001
-                 size=3840x2160
-                 layers:
-                         size[0]=3840x2160
-                         pitch[0]=15360
-                         offset[0]=0
-                         obj[0]:
-                                 name=0
-                                 refcount=5
-                                 start=00105bee
-                                 size=33554432
-                                 imported=no
-         crtc-pos=3840x2160+0+0
-         src-pos=3840.000000x2160.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=1
-         sspp[0]=sspp_8
-         multirect_mode[0]=parallel
-         multirect_index[0]=rect_0
-         src[0]=1920x2160+0+0
-         dst[0]=1920x2160+0+0
-         sspp[1]=sspp_8
-         multirect_mode[1]=parallel
-         multirect_index[1]=rect_1
-         src[1]=1920x2160+1920+0
-         dst[1]=1920x2160+1920+0
-plane[42]: plane-1
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[48]: plane-2
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[54]: plane-3
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[60]: plane-4
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[66]: plane-5
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-plane[72]: plane-6
-         crtc=crtc-0
-         fb=92
-                 allocated by = kwin_wayland
-                 refcount=2
-                 format=AR24 little-endian (0x34325241)
-                 modifier=0x500000000000001
-                 size=512x512
-                 layers:
-                         size[0]=512x512
-                         pitch[0]=2048
-                         offset[0]=0
-                         obj[0]:
-                                 name=0
-                                 refcount=5
-                                 start=0011cf86
-                                 size=1310720
-                                 imported=no
-         crtc-pos=512x512+3833+2107
-         src-pos=512.000000x512.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=1
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=2
-         sspp[0]=sspp_9
-         multirect_mode[0]=none
-         multirect_index[0]=solo
-         src[0]=7x53+0+0
-         dst[0]=7x53+3833+2107
-plane[78]: plane-7
-         crtc=(null)
-         fb=0
-         crtc-pos=0x0+0+0
-         src-pos=0.000000x0.000000+0.000000+0.000000
-         rotation=1
-         normalized-zpos=0
-         color-encoding=ITU-R BT.601 YCbCr
-         color-range=YCbCr limited range
-         color_mgmt_changed=0
-         stage=0
-crtc[84]: crtc-0
-         enable=1
-         active=1
-         self_refresh_active=0
-         planes_changed=1
-         mode_changed=0
-         active_changed=0
-         connectors_changed=0
-         color_mgmt_changed=0
-         plane_mask=41
-         connector_mask=1
-         encoder_mask=1
-         mode: "3840x2160": 120 1188000 3840 4016 4104 4400 2160 2168 
-2178 2250 0x40 0x5
-         lm[0]=0
-         ctl[0]=0
-connector[34]: DP-1
-         crtc=crtc-0
-         self_refresh_aware=0
-         interlace_allowed=0
-         ycbcr_420_allowed=1
-         max_requested_bpc=0
-         colorspace=Default
-resource mapping:
-         pingpong=84 # # # # # - - - - - - -
-         mixer=84 # # # # # - -
-         ctl=84 # # # # #
-         dspp=# # # #
-         dsc=# # # # # # - -
-         cdm=#
-         sspp=# # # # - - - - 84 84 # # - - - -
-         cwb=- - - -
+pm_runtime_resume_and_get
+dev_pm_opp_set_rate
+"access register"
+pm_runtime_put_sync
 
+Thanks,
+Yuanjie
 
-The values from core_perf are exactly the same:
-
-$ cat /sys/kernel/debug/dri/ae01000.display-controller/debug/core_perf/*
-600000000
-0
-0
-0
-0
-13600000
-18200000
-600000000
-2500000
-800000
-0
-mode 0
-
-
->>
->> [1] https://lore.kernel.org/all/F4CDF36128041430+0d030e3b-054c-4910-a132-72273c541948@radxa.com/
->>
->> -- 
->> Best regards,
->> Xilin Wu <sophon@radxa.com>
+> >
+> > rpm_idle+0xe8/0x190
+> > __pm_runtime_idle+0x50/0x94
+> > dpu_kms_hw_init+0x3a0/0x4a8 [msm]
+> > msm_drm_kms_init+0xb8/0x340 [msm]
+> > msm_drm_init+0x16c/0x22c [msm]
+> > msm_drm_bind+0x30/0x3c [msm]
+> > try_to_bring_up_aggregate_device+0x168/0x1d4
+> > __component_add+0xa4/0x170
+> > component_add+0x14/0x20
+> > dsi_dev_attach+0x20/0x2c [msm]
+> > dsi_host_attach+0x58/0x98 [msm]
+> > mipi_dsi_attach+0x30/0x54
+> > novatek_nt37801_probe+0x13c/0x1c8 [panel_novatek_nt37801]
+> >
+> > And I found a a similar bug.
+> > https://lore.kernel.org/all/20220915205559.14574-1-quic_bjorande@quicinc.com/
+> >
+> > Since the panel driver does not hold the property power-domains = <&rpmhpd RPMHPD_MMCX>
+> > once all drivers that do own the RPMHPD_MMCX power domain finish probing,
+> > the interconnect’s dev_sync_state is triggered, which eventually runs rpmhpd_sync_state
+> > and starts dynamic voltage adjustment. This is when the issue occurs.
+> >
+> >
+> > if do change below, this issue can also be fixed.
+> > &mdss_dsi0 {
+> >     ...
+> >         panel@0 {
+> >                 compatible = "novatek,nt37801";
+> >                 ...
+> >         ++      power-domains = <&rpmhpd RPMHPD_MMCX>;
+> >     }
+> > }
+> > But I don't think panel driver should own a power-domains = <&rpmhpd RPMHPD_MMCX>;
 > 
-
-
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+> That's not related.
+> 
+> >
+> >
+> >
+> > Thanks,
+> > Yuanjie
+> >
+> > > >
+> > > >     rc = clk_bulk_prepare_enable(dpu_kms->num_clocks, dpu_kms->clocks);
+> > > >     if (rc) {
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> > > > index 993cf512f8c5..8d2595d8a5f6 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> > > > @@ -92,6 +92,9 @@ struct dpu_kms {
+> > > >     struct clk_bulk_data *clocks;
+> > > >     size_t num_clocks;
+> > > >
+> > > > +   unsigned long max_freq;
+> > > > +   unsigned long min_freq;
+> > > > +
+> > > >     /* reference count bandwidth requests, so we know when we can
+> > > >      * release bandwidth.  Each atomic update increments, and frame-
+> > > >      * done event decrements.  Additionally, for video mode, the
+> > > > --
+> > > > 2.34.1
+> > > >
+> > >
+> > > --
+> > > With best wishes
+> > > Dmitry
+> 
+> 
+> 
+> -- 
+> With best wishes
+> Dmitry
