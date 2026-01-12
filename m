@@ -2,138 +2,142 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36993D11324
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 09:25:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78EE7D113E9
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 09:33:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F12B10E305;
-	Mon, 12 Jan 2026 08:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F73710E30E;
+	Mon, 12 Jan 2026 08:33:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lnqoxx1S";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c/IC+y8u";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ok/qQLrY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EuzOn7xC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBC3110E306
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:25:42 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1686710E30E
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:33:03 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60C85G3l4066607
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:25:42 GMT
+ 60C2OILt114368
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:33:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7eUOrm48pVIkwjT7mhYkGDB3wIt6XmnD5l2NmrqDlFQ=; b=Lnqoxx1S/lwnqyKi
- m82SCGrXOVPKKD2qaEKwbbW5WY00DKcikxm0YPmyGCYFfHvSScI+vb8O1unbwVo+
- HUC14QfGbwTaVlc3K+Pi9TyM7yAhgNLsfDdN3S8O244EBjkZ/n3cYmuxskNhE6xO
- xTMuNBQbyuOg87c5Do9u6i1jII9WquIf7KSdakM57JhJxNwabWDbM1dJo82ec5RK
- b/Uyj2pV6xbPVQINVocDMkwic0xBpK6JJEyl0ori0VYqXK3nAEDBNLGHgtl9WQyJ
- 7ZoI5NJT/VidImJKLup0M50pFttvW/ODd+jIxtS481K30Qfde9dhWIBMqNGAdxVp
- d62SsQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bkfham575-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=jvVDn+Q8yLrpobDvO87/Y5O5
+ MwzvoIhPaYmN1aL/3GA=; b=ok/qQLrYJ/FCvKoU7dv7U0QoFt44LnMop2T9ZI2P
+ DZnzvHDCBYlD072dY2CX9I7+6dSDUi1fFycFY5LJwuj+bxsK6Go7j983HIKBK4R2
+ Eoo2vWKw9oCRzTsYn8HatsoNXAWBurYAvMWYRBu0z7VGeuJW7EGtUQxU2I/AT6H2
+ 0nqRbNYAbHwsm0naKVMAXlFD+KKOWxcuAFop/GxOfWEgiF2gClHiNf5S92n6JMqA
+ lfZwid0+ivLltokiPztnUujmTHMTWn9yKWg7PW4a/zOR0EjPQeZ2ROBcHa2Iq/OY
+ 58QidchNZSLZhQbGAWLDTfiz4zwAZnz+ETA1HL5srJtQ9Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bmr4uh0pu-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:25:42 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8bb0ae16a63so688611985a.3
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 00:25:42 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 08:33:02 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8bbe16e0a34so1517199985a.1
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 00:33:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768206341; x=1768811141;
+ d=oss.qualcomm.com; s=google; t=1768206781; x=1768811581;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=7eUOrm48pVIkwjT7mhYkGDB3wIt6XmnD5l2NmrqDlFQ=;
- b=c/IC+y8ugtvyvfx9oVzhvMENb2paK7Gf6+zcSGO+WGV0uOkA7T1mivmgp284GSUQ/X
- eSkBeIY5zzJhgJ1kOhQuUc3nGdNmNVPTRn8paT3hSZpDEOfwQxZlUvdFto2abVmtoaUx
- clSjLVjxRwVo+6T08o2amrIYSN/pCIksUViGChhhI0eUeSEb8/sLIoo0xFOmcia1BIco
- J8nSo2JT9vhWIHLpW7bHhxkCPm3UKTiOflHhawC7zjl5b5E4RMl8d8d/KZbalBoEjWfs
- Xe5UH16L5yHCAVJTArUDvbb8/bEeNK0lJgOHIYRfaBCX69usSC5/uQyw+p3hkCf7O8HI
- WRXQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jvVDn+Q8yLrpobDvO87/Y5O5MwzvoIhPaYmN1aL/3GA=;
+ b=EuzOn7xCoJI5svhnUcLwTqhvsU+gIARllBw1ANOqrK52ff7AhSpySZXhrUcLrC9bTz
+ 7ta5tX4p4ekFijM+W3bPev6iim/nuCLnjyogvsLE7usiDa2ahMWdNPQMSzpgbrFMWXSw
+ TyNWO1eAJC42tnn0WIG/4O6a2I1/BjioopN4Gj4Tb6kMaTZNTu6uiOFXHh6FZ08jF1+I
+ EXNqY/a13KdfgRJfgKabmYCarr8ZcWmwsiWCneOWlv9ACIPpvFVCxfPAqN0jChvdMCy/
+ OpQwYX0HqNyFy1vUz5qPU9k0y0sOtHhW9XhY5MQ1YcTINBtN7ZcTr4T6fWwefUTyZxAP
+ Atig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768206341; x=1768811141;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7eUOrm48pVIkwjT7mhYkGDB3wIt6XmnD5l2NmrqDlFQ=;
- b=rLaF+lbhdteaH9QDlMYnqCG3bYmLJOwyDhv6yD/1DJ1TewAYsHzrAGdaZL+r15fp8l
- 3nzD/wkDZv4R6EkQg2Khq8qANUdpZR6F0xWoltnZstVGbn7+37/s6zlAyFB7G7xHWaTQ
- 46bYp4G9is+1TpL9WqzJKh3Y46FsX6Eempec7RFyX0rRewK2vb2cgj09Pua81oS3+xsc
- suGgM9S5fCGSQTL3H1WyQ6myMQOnNlovGi4LLXjXvxNVjXuOERwozRHYfpuYTwbe8YAT
- sNj3IqhloinC5h/jlJs0XBbzzKn+mEgAi86EIS/SEWzGLUiczCJKaNHQQhhdtleu+eIE
- z17g==
+ d=1e100.net; s=20230601; t=1768206781; x=1768811581;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jvVDn+Q8yLrpobDvO87/Y5O5MwzvoIhPaYmN1aL/3GA=;
+ b=JmSa4IxDTnrhyWbrRVUaXfakp+OpL5ZQ6cUcRT3gcFBUCw5ZPT95lel5e8OPoYMjBL
+ c1eGZhWJJnLTRkAMkxCrbClEBWTJDfOmlk5Bd9niAyxE7DveQX/3SlIRd+A6fEQlbDNS
+ nEIsoQEdzTfG0JJcLNpe2Etwp3q0gm695UNa97s6pKNMHYV/6cHTv8z1p+fiAW+BYsbp
+ XR293ZRecCK1fMTW9lmR8NUhtHzT1pYXv+8oWiATRdCOXBxzE6KiGHlXsUnl4neQMt0k
+ HfXq6SlYn/vA/XwXt+wGFtIiAM1JzZsTf6v8wY8HpUtU4C2QfNDwkxBLDfaIJwGywvi/
+ ezXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUe3mUnQU1BsM0FIj/dogEYtZJmS+Gzn9y67q3PGUD0hhQTODRX+HuIIdz18j6IslZSZj/YygpNMx0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBZxetpIl7J/mFvaqoqi+zepIwrl2dRxSEtBmUCGI3dYL7E0DW
- 0pkQ+L/43SC3SQXrSuINQXc87X/p+M9lwgCLdlOIwzZKOT+8vNhsuZmP2FMjTMQnFm1fvy9sDcM
- ChhLJ9rfk2deV165w1Nx9FhABQ0Orj+NaJacCK9GBkCR4qwx6HQ2zpGyOoQdWfleA9usYslg=
-X-Gm-Gg: AY/fxX72Hr+cEOW9sHOwTfMB65ry+XHnZqbDlGRmlcmLp95mWNVxaWF8S/WehMPJFD0
- KlUZdasfcsKBvxJbhN7HIi0DWZHOTakw4qp5q18XOlKM1pBrPC0oZsYVw2A5OEQ0tMaJGrq+dtL
- M5ysJRYIg3GQJzQHiOnG7NG1JPtdWkRuxtxBoFO9r7lqIgsZ+OflBEdYOopXsKhhu1VzKB9odKj
- I2/JUJdlz4LlArsqq4COBFXMaDjm8SeuH2qHSEChTTwoyON9vP9AjxIp3V4ImyuEaKjyPHnwTKM
- VfmVMC7neAvAxQdvBGxe42jEO4gp04+R1f3OEI/DTRNKHdYYZxeSUJm3CuwIU6cE2nSJp/nqpw5
- 4lkWh+ZoHfjXm1gkFKc9myf5K+AVAAx33QgWxSnlIR/IxxkHnwL7vpF82Ih6GXaNRK+9nfoE=
-X-Received: by 2002:a05:620a:4143:b0:89e:a9ea:a374 with SMTP id
- af79cd13be357-8c3893e042dmr2325403585a.67.1768206341080; 
- Mon, 12 Jan 2026 00:25:41 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHqUgoQ0GCP62X1wdfQgILxQr4zc6ioMmvxHh5zsjlzgNHwrmBI204t3AI/afaZeiXkQyR08A==
-X-Received: by 2002:a05:620a:4143:b0:89e:a9ea:a374 with SMTP id
- af79cd13be357-8c3893e042dmr2325400685a.67.1768206340519; 
- Mon, 12 Jan 2026 00:25:40 -0800 (PST)
-Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8c37f544674sm1430752785a.54.2026.01.12.00.25.34
+ AJvYcCWoDqy9zt4x1U621mw9PTDD/GstOGyIqPChNjAlD/X27THgr5XonB3vWf4zkZxU31w6292la9hP78E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJJVCOUgBKB6ummtf1JQP1wHELqS1bzpsdMEkfiGMEBCB99ojv
+ 8/A7TssnHWi5bntJovZQtPp7Q7SKM0SJLQGHEx6Q7JzavLAFIHmOYGyYvTKXbaYbAV+QiDH8FlM
+ /k3IFakwh5ZU6PT0vSYyrnLcevIL3Nq7NoYrdJCmdgTG6N6zVrcMeXCoH8ewc5d3zVkWWNmo=
+X-Gm-Gg: AY/fxX74c9bw0INKEYfjA/TUnbRttY0jWkyVcXCa8a5wW8VOQGWBIjUf0IITic5nP5G
+ ToDr7bkoB32onQClNSdAFDzUZzAeeJFF/QSmjSPm1OCJ0l0ZHfbcVu3bS720YwqW+F5qHfPq/yB
+ 0R6yXi3/ljjSUlIRskY6qM0BjaOPn5pn+IoAlgywDkoZsil+0pqu/mTPitq6qV8KMD/sL1upmUn
+ 9oRZN8vtKg+7MA379Qrt9h76PgYucSAVF1KmsKEWaxYjjzundMvbNh1GbUtS9lmlRT1gSCJFLFO
+ dwRIn6JQMh4YPRXcN3NExH80VZiJGlHiixMJaK3WHy2qdFs36tFs/Mxjqm8vT/jXGhkvXxEWrqA
+ DwVpCR1vw83eOtH1vx09yy6Pj/TYpY91Xy9SV1PUIhWLDsxXkGD5+qFD+Zw4BX7kR8kho9oU529
+ eMjimMIgKaYzEIAQpBJK1+TrM=
+X-Received: by 2002:a05:620a:294c:b0:8b2:62ae:acba with SMTP id
+ af79cd13be357-8c37f51e848mr2652706085a.26.1768206781466; 
+ Mon, 12 Jan 2026 00:33:01 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE3Gm9wf+0hbyvj9tvcV6WOwEYs8utTSe9Uo2vj3hxYui4D8sJ+VoYBES4fJKvryhsbSfH/0w==
+X-Received: by 2002:a05:620a:294c:b0:8b2:62ae:acba with SMTP id
+ af79cd13be357-8c37f51e848mr2652704885a.26.1768206780968; 
+ Mon, 12 Jan 2026 00:33:00 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-59b7d1ae8e8sm2414467e87.6.2026.01.12.00.32.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jan 2026 00:25:40 -0800 (PST)
-Date: Mon, 12 Jan 2026 16:25:30 +0800
-From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, krzysztof.kozlowski@linaro.org,
- konrad.dybcio@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
- aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
-Subject: Re: [PATCH 1/2] drm/msm/dpu: fix mismatch between power and frequency
-Message-ID: <aWSv+kVV3G18I/NJ@yuanjiey.ap.qualcomm.com>
-References: <20260109083808.1047-1-yuanjie.yang@oss.qualcomm.com>
- <20260109083808.1047-2-yuanjie.yang@oss.qualcomm.com>
- <kusxzlezvsuwcwwdtm7yqwnqea6gdeolkepxpx3estabaiqymo@edj7pgccli3y>
- <aWSTcI6H6+7AXkEN@yuanjiey.ap.qualcomm.com>
- <CAO9ioeVrQ_TfU5-auxNHG=dL8VmeWtBaC_NE09UECodkYrFv-w@mail.gmail.com>
+ Mon, 12 Jan 2026 00:33:00 -0800 (PST)
+Date: Mon, 12 Jan 2026 10:32:58 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dpu: Filter modes based on adjusted mode clock
+Message-ID: <5frg3jfsy2hhg4l2cgpcf3h24o4paqmk4n5djgfoxhlgonyg4q@mna4o5uc33fi>
+References: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
+ <6381550a-4c1a-429d-b6c1-8c7ae77bf325@linaro.org>
+ <da56lghirjcwesz4usdlfpttwcmvoql2h6bvjommoyfskjdkgk@hrlgx4ukt4aa>
+ <09cbf40d-6536-4bda-94d6-5b45a5746962@linaro.org>
+ <w4lwl34mtd7xv7it72nvomv6te2bcybisvirfdwzdazzqisd73@fvyusj6m5cb2>
+ <ed323916-f0e4-4669-935c-6fc8ae6a9490@linaro.org>
+ <58b5fc9e-890c-4b89-97fa-5d1638cffd3d@oss.qualcomm.com>
+ <1418f8d1-a243-4798-9179-5d5add57198e@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAO9ioeVrQ_TfU5-auxNHG=dL8VmeWtBaC_NE09UECodkYrFv-w@mail.gmail.com>
-X-Proofpoint-ORIG-GUID: zZfDiwG2qGTqMk4--LqdSD4b6pupu-u_
-X-Authority-Analysis: v=2.4 cv=bOEb4f+Z c=1 sm=1 tr=0 ts=6964b006 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=b9kIr6_pAvzuZN9lwc0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: zZfDiwG2qGTqMk4--LqdSD4b6pupu-u_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEyMDA2NSBTYWx0ZWRfX/o0xXIH4+GeC
- 0we5jJX6pkrB6aKOQcjgEQRR2ia2rAWZIgRm/ndN3bn7wVAZlYyTLo4vWCnSjqFT04K3A67Oid0
- 4WS7AfI+ZPrvC2JUN8PThOab3jkjr3ausG0D9yrSuaGM29I5kYlftHIzgElxUe0Td+nB3wH5ile
- JcbzZAsUwC9Zg01wn0ki+ZUmirfdLhPC6Za7IjPmFRIHviNSwfNgfhO3ul/8edg6R6WOECIDqlw
- /ewF77KPuKtTHjvJASv4nZ9iRmJym9PfT/prHvH0V57gIEoDNuFeY3GHkkznKkjmxSfEOlQEhJg
- m0SqndiRzTUvL0j7bIIKnTJ0fGqL2z+AidkIpEC5VWn+aNDDWEheqsEQLSdv9KQE0NMJ+tOxm5w
- /4W298qDMXlQ6A+0gkzL3AyaXlBflfjR9+2K8TvDiC0RtTDab+44AhcfIW776WaJ0sO/3rklZ2J
- OZncOCErUEPAMgwpFtw==
+In-Reply-To: <1418f8d1-a243-4798-9179-5d5add57198e@linaro.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEyMDA2NiBTYWx0ZWRfX3oaAzJykMqgi
+ /66yrS+PCqj6AwNFdQCtCBWRSrDo1eSJlafp+oMWtQ2dl2WXPU6a+oD0iloRZ2NE3CK9UBqAJ97
+ Ci+h6OhHdebhMRy75t5r4o0mprFY8hz8AS0M7mwJZrY+Q4Rr7nMGwxubO21wLU1+ec0Bv8Ly1vz
+ GjEmBzO0Wa5ELNxONG3MmG3q7p3hndmfj8WYU6h/pIS0g4lM7rPMYNEo05q90q9G4lInm0Fl6Oe
+ JHHlURVTbnfnS6LCDRK7rd84IrbXHKqu19kOPrsE2IxpHAPi1vSsWDmSY0wQBJutkJITBN483rK
+ A+1PMDEnx491GH+EL1Y/6Ebmpa+NQy/jmArQV1uaEc5NIrfuzIY9j5/sd9VY+S5+8Ey2tOJ6pLE
+ mhl2lzfBO7hcwAxIfGyD2vxsA9hkhTryHYUD3a4iK+CgsWZDzwEKXyL9i+qFKHNbTUyrorAG1MY
+ 6RgmVef+kHCuhliuxyQ==
+X-Proofpoint-ORIG-GUID: OL0CY06l7GUichrkJxvGDcBJ5W11OW-n
+X-Authority-Analysis: v=2.4 cv=YocChoYX c=1 sm=1 tr=0 ts=6964b1be cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=P-IC7800AAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=COk6AnOGAAAA:8 a=XwQ1i7gJwNEEeRwJ6_wA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=d3PnA9EDa4IxuAV0gXij:22 a=cvBusfyB2V15izCimMoJ:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: OL0CY06l7GUichrkJxvGDcBJ5W11OW-n
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-12_02,2026-01-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 impostorscore=0 adultscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
- definitions=main-2601120065
+ bulkscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601120066
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,248 +153,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 12, 2026 at 09:38:41AM +0200, Dmitry Baryshkov wrote:
-> On Mon, 12 Jan 2026 at 08:23, yuanjiey <yuanjie.yang@oss.qualcomm.com> wrote:
-> >
-> > On Fri, Jan 09, 2026 at 05:22:37PM +0200, Dmitry Baryshkov wrote:
-> > > On Fri, Jan 09, 2026 at 04:38:07PM +0800, yuanjie yang wrote:
-> > > > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > > >
-> > > > During DPU runtime suspend, calling dev_pm_opp_set_rate(dev, 0) drops
-> > > > the MMCX rail to MIN_SVS while the core clock frequency remains at its
-> > > > original (highest) rate. When runtime resume re-enables the clock, this
-> > > > may result in a mismatch between the rail voltage and the clock rate.
-> > > >
-> > > > For example, in the DPU bind path, the sequence could be:
-> > > >   cpu0: dev_sync_state -> rpmhpd_sync_state
-> > > >   cpu1:                                     dpu_kms_hw_init
-> > > > timeline 0 ------------------------------------------------> t
-> > > >
-> > > > After rpmhpd_sync_state, the voltage performance is no longer guaranteed
-> > > > to stay at the highest level. During dpu_kms_hw_init, calling
-> > > > dev_pm_opp_set_rate(dev, 0) drops the voltage, causing the MMCX rail to
-> > > > fall to MIN_SVS while the core clock is still at its maximum frequency.
-> > >
-> > > Ah, I see. dev_pm_set_rate(0) transforms to  _disable_opp_table(), which
-> > > doesn't do anything with clocks. I think we should have a call to
-> > > clk_disable_unprepare() before that and clk_prepare_enable() in the
-> > > resume path.
-> >
-> > I do check the backtrace on kaanapali:
-> >
-> > active_corner = 3 (MIN_SVS)
-> > rpmhpd_aggregate_corner+0x168/0x1d0
-> > rpmhpd_set_performance_state+0x84/0xd0
-> > _genpd_set_performance_state+0x50/0x198
-> > genpd_set_performance_state.isra.0+0xbc/0xdc
-> > genpd_dev_pm_set_performance_state+0x60/0xc4
-> > dev_pm_domain_set_performance_state+0x24/0x3c
-> > _set_opp+0x370/0x584
-> > dev_pm_opp_set_rate+0x258/0x2b4
-> > dpu_runtime_suspend+0x50/0x11c [msm]
-> > pm_generic_runtime_suspend+0x2c/0x44
-> > genpd_runtime_suspend+0xac/0x2d0
-> > __rpm_callback+0x48/0x19c
-> > rpm_callback+0x74/0x80
-> > rpm_suspend+0x108/0x588
-> > rpm_idle+0xe8/0x190
-> > __pm_runtime_idle+0x50/0x94
-> > dpu_kms_hw_init+0x3a0/0x4a8
-> >
-> > dev_pm_opp_set_rate(dev, 0); just low power to MIN_SVS.
-> > And freq MDP: 650MHz
-> >
-> >
-> > And I try change the order:
-> > from:
-> >         dev_pm_opp_set_rate(dev, 0);
-> >         clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
-> > to:
-> >         clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
-> >         dev_pm_opp_set_rate(dev, 0);
-> >
-> > But the issue is still here.
+On Wed, Oct 29, 2025 at 02:18:49PM +0100, Neil Armstrong wrote:
+> On 10/29/25 13:55, Dmitry Baryshkov wrote:
+> > On 29/10/2025 14:49, Neil Armstrong wrote:
+> > > On 10/29/25 13:30, Dmitry Baryshkov wrote:
+> > > > On Wed, Oct 29, 2025 at 10:40:25AM +0100, Neil Armstrong wrote:
+> > > > > On 10/28/25 20:52, Dmitry Baryshkov wrote:
+> > > > > > On Tue, Oct 28, 2025 at 09:42:57AM +0100, neil.armstrong@linaro.org wrote:
+> > > > > > > On 5/7/25 03:38, Jessica Zhang wrote:
+> > > > > > > > Filter out modes that have a clock rate greater than the max core clock rate when adjusted for the perf clock factor
+> > > > > > > > 
+> > > > > > > > This is especially important for chipsets such as QCS615 that have lower limits for the MDP max core clock.
+> > > > > > > > 
+> > > > > > > > Since the core CRTC clock is at least the mode clock (adjusted for the perf clock factor) [1], the modes supported by the driver should be less than the max core clock rate.
+> > > > > > > > 
+> > > > > > > > [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/ drm/msm/disp/dpu1/dpu_core_perf.c#L83
+> > > > > > > > 
+> > > > > > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com> --- Changes in v2: - *crtc_clock -> *mode_clock (Dmitry) - Changed adjusted_mode_clk check to use multiplication (Dmitry) - Switch from quic_* email to OSS email - Link to v1: https://lore.kernel.org/lkml/20241212-filter-mode- clock-v1-1-f4441988d6aa@quicinc.com/ --- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 35 +++++++++++ +++++++--------- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +++ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 12 +++++++++ 3 files changed, 39 insertions(+), 11 deletions(-)
+> > > > > > > > 
+> > > > > > > 
+> > > > > > > This test doesn't take in account if the mode is for a bonded DSI mode, which is the same mode on 2 interfaces doubled, but it's valid since we could literally set both modes separately. In bonded DSI this mode_clk must be again divided bv 2 in addition to the fix: https://lore.kernel.org/linux-arm-msm/20250923-modeclk-fix- v2-1-01fcd0b2465a@oss.qualcomm.com/
+> > > > > > 
+> > > > > > From the docs:
+> > > > > > 
+> > > > > > * Since this function is both called from the check phase of an atomic * commit, and the mode validation in the probe paths it is not allowed * to look at anything else but the passed-in mode, and validate it * against configuration-invariant hardware constraints. Any further * limits which depend upon the configuration can only be checked in * @mode_fixup or @atomic_check.
+> > > > > > 
+> > > > > > Additionally, I don't think it is correct to divide mode_clk by two. In the end, the DPU processes the mode in a single pass, so the perf constrains applies as is, without additional dividers.
+> > > > > 
+> > > > > Sorry but this is not correct, the current check means nothing. If you enable 2 separate DSI outputs or enable then in bonded mode, the DPU processes it the same so the bonded doubled mode should be valid.
+> > > > > 
+> > > > > The difference between separate or bonded DSI DPU-wise is only the synchronisation of vsyncs between interfaces.
+> > > > 
+> > > > I think there is some sort of confusion. It might be on my side. Please correct me if I'm wrong.
+> > > > 
+> > > > Each CRTC requires certain MDP clock rate to function: to process pixel data, for scanout, etc. This is captured in dpu_core_perf.c. The patch in question verifies that the mode can actually be set, that MDP can function at the required clock rate. Otherwise we end up in a situation when the driver lists a particular mode, but then the atomic_check rejects that mode.
+> > > 
+> > > A CRTC will be associated to 1 or multiple LMs, the LM is the actual block you want to check for frequency. Speaking of CRTC means nothing for the DPU.
+> > > 
+> > > We should basically run a lightweight version of dpu_rm_reserve() in mode_valid, and check against all the assigned blocks to see if we can handle the mode.
+> > > 
+> > > But is it worth it ? What did the original patch solve exactly ?
+> > > 
+> > > Do we have formal proof about which max clock frequency a complete HW setup is able to support ?
+> > > 
+> > > > 
+> > > > With that in mind, there is a difference between independent and bonded DSI panels: bonded panels use single CRTC, while independent panels use two different CRTCs. As such (again, please correct me if I'm wrong), we need 2x MDP clock for a single CRTC.
+> > > 
+> > > Any mode can use 1 or multiple LMs, in independent or bonded DSI. As I said the bonded DSI with a 2x mode will lead to __exactly__ the same setup as 2 independed DSI displays. And in bonded mode, you'll always have 2 LMs.
+> > > 
+> > > > 
+> > > > > So this check against the max frequency means nothing and should be removed, but we should solely rely on the bandwidth calculation instead.
+> > > > 
+> > > > We need both. If you have a particular usecase which fails, lets discuss it:
+> > > > 
+> > > > - 2 DSI panels, resolution WxH, N Hz, the mode uses l LMs, m DSC units and foo bar baz to output.
+> > > > 
+> > > > - The dpu_crtc_mode_valid() calculates the clock ABC, which is more than the max value of DEF
+> > > > 
+> > > > - The actual modesetting results in a clock GHI, which is less than DEF
+> > > 
+> > > I don't understand what you need,
+> > 
+> > I have been asking for exact W, H, N, l, m, etc. numbers.
 > 
-> But which clock is still demanding higher MMCX voltage? All DPU clocks
-> should be turned off at this point.
-Yes, no DPU clock demand higher MMCX voltage here. But next time pm_runtime_get_sync
-need higher MMCX voltagei due to high freq.
- 
-> >
-> >
-> > > > When the power is re-enabled, only the clock is enabled, leading to a
-> > > > situation where the MMCX rail is at MIN_SVS but the core clock is at its
-> > > > highest rate. In this state, the rail cannot sustain the clock rate,
-> > > > which may cause instability or system crash.
-> > > >
-> > > > Fix this by setting the corresponding OPP corner during both power-on
-> > > > and power-off sequences to ensure proper alignment of rail voltage and
-> > > > clock frequency.
-> > > >
-> > > > Fixes: b0530eb11913 ("drm/msm/dpu: Use OPP API to set clk/perf state")
-> > > >
-> > > > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > >
-> > > No empty lines between the tags. Also please cc stable.
-> >
-> > Sure, will fix.
-> >
-> > > > ---
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 16 ++++++++++++----
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  3 +++
-> > > >  2 files changed, 15 insertions(+), 4 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > > > index 0623f1dbed97..c31488335f2b 100644
-> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > > > @@ -1306,9 +1306,14 @@ static int dpu_kms_init(struct drm_device *ddev)
-> > > >     struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
-> > > >     struct dev_pm_opp *opp;
-> > > >     int ret = 0;
-> > > > -   unsigned long max_freq = ULONG_MAX;
-> > > > +   dpu_kms->max_freq = ULONG_MAX;
-> > > > +   dpu_kms->min_freq = 0;
-> > > >
-> > > > -   opp = dev_pm_opp_find_freq_floor(dev, &max_freq);
-> > > > +   opp = dev_pm_opp_find_freq_floor(dev, &dpu_kms->max_freq);
-> > > > +   if (!IS_ERR(opp))
-> > > > +           dev_pm_opp_put(opp);
-> > > > +
-> > > > +   opp = dev_pm_opp_find_freq_ceil(dev, &dpu_kms->min_freq);
-> > > >     if (!IS_ERR(opp))
-> > > >             dev_pm_opp_put(opp);
-> > > >
-> > > > @@ -1461,8 +1466,8 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
-> > > >     struct msm_drm_private *priv = platform_get_drvdata(pdev);
-> > > >     struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
-> > > >
-> > > > -   /* Drop the performance state vote */
-> > > > -   dev_pm_opp_set_rate(dev, 0);
-> > > > +   /* adjust the performance state vote to low performance state */
-> > > > +   dev_pm_opp_set_rate(dev, dpu_kms->min_freq);
-> > >
-> > > Here min_freq is the minumum working frequency, which will keep it
-> > > ticking at a high frequency.  I think we are supposed to turn it off
-> > > (well, switch to XO). Would it be enough to swap these two lines
-> > > instead?
-> >
-> > Yes, just clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks) to
-> > disable clk is OK.
-> > we can drop change here.
-> >
-> > > >     clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
-> > > >
-> > > >     for (i = 0; i < dpu_kms->num_paths; i++)
-> > > > @@ -1481,6 +1486,9 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
-> > > >     struct drm_device *ddev;
-> > > >
-> > > >     ddev = dpu_kms->dev;
-> > > > +   /* adjust the performance state vote to high performance state */
-> > > > +   if (dpu_kms->max_freq != ULONG_MAX)
-> > > > +           dev_pm_opp_set_rate(dev, dpu_kms->max_freq);
-> > >
-> > > This one should not be necessary, we should be setting the performance
-> > > point while comitting the DRM state.
-> >
-> > No, issue is during dpu binding path. And in msm_drm_kms_init driver just
-> > pm_runtime_resume_and_get enable power and pm_runtime_put_sync disable power.
-> > But We do not set the appropriate OPP each time the power is enabled.
-> > As a result, a situation may occur where the rail stays at MIN_SVS while the
-> > MDP is running at a high frequency.
+> This is irrelevant, checking a frequency for a "CRTC" which doesn't always
+> maps 1:1 to an actual hardware is buggy.
 > 
-> Please move dev_pm_opp_set_rate() from dpu_kms_init() to dpu_kms_hw_init().
+> Dividing by 2 if there's a has_3d_merge is already a hack since 2 LMs will
+> be associated to a CRTC. I don't see why the bonded DSI cannot have the same handling
+> since 2 LMs will be associated to the CRTC.
 
-During dpu_kms_hw_init and msm_drm_kms_init and msm_drm_kms_post_init.
+I have been looking at your case again. Shouldn't we be setting
+DRM_MODE_FLAG_CLKDIV2 for the bonded DSI modes?
 
-There are multiple places where pm_runtime_get_sync(pm_runtime_resume_and_get)and pm_runtime_put_sync are called.
-And each time after pm_runtime_get_sync(pm_runtime_resume_and_get) will access register depond on MDP clk.
-
-Do I need to add dev_pm_opp_set_rate after every pm_runtime_get_sync and pm_runtime_resume_and_get?
-
-pm_runtime_get_sync
-dev_pm_opp_set_rate
-"access register"
-pm_runtime_put_sync
-
-pm_runtime_resume_and_get
-dev_pm_opp_set_rate
-"access register"
-pm_runtime_put_sync
-
-Thanks,
-Yuanjie
-
-> >
-> > rpm_idle+0xe8/0x190
-> > __pm_runtime_idle+0x50/0x94
-> > dpu_kms_hw_init+0x3a0/0x4a8 [msm]
-> > msm_drm_kms_init+0xb8/0x340 [msm]
-> > msm_drm_init+0x16c/0x22c [msm]
-> > msm_drm_bind+0x30/0x3c [msm]
-> > try_to_bring_up_aggregate_device+0x168/0x1d4
-> > __component_add+0xa4/0x170
-> > component_add+0x14/0x20
-> > dsi_dev_attach+0x20/0x2c [msm]
-> > dsi_host_attach+0x58/0x98 [msm]
-> > mipi_dsi_attach+0x30/0x54
-> > novatek_nt37801_probe+0x13c/0x1c8 [panel_novatek_nt37801]
-> >
-> > And I found a a similar bug.
-> > https://lore.kernel.org/all/20220915205559.14574-1-quic_bjorande@quicinc.com/
-> >
-> > Since the panel driver does not hold the property power-domains = <&rpmhpd RPMHPD_MMCX>
-> > once all drivers that do own the RPMHPD_MMCX power domain finish probing,
-> > the interconnect’s dev_sync_state is triggered, which eventually runs rpmhpd_sync_state
-> > and starts dynamic voltage adjustment. This is when the issue occurs.
-> >
-> >
-> > if do change below, this issue can also be fixed.
-> > &mdss_dsi0 {
-> >     ...
-> >         panel@0 {
-> >                 compatible = "novatek,nt37801";
-> >                 ...
-> >         ++      power-domains = <&rpmhpd RPMHPD_MMCX>;
-> >     }
-> > }
-> > But I don't think panel driver should own a power-domains = <&rpmhpd RPMHPD_MMCX>;
-> 
-> That's not related.
-> 
-> >
-> >
-> >
-> > Thanks,
-> > Yuanjie
-> >
-> > > >
-> > > >     rc = clk_bulk_prepare_enable(dpu_kms->num_clocks, dpu_kms->clocks);
-> > > >     if (rc) {
-> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > > > index 993cf512f8c5..8d2595d8a5f6 100644
-> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > > > @@ -92,6 +92,9 @@ struct dpu_kms {
-> > > >     struct clk_bulk_data *clocks;
-> > > >     size_t num_clocks;
-> > > >
-> > > > +   unsigned long max_freq;
-> > > > +   unsigned long min_freq;
-> > > > +
-> > > >     /* reference count bandwidth requests, so we know when we can
-> > > >      * release bandwidth.  Each atomic update increments, and frame-
-> > > >      * done event decrements.  Additionally, for video mode, the
-> > > > --
-> > > > 2.34.1
-> > > >
-> > >
-> > > --
-> > > With best wishes
-> > > Dmitry
-> 
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+-- 
+With best wishes
+Dmitry
