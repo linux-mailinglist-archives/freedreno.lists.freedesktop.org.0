@@ -2,137 +2,151 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42858D105C8
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 03:37:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBB49D106C2
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 04:11:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 216D110E036;
-	Mon, 12 Jan 2026 02:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87E6610E075;
+	Mon, 12 Jan 2026 03:11:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="R8kxaDwC";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vo9buOno";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aVfFGHWA";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DWKz4NSH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E15D10E036
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 02:37:52 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8C5A10E075
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 03:11:34 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60BLS3Gg1101915
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 02:37:52 GMT
+ 60B8jBak2738338
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 03:11:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=iU/qwLHfmO52wXYSMBbBnvy9
- EbxBlQWz8FMqeVwDo8o=; b=R8kxaDwCQqBqZ7VppWzfFWJuNG3jhX4gwNqzqxhc
- 7tw2PaTH10ciV8q6SchZXwatkJqC/9PaBFIJXB2brXsMsrpSrtoa89YTLWZsgNyi
- WcY5b74ku/R0PFjuHlmHXRpn8dG04pKXEraqVsDyTVZi/KXujcpFW7v1OlMr8rfY
- HDIelE0jKUtcJ4+XyRHv0ZncYIlpdGR1gwaOMalk4WBRw17KDpb4+ej0qRbjs9/P
- Qo2NBoGxuRfjCltwntsvJvf33YgB6BeRrTgSyyBKnMabnbeqiWuOzXMpIA57z90v
- vFwC4jrgYzQujbBPIIWXo84zVuBfxFhX2kIPiTWNwQK2Jg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bkfxfu5xx-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=SmAanZecvfrl/Lhr4noCk5
+ ILjd4wByVA2hHixuPHBcc=; b=aVfFGHWAmTwCzV80EvKhnMH+NRVveMNdWWIVyV
+ zc6EMF70vXpLqHWvPosjqH90c9ztSA3EqYiM8jRSlJs1vRv9oid2uf/Fi7SE1vZ+
+ /PR607xfRJejRto50cNEZu6tFJ8hYSdWB2yuXvRfBNELhXUe8/WYtiLnr850kg5H
+ zvNIdWD5u1aM4S2iqlPYxudRuZhwsQ+ByCw6/4Szfbx+rBfKtc/HRWu0o5vDHFEh
+ nTFsEtMhzb3iJuXaZFe5fyxDl1I/GzzDLvZf19nfCCO7sdwk05LlG2x4judUyqsk
+ p8UhiOX/oFKE85AfOsFDM9njZzyT4ubpCTZxLzXygVX5YrxA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bm8kysc0u-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 02:37:51 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8b2de6600c0so1680479985a.1
- for <freedreno@lists.freedesktop.org>; Sun, 11 Jan 2026 18:37:51 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 03:11:33 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8bb3388703dso2449861985a.1
+ for <freedreno@lists.freedesktop.org>; Sun, 11 Jan 2026 19:11:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768185471; x=1768790271;
+ d=oss.qualcomm.com; s=google; t=1768187493; x=1768792293;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=iU/qwLHfmO52wXYSMBbBnvy9EbxBlQWz8FMqeVwDo8o=;
- b=Vo9buOnofeGSfuzJQxUgEUihXP5XfP9+hmYz8vSWmHcs2AlMYrtnwhrwggcbNYCvUK
- J3hLXhcIrIBUipxqtgT1JR39mQeen9LizHKzSLcBilZmFer1YbUWeBWpwtElN3/nPgY4
- TpoQlBkyDjkc7TGtzPic7ALOg1wsqz2eXuy1YnjBZnLZLQT6B34EIFIEduJOzPttl4Ix
- 7rsQiJof7MA6I4cJfcJwr0gfpXcd8rD6OKuhn2U190q3gGnWzmBI7wblNWQtVYdkb8wS
- u2DhlV9+Icgdd1ZeVGGRL74vVpIQPFVvHQlMAloFeJ24Km32LjG8OSOplVlQBqEBeY4G
- zgpQ==
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SmAanZecvfrl/Lhr4noCk5ILjd4wByVA2hHixuPHBcc=;
+ b=DWKz4NSHdjElqCIFxhY1v3ceUKD9NWrJJRmJtKp5AohFrioYK5edNB/z9bk/88lb2B
+ nQPM6+JnF5D9JCBtzJOCqKUI7JhhqylivdV+a/S+bfd9MwORg4b2jfA+bgE0RGcjwxmU
+ pKKupme63b982pgqiquvlfRXvKcmieWqNmY0a+4Z5D7PoEKUarhSsf+w7V8UCYQwHhMp
+ CtAaLedrRvrVmMDYS98X/3nFtdMH59KMSLrMi24EtWidHUrW/LXiRdZM6RNcPZhWiIUo
+ k1vEdOxj3jMkxFy2bhQPavVeERSXPvNXeWHUe6zf1slId4QTZPZQCA8hnRPvZgbSQvaO
+ 68Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768185471; x=1768790271;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iU/qwLHfmO52wXYSMBbBnvy9EbxBlQWz8FMqeVwDo8o=;
- b=NViPcKrcWgrTxu6Rm6OIklhAv5h9OF08VRGJYJbOWnd+pv4ClhFNSmFxDrY9s3wavm
- ktHj7T78RYSf74A5UWxNWgvxvw1BvFk2NtFJ8WRibo3/kzETupL20Sf3IIfZRUIwURPe
- kHLXm72VpPvERM91GkGKsgcc+usrVTn5oT7kJc6/1E3+2bifV+tKosvaO6Acy6n9uLuf
- 3XTf/gSsz4PCQauO2oVEN6pr5OTY2Gtlgb9jPLan3FuhfsQzWD+qWj37NnWeLBXvHDhv
- nnZY6okitdWSjgj2aPmbZirCRndC9vwKgzGtPUaFPB0U7f7z2JhIehnk36BwH425MecQ
- AAGA==
+ d=1e100.net; s=20230601; t=1768187493; x=1768792293;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SmAanZecvfrl/Lhr4noCk5ILjd4wByVA2hHixuPHBcc=;
+ b=gZtC3p3mpPy7PT5PgB+7cNQG/2dxeW65Yj93xv0Ft5ZVaI4MUxkrOyf05LW3XKpa0l
+ FglsWwboIjEFK+cjHqgwiLQQl0teqy4hxqUfjJ9MDbH+TCjTtQIiBGbiInQHMLAWn6KG
+ 8QlzyLrqQwEwWMIi1LMZTGJ1JE7MZ5pEba1D+epZMpm/445XIXIrfr0hQoJ6/ZtP8BZ9
+ OGQkWdul1WM0VtobDtZ0ydtYnfBWucCXKCItDvauJVPQNTKEkDqd0/X11r74VgrRFIHq
+ VKCeDOkpTl+C3agX7Ni9LZzWRxw0rQ+hSZbMRAAUMEQ98HsO68WFhAjzSORVilZX1EjX
+ duwg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfG+u+bPzIXN0W3LjkaVJJPuEnhaht8NpuGOlF0NCCDIf1RBftiNZImC7Znvq7Hcuh4N4VhBnG7WE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz3QaJvPzF+dQFyyLOYwlhP2zB1VM7Jeuqv6QUZstpFRGuN9uns
- JonnHiJi4Ns/US2FU7h7IN4VcymbarDy1Ka0hAaGfDk9yCY96XDCXiYz6QUzyMFs3MdPLqTSrzJ
- 1RGV+utINsoiqxDl6dsPBorwAKAqnEBpmpLjDxejUtRGY/TiyC7lUk/lHdi93ML0pmvPAaxU=
-X-Gm-Gg: AY/fxX4bopGTiRYvpzdbDbNQvSMRt35I1b8qtWDKYFk5zhBWztSCwUYkDavmF21P7CL
- RzGWLfW+Ed5MX0st+lL4C6l06qGjWD1redWyMa9yVEUUFxkGVWN8e64mJrj7WxyK5+Rnrjv/SYu
- vYbWq9MJtuKG6zQFDhMIzehIPyDr6XZj+ixqMyLqTv8cnqbgwdWFSDKf8H4pc+f9bs4fTAh8aN3
- cPkHYGr9sYqX4a6kBU/qs7HCnf/Ov5/Xxi33bGfXE591IGuP3M0iMb76kmjRErDlEje64dNnFKy
- FiDY81aKiPHTXtfDod009DH6EUcoYrZw7VucnAwz1KJzLwNDIpxSlHR/wuds0MO/jGPeS2NiiKH
- BtPffKURJQw2C3qnnlz4ybTsA6QsuDKOE2Db103fiS6MOdOlKgKiR8MYI5B75f7zolvgde3Se1/
- Mz6WBLMG8gU3JhXKKM45Qo9OE=
-X-Received: by 2002:a05:620a:1791:b0:8c3:7ec3:4bab with SMTP id
- af79cd13be357-8c38940319bmr2179321385a.68.1768185470857; 
- Sun, 11 Jan 2026 18:37:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEmQaXbfmnleizxVozhvqVXaWGY6YDbXSxnvQ6ZoqoB8xbMjSUP9xoP+727vHQgt/c4xLi+hw==
-X-Received: by 2002:a05:620a:1791:b0:8c3:7ec3:4bab with SMTP id
- af79cd13be357-8c38940319bmr2179319585a.68.1768185470331; 
- Sun, 11 Jan 2026 18:37:50 -0800 (PST)
+ AJvYcCV0/r8WzkXCt2eAfffw/3R3lUXa0d9rEnQDUtmoOpNTSgHJsqOmI+62Gs5wgjmvtCipBM4fgk2gGdU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkPUv9P/JEdPXM5BN2ZzgPH3v8KfjO4qrfme/pPXndLlHSlIId
+ /DWDur8GdjKYZ9JeEtIcDV+nNVA3m06Nb3+ZH3/QZZC6L1pDLOAnseREzdfkJAGr/TmF1ADTt+f
+ V04ei72MqaHZ/V1ve8cr/8nzslM4HD2R8Dvd8qGpli16GrMQh6GFkLO3JRZB/+nwkDBRHSsA=
+X-Gm-Gg: AY/fxX40eT63R4rugAwAsnC9kK3T++A54doxVoRTY/hyIo5qJAsnAIU2TmaWIYxvUqi
+ rN6oh4l02pXyn2J/pg1i6jhVVWJlUgM7hWlkHc2VIugLid5rwqFNHIT234E2pbLLAH9QJ6++rWi
+ WJO3Y3WHx+gl0m5OcIyuJj2+G0IISVp9PFPNp7uTVSQPQRRiv4pcpmWYpe3YmVSa8u45HRFoEWz
+ vjZFul+V6P/PC8dyIAdOjBm9591ZjSOY/Sgmv2lb75WJMRUp6h1TmxIWvUES3fzy5PExCqeoIX2
+ L38VSgdu5WmJMtZuY7pvaGF/632kVBCmps4MTNLSyAfHT+oG1N03pxWwqyKPDgkHwzjfcuSD26Z
+ TLmuyBrGGhbUy0CXVLXtFKYmu3i2Sy7WB9t4TIPLEynwJiF4gbTQ4ushf21fP//dvB5npLiQ0Zx
+ oTEks/W/tVHTFkMdTzfYMpoTw=
+X-Received: by 2002:a05:620a:4442:b0:8c3:1719:9b84 with SMTP id
+ af79cd13be357-8c38942be70mr2180329485a.82.1768187493319; 
+ Sun, 11 Jan 2026 19:11:33 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEHLaEWJ2Yf+pziih9iV72c9bcmxhj+E/000f08ui5BBzBDG6B9/krd+PeYLYwsZgAyqTIcgw==
+X-Received: by 2002:a05:620a:4442:b0:8c3:1719:9b84 with SMTP id
+ af79cd13be357-8c38942be70mr2180326685a.82.1768187492846; 
+ Sun, 11 Jan 2026 19:11:32 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59b7b8210ccsm2497226e87.48.2026.01.11.18.37.47
+ 2adb3069b0e04-59b792cf330sm2758871e87.102.2026.01.11.19.11.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 11 Jan 2026 18:37:49 -0800 (PST)
-Date: Mon, 12 Jan 2026 04:37:46 +0200
+ Sun, 11 Jan 2026 19:11:32 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
+Subject: [PATCH v3 0/3] drm/msm/dpu: Drop max_mixer_width and
+ MAX_HDISPLAY_SPLIT
+Date: Mon, 12 Jan 2026 05:11:28 +0200
+Message-Id: <20260112-max-mixer-width-v3-0-f98063ea21f5@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGBmZGkC/22P3Q6CMAyFX4Xs2mk3QMEr38N4sZ8qSxzoNhFDe
+ HeLxCu9aXLa06+nI4sYHEa2z0YWsHfRdS2JfJUx06j2gtxZ0kyCLKEAwb0auHcDBv50NjW8Nrk
+ BaYrK6B2jrVvAM41n4vFEunExdeH1OdCLubuwSlH8sHrBgZtKK7C11lVZHboY1/eHuprO+zUVN
+ iN7+cVsQUD+i5GEwXNpcyuL7Q7qP5hpiRrw/qCf05KXaRWRzyaXshaHtPEqJgxkn94Pdj1GKgE
+ AAA==
+X-Change-ID: 20250401-max-mixer-width-9c3c02c48cb7
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, llvm@lists.linux.dev,
- patches@lists.linux.dev, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] drm/msm/dp: Avoid division by zero in
- msm_dp_ctrl_config_msa()
-Message-ID: <zmfgq5d2gwrxgvr4eh4th2gjef76gpbv54kz2myvfnqgpor4dn@7qjr262yryap>
-References: <20260108-drm-msm-dp_ctrl-avoid-zero-div-v1-1-6a8debcb3033@kernel.org>
- <ca851614-2804-4029-9799-19e71dd73414@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ca851614-2804-4029-9799-19e71dd73414@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: ZdubItnY5cTGpe_G54jqu67I9Ks7hi3t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEyMDAyMCBTYWx0ZWRfXxFZ8HvwN+PcZ
- GqZCf6OlGCMtkU00mT4dkAmFRtl+ybjHLHX4S9RQwjC95euk9NXSQIjyjA4wA4lmUmxkOBJ5+9N
- kdIzVU49F4JpnhNvg4RYozBe9cdJQX5Bx9afEHPiPdRjWf6VkeM1ZgtXtQEGAfH+J6DKqYvcqXG
- snqt1Egl509+qaoX4MhlYc0Qx0J/Wfra20UqRApXxACz9SUDOS+wPQvnubPqY2s5elbtuiaZMkq
- g40qS1a7p7onRuiO5d9xp8IMoCnG6MnsXAgQhZw+9ZD6Pq5b6qUEZexOp+xRiXP0+3v6HHq3hoN
- fh617fYbNP2CiWpYjgEakXQo0cPB9XJRELZb9eytnn9vUdL2U/GR1TcFMGWYUANAhgVSubPjW0d
- Hlu9bujEk4ASIlgguCMMWVp/VZotccfiW/pgEGNnfa5t4VUrCKvpV+AFy91cwisDUnp4kziR8W+
- kHtTtLpOShPoSXFTrZQ==
-X-Authority-Analysis: v=2.4 cv=c7WmgB9l c=1 sm=1 tr=0 ts=69645e7f cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3298;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=tNgz2lDbieKSqbwdX1I2JXup1Xb5aYMuuxztq5LLcQY=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpZGZjMly8OhnWdEJzfcyjRQ8MPvuTExdlpe8XM
+ 0+RGDQgFoyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaWRmYwAKCRCLPIo+Aiko
+ 1VepB/94Hf0Ch3SfS+7dI+V16ADq6yTITaFKtbgaC8QyDVbn3YbYhJnsu29lJBRNtrYa7qzlihC
+ 1Lqh/DeJDoWHxocEyaUXdNLUiGGhIzJw43eA6KFAAsX0LWOuUwGBLshhUfZhbs3VahEfj1Sn+Zh
+ NZt8gAy7TzRnfzDsdLzWhIasIk2qHvPHpT2mTGZaf1ForLeATZIcJEn0o/PxfSYZEC/llD+I/AK
+ WvBT5X9ufsr7HZCPH230u/yFdAQZg4fG+JDz+1uWZiuMyxmIUoLXJNf2chLvXjBHL2QiY9c5iyw
+ AzMwnhYCRnL3RrGvcNvPVhmW1LlcTiTlgMEWSuWolRb3Fg4r
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: h77JZryVXrupzZATpqYb3O4GwFb9T48K
+X-Authority-Analysis: v=2.4 cv=ZuDg6t7G c=1 sm=1 tr=0 ts=69646666 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=LpQP-O61AAAA:8
- a=tB0veDu0MfDHHowGF4QA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=pioyyrs4ZptJ924tMmac:22
-X-Proofpoint-GUID: ZdubItnY5cTGpe_G54jqu67I9Ks7hi3t
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=d6ssToJDxaT8U7i-MUwA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: h77JZryVXrupzZATpqYb3O4GwFb9T48K
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEyMDAyNCBTYWx0ZWRfX+jWoJb9+5Z4Y
+ VioV10p1iCpECSFUYtA1qZwQW2v7TOhjtbEs5K45TfVJapsZhd2kD6EZI8jo5YqNiKR0x25+RZJ
+ m+YxtGIglqqoO76IyqFnV9ySpdBC4rdrTBMQepHCYxYT//XDwe3CQEthApfK/yY9q5JEPrO65nn
+ UHHjGQW3CN4Hp+g6jS/jS7zXOBmvXcfdlN7gsJplX2RNyubbAcYkZyuerobCKbllB0pJk2O2MJq
+ abkPeQ28wKHucUC+XVOEQoOH4qSakepHzpGLSPYtQ0A8GLqWkzLCgJQ6oFAm7MslGO5VVCXTDzk
+ 5ElYfP7/Yf6dcJNrk6yjouCzU66am0xFvuD5Ve3njbkEX7U6CLQf1PoAFEZUEtt71dAc98Deksy
+ uOYXLoesoK7/b/O5n5ZIkX0cK5BZA8AY1l0xUvDHyKSMIGhu39O0X8gf5S/DIC8fGNqiUKuRipZ
+ SFBGNXKxzCX+dWSjeYg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-11_09,2026-01-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601120020
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601120024
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,136 +162,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 09, 2026 at 10:06:29AM +0100, Konrad Dybcio wrote:
-> On 1/9/26 12:29 AM, Nathan Chancellor wrote:
-> > An (admittedly problematic) optimization change in LLVM 20 [1] turns
-> > known division by zero into the equivalent of __builtin_unreachable(),
-> > which invokes undefined behavior if it is encountered in a control flow
-> > graph, destroying code generation. When compile testing for x86_64,
-> > objtool flags an instance of this optimization triggering in
-> > msm_dp_ctrl_config_msa(), inlined into msm_dp_ctrl_on_stream():
-> > 
-> >   drivers/gpu/drm/msm/msm.o: warning: objtool: msm_dp_ctrl_on_stream(): unexpected end of section .text.msm_dp_ctrl_on_stream
-> > 
-> > The zero division happens if the else branch in the first if statement
-> > in msm_dp_ctrl_config_msa() is taken because pixel_div is initialized to
-> > zero and it is not possible for LLVM to eliminate the else branch since
-> > rate is still not known after inlining into msm_dp_ctrl_on_stream().
-> > Change pixel_div to one to make the division well defined in the
-> > presence of an unsupported rate, relying on the DRM_ERROR print to
-> > indicate the error to the user.
-> > 
-> > Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> > Link: https://github.com/llvm/llvm-project/commit/37932643abab699e8bb1def08b7eb4eae7ff1448 [1]
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes: https://lore.kernel.org/oe-kbuild-all/202601081959.9UVJEOfP-lkp@intel.com/
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> > ---
-> >  drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > index cbcc7c2f0ffc..e4731c059ed8 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > @@ -2395,7 +2395,7 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
-> >  			       bool is_ycbcr_420)
-> >  {
-> >  	u32 pixel_m, pixel_n;
-> > -	u32 mvid, nvid, pixel_div = 0, dispcc_input_rate;
-> > +	u32 mvid, nvid, pixel_div = 1, dispcc_input_rate;
-> >  	u32 const nvid_fixed = DP_LINK_CONSTANT_N_VALUE;
-> >  	u32 const link_rate_hbr2 = 540000;
-> >  	u32 const link_rate_hbr3 = 810000;
-> > 
-> > ---
-> > base-commit: 66691e272e40c91305f1704695e0cb340cd162ff
-> > change-id: 20260108-drm-msm-dp_ctrl-avoid-zero-div-be5dc40cbc18
-> 
-> Dmitry, would it be beneficial to throw an actual error when the rate is
-> is mangled? i.e.
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index aa2303d0e148..4f710b8e6bc6 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -2404,9 +2404,9 @@ static int msm_dp_ctrl_link_retrain(struct msm_dp_ctrl_private *ctrl)
->         return msm_dp_ctrl_setup_main_link(ctrl, &training_step);
->  }
->  
-> -static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
-> -                              u32 rate, u32 stream_rate_khz,
-> -                              bool is_ycbcr_420)
-> +static int msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
-> +                                 u32 rate, u32 stream_rate_khz,
-> +                                 bool is_ycbcr_420)
->  {
->         u32 pixel_m, pixel_n;
->         u32 mvid, nvid, pixel_div = 0, dispcc_input_rate;
-> @@ -2415,14 +2415,21 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
->         u32 const link_rate_hbr3 = 810000;
->         unsigned long den, num;
->  
-> -       if (rate == link_rate_hbr3)
-> +       switch (rate) {
-> +       case link_rate_hbr3:
->                 pixel_div = 6;
-> -       else if (rate == 162000 || rate == 270000)
-> -               pixel_div = 2;
-> -       else if (rate == link_rate_hbr2)
-> +               break;
-> +       case link_rate_hbr2:
->                 pixel_div = 4;
-> -       else
-> +               break;
-> +       case 270000:
-> +       case 162000:
-> +               pixel_div = 2;
-> +               break;
-> +       default:
->                 DRM_ERROR("Invalid pixel mux divider\n");
-> +               return -EINVAL;
+Currently, the DPU driver bases LM reservation off of the maximum
+supported width for the layer mixer and an arbitrary MAX_HDISPLAY_SPLIT.
+However, these limits are not hardware limits meaning that a single LM
+can support higher resolutions.
 
-Well... In the ideal world, we can't end up here, PHY's
-configure_dp_clocks (or qcom_edp_set_vco_div()) will fail if the link
-rate is is invalid here. I think, we should return an error here, but
-there is no need to propagate it further.
+Switch to basing LM reservation off of PINGPONG and DSC encoder hardware
+limits.
 
-See the discussion at https://lore.kernel.org/dri-devel/f2ce6ae51c50b0d2e57b905c63b43413@codeaurora.org/
+---
+Changes in v3:
+- Rebased on msm-next, fixing conflicts
+- Updated commit messages to describe the actual issue.
+- Link to v2: https://lore.kernel.org/r/20260103-max-mixer-width-v2-0-ef5d3d246709@oss.qualcomm.com
 
-> +       }
->  
->         dispcc_input_rate = (rate * 10) / pixel_div;
->  
-> @@ -2458,6 +2465,8 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
->         drm_dbg_dp(ctrl->drm_dev, "mvid=0x%x, nvid=0x%x\n", mvid, nvid);
->         msm_dp_write_link(ctrl, REG_DP_SOFTWARE_MVID, mvid);
->         msm_dp_write_link(ctrl, REG_DP_SOFTWARE_NVID, nvid);
-> +
-> +       return 0;
->  }
->  
->  int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train)
-> @@ -2525,10 +2534,11 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train
->  
->         msm_dp_ctrl_configure_source_params(ctrl);
->  
-> -       msm_dp_ctrl_config_msa(ctrl,
-> -               ctrl->link->link_params.rate,
-> -               pixel_rate_orig,
-> -               ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420);
-> +       ret = msm_dp_ctrl_config_msa(ctrl, ctrl->link->link_params.rate,
-> +                                    pixel_rate_orig,
-> +                                    ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420);
-> +       if (ret)
-> +               return ret;
->  
->         msm_dp_panel_clear_dsc_dto(ctrl->panel);
->  
-> 
-> 
-> Konrad
+Changes in v2:
+- Dropped PP and DSC encoder width drop the catalog, they are now
+  determined in the code by using the DPU programming
+- Corrected DSC encoder width for DPUs < 8.x (2048 vs 2560)
+- Link to v1: https://lore.kernel.org/r/20250514-max-mixer-width-v1-0-c8ba0d9bb858@oss.qualcomm.com
 
+---
+Jessica Zhang (3):
+      drm/msm/dpu: check mode against PINGPONG or DSC max width
+      drm/msm/dpu: filter writeback modes using writeback maxlinewidth
+      drm/msm/dpu: remove max_mixer_width from catalog
+
+ .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_12_0_sm8750.h    |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h    |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |  1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_9_1_sar2130p.h   |  1 -
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |  1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 44 ++++++++++++++++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  9 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |  9 +----
+ 33 files changed, 45 insertions(+), 47 deletions(-)
+---
+base-commit: 739de27232378a4a125583153cf9d5bb651b2bd8
+change-id: 20250401-max-mixer-width-9c3c02c48cb7
+
+Best regards,
 -- 
 With best wishes
 Dmitry
+
