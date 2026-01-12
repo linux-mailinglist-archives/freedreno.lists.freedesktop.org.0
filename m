@@ -2,61 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054B2D10B45
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 07:32:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30CEFD10DB0
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jan 2026 08:26:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1D2F10E2C9;
-	Mon, 12 Jan 2026 06:32:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED1B910E03F;
+	Mon, 12 Jan 2026 07:26:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.64.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8831A10E2C9;
- Mon, 12 Jan 2026 06:32:13 +0000 (UTC)
-X-QQ-mid: zesmtpgz4t1768199477t5221490e
-X-QQ-Originating-IP: lAr+nSzbSl4WkkI7JdgxjIK725eukfFUvW8YDestnqc=
-Received: from [127.0.0.1] ( [116.234.96.45]) by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 12 Jan 2026 14:31:15 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0198F10E03F;
+ Mon, 12 Jan 2026 07:26:04 +0000 (UTC)
+X-QQ-mid: zesmtpip2t1768202707tc160a062
+X-QQ-Originating-IP: oKEITeMqQL1Z+DxJ12O8HBGdk/32is1aGKFweU36mns=
+Received: from [127.0.0.1] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 12 Jan 2026 15:25:05 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12744510694498697808
-Message-ID: <F4CDF36128041430+0d030e3b-054c-4910-a132-72273c541948@radxa.com>
-Date: Mon, 12 Jan 2026 14:31:16 +0800
+X-BIZMAIL-ID: 9765549277843554367
+Message-ID: <2E7090A0C462255A+6658f83c-4e5b-4f49-a90b-54eecd61fcbf@radxa.com>
+Date: Mon, 12 Jan 2026 15:25:05 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/msm/dpu: Filter modes based on adjusted mode clock
-To: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH v3 1/3] drm/msm/dpu: check mode against PINGPONG or DSC
+ max width
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+References: <20260112-max-mixer-width-v3-0-f98063ea21f5@oss.qualcomm.com>
+ <20260112-max-mixer-width-v3-1-f98063ea21f5@oss.qualcomm.com>
 Content-Language: en-US
 From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
+In-Reply-To: <20260112-max-mixer-width-v3-1-f98063ea21f5@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NcfXIs+Ms1qH1CliA/F7ih2AitXk1RUayG5THx2Om380CtSgoO0SOQre
- grFq2adx+hdV+jGa0PVFo7otwUdwdX+0QCnqjzqEa3oLg05iOqwDYDtzPMAcYyC9J1T7tvZ
- 1h0GEZlCTYCjxKk/zuVtLWqbtLC0oS40XVQjReWmeyE+nSOKAmndqSs8gZK6Mn0H7U0kzau
- bAkFpb6TQIERzYrEPss8IDkbEzwMTWRm1DtbuXpMMe1X85OSVASW7ROmUs5SpZshyHt8n/5
- uLSUwV2YXqJsPmXW1Om0rUniwvGyDbYQxzzGRgQDUI9+vZS+k4IO6hO5D2BBH3VIh9mTBrQ
- LKx8dthaOMgLntz/+1Yj8BS9enyjrO3PE7pj+lbrgPW+B3qFiiX46KyJauHFhk86eeNWfHh
- 2NpqQ8H52x4n8nMXkSh0kn2PjJRB+eLPpUawdMg1R0tKnmXQ6IEGathafF2u7eEMZAd9CVw
- WkSxuzIrzlyiCijx0HbtIKQFJ9zdHVDbmsd18KlYKmMorVLL/ELwSFaftXHg9MwK5A4QMeb
- afGeQ60xVMT/bfvvk/YA6okq6b0Kf0sPuMFukc+/tVzLIsvHpoR592yRRk5BPB2e3mtt+8d
- rW6QUOvpnMogDt8YzUtFtp7qwVlSeBk1vtuavj8/wyKthezZFVZUeiUV9SZmRoiyG4S+vND
- 7qRtUcTff2jALaRK8CRcZWxKCcyz8VQOwGKgLYxSNlHz19fI5mFXTHKOtKMLE5ozrlKur6E
- LuamsmiH384Nx1n9XngTAnN3h7P/UtPIW96eMeyEDl9gOSGf2vV7XtC9MGn3nXB3/R1JYil
- jOqVSVlBl0e+wU3Z2yyPyYSyeMt7oxpfi+VX8pgQm6HsIcCsm5IZoFHn7dsCXM49o7Jo8Jz
- 98L+sGuO+0v4HPCo7W4rgERQrC3k8ShYzzlYyUSJSY65I42rH/XHpzJoZ0DHvZNbwU6PYdR
- 3R2lpnRCA8xCdnE1TEpjwig3AMoefiwwOdkpsyMVZDN9fb8SLqLijRbAA6h5H7B6VQe2q+U
- 8w+OIx2w==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NEaes6yu2o+muoOdEqRxciWYfZVaRFoUIzewzy6iA50sqzabt7ANL4S+
+ V7K6VKDlBNY2o1K987nsETABKc2TSftRI/z2DBjw96KPxMHeyNUVh6Gd79btysqPC42YaCH
+ HISLLDN7j4Xsk8nG0RR+uKpSJwtYZk4EqLkB3HlP1lkzvndsVRyzE5Y+dEPcZPZve/eHg6U
+ LF1zqkx5i+w6jjxkGe7VC6oPbEMFrBmUO4ejGm1NA202R/+5sbxAGjHmLT3lFuNUcsVRFWi
+ 6wmG73T3tPfcmHpzpR2Jh9lXjfAWBjf+IJgGcPjcKEzHtDMsC6bEFxOMMTUDMWSgGmI6Yhj
+ Vf3mW/aoEexBLEVX74oVsdA6SQ1h0Z8NQifrrydt0hflWEZD4PwarkvYPkz+QUfoYVB+ZeM
+ JSaz9Txh5WGXMCO17beM5E57pgHdKg+l10SV8GNytMhzgKRLm9/QfdgWN8kJt8Auu6ybI8H
+ 24l2pYpHoI1S4wbKEmRUkU4/HHlM8pUdPm33PhfbM67vNDY91JY0124YKb4DZBJBgVTWjLH
+ LqmhqGT7K1jXl0tdc05fq8g0qebZMokwnfCP3r8JjTEND2uFwfFU0U4Yf3mYzUpfYxYIjSO
+ RPhLwgv1wo5ZqE/TdwlQhwPfOcT7OrwfhVtmfMnQwc1kTB2eoqzg/FXsjA7r58tMEm9IisE
+ xJwxnnCJcPhMa1AMay6DIfcvZyAgRwVsVINIhsZGbGFg6F7ogN61Yc4y8cg8JjRnCr3OQIP
+ yoPSGCChd0fiuXkNdIrumWHGPfjkZBA5ZqGmnnvEWleqkdjUNRNCJDOtsfDXN4ZTA2x53B0
+ fWduEB4zzdOV59z2WXcwXi1QIPDEKZ4xan5y8gOoyyZIO+4x2svNCGzW13Fo8cAE6IY6Xpz
+ zertoUGUyIYNnUQWe5x2vYWd/nGZybC9tGBEJtWwK7hmnaL5g4e+ihQ+phQ3BrlIihKS/t4
+ GPehaD/iM/RHUHVP10Tv4z+GyzfNYOupXurAHm9MJOoozYuGyediJKi9s45zgrR2v4nimrh
+ tIGr1QZ/ytBnYatnKluFKAquNpCoxZFXeL9MQ2CA==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,32 +76,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 5/7/2025 9:38 AM, Jessica Zhang wrote:
-> Filter out modes that have a clock rate greater than the max core clock
-> rate when adjusted for the perf clock factor
+On 1/12/2026 11:11 AM, Dmitry Baryshkov wrote:
+> From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 > 
-> This is especially important for chipsets such as QCS615 that have lower
-> limits for the MDP max core clock.
+> LM block doesn't have a hardware buffer (unlike PINGPONG and DSC
+> encoders). As such, don't use ephemeral max_mixer_width and
+> MAX_HDISPLAY_SPLIT to validate requested modes. Instead use PP and DSC
+> buffer widths.
 > 
-> Since the core CRTC clock is at least the mode clock (adjusted for the
-> perf clock factor) [1], the modes supported by the driver should be less
-> than the max core clock rate.
+> While on the DPU 8.x+ supports a max linewidth of 8960 for PINGPONG_0,
+> there is some additional logic that needs to be added to the resource
+> manager to specifically try and reserve PINGPONG_0 for modes that are
+> greater than 5k.
 > 
-> [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> ---
+> Tested-by: Xilin Wu <sophon@radxa.com> # qcs6490-radxa-dragon-q6a
+> [DB: reworked to drop catalog changes, updated commit message]
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Hi. This patch effectively filters out the 3840x2160@120Hz mode on 
-SC8280XP CRD. The calculated adjusted_mode_clk is 623700, which slightly 
-exceeds the supported max core clock of 600000.
+Sorry for the late reply, my colleagues are still testing the new series 
+on qcs6490.
 
-However, 4K 120Hz works flawlessly with the limit removed on this 
-platform. I even tried connecting two 4K 120Hz displays, and they can 
-work properly simultaneously. Is it possible to bring back support for 
-this mode, or adjust the limits?
+However, this completely breaks 4K 120Hz display on SC8280XP CRD, which 
+was previously functional (albeit with the clock check bypassed [1]). 
+The display now shows a solid blue screen. Kernel logs indicate that 
+only one layer mixer is being used, instead of the two that were used 
+previously.
 
+[1] 
+https://lore.kernel.org/all/F4CDF36128041430+0d030e3b-054c-4910-a132-72273c541948@radxa.com/
 
 -- 
 Best regards,
