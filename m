@@ -2,135 +2,141 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80590D161D7
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jan 2026 02:14:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32DEED199B6
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jan 2026 15:50:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D57D10E446;
-	Tue, 13 Jan 2026 01:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9C610E4E9;
+	Tue, 13 Jan 2026 14:50:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cl3yAOyy";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bAS+R6r8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vzqcb2dt";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OkRIVqN9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0480F10E0FA
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jan 2026 01:14:08 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F40C110E4E7
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jan 2026 14:50:11 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60CN5j6Q2113327
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jan 2026 01:14:08 GMT
+ 60DDsQ7v2071004
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jan 2026 14:50:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=J/0cnCYpDBos+7nwSFiIuXvo
- +vrGW9jjlT38b0YSnCo=; b=cl3yAOyyWwhcHORodfqsQLgbb7Ch2B7xKZSnlKuR
- t4Qe0xREyUzz2t2V353PmvKDUBZNx50pMikiU0vkqS9Nz0uCvhYGQvMSL2dsW69W
- o2SbgK8ATBv18DcjEx8fa0TNtD9Nqjm8/5vOXg+313zwBbECXQRq+p59B8e+2CPI
- XymJOCYhMfPS/yGQTR/SzTYKE+J8yC6C/WAa8UZ9G3SjlSiVLciyKq0tFy5V/9/J
- SCJwJlxbGNFlDYbNo9Y3wlQh4BSRLQ7dEPasRgyjMwGeJXUKRfpIqKRE0w/VMgC3
- z522A1aWZI4o1PKN/Or9o2kgKwIb+EZPt5fRLGNwKUi/pA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bn34g9s1e-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ QcwxICmrR4gn1iEbkWO2XmXQzG34ygAOuMpV2HL6dSc=; b=Vzqcb2dt4qxwuj3n
+ 3tbwEq+TxmsomftMbdaJKB2dWG02cGZQ0B081IHQSeqUVPmXQjcZDZc6D254Acte
+ II3d9yzPRmlkewFJLrY4w1CTuMTq75jwimIiyunT7t4D3RmQAwjkgh0asG+N1GWU
+ 7ecJ+Jvvmox+4AqJmqFXDUPK8jFO/MEyoZtBA9hnGc+yPcWdmotPRWiaQ3tsDZK9
+ 1ELHWZaOu9wXq2ITxn7pTZwfCDGTin829GIYqwNA1fpV3nzMvqlO5hSTZtpNFoDF
+ qCqWP3P2dNIpfl1Fdg+RnsCfpSWhiWku84zBJ4EL/rnfWgB3uV3mZmU+Zapc+z0L
+ IJorww==
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bnqbm85wr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jan 2026 01:14:07 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8b6a9c80038so754224285a.2
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jan 2026 17:14:06 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jan 2026 14:50:11 +0000 (GMT)
+Received: by mail-yx1-f71.google.com with SMTP id
+ 956f58d0204a3-6446cbc11a4so2774505d50.3
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jan 2026 06:50:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768266844; x=1768871644;
+ d=oss.qualcomm.com; s=google; t=1768315810; x=1768920610;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=J/0cnCYpDBos+7nwSFiIuXvo+vrGW9jjlT38b0YSnCo=;
- b=bAS+R6r8UnOgBOe7BpTjAHc2DuIOay3wZE/NamszEInreMYAkQf46NcQrO61ZjNf0S
- M4g1H1qztVoZyptd/yk9FwHPWk6sMRABRIeGcQp2tpTYCT/8n5GNIoVNvjmLp3iY54sB
- 2V+nbfmN4wJ/M8GXskgrkI5Zm485h5kB0SZkjp/u9z9iBjAO4lntGV7dbASshk767BnX
- l8bH37b/7iOZg/J9kAPCoIlVLO0/sFCkJPoDrdtMLe7xn4oEOKL2+ZL0eeFJEj8YRY1V
- uzg1wCpo2i4bVVeUedWIheB3eO/prfTnlk5K0MmtyciWxCZYYJR3E1yirPJqaP94xs6z
- rSRA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QcwxICmrR4gn1iEbkWO2XmXQzG34ygAOuMpV2HL6dSc=;
+ b=OkRIVqN9cRuW19CPFHeotxUtws8EMSJYXUE0zJDueUAM0LwZ63gAoNIl4AHZKCN9AA
+ sTGwF/EfZlK5QpcPM539yONTNsc26YoW7RZuaV1XT3PZx92LfjODzButCovLaiOwjtk4
+ UZOnqvnYyjAyoWB/IecM5cdVW6vZaaK2pYtbj4zDAbY8W1yNDX3PtQM7ND8tmSb0n17a
+ 1rYWF9rfPppRd2CihOBDlos0mMczifgr50XBLLoMK66DNb/6o+PkWo8RAblAQW+dRxQX
+ Lt/ZNZLF4yyacH1+MuPO/TgOT7UjonWV+mDVUv45EEyrHD1SFCPEyZbF4+QUnomU83AC
+ O/MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768266844; x=1768871644;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=J/0cnCYpDBos+7nwSFiIuXvo+vrGW9jjlT38b0YSnCo=;
- b=dtsKDoKsHOZWtp1X94ZHf77oO4RwDJsom6TriX31ajIMReE5RQOxp8v4acJicI3t7M
- vHDqTPmDumT+2q0V7hYbNktsHmmanhcggCyLswst4L0BxvqTXxVAZagFoPpjrH08WBqF
- jE4Qgs10r73Iw8R45ym1KbaiADLJf2CTzzySjBLmLcy3aljVaGVwlQBAj45iuYtipQTT
- dh9c54/4m7zXpQmX/qXqndhyvXoJcoqAAh39HKnjE02AXxu5GMF0aSikT9SkLnyuLFsJ
- bdq/vwtbCnCHkpLtBdTxbw8C9j5RGIsVRMLgPOn6mNvveX08BNoNlYHaNN8PUncJkqRG
- zzWw==
+ d=1e100.net; s=20230601; t=1768315810; x=1768920610;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QcwxICmrR4gn1iEbkWO2XmXQzG34ygAOuMpV2HL6dSc=;
+ b=rdW952ms2sKY/D+IoUJWFLeYItqfignE1dOpHrh9iwlw1+LohSSi04nGKbofiuS/Fk
+ K05t95J1D3TUf+3/jfw5IuF9wvcGvbADshVNZJX+cOuVO0N+33cBVLFs2b/tmWHHnYAl
+ eyaBmgD/44Qhac6+P5gbUs01B3F3h18yQAUqwLdftJXltrtn4lhm8rFwPBEuxHws50rs
+ PrJCd18B/hk48pmFa5U+G9vx40Z2B0GIaQRt9aYAg1RVJGL8q3j4O95FMgiUyx8R4Dqv
+ ErVhhYWxYIcaml0qXzefuR/Dr/Rn8I+yS9MgqBe9M0CMQCshKWz2UXx1tnWujwd6XvJe
+ lMaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5DpiWRvqRtIPApJkXG0+Fo6fSzwesTGEJzp7eXoAb2Rn0TYaFXba0h6+oDh/3QbGWVRmbw3z8B/Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOMOpdte/DHtwhgmkHgWO3OoAeXeugri8lv2tVjrHcWQQ7wy6o
- TgmKsVZtq5S2fbnEsXCh/uP9ouFYHPix1osLglffiB2nqSSvypOZhXon90/uGj9g8cMcIsypnRI
- frD71rx5sfrliDdC53ERhx16S9p1q3vygi5xCC9e8PraWm6ALhvegroH9Pj7PWQVD7SLzqQI=
-X-Gm-Gg: AY/fxX7TcLfL5HrFUjDlaybRWa0R+rKPMJB6+vNhITewjhyS86hgKc/OCtQ7PwcpqmU
- 69PgbU/YR70qL94v+vsTDZSAZpL2tFjz2Gn+Q+qxfPBpHoPBiaxysGTKv9CmumRSpCycENLK3DW
- S+oJAkZaYpprQ5osbTKl0jcZ5R51bENrRZCHtmwLOFplKUCPgPGIsWTaIoii80ki60nJohT7yj9
- y2OU+G/CR7F/c+78BjCgaqDiYisaeTRyvF48LuYbMK7t5joZ4wiIUKe4qLzBdq2bfnqLuwhJlR/
- 2nInJMNaMf/RKt3VEOS5nKQfp7XFB56zfipXp9LsEHBgg/MTFPLxiosKrIrHAvrVgs+1VUSqYul
- xJnOMkLv49wjPrD3zAB3rI2XHEqHX3qUtEGwyc6YtxfdeY/MWgDsadyQIANA2uSMQWieLnFsDkb
- Jo9B69cDdMUNpCYoVzTWqJ16g=
-X-Received: by 2002:a05:620a:2a07:b0:8b2:271e:a560 with SMTP id
- af79cd13be357-8c3893e7e2bmr2315926885a.72.1768266844323; 
- Mon, 12 Jan 2026 17:14:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF4WlkP4sNqdgzyvpCMNJE4qaOKFUaJCa4aduSzPBbjzyb10EW/oKcBiBwhOQ9DebVVAgpZZg==
-X-Received: by 2002:a05:620a:2a07:b0:8b2:271e:a560 with SMTP id
- af79cd13be357-8c3893e7e2bmr2315923785a.72.1768266843790; 
- Mon, 12 Jan 2026 17:14:03 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59b6a2b8330sm4926075e87.10.2026.01.12.17.14.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jan 2026 17:14:03 -0800 (PST)
-Date: Tue, 13 Jan 2026 03:14:01 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+ AJvYcCXq1d5mWbwiwOcUH3dNjUKvL9ardU+yx0Op0zdBLY9zCCIT3CRvRIAU629zRJ1xmrRMDviCFYPiL1U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJnZGelHTJ4trerEoVYhY169AShn92zToDECMETHgtbfOtbar0
+ 9C4gkZMqoUnrWtbageFi+0ONoH1lbDjLgBqfjwo4q57UXT9mzkTeQpYMAhnJqdLF3a66iRlQSoi
+ FVhDgjGKfls7awqHYFoDncQsM7jlsDZLZ84fkegzrSpSsy9bkVOufwBWz0AaOzuIx6/4ZSBE=
+X-Gm-Gg: AY/fxX6zwkVqU09NoYAIz7wszQQ9Naekn8aqznsNdwgX+NrqNIvzJnz5V/T5Mpj0GFH
+ swn904LrhkYQxWlsdP3GS5DfOBgvNU6TFwfLoKI3QeghDhdXaea0gho+K0e4OvrNet2ZNBYGF+T
+ 5d2kbp1b/diT5z+0xbZVCwaAnV+Ma+CXa/rF2BE05FNXKY/L11JNj0I99rc3SfuIS7GKHmYYs1u
+ a9ZNkg8t5gTUbo2gf5VXXpy7JGUAgKRRUfioZe/4rtn+wZu7IMXzV7W7fGhvp3osOSjWwYFoCZV
+ C952X5WAiv/JKwCmeCZq5nJCnqVX5nGjDQ5M/7rzxB92YznBRO1qxIMrP1w/i4et7rtvHyejv+k
+ M7k/2biZtTdgLIq9GoDGJmMJOXNVfLYIwQPCYNgtU0SeG/0YCdr/lxrLfEeLbFkR6EfI=
+X-Received: by 2002:a05:690c:91:b0:78f:c0f3:2e10 with SMTP id
+ 00721157ae682-790b5701642mr160364817b3.9.1768315810534; 
+ Tue, 13 Jan 2026 06:50:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHp1gIBS5jEoXkt1plSH+bt7nf2F4KHwCWqllM1mxQRTlOiQ2zlHM62mWIaorCJLX3SUhEhcg==
+X-Received: by 2002:a05:690c:91:b0:78f:c0f3:2e10 with SMTP id
+ 00721157ae682-790b5701642mr160364427b3.9.1768315810084; 
+ Tue, 13 Jan 2026 06:50:10 -0800 (PST)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b86fc303d7esm1058489866b.2.2026.01.13.06.50.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Jan 2026 06:50:09 -0800 (PST)
+Message-ID: <d63d4c98-68f1-4dcb-b8fb-7c5daf343cc2@oss.qualcomm.com>
+Date: Tue, 13 Jan 2026 15:50:06 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] clk: qcom: dispcc-sdm845: Enable parents for pixel
+ clocks
+To: Val Packett <val@packett.cool>, petr.hodina@protonmail.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Alexey Minnekhanov <alexeymin@postmarketos.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] drm/msm: drop DPU 3.x support from the MDP5 driver
-Message-ID: <yxp6k6bjscuxwm5mz2ev2647ewe7mycus7dszehtrfr7qhxx25@nptailaparnc>
-References: <20251228-mdp5-drop-dpu3-v4-0-7497c3d39179@oss.qualcomm.com>
- <bb889140-5ddb-485a-bb50-739f68297838@minlexx.ru>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bb889140-5ddb-485a-bb50-739f68297838@minlexx.ru>
-X-Authority-Analysis: v=2.4 cv=fbKgCkQF c=1 sm=1 tr=0 ts=69659c60 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZEkBDfZtAAAA:8 a=vlXmtpXO02sfSNYNR6MA:9
- a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=IqjDwHP2KxQYjTbYCZGP:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEzMDAwOCBTYWx0ZWRfX3FjqrgcYxdXH
- +4+nJrBP+tYdD2Jkp1rAz0fN8BqqpIUUV/j/B7gHbpnmLt/nMvfLDZQocUe5hffNWXptGvxtqXG
- 4PkX293asXcckl0pQrf7tPXl4vcR6eIZxd6t3DiNGXU9ieAyQ/s3Axn6Gxwn4VZk2rMHDH0CMmn
- gJjgGnTGwMx19xPsWXvxRheuUTSQmjVuh+lQB4zRtJm82a+FAAB7ruHa7caVJoMgVOiDhMi63RD
- uhdqcZ/BuA3ND1+eW/IMIObKmeM9P3FLNm4Jdf8nGAsIQRCn3yW+H9yoI2Fnubc3X7v+N7sYnF7
- z/Qv3qwIiBVaA84JkMF5YtnUaM2mbII66jODPVKFL2M24SRmjbi2BjXyUANysPFdQcZ44qO8EsF
- OWykN4h+KIZ5VnVSOdnSVXfU6RuTarG123yWmty1uv8x+D6CVMwrMbdCcjgEof7PAUO9UE3A/p/
- /x2yKPtmBQA5/37aL7g==
-X-Proofpoint-ORIG-GUID: GbTXjNatodQnzUlV_8nYz2Sy990_hSD1
-X-Proofpoint-GUID: GbTXjNatodQnzUlV_8nYz2Sy990_hSD1
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, David Heidelberg <david@ixit.cz>,
+ Taniya Das <quic_tdas@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260107-stability-discussion-v2-1-ef7717b435ff@protonmail.com>
+ <702e4696-5ff6-4c72-bce4-1a9a8ee1ba18@packett.cool>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <702e4696-5ff6-4c72-bce4-1a9a8ee1ba18@packett.cool>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: tVXm80h7sQQAjm56KeYhDxplhYTtYsxX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEzMDEyNCBTYWx0ZWRfX2ivj0Yt47R+w
+ utvDvG597Jfg2HKGnNFJKIH5lx9wpxGlQC/tKb009lch8iNihRenS4o5CkS45BXnMRjc6XfetmJ
+ 1x7UuTL8eaBkPo7FZuHS+4yq2EalvyGhvR8kyR92a/SEa5sHX+u1GM99Wf5fU5XRZ5ivHxDc/vO
+ AuU0IlL+D7kqEwrDt1G7nBRngtQL5cKjZ/3ynGmL0nsIO9gn89OFkZq7JguzYy6/unOSF0nCEUK
+ u1K8PfKv2um2qnsq7wIPa5PNGhjM2l0rkaLf1S+tom/vY2spG2WSe0oGb8ixrxAeuA2VoxLXJwf
+ Qw3aPzeMLebU+LYJt1r39xYuVqBDOpFzCAZNQ2Ui4jWhKwzjsLM62Jpbn5xjtjU3HZSOmHEozH9
+ GaJpPU1gC1+JAEC/PE7EtBuhcDyaHhE8JfbzTVTn0KfMLPCXLlBQEm1cNTPls6uTJf1iRVxaMOz
+ glykVZLDVqmk102oakg==
+X-Proofpoint-ORIG-GUID: tVXm80h7sQQAjm56KeYhDxplhYTtYsxX
+X-Authority-Analysis: v=2.4 cv=YdmwJgRf c=1 sm=1 tr=0 ts=69665ba3 cx=c_pps
+ a=ngMg22mHWrP7m7pwYf9JkA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=sfOm8-O8AAAA:8 a=rC8bUFBNB4MWVkYa7ykA:9
+ a=QEXdDO2ut3YA:10 a=yHXA93iunegOHmWoMUFd:22 a=TvTJqdcANYtsRzA46cdi:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-12_07,2026-01-09_02,2025-10-01_01
+ definitions=2026-01-13_03,2026-01-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 spamscore=0 priorityscore=1501
- bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601130008
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601130124
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,56 +152,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 13, 2026 at 03:02:33AM +0300, Alexey Minnekhanov wrote:
-> On 12/28/25 7:02 AM, Dmitry Baryshkov wrote:
-> > Fix commands pannels support on DPU 3.x platforms and drop support for
-> > those platforms (MSM8998, SDM660 / SDM636, SDM630) from the MDP5 driver.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> > Changes in v4:
-> > - Inverted logic in dpu_encoder_phys_cmd_wait_for_commit_done(), check
-> >    for the feature rather than the lack of it.
-> > - Link to v3: https://lore.kernel.org/r/20251224-mdp5-drop-dpu3-v3-0-fd7bb8546c30@oss.qualcomm.com
-> > 
-> > Changes in v3:
-> > - Fixed commit message (Marijn)
-> > - Reordered CTL_START checks to be more logical (Marijn)
-> > - Link to v2: https://lore.kernel.org/r/20251218-mdp5-drop-dpu3-v2-0-11299f1999d2@oss.qualcomm.com
-> > 
-> > Changes in v2:
-> > - Fixed CTL_START interrupt handling on DPU 3.x
-> > - Link to v1: https://lore.kernel.org/r/20251211-mdp5-drop-dpu3-v1-1-0a0186d92757@oss.qualcomm.com
-> > 
-> > ---
-> > Dmitry Baryshkov (3):
-> >        drm/msm/dpu: drop intr_start from DPU 3.x catalog files
-> >        drm/msm/dpu: fix CMD panels on DPU 1.x - 3.x
-> >        drm/msm/mdp5: drop support for MSM8998, SDM630 and SDM660
-> > 
-> >   .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |   5 -
-> >   .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h |   5 -
-> >   .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h |   5 -
-> >   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   7 +-
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           | 314 ---------------------
-> >   drivers/gpu/drm/msm/msm_drv.c                      |  16 +-
-> >   6 files changed, 17 insertions(+), 335 deletions(-)
-> > ---
-> > base-commit: 4ba14a6add891fe9b2564e3049b7447de3256399
-> > change-id: 20250926-mdp5-drop-dpu3-38bc04d44103
-> > 
-> > Best regards,
+On 1/9/26 12:00 AM, Val Packett wrote:
 > 
-> Thanks!
+> On 1/7/26 8:44 AM, Petr Hodina via B4 Relay wrote:
+>> From: Petr Hodina <petr.hodina@protonmail.com>
+>>
+>> Add CLK_OPS_PARENT_ENABLE to MDSS pixel clock sources to ensure parent
+>> clocks are enabled during clock operations, preventing potential
+>> stability issues during display configuration.
+>>
+>> Fixes: 81351776c9fb ("clk: qcom: Add display clock controller driver for SDM845")
+>> Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+>> ---
+>> We are currently running the latest linux-next snapshots (next-202511*
+>> and next-202512*) and have encountered random freezes and crashes on the
+>> Pixel 3, as well as crash dumps on the OnePlus 6 and 6T.
+>>
+>> This commit fixes the stability issue. I've checked other SDM dispcc
+>> files and they also contain this configuration.
 > 
-> This fixes DPU with command mode panel on Sony Xperia XA2
-> (sdm630-sony-nile-pioneer) and still works on video mode panels on
-> whole bunch of sdm660/636-xiaomi phones and tablet. The whole series
+> Hm, we don't have this flag set in dispcc-x1e80100.c either!
 > 
-> Tested-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> The only random freeze we have on that platform seems related to PCIe ASPM with NVMe drives, but during display configuration.. *extremely* rarely, but the eDP display output can get stuck on a blue screen. Many run with clk_ignore_unused for the early uefi framebuffer though.
 
-Thanks!
+Your device doesn't have a DSI-attached display
 
--- 
-With best wishes
-Dmitry
+The Linux clock controller representation of the DSI PHY implements
+an actually meaningful set of operations that (un)gate the clock
+
+Both DP and eDP PHYs just provide funny fixed clocks to make the clock
+tree resonable and filter allowed rates
+
+Konrad
