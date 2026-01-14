@@ -2,69 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E13C4D203C6
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jan 2026 17:37:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B207ED218BC
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jan 2026 23:22:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C2E10E2AB;
-	Wed, 14 Jan 2026 16:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4267310E69C;
+	Wed, 14 Jan 2026 22:22:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VObgL1A3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tMQlqUu4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F79110E2AB;
- Wed, 14 Jan 2026 16:37:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768408626; x=1799944626;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=E8RIcN9R+L5K9uirA6NlzA+r2qmPrPFCBl8xyWyV8yY=;
- b=VObgL1A3/mVnxixgO00z27BGHpqPL7vekDprwQnsi880TFys4XgM7sWP
- eAQSiCLLeWCmaIa3OfOFEMN+tJcLYCwbg9ffcaBcXJOE99lw4LV7RkiZQ
- 6kx4wEWu6VPAJHiqZ/dq9eJ9jAVKpVa3XRVcz5GFWnGwGw1aZAaQ/1LrD
- EImkU+5ImnXaeTSrYAhRD+DsPQK78hby7g2XAci0oevr2H9IXrM0GfoRW
- 9SHrzjDS0hjgD8hYqAFnyjIRfPJxOhgv3Uh1fErzFLqJiS/nncD8v/mV5
- +806/ZRXcB4XPVFLFRJ1EEC2ADUJQuwFdEAKmKfsIe4bvw1H9wR/ICf19 Q==;
-X-CSE-ConnectionGUID: WmsH9pTsRMCj3XGRshhY+A==
-X-CSE-MsgGUID: KUAVnU8DTI+fCrKcUqCy5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11671"; a="92381914"
-X-IronPort-AV: E=Sophos;i="6.21,225,1763452800"; d="scan'208";a="92381914"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2026 08:37:05 -0800
-X-CSE-ConnectionGUID: CKbvLsaSQMiv2EPNqWL0Xw==
-X-CSE-MsgGUID: mBjtWAiQTpqONdYkXrUgVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,225,1763452800"; d="scan'208";a="209193588"
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by fmviesa005.fm.intel.com with ESMTP; 14 Jan 2026 08:37:00 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vg3re-00000000Gei-1aER;
- Wed, 14 Jan 2026 16:36:58 +0000
-Date: Thu, 15 Jan 2026 00:36:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: Konrad Dybcio <konradybcio@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D423910E69B;
+ Wed, 14 Jan 2026 22:22:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DA7116001D;
+ Wed, 14 Jan 2026 22:22:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20BCC4CEF7;
+ Wed, 14 Jan 2026 22:22:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768429349;
+ bh=FLjZ9d7KjwznNpJ4HtoTA/YwqA6KeSgqUBGicTb3lpc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tMQlqUu4uEqjQhNVGL6qPfXEL6fdpvr4RXsfW/EQfq40xkeFLPskIGmfQqmgnNRJn
+ EWIvfbxoVzdcchLxXgPhrTAa9tiTCs360Obchy2JtXv00LkXciNWPRPiX1qQopJCKi
+ XWgKQ8e1oI12b6ae/0zYbMPTfqoFjMr+oxYR2hdV3UkMhMiSguUC//4ezc+KApHA4r
+ /c/+QOtAGEVqPrURCT6iOvnU6tIjvzWNCaUBuyCRGGADzcKCgXRyJ+8rX5tWe8oqXM
+ CzZbOiuAgsrUcdA0wYk4PeN1DgTdqPX91Y3q+ulpBI5qH/4irONrLgRYBS7Hx1mpL1
+ I1MWnsPEwjdsQ==
+Date: Wed, 14 Jan 2026 16:22:25 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 1/3] soc: qcom: smem: Expose DDR data from SMEM
-Message-ID: <202601150105.Pod3agMP-lkp@intel.com>
-References: <20260108-topic-smem_dramc-v3-1-6b64df58a017@oss.qualcomm.com>
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH 02/11] soc: qcom: ubwc: add helper to get min_acc length
+Message-ID: <3or4j2louj6uldvwcxb4hokr57zkowi4rkc3sjw3z7s5d6rkin@l6vngrgdyzou>
+References: <20260110-iris-ubwc-v1-0-dd70494dcd7b@oss.qualcomm.com>
+ <20260110-iris-ubwc-v1-2-dd70494dcd7b@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260108-topic-smem_dramc-v3-1-6b64df58a017@oss.qualcomm.com>
+In-Reply-To: <20260110-iris-ubwc-v1-2-dd70494dcd7b@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,221 +70,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Konrad,
+On Sat, Jan 10, 2026 at 09:37:54PM +0200, Dmitry Baryshkov wrote:
+> MDSS and GPU drivers use different approaches to get min_acc length.
+> Add helper function that can be used by all the drivers.
+> 
 
-kernel test robot noticed the following build warnings:
+Acked-by: Bjorn Andersson <andersson@kernel.org>
 
-[auto build test WARNING on fc4e91c639c0af93d63c3d5bc0ee45515dd7504a]
+Regards,
+Bjorn
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/soc-qcom-smem-Expose-DDR-data-from-SMEM/20260108-222445
-base:   fc4e91c639c0af93d63c3d5bc0ee45515dd7504a
-patch link:    https://lore.kernel.org/r/20260108-topic-smem_dramc-v3-1-6b64df58a017%40oss.qualcomm.com
-patch subject: [PATCH v3 1/3] soc: qcom: smem: Expose DDR data from SMEM
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20260115/202601150105.Pod3agMP-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260115/202601150105.Pod3agMP-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601150105.Pod3agMP-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In function 'smem_dram_parse_v3_data',
-       inlined from 'smem_dram_parse' at drivers/soc/qcom/smem_dramc.c:380:3:
->> drivers/soc/qcom/smem_dramc.c:216:31: warning: iteration 13 invokes undefined behavior [-Waggressive-loop-optimizations]
-     216 |                 if (freq_entry->freq_khz && freq_entry->enabled)
-         |                     ~~~~~~~~~~^~~~~~~~~~
-   drivers/soc/qcom/smem_dramc.c:213:27: note: within this loop
-     213 |         for (int i = 0; i < num_freq_entries; i++) {
-         |                         ~~^~~~~~~~~~~~~~~~~~
---
->> Warning: drivers/soc/qcom/smem.c:293 struct member 'debugfs_dir' not described in 'qcom_smem'
->> Warning: drivers/soc/qcom/smem.c:293 struct member 'debugfs_dir' not described in 'qcom_smem'
-
-
-vim +216 drivers/soc/qcom/smem_dramc.c
-
-   203	
-   204	static void smem_dram_parse_v3_data(struct smem_dram *dram, void *data, bool additional_freq_entry)
-   205	{
-   206		/* This may be 13 or 14 */
-   207		int num_freq_entries = MAX_DDR_FREQ_NUM_V3;
-   208		struct ddr_details_v3 *details = data;
-   209	
-   210		if (additional_freq_entry)
-   211			num_freq_entries++;
-   212	
-   213		for (int i = 0; i < num_freq_entries; i++) {
-   214			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
-   215	
- > 216			if (freq_entry->freq_khz && freq_entry->enabled)
-   217				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
-   218		}
-   219	}
-   220	
-   221	static void smem_dram_parse_v4_data(struct smem_dram *dram, void *data)
-   222	{
-   223		struct ddr_details_v4 *details = data;
-   224	
-   225		/* Rank 0 channel 0 entry holds the correct value */
-   226		dram->hbb = details->highest_bank_addr_bit[0][0];
-   227	
-   228		for (int i = 0; i < MAX_DDR_FREQ_NUM_V3; i++) {
-   229			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
-   230	
-   231			if (freq_entry->freq_khz && freq_entry->enabled)
-   232				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
-   233		}
-   234	}
-   235	
-   236	static void smem_dram_parse_v5_data(struct smem_dram *dram, void *data)
-   237	{
-   238		struct ddr_details_v5 *details = data;
-   239		struct ddr_regions_v5 *region = &details->ddr_regions;
-   240	
-   241		dram->hbb = region[0].highest_bank_addr_bit;
-   242	
-   243		for (int i = 0; i < MAX_DDR_FREQ_NUM_V5; i++) {
-   244			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
-   245	
-   246			if (freq_entry->freq_khz && freq_entry->enabled)
-   247				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
-   248		}
-   249	}
-   250	
-   251	static void smem_dram_parse_v7_data(struct smem_dram *dram, void *data)
-   252	{
-   253		struct ddr_details_v7 *details = data;
-   254		struct ddr_regions_v5 *region = &details->ddr_regions;
-   255	
-   256		dram->hbb = region[0].highest_bank_addr_bit;
-   257	
-   258		for (int i = 0; i < MAX_DDR_FREQ_NUM_V5; i++) {
-   259			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
-   260	
-   261			if (freq_entry->freq_khz && freq_entry->enabled)
-   262				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
-   263		}
-   264	}
-   265	
-   266	/* The structure contains no version field, so we have to perform some guesswork.. */
-   267	static int smem_dram_infer_struct_version(size_t size)
-   268	{
-   269		/* Some early versions provided less bytes of less useful data */
-   270		if (size < sizeof(struct ddr_details_v3))
-   271			return -EINVAL;
-   272	
-   273		if (size == sizeof(struct ddr_details_v3))
-   274			return INFO_V3;
-   275	
-   276		if (size == sizeof(struct ddr_details_v3)
-   277			 + sizeof(struct ddr_freq_table))
-   278			return INFO_V3_WITH_14_FREQS;
-   279	
-   280		if (size == sizeof(struct ddr_details_v4))
-   281			return INFO_V4;
-   282	
-   283		if (size == sizeof(struct ddr_details_v5)
-   284			 + 4 * sizeof(struct ddr_region_v5))
-   285			return INFO_V5;
-   286	
-   287		if (size == sizeof(struct ddr_details_v5)
-   288			 + 4 * sizeof(struct ddr_region_v5)
-   289			 + sizeof(struct ddr_xbl2quantum_smem_data)
-   290			 + sizeof(struct shub_freq_plan_entry))
-   291			return INFO_V5;
-   292	
-   293		if (size == sizeof(struct ddr_details_v5)
-   294			 + 6 * sizeof(struct ddr_region_v5))
-   295			return INFO_V5_WITH_6_REGIONS;
-   296	
-   297		if (size == sizeof(struct ddr_details_v5)
-   298			 + 6 * sizeof(struct ddr_region_v5)
-   299			 + sizeof(struct ddr_xbl2quantum_smem_data)
-   300			 + sizeof(struct shub_freq_plan_entry))
-   301			return INFO_V5_WITH_6_REGIONS;
-   302	
-   303		if (size == sizeof(struct ddr_details_v5)
-   304			 + 6 * sizeof(struct ddr_region_v5)
-   305			 + sizeof(struct ddr_misc_info_v6)
-   306			 + sizeof(struct shub_freq_plan_entry))
-   307			return INFO_V6;
-   308	
-   309		if (size == sizeof(struct ddr_details_v7)
-   310			 + 4 * sizeof(struct ddr_region_v5)
-   311			 + sizeof(struct ddr_misc_info_v6)
-   312			 + sizeof(struct shub_freq_plan_entry))
-   313			return INFO_V7;
-   314	
-   315		if (size == sizeof(struct ddr_details_v7)
-   316			 + 6 * sizeof(struct ddr_region_v5)
-   317			 + sizeof(struct ddr_misc_info_v6)
-   318			 + sizeof(struct shub_freq_plan_entry))
-   319			return INFO_V7_WITH_6_REGIONS;
-   320	
-   321		return INFO_UNKNOWN;
-   322	}
-   323	
-   324	static int smem_dram_frequencies_show(struct seq_file *s, void *unused)
-   325	{
-   326		struct smem_dram *dram = s->private;
-   327	
-   328		for (int i = 0; i < dram->num_frequencies; i++)
-   329			seq_printf(s, "%lu\n", dram->frequencies[i]);
-   330	
-   331		return 0;
-   332	}
-   333	DEFINE_SHOW_ATTRIBUTE(smem_dram_frequencies);
-   334	
-   335	static int smem_hbb_show(struct seq_file *s, void *unused)
-   336	{
-   337		struct smem_dram *dram = s->private;
-   338	
-   339		if (!dram->hbb)
-   340			return -EINVAL;
-   341	
-   342		seq_printf(s, "%d\n", dram->hbb);
-   343	
-   344		return 0;
-   345	}
-   346	DEFINE_SHOW_ATTRIBUTE(smem_hbb);
-   347	
-   348	struct dentry *smem_dram_parse(struct device *dev)
-   349	{
-   350		struct dentry *debugfs_dir;
-   351		enum ddr_info_version ver;
-   352		struct smem_dram *dram;
-   353		size_t actual_size;
-   354		void *data = NULL;
-   355	
-   356		/* No need to check qcom_smem_is_available(), this func is called by the SMEM driver */
-   357		data = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_DDR_INFO_ID, &actual_size);
-   358		if (IS_ERR_OR_NULL(data))
-   359			return ERR_PTR(-ENODATA);
-   360	
-   361		ver = smem_dram_infer_struct_version(actual_size);
-   362		if (ver < 0) {
-   363			/* Some SoCs don't provide data that's useful for us */
-   364			return ERR_PTR(-ENODATA);
-   365		} else if (ver == INFO_UNKNOWN) {
-   366			/* In other cases, we may not have added support for a newer struct revision */
-   367			pr_err("Found an unknown type of DRAM info struct (size = %zu)\n", actual_size);
-   368			return ERR_PTR(-EINVAL);
-   369		}
-   370	
-   371		dram = devm_kzalloc(dev, sizeof(*dram), GFP_KERNEL);
-   372		if (!dram)
-   373			return ERR_PTR(-ENOMEM);
-   374	
-   375		switch (ver) {
-   376		case INFO_V3:
-   377			smem_dram_parse_v3_data(dram, data, false);
-   378			break;
-   379		case INFO_V3_WITH_14_FREQS:
- > 380			smem_dram_parse_v3_data(dram, data, true);
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  include/linux/soc/qcom/ubwc.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/include/linux/soc/qcom/ubwc.h b/include/linux/soc/qcom/ubwc.h
+> index f052e241736c..50d891493ac8 100644
+> --- a/include/linux/soc/qcom/ubwc.h
+> +++ b/include/linux/soc/qcom/ubwc.h
+> @@ -74,4 +74,11 @@ static inline bool qcom_ubwc_get_ubwc_mode(const struct qcom_ubwc_cfg_data *cfg)
+>  	return ret;
+>  }
+>  
+> +static inline bool qcom_ubwc_min_acc_length_64b(const struct qcom_ubwc_cfg_data *cfg)
+> +{
+> +	return cfg->ubwc_enc_version == UBWC_1_0 &&
+> +		(cfg->ubwc_dec_version == UBWC_2_0 ||
+> +		 cfg->ubwc_dec_version == UBWC_3_0);
+> +}
+> +
+>  #endif /* __QCOM_UBWC_H__ */
+> 
+> -- 
+> 2.47.3
+> 
