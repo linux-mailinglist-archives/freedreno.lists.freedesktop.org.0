@@ -2,139 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31BB5D201B4
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jan 2026 17:12:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13C4D203C6
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jan 2026 17:37:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF24D10E619;
-	Wed, 14 Jan 2026 16:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C2E10E2AB;
+	Wed, 14 Jan 2026 16:37:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fw4ly/Sy";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XMFSVXBT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VObgL1A3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0468D10E613
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jan 2026 16:12:46 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60EB2aYs3416172
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jan 2026 16:12:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 3udo9Mw+DK3PwA7JzXb/AilVbOQhXrI/Va8VuA69IyQ=; b=fw4ly/SyPvv2f5pF
- evdxFZZoz0rj5qITvIN+htu5Ay4m4RTwbfFqvXDTCr1BQNSo9Zkj7YNHrr0mAMnA
- akaAkLX0VHmD+2xgcBO7je9MFTQ7YjCC9s4GgxV5AWoYo9Z54PAqhR50pG6wUzvF
- Kxo5R5UuIGNMxgreoUMF4yNucU2Y14VabOCbADoXw1QTMOoqi5h4NLSVgkCcwglA
- SvqxBcrrSz40NwYpkwwVRKSqZSyqSS+CJSLDjC23lwJwTTE+sUfAsZoN9xzZE+nP
- hmur9AQRz+4blgT2k/nf/jlVK2vjqKjJZsdQ8QNvwKUc72DK3WodU442ptVuD83A
- yJeWuA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bp9x2h1f8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jan 2026 16:12:46 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8c538971a16so57055885a.1
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jan 2026 08:12:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768407164; x=1769011964;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=3udo9Mw+DK3PwA7JzXb/AilVbOQhXrI/Va8VuA69IyQ=;
- b=XMFSVXBTAbmxj3HTN0hQtMsblZlJbjYzxl6+hb03zk0nREHHmzBC87ZaZJzcWGJHWv
- aCooyuMkW7FyuyQBrU30RBQNlV10vkAeM6i6lGk2qi8w4gOoYHhdsadCvOkOF4RLnuZW
- xS+CSpaReQFWG0/8vrCh1iraSyBaYo4vmofT31O1TGS5uKRxUFcaqakLpLy3CHIW/IVx
- AQ1E92VWrIbS7LwwUwgqetPWx3BOgzjGbtlp2OyOrFur6GjfFDJzbFURcUMv3fUl1D8H
- gku9hCj0HtsUk2ttYQitfNESIdcpP2Rf9UsF5SRBpBPm1y/JOgszeoAccQ6XZi+8czLU
- io6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768407164; x=1769011964;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3udo9Mw+DK3PwA7JzXb/AilVbOQhXrI/Va8VuA69IyQ=;
- b=D99cKHPh5hXdAwzHm8DzcFJHeDhqG6MjGBcVcNzP2xJKdxCzPZFym1D0tuOvGK8ev5
- /AHXxV+t0qKr7+qPy4/aBqER7wu0ixgtqVN+oan0KdedNTE5CPSgA+6xqmW6cZZzkDUO
- IvJOIDd7+2hZ9BRZTH3fpk+sW5ptwqf/t8If0CovyIGYelN1p2btZHDPYHfghUyzurOQ
- 4eJuLvG1ZNk0M48gFVkVgam0p/R9u1uskE40DuwXORP4MiwZ35HFgc7XVo6VC2bEptfz
- REb4gt2Au1oLbHP5xSPuZX5tIJJk4SQjWPWtEIf8TsUuXe7jasJdy9tBn028BJQzPtle
- vD9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW+21tyWLJmVbm3IHo1mP9S6Hifzncie7yp2nn7LAzGmrEzau9LQ0ssk3VmY20PGgUXVEZFFL5GQ0M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzwmj5KWGRw945fvs1I0YrDs4bmPabhM//fG3HUz6OTpXNoxPLI
- ljhgys8HbMF3kHp7rxrEPBsMjPVX2Cg6BzhaBq7jn7gPpALDpenCAaUX3eo4+kAdgz50WUb5z5/
- JkuB902BqrRUgk5lMD/669TJWzzyHX1LqTxYAGEuC9MpGtD60kkIn35GwmQnjOMW3C8On4y4=
-X-Gm-Gg: AY/fxX4iJGZssxlI1U9uLDIluGV1N8E9Nf3Khom80ECKbw8sZNDU4iCV4wv8NA4dXT7
- H73J1inUE9jPpGdJhJNw6GAotWA+WlyB2hbuX0GhFVHItU0pLKOOPCCwhYXHdyDIVgkqdGWyq9p
- +5Q400J5orptw/iBFKm8QooPUbheHByg9YZNyy7KEdkD7Lo3eOHASWANa5X9ZpLBDZTEng/fidF
- jheXvsQQuZ60iHioLFvqXL/j8F1QPwsMSpAmffBEN1a4+Z4zcmB4TMl1ND/UTOnh/T/MaIiPEtQ
- wns6tnkTsSHXe8Vy6B1c+pTNQe+rEu5tsGW6ZytYUJ/oUaYr3Qy8cCAhYP4CX0NqaOn33dA7aKp
- EPLvZbkHXKoFaIvonZr5iAjx01ZmQCmkMm2D9ID3oCv2t7qZeYPgeBsoXwVoNL2QgzUkgyDZQaZ
- 5YoIR4rTH+Nh2l39ID0R6uRv8=
-X-Received: by 2002:a05:620a:4502:b0:8b9:7a1a:8c73 with SMTP id
- af79cd13be357-8c52fb90a04mr493627985a.46.1768407163692; 
- Wed, 14 Jan 2026 08:12:43 -0800 (PST)
-X-Received: by 2002:a05:620a:4502:b0:8b9:7a1a:8c73 with SMTP id
- af79cd13be357-8c52fb90a04mr493619385a.46.1768407163009; 
- Wed, 14 Jan 2026 08:12:43 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-382fc959db1sm46330641fa.2.2026.01.14.08.12.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jan 2026 08:12:42 -0800 (PST)
-Date: Wed, 14 Jan 2026 18:12:40 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F79110E2AB;
+ Wed, 14 Jan 2026 16:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1768408626; x=1799944626;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=E8RIcN9R+L5K9uirA6NlzA+r2qmPrPFCBl8xyWyV8yY=;
+ b=VObgL1A3/mVnxixgO00z27BGHpqPL7vekDprwQnsi880TFys4XgM7sWP
+ eAQSiCLLeWCmaIa3OfOFEMN+tJcLYCwbg9ffcaBcXJOE99lw4LV7RkiZQ
+ 6kx4wEWu6VPAJHiqZ/dq9eJ9jAVKpVa3XRVcz5GFWnGwGw1aZAaQ/1LrD
+ EImkU+5ImnXaeTSrYAhRD+DsPQK78hby7g2XAci0oevr2H9IXrM0GfoRW
+ 9SHrzjDS0hjgD8hYqAFnyjIRfPJxOhgv3Uh1fErzFLqJiS/nncD8v/mV5
+ +806/ZRXcB4XPVFLFRJ1EEC2ADUJQuwFdEAKmKfsIe4bvw1H9wR/ICf19 Q==;
+X-CSE-ConnectionGUID: WmsH9pTsRMCj3XGRshhY+A==
+X-CSE-MsgGUID: KUAVnU8DTI+fCrKcUqCy5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11671"; a="92381914"
+X-IronPort-AV: E=Sophos;i="6.21,225,1763452800"; d="scan'208";a="92381914"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2026 08:37:05 -0800
+X-CSE-ConnectionGUID: CKbvLsaSQMiv2EPNqWL0Xw==
+X-CSE-MsgGUID: mBjtWAiQTpqONdYkXrUgVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,225,1763452800"; d="scan'208";a="209193588"
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+ by fmviesa005.fm.intel.com with ESMTP; 14 Jan 2026 08:37:00 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vg3re-00000000Gei-1aER;
+ Wed, 14 Jan 2026 16:36:58 +0000
+Date: Thu, 15 Jan 2026 00:36:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v16 09/10] drm/msm/dpu: support plane splitting in
- quad-pipe case
-Message-ID: <nvd4eksgcmeqlfwp4jc27fpuzi6otdhzcefdbmj7a2xgv2bqwr@r6rytxs7ibj3>
-References: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org>
- <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-9-ff6232e3472f@linaro.org>
- <CABymUCNY9uo0Cm0KgM9yChuxJ22=Y-4JjHj7cEh5ByX8Nr3y-w@mail.gmail.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v3 1/3] soc: qcom: smem: Expose DDR data from SMEM
+Message-ID: <202601150105.Pod3agMP-lkp@intel.com>
+References: <20260108-topic-smem_dramc-v3-1-6b64df58a017@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCNY9uo0Cm0KgM9yChuxJ22=Y-4JjHj7cEh5ByX8Nr3y-w@mail.gmail.com>
-X-Proofpoint-ORIG-GUID: a-lZ-YU0pdcWGyecx-chSyk20eNUQX9Y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE0MDEzNSBTYWx0ZWRfXz7V/i6WGd3HP
- +1ufhyxbKrewAk3PQbCL6UJmeKy/UqjZmr2K/yze7jUs57MjzQNmKTcVSkt+qfuDN9EPPLWdpwZ
- MZ/R0FdHDUBa163ysXO3hyXKyb1LQkTmXOZa01Z3QQdYnhuRpPrFcge1+TyV0ppQC5axtdreKwP
- bObWojWKA9ErWVkMkb9goBLINMj6SBGugpRQy8S6ua7LsZb+XXITH9coszqcO6Phd/JiMEXSBoM
- iz7ufQBr00RraxIy4cXO9jYON9Z97402uByHeBjAoGxNzEqPZCWaF5Q2/zJPx0dZaLTAhf6APCR
- yPqVqCvg9BWFvZzYg4A1jbYeB4+DrzJ5ZgtHlVxk7DEkEYvkkU7pume4aTnuocg2UEFYsIRM0/f
- SSlWfNpMmpmChgmUrcMalo2PJb5ziWhHlaia69OgS02JS96yWfn26o4pCCOyxquPM1HFaej+53u
- ZREPKDfbRjAuQyJdRcw==
-X-Authority-Analysis: v=2.4 cv=Fr0IPmrq c=1 sm=1 tr=0 ts=6967c07e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=sWKEhP36mHoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
- a=7nXcqi-YNvihj1AckBkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: a-lZ-YU0pdcWGyecx-chSyk20eNUQX9Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-14_05,2026-01-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601140135
+In-Reply-To: <20260108-topic-smem_dramc-v3-1-6b64df58a017@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,140 +80,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 14, 2026 at 10:48:17PM +0800, Jun Nie wrote:
-> Jun Nie <jun.nie@linaro.org> 于2025年9月18日周四 21:30写道：
-> >
-> > The content of every half of screen is sent out via one interface in
-> > dual-DSI case. The content for every interface is blended by a LM
-> > pair in quad-pipe case, thus a LM pair should not blend any content
-> > that cross the half of screen in this case. Clip plane into pipes per
-> > left and right half screen ROI if topology is quad pipe case.
-> >
-> > The clipped rectangle on every half of screen is futher handled by two
-> > pipes if its width exceeds a limit for a single pipe.
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Reviewed-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  11 +++
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |   2 +
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 137 +++++++++++++++++++++---------
-> >  3 files changed, 110 insertions(+), 40 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > index d825eb8e40ae8bd456ede6269951339e3053d0d3..e925d93b38feac0594d735fdc2c5b9fd5ae83e6a 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > @@ -1604,6 +1604,17 @@ int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
-> >         return 0;
-> >  }
-> >
-> > +/**
-> > + * dpu_crtc_get_num_lm - Get mixer number in this CRTC pipeline
-> > + * @state: Pointer to drm crtc state object
-> > + */
-> > +unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state)
-> > +{
-> > +       struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
-> > +
-> > +       return cstate->num_mixers;
-> > +}
-> > +
-> >  #ifdef CONFIG_DEBUG_FS
-> >  static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
-> >  {
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> > index 94392b9b924546f96e738ae20920cf9afd568e6b..6eaba5696e8e6bd1246a9895c4c8714ca6589b10 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> > @@ -267,4 +267,6 @@ static inline enum dpu_crtc_client_type dpu_crtc_get_client_type(
-> >
-> >  void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event);
-> >
-> > +unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state);
-> > +
-> >  #endif /* _DPU_CRTC_H_ */
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > index 5ae58352cbee1251a0140879f04fc7c304cae674..89a5feb6308bcac537562c3dc4e61c16c92e460c 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -824,8 +824,12 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
-> >         struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
-> >         struct dpu_sw_pipe_cfg *pipe_cfg;
-> >         struct dpu_sw_pipe_cfg *r_pipe_cfg;
-> > +       struct dpu_sw_pipe_cfg init_pipe_cfg;
-> >         struct drm_rect fb_rect = { 0 };
-> > +       const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
-> >         uint32_t max_linewidth;
-> > +       u32 num_lm;
-> > +       int stage_id, num_stages;
-> >
-> >         min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
-> >         max_scale = MAX_DOWNSCALE_RATIO << 16;
-> > @@ -848,13 +852,10 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
-> >                 return -EINVAL;
-> >         }
-> >
-> > -       /* move the assignment here, to ease handling to another pairs later */
-> > -       pipe_cfg = &pstate->pipe_cfg[0];
-> > -       r_pipe_cfg = &pstate->pipe_cfg[1];
-> > -       /* state->src is 16.16, src_rect is not */
-> > -       drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
-> > +       num_lm = dpu_crtc_get_num_lm(crtc_state);
-> >
-> > -       pipe_cfg->dst_rect = new_plane_state->dst;
-> > +       /* state->src is 16.16, src_rect is not */
-> > +       drm_rect_fp_to_int(&init_pipe_cfg.src_rect, &new_plane_state->src);
-> >
-> >         fb_rect.x2 = new_plane_state->fb->width;
-> >         fb_rect.y2 = new_plane_state->fb->height;
-> > @@ -879,35 +880,94 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
-> >
-> >         max_linewidth = pdpu->catalog->caps->max_linewidth;
-> >
-> > -       drm_rect_rotate(&pipe_cfg->src_rect,
-> > +       drm_rect_rotate(&init_pipe_cfg.src_rect,
-> >                         new_plane_state->fb->width, new_plane_state->fb->height,
-> >                         new_plane_state->rotation);
-> >
-> > -       if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
-> > -            _dpu_plane_calc_clk(&crtc_state->adjusted_mode, pipe_cfg) > max_mdp_clk_rate) {
-> > -               if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
-> > -                       DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
-> > -                                       DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
-> > -                       return -E2BIG;
-> > +       /*
-> > +        * We have 1 mixer pair cfg for 1:1:1 and 2:2:1 topology, 2 mixer pair
-> > +        * configs for left and right half screen in case of 4:4:2 topology.
-> > +        * But we may have 2 rect to split wide plane that exceeds limit with 1
-> > +        * config for 2:2:1. So need to handle both wide plane splitting, and
-> > +        * two halves of screen splitting for quad-pipe case. Check dest
-> > +        * rectangle left/right clipping first, then check wide rectangle
-> > +        * splitting in every half next.
-> > +        */
-> > +       num_stages = (num_lm + 1) / 2;
-> 
-> Hi Dmitry,
-> Because the plane is checked before crtc is checked in the drm framework. While
-> the topology is decided in crtc check. Thus num_lm is 0 when this function is
-> called for the first time. As a result, the below iteration is not run
-> at all and leads
->  to iommu warning.
+Hi Konrad,
 
-How does it lead to IOMMU warnings?
+kernel test robot noticed the following build warnings:
 
-> Do you suggest to change drm framework with adding extra crtc check before
-> plane check, or you prefer the below line here?
-> 
-> num_stages = max(1, (num_lm + 1) / 2);
+[auto build test WARNING on fc4e91c639c0af93d63c3d5bc0ee45515dd7504a]
 
-DRM framework provides enough hooks to be able to influence the order or
-operations without changing the framework. But, I'd like to point out
-that for the virtual plane case we already perform plane operations
-from dpu_crtc_atomic_check(). You can employ the same approach.
+url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/soc-qcom-smem-Expose-DDR-data-from-SMEM/20260108-222445
+base:   fc4e91c639c0af93d63c3d5bc0ee45515dd7504a
+patch link:    https://lore.kernel.org/r/20260108-topic-smem_dramc-v3-1-6b64df58a017%40oss.qualcomm.com
+patch subject: [PATCH v3 1/3] soc: qcom: smem: Expose DDR data from SMEM
+config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20260115/202601150105.Pod3agMP-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260115/202601150105.Pod3agMP-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202601150105.Pod3agMP-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In function 'smem_dram_parse_v3_data',
+       inlined from 'smem_dram_parse' at drivers/soc/qcom/smem_dramc.c:380:3:
+>> drivers/soc/qcom/smem_dramc.c:216:31: warning: iteration 13 invokes undefined behavior [-Waggressive-loop-optimizations]
+     216 |                 if (freq_entry->freq_khz && freq_entry->enabled)
+         |                     ~~~~~~~~~~^~~~~~~~~~
+   drivers/soc/qcom/smem_dramc.c:213:27: note: within this loop
+     213 |         for (int i = 0; i < num_freq_entries; i++) {
+         |                         ~~^~~~~~~~~~~~~~~~~~
+--
+>> Warning: drivers/soc/qcom/smem.c:293 struct member 'debugfs_dir' not described in 'qcom_smem'
+>> Warning: drivers/soc/qcom/smem.c:293 struct member 'debugfs_dir' not described in 'qcom_smem'
+
+
+vim +216 drivers/soc/qcom/smem_dramc.c
+
+   203	
+   204	static void smem_dram_parse_v3_data(struct smem_dram *dram, void *data, bool additional_freq_entry)
+   205	{
+   206		/* This may be 13 or 14 */
+   207		int num_freq_entries = MAX_DDR_FREQ_NUM_V3;
+   208		struct ddr_details_v3 *details = data;
+   209	
+   210		if (additional_freq_entry)
+   211			num_freq_entries++;
+   212	
+   213		for (int i = 0; i < num_freq_entries; i++) {
+   214			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
+   215	
+ > 216			if (freq_entry->freq_khz && freq_entry->enabled)
+   217				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
+   218		}
+   219	}
+   220	
+   221	static void smem_dram_parse_v4_data(struct smem_dram *dram, void *data)
+   222	{
+   223		struct ddr_details_v4 *details = data;
+   224	
+   225		/* Rank 0 channel 0 entry holds the correct value */
+   226		dram->hbb = details->highest_bank_addr_bit[0][0];
+   227	
+   228		for (int i = 0; i < MAX_DDR_FREQ_NUM_V3; i++) {
+   229			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
+   230	
+   231			if (freq_entry->freq_khz && freq_entry->enabled)
+   232				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
+   233		}
+   234	}
+   235	
+   236	static void smem_dram_parse_v5_data(struct smem_dram *dram, void *data)
+   237	{
+   238		struct ddr_details_v5 *details = data;
+   239		struct ddr_regions_v5 *region = &details->ddr_regions;
+   240	
+   241		dram->hbb = region[0].highest_bank_addr_bit;
+   242	
+   243		for (int i = 0; i < MAX_DDR_FREQ_NUM_V5; i++) {
+   244			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
+   245	
+   246			if (freq_entry->freq_khz && freq_entry->enabled)
+   247				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
+   248		}
+   249	}
+   250	
+   251	static void smem_dram_parse_v7_data(struct smem_dram *dram, void *data)
+   252	{
+   253		struct ddr_details_v7 *details = data;
+   254		struct ddr_regions_v5 *region = &details->ddr_regions;
+   255	
+   256		dram->hbb = region[0].highest_bank_addr_bit;
+   257	
+   258		for (int i = 0; i < MAX_DDR_FREQ_NUM_V5; i++) {
+   259			struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
+   260	
+   261			if (freq_entry->freq_khz && freq_entry->enabled)
+   262				dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
+   263		}
+   264	}
+   265	
+   266	/* The structure contains no version field, so we have to perform some guesswork.. */
+   267	static int smem_dram_infer_struct_version(size_t size)
+   268	{
+   269		/* Some early versions provided less bytes of less useful data */
+   270		if (size < sizeof(struct ddr_details_v3))
+   271			return -EINVAL;
+   272	
+   273		if (size == sizeof(struct ddr_details_v3))
+   274			return INFO_V3;
+   275	
+   276		if (size == sizeof(struct ddr_details_v3)
+   277			 + sizeof(struct ddr_freq_table))
+   278			return INFO_V3_WITH_14_FREQS;
+   279	
+   280		if (size == sizeof(struct ddr_details_v4))
+   281			return INFO_V4;
+   282	
+   283		if (size == sizeof(struct ddr_details_v5)
+   284			 + 4 * sizeof(struct ddr_region_v5))
+   285			return INFO_V5;
+   286	
+   287		if (size == sizeof(struct ddr_details_v5)
+   288			 + 4 * sizeof(struct ddr_region_v5)
+   289			 + sizeof(struct ddr_xbl2quantum_smem_data)
+   290			 + sizeof(struct shub_freq_plan_entry))
+   291			return INFO_V5;
+   292	
+   293		if (size == sizeof(struct ddr_details_v5)
+   294			 + 6 * sizeof(struct ddr_region_v5))
+   295			return INFO_V5_WITH_6_REGIONS;
+   296	
+   297		if (size == sizeof(struct ddr_details_v5)
+   298			 + 6 * sizeof(struct ddr_region_v5)
+   299			 + sizeof(struct ddr_xbl2quantum_smem_data)
+   300			 + sizeof(struct shub_freq_plan_entry))
+   301			return INFO_V5_WITH_6_REGIONS;
+   302	
+   303		if (size == sizeof(struct ddr_details_v5)
+   304			 + 6 * sizeof(struct ddr_region_v5)
+   305			 + sizeof(struct ddr_misc_info_v6)
+   306			 + sizeof(struct shub_freq_plan_entry))
+   307			return INFO_V6;
+   308	
+   309		if (size == sizeof(struct ddr_details_v7)
+   310			 + 4 * sizeof(struct ddr_region_v5)
+   311			 + sizeof(struct ddr_misc_info_v6)
+   312			 + sizeof(struct shub_freq_plan_entry))
+   313			return INFO_V7;
+   314	
+   315		if (size == sizeof(struct ddr_details_v7)
+   316			 + 6 * sizeof(struct ddr_region_v5)
+   317			 + sizeof(struct ddr_misc_info_v6)
+   318			 + sizeof(struct shub_freq_plan_entry))
+   319			return INFO_V7_WITH_6_REGIONS;
+   320	
+   321		return INFO_UNKNOWN;
+   322	}
+   323	
+   324	static int smem_dram_frequencies_show(struct seq_file *s, void *unused)
+   325	{
+   326		struct smem_dram *dram = s->private;
+   327	
+   328		for (int i = 0; i < dram->num_frequencies; i++)
+   329			seq_printf(s, "%lu\n", dram->frequencies[i]);
+   330	
+   331		return 0;
+   332	}
+   333	DEFINE_SHOW_ATTRIBUTE(smem_dram_frequencies);
+   334	
+   335	static int smem_hbb_show(struct seq_file *s, void *unused)
+   336	{
+   337		struct smem_dram *dram = s->private;
+   338	
+   339		if (!dram->hbb)
+   340			return -EINVAL;
+   341	
+   342		seq_printf(s, "%d\n", dram->hbb);
+   343	
+   344		return 0;
+   345	}
+   346	DEFINE_SHOW_ATTRIBUTE(smem_hbb);
+   347	
+   348	struct dentry *smem_dram_parse(struct device *dev)
+   349	{
+   350		struct dentry *debugfs_dir;
+   351		enum ddr_info_version ver;
+   352		struct smem_dram *dram;
+   353		size_t actual_size;
+   354		void *data = NULL;
+   355	
+   356		/* No need to check qcom_smem_is_available(), this func is called by the SMEM driver */
+   357		data = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_DDR_INFO_ID, &actual_size);
+   358		if (IS_ERR_OR_NULL(data))
+   359			return ERR_PTR(-ENODATA);
+   360	
+   361		ver = smem_dram_infer_struct_version(actual_size);
+   362		if (ver < 0) {
+   363			/* Some SoCs don't provide data that's useful for us */
+   364			return ERR_PTR(-ENODATA);
+   365		} else if (ver == INFO_UNKNOWN) {
+   366			/* In other cases, we may not have added support for a newer struct revision */
+   367			pr_err("Found an unknown type of DRAM info struct (size = %zu)\n", actual_size);
+   368			return ERR_PTR(-EINVAL);
+   369		}
+   370	
+   371		dram = devm_kzalloc(dev, sizeof(*dram), GFP_KERNEL);
+   372		if (!dram)
+   373			return ERR_PTR(-ENOMEM);
+   374	
+   375		switch (ver) {
+   376		case INFO_V3:
+   377			smem_dram_parse_v3_data(dram, data, false);
+   378			break;
+   379		case INFO_V3_WITH_14_FREQS:
+ > 380			smem_dram_parse_v3_data(dram, data, true);
 
 -- 
-With best wishes
-Dmitry
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
