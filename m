@@ -2,160 +2,136 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6DB5D289B7
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 22:05:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FAACD289BD
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 22:05:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6446D10E229;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B86B10E7BE;
 	Thu, 15 Jan 2026 21:05:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LcyP4ZgH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YlbjJF0h";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kt2BpJnn";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bdwc1rP5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4DAC10E229
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:05:52 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8146210E204
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:05:53 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60FFY7o02673401
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:05:51 GMT
+ 60FIwTjc2159764
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:05:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- WLhM43u7KTCNMftZSAW1g9y9SRicJ/aCzV4l0MaawTE=; b=LcyP4ZgHar0lfCNc
- erfRehhLm+Jly3LD5YZe+gnbNWLMPpKpCHqXWqbxOusksc+bO9tXicyW7jh//NJi
- usIGfOEjO9AEv9gpfGj/98YCcHfrTukl/zYmQLydJsdQKttHrSPAJdyOP2ZwhZgo
- JBQMEwdzMGLiVdBk1W/SXyZVvNdc5NRZT+FM7qpEx7/7NvdPOy5frXysA8s0gU8J
- ZqNYay2ewVXzcLHlbBz3ecFwu6edWv5ajyjydAsDG19/Yj+LuCA7AN0opCmt5loq
- k4QJeBZL720AEGIBMtghVzSNUa8Qz2OgpGPhh0XGju56X61amGvdnRG64wNypL3C
- 6E2Taw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bpyduhm0p-1
+ 0yRH0jhM+jYWwNefo6O7EEWAY8TK9lDYV3nnRimBBgE=; b=kt2BpJnnIOPLzb/t
+ T2pQToVIm4jefcFKAFEYgb0B3YH+X5CDOVZEUiMybZNAXiR/gI9BELDAiclL/ekt
+ w78XrUzdrmPmC4w2FvkjprATZ8djSOYZE/CbPO0Pq3Wlf0U4AjIasTLI9o8LeB7M
+ VRBOYqCMmZXrM7oITIn+IW/RXRICEZrRXolJ5BJE3LPxyKUjX60tP1Ry9sn+WgNb
+ xpDmcjD/3GyabZdva9bylTKTgtHuiXheAKseI2cZ2X3+F45KNjaL8in/KoIQwmm9
+ eNxeAmTXXGEuUSu2rQT2MXjRc9g1juOY/1umNc+EETJorixJ5pTg9yvN2YYzZomm
+ DVk7Ww==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bptna2fm1-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:05:51 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8c52c67f65cso505692285a.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 13:05:51 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:05:52 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8ba026720eeso404296985a.1
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 13:05:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768511151; x=1769115951;
+ d=oss.qualcomm.com; s=google; t=1768511152; x=1769115952;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WLhM43u7KTCNMftZSAW1g9y9SRicJ/aCzV4l0MaawTE=;
- b=YlbjJF0hDygUkW0QjjDZxAr3dsCfJsq7QtH4pWYx6dWIa8rhN6Q2ICAfAXWaALD9kn
- 7CZPAKnmGs58vW2b3QHr14rD+wYitDaiQIWJIlE9k3hv/Fq4S9vSmPtBO3atv0zg1RjD
- xTySKhd7qNgxhke1Z09iyNoGRKeplTKzQyWNDYczHMftqaSYwKe5Pv2wqfh6xVjMsLeA
- h+2OKdlg3/DPOLQ+/XCPn0jWG9SDWh73k0WyigYNoUN1TUvxSOkDLny//VRNvuLcf0jc
- b/vtoyF5SIE9SFrGhPjebnylhlAzwS1q7N1wNb29LyMu/h2YHRk8yjccgEtuSHsGVtyR
- Ntvw==
+ bh=0yRH0jhM+jYWwNefo6O7EEWAY8TK9lDYV3nnRimBBgE=;
+ b=Bdwc1rP58dwC5yZkqX+kzylYGitkZvPiqcywdiT7jiH+6fCnzliaNl1YlpFyavUcpb
+ bp9QI9Nkdji2l9luOXxefNgQcHzj7uUy2xWgVQdstC9vluC2c8EKJRYaHhzi1suFo0kF
+ V9K0Z6J7TP/wGMcD6L/p6HbD3e/SmLOCPzDFOL1tjb8SCKZJvZ/govQQ27TIZ6cVZaM1
+ 9cxtJW3ixLtEDf3R6j9a+TlEa8hO97MifhPgFDEVsMiqv1Y/8s27AawYsLI3iP/K0wZu
+ 1gjvoE/4nPUrDNMcOgP7efPXV2pdPCLKQxoV5WKn7qGVA1h/eoMi4ZLTDadprayC+nzy
+ 6ObQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768511151; x=1769115951;
+ d=1e100.net; s=20230601; t=1768511152; x=1769115952;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=WLhM43u7KTCNMftZSAW1g9y9SRicJ/aCzV4l0MaawTE=;
- b=i4mD2Jko2pC7GeloP9c7uzsiLIdQsdvMqPVPJzUkPplbWA0XYUp6TEcirMa1y7aDzc
- RTPN0AW8mOaznljH3/OptD9NoNcLTGw8rM8/wP9yTYNPtGzBH51tHwHH27kt/aP4H/Rw
- 2z/ruMHZvxYH2vGglw515iJxeWRob7bRfYRShCBng1a4XdinJKGd4nCP3IiHgT4ohs/T
- Rl83EIPAx+DYeDcMPEE2MS+1ZpFPQ0rLg/2cdhNN6IpfEfw1kyDG2O7RCU1PHpqV+bIs
- 3BnMoQmQr3k9cd7zpTOx4hhmVxv011kCuWGObmL88km93yK6M+O5UUjbHMKNwRLvrfOn
- AoAw==
+ bh=0yRH0jhM+jYWwNefo6O7EEWAY8TK9lDYV3nnRimBBgE=;
+ b=V/NOBsK4O3/p7kG0MuEezkg8CRYL+/vx2q6mQVMkCesN0+XXMtl5ftHkoPFrJs5nY0
+ l4/lYLjDZ/13RPJtF5bIiM//oxHR4KKHtY5dvN831x/7dmci4wLafqmPhI7NkBQq8ix/
+ HxCSCBaxjKy3OPIJUZd3T9fvg1rX3LJ+Kv1Hb5lspuy78z8KIN5uE8sSAqZTuDH4bGrh
+ n8SMEDMzT5Jk5YRKUJYfZ9yUokdPYAxj+paSvc6UGWkXSS0LQOpBm7vWcH/91D4bjJq8
+ MVHyx+zuGvkfEmt6oa1NqQaIKtkosMTD+pWR5KkQN2TAFiXRg7RerUXDSLo8G+/tZkn9
+ B2Og==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX0uMmxaF82l14/Ss4IPyW46G2v/QRy/Z7VQrkZMI3Z/yZDyvWz2XYlInNc7y4kLjiovDo9WhoXeLY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPtF78pe+B/GGcQkDCr6p8BPM7UOUdo+RSTc1urZsS6y9Dy8F8
- 1uVtbWacPyd7TZBkpkWjUKJ7k+2z6sTxi+WjCJ4gGjFEvgm8fEUu4++g+eZs0Q9kNxYxq8cAvQY
- doymkqiXW+lHaPr8vN0kP/RhXTr1+5QA8gXpUqim2/nFYbpeNNEbi3KQ9WARO6aDOdrUNdjg=
-X-Gm-Gg: AY/fxX4zxD3YL6IGKOwoQpuAABQVUnRgOJ+i7xoP7+cPJjqmZkvpp7WIl2ZCu2/utWw
- u7RieIYCvgl4VZf9n6Y2ZbmNVaKcaPvWbF7JPPJsErqIebheRPXV1c7Tj4MNWwNVebUXeYD4J3B
- n6sQm2UscZj9Gp1Z7DLFuidLAS6f0zWkx8YMnEL1xk4KLfF5e/pVK8MtftafnYq/ASHcGl09i/8
- cttw67QVr31qUKrpCg9qObqHxADzvHwVWvLtXfc7NP93+PyM78rxcb1OrZMOlpX6sxFlzMr1tkY
- Fp5p3m2ELwfokaipkTFDYfAMDyph2OA4Kolp+YzNcXjPSSMVbTJsz8ZRRLRjsBqgnwmj+IpgeAj
- j+ztHrErfnFIjZ+e1fzni4ReCv4lnjS2N0558lYC1ncIhuM7ZQCnIy85zdy3d+Og73JObjghF1j
- hfVLt1GRxibgjyJKoE08OqzJE=
-X-Received: by 2002:a05:620a:1723:b0:8b2:dfda:66c4 with SMTP id
- af79cd13be357-8c6a68d2f67mr120082585a.8.1768511150955; 
- Thu, 15 Jan 2026 13:05:50 -0800 (PST)
-X-Received: by 2002:a05:620a:1723:b0:8b2:dfda:66c4 with SMTP id
- af79cd13be357-8c6a68d2f67mr120072385a.8.1768511150340; 
- Thu, 15 Jan 2026 13:05:50 -0800 (PST)
+ AJvYcCXQbqQmor3AgeYJGA+yeqvdHmwQ73q/6mdOicakvkbE+p7ZChmXQxme9gVWmfotDQkpw2iD4mOFpxA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwkkurY5hmFdlnY5FxxEBrzl6qlDdWcWrMOZuGubA0nwhyM330s
+ 3KRpvgqb3v5pGoklJrkughr1uGV25TSsCDHZEEeuUTkGZX9vPJUdSt0z+3g1eIAsZEQydQejDyG
+ H62JhnGZGPJz5KJ0QHTHNLchNWnn50UZNK0j38jLbQhuO9X8Bgxh23putN2qQDcqoy2CkNYY=
+X-Gm-Gg: AY/fxX5RAXPfio4S7xCf0zPAAP8mgBMDL5CiPEaCEGU92Xb9qZ3nh8dWxkLE5OzX7fC
+ cxkKZKQSYHR86E4UGGPxoNNol3X4dHh3u1Aof4kKiFXDCALDaSCz0x45U47QF4j1mt4tO/cphb7
+ Phxte6u0PkP97xMROD/EspsSN02IwGye7yv9utmeubVBJpSbbx6/ldk/2Q+xBDM4eIcpMIlqJtt
+ pQ3f1q3doOat+Lz7F70VgwfsYVreLuDTqfPDkWua6L65vMOF6lF+mIVw865cZWlyI3PLOVpb9mR
+ o47hZL19hsW72mAI5kAzJpXZ6wq2exq0CpfH3AAbBXaaMzYbM2vMuEPPD6VqaL1Ba5n1jCLrX7q
+ aSCKvEPj7WnqU+PvsEhh287oXz1PIWG0RSYo7x3XLSX/UHEiThMWaUmGE6MANB2J1LKrkW7NwTo
+ MZhYf8kH5Kr9xglRvxlZHBMTc=
+X-Received: by 2002:a05:620a:4155:b0:8a2:bff5:40d9 with SMTP id
+ af79cd13be357-8c6a66d1590mr131378785a.16.1768511152122; 
+ Thu, 15 Jan 2026 13:05:52 -0800 (PST)
+X-Received: by 2002:a05:620a:4155:b0:8a2:bff5:40d9 with SMTP id
+ af79cd13be357-8c6a66d1590mr131373485a.16.1768511151666; 
+ Thu, 15 Jan 2026 13:05:51 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59baf397672sm155740e87.61.2026.01.15.13.05.49
+ 2adb3069b0e04-59baf397672sm155740e87.61.2026.01.15.13.05.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jan 2026 13:05:49 -0800 (PST)
+ Thu, 15 Jan 2026 13:05:50 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chen Wang <unicorn_wang@outlook.com>,
- Inochi Amaoto <inochiama@gmail.com>, sophgo@lists.linux.dev,
- Chen-Yu Tsai <wens@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-rtc@vger.kernel.org,
- =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-actions@lists.infradead.org,
- Keguang Zhang <keguang.zhang@gmail.com>, linux-mips@vger.kernel.org,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Takao Orito <orito.takao@socionext.com>,
- Jacky Huang <ychuang3@nuvoton.com>,
- Shan-Chun Hung <schung@nuvoton.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
- Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Michal Simek <michal.simek@amd.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-phy@lists.infradead.org
-Subject: Re: [PATCH 00/27] clk: remove deprecated API divider_round_rate() and
- friends
-Date: Thu, 15 Jan 2026 23:05:48 +0200
-Message-ID: <176851027322.3933285.17869583744437773979.b4-ty@oss.qualcomm.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dale Whinham <daleyo@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?J=C3=A9r=C3=B4me=20de=20Bretagne?= <jerome.debretagne@gmail.com>,
+ Steev Klimaszewski <threeway@gmail.com>
+Subject: Re: [PATCH v2] drm/msm/dp: Enable support for eDP v1.4+ link rates
+ table
+Date: Thu, 15 Jan 2026 23:05:49 +0200
+Message-ID: <176851111169.3933955.17203821768730103962.b4-ty@oss.qualcomm.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
-References: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
+In-Reply-To: <20251218-drm-msm-edp14-v2-1-2e56c2338ab1@gmail.com>
+References: <20251218-drm-msm-edp14-v2-1-2e56c2338ab1@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDE2NSBTYWx0ZWRfX+dtQAphpWpuw
- u0hEaruihfYfBovOL+DRtHBLBVms/mPyi84kOdbYVxpkIxcaPe0tJ6HjbF7Gl9FvDlqCZLYk5m1
- 4koGxddd6y80ADZ1BzoNwGxD5OIPdBPuCemF/8gKwdV8xhGeFNmF5kFnkLFnfcClBK2QLhyrChn
- 59qirKTdSD424nWD2A3NEsJuBhlNTjm5x+P+pS2TsZKibZuZQ0spSSGwSVjFoEcXt8SBO+wivzT
- X1AdELe+Dq1UfjNNc1zSiZLGowrI1dBMUyDACmhoTN/TCKEQ/FvqWSB73jjBFVBpvb4L7F1oRQs
- 0trj/Dp771pADzznng+CZYxQ8I542gU392nnlYiM69qQd1ugo2cUIUq2GMXdIXDKRS0iImmF/mr
- /lvbW9BSB/j73UD/0tW6+eeXsf5ghhuGCLoR/InQxAoe4NVUIXHGESrpO0E5kl191rLFWGcQhzP
- 90pZwaGuTEKFjo/KA7Q==
-X-Proofpoint-ORIG-GUID: lEK1GDqlSNl6m7PiInerHjcAH9DgjCWR
-X-Authority-Analysis: v=2.4 cv=NafrFmD4 c=1 sm=1 tr=0 ts=696956af cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: meBwQ9CsuNelV8dO5bcoXtuskK9h3HDq
+X-Proofpoint-ORIG-GUID: meBwQ9CsuNelV8dO5bcoXtuskK9h3HDq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDE2NSBTYWx0ZWRfX1gaqH+hEPRY9
+ X1Ya0oto4JQ+nIijq4kPkj+lUuIc5Xb1rTcRSFwTHUVwnAGzMpPUvZkSbgwno/pBObHACDRnTiF
+ qjkBo7eu7teipNFD6GjT4lAJDWJZdB0UP0wSeo/agvfqInY5ki9xTkwCuJeSWMVHm2pqme4giPT
+ G3yYi8HbstTJQEf95bNCLRpcRTCYdLZ6IxFU5n50piD2VHx+faMEEq1mP9Gtx5fJv+er1Lg5Jw8
+ m0mL1Km/D9Dp1ydlszXvKOfoUuJE65KX/MRU2G5YJG7KKerGhrPD0H5hC4eL4SpKf0IwCiBrpRn
+ NXwWX77pd/Y2a6N8jSZqyYvMWgDzNNyujCQD8uo05wx11aS80S6L4A4xgmZRa3yuIJMy7jc/CzT
+ YZB+SGQ1WwEJwq71MhT5isSinWyNfnwiphoOlCBtoJLfW6L/2Af04e9X1dPmbyJzcX+PoZkz7YT
+ s0Q086UG+wJEIH8VHlQ==
+X-Authority-Analysis: v=2.4 cv=fsHRpV4f c=1 sm=1 tr=0 ts=696956b0 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=e5mUnYsNAAAA:8 a=whp_R4xS9ENlu3RGya8A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: lEK1GDqlSNl6m7PiInerHjcAH9DgjCWR
+ a=e5mUnYsNAAAA:8 a=uNR7pAaoB_IQ8-4UisQA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-15_06,2026-01-15_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601150165
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -173,22 +149,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 08 Jan 2026 16:16:18 -0500, Brian Masney wrote:
-> Here's a series that gets rid of the deprecated APIs
-> divider_round_rate(), divider_round_rate_parent(), and
-> divider_ro_round_rate_parent() since these functions are just wrappers
-> for the determine_rate variant.
+On Thu, 18 Dec 2025 00:19:32 +0000, Dale Whinham wrote:
+> The MSM DRM driver currently does not support panels which report their
+> supported link rates via the SUPPORTED_LINK_RATES table.
 > 
-> Note that when I converted some of these drivers from round_rate to
-> determine_rate, this was mistakenly converted to the following in some
-> cases:
+> For panels which do not offer the optional eDP v1.3 fallback via
+> MAX_LINK_RATE, this will cause a panel probe failure (e.g. Samsung
+> ATNA30DW01-1 as found in Microsoft Surface Pro 11).
 > 
 > [...]
 
 Applied to msm-next, thanks!
 
-[24/27] drm/msm/dsi_phy_14nm: convert from divider_round_rate() to divider_determine_rate()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/1d232f793d4d
+[1/1] drm/msm/dp: Enable support for eDP v1.4+ link rates table
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/ed100aa239be
 
 Best regards,
 -- 
