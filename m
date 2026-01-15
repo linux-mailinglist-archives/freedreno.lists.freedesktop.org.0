@@ -2,138 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096E1D2367B
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 10:19:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11727D237F3
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 10:28:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4B5610E70D;
-	Thu, 15 Jan 2026 09:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA12310E71C;
+	Thu, 15 Jan 2026 09:28:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MhNRUBH8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TngFWoaA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cWtbIack";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hf5UFYMp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07DE610E70D
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:19:33 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F21A989321
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:28:12 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60F6fxG31991697
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:19:33 GMT
+ 60F6g0SJ1055228
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:28:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- pURHtbp6VGKQeBQ/ldaen2l7gcfocWJuNey1NSuLoXc=; b=MhNRUBH8bvXRD6RZ
- ndIGPioDTeOHk0+CbIlS2sv7nj5KZRutmkVj5eprDgbygh7I1s2chnQW43pSv5Zv
- BjjTDnKRl9Def9ZPsAZfutqQBIcfhKO7enhGCtufkU8+JZwONHdk56CUIyMInfPO
- hHwcfmBfNnS7iBZVYm29ojxzPRW8GhIbxSai4Rx/U+anzDmVNF/UV2HYMpGLaDx1
- mXm79nAF0DazHGE5qLp7VsImtysj3slenQbZ8sNDw8RWoynkgYyus/NJTG09Ec8P
- TetSGZIUfTV+13+3WuO1ZRQpXpPXNELSL2S57lMZA3WckylJEbuqoZR8NWsfmWME
- vjuzyA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bpbdbucd4-1
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=FV3nONimYsR0PrhxI5KPJUKAwXWGm5Fx9h2
+ vmS9IGy8=; b=cWtbIack/GPOswRmiz/IdCY4Ooq2WW+TUMInLIpoDDcH/s1bxxT
+ zha1Ql0Fh3C2ZVHfgivUTuElxgxhUa95MhhNpCZy810ftY8Ko/r4Bg0NFwjyFljw
+ AOCBoUqL3rvn03KTAd3Ex2y4T74H8fCre1JqPBKRc/DYLsBGa+647/Nww6RbGbB1
+ iMpONPNwjRD3xlxd1BPvoLPpBANKvvItX0A0XPkjFQ+DXgUNRA9WMHNgFIjNEFID
+ aEmVdx35X15dBKCQxSNwWO4PDEMEaLec3Sb2KMEBHN0nd6W3+A7I+7NX3ithsl3n
+ 4vPI8o5KI3h1uCvwml9hozATYke3QHI5w+Q==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bp8d3448c-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:19:32 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8c231297839so22205485a.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 01:19:32 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:28:11 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-88a3a4af701so17516916d6.1
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 01:28:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768468772; x=1769073572;
+ d=oss.qualcomm.com; s=google; t=1768469290; x=1769074090;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pURHtbp6VGKQeBQ/ldaen2l7gcfocWJuNey1NSuLoXc=;
- b=TngFWoaAcX85Bcq07jH0796lLTP0H1HtAE4O4kFXUyIYgSyTmJKJjezXXZ01OD7nz0
- +IWDN3dPXqaWPnD038r1AvX6C7rS+Jq87NPn/Y2XBLRwLHW1gPMjRzQ0ATr/hAJoCGR5
- 6elcZTN3dBb8oM8LIZ2m3itJFzmkaINr2gz/pzCCsz18psv18pwDTZ5tTKnN++RuQC/7
- CXXWOgfhSVTPkfYJWunqURQzBETDBhNXj9pcpDVvH7KrEAHIRVJgiG3wfl8hDBh7uZ2H
- F3aNdepA+aeYEeZ3745sREazqj0W8u6mfXdH28qoUOdn7R2m5ZklPhbeKAYIPn3P6EG7
- kgbw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FV3nONimYsR0PrhxI5KPJUKAwXWGm5Fx9h2vmS9IGy8=;
+ b=Hf5UFYMpgZj92ZSn2bktSzS853ICqNj66Wwx/dtSwNVA5bEytLcQAp44wdfmKdprMG
+ KrGCzB3JTAg994O/YHhrswcsl+pgIai4FGDsGmlbMi9W8j0J3c9lVgY3nTM+0Y7vz+DA
+ n8iThxXVe9YTpM/FQALQEqSqt1fQYQSUBOwKG3LR75Rqxql6c7yvXzrYV3jm1S9P5NXS
+ KarpoCcwZYIyjpp916loXCm7+iWr7oYAtrlWqw5y6TSGiHbMlWm/1wGxidxC9zAMUUax
+ 0kF9m1qX2vJLBbVxpGJ+LpINMMwKxoH/9iZkUfMdjtgY00QaDFApUGhmR3IAyq+ld6KT
+ X0LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768468772; x=1769073572;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pURHtbp6VGKQeBQ/ldaen2l7gcfocWJuNey1NSuLoXc=;
- b=Bj43tHz8yhpI8kbMfUe1pxoMMwvLVILK4AiQi2DsO5H53DMS4wi99/e7XwUZB6/y0b
- 73heWQGo9bufcG4/nEqYpLJ5p1jPnDa7OKwTjWKZVE71mwh7DyprngpFzUxLicvn76WX
- j5g0MSlF7a1YGMwmdk+hugY5Lw2yL1PN176sE2K9yxR0y7IGTXL2INRngp2Ly8fS0bza
- vRYWsmZnSIoEo6s5e3lvwS1/AUxdzVD3f/zlgWorKMVhnksXkKWjD3M0FLiTmowG/O2h
- ywpAJpnZj6yDPCrwv2GUaaquVqIzt1QNAqG0VhLWM+G9W/tZDoyz0f7F6WsQFEqYRBoD
- M2wg==
+ d=1e100.net; s=20230601; t=1768469290; x=1769074090;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FV3nONimYsR0PrhxI5KPJUKAwXWGm5Fx9h2vmS9IGy8=;
+ b=Coejx0dgWAR3NWmh00OcZ+P//ppQZ79ybel2DjUm+MgMubmiFFMj1GLMdkLM6rWc3Y
+ izo9l3qXMXH5URdpd2xxmQhnwnoTbLcs2t8GfKw1Zsr9vOD/dmNYZpI9mN2gY2X44YiF
+ GQCLMCLwj5UVoIIgbV9QV/MqUEIm4BtauAwgOs++l9nTPsmPL3LVjMhNAtKG6+Gm6ltM
+ KJlHAcoI5K8vowsb5/8M0FL3lNWKawObNuopgDjMNMYRq3f5QUXSEccLEixknSeCk+8Z
+ REKznKKKSVE8N6gB8lGqVWBcegUDFHPCr+WJTrQoJI0u59t0kUl9eNfyD1eZb4SWu8iT
+ oXTw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9ISCSgE6ZioPa6FAho/R42I5TaO6JFkmlH3s5xV6OprxywdUQEu4C+bbhyUWBa/75j5C63Qp0du0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5nO888SHnZhpW0BI0AHJiB7M500TcvLevVht50rdAJ8VL6f0z
- cAVD+cH6Jhalfmjjg70aBCXbucqkV1tB4gwR6t5cvzyvvmw/ZSzhRLiAJBeTiMpXlXX4BrU9NZX
- 83Ytr7BbDX2Onr4xLfLHNsE+xd+9+YCT8YnirAj7ebuSgirv0lqc2Kqs2RBz0+6RDrZ0x6SE=
-X-Gm-Gg: AY/fxX5n/E0c/hphZlAc2PVyhQIF94VCDDhlHoLY6L11yvm53mAMKgrpxlV+moZ+R/N
- HDDA7ZQ8QfBZUyqIw9Ykb0/17rAn8ejAww7UwdHYSb61kWsfupQT1fOFSwGCZYd3vS3aMVWoU59
- ZNzQ6gbiAvspe0qpjZPz4cBJ3Vik6evGgh3VRysTcKI9Rx1lbdsdSu54C1oy6m3GiYmtV9dUb1x
- t2tWNtnzqcvsgAPtlG6xcT2ddipWghgms+ONgdRvtIF8/MhAH1Q79GPX8Fqg/TrNHuSOiCCQaLL
- 9nzyQMfnjtv4AehSBdaS50b+8+gjnNkduiRSovOEmqnXa3GxcTuOgeRrV3wu710MeprV6iWV1j6
- q6Lgxb6hzv5jN//eEiAbbIoebJxNYoKZJGZmSV5XaCKioApXXeWkVWVrzH7ldnOj0vhE=
-X-Received: by 2002:a05:620a:4154:b0:8c6:a22b:e11c with SMTP id
- af79cd13be357-8c6a22be2c5mr48272785a.1.1768468772082; 
- Thu, 15 Jan 2026 01:19:32 -0800 (PST)
-X-Received: by 2002:a05:620a:4154:b0:8c6:a22b:e11c with SMTP id
- af79cd13be357-8c6a22be2c5mr48271185a.1.1768468771575; 
- Thu, 15 Jan 2026 01:19:31 -0800 (PST)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6541197fb4asm1869724a12.15.2026.01.15.01.19.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 01:19:30 -0800 (PST)
-Message-ID: <d826de45-f00c-4af8-947b-246362c2be23@oss.qualcomm.com>
-Date: Thu, 15 Jan 2026 10:19:27 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/8] drm/msm/dp: Read DPCD and sink count in bridge
- detect()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
+ AJvYcCXaEKrlpMPeYOIaM4SxKBgJ9vQIlzuWOcvBApwGmQZ3QNh4bLzqR92awTb0pKz7SuKwT/PkLsn6k8Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzqmmBawedDxuCIJc5IPjouuL9S0rgt/7Xkxncr6f6fMTrfyeIA
+ EMltH6iMlLl+InxapCI3U3dwZiy/Yw09252gBCHNDbMFb2RuSpII9vFRnVCrDZWZrTscfwF0Odc
+ jsun/HB9L2X7alAc3ldA+ppS2ZR/pguNF7JC3MdKsFYhvK6+nKNT7mdw0E2ZOnsAz9rvkQAs=
+X-Gm-Gg: AY/fxX6w5BWaxZSTthseqLw1+YJDzI/5IkNr1EnrDBi/6QG/BOSp0hYDE3sXlxejwFR
+ c4fizuyC0c9mn/EEIPJH1EdBLuN4x5AKOd+D4HokjwTOIcaQB8nqrSncfL+lIHmKv4AhAyW/0CN
+ i/20W97pa5Lq/+by6YhyTTIrg8Ppz7kfDnxc2SgsNHqbHwqdxjrIDUd6lxGLXenJQ9jkNcFS24L
+ dGqHH/q+DltwkNJYBn29xIHP3hQ9USHR02yyNCupj1062RjmKdCiU0IPn2Fc+2wl+Rc38LnJAr7
+ ACr+U5hMsD62+H3k2m7mrK/rQWiLLORU1AEqOg92ilwUAJy2nNkJj++jkz7roH2gyhxudaCG6rk
+ bsFZUGJliPpoA6LnVnNCCTHIvdrx4t13cMX+C+MTvbXhJa8D08ru4SGyQo3U+PNFfF2U=
+X-Received: by 2002:ad4:5baa:0:b0:87c:2967:fd32 with SMTP id
+ 6a1803df08f44-89274387480mr77132476d6.22.1768469290192; 
+ Thu, 15 Jan 2026 01:28:10 -0800 (PST)
+X-Received: by 2002:ad4:5baa:0:b0:87c:2967:fd32 with SMTP id
+ 6a1803df08f44-89274387480mr77132276d6.22.1768469289733; 
+ Thu, 15 Jan 2026 01:28:09 -0800 (PST)
+Received: from yuanjiey.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-892668a2419sm64388416d6.30.2026.01.15.01.28.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Jan 2026 01:28:09 -0800 (PST)
+From: yuanjie yang <yuanjie.yang@oss.qualcomm.com>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org, jesszhan0024@gmail.com,
+ sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, neil.armstrong@linaro.org,
+ konrad.dybcio@oss.qualcomm.com
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-References: <20260115-hpd-refactor-v3-0-08e2f3bcd2e0@oss.qualcomm.com>
- <20260115-hpd-refactor-v3-3-08e2f3bcd2e0@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260115-hpd-refactor-v3-3-08e2f3bcd2e0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=NvncssdJ c=1 sm=1 tr=0 ts=6968b124 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=iwLwdXV_GrZBMsYiV9oA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: q113WpuRSoeW6wZHta7Zj1k9DRYaOhdR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDA2NCBTYWx0ZWRfX9OCh4KN4X1PE
- BjbYC9Kgm4JfRqqt96c6bEcALIi6PQTtd0FQHl/pkyCYxOiocACXigE8UsnJRgtSTvGgUrjw4cZ
- 3BiBJgRqywNWsMLR+Sk6Fw3QuA8zJi+c6sxz4cytSmQ6osu6C9tgAs2upEoA0XRBYeZNAg06nRd
- Db70pPtAKnD2ZY7lGsGK0iIl9PvvdkWZk6xs7dg2yrOnmwKsifLFN9DRRcamI7G9rQSi4kQsqOK
- uroOAF48TRTASRIFj5k6tsM2d85pYFDUAiDXAToSAnqZY8vcYPzCks+IdylyvrY1dThbNDek4XH
- Bnm2JjeHJ8SxUUCEoPUQQDXpWvp0a1/Ena97K/yy8b4CHzeFjhntNcbAS7jAUudyDJkUFmtEjS8
- C4RXq6YSOVCnM/KzidQBnubvm+H5bL1HbcnXnGafYNv185z2c0FL3iJj53iNHqyLat5r/AETMYM
- bFqtkLDpwU9hh3M3Nig==
-X-Proofpoint-GUID: q113WpuRSoeW6wZHta7Zj1k9DRYaOhdR
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com
+Subject: [PATCH v6 00/12] drm/msm: Add support for Kaanapali
+Date: Thu, 15 Jan 2026 17:27:37 +0800
+Message-Id: <20260115092749.533-1-yuanjie.yang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 7sbjG72geHVAby0dgcwpxpQbVDkIox30
+X-Authority-Analysis: v=2.4 cv=fbWgCkQF c=1 sm=1 tr=0 ts=6968b32b cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=qC_FGOx9AAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=oHaaim5x4gMG4YHD5WcA:9
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=fsdK_YakeE02zTmptMdW:22
+X-Proofpoint-ORIG-GUID: 7sbjG72geHVAby0dgcwpxpQbVDkIox30
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDA2NSBTYWx0ZWRfX7tLv7qz4CoRU
+ CyjG8LPq+Ubq9vsJU34b6x3CW+lDfmmGtFo5I5/1BpgsF5QgFf+clNJYi/OfZUzhNNEWJSwW4rT
+ EEIwuv4bBG1v2J4Gc1llijSUriq2wGaM/OPuzaifYg2UThm+oowDoH7m96+ZY3XVTrgaOwu8i1M
+ HGrD7cgcCCuyJBJt0od7LE2elogOxdRZm2GH2mOIe6cv2OV2w19XUKquK9wqqzdR8jNM04epuKQ
+ 0B8LTxw42lsAvGXEb94FmAaC/ERjXFmlzK65FUY7GG73MXzC6GDZUDKmU2AafilJHsx4suwFGhw
+ MukMzaDP/wiwWNYSPuvjD2Mjv4ZXW+dXRlUnBIGqDybo0AdgZ83y7wj124anTCVCzIq3nzczWQd
+ WMj3VuZx2iwhG1s7yGqs0cskjAS0smEJof8Y+f26X/oZRKCl3a7GazzVyFaTcFMsupYZReGzmdy
+ JLtoPfIV03kBJdAT8OQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-15_02,2026-01-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
- definitions=main-2601150064
+ spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601150065
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,93 +139,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/15/26 8:29 AM, Dmitry Baryshkov wrote:
-> From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> 
-> Instead of relying on the link_ready flag to specify if DP is connected,
-> read the DPCD bits and get the sink count to accurately detect if DP is
-> connected.
-> 
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 60 +++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_drm.c     | 20 -------------
->  drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
->  3 files changed, 62 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 5997cd28ba11..a05144de3b93 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1151,6 +1151,66 @@ static int msm_dp_hpd_event_thread_start(struct msm_dp_display_private *msm_dp_p
->  	return 0;
->  }
->  
-> +/**
-> + * msm_dp_bridge_detect - callback to determine if connector is connected
-> + * @bridge: Pointer to drm bridge structure
-> + * @connector: Pointer to drm connector structure
-> + * Returns: Bridge's 'is connected' status
-> + */
-> +enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
-> +					       struct drm_connector *connector)
-> +{
-> +	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(bridge);
-> +	struct msm_dp *dp = msm_dp_bridge->msm_dp_display;
-> +	struct msm_dp_display_private *priv;
-> +	int ret = 0;
-> +	int status = connector_status_disconnected;
-> +	u8 dpcd[DP_RECEIVER_CAP_SIZE];
-> +	struct drm_dp_desc desc;
+From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
-Reverse-Christmas-tree would be nice 
+The Kaanapali MDSS has some differences compared to the SM8750 MDSS:
+- DSI PHY/DSI base address have some changes.
+- DPU 13.0:
+  - SSPP layout has a great change.
+  - interrupt INTF layout has some changes.
 
-> +
-> +	dp = to_dp_bridge(bridge)->msm_dp_display;
-> +
-> +	priv = container_of(dp, struct msm_dp_display_private, msm_dp_display);
-> +
-> +	if (!dp->link_ready)
-> +		return status;
-> +
-> +	msm_dp_aux_enable_xfers(priv->aux, true);
-> +
-> +	ret = pm_runtime_resume_and_get(&dp->pdev->dev);
-> +	if (ret) {
+This patchset contains DSI PHY, DSI Controller, DPU & MDSS bindings
+in addition to the driver changes.
 
-See ef8057b07c72 ("PM: runtime: Wrapper macros for ACQUIRE()/ACQUIRE_ERR()")
+We have already tested the display functionality using the Kaanapali-mtp
+device on the Kaanapali branch of kernel-qcom repository.
+Test command: "modetest -r -v"
+kernel-qcom repository: https://git.codelinaro.org/clo/linux-kernel/kernel-qcom/-/tree/kaanapali
 
+Co-developed-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+---
+Changes in v6:
+- rebase on linux-next tag: next-20260115
+- rebase and fix merge conflict "dt-bindings: display/msm: dsi-phy-7nm: Add Kaanapali DSI PHY"
+- rename _dpu_hw_setup_qos_lut_v13 to dpu_hw_setup_qos_lut_v13 and put it to dpu_hw_util.c
+- fix wrong indentation in dpu_hw_sspp_init_v13
+- Link to v5: https://lore.kernel.org/all/20260108085659.790-1-yuanjie.yang@oss.qualcomm.com/
 
-> +		DRM_ERROR("failed to pm_runtime_resume\n");
-> +		msm_dp_aux_enable_xfers(priv->aux, false);
-> +		return status;
-> +	}
-> +
-> +	ret = msm_dp_aux_is_link_connected(priv->aux);
-> +	if (dp->internal_hpd && !ret)
-> +		goto end;
-> +
-> +	ret = drm_dp_read_dpcd_caps(priv->aux, dpcd);
+Changes in v5:
+- move sspp v13 related change from refactor patch to sspp v13 patch
+- move sspp ubwc change to dpu_hw_sspp_setup_format
+- split wb change into a patch
+- Link to v4: https://lore.kernel.org/all/20251222102400.1109-1-yuanjie.yang@oss.qualcomm.com/
 
+Changes in v4:
+- fix qcom,kaanapali-mdss.yaml compile error
+- reorganize SSPP patch order
+- fix Dmitry ohter comment
+- rebase on top of msm-next
+- Link to v3: https://lore.kernel.org/all/20251215083854.577-1-yuanjie.yang@oss.qualcomm.com/
 
-> +	if (ret)
-> +		goto end;
-> +
-> +	ret = drm_dp_read_desc(priv->aux, &desc, drm_dp_is_branch(dpcd));
-> +	if (ret)
-> +		goto end;
-> +
-> +	status = connector_status_connected;
-> +	if (drm_dp_read_sink_count_cap(connector, dpcd, &desc)) {
-> +		int sink_count = drm_dp_read_sink_count(priv->aux);
-> +
-> +		drm_dbg_dp(dp->drm_dev, "sink_count = %d\n", sink_count);
-> +
-> +		if (sink_count <= 0)
-> +			status = connector_status_disconnected;
+Changes in v3:
+- split SSPP refactor patch
+- add devicetree email list
+- fix Dmitry comment
+- rebase on top of msm-next
+- Link to v2: https://lore.kernel.org/all/20251125064758.7207-1-yuanjie.yang@oss.qualcomm.com/
 
-< 0 would be an error coming from drm_dp_dpcd_read_byte, should we log
-it?
+Changes in v2:
+- Drop panel patch
+- adjust patch order (bindings then drivers)
+- add dpu_hw_ssppv13.c to complete kaanapali SSPP function
+- fix bindings example dts compile error
+- fix other comment
+- rebase on top of msm-next
+- Link to v1: https://lore.kernel.org/all/20251023075401.1148-1-yuanjie.yang@oss.qualcomm.com/
 
-Konrad
+---
+Yuanjie Yang (12):
+  dt-bindings: display/msm: qcom,kaanapali-dpu: Add Kaanapali
+  dt-bindings: display/msm: dsi-phy-7nm: Add Kaanapali DSI PHY
+  dt-bindings: display/msm: dsi-controller-main: Add Kaanapali
+  dt-bindings: display/msm: qcom,kaanapali-mdss: Add Kaanapali
+  drm/msm/mdss: Add support for Kaanapali
+  drm/msm/dsi/phy: Add support for Kaanapali
+  drm/msm/dsi: Add support for Kaanapali
+  drm/msm/dpu: Add interrupt registers for DPU 13.0.0
+  drm/msm/dpu: Refactor SSPP to compatible DPU 13.0.0
+  drm/msm/dpu: Add Kaanapali SSPP sub-block support
+  drm/msm/dpu: Add Kaanapali WB support
+  drm/msm/dpu: Add support for Kaanapali DPU
+
+ .../display/msm/dsi-controller-main.yaml      |   2 +
+ .../bindings/display/msm/dsi-phy-7nm.yaml     |   1 +
+ .../display/msm/qcom,kaanapali-mdss.yaml      | 297 +++++++++++
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml |   1 +
+ drivers/gpu/drm/msm/Makefile                  |   1 +
+ .../disp/dpu1/catalog/dpu_13_0_kaanapali.h    | 492 ++++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  41 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  15 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  89 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   | 124 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  56 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c   | 321 ++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c   |  18 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |  17 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c             |  13 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h             |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     |  23 +
+ drivers/gpu/drm/msm/msm_mdss.c                |  10 +-
+ 22 files changed, 1475 insertions(+), 54 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c
+
+-- 
+2.34.1
+
