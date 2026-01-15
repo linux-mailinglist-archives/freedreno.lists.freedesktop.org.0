@@ -2,137 +2,140 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCA62D289F1
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 22:06:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E75DD28A4B
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 22:09:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A731410E7D3;
-	Thu, 15 Jan 2026 21:06:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE11B10E7BE;
+	Thu, 15 Jan 2026 21:08:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lFICF+ga";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ASofn81A";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cw33jvOF";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tsk2QYB2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27BA810E229
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:06:03 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8340910E7BE
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:08:59 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60FFYG853113504
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:06:02 GMT
+ 60FFfx5K2312097
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:08:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 3/lSi5tJmSDkk77YoSdZcYfEb4skDRObrBrQxoLY+q0=; b=lFICF+gaABVgQTny
- N/CiKxWb1HRqPSpBiUY9iRo2lmE6IzZibGEYqfLQNY+mAFZseKhMfediFFwC6x/U
- 4ZS5tjZe1iIm0fIkb4VkSczBGG0hNvtOvEKBEgzRsQu1dQVKH7MHhRxMIFBH7Omj
- xBDqgDDnfiChreRxc8NZjeC1HeZA9KtpRaBnZZOVfiZe+xDUCo2kTd+z2WYKnAfG
- fUF6ntjUWGnCHOyuyqO0RANhClTnoNr75JIxSLphHj1a26mm40v1mD+SDkteSMxQ
- 7nvyFlwPbe64LQPX5qjG79mtprbsYzIx5QNDM3EpBn9qm5c2cNZ6T9vqOImUKSoP
- Cybj1A==
+ 6CWr3YpvoBVCcskN6Xk0YpfdI325zkYISzpPc59M6Gg=; b=cw33jvOF2Hsg9vg8
+ WObtnG9h/BL8Lt0TAyJT1iBhMAaJ/j5DBMNABjIKQ6QbQF/VPDF+45cNvPcXOzsP
+ ox/zvf1RMn9QcHUSUtLg2U+D43Phk0wOJLM9tvCUBtPNdG+NIlyIrZUr6M9Pn+iA
+ X8MTuK/w233EW6fqMJTcLbY9xTS9m+cTNbeeaunn3ObwKEjDLnCw3HplLAc1JODa
+ l5m2MFfB7X74HFS7UZ5C5P9KwAtxZJqrszhv/TqvaOMtUqrn57Un1Ti5ADo8O3wJ
+ xerSO4iLQaH7BSXj/lLve9fuvqvkmm1z/KgqveyabIy7RnGM2Ng3nCc7jiEq8/kf
+ UkQ3xA==
 Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
  [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bq2pm11vr-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bq340h3au-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:06:02 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 21:08:58 +0000 (GMT)
 Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8b9fa6f808cso440082885a.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 13:06:02 -0800 (PST)
+ af79cd13be357-8c52c67f65cso506575585a.1
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 13:08:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768511162; x=1769115962;
+ d=oss.qualcomm.com; s=google; t=1768511338; x=1769116138;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3/lSi5tJmSDkk77YoSdZcYfEb4skDRObrBrQxoLY+q0=;
- b=ASofn81AoixE7y81dRsK/1rJ3Mq6ia7Peyxn0khpqnbU/vzW1MEsL2gAaDF149vXtB
- /dyHdA2velaMkJe45spNXNvV9969U2YLV2zUqY2GhE+4rgJ9xWn71E2B+YKF+q/H0IqI
- fPuE1+ewEtl6r8SHcaHy1fJMMdqpadutofa42tLt+YlZDsaMUhBsmJJbO1cfgfhA95rT
- AqjisKRmXOJUol+GVdUx/NK2kz/SUAslwZ5TNav3NRksH9dKqSw/fsty9FY9F0QPD7Nd
- s6BTW6SHjWfFovLHvxB/NR/u/WPwoLsXRA0yyfvqG80JYZG/wO6uSg00wO4EQ08oCikV
- Jnqw==
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=6CWr3YpvoBVCcskN6Xk0YpfdI325zkYISzpPc59M6Gg=;
+ b=Tsk2QYB2R+bMgBtoccAkv7O71dEixFSMl4+URqN8fswepLsu2DLSaoP9BhzLAN3J+r
+ Q60zxeLeqkc1u/ZlATDe5NR3tIkTdc6bpADZwrbfFSgEKFRJfnvSeai5grmW6VNyzIba
+ MTjxhW6TlxaXAGLhL5iA2wMAo8uYCHjbBlufBjj8/fwYDByMu0NS1fgDbhOtZ0IWeZhm
+ AI2xsMCTLbHwTLRzobsfIpEqOse3CFBpjTHNijLfiQyfEhfzKTN8KdlY37LIPghAqLJU
+ NkLHXj8yTOHUPP85hI5c21EJP7i3kCgYHljqILmpvBg+pFIUi9zuZGOWljnFAKPbbVGc
+ sgMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768511162; x=1769115962;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3/lSi5tJmSDkk77YoSdZcYfEb4skDRObrBrQxoLY+q0=;
- b=rlZlI52tb0anesQ240XohSJwPMbMvlC9IONbZJXtlNquFrtKPwcS3jSfZakTNI+hVt
- Te7CoG8fsTvbe/iEW1auY4eu9NDipv6AFGFQu4CdjRt7LK1ko8LBB2EZaYZtpUjyKwAb
- 6K/ev5cWlqfxdX52S7RdURlwUPEt4EI70QVQ7g2xMNwZ/d8LS3Tt7rB9PHUVbQ5NyJAx
- HGtZXun/+IXly6Kx5/3/fLorjVu7xt4ptCXX6bcEziknwyN6STdy0k93Fh9UN8gBAany
- nOTa7TeThFN+PjumcclhgXNNc45tiWbQkn5oMCGvFG3BVk6DinwDOpU1Kf7G1NaEBvMq
- I80w==
+ d=1e100.net; s=20230601; t=1768511338; x=1769116138;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6CWr3YpvoBVCcskN6Xk0YpfdI325zkYISzpPc59M6Gg=;
+ b=kvmH+riVEOlv4KBVdgQxOe4SKmEOSYhSW6XIVRcrZJq5C5dvx0cfdk3NphNU/pndbY
+ dHcMs2Q/24WA7yRcDBzNo3a73ZoOI7vP5A4klLhs3PTOanR1sZ2kkT6UF3pNoeiO8Mcg
+ LMfxctGibLkJsGqKqj07/uB/ItTch99QJ1mQG2BdWpHVYoNCQ9vRXcBWALRSN8u4xY6C
+ WNto1jQCtwD8/WU9Fsu1eqUvkDhpoae5RCFcqsGFKPAmQdARW0yLlEjH/Pf9MfMUAD+j
+ r2JOgOrRzJpP6dHPcuBow27O4/J3SZUmrvqh9+L6ZaLkuaWIEjy0RGZIIk1aCs1sEKnM
+ GwFQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXYFaAG3aTdYYoowTnR1Vhb6jqtzYXQIeOLO7N5gjyKiEc6HF162aN1PHA9+RBrYn4SOS8iN+xVdAY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwsePYLHwqmsaM48XnXApxlHguMs9+TOwgF5lGEuJnKHkXlCF6e
- XT/FfFA4PmKSuXgcpEfEQo4G0ViSH35ImQCd4VDs/ZFNUdLrnaP9yXJ4yBqlHMi3nk2LZd0Tn7l
- E6TSxAAyiQg1+SqHUpaJR9CgC+QajUafA9VfxnjVzUWzoIN5EmZYweoi0T0zHJ+n4KCj5lU0=
-X-Gm-Gg: AY/fxX67pkgYP8IJjxW7d5jr4bWUVy2wneTdW0CbW5gk7KrXb6X9oi443mqexywNXSj
- JxzJBPrLX7SgD3VstvUiSjkqeqr531u2H73ewiWMqojTeHKjiNPXcLb4HViXGvSrr9Yqgd23gS4
- QvXIRjcryNK8/VMKtoiB7iDQjkuER3X8zy8hxgMkpySRMmD8GNsAb/DKZtynib4prJrKsxOfe2U
- 6vRkJDaQbfBT0bbiAWJl5s69WGwUKQFIttuJM3AWfJLca8DP0NbVbA5Bf7PVeUo7obIcacs9UoK
- CUKNJrqer8uy8oY0eK8Ixd2x8cV/KclQVdFl20j3k4aSt1IkDOEMXl8CwYikw0uuJLcvVCJXwQ7
- nCAOyr6IUcP8FVt6m2YcJEJTgZYt37Xy1S7kwkmM5v3PSQlFJqWebZIC9ckqlf+242C4q2NHyte
- 19Z3+j4Z3Gmo6HOULRbKoEVWA=
-X-Received: by 2002:a05:620a:44cc:b0:8c5:3415:acef with SMTP id
- af79cd13be357-8c6a678e79emr110001385a.55.1768511161651; 
- Thu, 15 Jan 2026 13:06:01 -0800 (PST)
-X-Received: by 2002:a05:620a:44cc:b0:8c5:3415:acef with SMTP id
- af79cd13be357-8c6a678e79emr109997185a.55.1768511161128; 
- Thu, 15 Jan 2026 13:06:01 -0800 (PST)
+ AJvYcCWFnH6lGPfUYGnfvqDTGu/OzoePTkAr+bnliNAnZ20/h49846tmRMZPur9ONshM9rvegAM0y2IXo2k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLTaGR+kM7FRWVDPLyuOyN9jfsTwecssv8iebO+pgZGiRmyC6s
+ Xm4w68W5es2qYCH9p5/NSJTkO3k931kgCilS6eCEqaBz2chz3PTCAvhhgexYS3Tr/GpH4y8zMNl
+ UoL1HBKx/Cx0bmIHLxnhuGcMSBeA/jGuK9c7XWVYB9rSUBVu3VVwY3piIXwk2F12M4EVtZXo=
+X-Gm-Gg: AY/fxX4HnX8QtdpbP2RzEXDpnQRrFqVXK9BKTyp/tQ4f+6ng4/lnWE/Ky6BqjFbNUtM
+ LuKb38IHHTdmwzEkoR169TO/eB9Ids+0eT4unl3k56DJamZTrlb+4CQ9KpZ5htRY1Az1DgsRbzB
+ 7zfyBAwXH7clqDET+40YTWz71r6QvEZuKpx9l+TA9Kn3znV/fpuzqggqEyx4sAn+pthZpZA9pNW
+ z4gUkUGoh1LZ6cQZ/Rvi2UoCBOtUmrxoKL4Cf0gmaFPLCsdW0FiMXgHJ0nTEDmv7Eyol3kPRfbc
+ c4HlANzwqzS1/eamYf1EQn25eOIKOkL8NOSNfJ5v43qPrSzyWrMenGVaVC+1QKOm+gTYUPBJQV6
+ pk9h6MFWVxjhLlKYyIz5GwGWR7osCC3bMJpGwyZPew54NMVn3FnidQrZwXKuiSjdVd/uXzGLC79
+ 4xcQ+nYS8nhTkyt95y8y3EhbY=
+X-Received: by 2002:a05:620a:29c5:b0:8c5:359c:2821 with SMTP id
+ af79cd13be357-8c6a6944eb4mr107585885a.42.1768511337902; 
+ Thu, 15 Jan 2026 13:08:57 -0800 (PST)
+X-Received: by 2002:a05:620a:29c5:b0:8c5:359c:2821 with SMTP id
+ af79cd13be357-8c6a6944eb4mr107580485a.42.1768511337300; 
+ Thu, 15 Jan 2026 13:08:57 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59baf397672sm155740e87.61.2026.01.15.13.05.59
+ 2adb3069b0e04-59baf3a1746sm154628e87.91.2026.01.15.13.08.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jan 2026 13:05:59 -0800 (PST)
+ Thu, 15 Jan 2026 13:08:56 -0800 (PST)
+Date: Thu, 15 Jan 2026 23:08:54 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: marijn.suijten@somainline.org, swboyd@chromium.org, mripard@kernel.org,
- abel.vesa@linaro.org, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, jessica.zhang@oss.qualcomm.com,
- abhinav.kumar@linux.dev, sean@poorly.run, airlied@gmail.com,
- simona@ffwll.ch, alex.vinarskis@gmail.com,
- Mani Chandana Ballary Kuntumalla <quic_mkuntuma@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
- quic_riteshk@quicinc.com, quic_amitsi@quicinc.com
-Subject: Re: [PATCH v2 0/3] Enable mdss1 Display Port for Qualcomm lemans-ride
- platform
-Date: Thu, 15 Jan 2026 23:05:56 +0200
-Message-ID: <176851111168.3933955.1978286766565229688.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251125105622.1755651-1-quic_mkuntuma@quicinc.com>
-References: <20251125105622.1755651-1-quic_mkuntuma@quicinc.com>
+To: Val Packett <val@packett.cool>
+Cc: Xilin Wu <sophon@radxa.com>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2] drm/msm/dpu: Filter modes based on adjusted mode clock
+Message-ID: <iqst4yq3z5jlpr6f3r7fqbkzaxtn5ugene2j7tcvaa6jy2jwdi@k5zgxvqgxymi>
+References: <20250506-filter-modes-v2-1-c20a0b7aa241@oss.qualcomm.com>
+ <F4CDF36128041430+0d030e3b-054c-4910-a132-72273c541948@radxa.com>
+ <caf44ce9-48ec-45b4-b633-3a49b7705b1e@packett.cool>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: _N5adwh7f4XHNhKMzc3E2Tf3_dr4RYZp
-X-Authority-Analysis: v=2.4 cv=TNlIilla c=1 sm=1 tr=0 ts=696956ba cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+In-Reply-To: <caf44ce9-48ec-45b4-b633-3a49b7705b1e@packett.cool>
+X-Proofpoint-GUID: i2DdNc566AZTVXUQFHrHcYSztHcZ0AwL
+X-Authority-Analysis: v=2.4 cv=bp9BxUai c=1 sm=1 tr=0 ts=6969576b cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
  a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=e5mUnYsNAAAA:8 a=aXzuBbYBWOr-X92n1-oA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: _N5adwh7f4XHNhKMzc3E2Tf3_dr4RYZp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDE2NSBTYWx0ZWRfX+syJq+IRtF+E
- 9n4M6X2BNZE4j4taBO7NE1JZJllI/D8U4UIJ1pc8jisq/o9FoRLHtSAFdY9Loak1Kp9eFXwM8h/
- Nnd1B8t7NyArZ0Mgme9N5DgyFKNPeU3aejCfCpYckzvPLXr3egAqSfPmc9fYJWLXIGwmws9cLdr
- MSKs/yh1hmfgac+RF7S/urfTBuKhkg1zMePio11K4OrKC35arkSyY7xempI4NM/3RMR+EwYg5jS
- GRWMnhn2kr+u0qUjkG9dHMtSi0WQeTQ8bb9CyVVlqhX2DW9LPcCFCb1AxXIKNm8tK5j90bIwNvT
- tqJd3ebmaYUmBE8fgL2tmKWFndcg4j1CT1oNd5CujH/pXL3rLfH82iq3T6v20hgAAX/qYbksF1t
- Ab6WgmWOk6fw79REHjckTRDWvPXT5aNda1kYRryu/we3PN6GOgr2MdPxlIehSQwWp+tIU6tL8Lx
- HwzMl6omks8v6/K3rUQ==
+ a=P-IC7800AAAA:8 a=e5mUnYsNAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=NaFzL-Qi7nr1PL-x3w4A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=d3PnA9EDa4IxuAV0gXij:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: i2DdNc566AZTVXUQFHrHcYSztHcZ0AwL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDE2NSBTYWx0ZWRfX7zyZYEDwW9Ko
+ FbQwa/1Dc/C/gp4om4jj0vfJfOb3wk+an1s2JCIGZ8RxnZRIQbNFRShZRKEgZhVHq+h6M3D4xBa
+ 2OOXNqSQzSKUZ269T39Pd1Cdbn+tPhb5kaPb5t1oQxwN7+1wO2y6mWTA62QZu2SlCYzrrxPT9PV
+ Yop8+51ZcVzpo9uMOMbWN5VGxFkEsfay3WViBfDaSkJxWD3zrtJZfrSyYkThXx/UXtuidk+lbY/
+ y4RKKgFqws3/XDcO+3vyHSZgt2FqjQdGf/empjB00TLW+McdX2AmoCiBr1Vk3uD/TG3g6tBun9s
+ ubvnynXDdjPxpWVSGTMuS+qwkbhb3mRXtVYvnrwXpWLjQ3Z6mTavaqYoQlROQADMSIvfxU/aM3U
+ /Vu7WaXHKhIxJy45yGo5baGbs0UsbRL+s9BIYhpN14GfgxK8ugLweUf6WPcWTc9/GiCjNbr3Q6/
+ R74hJXSoaQHsCpamoJg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-15_06,2026-01-15_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 spamscore=0 priorityscore=1501 suspectscore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 phishscore=0
+ suspectscore=0 spamscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601150165
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -150,20 +153,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 25 Nov 2025 16:26:19 +0530, Mani Chandana Ballary Kuntumalla wrote:
-> This series adds the DPTX0 and DPTX1 nodes, as a part of mdss1
-> on Qualcomm lemans SoC. It also enables Display Port on Qualcomm
-> lemans-ride platform.
+On Mon, Jan 12, 2026 at 04:54:28AM -0300, Val Packett wrote:
+> 
+> On 1/12/26 3:31 AM, Xilin Wu wrote:
+> > On 5/7/2025 9:38 AM, Jessica Zhang wrote:
+> > > Filter out modes that have a clock rate greater than the max core clock
+> > > rate when adjusted for the perf clock factor
+> > > 
+> > > This is especially important for chipsets such as QCS615 that have lower
+> > > limits for the MDP max core clock.
+> > > 
+> > > Since the core CRTC clock is at least the mode clock (adjusted for the
+> > > perf clock factor) [1], the modes supported by the driver should be less
+> > > than the max core clock rate.
+> > > 
+> > > [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
+> > > 
+> > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> > > ---
+> > 
+> > Hi. This patch effectively filters out the 3840x2160@120Hz mode on
+> > SC8280XP CRD. The calculated adjusted_mode_clk is 623700, which slightly
+> > exceeds the supported max core clock of 600000.
+> > 
+> > However, 4K 120Hz works flawlessly with the limit removed on this
+> > platform. I even tried connecting two 4K 120Hz displays, and they can
+> > work properly simultaneously. Is it possible to bring back support for
+> > this mode, or adjust the limits?
+> 
+> hm, interestingly on X1E80100 we didn't hit *that* limit,
+> the adjusted_mode_clk (576318) was only above what disp_cc_mdss_mdp_clk was
+
+Hmm, what is your modeline then? Xilin's mode params looks sane and
+standard enough.
+
+> set to (575000), and reducing the clk_inefficiency_factor from 105 to 104
+> was enough to lower it.
+> 
+> https://gitlab.freedesktop.org/drm/msm/-/issues/38#note_3216051
+> 
+> I guess it's also sink dependent, like if the mode for some monitors has
+> much more front/back porch etc.? What's the entire modeline that resulted
+> in 623700?
+> 
+> ~val
 > 
 
-Applied to msm-next, thanks!
-
-[1/3] drm/msm/dp: Update msm_dp_controller IDs for sa8775p
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/1338e8ae4084
-
-Best regards,
 -- 
 With best wishes
 Dmitry
-
-
