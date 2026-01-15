@@ -2,136 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EE1FD2389E
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 10:30:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 528ACD23949
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 10:34:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8B810E71F;
-	Thu, 15 Jan 2026 09:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2746110E727;
+	Thu, 15 Jan 2026 09:34:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XwRmoqbs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D/Pqis3j";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="se8zW0O8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7FD110E71E
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:30:54 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60F6fmtk3419438
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:30:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6UFfVn4U9hhL7GUJ/TzKS7TheZ9cYLz0xB+kdpbIWKA=; b=XwRmoqbs/d+v5A/t
- JklcSpWok4LGHzCBTmDNS1eA5Y/xK7NQmGNfdxzyTkDDsM8Yn0SBmar9vQX04GhP
- CwZ0uLlKHBpPj3dAKZGq8fYjZUxXa1aN7roM8ebZWk0tTyXJbL8WbM9Yj8ZdhJdp
- rnKWNMefi9FZZnR1sxNJCHGTbD/a0lToh2ikzH6KgrrvY7A2r/Tt+hM1NxT1B8yU
- gKhTFenDzFV/ffLKlPIzw2CAh1Blqh5s1ptLfNEGQbmREOUHhRDo9h/OOi8XOeVD
- nzqwXClqqn/fHaFkQoo/dZavxuQKN6Nf3GYM6hZTi2kZKjPjKP4hvgC1XKhoaLL5
- +1i5Fg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bpjj89xg6-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:30:54 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-5014549e7d6so2423881cf.0
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 01:30:53 -0800 (PST)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B6610E729
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 09:34:40 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-79275e61c2cso6761257b3.3
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 01:34:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768469453; x=1769074253;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6UFfVn4U9hhL7GUJ/TzKS7TheZ9cYLz0xB+kdpbIWKA=;
- b=D/Pqis3jPpli9KPDy7H5xG/tBNEGzrbuyi8otV5bc2o/zypjwybqMg5fYnSydRjTcC
- /1PNqSvQEOHjfi8ywANerf3BsG0e3oCNLzj/ChbZd48fpuGQ3nnHgwKEl6ijMl4DFKIM
- 6x+FC5Qna7G4VgjPrkQjuMSV/zN0YMP7m+7DzW4kfZnyeC2tKNJFuTitzZs0QHTW1F3o
- D+ZvvorMf/QJSdwFZCkYyJnPE0Zq6bDttwZlz32KqgH2B7otG6EP/bjBeUaXcHBTfwb5
- WL+XjhAHfDcv/FdtvF5B8wP/Cj9jgUZz6yNq4K/fHWOG2Dx+fhAFtwluq8rweGxCf0Ds
- w6CA==
+ d=linaro.org; s=google; t=1768469679; x=1769074479; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gtmucDODzCQNgpM1i8fstCkKu8sS/X2z9xJEfREIeM4=;
+ b=se8zW0O8ivjzqwRaYmSNskm4JdBpCkMdkAK5ME4NUykZVdlNKGpXEiCavRHtQySo6E
+ UEU8Tf4FeJKwBlmmQmyLKB2+9AhEWbEs0S16DvKZ6r1gaIL8zKwuz1fPEfIm3P1q2zmJ
+ 76b6mXTlJJ6f2t02g0sgLeeamulOX5g3QBhRoj1fLthFXbhMfTzJtgzOpCsSLty7GjX6
+ kwltAItvsC3XZ8+5ipLm45TupQeeLcGNl1QjqlcWZeFSSvF4W6Z7kZXUblESxK9xWp4Y
+ DKLKfBuvuMFGjXpzUlDS9NuJUpKHsE83ZA+JLRaSLM5MkLjF3c5ExtB4MAvX3PGYQbAP
+ qenA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768469453; x=1769074253;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6UFfVn4U9hhL7GUJ/TzKS7TheZ9cYLz0xB+kdpbIWKA=;
- b=pfdtpTJS23yi5lendrJg5INCmEqTGRqjECqIv01u+MiK3TlBNuKwbeb1KtzJOtr4k8
- yJL1seeoDLRjOeOXcfbb241P2rt8MuEn2uF5qoI8WvVff1+rheF8bTiSSLgiGb1pcBKU
- Nizalrg81S204YH6zhY1A3pxY6wDzA5tUw5KgL4pdQ5xtpAwj9WxPFKl7bkc99kEgrK9
- +N9D+KqK//R/hr30KeHgsQOwqTWiebqF9+8ia/GAKplM5mgNuZMvA/PWhNGw1TCpBPXG
- 4gin1yYeJz7zwx0fnH/VLmm6WV4n7aE/lNQZfs/O1e6wHB2rFxj4MFhUcVf5qhvELjgq
- M3xA==
+ d=1e100.net; s=20230601; t=1768469679; x=1769074479;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=gtmucDODzCQNgpM1i8fstCkKu8sS/X2z9xJEfREIeM4=;
+ b=sUrJRkH6ZeGO+dfvLMoOVW0rO+mgCtoDQ0LULprV+Rtb8l1fR4ERLupoDJliIn73Dg
+ gIBmSUhwkAosV2ERKYdXD8O/PBvFcBgqCmmrkkPUkl0TtqHqWrllllxkRKO8bcGjgGca
+ qIb0Rk1CjMM61KpezfTtGhicxOb6BNLlCDh6+UBud0XqVjZAl1KraZ68yKJMD+QrWzB7
+ Gv1GeAE2zFuMJJv+bbVyPzxoUCHg6Wexh1prKusnsG9cEx3haYxX7UY4fRW5gd9b4Eth
+ aQNdlwedyd0sh9iJZKA0qp8USI4bxiYbAThGJjQBgXNKPMARTPAiaZhrmDFb5rl/DOLq
+ fVvA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVo2WVCivOR/UtJZ5F+vsygbt9c/SUN2nuxS5OsEIPcY6uJMgILvcfBf9mndg3Fq26LChBHuR7TUbs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyl7jZ4YHn+zSbeZngHZJqy3tJcDMCdefp8ATCbyUruvqGVSaGY
- 9uM4Xd/lN3sAdBKvhpivQZnsfdqR1eFG5x0vYAj+SxOEomu1vW4DNIuCgLPpPFSUCq2iJ8xZOJW
- hlXtKYuDIqsmrEtUiRSMP3ALl61Wpg+/dviFvvZLuOBGcFd6NHLDDcpQFQ2sLLMYQnoMG2Rk=
-X-Gm-Gg: AY/fxX7IHzVVMuFyTg1EYxGx77cDCOYPHmq0bJAJt0WaX2LhDS64Ah30b/5M9gs/QWB
- wVZ+Fo6ICLJCXVpRgnkuFxBUqfS2wTJ0gyXpDoAO/7Yoj4Z2ikI4zNiaj1vLqmBLgGGk2MDqG73
- ++z/y+e8R/etcLpPU9W2OCw76ceDHJ5nSX7zCuLZQMXX+4yTRPBP+YQG3L3caWaSSsDtqrnVBuu
- fazV5pA9LaX+HQnV+R6dJ2Fwus51Bm7ECUZA8s0NiWJlNzDhOJiF4vTV6mBSry/Qyym7NwcR8pN
- NHRJxdi4cOVPsfjYyGTiTy/Wu/9y4UyRx0cXc59B2kxGYlIOTtaIMfyzsMaNGc1Av9zHNqdxTlA
- Ug0YAktcA21Cluxdj0iRWaaVIrMkOxCnNiZlqhMfhrMiyInXzdPczSSRju+0+tT0zuNQ=
-X-Received: by 2002:ac8:5a0e:0:b0:4ff:b757:1210 with SMTP id
- d75a77b69052e-5014811e52amr57935671cf.0.1768469452989; 
- Thu, 15 Jan 2026 01:30:52 -0800 (PST)
-X-Received: by 2002:ac8:5a0e:0:b0:4ff:b757:1210 with SMTP id
- d75a77b69052e-5014811e52amr57935311cf.0.1768469452547; 
- Thu, 15 Jan 2026 01:30:52 -0800 (PST)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-65411877707sm1934109a12.1.2026.01.15.01.30.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 01:30:52 -0800 (PST)
-Message-ID: <5b4870fc-911d-4574-a0ce-59428cbdf103@oss.qualcomm.com>
-Date: Thu, 15 Jan 2026 10:30:49 +0100
+ AJvYcCVmyXPQo0n2CsNpu0WYgfw5CGzi7RnHXdAgfijAjXU2bkzPr6ESmaPDVWthHTlTFFlK8O9pVYDMXR4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwpgvmG70mtB8EjcZjK2IVkFErEFN77VKM9ihTGyi9FtBerclTL
+ 0QlOcrLkpk8ojFTnhsMG6/+QgQCa8JflG/U+OuvLATRwEwKe7ZUZPGLhOxsltTUlpyveHablSs8
+ OxBNgn7uXRphlUhql7fPobB7be19QM3jV/pzhOIphZQ==
+X-Gm-Gg: AY/fxX75s5LG8lfpG7ZHyPkqaauTldMIPKzIIDeS80AsSgBfNdFPqwu6r2/NDW95Sf2
+ iob1W5n5nAtnzT+3Nf6+t6/eMZq94SCoLGhMvKz2DB7BLoDfXqpnK5IcR1xp2J+gxb9u7oP9LjR
+ krkIIXx8YG6wOuYI6xlrhSER5nZALl1zslddQQ4THDA4jRFHgjAkvOLTSe6el48b4ESWT2ytKHl
+ 3vO54TJgMiXFVH1XV63OeyaoCXayq775xfiC/3xoMCrSsEXe44I0rdV+QOSqQfpU0reMC+O+Vpo
+ 9oc=
+X-Received: by 2002:a53:ad51:0:b0:644:4f94:c534 with SMTP id
+ 956f58d0204a3-64901b01e6bmr3412888d50.53.1768469679004; Thu, 15 Jan 2026
+ 01:34:39 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] drm/msm/dp: Move link training to atomic_enable()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-References: <20260115-hpd-refactor-v3-0-08e2f3bcd2e0@oss.qualcomm.com>
- <20260115-hpd-refactor-v3-4-08e2f3bcd2e0@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260115-hpd-refactor-v3-4-08e2f3bcd2e0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: a_dAmK7iiLVNAMiEio1H4Y33Trv9aVKu
-X-Proofpoint-ORIG-GUID: a_dAmK7iiLVNAMiEio1H4Y33Trv9aVKu
-X-Authority-Analysis: v=2.4 cv=EIELElZC c=1 sm=1 tr=0 ts=6968b3ce cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=tir8h9pnGiVj9xZly-MA:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDA2NSBTYWx0ZWRfXy9yXh00Of4Is
- XQ2bgp3eg1r8Vw0kPcyRPsxaWuWyCQ7IFv8vwygIqYa64gw8INW5QF+FQr6ERw3pvYYB4dToiYr
- SF8yxX8dK6/ehfM/iHvFKgf6C5d/O8MHqlaNw8E5RWfgdaXyHHjWaWdA0SH05xqDI1cJ6YQrOu7
- Sycy7NkE0UrjV+aJ4yrX+I0Kh0rqTDpJmvMAG9YffinjR7wjEuPfpZQSctyvw+oSMLgmlx5Vdu5
- ZVmbFSCs6Nw2dMV2Ex6DU3Z8i5Nnp/QANc4L30eZLLc7PfHwGxxynmQo6zcL/0qhwbiBtWy6qQG
- yMpq9iNZhJ6uIFQS7jTbiswUu6ywxTgN1rYoQW0ahy2WETrXgWe1BHPOCq31HO9dez8+EDhFQ0H
- s+mGPg+Kt0QNjz0m3tHlcTKCotR7qV5ix8ADZjHo7UI9dPkRBbU46zVJ1i8UbJuc7t+r9cJx3/J
- O0ndgTnK7PuC4TcO3Ew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-15_02,2026-01-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
- phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601150065
+References: <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org>
+ <20250918-v6-16-rc2-quad-pipe-upstream-4-v16-9-ff6232e3472f@linaro.org>
+ <CABymUCNY9uo0Cm0KgM9yChuxJ22=Y-4JjHj7cEh5ByX8Nr3y-w@mail.gmail.com>
+ <nvd4eksgcmeqlfwp4jc27fpuzi6otdhzcefdbmj7a2xgv2bqwr@r6rytxs7ibj3>
+In-Reply-To: <nvd4eksgcmeqlfwp4jc27fpuzi6otdhzcefdbmj7a2xgv2bqwr@r6rytxs7ibj3>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Thu, 15 Jan 2026 17:34:28 +0800
+X-Gm-Features: AZwV_QjTArNszH-qrNgMT-T_17tzEChvNSpI6BZWzX1L0kGAzHlaV3mOKtWzKrQ
+Message-ID: <CABymUCP2yAQptCGCBX0X75iRSkKkfctiEaxUH7_eOpspR55_Kg@mail.gmail.com>
+Subject: Re: [PATCH v16 09/10] drm/msm/dpu: support plane splitting in
+ quad-pipe case
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,62 +94,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/15/26 8:29 AM, Dmitry Baryshkov wrote:
-> From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> 
-> Currently, the DP link training is being done during HPD. Move
-> link training to atomic_enable() in accordance with the atomic_enable()
-> documentation.
-> 
-> Link disabling is already done in atomic_post_disable() (as part of the
-> dp_ctrl_off_link_stream() helper).
-> 
-> Finally, call the plug/unplug handlers directly in hpd_notify() instead
-> of queueing them in the event thread so that they aren't preempted by
-> other events.
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+1=E6=9C=8815=E6=97=A5=E5=91=A8=E5=9B=9B 00:12=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Jan 14, 2026 at 10:48:17PM +0800, Jun Nie wrote:
+> > Jun Nie <jun.nie@linaro.org> =E4=BA=8E2025=E5=B9=B49=E6=9C=8818=E6=97=
+=A5=E5=91=A8=E5=9B=9B 21:30=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > The content of every half of screen is sent out via one interface in
+> > > dual-DSI case. The content for every interface is blended by a LM
+> > > pair in quad-pipe case, thus a LM pair should not blend any content
+> > > that cross the half of screen in this case. Clip plane into pipes per
+> > > left and right half screen ROI if topology is quad pipe case.
+> > >
+> > > The clipped rectangle on every half of screen is futher handled by tw=
+o
+> > > pipes if its width exceeds a limit for a single pipe.
+> > >
+> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > Reviewed-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> > > ---
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  11 +++
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |   2 +
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 137 ++++++++++++++++++++=
++---------
+> > >  3 files changed, 110 insertions(+), 40 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/d=
+rm/msm/disp/dpu1/dpu_crtc.c
+> > > index d825eb8e40ae8bd456ede6269951339e3053d0d3..e925d93b38feac0594d73=
+5fdc2c5b9fd5ae83e6a 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > @@ -1604,6 +1604,17 @@ int dpu_crtc_vblank(struct drm_crtc *crtc, boo=
+l en)
+> > >         return 0;
+> > >  }
+> > >
+> > > +/**
+> > > + * dpu_crtc_get_num_lm - Get mixer number in this CRTC pipeline
+> > > + * @state: Pointer to drm crtc state object
+> > > + */
+> > > +unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state)
+> > > +{
+> > > +       struct dpu_crtc_state *cstate =3D to_dpu_crtc_state(state);
+> > > +
+> > > +       return cstate->num_mixers;
+> > > +}
+> > > +
+> > >  #ifdef CONFIG_DEBUG_FS
+> > >  static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
+> > >  {
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/d=
+rm/msm/disp/dpu1/dpu_crtc.h
+> > > index 94392b9b924546f96e738ae20920cf9afd568e6b..6eaba5696e8e6bd1246a9=
+895c4c8714ca6589b10 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> > > @@ -267,4 +267,6 @@ static inline enum dpu_crtc_client_type dpu_crtc_=
+get_client_type(
+> > >
+> > >  void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event);
+> > >
+> > > +unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state)=
+;
+> > > +
+> > >  #endif /* _DPU_CRTC_H_ */
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/=
+drm/msm/disp/dpu1/dpu_plane.c
+> > > index 5ae58352cbee1251a0140879f04fc7c304cae674..89a5feb6308bcac537562=
+c3dc4e61c16c92e460c 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > @@ -824,8 +824,12 @@ static int dpu_plane_atomic_check_nosspp(struct =
+drm_plane *plane,
+> > >         struct dpu_plane_state *pstate =3D to_dpu_plane_state(new_pla=
+ne_state);
+> > >         struct dpu_sw_pipe_cfg *pipe_cfg;
+> > >         struct dpu_sw_pipe_cfg *r_pipe_cfg;
+> > > +       struct dpu_sw_pipe_cfg init_pipe_cfg;
+> > >         struct drm_rect fb_rect =3D { 0 };
+> > > +       const struct drm_display_mode *mode =3D &crtc_state->adjusted=
+_mode;
+> > >         uint32_t max_linewidth;
+> > > +       u32 num_lm;
+> > > +       int stage_id, num_stages;
+> > >
+> > >         min_scale =3D FRAC_16_16(1, MAX_UPSCALE_RATIO);
+> > >         max_scale =3D MAX_DOWNSCALE_RATIO << 16;
+> > > @@ -848,13 +852,10 @@ static int dpu_plane_atomic_check_nosspp(struct=
+ drm_plane *plane,
+> > >                 return -EINVAL;
+> > >         }
+> > >
+> > > -       /* move the assignment here, to ease handling to another pair=
+s later */
+> > > -       pipe_cfg =3D &pstate->pipe_cfg[0];
+> > > -       r_pipe_cfg =3D &pstate->pipe_cfg[1];
+> > > -       /* state->src is 16.16, src_rect is not */
+> > > -       drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src=
+);
+> > > +       num_lm =3D dpu_crtc_get_num_lm(crtc_state);
+> > >
+> > > -       pipe_cfg->dst_rect =3D new_plane_state->dst;
+> > > +       /* state->src is 16.16, src_rect is not */
+> > > +       drm_rect_fp_to_int(&init_pipe_cfg.src_rect, &new_plane_state-=
+>src);
+> > >
+> > >         fb_rect.x2 =3D new_plane_state->fb->width;
+> > >         fb_rect.y2 =3D new_plane_state->fb->height;
+> > > @@ -879,35 +880,94 @@ static int dpu_plane_atomic_check_nosspp(struct=
+ drm_plane *plane,
+> > >
+> > >         max_linewidth =3D pdpu->catalog->caps->max_linewidth;
+> > >
+> > > -       drm_rect_rotate(&pipe_cfg->src_rect,
+> > > +       drm_rect_rotate(&init_pipe_cfg.src_rect,
+> > >                         new_plane_state->fb->width, new_plane_state->=
+fb->height,
+> > >                         new_plane_state->rotation);
+> > >
+> > > -       if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
+> > > -            _dpu_plane_calc_clk(&crtc_state->adjusted_mode, pipe_cfg=
+) > max_mdp_clk_rate) {
+> > > -               if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_lin=
+ewidth) {
+> > > -                       DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT=
+_FMT " line:%u\n",
+> > > -                                       DRM_RECT_ARG(&pipe_cfg->src_r=
+ect), max_linewidth);
+> > > -                       return -E2BIG;
+> > > +       /*
+> > > +        * We have 1 mixer pair cfg for 1:1:1 and 2:2:1 topology, 2 m=
+ixer pair
+> > > +        * configs for left and right half screen in case of 4:4:2 to=
+pology.
+> > > +        * But we may have 2 rect to split wide plane that exceeds li=
+mit with 1
+> > > +        * config for 2:2:1. So need to handle both wide plane splitt=
+ing, and
+> > > +        * two halves of screen splitting for quad-pipe case. Check d=
+est
+> > > +        * rectangle left/right clipping first, then check wide recta=
+ngle
+> > > +        * splitting in every half next.
+> > > +        */
+> > > +       num_stages =3D (num_lm + 1) / 2;
+> >
+> > Hi Dmitry,
+> > Because the plane is checked before crtc is checked in the drm framewor=
+k. While
+> > the topology is decided in crtc check. Thus num_lm is 0 when this funct=
+ion is
+> > called for the first time. As a result, the below iteration is not run
+> > at all and leads
+> >  to iommu warning.
+>
+> How does it lead to IOMMU warnings?
 
-I think this part of the commit message no longer applies 
+Because the pipe is not configured with width/height etc when the iteration=
+ is
+skipped. I have not found the root cause so far. But per the null IOMMU iov=
+a
+value, suppose it is due to DMA buffer not being prepared when DMA is start=
+ed.
 
-> 
-> Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index a05144de3b93..3184066adb15 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -436,11 +436,6 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->  	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
->  
->  	msm_dp_link_reset_phy_params_vx_px(dp->link);
-> -	rc = msm_dp_ctrl_on_link(dp->ctrl);
-> -	if (rc) {
-> -		DRM_ERROR("failed to complete DP link training\n");
-> -		goto end;
-> -	}
->  
->  	msm_dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
->  
-> @@ -1695,6 +1690,12 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
->  		force_link_train = true;
->  	}
->  
-> +	rc = msm_dp_ctrl_on_link(msm_dp_display->ctrl);
-> +	if (rc) {
-> +		DRM_ERROR("Failed link training (rc=%d)\n", rc);
-> +		drm_connector_set_link_status_property(dp->connector, DRM_LINK_STATUS_BAD);
-> +	}
+>
+> > Do you suggest to change drm framework with adding extra crtc check bef=
+ore
+> > plane check, or you prefer the below line here?
+> >
+> > num_stages =3D max(1, (num_lm + 1) / 2);
+>
+> DRM framework provides enough hooks to be able to influence the order or
+> operations without changing the framework. But, I'd like to point out
+> that for the virtual plane case we already perform plane operations
+> from dpu_crtc_atomic_check(). You can employ the same approach.
 
-Previously failure in this call would have propagated an error
+Thanks for the suggestion! I see dpu_assign_plane_resources() is called
+from crtc side, which avoids the plane splitting before topology decision.
+To use this method, it looks like we are enabling the virtual plane by defa=
+ult.
+Because the virtual plane differs from the traditional method only with the
+plane splitting and resource preparation. Can we just enable the virtual
+plane by default in this situation?
 
-msm_dp_ctrl_on_link() enables mainlink clocks, so 
+Jun
 
-> +
->  	msm_dp_display_enable(msm_dp_display, force_link_train);
-
-IIUC this will crash the machine if the above fails
-
-Konrad
+>
+>
+> --
+> With best wishes
+> Dmitry
