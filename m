@@ -2,99 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15DC2D22CEA
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 08:29:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F382BD22D02
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jan 2026 08:29:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9ED10E6C1;
-	Thu, 15 Jan 2026 07:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF0210E6C7;
+	Thu, 15 Jan 2026 07:29:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lA4r2Aer";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jA9RDXTf";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JWdUkPAy";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KC599o3Y";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF26110E6BC
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 07:29:14 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B1AB10E6C4
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 07:29:18 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60F6g8LL1554485
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 07:29:14 GMT
+ 60F6g0AP1055228
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 07:29:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8vpj08mJ5C/IUKaBXReHEtx5aeFlsT0McmKWTl0bc1g=; b=lA4r2Aer9hocwYNS
- HjpLjW/ZbQklU0LkL34P30bPINgLs3C+zfnTRAPoQOO7+A2KcFXLmB+Rl9pOfC9E
- Xf+Y6P0R+C+74Mkc/y+5P6cP/staUKk4Hj7x4kFUUAiQEdyD8PANWgpchqkbGiqZ
- s2NPitEpRtG33Gt6FUgijHIfNFHFaU4DWO6yuZyO9IaLTt19/9ouJP0Lqx4SGv15
- UKaKjnbp6mEbkpxzfrGG8VvOCBec2Rh1H7c33tMevKdpJ1eapCQYDhnQUauuz0pq
- XWQWZCtKx8b8xYXLU25PqQpmjFxNZiFeIugn6B8T51MTLgC/xgWO1DewUq9dXo1a
- nZcWXA==
+ Ih7YS3OMF9nyIk8eRvbGlEtAYQc1C2qkylBgX1JHA3o=; b=JWdUkPAya1vw6Ha6
+ tuxrqztRlb6d6UPyODapJfG/4WFlSfGPsR6gSeulBEi/WwOId5W8QatoqT95S+xd
+ FXsf7amXdK39OohD1QSrT6EF0M3ZSSg3LNewn8X1LHRDYaYrYtUYikWLZ0hTmpFy
+ 4kqCgTbms4j4NVu/Zkzqk1Ni+m03B2euUAd5javLeczQqsTpOpwvtb4KkLxlEzQR
+ 9o1gNhVNk702OwdiIyjnTSgjtWw0cbOhkwPu3Ee978t7SiyUhp0K+Gld3BoPCMst
+ /xx4G1xVquVji89u2E0vO/MFPkSMXPC5/awTr7THJK85hbpDzkSF9JV4aWGNkB8W
+ vYcalw==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
  [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bp9x8udba-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bp8d33res-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 07:29:13 +0000 (GMT)
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jan 2026 07:29:17 +0000 (GMT)
 Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8c6a291e7faso35456985a.3
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jan 2026 23:29:13 -0800 (PST)
+ af79cd13be357-8b234bae2a7so183375585a.3
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jan 2026 23:29:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768462153; x=1769066953;
+ d=oss.qualcomm.com; s=google; t=1768462157; x=1769066957;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8vpj08mJ5C/IUKaBXReHEtx5aeFlsT0McmKWTl0bc1g=;
- b=jA9RDXTfhNgcCgUNufN21OAF8qrCBchpPZSsyzHQ1EbhvXO0LLXgBGHHoJjG/70hps
- 1PNFAfyK5L9cPWneIjr2BqhQebJQXhgpAPywiZYeA8ra5zMIRUj5aHmKSUixcmLw/kW3
- fA9d0/Rj+qKV1MlQIZbXNQqeV3C0P9zMZAwluanLw7AFumk8WgtTVkIbRQ+eQDxKMvDp
- C+0ROYQ83LBy346I0LLw9jki31Df8Cz1PEhHZ8iW5gexMDC20ZAX79+fhgwMi4MM4Ozi
- qbbIWA1pdkzf38OOUksEv6Vde9IUismNzNo9l1jaMCDWXMy/AVSbeE9OlHv/3NyTiHMr
- y2jw==
+ :reply-to; bh=Ih7YS3OMF9nyIk8eRvbGlEtAYQc1C2qkylBgX1JHA3o=;
+ b=KC599o3YaGPGXbATSBIWDLsEZ3higSR5CM20p94AxHlx+2VJ11qpHuIO027bNIXVCV
+ 8K8TewIMOIK5uazICbwyKQGbXw94N0O13b2HVZF+ScLmvM80sMPOyUms8aghOBZv6xGl
+ PrmpgnbeULdH/q5HbHQvLw+z0shvumZt+kDPvZ4gYnsKjajlYnzo52jAfok20Y587vZL
+ pZGuIH0Y3ngil6Whgr4eeBchUGDJig/hPq5PC83N+4aD1Bmj+/Y4eRNF5p3eyTzCHDBw
+ K1TFDtE0+qcZtR6YLFBSO2yPgltZ+vyP7tIATp5Yf/wBg3tAQAFvwAZOARanAqDTqN0z
+ R/mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768462153; x=1769066953;
+ d=1e100.net; s=20230601; t=1768462157; x=1769066957;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=8vpj08mJ5C/IUKaBXReHEtx5aeFlsT0McmKWTl0bc1g=;
- b=jxwevVbEwV3HXg5xBKeZ91qnnU6Wtzr+OKxG767CHUrxdsTT680hvZaTxdgJ7pjEPQ
- 3Ez5yz3Y5NARX/6YXolqu958zffpUcbFLIJkwWpSuh2ur6F6OBR/nM2+1tuG/s1b74GX
- r+KIr2ME2ghDbIm7xLFH2imgRNrXhHALtql+qzqNgRd34S8WqUWgOLA8yaf/W34a9glX
- MDeyq740V3PMpMMJVJa1b9Wt/SGTAmXcHebaaSplNEN1Yhsnz4LIQDBZ/IfUIgTFAw5z
- 7wg50UxzrUG6qctCWe3XKfT8c8DiMF3Zsne17Fcn8DWFTiNHZAuIwAN5oVyr+8aqW3WR
- 5WBA==
+ bh=Ih7YS3OMF9nyIk8eRvbGlEtAYQc1C2qkylBgX1JHA3o=;
+ b=RvuCd+NGwE28xLQBe4afSqlExvfl534xgxvjhXCNnXOOnUlNVbxIcS4zV4hm7stnvP
+ RZI0iFoyqaFkiGqYM1euKWlmG9oT0mCqRh32KHlUHlg4XZOKIBfLzf5G9xHNEYHVXRn7
+ n6AxDFeVZ2iYa7LGKI2aWEQtBBz5KraKBkFuTVX84JCOMqjX7Ci3wRSXfQpoErGt6cJx
+ zBw1NMrjtVeYHWkVOAJ6FSJSl5QxWd5OdismOMRDnIZ7opp1AdlY3cNPoRYWXctVe/7K
+ 8UPTh+9hSa/wFk65dJf8P1XI/xqJ24PcBrL5OJvVCE0hf25Wf2N6RN5rGQK8ItJZatqd
+ urZQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/JcCCly0e4KY+5scKK9TZgtxw/THZrHlxjXP2MDdO+hTQ7j0XgZHLuP6RFgmLzNQNa+d5uVgbaqY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwtSNMXH8tedHCnXufK86xbfZ0bMvyp5huHBL5nXZ0Jf0otmTN
- whnhWW6Jduv2ua2e4MVPR4bf8BDV/PFevSjeeXl8ZKLkzC6nV+CnZK5XOuww99X65yVzMiQzHY/
- 3hKelZgNsdmhBIN8p7lvxyf2F7DWdP2gQlojfJxI32gdMjfMTd6ka/hgHiF6YQBnYSOGZvm8=
-X-Gm-Gg: AY/fxX6YiScjyqkhW/FrFv/lBkPjNzIgEoSp2w+o5wtZqYZ2kRs+vft5CsxtdFb4mIG
- tTt2H3+3w4TiUxZxkxu3GgZhPVTNMNMky3qH4C0tXzx915aXYaUaJ676KzGBFfveVjKJrg0ZGFO
- qZ4nfq+xxu+HHmjoh5KspeFabCwo/PTfDxNEn5YnJ99FiNtsyG1SgW9aV9t8/FVtH7g3ViPOv/K
- d+I7WPC5XYXQ6NS6T4coDA8uORlZ3zlChRrTEG0WoO+FGDNN/+Gf7UH3BpjcHgBdUQcP86On39f
- koR0AfaDbiotq67yhcp4hrqkpC+IBDpG0ih+0tRDpHwOIl0LfZSsix9zYx9LIijj4Fe7g2Y3ZQ3
- 0Q8ZKtT95FvxPm3G8QurCoe7gAy+Fyc0ugosJ0tV7P6ijkycUgXXtfIe5b0Wnh5EIFrxZGyEXvL
- Djf2v8gF+T+ttorED4FrXTkHo=
-X-Received: by 2002:a05:620a:294e:b0:8b2:6eba:c42a with SMTP id
- af79cd13be357-8c52fbbee3bmr739899885a.61.1768462153286; 
- Wed, 14 Jan 2026 23:29:13 -0800 (PST)
-X-Received: by 2002:a05:620a:294e:b0:8b2:6eba:c42a with SMTP id
- af79cd13be357-8c52fbbee3bmr739898485a.61.1768462152871; 
- Wed, 14 Jan 2026 23:29:12 -0800 (PST)
+ AJvYcCVM/SeQmApCoxxz91HEkY9vSx12RvlgFSSonpkBout6n77CJWM2wFFeKimzzjQEHaLmcvSp1I2ZHj8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxVbqHj+QIQZ6oYvukaf9p9LYhs3s+vsemR1tvLCqrNnPPUVi41
+ oQTsfFbXjS8IDauRJ7btpc6OQsJuxXXnAJ3mHTq3e97EOGkPWiIWSNi3BgEMn5bwnLbs4PcXnYp
+ ooKrvQADsQwEVNZegRJnlyRbiBhOAmiMLR2q20vo04eXuAiC80R6OmybjqZkJNbw+vbE+mPU=
+X-Gm-Gg: AY/fxX725CG7y8EoDds7cvFK+tah1h1hbJJUcadQ28jn9LYJz4DODix6Z5ZPLuqK3uJ
+ j8x5pT+R52rle3NGZlLBrMes1r7hNujAS6CVPrnWfi9oEv4IUJ9jd6EPQmYx9eIE0JTrw2lk/Lf
+ zFOWxe5pVtuNCRLGXZg4SLFbqYRVazVpdgrc+UEvtDd1erKKpJf//yOX80xLMieFtlvBipIh5O3
+ +kXWQTPcS7hGD1tCmKLpA2gdfEPrpXTeBWsMMQzINDv8cYMB0DZsABxOXbMKBa0TT4uV1WwbQOU
+ cyqsF2ZXxwmzhCW9iBodSBhm16HjuYQVmLbpBmeO/1ikdOA/EoI8umY5Xyz3dTbpHEwV4rdwMOO
+ CyQGb5o8FHwmzJmpTBmGwYxNVm7Mq9h7AQ/Mf0Xmc5S3BbvZ60LsH4BNkaEraOUWfB1nnpzjpxr
+ BjlaQBws2GLSYxaZMIUPp3pQ0=
+X-Received: by 2002:a05:620a:3724:b0:8c5:2f89:6904 with SMTP id
+ af79cd13be357-8c52fbdcde9mr656948485a.45.1768462156812; 
+ Wed, 14 Jan 2026 23:29:16 -0800 (PST)
+X-Received: by 2002:a05:620a:3724:b0:8c5:2f89:6904 with SMTP id
+ af79cd13be357-8c52fbdcde9mr656946085a.45.1768462156353; 
+ Wed, 14 Jan 2026 23:29:16 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-382eb7b1a4dsm58078801fa.17.2026.01.14.23.29.12
+ 38308e7fff4ca-382eb7b1a4dsm58078801fa.17.2026.01.14.23.29.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jan 2026 23:29:12 -0800 (PST)
+ Wed, 14 Jan 2026 23:29:14 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 15 Jan 2026 09:29:06 +0200
-Subject: [PATCH v3 1/8] drm/msm/dp: fix HPD state status bit shift value
+Date: Thu, 15 Jan 2026 09:29:07 +0200
+Subject: [PATCH v3 2/8] drm/msm/dp: Fix the ISR_* enum values
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260115-hpd-refactor-v3-1-08e2f3bcd2e0@oss.qualcomm.com>
+Message-Id: <20260115-hpd-refactor-v3-2-08e2f3bcd2e0@oss.qualcomm.com>
 References: <20260115-hpd-refactor-v3-0-08e2f3bcd2e0@oss.qualcomm.com>
 In-Reply-To: <20260115-hpd-refactor-v3-0-08e2f3bcd2e0@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -108,42 +108,41 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1209;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1093;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=hzwfWK5+EPLPBOMgkg/4Azem10iuzkilPWoxif3rO60=;
- b=kA0DAAoBizyKPgIpKNUByyZiAGlol0OgRxZ1MBFNp0tkki7+qUT/NIE7YGEFzQfNJAcdZ69bi
- YkBMwQAAQoAHRYhBExwhJVcsmNW8LiVf4s8ij4CKSjVBQJpaJdDAAoJEIs8ij4CKSjVhioH/13E
- FHzJE52YmAQhFdyvBSMPAFtSVssioEXr3PXm8t4IcDujo+95BTt4RPx4/7yzj54pddcI/MM1Gq+
- d6nwzkrWyio/F3OYxfwJQKr2tj6D5tMY7NPdi3/LAJYFmjs48i8lee27y5+6MKgcqjSe0LtkwvV
- G6p4AH8Cbrv3hcf2M9trNwSVgAwcxNpWIpD+ejGYV6kYIdig448hT6G4wJR5QW9txrADi8nfk8M
- ABr4khelULaQ57GFxVGGwYyz5iHpcuJQkUtEByILkOVFgnC9otGU7KZ+i7uPDd2Vl/2nez0gPXC
- 1POFbvmkzvr/gJMNN2rqQaYba/jgW21luZtkPzY=
+ bh=Ww/3qknDh3ls3uKJd9KJ6MipP3FzUf7GXLi0EYvbbNM=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpaJdD8iaVfqQctF1fuYMmitxW2AoGGVd+jarYM
+ 1Fc+aQwmJCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaWiXQwAKCRCLPIo+Aiko
+ 1RfXB/44P3jjfjIOIC2l0lP7Ir9d1o7Aixod0q7u6GLW2lFftilClKP7EunTO8cq+IgD3nTQoED
+ XV+1shE9OCnUlvjQq2UFbAgh0AcfRQfTG2Y6ubtE2vu9Hl25KyfOLUuy+h9kPHcHC0d5jDuxMWi
+ E4LdltEClbLp/C8+TGTVB953f653Aag/iSvoXlR7IzS2b9SCUECWHRptR0AXXuTztCnMRjJPAJB
+ S1TsGwMhl5sTTae8WVxKHrTcvv93akl9G0vMgDcZ6FBDtTdnZx047GjVgy/K5AzWnTKlJgU1r0c
+ 1HD89JZ+9p+z3Nqe/P1ckmPFpMj87sTH26EtwBFAta3m/Mmh
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 2UlgtLu4f9PAMDjwtFCHxcp9rNUbchoW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDA0OSBTYWx0ZWRfXxDNx1HtnBiEJ
- V7Rdl9Aj1UEg2R+qzMnnE3CJxOMjZ1V9rAvhRzou7khStPtiJdDIE9bDfz9sW8ZQ3rlZ7AAfJpw
- kJvNIKsxIyApV1JthPz0mMLSgRnl2XT/x0FHkdysgHF2/asL2MUC2h6JsKmuReg5On3o6YiM06C
- 5p/T2NWe5ARXuWyFgNMW84bM3VKYbzAzGc8IFdquCr9eMk30BGnHiNk0/TOnlmmJdzt2KA19lTZ
- MIDLRvpgEahRXWNSpjHCEB+kh5/thNE8pRdQeG5TQItvuQvmicdpTu/HbdD7kmHJPZhvA8nkvVL
- ewbtEb/ynY/N8yTj59ZCeDIhLHI8vFi59hwAlmoY4H7Tp1OXn1moGcIk2v0hHlCU3yx2+Z+z8t3
- P3iq5Xm4lyhSNe7E/aOe2DR50XpZfdxa0e5C7RdziOBxenaN7KQ3D9M9JqS4jByP680WHk19Tod
- UA0AC5LbF4pQPHr1eXg==
-X-Authority-Analysis: v=2.4 cv=HY4ZjyE8 c=1 sm=1 tr=0 ts=69689749 cx=c_pps
+X-Proofpoint-GUID: 1sC7CXncWwdyYJmWX-bXUsrNImJVqYN3
+X-Authority-Analysis: v=2.4 cv=fbWgCkQF c=1 sm=1 tr=0 ts=6968974d cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=IBRk8GtBIsankUNt0b0A:9 a=QEXdDO2ut3YA:10
+ a=EUspDBNiAAAA:8 a=aneus3DpQx8xEqIVSrsA:9 a=QEXdDO2ut3YA:10
  a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: 2UlgtLu4f9PAMDjwtFCHxcp9rNUbchoW
+X-Proofpoint-ORIG-GUID: 1sC7CXncWwdyYJmWX-bXUsrNImJVqYN3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE1MDA0OSBTYWx0ZWRfXz6GyVnWKhr+3
+ OzC+Sj6+MGeq1IL7ufTuycNkqlyXtvNg6cCRpEDGxo2L24ZOGut0js6MCXUMprdaYsAH6bQkQQi
+ WVUtTiWxPOeUJ3621a8j2lPXamCf6IxiDzGCs5YJSLSYz4o2BxfgvmU9CxtxHbgD4aDe5nzXgei
+ 442Fx64l6PhVqTYvvBqTDYxjsZz+D1fdulRMDojSa8M4czunVvdpXW1HNkQ+niXri66KuQZUfz7
+ CDjGHwpxvRvWP75EHvFD4/bZd3hy/atXjeWnrdu3U0wR63QueGwXOVUHO5aoLk3WpLQ3jYgz8+D
+ d3gVutoqc640wJYPZlvVHdD8D20dc+w4dKXMDqa/sSaXENeg+XO5X+zPQee8vPAP4DY8L0vdh/m
+ g/knvv6MeYN5nyw6XTR6JOHdZSmRA3CDQBL2YccG10V/S0LtTMZwm9KBwQMkifZ6Ql8m6TVDdDJ
+ sEQLEkQsUqTW7ihM/Mg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-15_02,2026-01-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 adultscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
- definitions=main-2601150049
+ spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601150049
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,34 +160,35 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 
-The HPD state status is the 3 most significant bits, not 4 bits of the
-HPD_INT_STATUS register.
+The ISR_HPD_* enum should represent values that can be read from the
+REG_DP_DP_HPD_INT_STATUS register. Swap ISR_HPD_IO_GLITCH_COUNT and
+ISR_HPD_REPLUG_COUNT to map them correctly to register values.
 
-Fix the bit shift macro so that the correct bits are returned in
-msm_dp_aux_is_link_connected().
+While we are at it, correct the spelling for ISR_HPD_REPLUG_COUNT.
 
-Fixes: 19e52bcb27c2 ("drm/msm/dp: return correct connection status after suspend")
+Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
 Signed-off-by: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dp/dp_reg.h | 4 ++--
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
-index 7c44d4e2cf13..3689642b7fc0 100644
---- a/drivers/gpu/drm/msm/dp/dp_reg.h
-+++ b/drivers/gpu/drm/msm/dp/dp_reg.h
-@@ -68,8 +68,8 @@
- #define DP_DP_IRQ_HPD_INT_ACK			(0x00000002)
- #define DP_DP_HPD_REPLUG_INT_ACK		(0x00000004)
- #define DP_DP_HPD_UNPLUG_INT_ACK		(0x00000008)
--#define DP_DP_HPD_STATE_STATUS_BITS_MASK	(0x0000000F)
--#define DP_DP_HPD_STATE_STATUS_BITS_SHIFT	(0x1C)
-+#define DP_DP_HPD_STATE_STATUS_BITS_MASK	(0x00000007)
-+#define DP_DP_HPD_STATE_STATUS_BITS_SHIFT	(0x1D)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 476848bf8cd1..5997cd28ba11 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -38,9 +38,9 @@ enum {
+ 	ISR_DISCONNECTED,
+ 	ISR_CONNECT_PENDING,
+ 	ISR_CONNECTED,
+-	ISR_HPD_REPLUG_COUNT,
++	ISR_HPD_IO_GLITCH_COUNT,
+ 	ISR_IRQ_HPD_PULSE_COUNT,
+-	ISR_HPD_LO_GLITH_COUNT,
++	ISR_HPD_REPLUG_COUNT,
+ };
  
- #define REG_DP_DP_HPD_INT_MASK			(0x0000000C)
- #define DP_DP_HPD_PLUG_INT_MASK			(0x00000001)
+ /* event thread connection state */
 
 -- 
 2.47.3
