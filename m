@@ -2,130 +2,144 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A60AD3A64B
-	for <lists+freedreno@lfdr.de>; Mon, 19 Jan 2026 12:08:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70081D3A6B4
+	for <lists+freedreno@lfdr.de>; Mon, 19 Jan 2026 12:23:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1FD910E3E5;
-	Mon, 19 Jan 2026 11:08:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF5610E3F9;
+	Mon, 19 Jan 2026 11:23:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aIG1/21O";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YTyEj3vK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cK9FqWXf";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cx5aTybP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E66A810E3E5
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 11:08:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31D1F10E3FA
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 11:23:51 +0000 (UTC)
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60J90mM51904978
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 11:08:12 GMT
+ 60J90mNn1904978
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 11:23:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Tky/0tzFXXgd+VBA9iRUinx9WsYhxcSfTbVi/+M0TDU=; b=aIG1/21OQDOyiHix
- 78VEX7SrggziNpb98bxSAFpUWIhY+2/S1LNuq15NmNtgHOReqQa0PE55ijZHrrNQ
- w52YiSAHw5mAL3FToNBA3WamGWdbbIgfTZEyfVFmijfXbpDZTaXFKPZdcSCHftiN
- UrXUl14ZMaIVaH94hNstYliW4BSxR67weOMiyQkChyxH1S1FZq8GtVYMiSN/9fTX
- UvdAL2o2wUXmhTtPV2bMJt9fHZwK3FUo5S6tuJC+zydEvZ1bSSNSUWIVCvWBqCnB
- 5YJBjtfE4gt7qXgG2GgcQkaUaqR67THCpT3Iic4qeV+ZRl2VBv2E4oznLPG78nvP
- 3PWtjA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bsgmu8nse-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Og2bNnMCiD+Qnx/yVwl7sa8q
+ 3E6jkBERvqpmHJS/OCs=; b=cK9FqWXf4YEzqdLtmjNxnI+ZOiB0a/BMinmgC5Nz
+ A0AbGvNu5UOyKvZ0hNbB+39/iqnS/I12vuN96XYXVwIRHGFUFOuz/rWprlsueylL
+ PQWRBkbUldWASFJjRUr39tMwOY6OkL4gvkdkJtFpDllq8yg0kJyY59jU+eUPomoF
+ lXiiuN9bladCJM/XLOmMXcieoD/v13fH0X+G5EAgaeXu2Ig7SlYnwaj1rC/tYYEn
+ iJJ4BhxhpRJA6mc7SDHc3fhCK2n6XbbZhTYUYz77Pc8cFSPmycdxwd+vaToy5vuV
+ hgOJrzotIgsyd/6Qa1l7mqlNyzpXFhycJmPvnVadcv2aOA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bsgmu8q7p-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 11:08:11 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50149945d26so16497211cf.3
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 03:08:11 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 11:23:50 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8c6a2ef071dso1260440085a.0
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Jan 2026 03:23:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1768820891; x=1769425691;
+ d=oss.qualcomm.com; s=google; t=1768821830; x=1769426630;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Tky/0tzFXXgd+VBA9iRUinx9WsYhxcSfTbVi/+M0TDU=;
- b=YTyEj3vK+WKOq91c23VNk0klTzOveYdVw4VAyvyVdQyKJp3Wg5o4UMP9NC+TpWhjcT
- 9NFp7N0RSicg/le52Kou9TpClp2jxOr76VhUiMInxnGK0RxtqLfVVkkVEqBxED22h/jv
- KtyF3V4qxDlqTKEwDcCgI/oyL1aOzZtM9YAUjRKIUGG+GHOdH2ZtEs5MyRNxHjdhvFyQ
- 2a7O0kfqBcf7NwsaecXr1h8eZB7B/z45b91EE4HpyJ9am5BRJXrGWpKr0X+UBjRQ4M8J
- PDXNrcWPieyIa69jDfst8onxEvD9To9x3+8uuAlMmCFIeoUjtTrpMOjj7FeEoh/mcDPs
- JQkw==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Og2bNnMCiD+Qnx/yVwl7sa8q3E6jkBERvqpmHJS/OCs=;
+ b=Cx5aTybPHKYWe6RpSKqr6+uoIIq2cbk1gGQcEFKv74M07/kPNFGyWyp4XFz+MSp/Gd
+ VeiPh5gBL02nm5DNe9dxQUDcgvG1F2BxOPWptuyKECn6IzEdUk0PX86SdDr4tjO7TFL1
+ TM3gya1JWmUWQyStitZAMS/GYHPteFXAVy2GldB6Q4sLyR/eNSaj2Olcr+nXzVIIwh97
+ InuZwvaLeJFIk/cAnOeDId4ogKCtU2FVjgLc2DFTI0fVUnmNkAMv70BFjDAViC1bqDAO
+ O9QsYABafpf1NrDSk4/k1AF/359VoxNnOAJ8YiN8yZWjbGlJ9rBERzqp7hq9zmO+kUQh
+ U4bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768820891; x=1769425691;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Tky/0tzFXXgd+VBA9iRUinx9WsYhxcSfTbVi/+M0TDU=;
- b=tms9kdaMTwTe1Miqs3zHZt4TfOYfM75v+jhKbRLaBoP5lvsl2va2oRImaKwlf3Vyy0
- xdCJszlYUWmD8kuDy17Y2TkstIdiA97UjHyqyjWaC9yW2clivxNCwNvbnYx9Y/D/ad/x
- d3UC9O3aihxM7JReW1ATielmbuW+fyLvmXVtcN/lppt8Tr8jnZmIBuwxkWl56MVMzR3a
- 7BBCH3pyX69OXzJfrsUiVmA4a1oe8HrMqQ7OXOFuq6hWe3hsoCgp2eUqvbAs5uaGKq0y
- rcOrfoKd0kd4Ab4Tga/qvaBLInL8DjkyPHRzL0l4J+jaIKZnRM3gRBYjmwQg7gBPKpkF
- ro/g==
+ d=1e100.net; s=20230601; t=1768821830; x=1769426630;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Og2bNnMCiD+Qnx/yVwl7sa8q3E6jkBERvqpmHJS/OCs=;
+ b=XFg7Wy4MI+bzMCLcCSApD11pPRp3JG7PI6a5YfLZpAEfTxxqVR5NN8F/qymhJFNnKj
+ 38WRhBFpOXZgC3jGUfzBjiqQF0LL0zvnf0LdB6Zc11COY0pVWyzYXSz49u2Qu80tghOg
+ vBCv2b3X6mOHPo78SvJ5TCaNAoCfdERHaPOWzuK51ahUGfcYYpan+YveN5ibaIKygOgH
+ OoPFRIXAKnx9dhroHD36rNxUNZepCqsZaLbRUZ+BhQnrxoz5FAEp3jtTmdbWjBilA1F5
+ dJWeq24oL1uUMk5svYCBx8XPxyt1jv+oOLUUuhACIYz71csfTTQds0yEqPYOZIud3yUP
+ Gbnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVL+M013kQBtdnngvGRliu4+8O0aXAgntcPhMjyCjWQdjkXpU2Ju9RawZlrGbk2jzPjLpYBHX13VOU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxayHpMTc+FP4KoSjYaayzPMuz8QOtrsWYwnv3ghlkROFOPaXU1
- RPSGDZJsO7lGZD83E5rcd7dBOhIDpPSlpIBEFovrygcHfZrauHc/ZZDEYdRKQHB3OJ/jTRLmStG
- DMEBFAw+i5JqZ5533NM1ipOJXrE9TPv1fajXfSeRKx+wNZUfG6NxG59ISBQQL2v/9/FE5as4=
-X-Gm-Gg: AY/fxX7TyREjZwrAkbNV/3DtukQh44IlGNpQ042L5J5JFULyC6KFmucwe0JVzgll230
- LI5XXPCVNWZZxRa7aHpgh6ucwBwtvn1jjY8KKal+cVy6MnNWNCnoaSorrQmIErvmwzmESDB7rhp
- h3QYNjZxBjkCA2IxaeYq1gCVYAkNXQp2OTu9P8zqzLaGJndFMiOH2Lj8qW1P916t0/VuDAK6Rw/
- aaILVuZbNF5uMDFcIfZL0V4R1V8c8Zl1FYZX6GQDmDwjCR5On3Q2GKwirur0jC+4xE07lXGBQFR
- 9Ub8wrQTa7m//a8w0fekfp1U3Cw0U6YjGzrJdDQKhU+rNbKnppa2vhc4GrOum3uTIabjZ3gg1iR
- eM6MC9p5jedj8mBd7q1obur775LS7phAXbSN1T4lnSFvXmBlqXJYj3i7SEZyHuYcK+l4=
-X-Received: by 2002:ac8:7fc3:0:b0:4ec:f9c2:c200 with SMTP id
- d75a77b69052e-502a1735f4fmr129192601cf.11.1768820891015; 
- Mon, 19 Jan 2026 03:08:11 -0800 (PST)
-X-Received: by 2002:ac8:7fc3:0:b0:4ec:f9c2:c200 with SMTP id
- d75a77b69052e-502a1735f4fmr129192301cf.11.1768820890519; 
- Mon, 19 Jan 2026 03:08:10 -0800 (PST)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-65452bce876sm10108927a12.5.2026.01.19.03.08.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 03:08:10 -0800 (PST)
-Message-ID: <4cc944b3-8a41-45a2-95c8-c55dbcbf0830@oss.qualcomm.com>
-Date: Mon, 19 Jan 2026 12:08:07 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] drm/msm/dpu: fix SSPP_UBWC_STATIC_CTRL programming
- on UBWC 5.x+
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ AJvYcCWfXbtiy50nJDjEESnQALvUNuVRqG85BcQVGvht/ywDPR1YURqOT3cJP26Td5nx6SHJhbFDaWyz0ac=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjyHvl7Wxtv1FlDaDv3a27QmTYps6g03CYvFF90nBD62mMEgVb
+ R9xAkpBLs/iw+n9pKvVhMEiBXd9M2Hu8p12iiajaBhd2U+s6lAgQ8UsuH5BUP1GtIrY4n5x+vMJ
+ vCPGF6Evc4W7pXbZo18CkOiof/uQo5iK7itDACuKOmQ6PUyoE1F/ALEKlMwoTDaSBU9wIGV0=
+X-Gm-Gg: AY/fxX7TU3tmpha4Ay/SvSXpEeQwE8Yr2Ukg0LEa/txsAaFofsW5HmekZv20leutF/B
+ RpNIhIZUbTaD/hZbqrUyk015PXaVi4R/2xyCFEe3q8/TVGldklbx+ypcMjoOuRH1ixiWCVrDIki
+ GUBpaxOSKz/kL+merQc957rFheFx0gKfnvm5uW5TzbP9s6Dzsg6OvO/gZ5MZ3SP02mtDhNuWO53
+ 6qN0IOkkTEGr9gvNyOQsqmOhYAzCvXHFqQYmlaVHLmw+a9hhvRiTBGhZw0ZrFOgjeMZVtKDHpou
+ B7uiZdH2TsYbti0zNxY18iUlMPfdf4poWf/BRqMNy28wMvM6mphUbvW1oJGzx7P68kXA3MpprCQ
+ Ct4AjtDPsy0vjwLf0AunZQGU81F/NuuL7YsDoJDMvsogcAdtlJzCEICFMoVVFMGBbFgpnQFLXYm
+ apcYVkkpNhAvcrL5u1nU8Knf0=
+X-Received: by 2002:a05:620a:1788:b0:8c6:af59:5e2c with SMTP id
+ af79cd13be357-8c6af595e6amr1169565885a.18.1768821828910; 
+ Mon, 19 Jan 2026 03:23:48 -0800 (PST)
+X-Received: by 2002:a05:620a:1788:b0:8c6:af59:5e2c with SMTP id
+ af79cd13be357-8c6af595e6amr1169563785a.18.1768821828488; 
+ Mon, 19 Jan 2026 03:23:48 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38384d8d5dcsm30685941fa.15.2026.01.19.03.23.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Jan 2026 03:23:47 -0800 (PST)
+Date: Mon, 19 Jan 2026 13:23:45 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Liu Ying <victor.liu@nxp.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Val Packett <val@packett.cool>
-References: <20260119-msm-ubwc-fixes-v3-0-34aaa672c829@oss.qualcomm.com>
- <20260119-msm-ubwc-fixes-v3-4-34aaa672c829@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260119-msm-ubwc-fixes-v3-4-34aaa672c829@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE5MDA5MiBTYWx0ZWRfXxsoTGGK+g3bX
- W5l/7lJdYDepNyHTJ+tGTukkfI9xu75PDUrY5qo1YLPLrYwxCNCDa9np2BLKxrwtCoM6hpb2m+6
- lWZs0wj7Ga3FC35z8eagvGtcPM/qRpwhgr44/fwQyhfAAiZanGxLL///zOMQhwlTQNIoIEt8ycz
- M7XW9bbbPVjtAAfjlNO5756i4iDr06z0D1Wk6vtu3DfO0/z6MUchkCxAiHEap7bGxM7p8R9QHxT
- Kg0Is7/YcRBu84sz9OFVQUBbRaVOV92Xos24QWBag8eaJQw7+th1CfyfaHzufxFXejCpASgA/Pq
- cgDJvWESPXxtoOoplFBCBdmB4XMkfY7NCU03iak9SV5FWfboJ31flz/hTq3/z+mZPBqfNSOsE2k
- 5F0icsZkpQCk/HdzBNyQM3+tC2qG3nahsxIHseIOWZobX2DkYVW1nYwQjQLMwCdbIhSxfIPWmPk
- ExgEHqobenobmrj3Wyw==
-X-Authority-Analysis: v=2.4 cv=Is4Tsb/g c=1 sm=1 tr=0 ts=696e109b cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=XeJQKAmXQAzf4d-CZB0A:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: ay5WIzuiCeHSTcgtyfV5arJLdbrHMuYM
-X-Proofpoint-GUID: ay5WIzuiCeHSTcgtyfV5arJLdbrHMuYM
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Sandy Huang <hjc@rock-chips.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v4 01/10] drm/tests: hdmi: check the infoframes behaviour
+Message-ID: <yj3r6d3azwwfl5g5yo5wj65qy47f5hzrio5tvfmxhgzlc5bezo@ij4dctwhswls>
+References: <20260107-limit-infoframes-2-v4-1-213d0d3bd490@oss.qualcomm.com>
+ <2fb910198a3be542215592ac3f22d6b2@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2fb910198a3be542215592ac3f22d6b2@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE5MDA5NCBTYWx0ZWRfX17m/RdRpDKP0
+ 3ekpiSfLQZG/Avl3qaWh0za5T7ZjCRzjny7XeoHljnp62HxYInucyK4+N719ObIw2/PjV8T2bPi
+ 3gQHzbQoLYink6SsNC8KW3Fp9zA6w7/ey9aB88w6wHor3lNX07rMIyiQE90NCGCSo9E1D+KT3AX
+ 4GSFRrt1J8S1PFEQtj07SxEYizY7/Knf3FchVWl3dGbbGqcUSvNcPFcEPmZ4vFpEEM4EShhDGxx
+ 30S2/7hofs0bc9LMyDOZ2Gxo4cjs9ERj5pYTX8Od3bbpOK/BXNN35mhrFxT0pIA53fEzAx6SKQi
+ fWRBZ1WA3fGc2sNQ4JxDYlAQVBX5nsPyxcTe4oPBZi9KuhAqD7lmKJZ2IhCM8b++9c6JHM6glCA
+ B0RLuodYDAKl1Vm2fDeoQSeGfyOgt0ap8XnpiYuMQYu0ZLTSKrUQ7Dz1QrPiA7MpCqmuUhXog5O
+ v8bn12fjow5o4HRBSdA==
+X-Authority-Analysis: v=2.4 cv=Is4Tsb/g c=1 sm=1 tr=0 ts=696e1446 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=VxRmli0-OQd2mcn04XsA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: fOLyCAqNbC2FW-h6SskHRBwHqdYoAv9-
+X-Proofpoint-GUID: fOLyCAqNbC2FW-h6SskHRBwHqdYoAv9-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-19_02,2026-01-19_02,2025-10-01_01
@@ -133,7 +147,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  adultscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
  spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601190092
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601190094
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,78 +163,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/19/26 9:17 AM, Dmitry Baryshkov wrote:
-> Code in dpu_hw_sspp_setup_format() doesn't handle UBWC versions bigger
-> than 4.0. Replace switch-case with if-else checks, making sure that the
-> register is initialized on UBWC 5.x (and later) hosts.
+On Mon, Jan 19, 2026 at 10:13:43AM +0000, Maxime Ripard wrote:
+> On Wed, 7 Jan 2026 20:14:58 +0200, Dmitry Baryshkov wrote:
+> > Verify the InfoFrames behaviour. Check that reporting InfoFrame as
+> > unsupported doesn't result in a commit error. Also check that HDR and
+> > Audio InfoFrames are not triggered if corresponding features are not
+> > enabled.
+> > 
+> > 
+> > [ ... ]
 > 
-> Fixes: c2577fc1740d ("drm/msm/dpu: Add support for SM8750")
-> Tested-by: Val Packett <val@packett.cool> # x1e80100-dell-latitude-7455
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 44 +++++++++++++++--------------
->  1 file changed, 23 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index a99e33230514..80a9fb76b139 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -279,6 +279,7 @@ static void dpu_hw_sspp_setup_format(struct dpu_sw_pipe *pipe,
->  
->  	if (fmt->fetch_mode != MDP_FETCH_LINEAR) {
->  		u32 hbb = ctx->ubwc->highest_bank_bit - 13;
-> +		u32 ctrl_val;
->  
->  		if (MSM_FORMAT_IS_UBWC(fmt))
->  			opmode |= MDSS_MDP_OP_BWC_EN;
-> @@ -286,30 +287,31 @@ static void dpu_hw_sspp_setup_format(struct dpu_sw_pipe *pipe,
->  		DPU_REG_WRITE(c, SSPP_FETCH_CONFIG,
->  			DPU_FETCH_CONFIG_RESET_VALUE |
->  			hbb << 18);
-> -		switch (ctx->ubwc->ubwc_enc_version) {
-> -		case UBWC_1_0:
-> +
-> +		if (ctx->ubwc->ubwc_enc_version == UBWC_1_0) {
->  			fast_clear = fmt->alpha_enable ? BIT(31) : 0;
-> -			DPU_REG_WRITE(c, ubwc_static_ctrl_off,
-> -					fast_clear | (ctx->ubwc->ubwc_swizzle & 0x1) |
-> -					BIT(8) |
-> -					(hbb << 4));
-> -			break;
-> -		case UBWC_2_0:
-> +			ctrl_val = fast_clear | (ctx->ubwc->ubwc_swizzle & 0x1) |
-> +				BIT(8) | (hbb << 4);
-> +		} else if (ctx->ubwc->ubwc_enc_version == UBWC_2_0) {
->  			fast_clear = fmt->alpha_enable ? BIT(31) : 0;
-> -			DPU_REG_WRITE(c, ubwc_static_ctrl_off,
-> -					fast_clear | (ctx->ubwc->ubwc_swizzle) |
-> -					(hbb << 4));
-> -			break;
-> -		case UBWC_3_0:
-> -			DPU_REG_WRITE(c, ubwc_static_ctrl_off,
-> -					BIT(30) | (ctx->ubwc->ubwc_swizzle) |
-> -					(hbb << 4));
-> -			break;
-> -		case UBWC_4_0:
-> -			DPU_REG_WRITE(c, ubwc_static_ctrl_off,
-> -					MSM_FORMAT_IS_YUV(fmt) ? 0 : BIT(30));
-> -			break;
-> +			ctrl_val = fast_clear | ctx->ubwc->ubwc_swizzle | (hbb << 4);
-> +		} else if (ctx->ubwc->ubwc_enc_version == UBWC_3_0) {
-> +			ctrl_val = BIT(30) | (ctx->ubwc->ubwc_swizzle) | (hbb << 4);
-> +		} else if (ctx->ubwc->ubwc_enc_version == UBWC_4_0) {
-> +			ctrl_val = MSM_FORMAT_IS_YUV(fmt) ? 0 : BIT(30);
-> +		} else if (ctx->ubwc->ubwc_enc_version <= UBWC_6_0) {
-> +			if (MSM_FORMAT_IS_YUV(fmt))
-> +				ctrl_val = 0;
-> +			else if (MSM_FORMAT_IS_DX(fmt)) /* or FP16, but it's unsupported */
-> +				ctrl_val = BIT(30);
-> +			else
-> +				ctrl_val = BIT(30) | BIT(31);
+> Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Can we name these magic bits?
+Thanks for all the discussions and the reviews!
 
-There's 2 more bitfields that I see downstream sets here (but it
-doesn't claim to support UBWC6).. 
-
-Konrad
+-- 
+With best wishes
+Dmitry
