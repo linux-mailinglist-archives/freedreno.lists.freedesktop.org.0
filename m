@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8BGxFYQBcWmgbAAAu9opvQ
+	id ALiMKYgBcWmgbAAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 17:40:36 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 17:40:40 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7FA85A04F
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 17:40:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5688E5A06E
+	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 17:40:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF3110E83E;
-	Wed, 21 Jan 2026 16:40:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A8B910E85C;
+	Wed, 21 Jan 2026 16:40:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WI5bbRBD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WVkIBrQT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCDF10E83E
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 16:40:33 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id
- 5b1f17b1804b1-47ff94b46afso10365745e9.1
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 08:40:33 -0800 (PST)
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 429C610E855
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 16:40:35 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id
+ 5b1f17b1804b1-47edd9024b1so305935e9.3
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 08:40:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1769013632; x=1769618432; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1769013634; x=1769618434; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=AVNYngE8GhcUThodYsah6BFUD0+NgqeUoL4mISd0lrM=;
- b=WI5bbRBDFVxFzsSLHmhwGXV6EunHijxNpwSiFlKNAEPh6vN+e8NNESLcJ2MYFeuGPl
- LdpKB99BuFg/YBfc4ltQF6NRpG9VRl4NAW7S8BNeIv/Z3wLrg9gUov4vUxQbu6Zzy8AN
- THBuryv1pRbNc981CzcwtE7tovfdTrHfjXQ8LPEHae8jYhHx0ZyQ2dFIzXj5+qu2xfKS
- 0EtQsytE8G/YDXDZJ3yKNiVgiG74/AGqT8u2fWvz5jnXqlu3KY9qcLgHaBevXPcB9jJA
- LmHAKoRxTAVNw/LEgxx/q5flMZsp9CEEGmxYtl6+VxaBgtaMkrieQZyGOBjcsMw6V89k
- pURw==
+ :reply-to; bh=VvVjTCx3Ditk+y31Hp8YWb6pPY+/zpI3meniVBbynGc=;
+ b=WVkIBrQTo5RaXl+rIRkXlsQ5un/UCjQ8zH9PtXwH5oh18aZK2VrdbjF4NiSrO2OhIR
+ 5xonOgHgTPsPAnFpvKycDeFgVlInOwBX9ImWLzJXfrxi7/cIiXwAMOjjfrn6agrYXQkU
+ aiNFPxsNrlpkBBVD8HZpMYlqMqaLFLxv8cxH5CbKo+7sUgYxXDqoyXyA3OXYiUSEcTvj
+ 3X4U1oBzcQ/9TP0uLa8fFyGrEAz/RlSe9A5SO/O8NEG5REbvHMl40kqhEmSZtoOAnyz6
+ eII4mE/1C3O9IlTJcqtNN19BsoZtGXFgHRyNoolSnQNNIYXJyAseZVJ9EDvrst8vEge6
+ vX0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769013632; x=1769618432;
+ d=1e100.net; s=20230601; t=1769013634; x=1769618434;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=AVNYngE8GhcUThodYsah6BFUD0+NgqeUoL4mISd0lrM=;
- b=B4mk/Xcgpr/pWgoZ9PSxqQf5zn3svV1hbfkbLZ4HW69tyjLHR7VOSgAvaA2kiDXUIu
- 88jiSvNi4LLjdhhesqN1Y+qwCeugYPY+O1wSXTF72AEfoLKIX+jnYKGIgX8FjWMs0fCI
- KRmnwIB4BHR4xpIibhteDlYMH1TLk8bZfTSZ8V18pAe0pvRfd6ts1OJCSjSxNYiKJUUn
- JdVRjOC19td4HCgRggsbAdlbvrD6IHrajEw1zdmoSWfGX6fluGObRq5vXfubxOgMpeIg
- eva8noIdAOxJxbmJTZn1zCTTJcueFVaMQZxDDoWNgVelAaP2JVtC4QSE13lOdx/Ma7Bw
- Ndtg==
+ bh=VvVjTCx3Ditk+y31Hp8YWb6pPY+/zpI3meniVBbynGc=;
+ b=Y8ieHuImBFIZ1u3qKcWk4ptxdITnmFR1KaPHTU+o8ZgWl81QuFlnaGGwYjz8g3cSuX
+ F2Jgi5HfkXswGj06i9JNZIHkaUKuT7usIeImGe/Hnh6j4JvJQkruOeHovifQZK7u9C5A
+ yUVrGD/P82M5e1RjgXXORyu3mBiFuW0muxISp/RZELOllzS7i6Uj66iWPPLA3auWV8qm
+ fEzTHWuCkW4trjzWAaB3V/7a+O0H2Rn205tM/tQpqdYMZh8RESN0OLV5VuZ8Jh2JjXx3
+ IMyGUzjwMC4HaucJLsxN+4W5tLZPgMmgRRNMvNsoQc3gL73RelfgP7MUXNdW7/lBz0rO
+ /bdg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXiKvNrKeCSvtxc6iij/IRhU8uH9CjtiUuzukYeCRDz7T/ChsHBk8/u2K4MndwpE4B+3zH2hVZkae0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4TZNcII6/FQMxwBc0sCyRU559Oz8Xr/zGtSJ8buuOPq2m/PIx
- MIuB1XCbyY2f/GPA4clJdIMCfJWcoX5jDmXQCJ5Ca5D0EWGnT414TxYu6y33173ZjNw=
-X-Gm-Gg: AZuq6aKl5euQIZj6dYZwW/tV+1Jw/Vijn3LqZ8HZebff/UGLRyCHNb8RalSkPodvB0p
- mnpMFHgycm0nt/tLgTwUoL4O7YbGer+TRrYTP8swGQI+LNTqDghNlpilX4rCiiNn1hrwapIUyan
- a/LEzegUyeKkkBWOVDoYncRp2oV/trd2WqdnbtfkMQ39mS+f9+ROU+j7otOeGtzOp2f8yl5HlEb
- tJ+k3uniFD1Y06t2KCc12ORG14CoUDu3yG9tWBC0TuHwTGCLsq6nYvW4zvVN/mD2WuWR7ulhTPB
- Vk0jucQViBrheGY2pQcyiF/t2Vn+HczLcd7Zu4DVwc/T9CbtX+HQuWZduPOY3ts6rBdYr7EWasO
- UKU/Qx+1UYgOZ1Xm0jKJEHCRLAaABeqwtVcLhcj/jYpoLJ8Dq6GJ7+/vgK17l01i4T9V5YZ1M/U
- wtsvtwjs597q3Ij66PjC40KhZucJGLzwI=
-X-Received: by 2002:a05:600c:4e14:b0:46f:a2ba:581f with SMTP id
- 5b1f17b1804b1-480470a6bb1mr487625e9.16.1769013632032; 
- Wed, 21 Jan 2026 08:40:32 -0800 (PST)
+ AJvYcCUhEHhIPpSfmToQM/HNlxiCSYcWxAj3qVx46eM59a3mxNvFaQunMkD7vua14FY/cFKemYju5RT+GUc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGlgJSBzh6Ne+qu3Ddj+bQ3ZEg1Zy0t0iAYnsmu2ElzZZ7HNqq
+ kiRu8ns/xNznCIlzFgksxIHvuUNaVLDznt/DKHWSBF45dYQAhD0Wm15tJcWAB95l5NI=
+X-Gm-Gg: AZuq6aIr+hHLEQC3WmYmZeUgfLThcmaf4thSnn9ikRI2cYH3ccAArqTKumQNXTiFBkJ
+ pyFJGy1qSiYb7gvZebssiNuUOR/KYgTspFm7fVu/iDRjAROSnUTyI/UmUkg/Uk/1uEmK27PKpdx
+ coVVzt+IZcsXbftAUe3v/gtRN21awRJqYivlKZ4WsKH0UVdAKYDM2YQSR+w6lxuoO3ZTzen6PPL
+ aZsZ1OFt1XypN0/beH01DUWjuwqAtsfTrC0Jv+gyhTnH56p9bo4sRDkGx87JI3e495O21GHz9ef
+ QO0xnZrvmnbnt4Nh3d7JZjofCsT9J7GFrElpWtmxek1kfCnMUtKESZTcmhCLirfY7YvS7KvZlpv
+ P1TgdMmPP4VKvmGksVIHcaobrOhXf7UqJmMybO4e6nICm2ziGFKjb+SuyaTMACvlGKWX9ny7qwh
+ Ww6zxpTq/dKC8PVf2U0/0BJhL1HA6YDX8=
+X-Received: by 2002:a05:600c:4448:b0:477:b0b9:312a with SMTP id
+ 5b1f17b1804b1-4801eab9db5mr233791535e9.7.1769013633652; 
+ Wed, 21 Jan 2026 08:40:33 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:3d9:2080:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-480470287c3sm1000255e9.3.2026.01.21.08.40.30
+ 5b1f17b1804b1-480470287c3sm1000255e9.3.2026.01.21.08.40.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 08:40:31 -0800 (PST)
+ Wed, 21 Jan 2026 08:40:32 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 21 Jan 2026 17:40:26 +0100
-Subject: [PATCH 1/3] dt-binding: vendor-prefixes: document the Ayeneo brand
+Date: Wed, 21 Jan 2026 17:40:27 +0100
+Subject: [PATCH 2/3] dt-bindings: arm: qcom: document the Ayaneo Pocket S2
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-topic-sm8650-ayaneo-pocket-s2-base-v1-1-bb3f95f1c085@linaro.org>
+Message-Id: <20260121-topic-sm8650-ayaneo-pocket-s2-base-v1-2-bb3f95f1c085@linaro.org>
 References: <20260121-topic-sm8650-ayaneo-pocket-s2-base-v1-0-bb3f95f1c085@linaro.org>
 In-Reply-To: <20260121-topic-sm8650-ayaneo-pocket-s2-base-v1-0-bb3f95f1c085@linaro.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -88,20 +88,20 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=915;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=729;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=cJ+fpKUN2CJHaLJYtnMXTQDEo8RTawpmcuU2CAoDmOA=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBpcQF82obrGjAidxJJHhz2jzclHKgnV7RqPHaMXRKs
- wghZOmaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaXEBfAAKCRB33NvayMhJ0UYtEA
- CuoW6Xpnu8TCP5r8IvEk2Ul4i2nMSYjbAtOpsTuv7Bvju45OvWmtzE+BH+PvMXtH2DWTKhnPw2Y4Hp
- z4KhyqJDQ7ClKNWUGgtRyQoOEqn3QCVyJz0g2UfrcYaq6pbZDe8jyiGbzKpM3Z4+yYkIn9Z/onkzDJ
- yBfFGBGwCyLFgPYTrembcKHOty1mGj+aZS40yCEIzaV/rX6Bx5qLyAS6kC7vvbP0HmeaPJUsQDiOqW
- cmufILuWJC3ef391sWp/FLcXQE60Vvz9IyQYc29Ma1t0xRo76jP8Eo43iyTeJdX008kRnLyZn/QH9I
- Ify90WDhOVFFKHOqrdi4TZQSTsD/Ob/Of5P6I9wLE+e51foghEYt8P8wNLMLai6Zmll5gJHPgrcA2z
- N35Q5kVuUL6dnIer0A1atj/Q97GT06+hO5ZISPCOUCwGbjeBYmwMO2AqKqIgvODKXPUqpMtbIe4jsD
- q4ZZ5erYiVt5sd8hOdCYdDSE6TVS508SUSt3Ua8EBtZ88ZJPi4V+nTrR59X8dbUFMEXFDJseNmtUB8
- pBV762lF8xnepjFBKj++7F5SLUXePRJpqY0u4Jfl/h3+IkcpV7qGbisSG+CUaMykgSlRsL99O1H/rg
- /h7wTtjbM/qabCU9vpNW9V36fgbKk49f9KtDOvZvBxgY+w/Wy0iZwMnI+3OQ==
+ bh=+fcuDogDNDoswfDYKDTTC9TUfs1ig7AC26I/0EuMufE=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBpcQF8bOQVCvJ5IZyZNj142dWwWiZrirOgpzuVv0/z
+ H8T8X1mJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaXEBfAAKCRB33NvayMhJ0a1aEA
+ DPOqbVJLNNWQdDBOiHJgKFMUbTwwrwCHnGqbUCJO2duIsFamNKfcXBd/26xrVR3KNseqpKXCaRjSCA
+ mnG2wxacDF6kZ4niEOfXTocF53CT+6h2hm1EPxZg8lLfy44YkoO6DbKqXEAKIi30P8tlo88KZ0Xpxm
+ 4665czly93/U/+Z8vRrrvIyOA+dx+nbp75ForWhsCfoUlXbYfp0v7XlDVY4jhi53frb3hLc0iBinvF
+ V79fU5qU/Vg/s1WgQ596SYTHhkg487EmXgVhoWtKlmtMIPuLWpdUo0aTZb2UUJoHmw1OlZ5rxuP9ps
+ 2LXQJ9fAYC6MxR/2qbMn/gr5x20jjNs8zpDiIFi+eqBwGb72RUYVFJnzQQc9CRb3RQnzNP78RIdF8Q
+ GxgqTzsjqcZPDytROxMdpCMOeLnKgMgoZd2VFKlZdDPneETgpUsnDaFO7vvJQM9niGskXBNpIatDf9
+ wSITeWkb0WjcLZh6f4Y1Vh38OQ+LwDFEN5WtETZMeH4x9+3IaTEeNjN/ouYgeoq6Bh8RTvAw5frMPV
+ 6Y0UnePIcteIBVXkFWqtNtzCWtAy4sVRpltELANp6GpW3Rprv627ca8yoLgg3UNZLw9Xploht6oEK3
+ IgRpVTQizKse/wY+Y00ICWvwcehl2Np61GsisbDz0I16l22ar1O2PFFUMjiQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -149,33 +149,30 @@ X-Spamd-Result: default: False [0.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,linaro.org:dkim,linaro.org:mid,ayaneo.com:url,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
-X-Rspamd-Queue-Id: B7FA85A04F
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,linaro.org:dkim,linaro.org:mid,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
+X-Rspamd-Queue-Id: 5688E5A06E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Document the Ayaneo from the Anyun Intelligent Technology
-(Hong Kong) Co., Ltd company.
-Website: https://www.ayaneo.com/product/ayaneobrand.html
+Document the Qualcomm SM8650 based Ayaneo Pocket S2 gaming console.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index c7591b2aec2a..1f83979e0d09 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -216,6 +216,8 @@ patternProperties:
-   "^axiado,.*":
-     description: Axiado Corporation
-   "^axis,.*":
-+    description: Anyun Intelligent Technology (Hong Kong) Co., Ltd
-+  "^ayaneo,.*":
-     description: Axis Communications AB
-   "^azoteq,.*":
-     description: Azoteq (Pty) Ltd
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index d84bd3bca201..c6786dac5b59 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1045,6 +1045,7 @@ properties:
+               - qcom,sm8650-hdk
+               - qcom,sm8650-mtp
+               - qcom,sm8650-qrd
++              - ayaneo,pocket-s2
+           - const: qcom,sm8650
+ 
+       - items:
 
 -- 
 2.34.1
