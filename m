@@ -2,97 +2,158 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sBoUNROIcGmCYQAAu9opvQ
+	id QH0SKzyRcGkaYgAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 09:02:27 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 09:41:32 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 512D25334E
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 09:02:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09F3353B8D
+	for <lists+freedreno@lfdr.de>; Wed, 21 Jan 2026 09:41:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0609610E6D1;
-	Wed, 21 Jan 2026 08:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6935B10E70C;
+	Wed, 21 Jan 2026 08:41:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iYNE6AAv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TxMwatJv";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bRD+IsXN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 139D510E6DC
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 08:02:25 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2a07f8dd9cdso40388465ad.1
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 00:02:25 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2855110E70C
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 08:41:29 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60L377CY3991357
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 08:41:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=yeMFdnZhct9ypef2FzFYAq
+ U9V0XXunlpmva7L5DYImc=; b=TxMwatJvAWfEEezD9TQLcdUEnuNhAoQ9zJjrei
+ I7IDBjvU0rv1leDvEXd6iVG+hzrGcktfwuhVjeUv4oVwIWntBw7bwSGysmZpCtpk
+ FEpKXG34z6ObY1FIf6N40021MWgpXMdty7VAD9ON/lVI9NlCP6qunlIpAFjaFuKL
+ JbreGAk8fxxL+UcNs4H11vjEr5NWB0EMh92MzBiLVotGZST5oAfUMGWQ13wAUiv0
+ BiqsXY2EMKTCN5lSHuslHS6qxdX9jcusgSJxjuR2ks/n5cS5KbOwq9SFm0VCggu5
+ N35Uoj5S9KHV0PuM55oWNFOwCWsSe8xUmdINZMy4VsqZe5yQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4btpm4169w-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 08:41:28 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8bc4493d315so1698354985a.1
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jan 2026 00:41:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1768982544; x=1769587344; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=5qHVChkDZvzveTCvrkA+LEiIGKaNQUDMs3gLCdYxj3I=;
- b=iYNE6AAvVIyFB0mtYNN1GQ6+lECqy1aLRhmSYY4+T+JbNauaJz9cFEdqHEGYmvGCPU
- Y7S64cpmJWQCuBF6OOq6SHWJtJfNvovV7D8OP9IC5DWB6qSaiva0ZjxzkEuKVk2x7hLT
- WY0YpvUeCyGcA+TowLDPL7+4anBPvjq1vFQr7hkLftk2S+/+xjPn5wUOKHbJCSplr1o5
- 98VgYIywbOpDUka0IfzRbMD2Aq9eCBIZ9UP67APR395ZvACMzn6U/cKjxyt+AhQ/JRxC
- r9f2zwsEpHjzZQeBcSmhp71qOoZUHtYmuJtjHKsq7t8MvTay+mdsIZzzcK9nMH1cBpiE
- AYtg==
+ d=oss.qualcomm.com; s=google; t=1768984887; x=1769589687;
+ darn=lists.freedesktop.org; 
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=yeMFdnZhct9ypef2FzFYAqU9V0XXunlpmva7L5DYImc=;
+ b=bRD+IsXNdA3BUBF7P3xyzzOEvsQAzC1la3vkbQjw+jKJ0QuSASgfuH8KH8TcgjkXx9
+ 6VYsud8vaMVO/myLgPws/B1K0f9FSDRWIb6NIf5jI3f72AZFSUsA1dFIK2AuqWNE6lga
+ QtufGqvJ+otY7GBF+f/OP4AvvcJo3MVOwyN8AnODB7D6gN0dq+9HF4E1ryIDmpqAI5nV
+ 8bLrt6XAYp8oRy5hNtXEiHVbQxZ9LgNpuNFoOVYlRhcRBY0Gmqet903rcLKY7AZdubT9
+ se8Dcbf9JxR5GcTevbVKgE32M3EWRijgDn8Gpi6ScIQ3IWp5DmCt16ToETfB0I5dhSNz
+ UzCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768982544; x=1769587344;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=5qHVChkDZvzveTCvrkA+LEiIGKaNQUDMs3gLCdYxj3I=;
- b=QRtunarxWNMswa7CPKZ9f37r0mhFPgoOhSGSoDIPI95QhmntzxG+xr6DXfPtHrk7WQ
- NSOFshMs4a0LlY3vDoLFr17oyRE1VqLpSpWdxdJWI2r31AKNcosI7Nua+5NhEx810R/r
- EkjIgsybF1Muff6tkBccPPjhFQfXjC7EizRNIn+pCLnCjoprxAM6NCrgQ5N57+veZ7tX
- 4Wz6YDPu4Vbz5JcP++kWm20naysgzSnwSG0lH2D7tSNtaCm4sicMm//7NJWLRvAtSs6v
- nPvWynN9aSKWQ8mVB/AV0p0dZZu8QzP1+ruobt6hKyANVxIV3Niu8M2eB1VS9cuwftRN
- jsdg==
+ d=1e100.net; s=20230601; t=1768984887; x=1769589687;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yeMFdnZhct9ypef2FzFYAqU9V0XXunlpmva7L5DYImc=;
+ b=ffXd5d/anbMReQBb4XqhwLJbrM5TnC6bG88IFxOf/nlhfHLt5QAbx5tToYfwfMKa80
+ No8sBg5xAu/1FGyNl10GDeKxgA0VGIaXGqnAl8c4C4+tHiPb9jCothI0zngdv/SO2BzM
+ 3gGkqe37L1Oq3bZd+pjqRao6FnRV65Y8W8JJBKjF628yq/KB4YUjxnGIFk11gjwPccLW
+ LJwL+egbQRrc/2vRkWLPYxzTwTaRAoOkzHqlzpi5OepdumBYwgNnAirNNonL+kKghiL4
+ woYgO5r/HOSxZR0lSZ/lYcwcamE55xCkdTML153oH8hpoQOASzBJXn2yrfv9v0knOGfc
+ hM8w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWk3yXd8FWgYE0Atg12rJ9TquR4c9/K5vCYcFuI7edIf3AozvAK8RVAd2UsuYu6X79J+R6D+vjwRIk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxWgt5XfrQ/FPMh/D7Vvkvm65mlxosiOglp1YhacrZvNT7CuMB
- 7pb+pedgloB9nhE1i5pvgYkOOxFdBLppXhJbE9v5ojUetCKlwQ6AjE+GZuL8sHrX7X8=
-X-Gm-Gg: AZuq6aK/A5iv8/DzewnJ/vN40q4sNBEC3xuH4G6XYYVubkvPYPDo+ICiKomkdxbWqAo
- et3dpWkMB8PQKzGB3Q5Q1QNeluNwO1Cy9wXnbyoVDigbtJG+8YK/KPslkL8tBQwFG0Mo4GgxsmF
- 0KRuxC6SAq+hWmeZwynSKl5MDEGakS1Yn4Q2/Vg6spbJgl3fGP9Fl5dGIZf/2Jv4kkRNc2wb/f7
- b8bdNvTB9ivoaYNIyoSo7zAEylBThuqZuUNkXP+Of1OaZlaiFrgS1zrkJXiRjcXW+uAzcsz7U5k
- /dwe9e4t/mWk9W2BPo2AGACFCOr/BcwxTq37T+1O18h/cHl3RVJ2COTEkTM9iSHXJ7HHuOfn/ac
- fSSyINTvQMMSS7GEmzGhemiFbNmc8eGELGwdAEy7u4ievchAjyTQU0fs7rmKZ
-X-Received: by 2002:a17:902:e84a:b0:2a0:c942:8adf with SMTP id
- d9443c01a7336-2a7690523c5mr34762105ad.8.1768982544103; 
- Wed, 21 Jan 2026 00:02:24 -0800 (PST)
-Received: from [127.0.1.1] ([2a12:a305:4::4039])
+ AJvYcCUkJVrV+0XdshGNCaFAAf5NaDKYAdbNWIS9AZ0vmW9LBvb+uNE37YxUn2HfyZWA6NeP8NHoOWFiXUw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxAkuz334DMEKbvAw1Xzdw7xCCXx8EW2tsknAjQF9aB6Mv46C8L
+ sSarglqbvJ8X/QKgG6tC9i3sDYzHdHhfuxExeriFmj68gwy6RCLO3CO2uCK7PsA1vgqV2NBJ5iX
+ HRP3k+QjXI1c2NSD6hInvkLa75VindxaZjT4HDzzOJUvaR8cx4hRmDtr7KvQv5ZAr+XDm6/8=
+X-Gm-Gg: AZuq6aJF5n17dfy6K9ixmCyHdH6q3OBFhka/n+ei8V3p6apfXpX5msOvPSTdylgsbdS
+ wK6K05tLmeDWjdCReDGHCJnrB6lZG30w3hsFMRK/xLv0MWO3pz1wxUl3NdBQqKiW2cE6iXeHs9g
+ 9k6LFR78OqKMBK9komSzr4rrBrwllPWRxIUOExDlg28WP+Wjpb4Nvf/VT8wqVtgOs7yIG/VpX64
+ OVBZ7p1D72ae+hWVJrsrUIQdZMb4+1rFFqSHNFhaq8WkZ2tfIW77uvBRubJTk77xe/9T1mXWhbb
+ WgDYyOCKNXuSq3s543OVXMioAfOyzD0GGtpjnJjqpr2zOhU1+t1+G90d1FNlvYKTIZIuVbIZPL6
+ czObEpYlzAk1f46if3pOj+wZVcXrckMZbM2X7lwhEpoHQVy0l7kYoWCRkh6umCfBJZJjEMtizs7
+ S9erPORiV/UWm2CGuWkJO4NdU=
+X-Received: by 2002:a05:620a:1aa3:b0:8b2:e1bc:f2a2 with SMTP id
+ af79cd13be357-8c6a693b4a1mr2256020185a.54.1768984887427; 
+ Wed, 21 Jan 2026 00:41:27 -0800 (PST)
+X-Received: by 2002:a05:620a:1aa3:b0:8b2:e1bc:f2a2 with SMTP id
+ af79cd13be357-8c6a693b4a1mr2256017685a.54.1768984886832; 
+ Wed, 21 Jan 2026 00:41:26 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2a7190d14cfsm146851545ad.38.2026.01.21.00.02.18
+ 38308e7fff4ca-38384fb8ff0sm44465851fa.45.2026.01.21.00.41.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 00:02:23 -0800 (PST)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Wed, 21 Jan 2026 16:01:53 +0800
-Subject: [PATCH v17 4/4] drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI
- case
+ Wed, 21 Jan 2026 00:41:24 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 21 Jan 2026 10:41:24 +0200
+Subject: [PATCH] drm/ci: ignore Gamma test failures on Qualcomm SC7180
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-msm-next-quad-pipe-split-v17-4-6eb6d8675ca2@linaro.org>
-References: <20260121-msm-next-quad-pipe-split-v17-0-6eb6d8675ca2@linaro.org>
-In-Reply-To: <20260121-msm-next-quad-pipe-split-v17-0-6eb6d8675ca2@linaro.org>
-To: Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1768982516; l=8588;
- i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=sUxkfSflUjvUQUuerLM3rVhcLEqQsQK+6PsY7hltyxs=;
- b=y3ioZjedRLc3Kb02B59ZZ2Ks9gl1YJEXKqXkge5ok2884XWHnZIUqZmXickAM8lTgONIE9lEp
- pGm2MOalot8BCgwxTM/SIpByvTAp+46nyVc/SglATdzBvqbLcbcB+ys
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
+Message-Id: <20260121-dpu-sc7180-ignore-gamma-v1-1-84f2cc2beeb1@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIADORcGkC/02NwQ6DIBBEf4XsuZuCrdL4K40HZFfKAbSgxsT47
+ yV66WEOb5KZt0Pm5DlDK3ZIvPrsx1hA3QTYj4mO0VNhqGTVSFUppGnBbLV6SfQujonRmRAMkh2
+ GppGG6SmhrKfEg9/O53d3ceLvUgTzVUJvMqMdQ/BzK0IO9xKMvM3wL29FUddKKn2qDRFSniZ0F
+ in5lRPampSVr561lu36gO44fscVQW/XAAAA
+X-Change-ID: 20260121-dpu-sc7180-ignore-gamma-dcff660aed40
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Federico Amedeo Izzo <federico@izzo.pro>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3136;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=tGll1NZ1pA4+eOdvi26PS3E8EZix7M+Uzc8MRUn/cMk=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpcJE0vJ9qnJj640jYv7D4WAB0CGmIqVK9Myr1L
+ //sjjLua4OJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaXCRNAAKCRCLPIo+Aiko
+ 1ckRB/4xAwDRi6sP3JPena9Q9IIv04FnFRN77ZfySBh/iCCpAK26tMGdSCoJeID61W+rgMDiHXi
+ J30FeyoZ3vmRQK1t5lIW9UYvhvG429IEqU+gSum2ZJeh9l7+ECI1eD5MCDn832HCKM2x3bFXRho
+ P7qZQuRpPQ5CD+Do7Fj0zQvLDNsz8aH2lonteSFpzQcj1oZcdcLNdwRZx4fAXlFMClp2euOxWF2
+ 06f5i8xlHUjv2LuW+E0MaIhmU561tWQmsw5dGLinDzCDUa7kaf9sY8SvOzn+SSIvQ2RDJWE7c4C
+ CiXx6wL5sQQHIQwfmmOhT3WXPnYZWZ1+gy3j5dM6EzPOmQvV
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=Jv38bc4C c=1 sm=1 tr=0 ts=69709138 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=k6hloDn7IRukykq9zegA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: -5bNlzv47bvY1BzNWGtBZDq3gHDFZjo7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTIxMDA3MiBTYWx0ZWRfX3PFUx0Icx9Tk
+ n2KpAynMT1hprVAf0ML2ierOe8kTnbcvSlyQ9uoVAfEm2vo8/EbNYzIV2V65gkr/Em8bbqoFX8b
+ RmB1/ETE7PlhFCcVAxqP/N4bhHLyRfZ6aHm0m8b8z3PtQaMdzUvx6qI0Z6H/HgbUX/gGnQNahu4
+ omnF3BmE108qvyMZK3bEWRPlWrRicW7mZOyxgia/tcJ0vdL3npJHHxcfLvZHXlkfatFc+udBABu
+ lC+l3gvl+Y7YCVdrkd+oTGZg2L9cXhYULPWDYIMmZSXNWF+tIKnlAjw7Zq0tL1hbvckvK7EEMq6
+ HZP3Gt1Wcrd2fDvoDIHv1vJ7qW7Kiv9F6YiVkNC9/8qk7Ji89jnec7b1DSiQ8JV6DlxlYD4agbO
+ Kf22bAbfofHfJQNJ8RMoVdlAPR1iyj4dMwR5JtvoNudKYDhfXB3DQxPn1s98wx6ZkdcWQd+r382
+ kBP+5nuj936l309KmZg==
+X-Proofpoint-ORIG-GUID: -5bNlzv47bvY1BzNWGtBZDq3gHDFZjo7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.20,FMLib:17.12.100.49
+ definitions=2026-01-21_01,2026-01-20_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601210072
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,260 +168,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Spamd-Result: default: False [-1.31 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	MAILLIST(-0.20)[mailman];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MAILLIST(-0.20)[mailman];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:abhinav.kumar@linux.dev,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:jun.nie@linaro.org,m:dmitry.baryshkov@oss.qualcomm.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[linux.dev,kernel.org,poorly.run,somainline.org,gmail.com,ffwll.ch,oss.qualcomm.com,linaro.org];
-	FORGED_SENDER(0.00)[jun.nie@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:helen.fornazier@gmail.com,m:vignesh.raman@collabora.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:federico@izzo.pro,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:helenfornazier@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,collabora.com,linux.intel.com,suse.de,ffwll.ch,izzo.pro];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FROM_NEQ_ENVFROM(0.00)[jun.nie@linaro.org,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[patchwork.freedesktop.org:url,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,qualcomm.com:email,linaro.org:email,linaro.org:dkim,linaro.org:mid]
-X-Rspamd-Queue-Id: 512D25334E
+	TAGGED_RCPT(0.00)[freedreno];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
+X-Rspamd-Queue-Id: 09F3353B8D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-To support high-resolution cases that exceed the width limitation of
-a pair of SSPPs, or scenarios that surpass the maximum MDP clock rate,
-additional pipes are necessary to enable parallel data processing
-within the SSPP width constraints and MDP clock rate.
+It seems, on SC7180 color conversion results are not included into the
+CRC calculation (unlike SM8350). The fails for SC7180 already lists CTM
+tests. Add gamma-related tests too.
 
-Pipe array is extended to 4. Request 4 mixers and 4 DSCs for
-high-resolution cases where both DSC and dual interfaces are enabled
-for virtual plane case. More use cases can be incorporated later if
-quad-pipe capabilities are required.
-
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-Patchwork: https://patchwork.freedesktop.org/patch/675418/
-Link: https://lore.kernel.org/r/20250918-v6-16-rc2-quad-pipe-upstream-4-v16-10-ff6232e3472f@linaro.org
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 28 +++++++++++++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 29 ++++++++----------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
- 6 files changed, 36 insertions(+), 33 deletions(-)
+This is the fix for the IGT failures reported with [1] applied. See the
+pipeline at [2] and [3].
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 87a934e3801f3..a7ca79564c523 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
- 		struct dpu_crtc_state *crtc_state)
- {
- 	struct dpu_crtc_mixer *m;
--	u32 crcs[CRTC_DUAL_MIXERS];
-+	u32 crcs[CRTC_QUAD_MIXERS];
- 
- 	int rc = 0;
- 	int i;
-@@ -1328,6 +1328,7 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
- 	struct msm_display_topology topology = {0};
- 	struct drm_encoder *drm_enc;
-+	u32 num_rt_intf;
- 
- 	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)
- 		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
-@@ -1341,11 +1342,14 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	 * Dual display
- 	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
- 	 *
-+	 * If DSC is enabled, try to use 4:4:2 topology if there is enough
-+	 * resource and virtual plane is enabled. Otherwise, use 2:2:2 topology.
-+	 *
- 	 * Single display
- 	 * 1 LM, 1 INTF
- 	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
- 	 *
--	 * If DSC is enabled, use 2 LMs for 2:2:1 topology
-+	 * If DSC is enabled, use 2:2:1 topology
- 	 *
- 	 * Add dspps to the reservation requirements if ctm is requested
- 	 *
-@@ -1357,14 +1361,24 @@ static struct msm_display_topology dpu_crtc_get_topology(
- 	 * (mode->hdisplay > MAX_HDISPLAY_SPLIT) check.
- 	 */
- 
--	if (topology.num_intf == 2 && !topology.cwb_enabled)
--		topology.num_lm = 2;
--	else if (topology.num_dsc == 2)
-+	num_rt_intf = topology.num_intf;
-+	if (topology.cwb_enabled)
-+		num_rt_intf--;
-+
-+	if (topology.num_dsc) {
-+		if (dpu_use_virtual_planes &&
-+		    dpu_kms->catalog->dsc_count >= num_rt_intf * 2)
-+			topology.num_dsc = num_rt_intf * 2;
-+		else
-+			topology.num_dsc = num_rt_intf;
-+		topology.num_lm = topology.num_dsc;
-+	} else if (num_rt_intf == 2) {
- 		topology.num_lm = 2;
--	else if (dpu_kms->catalog->caps->has_3d_merge)
-+	} else if (dpu_kms->catalog->caps->has_3d_merge) {
- 		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
--	else
-+	} else {
- 		topology.num_lm = 1;
-+	}
- 
- 	if (crtc_state->ctm)
- 		topology.num_dspp = topology.num_lm;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index 6eaba5696e8e6..455073c7025b0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -210,7 +210,7 @@ struct dpu_crtc_state {
- 
- 	bool bw_control;
- 	bool bw_split_vote;
--	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-+	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
- 
- 	uint64_t input_fence_timeout_ns;
- 
-@@ -218,10 +218,10 @@ struct dpu_crtc_state {
- 
- 	/* HW Resources reserved for the crtc */
- 	u32 num_mixers;
--	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-+	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
- 
- 	u32 num_ctls;
--	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-+	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
- 
- 	enum dpu_crtc_crc_source crc_source;
- 	int crc_frame_skip_count;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index eba1d52211f68..058a7c8727f7c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -55,7 +55,7 @@
- #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
- 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
- 
--#define MAX_CHANNELS_PER_ENC 2
-+#define MAX_CHANNELS_PER_ENC 4
- #define MAX_CWB_PER_ENC 2
- 
- #define IDLE_SHORT_TIMEOUT	1
-@@ -661,7 +661,6 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
- 	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
- 	struct msm_drm_private *priv = dpu_enc->base.dev->dev_private;
- 	struct msm_display_info *disp_info = &dpu_enc->disp_info;
--	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
- 	struct drm_connector *connector;
- 	struct drm_connector_state *conn_state;
- 	struct drm_framebuffer *fb;
-@@ -675,22 +674,12 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
- 
- 	dsc = dpu_encoder_get_dsc_config(drm_enc);
- 
--	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
--	if (dsc) {
--		/*
--		 * Use 2 DSC encoders, 2 layer mixers and 1 or 2 interfaces
--		 * when Display Stream Compression (DSC) is enabled,
--		 * and when enough DSC blocks are available.
--		 * This is power-optimal and can drive up to (including) 4k
--		 * screens.
--		 */
--		WARN(topology->num_intf > 2,
--		     "DSC topology cannot support more than 2 interfaces\n");
--		if (topology->num_intf >= 2 || dpu_kms->catalog->dsc_count >= 2)
--			topology->num_dsc = 2;
--		else
--			topology->num_dsc = 1;
--	}
-+	/*
-+	 * Set DSC number as 1 to mark the enabled status, will be adjusted
-+	 * in dpu_crtc_get_topology()
-+	 */
-+	if (dsc)
-+		topology->num_dsc = 1;
- 
- 	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
- 	if (!connector)
-@@ -2180,8 +2169,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
- {
- 	int i, num_lm;
- 	struct dpu_global_state *global_state;
--	struct dpu_hw_blk *hw_lm[2];
--	struct dpu_hw_mixer *hw_mixer[2];
-+	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-+	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
- 
- 	/* reset all mixers for this encoder */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 61b22d9494546..09395d7910ac8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
- 
- 	/* Use merge_3d unless DSC MERGE topology is used */
- 	if (phys_enc->split_role == ENC_ROLE_SOLO &&
--	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-+	    (dpu_cstate->num_mixers != 1) &&
- 	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
- 		return BLEND_3D_H_ROW_INT;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 4964e70610d1b..336757103b5af 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -24,7 +24,7 @@
- #define DPU_MAX_IMG_WIDTH 0x3fff
- #define DPU_MAX_IMG_HEIGHT 0x3fff
- 
--#define CRTC_DUAL_MIXERS	2
-+#define CRTC_QUAD_MIXERS	4
- 
- #define MAX_XIN_COUNT 16
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index 046b683d4c66d..31451241f0839 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -34,7 +34,7 @@
- #define DPU_MAX_PLANES			4
- #endif
- 
--#define STAGES_PER_PLANE		1
-+#define STAGES_PER_PLANE		2
- #define PIPES_PER_STAGE			2
- #define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
- #ifndef DPU_MAX_DE_CURVES
+[1] https://lore.kernel.org/all/20251019-dpu-add-dspp-gc-driver-v3-1-840491934e56@izzo.pro/
+[2] https://gitlab.freedesktop.org/drm/msm/-/pipelines/1587979
+[3] https://gitlab.freedesktop.org/drm/msm/-/pipelines/1587942
+---
+ drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt     | 4 ++++
+ drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt | 4 ++++
+ 2 files changed, 8 insertions(+)
 
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+index e4a8f8352cd6..ae36a39619c6 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
+@@ -6,12 +6,16 @@ kms_color@ctm-green-to-red,Fail
+ kms_color@ctm-negative,Fail
+ kms_color@ctm-red-to-blue,Fail
+ kms_color@ctm-signed,Fail
++kms_color@gamma,Fail
++kms_color@legacy-gamma,Fail
+ kms_cursor_legacy@cursor-vs-flip-toggle,Fail
+ kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
+ kms_flip@flip-vs-modeset-vs-hang,Fail
+ kms_flip@flip-vs-panning-vs-hang,Fail
+ kms_lease@lease-uevent,Fail
+ kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
++kms_plane@pixel-format,Fail
++kms_plane@pixel-format-source-clamping,Fail
+ kms_plane_alpha_blend@alpha-7efc,Fail
+ kms_plane_alpha_blend@coverage-7efc,Fail
+ kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
+index e4a8f8352cd6..ae36a39619c6 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
+@@ -6,12 +6,16 @@ kms_color@ctm-green-to-red,Fail
+ kms_color@ctm-negative,Fail
+ kms_color@ctm-red-to-blue,Fail
+ kms_color@ctm-signed,Fail
++kms_color@gamma,Fail
++kms_color@legacy-gamma,Fail
+ kms_cursor_legacy@cursor-vs-flip-toggle,Fail
+ kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
+ kms_flip@flip-vs-modeset-vs-hang,Fail
+ kms_flip@flip-vs-panning-vs-hang,Fail
+ kms_lease@lease-uevent,Fail
+ kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
++kms_plane@pixel-format,Fail
++kms_plane@pixel-format-source-clamping,Fail
+ kms_plane_alpha_blend@alpha-7efc,Fail
+ kms_plane_alpha_blend@coverage-7efc,Fail
+ kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
+
+---
+base-commit: f185076da44c774241a16a82a7773ece3c1c607b
+change-id: 20260121-dpu-sc7180-ignore-gamma-dcff660aed40
+prerequisite-change-id: 20251017-dpu-add-dspp-gc-driver-c5d1c08be770:v3
+prerequisite-patch-id: 7a52c31208202effb5cc4b7aaf6d6a75eb9a258d
+
+Best regards,
 -- 
-2.43.0
+With best wishes
+Dmitry
 
