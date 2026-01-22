@@ -2,67 +2,144 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QFqHFbnwcWlKZwAAu9opvQ
+	id cD4rF1/6cWmvZwAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 10:41:13 +0100
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 11:22:23 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C6664AD2
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 10:41:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0BD652C9
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 11:22:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F92010E978;
-	Thu, 22 Jan 2026 09:41:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6620E10E251;
+	Thu, 22 Jan 2026 10:22:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SIPtWEcK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nok1F27h";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nov0YX+Z";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B07DC10E96E;
- Thu, 22 Jan 2026 09:41:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CC1CC600CB;
- Thu, 22 Jan 2026 09:41:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789EFC116C6;
- Thu, 22 Jan 2026 09:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769074867;
- bh=ULYW/RP0yu7Z99OE1vPmkiwP012bx0rlTW+FCdIDYmc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SIPtWEcKNGS0u07v7qFDECVGvCyv6rnxV6zPa5z35e5MkBSDph9xXnxhQEcOtZgWX
- Jh2L561z4a8Eb9zXxgdha2KZPD/bVH8bRD8YYQVICHZ35W/rGQCZv13UmQqN+Q2mJ0
- +ZUJzyQPH8u7Sd0RkGIaY6w7zwXVTB9k77ChA0ciApSBDWnb/Y8g5C9kOM5ysua9TH
- fGrZLDTiXxAzczZnc8shj6Ig4r6ipMWehlkbVohJcjNBs6yS1h07XZG8VmWgPpZVQc
- +McUT7glVR8tz8o10wtWBm225RKY73eZMjI99lY3tMAWJ7m/C4xllU2OSlypEWZdVC
- nre+DhGxBEhug==
-Received: from johan by xi.lan with local (Exim 4.98.2)
- (envelope-from <johan@kernel.org>) id 1virBW-000000003RU-2WW7;
- Thu, 22 Jan 2026 10:41:02 +0100
-Date: Thu, 22 Jan 2026 10:41:02 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4D0210E05D
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 10:22:19 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60M87Jwe3868713
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 10:22:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ep5QnDcp6sQDu4JB5aEYhZ5VmVnyTogSqCaLPVY9tRY=; b=nok1F27hL5N+TZAv
+ z3hwITteIMlEzVEz6UicBItPfcQtasysVLRbsuqvHyKO3vg3TgwU06b/JFaF8wTp
+ BKrnX8jKCTPqCfxfcTuFo5wvIZEYAZRUwjIpVvg8RDbkh7wifRdhtznAg0aIToLp
+ nI42A+YTFvnKB2eNa/EO2LQBTe/aB/8CW8RJy0YvqLidL8lAirFVSPiA/QiuF+De
+ qxBKkIkrHuXZLdONF1WNRlZsN0GahjBUxgODBSJW7jnbUZzWKQEQ1LY/K329kTSE
+ VxYXa8305TBuQDLlvtu+WWL3vbTukg5Hh34moERhPvzBRwopHT6JG5fgMKS37I63
+ FzJlHw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4btyrpkmsv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 10:22:19 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8bc4493d315so203429385a.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 02:22:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1769077338; x=1769682138;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ep5QnDcp6sQDu4JB5aEYhZ5VmVnyTogSqCaLPVY9tRY=;
+ b=Nov0YX+Zr+uQVCJgptN0zKzZsatC7gocBawqKq67KP3nPCHIRpCS8h8dX6vM21aRLy
+ anh/d6JGEjR5ZXCDWwovTYgiQxjxs+hqO1GsCT/l6K3xbthVaSWvNvdhGvWC0R+PE8Yz
+ vob8VW/RpnnGrZTSLOd4CA+HZkbKfUHnvQVjMXeVefUl/lr3fQjwabt1NeqUYkqV2Dsz
+ dBaXxczDPoP704SAd3VGfIyO4uZYRuuIuNfng4/k9WDGh0DZbgp4RSrUNcK3U0/Qsahf
+ cMHUDvAvx/8kgmVYEjuKkHhFwN1EVf9oClc20gCjOqu0tQ7c29FsOSW4Wdv4Q4rp1Rbe
+ UI0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769077338; x=1769682138;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ep5QnDcp6sQDu4JB5aEYhZ5VmVnyTogSqCaLPVY9tRY=;
+ b=X/l57XO9J/byanX5u1EMvweJm0Wx0hnz4LV4puMx2JP4YpHiUaDeBWtnsMWDFnkMAT
+ kX7Mbz8VYcrbSVn9nQu3yKQ8U2VRmXZ0Ue2Vfx58Ero4qlVxuzcyB5PkL9fKSZxH2Gxr
+ TQODQvlzsz1+6IsXGAILLk/SxaG8MN+0fcPsGGn1lYONnJLPATlCNNsBOTZjlVVZ6MCW
+ YW48RFhg3C7QImbtOc6LB23vHhJUcE35IXc4/5elTM5EwJFnUVPrm07TWtGapo9gPSNt
+ J9y6ZwKGPIDJuWSEtkjU+KgajCwTv5ekNUDpAKctia4AxVpD0uFhzhakpy74evJuu32o
+ HTVw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVnjhSY8wc+p6NXegeRwRknVMbyktb0EGMDZltAuf7c8zvjowROA25eQHUFvdVRVLNqTXA9R5koymc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLvGSLHvdm7419HCJsd7nA2/tdinsUWxxjluxDY2BTM27zAQvy
+ N94+GsBY8hSCuDawBBc3xwoxsIiRDQxn6jw2lTWlJTfCNEx0v9nacrCPUJs4L39nLTyxgYA4k6U
+ /7kRRpoPS+i+PtDGSP48P3rtPHWdXmOKU07BqH4VXfA1+K4LXrxeO8wXiUeIwcPiaSlz/27s=
+X-Gm-Gg: AZuq6aKPGdl3l4D6Svk0hfNh6N+kENykkd5L4SPq4XJgNC08OcmKl615X0zjeL9t/YI
+ clJ56JMx4WXb0s4fxl7hWWK8rHyyoK3bQUcS2RXcvGIGvemLxFq+g4GjZyKOKTxft0JOvRYKkeG
+ vMulf9pYUYzd57Omkzch7ZUqDBrDHo9JuxmgB30/DAetA5030dF0N/26ZWZneNOg+TIdl0GxVhQ
+ DekjmRcR6MqIbWfv5cy8l3HAAMBcqjct+7KMIN3f+vQKBD5sw1zmg/YKmkixMeeHlviq7gVsaic
+ xmad5MNDETZBAGdqh6anfhQYFrWuVimfjuivNbSo1t9PVzDGEwKlbpnl3zrqm6YRZpB5oKwsgvT
+ iRS2WNH+QFnx6fw+KDOm62ZhS/5Vj1QoXO/OWqX8cOol8c6MvaI3ZNTBMzLsqsVzSMIERCjuX51
+ zmCVNLvtMS+Dk3rvU4T2PypA8=
+X-Received: by 2002:a05:620a:4627:b0:8c6:253d:5187 with SMTP id
+ af79cd13be357-8c6a68bd2a5mr2683835185a.11.1769077338046; 
+ Thu, 22 Jan 2026 02:22:18 -0800 (PST)
+X-Received: by 2002:a05:620a:4627:b0:8c6:253d:5187 with SMTP id
+ af79cd13be357-8c6a68bd2a5mr2683833085a.11.1769077337585; 
+ Thu, 22 Jan 2026 02:22:17 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-385d324e721sm663241fa.17.2026.01.22.02.22.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jan 2026 02:22:16 -0800 (PST)
+Date: Thu, 22 Jan 2026 12:22:14 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH] drm/msm/a6xx: fix bogus hwcg register updates
-Message-ID: <aXHwrnMS2aj_PYRj@hovoldconsulting.com>
-References: <20251221164552.19990-1-johan@kernel.org>
- <aWdaLF_A5fghNZhN@hovoldconsulting.com>
- <aXDt6v_iO4EFCqyw@hovoldconsulting.com>
- <CACSVV039g9CcAKhtMAwn=hH4hMT2nV77vxiasgUSFF-sn=+JgA@mail.gmail.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v17 2/4] drm/msm/dpu: Defer SSPP allocation until CRTC
+ check
+Message-ID: <c56e4ylgwcqni23btaxegdbfg3tbkyp2vtjtboeb3kbvcfk27u@vrlh276djtfr>
+References: <20260121-msm-next-quad-pipe-split-v17-0-6eb6d8675ca2@linaro.org>
+ <20260121-msm-next-quad-pipe-split-v17-2-6eb6d8675ca2@linaro.org>
+ <6kzd2g4hgffqz5ipaqbourgiefuxxh3njj44n35blo37z6hhhj@us7lzlgmjuld>
+ <CABymUCMf8LxX6VWUuzNJP+G1y3Xi5-CVYhaqLR7F=kU6ZgdcgA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV039g9CcAKhtMAwn=hH4hMT2nV77vxiasgUSFF-sn=+JgA@mail.gmail.com>
+In-Reply-To: <CABymUCMf8LxX6VWUuzNJP+G1y3Xi5-CVYhaqLR7F=kU6ZgdcgA@mail.gmail.com>
+X-Proofpoint-ORIG-GUID: v2kLX-Lpu0mlRzqBX_WYUFI-WyKfofbH
+X-Proofpoint-GUID: v2kLX-Lpu0mlRzqBX_WYUFI-WyKfofbH
+X-Authority-Analysis: v=2.4 cv=KpdAGGWN c=1 sm=1 tr=0 ts=6971fa5b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=bGBrU2Q4kWqJuByW2JMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTIyMDA3MyBTYWx0ZWRfX2/Ma9+aaD4R6
+ ebq0LDJ4ro8X7FzQODVDrSgCbhrgiKe5MHGmv2jFRSIYnPI5xfMsrp897yM64St7a+emnBzBvNk
+ 0lpS+yOYnqark577e1ydahVKrFqQ2kIZ4Aept0LPFt7ESmJ/0y6ihFX4QaPG57aprDoW7RQtqTJ
+ vNbY4D3T6acWJb3bCpcPgL6wb6ym2K59HPrb1sn7g8x7SuHZUI4l3UUYyzMm7L6HuFrc1PI1wEL
+ yxlZ7v6gkqqLImdATNf6vNC5hK4Ap/hzxh0ZmIpeNnCrgVbJeLAIIkf5j20M8LJiqBPDVDSGPoZ
+ fdz4//PpvpEflcXGX0B+d76VLiren6vsURxeG6oLalE67Flw6NFJssRrY9wL8dlELm/zT2WyBbc
+ THcf4gHKSDNCqIzgb5QZuKlLxeTerLuWdyRAlhYZvFc7K7QyqP60zeW/5L2vuhBy/MSMI6c2r6l
+ mP7U4SKNE2Hvii8bPKw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.20,FMLib:17.12.100.49
+ definitions=2026-01-22_01,2026-01-20_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 priorityscore=1501 clxscore=1015 suspectscore=0
+ phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601220073
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,93 +155,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.31 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+X-Spamd-Result: default: False [-0.81 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[poorly.run,kernel.org,oss.qualcomm.com,linux.dev,gmail.com,somainline.org,vger.kernel.org,lists.freedesktop.org,ffwll.ch];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:jun.nie@linaro.org,m:abhinav.kumar@linux.dev,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[linux.dev,kernel.org,poorly.run,somainline.org,gmail.com,ffwll.ch,oss.qualcomm.com,linaro.org,vger.kernel.org,lists.freedesktop.org];
+	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[johan@kernel.org,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	TAGGED_RCPT(0.00)[freedreno];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
-X-Rspamd-Queue-Id: 95C6664AD2
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,qualcomm.com:email,qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: BA0BD652C9
 X-Rspamd-Action: no action
 
-[ +CC: Dave and Simona ]
-
-On Wed, Jan 21, 2026 at 08:59:51AM -0800, Rob Clark wrote:
-> On Wed, Jan 21, 2026 at 7:17 AM Johan Hovold <johan@kernel.org> wrote:
+On Thu, Jan 22, 2026 at 02:03:25PM +0800, Jun Nie wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年1月21日周三 17:30写道：
 > >
-> > On Wed, Jan 14, 2026 at 09:56:12AM +0100, Johan Hovold wrote:
-> > > On Sun, Dec 21, 2025 at 05:45:52PM +0100, Johan Hovold wrote:
-> > > > The hw clock gating register sequence consists of register value pairs
-> > > > that are written to the GPU during initialisation.
-> > > >
-> > > > The a690 hwcg sequence has two GMU registers in it that used to amount
-> > > > to random writes in the GPU mapping, but since commit 188db3d7fe66
-> > > > ("drm/msm/a6xx: Rebase GMU register offsets") they trigger a fault as
-> > > > the updated offsets now lie outside the mapping. This in turn breaks
-> > > > boot of machines like the Lenovo ThinkPad X13s.
-> > > >
-> > > > Note that the updates of these GMU registers is already taken care of
-> > > > properly since commit 40c297eb245b ("drm/msm/a6xx: Set GMU CGC
-> > > > properties on a6xx too"), but for some reason these two entries were
-> > > > left in the table.
-> > > >
-> > > > Fixes: 5e7665b5e484 ("drm/msm/adreno: Add Adreno A690 support")
-> > > > Cc: stable@vger.kernel.org  # 6.5
-> > > > Cc: Bjorn Andersson <andersson@kernel.org>
-> > > > Cc: Konrad Dybcio <konradybcio@kernel.org>
-> > > > Signed-off-by: Johan Hovold <johan@kernel.org>
-> > > > ---
-> > >
-> > > This one does not seem to have been applied yet despite fixing a
-> > > critical regression in 6.19-rc1. I guess I could have highlighted that
-> > > further by also including:
-> > >
-> > > Fixes: 188db3d7fe66 ("drm/msm/a6xx: Rebase GMU register offsets")
-> > >
-> > > I realise some delays are expected around Christmas, but can you please
-> > > try to get this fix to Linus now that everyone should be back again?
+> > On Wed, Jan 21, 2026 at 04:01:51PM +0800, Jun Nie wrote:
+> > > Currently, plane splitting and SSPP allocation occur during the plane
+> > > check phase. Defer these operations until dpu_assign_plane_resources()
+> > > is called from the CRTC side to ensure the topology information from
+> > > the CRTC check is available.
 > >
-> > I haven't received any reply so was going to send another reminder, but
-> > I noticed now that this patch was merged to the msm-next branch last
-> > week.
-> >
-> > Since it fixes a regression in 6.19-rc1 it needs to go to Linus this
-> > cycle and I would have assumed it should have be merged to msm-fixes.
-> >
-> > (MSM) DRM works in mysterious ways, so can someone please confirm that
-> > this regression fix is heading into mainline for 6.19-final?
+> > Why is it important? What is broken otherwise?
 > 
-> Sorry, mesa 26.0 branchpoint this week so I've not had much time for
-> kernel for last few weeks and didn't have time for a 2nd msm-fixes PR.
-> But with fixes/cc tags it should be picked into 6.19.y
+> I see. Thanks! Will add below lines in next version.
+> 
+> By default, the plane check occurs before the CRTC check.
+> Without topology information from the CRTC, plane splitting
+> cannot be properly executed. Consequently, the SSPP
+> engine starts without a valid memory address, which triggers
+> an IOMMU warning.
 
-I'm afraid that's not good enough as this is a *regression* breaking the
-display completely on machines like the X13s.
+What is plane splitting? Write commit message for somebody who doesn't
+exactly know what is going on.
 
-Regression fixes should go to mainline this cycle since we don't
-knowingly break users' setups (and force them to debug/bisect when they
-update to 6.19 while the fix has been available since before Christmas).
 
-Can't you just send a PR with this single fix? Otherwise, perhaps Dave
-or Simona can pick up the fix directly?
-
-Johan
+-- 
+With best wishes
+Dmitry
