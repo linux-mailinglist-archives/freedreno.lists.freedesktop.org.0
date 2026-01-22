@@ -2,81 +2,104 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wDkFFSjicWk+MgAAu9opvQ
+	id eCw2EdLncWkONAAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 09:39:04 +0100
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 10:03:14 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A809E634AA
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 09:39:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3ADF64273
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jan 2026 10:03:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7240210E93B;
-	Thu, 22 Jan 2026 08:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE6E10E95A;
+	Thu, 22 Jan 2026 09:03:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VU3+eee9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ru4bBBOn";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WH7sCM+e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC49A10E93B
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 08:39:01 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-47ff94b46afso5222705e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 00:39:01 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71D2710E95D
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 09:03:11 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60M8p6eQ3463159
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 09:03:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ fwwrGrKrcG1G62yRGUdibMxWjeG3sF/NPoAYvMYnMDk=; b=Ru4bBBOn99KE9MnK
+ 9dTMH3Wz7NgPcS++FYNCT+9T5OXRanrNdhFJAFQ+SjX1aVAeQIJzpcm+DdsaqX5m
+ EBu5H/WbBvyHAWQMqxtJVwFy8+6K87PvRQGiYonOgi3EBvqki4o8O23nD64QbYBH
+ 3YcjfKq7RuVzCMK4B8q41suKA801uDhT2sjuseEFOQXbmFBfPTJb+5hiWdO0bQT+
+ g767do/1dGEKbKEPRUEFs8o1C2CyPK1sW7k+y1C5wFGNAKXMT1JSpEAAydIw7TUz
+ xWdJFPV6Mw1bTSjRlDIKO23LPFkOl7wS/qMtK7SIK159BeSMsNNymXa2wDXn5jIf
+ Rungog==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bu06536uw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 09:03:10 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8c532029e50so23711785a.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jan 2026 01:03:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1769071140; x=1769675940; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=WRgWt3QOSpx0eS1nwXFOWd2CSZ21RZ8VIcbpaI5Urno=;
- b=VU3+eee9BPyCBQsG+zaOgTU7jZCYBuuL6zjOglUvuODOWheE/TzVEuAm+6WVQ9omEo
- kDuYFjMPlArEcTemuzh+OwJ/0px1vzUVxlWHnSojhf9AmD0YdfTxO6BURAXnSFnt8vr6
- yE32blgi59UDiGNFPM2mlFD6cRCM6u4eb5MjefmfiwHjPzI6Xn4N97WraOejq9gFAcJr
- Fi0ISlyDeZJAIoL0Qa+ILRlTcbW/NoAZeYjKbVg68gSFgnonZV2lXp1BxJA4zqfcxDcv
- vo+7x7iUc8mSejBGMzVtG6ts5mFjOHKt2vjeoH5jopw13gNLepHQWridQ/XfQjO56i2T
- ytxg==
+ d=oss.qualcomm.com; s=google; t=1769072590; x=1769677390;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fwwrGrKrcG1G62yRGUdibMxWjeG3sF/NPoAYvMYnMDk=;
+ b=WH7sCM+eCI/tpeR4O5rXtyRcr9q+8KLgm2pdo2shh8zJCxPlmJ00WUCHASwGLbJZFS
+ wFVp3Q/Yktuq2XrY+ydu685JN/E5TIMH4QsNFKlKlfTVSsxxDMg58dQykXNKeLQFsciZ
+ On08H7epbawk/STdLRtrPOLQ8WeXn6MA+qt0F+B4j7v8+sRIo+YHFk9SSQhhfEiDFFTh
+ ts9Hju6p7L2Gv85kdzyp3MYLSXUyRoaC1Grebo16o53+abUvoCK+MvHhexMWKgkQeYWS
+ yXxr1ExzqyB/hp6tL6DMLkUZG9xYZvV5uYxuVsP2IwsG1gzlnRst20YbwpeDDfOuM/oh
+ mJaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769071140; x=1769675940;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WRgWt3QOSpx0eS1nwXFOWd2CSZ21RZ8VIcbpaI5Urno=;
- b=usDPxAXwe3PiWEkxQ9RRc/5o6PprFaj5ZCT/mPY0O+v6zPM9JSVK63Y4lCHFNmH18h
- cmVHCz9VFK2rK6Gnk8BfIY90kcfFRse45tGqJFTaua+oDVdV/UjDN3ADSu3jyrdypUp1
- pdmEPbSL06Yl3cH/1lnePHIfrJCb+ULT/16+WaSxuoSPxxMdT52XHXLrBscttWhcGbLj
- 2Lsqo6rNzTNmotatyCX9vypbqFPdhcBWX6/6XZ2Wm3w4H4DWnStZ4uVT7F++iM0yCNV5
- IHr3/RJqDx9aWe8DU3fR05896tZzsCalyAGyBGXqcCutffBqUIRtbBIcKLiHZdFwLcLw
- X7sA==
+ d=1e100.net; s=20230601; t=1769072590; x=1769677390;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fwwrGrKrcG1G62yRGUdibMxWjeG3sF/NPoAYvMYnMDk=;
+ b=toFm9PQvDfySVlLW3x1L2sA3+C7pZ/aBMDai7z6pWncDVZnggRGovelC/e66aAdVrG
+ WT90GVij6BADsARmDmBvruD4Fiaqy5bw5BfDXCnWgfXi1LgaH5Lp9+UaEzUCoB2XqPUh
+ ZXgwwHiN50Tar0QqNUen5f0oLHC1TxFw11XM9ar/5K8DwOOg5PT3P6W7OvlJytYrleNX
+ iLncyhNMZRLLpNBD+txjsPpo5YwzXombpqz6Jt+Jpfh4oISZ62gWcaQrmLBh1TFuSTZF
+ btqLeF6TUSWFsnowdLLqZPbuI82EY75CLuiVqdnZ6w6u9L2EkLByx0sAqItS8ZoiRfyh
+ jlFg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXr2pSHeKL6Ju5PmZunMTPMAOrbInj2My+3utG1fWcu1JpnMnA1EY6Dufj+hQjKkP7vjgQfTrSGnJI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzP7l1ef+U0mdxw6e8lsvLQu8GTrc+tcIHqr3uHacwDjv2nEYCr
- zZSWt6ExaBMiZlvRB4zcrwhCV9ZK99CXoiEac2LHLz34yUuiqIUOUpH8XNq6BZvlzio=
-X-Gm-Gg: AZuq6aIIUdL709JnW5Gh7Stbz/6BDOP5EmYrAdhWGEc9jS7fY2nu0dcQNrHeYI349da
- bhUtfIp0nHh3kKdwR5jiasFdBOK7FHrFyJVwzZDdmzaQR2di3qcQgcvj1nzs0LPfjWvtLEhDkYC
- mjtNhAVg6HW8oxusI6rTFuY5VJWQqGdqwUkxXQzSCuU2rPtKiVm6XyE/OmPT6kgGeSRpxy2MHkZ
- CvHYb+UjM+sHPu98aHLpgYmFTbez9x4lII8LRxuC7O2Cz4mGKHlBM5C0R9IK1Mg0dUGFUS9dRds
- MQRCKz1NB4StRjIGcFxYEbH/DO47wtEHmnDjD/WBHB5emBgyRlxnQk1xdmD3WKqMfa6ITdypfmN
- JUAhCc6wo34EMgHHS5M97eZg0RQoAPgiwHXsFrd6LKqlKNEnZ2QAH9574Jhbw4I/CU+qJ7TLHPS
- HO95YlmF8kbSzLf7iH5MIVGn039J4dfYcKFvYbjgifr+/FVAtOGxso2g5+Pk5yf2w=
-X-Received: by 2002:a05:600c:4653:b0:47e:e0b3:2437 with SMTP id
- 5b1f17b1804b1-480470689femr23241895e9.5.1769071140057; 
- Thu, 22 Jan 2026 00:39:00 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:3d9:2080:9dc7:6955:8850:f258?
- ([2a01:e0a:3d9:2080:9dc7:6955:8850:f258])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-480470cf385sm48724455e9.13.2026.01.22.00.38.59
+ AJvYcCVCHQPERjZKTlCmtW2FBaJY0p2yR28Ni7nQUNalgr4G6jJsbmoo23tap6kpkOoJhI2MvWRGgL9u1Ws=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx7PX+h5GV+2FLwLtNly0SJ/nRgNn4ssZiawLt3ZbAjQxQkeL92
+ 42P+l5K79UVAT8B0VJvOUsswobEtrU5Tgj45iU99xqd7BQjgtFF/3o5M0eT3s6/lns7EpaeiFdk
+ jbIEKdZJXZCfjKgVMqb7o3ANp+AQd5D75eK43sJ1/wkl6mcp3d4rbOV17f+tL5Auj8UNY9Rk=
+X-Gm-Gg: AZuq6aJJV+ccaaXRQElUk3alysMy+A3YELkiXxWE5lf4dO0PKJM7gT8KwU/bmXWJ5Xn
+ hkrIP7Fc7TNIakiaeSTvzdF7tV4vmR0FeG7C3mr4e5ZxRXtEa0xj/hjtd8ZOA/i69zl5wk+SAjB
+ VRL0bMYB2SLQUa6GEyBCbucZyJthdqVSuL77qgq/+mleGBHpViHQ94574WNQCmm2CiiZV1sL/LC
+ ZwEQviVAmkmfPxtjWZslWlAWnDB4u3SA0mPiJ+7iHb+ea/nuZ+2cuiuokXgH1tgyS6bFvn97kPT
+ lXLn542nychs7AooGpteb88ZHOW+hQylp81/7J9G+cnDSlfIb659HdS8cAMznXRLg+a6Cq+vuz9
+ QjIUOxT+i12TZHMkJSmJlYKRNFxZZEATNgn9xxOcWeloAxcG5MbD4a9IWB6VZGU6nk78=
+X-Received: by 2002:a05:620a:1920:b0:8b2:e704:55fe with SMTP id
+ af79cd13be357-8c6dafed670mr212637485a.10.1769072589813; 
+ Thu, 22 Jan 2026 01:03:09 -0800 (PST)
+X-Received: by 2002:a05:620a:1920:b0:8b2:e704:55fe with SMTP id
+ af79cd13be357-8c6dafed670mr212634185a.10.1769072589243; 
+ Thu, 22 Jan 2026 01:03:09 -0800 (PST)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b879cd85b55sm1586206166b.21.2026.01.22.01.03.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Jan 2026 00:38:59 -0800 (PST)
-Message-ID: <5c54dffe-f8eb-4b45-97b0-512a9658c212@linaro.org>
-Date: Thu, 22 Jan 2026 09:38:58 +0100
+ Thu, 22 Jan 2026 01:03:08 -0800 (PST)
+Message-ID: <e65fa35b-44dd-44c7-bda9-0e1ff5fd745a@oss.qualcomm.com>
+Date: Thu, 22 Jan 2026 10:03:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
 Subject: Re: [PATCH 3/3] arm64: dts: qcom: add basic devicetree for Ayaneo
  Pocket S2 gaming console
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -91,35 +114,36 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 References: <20260121-topic-sm8650-ayaneo-pocket-s2-base-v1-0-bb3f95f1c085@linaro.org>
  <20260121-topic-sm8650-ayaneo-pocket-s2-base-v1-3-bb3f95f1c085@linaro.org>
  <hmnyvxz7ashufiiil6hf4lg5g435e53zd3xla7qeqcb2styrqg@jkbjl6arm33g>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <hmnyvxz7ashufiiil6hf4lg5g435e53zd3xla7qeqcb2styrqg@jkbjl6arm33g>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <5c54dffe-f8eb-4b45-97b0-512a9658c212@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <5c54dffe-f8eb-4b45-97b0-512a9658c212@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=HOHO14tv c=1 sm=1 tr=0 ts=6971e7ce cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=UqCG9HQmAAAA:8 a=KKAkSRfTAAAA:8
+ a=hk5onNUDdM5l80mYchIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: qA1P9ToL-W6vXXj6a2SrawQswWp__Bug
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTIyMDA2MSBTYWx0ZWRfXwZssmC8Q1uzx
+ Wn1hFsFIF1hFo1kHGxoCxpVvharx0259vtPf5AtflGmCruNoJBw8IKVlVI4lQT+wMSutqZKy/iw
+ Su6uy9JoNSSdcOBSVLpaxTgy9wvLtyqP4rmhvMcqIbsNN40lVAGsETn85iV9+IfvoH9vzntaGDc
+ u0cuzXNI3GZ3vnLKVnVOK+J46Tz1bVz3PCNwUANKh3JTkr6bhG0omHre65UbPfwlBE+HqjNH76a
+ Xf+0sBgRVZBt6UIWI/yE9Iix6lwEm7MowrmZjefgCTCXzNlRgUhzrai0EozDXTEtkuYa/gCEuNa
+ NgB6I3F7N6j2OzIctfMaS9FGx3fkdou6WumsFMnPhN1fp1ecmmn0BV9b54vBydK6/zSAmnLTHCJ
+ k8Uy9YDKIpzHyN0cVHH5BS5iAtBplcNznEB2jg3JpAAAstAey7BV4AhyxBFmOy19BSirb8jkwhb
+ RU6veYG7ZTjFG3PpDEQ==
+X-Proofpoint-GUID: qA1P9ToL-W6vXXj6a2SrawQswWp__Bug
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.20,FMLib:17.12.100.49
+ definitions=2026-01-21_04,2026-01-20_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ spamscore=0 bulkscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601220061
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,241 +156,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.19 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	MIME_GOOD(-0.10)[text/plain];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MAILLIST(-0.20)[mailman];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:kancy2333@outlook.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	HAS_ORG_HEADER(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org,outlook.com];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:neil.armstrong@linaro.org,m:dmitry.baryshkov@oss.qualcomm.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:kancy2333@outlook.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org,outlook.com];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_REPLYTO(0.00)[neil.armstrong@linaro.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:dkim,linaro.org:email,linaro.org:replyto,linaro.org:mid,0.0.0.1:email,1c:email,0.0.0.0:email,e:email,outlook.com:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno,dt];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Queue-Id: A809E634AA
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,oss.qualcomm.com:mid,oss.qualcomm.com:dkim,qualcomm.com:dkim,outlook.com:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: B3ADF64273
 X-Rspamd-Action: no action
 
-On 1/22/26 02:30, Dmitry Baryshkov wrote:
-> On Wed, Jan 21, 2026 at 05:40:28PM +0100, Neil Armstrong wrote:
->> From: KancyJoe <kancy2333@outlook.com>
+On 1/22/26 9:38 AM, Neil Armstrong wrote:
+> On 1/22/26 02:30, Dmitry Baryshkov wrote:
+>> On Wed, Jan 21, 2026 at 05:40:28PM +0100, Neil Armstrong wrote:
+>>> From: KancyJoe <kancy2333@outlook.com>
+>>>
+>>> Add initial Device Tree for the Ayaneo Pocket S2 gaming console based
+>>> on the Qualcomm Snapdragon 8 Gen 3 platform.
+>>>
+>>> The design is similar to a phone wihout the modem, the game control
+>>> is handled via a standalone controller connected to a PCIe USB
+>>> controller.
+>>>
+>>> Display support will be added in a second time.
+>>>
+>>> Signed-off-by: KancyJoe <kancy2333@outlook.com>
+>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+>>>   .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      | 1445 ++++++++++++++++++++
+>>>   arch/arm64/boot/dts/qcom/sm8650.dtsi               |    2 +-
+>>>   drivers/gpu/drm/msm/dsi/dsi.c                      |    4 +-
+>>>   4 files changed, 1449 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+>>> index 6f34d5ed331c..1ba29755e5ba 100644
+>>> --- a/arch/arm64/boot/dts/qcom/Makefile
+>>> +++ b/arch/arm64/boot/dts/qcom/Makefile
+>>> @@ -313,6 +313,7 @@ dtb-$(CONFIG_ARCH_QCOM)    += sm8550-mtp.dtb
+>>>   dtb-$(CONFIG_ARCH_QCOM)    += sm8550-qrd.dtb
+>>>   dtb-$(CONFIG_ARCH_QCOM)    += sm8550-samsung-q5q.dtb
+>>>   dtb-$(CONFIG_ARCH_QCOM)    += sm8550-sony-xperia-yodo-pdx234.dtb
+>>> +dtb-$(CONFIG_ARCH_QCOM)    += sm8650-ayaneo-pocket-s2.dtb
+>>>     sm8650-hdk-display-card-dtbs    := sm8650-hdk.dtb sm8650-hdk-display-card.dtbo
+>>>   diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+>>> new file mode 100644
+>>> index 000000000000..141d92933957
+>>> --- /dev/null
+>>> +++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+>>> +
+>>> +&i2c3 {
 >>
->> Add initial Device Tree for the Ayaneo Pocket S2 gaming console based
->> on the Qualcomm Snapdragon 8 Gen 3 platform.
->>
->> The design is similar to a phone wihout the modem, the game control
->> is handled via a standalone controller connected to a PCIe USB
->> controller.
->>
->> Display support will be added in a second time.
->>
->> Signed-off-by: KancyJoe <kancy2333@outlook.com>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   arch/arm64/boot/dts/qcom/Makefile                  |    1 +
->>   .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      | 1445 ++++++++++++++++++++
->>   arch/arm64/boot/dts/qcom/sm8650.dtsi               |    2 +-
->>   drivers/gpu/drm/msm/dsi/dsi.c                      |    4 +-
->>   4 files changed, 1449 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
->> index 6f34d5ed331c..1ba29755e5ba 100644
->> --- a/arch/arm64/boot/dts/qcom/Makefile
->> +++ b/arch/arm64/boot/dts/qcom/Makefile
->> @@ -313,6 +313,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-mtp.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-qrd.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-samsung-q5q.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-sony-xperia-yodo-pdx234.dtb
->> +dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-ayaneo-pocket-s2.dtb
->>   
->>   sm8650-hdk-display-card-dtbs	:= sm8650-hdk.dtb sm8650-hdk-display-card.dtbo
->>   
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
->> new file mode 100644
->> index 000000000000..141d92933957
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
->> +
->> +&i2c3 {
+>> clock-frequency?
 > 
-> clock-frequency?
+> We never did so far we we didn't need more than 100KHz
 
-We never did so far we we didn't need more than 100KHz
+Let's at least make it explicit then
 
-> 
->> +	status = "okay";
->> +
->> +	wcd_usbss: typec-mux@e {
->> +		compatible = "qcom,wcd9395-usbss", "qcom,wcd9390-usbss";
->> +		reg = <0xe>;
->> +
->> +		vdd-supply = <&vreg_l15b_1p8>;
->> +		reset-gpios = <&tlmm 152 GPIO_ACTIVE_HIGH>;
->> +
->> +		mode-switch;
->> +		orientation-switch;
->> +
->> +		ports {
->> +			#address-cells = <1>;
->> +			#size-cells = <0>;
->> +
->> +			port@0 {
->> +				reg = <0>;
->> +
->> +				wcd_usbss_sbu_mux: endpoint {
->> +					remote-endpoint = <&pmic_glink_sbu>;
->> +				};
->> +			};
->> +
->> +			port@1 {
->> +				reg = <1>;
->> +
->> +				wcd_usbss_headset_out: endpoint {
->> +					remote-endpoint = <&wcd_codec_headset_in>;
->> +				};
->> +			};
->> +		};
->> +	};
->> +};
->> +
->> +&i2c6 {
-> 
-> clock-frequency?
-> 
->> +	status = "okay";
->> +
->> +	typec-mux@1c {
->> +		compatible = "onnn,nb7vpq904m";
->> +		reg = <0x1c>;
->> +
->> +		vcc-supply = <&vreg_l15b_1p8>;
->> +
->> +		retimer-switch;
->> +		orientation-switch;
->> +
->> +		ports {
->> +			#address-cells = <1>;
->> +			#size-cells = <0>;
->> +
->> +			port@0 {
->> +				reg = <0>;
->> +
->> +				redriver_ss_out: endpoint {
->> +					remote-endpoint = <&pmic_glink_ss_in>;
->> +				};
->> +			};
->> +
->> +			port@1 {
->> +				reg = <1>;
->> +
->> +				redriver_ss_in: endpoint {
->> +					remote-endpoint = <&usb_dp_qmpphy_out>;
->> +				};
->> +			};
->> +		};
->> +	};
->> +};
->> +
->> +&iris {
->> +	status = "okay";
-> 
-> With the default firmware?
+If you have the original vendor firwmare, you can read back some
+registers to know what they're set to
 
-Yes
-
-> 
->> +&remoteproc_adsp {
->> +	firmware-name = "qcom/sm8650/ayaneo/ps2/adsp.mbn",
->> +			"qcom/sm8650/ayaneo/ps2/adsp_dtb.mbn";
->> +
->> +	status = "okay";
->> +};
->> +
->> +&remoteproc_cdsp {
->> +	firmware-name = "qcom/sm8650/ayaneo/ps2/cdsp.mbn",
->> +			"qcom/sm8650/ayaneo/ps2/cdsp_dtb.mbn";
-> 
-> Is it fused?
-
-No but as Kancy reported, it's usual vendord provides their own
-version with battery & features tuning.
-
-> 
->> +
->> +	status = "okay";
->> +};
->> +
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> index 07ae74851621..fcd5a1a45803 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> @@ -3917,7 +3917,7 @@ opp-32000000-4 {
->>   				};
->>   			};
->>   
->> -			pcie@0 {
->> +			pcieport1: pcie@0 {
->>   				device_type = "pci";
->>   				reg = <0x0 0x0 0x0 0x0 0x0>;
->>   				bus-range = <0x01 0xff>;
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
->> index d8bb40ef820e..0781dce7cda2 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
-> 
-> Something stray
-> 
->> @@ -43,12 +43,12 @@ static int dsi_get_phy(struct msm_dsi *msm_dsi)
->>   	of_node_put(phy_node);
->>   
->>   	if (!phy_pdev) {
->> -		DRM_DEV_ERROR(&pdev->dev, "%s: phy driver is not ready\n", __func__);
->> +		DRM_DEV_ERROR(&pdev->dev, "%s: 0 phy driver is not ready\n", __func__);
->>   		return -EPROBE_DEFER;
->>   	}
->>   	if (!msm_dsi->phy) {
->>   		put_device(&phy_pdev->dev);
->> -		DRM_DEV_ERROR(&pdev->dev, "%s: phy driver is not ready\n", __func__);
->> +		DRM_DEV_ERROR(&pdev->dev, "%s: 1 phy driver is not ready\n", __func__);
->>   		return -EPROBE_DEFER;
->>   	}
-
-Aw, will drop in v2
-
-Neil
-
->>   
->>
->> -- 
->> 2.34.1
->>
-> 
-
+Konrad
