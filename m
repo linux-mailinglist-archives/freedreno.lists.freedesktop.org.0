@@ -2,138 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GLPcNLzrdGng+wAAu9opvQ
+	id wHDWAhUudWmYBgEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jan 2026 16:56:44 +0100
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jan 2026 21:39:49 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530467E117
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jan 2026 16:56:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91A4B7EED7
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jan 2026 21:39:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2275610E172;
-	Sat, 24 Jan 2026 15:56:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32B7610E28D;
+	Sat, 24 Jan 2026 20:39:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SG12+DI5";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IsraFdxm";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="cRZ4icxN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE12610E172
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jan 2026 15:56:41 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9B5910E1BC;
+ Sat, 24 Jan 2026 20:39:43 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60ODsNJn1567013
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jan 2026 15:56:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=PD/+4Tv/QlJ9os4hleObvuo3
- vPxWZDiHtIkn/geyQaY=; b=SG12+DI58KAP2XZnxvPaJA5caCKX6CGBs0GGHypy
- gpMNt3t0b2LoKHoRk4vDdS8d6HWSOQn4/NuSv8SMra7Zo53M7J3RI59C30oEC6Xr
- S7/j6X/2H3oZXhe9Yuk+ByDRU+gmXdFKdWX7TPEGinuhye36PIro5lzwhEzu4yJg
- IddLiD/jh8rqIXEg/JwbAl0jZiqZxCZVD4MnGxWgCeDOx2sclhNSexoNTtj6Ce6/
- /SNTtCJPLgEOgOyaNn4VuukzrJrdaGCMiFDEzjpyFocZgzoX5oP5V+C/WYmh1nGg
- +7iR4ZwkNncGzJj9jC8j1AKmgQnNn1pKn2SwM3xk4IIbrA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bvq3h8udm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jan 2026 15:56:40 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50147745917so140992231cf.3
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jan 2026 07:56:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769270200; x=1769875000;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=PD/+4Tv/QlJ9os4hleObvuo3vPxWZDiHtIkn/geyQaY=;
- b=IsraFdxmcXCSjd/7ROStFWS6MwrWQgx5UVCC76d6KxhLKKLyzUp2ygf4EvvpHWMuzi
- oKCt1/5diZQswFeunQ8O9MtdJRFJ4cVjPMAv5kZUQqL4kkRilZEZ3FaBysELz3DPz9bD
- L5iR6jz6KiOd5x7Zr2/4KOM+lqlBIitmiY673UqqvUiXRS8hZgtoRN+KDfoD5i8w49Lg
- NdVKKLrjFcm8xTn7vRdIzmrsv7J8WtMXirflLwn73VyDPEOXanBbFRkxkOQD28MpaoC8
- cPpgPAqDMpoaekmtai4D22hwNwzD0N1k36+s4L5XCxXdmfum/CAEm0QrX9qECehg9/9s
- DZ1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769270200; x=1769875000;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PD/+4Tv/QlJ9os4hleObvuo3vPxWZDiHtIkn/geyQaY=;
- b=YAMQZQnhpb+11JWuK6Uv6IrugXMlrMNXyTlOwC4TQwuTvAdmiBddJ/u+YI8EQIHo4z
- 7YGnRQCGUrVZPbTxwwn4KFbmUC+kKNn2tmEo5sRNE3KyDanuRZSPdeM36Z3BmKaf7Sca
- IKmrvUEMh+KdgXuv3ZTG5SKaQ9L4mTr6ZKJrzZvLrbq4Coqcx41QGKPR8dxRAIoFrWa0
- LHG/acHbzvcPpkUuIqdBGEXB1glTukWdPvKTkpaMJx5tng/WuLVmQaSUqLlgadjkq16+
- 5LrGo4DLPGXs7jvMphzs/UeaBmi2uDBzcWSCP+MjkA90dDChBjhWZZX1KXOLoMZOx9vc
- 7gIg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVIVQCYOLISFDZR54lQfrsURotiM+584w5iYWvOKrjA9TlFE+B9igC3ft4Zyp6ujym6cm9m+jFHr7k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBQmmKgubswapEmS6VMV8UiPVz6RlLFeb5jsmtoTlrikG4e0Ls
- fXibJpNgdUYO9/8qH6H9m+Tk27ICdgUN/r5NQyFlmZrhJ43xEL6YaVRUa3jYzXSVfFjcdZNxxig
- 6k7gQl52G0iyairZKYQw3SgLkBvXp0h2LKkcAlTOrQsTrN99C03zey+7X5CPR3qMjrVr3wtY=
-X-Gm-Gg: AZuq6aLjOsMhO9VwjxXPH0pjpRlRPXOh0jSROLGcS1Y0YbgTdvaW7iIMMREHTrPhlqx
- d9FiuvXfV8oRbchyFdmZCxA4QkPNUKY2mJ0eCQC2lQ4XqXcsztAfK6sysIUEqrjdMaS0J47cyPH
- JHN5i/PmEYG5WAjM2yLmDKtYW+gIqBYO9m4LdqMaspGqaeZCbEFAe0FAuODt7dVBqqoj59mZkjL
- OKYuK6aQw6E+G9+X+XA+OL2u27c/HYJHHub9mHEOeVXlOm3ejm906E8zu70UgQIgdr3TXRn5SM2
- 5zq6RLYJzd3AtP8Inh3sEbb/yyJNCY+eGUc8NeAKAX2vc2BqVXOQ/WnuS2mtoxEWcFPmJiW3NYW
- rIqit+OcJEMZ98OSpGqvh9zv3S4l+ApC9/MFeGFrobmKVV8IJJrtszCE8Hl81kwZJ6lSrnIIVga
- i/2Mu5t6kRnGHnTfE6dmhOxag=
-X-Received: by 2002:a05:620a:6c86:b0:8c6:a8a6:e164 with SMTP id
- af79cd13be357-8c6e2e34264mr811833885a.45.1769270200306; 
- Sat, 24 Jan 2026 07:56:40 -0800 (PST)
-X-Received: by 2002:a05:620a:6c86:b0:8c6:a8a6:e164 with SMTP id
- af79cd13be357-8c6e2e34264mr811830185a.45.1769270199769; 
- Sat, 24 Jan 2026 07:56:39 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-385da200503sm12996901fa.50.2026.01.24.07.56.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Jan 2026 07:56:39 -0800 (PST)
-Date: Sat, 24 Jan 2026 17:56:37 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/adreno: Add GPU to MODULE_DEVICE_TABLE
-Message-ID: <ai2yoizqkpx5f6n4y3v7p6im7wy4xwsgstpj3z2sbludaat5wv@i6gpuqwg73yi>
-References: <20260124-adreno-module-table-v1-1-9c2dbb2638b4@oss.qualcomm.com>
+ 60OJvjX91974565; Sat, 24 Jan 2026 20:39:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=DPp7bYmwiI88NuJWeoYgfAzXcE/Q9pS/7oV
+ x6tCiBRM=; b=cRZ4icxNA9XGek+AeDyHuEsRuPbtA7jPnaNMGWGF6IL6CkWujU8
+ ozExpjI12TL6ONKZfx0BcJtH3AFmIQSGWxrDz7EpldS0Sj3aVQcoQZcZa5S+WTeW
+ 0veCLn+WM/KV0pxE5otp4tLNaNfPFrfLb+d7foPaH4/n8UV+BoxWV+KDAOAFISGP
+ d0gv24I0JUsiToZgnNdCEarNaQUvj/hq2/ZcSiAXPwV/eNxIDbyb8Sa0r/RaOFRq
+ xDRrKYQZ8cmAyq3DOwYj//TDGH8H54eS7d9XnKJYWhyz0nDsBARLHlfGTpOwuvXt
+ LFQeWoncRsO8tO3WNyIiVx0V5mJRixeR3mw==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bvq9f14k4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 24 Jan 2026 20:39:32 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 60OKdTv7031205; 
+ Sat, 24 Jan 2026 20:39:29 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4bvq5ke8jc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 24 Jan 2026 20:39:29 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 60OKdSfH031186;
+ Sat, 24 Jan 2026 20:39:29 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com
+ [10.213.99.91])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 60OKdSWX031183
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 24 Jan 2026 20:39:28 +0000
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
+ id E672D5C9; Sun, 25 Jan 2026 02:09:27 +0530 (+0530)
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, robdclark@gmail.com,
+ dmitry.baryshkov@oss.qualcomm.com, sean@poorly.run,
+ marijn.suijten@somainline.org, andersson@kernel.org, robh@kernel.org,
+ robh+dt@kernel.org, krzk+dt@kernel.org, konradybcio@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonathan@marek.ca, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, quic_rajeevny@quicinc.com,
+ quic_vproddut@quicinc.com
+Subject: [PATCH v6 0/2] Add DSI display support for QCS8300 target
+Date: Sun, 25 Jan 2026 02:09:23 +0530
+Message-Id: <20260124203925.2614008-1-quic_amakhija@quicinc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260124-adreno-module-table-v1-1-9c2dbb2638b4@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI0MDEyOCBTYWx0ZWRfX1nzrQoOCNt36
- sIkC5zVgNutIsZzxGQMZlRQIordrlq9thJNbalBrLEDYO2Q94dhfsBYcq0GYzRwm4ko1kF0VYaN
- IGid3VtmbW0ue2eIw2yj6lfL746yLYAVkMduTK1lBQQnjVzjoBqZ2g/fJc9l/sdP15+ttC/dhuq
- 3il8W+ZYAOTq63s1jH16lNS1B2RCn7hXAye7sOLeAVt4ajvC4VgyMiUQqxFyHsO0CfrOhFK8tlA
- T/QJyXoGexHrp9i03mTA4RAkkFU8oOtpGFLqXz1/AR9qqSogj48bt0SSNgT5yOJVtzP6sUzX7Zi
- rLFOQSuGnr2MB16z19R66/jaTAKomlFVMK9XBUCyxpw3Hsw706jXvHlHDKhGcyde2beKiMj1A6+
- TwJ0z7qbzqPTgAXM6SYzvB8wXbOtng+eBP3Q6iStexHnzmTx9u6e3Pg/vq7z2yrkEiqAfwMMm9A
- ZeJN3jsWvISL60xinGA==
-X-Proofpoint-ORIG-GUID: hV7bwf-8FQrs4roqGDICnEHgu1L7BmU6
-X-Proofpoint-GUID: hV7bwf-8FQrs4roqGDICnEHgu1L7BmU6
-X-Authority-Analysis: v=2.4 cv=c/imgB9l c=1 sm=1 tr=0 ts=6974ebb8 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=YWtLmMpjZNbrRuJAT3gA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=YLGSCBGx c=1 sm=1 tr=0 ts=69752e04 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8
+ a=RHkTxhJYF7RHL4dZ0YsA:9 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: 95wARbYKKHHRpRDj6BnkStHZmBkixMci
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI0MDE2OCBTYWx0ZWRfX9xXk9NZF9nko
+ RvfUWkqlKMnoNBXFgDUxTUm57x7dli+UbhXjp/CpyfMB9lsxC40FFj7zTgTbMdTfxnCTFWjSt7E
+ dgIYjqXVjg1Q9oUm9q+A5C9Etwlr7q8BhSX0R9ORHg5ZJbAWsKiP7AMf0tuMSvUPtg02BVsehGT
+ ZyddntGrw6Y/huyftOFuekHxtuMMWfPGQGCWzNsq/INFWiKdXYNGa1oQRkvEpEAubRS5H0FN7B9
+ +GvDiUwz4qoYXKOH8dQEAsIiFSMJiBBJXuBv7u4TqHvYbgTBZZP1ySuyyL4u0ofh+WAGM96aw+t
+ rTWVoBEgP2qvfDc7U6EGzMi6EKgQWBJgDH8RMpM20VN8kbeztWlcIHDj7gvQhQhrR0MVjloDsG2
+ VVlwxKM9gvp4oVHlAU1zfHbl0qrfpLKcRa0eoDUV6JWa2n019eOwMweuFFtXZTQsCRtl8OkeGX3
+ 0A5PHr30Z3ZlfMpX1Ag==
+X-Proofpoint-ORIG-GUID: 95wARbYKKHHRpRDj6BnkStHZmBkixMci
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.20,FMLib:17.12.100.49
- definitions=2026-01-24_02,2026-01-22_02,2025-10-01_01
+ definitions=2026-01-24_03,2026-01-22_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- suspectscore=0 priorityscore=1501 clxscore=1015 phishscore=0 impostorscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 spamscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601240128
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601240168
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,55 +118,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.81 / 15.00];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+X-Spamd-Result: default: False [1.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[quicinc.com,none];
+	R_DKIM_ALLOW(-0.20)[quicinc.com:s=qcppdkim1];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,poorly.run,kernel.org,linux.dev,gmail.com,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:akhilpo@oss.qualcomm.com,m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:konradybcio@kernel.org,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[quicinc.com,gmail.com,oss.qualcomm.com,poorly.run,somainline.org,kernel.org,intel.com,linaro.org,ideasonboard.com,marek.ca,kwiboo.se];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[quic_amakhija@quicinc.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[quicinc.com:+];
+	NEURAL_HAM(-0.00)[-0.974];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno,dt];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,oss.qualcomm.com:dkim]
-X-Rspamd-Queue-Id: 530467E117
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 91A4B7EED7
 X-Rspamd-Action: no action
 
-On Sat, Jan 24, 2026 at 06:32:56AM +0530, Akhil P Oommen wrote:
-> Since it is possible to independently probe Adreno GPU, add GPU match
-> table to MODULE_DEVICE_TABLE to allow auto-loading of msm module.
-> 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
+This series enables the support for DSI to DP bridge port
+(labeled as DSI0) of the Qualcomm's QCS8300 Ride platform.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+QCS8300 SoC has DSI controller v2.5.1 and DSI PHY v4.2.
+The Ride platform is having ANX7625 DSI to DP bridge chip from Analogix.
 
+---
 
+Changes in v6: Addressed review comments from Konard
+   - Dt binding patches are merged in v5.
+   - Patch 1: Added new line at few palces and corret the regsiter
+     size.[Konard]
+   - Patch 2: Correct the order of the regulators and added new line.
+   - Link to v5:[konard]
+     https://lore.kernel.org/all/20260104134442.732876-1-quic_amakhija@quicinc.com/
+
+Changes in v5: Addressed review comments from Krzysztof
+   - Patch 1: Updated commit description. [Krzysztof]
+   - Patch 2: Updated commit description.
+   - Patch 3: Added reviewed by tag from Krzysztof. [Krzysztof]
+   - Link to v4:
+     https://lore.kernel.org/all/20251225152134.2577701-1-quic_amakhija@quicinc.com/
+ 
+Changes in v4: Addressed review comments from konard and Krzysztof
+   - Patch 1: Update commit description to clarify PHY compatible string
+              details.[Krzysztof]
+   - Patch 2: Update commit description to clarify CTRL compatible string
+              details.
+   - Patch 4: Added new lines at few places. [konard]
+   - Patch 5: 
+            - Moved regulator always-on and boot-on properties at the end of
+              the node. [konard]
+            - Added new lines at few places. [konard]
+            - Made the tlmm gpios entries sorted based on gpio index
+              number. [Konard]
+            - Drop output-high property. [konard]
+   - Link to v3 :
+     https://lore.kernel.org/all/20251125013302.3835909-1-quic_amakhija@quicinc.com/
+
+Changes in v3: Addressed review comments from konard and Dmitry
+   - Patch 2: Remove qcom,qcs8300-dsi-ctrl from clk details. [Dmitry]
+   - Remove PHY and CTRL driver support. The CTRL and PHY versions for
+     Monaco are the same as LeMans, and Monaco will use the same CTRL
+     and PHY based on the fallback compatible string [Dmitry/Konard]
+   - Patch 5: Rename the regulator used and arrange the compatible, reg,
+     address and size cell for i2cmux in proper order. [Dmitry]
+   - Link to v2:
+     https://lore.kernel.org/all/20251006013924.1114833-1-quic_amakhija@quicinc.com/
+
+Changes in v2: Addressed review comments from Konard and Dmitry
+   - Patch 1: Documented the qcom,qcs8300-dsi-phy-5nm compatible string.
+   - Patch 2: Documented the qcom,qcs8300-dsi-ctrl compatible string.
+   - Patch 3:
+           - Added qcom,qcs8300-dsi-ctrl and qcom,qcs8300-dsi-phy-5nm
+             compatible strings
+             to the Device Tree bindings. [Dmitry/Konard]
+           - Fixed indentation issue. [Dmitry]
+           - Drop the extra empty line. [Dmitry]
+   - Patch 4: Added PHY driver support for qcom,qcs8300-dsi-phy-5nm.
+   - Patch 5: Added CTRL driver support for qcom,qcs8300-dsi-ctrl.
+   - Patch 6: Included qcom,qcs8300-dsi-ctrl and
+     qcom,qcs8300-dsi-phy-5nm compatible strings in the Device Tree. [Dmitry/Konard]
+   - Link to v1:
+     https://lore.kernel.org/all/20250925053602.4105329-1-quic_amakhija@quicinc.com/
+
+Ayushi Makhija (2):
+  arm64: dts: qcom: qcs8300: add Display Serial Interface device nodes
+  arm64: dts: qcom: qcs8300-ride: add anx7625 DSI to DP bridge node
+
+ arch/arm64/boot/dts/qcom/monaco.dtsi      | 105 ++++++++++++-
+ arch/arm64/boot/dts/qcom/qcs8300-ride.dts | 179 ++++++++++++++++++++++
+ 2 files changed, 283 insertions(+), 1 deletion(-)
+
+base-commit: e3b32dcb9f23e3c3927ef3eec6a5842a988fb574 ("next-20260121")
 -- 
-With best wishes
-Dmitry
+2.34.1
+
