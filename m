@@ -2,161 +2,113 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IOxVJen+dWmDKQEAu9opvQ
+	id IvGkDwRQdmk4PQEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sun, 25 Jan 2026 12:30:49 +0100
+	for <lists+freedreno@lfdr.de>; Sun, 25 Jan 2026 18:16:52 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2172803C8
-	for <lists+freedreno@lfdr.de>; Sun, 25 Jan 2026 12:30:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785FF818DF
+	for <lists+freedreno@lfdr.de>; Sun, 25 Jan 2026 18:16:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B2D10E367;
-	Sun, 25 Jan 2026 11:30:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA6F910E0A4;
+	Sun, 25 Jan 2026 17:16:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KPRczrnV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WSe3Lb9o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nKXpQYLB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5CE10E365
- for <freedreno@lists.freedesktop.org>; Sun, 25 Jan 2026 11:30:37 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60P7EgQP2571877
- for <freedreno@lists.freedesktop.org>; Sun, 25 Jan 2026 11:30:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- W/n8lIy6TJAx0t/SbpKSBMWtMGWB6AELaqSTzQbbTRI=; b=KPRczrnV+oICXGre
- /DrF3ndbq2RfM8w/pZWsupYBj1IAQ6rZZ68kBQkydinT2AsyEjv13VIoGDYjXUyy
- iNR3bxCca6vFcWdtHPcbmXn3K+ybDDrff401OYE0b9udkR+CwH0JZfM/LKHbeKRb
- 8B5NHgbv7ivylRMRgYZKFV+u3Fm/m5E6zJD8LcvcE9moTFbHJTlKdHBrYkA2UkNA
- l1vKqioshrSWQwBiDVWRRwyPaEmG2jMzfAo1Mt7ChJuKkHdUygwSlX+ot7ugP2B4
- 66mosvVlv1uv1jHSZ0TbSw8sry0WezppTdXkSZGxsZlJ0Ny6naahKaoGonz/+xQ9
- BCRxhA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bvw4wsh74-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 25 Jan 2026 11:30:36 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-89493622b50so27557466d6.1
- for <freedreno@lists.freedesktop.org>; Sun, 25 Jan 2026 03:30:36 -0800 (PST)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BEC610E16B
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Jan 2026 17:16:48 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-34e825b0c42so309034a91.1
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Jan 2026 09:16:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769361408; cv=none;
+ d=google.com; s=arc-20240605;
+ b=fxYhRq/okcHbOqb+TP0uXs64xwPDBMkBZvbTsnyvgvOey+2UkYsP/6oBg/cvYDx5vY
+ C18N2hlCKQfnJPgjF8MZXPgUcvKudoB0N6tRLVy+rQnIpIENkLAzeJgUFkAwAxjMdj1w
+ 8dPWd2WaOJXoD3gdrWoXgD4438GOJDShGhZPXh+1ygZxLMSEQ6763hhLXSsrqTo1cFTj
+ bV8kgko/9a5RYOONAteUmxDmtEf8G6UM+3nCnY9juzBBHPxB0Fj0wWS7I6I/qQtJtcXA
+ OjZc5TU7UsxGq6Gtie93H9zPEBWn9Y2jsZcphn3MqvQntDTfKlwSL5kCL6LVhslmcoIk
+ 78YQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=k8X9SwxtwKptigAeV0uEMOHmuEgza198fJUXdmHkMTE=;
+ fh=yxuySM1/WFvRNbY2Pp7fuNil3MQ74s0uqnuPqqY1irY=;
+ b=I/CwCPmz2ykALyXfQuBvEZIIQXZyWBW5xGhzXa4d1F28qBHtcZG4/Zh+1Z5DnRePO/
+ 6Mp8Ns/ZehcMGvyheVL8K2gjCfaSw2ghM9sBulPbh1taoWwToh0ZCrlBONYpUlgUNKZX
+ Q5kBvK1QWH000R3xZKUI9UbZxKGmBn6kQsqE7ZwquW4hec5Wfthxss1GWjbwm40VLHyX
+ e76UgE0ZUhwKsfZN2qjcysO2ORNnj0noyzk3oPDa1Z1nTN8vuL7ejGqhQoquPSuSxLFW
+ qMb2hi8c1eag2jAuPrw3QsqnKz/qRyHhDCb6sMS9+qXaeKgk8cGtXCCJuoMTKIqB1MyI
+ +bbQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769340635; x=1769945435;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=W/n8lIy6TJAx0t/SbpKSBMWtMGWB6AELaqSTzQbbTRI=;
- b=WSe3Lb9ocmPLW7bzgtolZ4wEA2oAlNAKkrvJX1VXPBLLLisW28qQlCh7UmVyUU5SsM
- UDb78uFJUOMGcwMwggbDebLiNEGMZ3iuFqG/7k0MjWeJBgws3SBg2NmUP4dBV5qz1kek
- CBBcS80OwZzTBkI+XGutbC9mLMnQ0PFrHqQZ6freQzUx6vMDDuRdnHbK8JZpvFjaphb5
- vcoRPGbQc9e9aUFLRa3UienfFFpybZ3/+1HigLgYIZCcd03AKFxNOc/+jeKFMwxOKN1X
- vuJaagDbEqEMrrAFc1w7P+Zs0mUqhbzOAlJvLMGWR5F8xDpOPY90Wku+xtXe3sjwxePY
- czag==
+ d=gmail.com; s=20230601; t=1769361408; x=1769966208; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=k8X9SwxtwKptigAeV0uEMOHmuEgza198fJUXdmHkMTE=;
+ b=nKXpQYLB7Ni1b67bnsVCqbij/AzLhr0ff1nhtHvnU9CWsVStKf0TgStoW5vZ9NSU3w
+ lT1eDnqp5joPie2Brb+EtahHHFVOX03xyKwomVZCao9OgWbJoHh+BlvBSffhBQex3mKg
+ OfVrR9TGvb2ehJxQ/PYjXSrF1TdUAcDwC50CjQ1FubEPWLcg40p0OE6Ro8lkYPjaBz8Q
+ ghsNINJ4eubD4cy6XApflxLSjFkIpf7rl3XcVnUUkDDLZotlHkqfVCsF9TUeM2AFDyhT
+ RIM1Lrv2WZXmZ6/7Zx13YRrfkxCEAljs4Wioi1pHu2CqM1vJLfGqifkoEMSVfQspiX70
+ QqlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769340635; x=1769945435;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=W/n8lIy6TJAx0t/SbpKSBMWtMGWB6AELaqSTzQbbTRI=;
- b=esbsWer0ZAs7nP5Ie/aQ6zHI9YSyD+DRSsvPWoKU1WpKC+lwJ3N8MtpOctlHPd2CWq
- UJmVi+jXSS3tIuVNAkA5mEtk1/yEWoMIXzwQEXYUrWoDs/oNSzg94vPOGDYVRVGwkA6K
- YlIid/UYgrldWqMr23Ar6wHGOYzEaHEpdLRUStojPo0XReHZ+y+g6cM/PGX3bLo9zCyO
- t/px1/VXFD1th1bdiBoaOCjm2GE+LP3HPhIdC9PeUf2irm1SjC5w+ExetwBpFskRE5Yb
- T61MdtojInB0G7uFBmeBJ6VzionJtteMFcPeDlj8uTAWPIQgJVF8aJcZT1Ac0srPBapp
- AxWw==
+ d=1e100.net; s=20230601; t=1769361408; x=1769966208;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=k8X9SwxtwKptigAeV0uEMOHmuEgza198fJUXdmHkMTE=;
+ b=QmmWYYIcPfgJV4ohmoQsk9+0Oo131q1SNl4xRkhMCe+8x+12O9iCs+j1KIrTVZGsX/
+ iyDkaXQ2IQAcdT2TBKFGaR1ThudxlCXz9+c77adTjNXETZh00CnJZP9umOU634lTc70J
+ zn8Og0SZc3dTeK9pCP+mHPI/7UEVWNjBNIvTSS8vNJryMyrrccxdR3bxH4yieQc6paVy
+ 5jcpkM3r3rmCRJ2wMgtR8OkjitipmcAqOY/WsScJhg0Dj5A3sgcNWbRwaktcrZNDcjrL
+ lJGfkuQETeJ+KZav1cbMY0Qt57XrDzqX++qOSoekR50coI1yxyqX4KvLrR2PqjYdHz9t
+ qPmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWkptAr+MIzEPczi7Gfa8yh2+I4rtrZo2ol8PFr4rRXnX1/dIaNHtZzTRuNaSQC8/NAeAa/6A9X55I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyw0KK/pmxs05liPnviZGAc7YW8hldMIyGjjmyGhjex4vbRSWPw
- jTZvpvJK84dyo0whiG/bj560bihyydGayZp65ibhm8zyZOXebXfO7tZ5OqDtt/9JZ0ag7BQvR/g
- ogtjI7r7hUMh4Y0qAEKI/u8UpR1iK3u12ZNgZWIo7HY/AbWSHkHfTxyznTDDPPxAD2e6FPWU=
-X-Gm-Gg: AZuq6aIE5fy1ihaRuxlDLE3eR4STifYKn496NzelDT26OeGfCEUdWXu9dhS96yoCFe6
- yuBOCRp2zeGlgQ/fxtw0lqbqhME5kJloCR24MgzGWC9nUfIi7H59T026Q2bz9RiLYQRFi39KI05
- D8kaXaNiifarEdpDJcCet0emDk7iytkBX43Bq8Veu9LPWbXlNhz1wiGVkiYIwYq4rn7rE8LWG2W
- GvGl5v0HQqHVkZAy8WVcV9tCj9l0jf086OvEbw6lfNFocds0VM9J0cRoZZjxxCFtqS5CQRddsTw
- jEIG3TRbxDnhdVXbitIIh1tzxuyqiF9LRyP/HFfq9PjqxOvjqZ4CKZqsZdGdJaTfGhJMMPXmgf9
- +bDm486k8JJYl79xfvSAFu3aU3oJEW/R2SzYn6t3INcMB7hWawuX0iwSRRtLc8BT3xs5GFgdP8M
- QI2tmLHBSlvbYbb7GBVJD2gKM=
-X-Received: by 2002:a05:6214:e45:b0:888:8174:5bbc with SMTP id
- 6a1803df08f44-894b05dbf24mr12272726d6.0.1769340635413; 
- Sun, 25 Jan 2026 03:30:35 -0800 (PST)
-X-Received: by 2002:a05:6214:e45:b0:888:8174:5bbc with SMTP id
- 6a1803df08f44-894b05dbf24mr12272316d6.0.1769340634877; 
- Sun, 25 Jan 2026 03:30:34 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-385d9fec3c9sm18583451fa.15.2026.01.25.03.30.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Jan 2026 03:30:34 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sun, 25 Jan 2026 13:30:11 +0200
-Subject: [PATCH v4 9/9] media: iris: drop remnants of UBWC configuration
+ AJvYcCV+sWEJr5fmAEzsEimwLzW52DDJpBPB/Dmm++xkGnRm74msKjEJ5ZzlTaMdsL0cr3wel+QY9j3Yrxw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxgNI3Ejqh7oR5HefH5Yp2NSN3KppvoiMmn+9Z73DRnf/cWQUzL
+ G5ywInMm3tYPSO97OfRdLYdRzOxnGg9JCHLmjyd2p4L96Hk0RTm3WmYBuwzoLfVdwGRidcVhUHd
+ HYQ+Os/zA0Ye+5qL2UQV0EUBOmBehjK4=
+X-Gm-Gg: AZuq6aJ1lIqYG/l3QZxHdZn4GLurLze94gnZa0GNA7ii79GRyH8GnvrV57qHiT5vbKz
+ OYcqEvJqZqu5N7NHhJ6jvhkvc6/9wNAi5Tq63Hzmv26CIPTZhn/e9lv0lf3n52H1+seLAeMg9T8
+ p1+mCBixdRorBCbi12XYetPZhUBJw+o7wScddSg//h3raj5W1p3BGILa75d3/o0+8S2rybplwwn
+ 9mA1HNLKt0YkJJrC9aJWqTtMPW3jJrNKytPnDZSTTX7j1JKD5ptXPB+LsBEgCcpZ9hU46w=
+X-Received: by 2002:a17:90b:394a:b0:340:dd41:df7d with SMTP id
+ 98e67ed59e1d1-353c41625dbmr1417254a91.3.1769361408319; Sun, 25 Jan 2026
+ 09:16:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260125-iris-ubwc-v4-9-1ff30644ac81@oss.qualcomm.com>
 References: <20260125-iris-ubwc-v4-0-1ff30644ac81@oss.qualcomm.com>
-In-Reply-To: <20260125-iris-ubwc-v4-0-1ff30644ac81@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <20260125-iris-ubwc-v4-2-1ff30644ac81@oss.qualcomm.com>
+In-Reply-To: <20260125-iris-ubwc-v4-2-1ff30644ac81@oss.qualcomm.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Sun, 25 Jan 2026 12:16:37 -0500
+X-Gm-Features: AZwV_Qh6bCEQHtHjA5NyO7y-zT5kVNEbiRdlIWpRsBNsjtNaSF0FG6h2tF4V0UQ
+Message-ID: <CACu1E7Gpzgg0WKT9EyFO+uJsGCVAcEUG1OkTdhXLpGThTrd=Ww@mail.gmail.com>
+Subject: Re: [PATCH v4 2/9] soc: qcom: ubwc: add helpers to get programmable
+ values
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Wangao Wang <wangao.wang@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3291;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=/9nEVbBbZylkYnurLYSAS/hZukhtGTEGsaxE9DNa3To=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpdf6/ashi/qdiuGeLL32ceRnKUHTnGuZo99BO2
- zghxKQW6t6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaXX+vwAKCRCLPIo+Aiko
- 1RgMCACc7Qbkgnck/W7AQhj2sxH0m2vrJSNQyiJHi78KV7E/DEvYsUYPBgWy0jiBSqrhoOkZqSk
- +GRgr2r/sP7cG121FwQO2Aj/I9S2f+fg2jbWUlNQbZnf6O4QJmspgQPThVMFyLcfHbU8UR+j9b9
- mN9vUTqsopuG7bpx6S5kTEZaxYsfwN3M2UOK+j93CkicgrgWPBzT/SQUB/hDtedPVDLW/NExzc3
- XtykJv2g2P+h/y9M6s5WP1YN87vaO1WC3UiMwvEDoxnPGBBiGvPUB0Gi4Z5h0Nptqig4bLDTpWI
- pXTUbz5Ij56XkPvTKfdwa8YGzM/npwN8k/KQYoJaJ3hrCYff
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 760pDHZuxbx50JVTIZpe47Ahl2Ycyj2t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI1MDA5NSBTYWx0ZWRfXyUhzvgxJR2sY
- rboTdZwuLfWuHxsvugI9d1L0Bvft1tAei2cL4jfDjChzuQ6sVpoKiS8tx5FqHYy3eiiV7CANdSV
- irgciJjTSRNip1GyZLQ7TXrVKNnry7D+vGhkN8UGkPTkEDeFiLxi/p7Szd5hJs4kl3UyP7uY9cR
- JPjdY1wiaX9VpXrnnVXU8jOYnu+kAqznbItO1+i4zrylxyoFq7iVz02gvLgLZ2Q3hwmw+AXo6fS
- hvHA1TJWWrqnHjZbKdyv8ZLOMKAzvuiSnF4gbUqlFzWQzxeLXSrVpsH7k+LEYCMbUcvZPJCX9lz
- /ceTWLwvXaOIPb/G6nZF3yAWFRzpZGmd6GprtZTTOiyHEfSVlPZPtXM8rFdGQkx5lErFrEdPVy7
- 6npq4Ix3xrZAIvNM9Pp1TSrqZWxgDY8sSnG3l1dCSlGbPy3EqSnE6xHgfP4qkI/RZBuZbRMAmE0
- WL2FbJSoe5u8fdmZIYg==
-X-Proofpoint-ORIG-GUID: 760pDHZuxbx50JVTIZpe47Ahl2Ycyj2t
-X-Authority-Analysis: v=2.4 cv=POgCOPqC c=1 sm=1 tr=0 ts=6975fedc cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=0TfDEXg-tPZCovj8PBUA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.20,FMLib:17.12.100.49
- definitions=2026-01-25_02,2026-01-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- spamscore=0 bulkscore=0 adultscore=0 suspectscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
- definitions=main-2601250095
+ "Bryan O'Donoghue" <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, Wangao Wang <wangao.wang@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,123 +124,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.31 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+X-Spamd-Result: default: False [-2.31 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:akhilpo@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:dikshita.agarwal@oss.qualcomm.com,m:bod@kernel.org,m:mchehab@kernel.org,m:konrad.dybcio@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-media@vger.kernel.org,m:bryan.odonoghue@linaro.org,m:wangao.wang@oss.qualcomm.com,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:akhilpo@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:dikshita.agarwal@oss.qualcomm.com,m:bod@kernel.org,m:mchehab@kernel.org,m:konrad.dybcio@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-media@vger.kernel.org,m:wangao.wang@oss.qualcomm.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[cwabbott0@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[cwabbott0@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,linaro.org:email,qualcomm.com:email,qualcomm.com:dkim]
-X-Rspamd-Queue-Id: C2172803C8
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: 785FF818DF
 X-Rspamd-Action: no action
 
-Now as all UBWC configuration bits were migrated to be used or derived
-from the global UBWC platform-specific data, drop the unused struct and
-field definitions.
+On Sun, Jan 25, 2026 at 6:37=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> Currently the database stores macrotile_mode in the data. However it
+> can be derived from the rest of the data: it should be used for UBWC
+> encoding >=3D 3.0 except for several corner cases (SM8150 and SC8180X).
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/media/platform/qcom/iris/iris_platform_common.h | 4 ----
- drivers/media/platform/qcom/iris/iris_platform_gen2.c   | 7 -------
- 2 files changed, 11 deletions(-)
+FWIW, there is a UBWC version 3.1 not currently reflected in the code
+which adds the 8-channel macrotile mode. If we just added that and
+made SM8150 and SC8180X be 3.1 then we could derive it from the
+version.
 
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index e8b5446dce76..f42e1798747c 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -75,9 +75,6 @@ struct tz_cp_config {
- 	u32 cp_nonpixel_size;
- };
- 
--struct ubwc_config_data {
--};
--
- struct platform_inst_caps {
- 	u32 min_frame_width;
- 	u32 max_frame_width;
-@@ -241,7 +238,6 @@ struct iris_platform_data {
- 	u32 tz_cp_config_data_size;
- 	u32 core_arch;
- 	u32 hw_response_timeout;
--	struct ubwc_config_data *ubwc_config;
- 	u32 num_vpp_pipe;
- 	bool no_aon;
- 	u32 max_session_count;
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen2.c b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-index 05b1dd11abce..a526b50a1cd3 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-@@ -790,9 +790,6 @@ static const char * const sm8550_opp_clk_table[] = {
- 	NULL,
- };
- 
--static struct ubwc_config_data ubwc_config_sm8550 = {
--};
--
- static const struct tz_cp_config tz_cp_config_sm8550[] = {
- 	{
- 		.cp_start = 0,
-@@ -949,7 +946,6 @@ const struct iris_platform_data sm8550_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -1054,7 +1050,6 @@ const struct iris_platform_data sm8650_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -1150,7 +1145,6 @@ const struct iris_platform_data sm8750_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -1250,7 +1244,6 @@ const struct iris_platform_data qcs8300_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 2,
- 	.max_session_count = 16,
- 	.max_core_mbpf = ((4096 * 2176) / 256) * 4,
+Connor
 
--- 
-2.47.3
-
+>
+> The ubwc_bank_spread field seems to be based on the impreside data we
+> had for the MDSS and DPU programming. In some cases UBWC engine inside
+> the display controller doesn't need to program it, although bank spread
+> is to be enabled.
+>
+> Bank swizzle is also currently stored as is, but it is almost standard
+> (banks 1-3 for UBWC 1.0 and 2-3 for other versions), the only exception
+> being Lemans (it uses only bank 3).
+>
+> Add helpers returning values from the config for now. They will be
+> rewritten later, in a separate series, but having the helper now
+> simplifies refacroring the code later.
+>
+> Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  include/linux/soc/qcom/ubwc.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/include/linux/soc/qcom/ubwc.h b/include/linux/soc/qcom/ubwc.=
+h
+> index 5bdeca18d54d..f5d0e2341261 100644
+> --- a/include/linux/soc/qcom/ubwc.h
+> +++ b/include/linux/soc/qcom/ubwc.h
+> @@ -84,4 +84,19 @@ static inline bool qcom_ubwc_min_acc_length_64b(const =
+struct qcom_ubwc_cfg_data
+>                  cfg->ubwc_dec_version =3D=3D UBWC_3_0);
+>  }
+>
+> +static inline bool qcom_ubwc_macrotile_mode(const struct qcom_ubwc_cfg_d=
+ata *cfg)
+> +{
+> +       return cfg->macrotile_mode;
+> +}
+> +
+> +static inline bool qcom_ubwc_bank_spread(const struct qcom_ubwc_cfg_data=
+ *cfg)
+> +{
+> +       return cfg->ubwc_bank_spread;
+> +}
+> +
+> +static inline u32 qcom_ubwc_swizzle(const struct qcom_ubwc_cfg_data *cfg=
+)
+> +{
+> +       return cfg->ubwc_swizzle;
+> +}
+> +
+>  #endif /* __QCOM_UBWC_H__ */
+>
+> --
+> 2.47.3
+>
