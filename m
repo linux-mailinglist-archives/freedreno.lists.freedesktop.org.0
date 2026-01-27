@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QK2HK3rfeGkCtwEAu9opvQ
+	id YDNQFzzweGkCuAEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 16:53:30 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 18:05:00 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48FA797245
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 16:53:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 993659825C
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 18:04:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E38A10E593;
-	Tue, 27 Jan 2026 15:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67CB510E5A1;
+	Tue, 27 Jan 2026 17:04:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MVfiQz6C";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EXj9+9tF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 816C810E593;
- Tue, 27 Jan 2026 15:53:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1061410E5A1;
+ Tue, 27 Jan 2026 17:04:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7C6F460132;
- Tue, 27 Jan 2026 15:53:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977EFC116C6;
- Tue, 27 Jan 2026 15:53:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 973B6444E5;
+ Tue, 27 Jan 2026 17:04:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD6BC116C6;
+ Tue, 27 Jan 2026 17:04:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769529206;
- bh=C3gromy2eb16W2gWD5WJsKh1zrKRXY062g+k/w1mXxg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MVfiQz6CBax7gqQIZxr7fEty1JrtQDbm28ZBkAjyTU+MlEwhQMUCTZarNP6XI7IU9
- MqKJukvU9AhPg+iwzJNAHgxFJcBOeG1cBjcclmpePUXSPMxhG08Aa7C/me/2tJWtn7
- 2Hx8iLibQXZWCtDYaBojyhLdO7hQDYkEgR4Nyh92yXHXSVqtGuEmsjiZZc1fBH1osU
- 6Iusk+Uu6DJXDrM1m9phJ/xheLy2c3qQrJc4Bvdek3tjOdD4IWk9JWKksqf0lLySbJ
- JUl/oEPdDYUQ9okzzQIuDi2+uAaCIMkqg/kPTTHfOd51V9a2kK4zofeStJXvT9G58X
- hCPgOc43ZEdwg==
-Date: Tue, 27 Jan 2026 21:23:14 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
+ s=k20201202; t=1769533496;
+ bh=poCPnd4zFMjtSit8xD03/GV5rPSvHmcbMOzBQ9KlptE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=EXj9+9tFbUrcdXOg/gNZ0xtF0AANmEMZn7gE9OmsDvKPWFilOXbzhgganOOqg0a5h
+ QxlN29XF4sYATOJ+A72JrE4WEjRMG+yw01F0oZNDKW53UG86h7zKvwkJBiU7ezZ7+w
+ NfjFs7sUmjmzJ4YJprHnkc3Q5Ktdj8tsQql5XfJKIMtRI0SywIyKabPZFe78+eWd5W
+ DGSSoMZtSGXB7TPPZUoln5ulzw3FTd1anFe6dEDFiphujvDfDFq512lX4TDir6fsk8
+ myWqw96UvNR6VrKwSLL1zpJJH+3BkoXmA3i/l6GZwlyrb8d4zv9hHMnncTL43nb8BC
+ gDheOQS+ka2UQ==
+Date: Tue, 27 Jan 2026 11:04:55 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-usb@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  linux-pci@vger.kernel.org
 Subject: Re: [PATCH v2 2/7] pci: pwrctrl: add PCI pwrctrl driver for the
  UPD720201/UPD720202 USB 3.0 xHCI Host Controller
-Message-ID: <llbnkm72mgcsrucnp7pdkwbgyzenvhe4kudxkdixplgaoirdem@3q3me34o5drf>
-References: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
- <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-2-c55ec1b5d8bf@linaro.org>
+Message-ID: <20260127170455.GA364177@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-2-c55ec1b5d8bf@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,33 +92,32 @@ X-Spamd-Result: default: False [0.69 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_TWELVE(0.00)[27];
+	RCPT_COUNT_TWELVE(0.00)[28];
 	MIME_TRACE(0.00)[0:+];
 	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com,vger.kernel.org,lists.freedesktop.org];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	FROM_NEQ_ENVFROM(0.00)[mani@kernel.org,freedreno-bounces@lists.freedesktop.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[helgaas@kernel.org,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
-X-Rspamd-Queue-Id: 48FA797245
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
+X-Rspamd-Queue-Id: 993659825C
 X-Rspamd-Action: no action
 
 On Tue, Jan 27, 2026 at 10:57:29AM +0100, Neil Armstrong wrote:
 > Add support fo the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host Controller
 > power control which connects over PCIe and requires specific power supplies
 > to start up.
-> 
 
-This driver only handles the supplies. So why can't you use the existing
-pwrctrl-slot driver as a fallback?
+s/fo /for /
 
-- Mani
+In subject, "PCI/pwrctrl: Add ..." to match history (see
+"git log --oneline drivers/pci/pwrctrl/")
 
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
@@ -145,7 +143,16 @@ pwrctrl-slot driver as a fallback?
 > +
 > +	  The voltage regulators powering the rails of the PCI slots
 > +	  are expected to be defined in the devicetree node of the PCI device.
-> +
+
+I assume this is a function of the platform design, not an intrinsic
+feature of UPD720201?  I.e., my guess is that this driver is not
+required for every platform that includes a UPD720201 device?
+
+Maybe this is just another way of asking Mani's question about using
+pwrctrl-slot.  *Every* device requires specific power supplies to
+start up (re patch 1/7), and this driver doesn't appear to depend on
+anything unique about UPD720201.
+
 >  config PCI_PWRCTRL_SLOT
 >  	tristate "PCI Power Control driver for PCI slots"
 >  	select PCI_PWRCTRL
@@ -188,8 +195,28 @@ pwrctrl-slot driver as a fallback?
 > +	struct regulator_bulk_data *supplies;
 > +	int num_supplies;
 > +};
-> +
+
+To match recent rework of nearby drivers:
+
+s/pci_pwrctrl_upd720201_data/upd720201_pwrctrl/
+s/ctx/pwrctrl/
+
 > +static void devm_pci_pwrctrl_upd720201_power_off(void *data)
+
+and:
+
+s/devm_pci_pwrctrl_upd720201_power_off/devm_upd720201_release/
+s/pci_pwrctrl_upd720201_probe/upd720201_pwrctrl_probe/
+
+Might be more opportunities to be more similar to slot.c and
+pci-pwrctrl-tc9563.c, e.g., adding:
+
+  upd720201->pwrctrl.power_on = ...;
+  upd720201->pwrctrl.power_off = ...;
+
+(would have to be based on pci/pwrctrl branch, which is where this
+patch would be applied)
+
 > +{
 > +	struct pci_pwrctrl_upd720201_data *upd720201 = data;
 > +
@@ -260,6 +287,3 @@ pwrctrl-slot driver as a fallback?
 > -- 
 > 2.34.1
 > 
-
--- 
-மணிவண்ணன் சதாசிவம்
