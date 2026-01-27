@@ -2,142 +2,131 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aIr4KKSoeGl9rwEAu9opvQ
+	id kB2DAd7DeGmltAEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 12:59:32 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 14:55:42 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1765F93EF6
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 12:59:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FF1695309
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 14:55:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5F6610E553;
-	Tue, 27 Jan 2026 11:59:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ACDF10E577;
+	Tue, 27 Jan 2026 13:55:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fVNhGpNr";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cEuNZMA4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nidPd3j1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD3A10E553
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 11:59:29 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60RAhnWu3714713
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 11:59:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Eo3XBVAezIW+Pl/mv1qSYsEu
- Y0LGy16QnUk9fgbCnfE=; b=fVNhGpNrT6yoHjf0HMpLShURopOlMc1CbPZpLkDF
- 249mO6SYCMjBk0/fz0C2lV0d1nENDDVwDn9bJHpwqLf9B9qzW5PiVfq8dglV8ybk
- MEyqQvpc+H243PHUfm+zMRVNhfPd8PMb3dLitrXy6wQhThipQOjB1DkJPm2LFLqs
- ZSay4NePjEaiLsoO2Vt7ZoObkphLWuDYl7CDx7P7c3NWhFjTkdaqDzo2OhGhdiTP
- pkl+o9AqJqexsmFEgaPyK9lkqk4U+cfXVMGjMADzoERW4FgG3TALTNwiyWvYpkln
- 5+zC0UDL4DdzyXAFNtoglXjHlxIkYKAavGzBHB7yvXyn9g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bxdv0av8c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 11:59:29 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8c6a7fb4421so1411863385a.3
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 03:59:28 -0800 (PST)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FBC010E578
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 13:55:39 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id
+ ffacd0b85a97d-43591b55727so5455027f8f.3
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 05:55:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769515168; x=1770119968;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Eo3XBVAezIW+Pl/mv1qSYsEuY0LGy16QnUk9fgbCnfE=;
- b=cEuNZMA4W9H3XIcE8n4F2Hp+EYF1AIFjejpWffJZTvd12RlMP/g1IQVlj/sogP3oH5
- PQKOlcMVIq907TJVoHjclt4qx51hSob8gTdURuBqraSQSpTAcHFu5s/a5TxUKvpkxniH
- 4dv6PGilW5vlwsELeE22aW06OuBDnj7a27rkxLfmZBwqacW7cLraXhnT3HMz2GWNEj5i
- B2//l07sDXKAdhs3BQ+BuYjAVv9NM3Yd+dulPUzjkxwKmcweffYUwFuEya6/D8ao6x/V
- vkOTUj3zWIgcQeFP23isMdwKHGvWI+tjMsZkd1T3PX6DJzQzAgx+30/Fz1rSyUEqsLLP
- gR0w==
+ d=linaro.org; s=google; t=1769522138; x=1770126938; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=/kgLI7MhizMgsKZU+Aw847BhJRGZNY1cPGvaWvEvDlk=;
+ b=nidPd3j1RZBGpcUeU7zu6AfodyFtyiKHqoLblePh0mjuLuSpt7IxcOHVNBKfu8CcvU
+ GbMal9awOCsdks7rS3+B2JLKE6wb03wCmDmr2jjVvncPkQmtsXEzMG6X30iIi9J99WHx
+ e8T4Z3EZWiunSyHloGGnyPYy6vxPBRUL67kENyVorx/YEH2asUUgJC0WAuwsbXVdo/cS
+ BFzz5bqLe1MDjSs9UiQDG3ySMl72lIYxV7uzXZ8x29hWdjMcP8QKi1oNhBd561V/dz0i
+ K2zAWZUzmtHQbHwhM3b5FBscil2gbCm2A7bqSd0+6kMGEN0M5Z/wIaeAHc8cINJmEZRU
+ rhlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769515168; x=1770119968;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1769522138; x=1770126938;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Eo3XBVAezIW+Pl/mv1qSYsEuY0LGy16QnUk9fgbCnfE=;
- b=iAIN9ScMn4TR75UsGFRk45awTl7vU6PKBOerq1lmDQb8uB5N/1mIF1IBVWx2V4RHp0
- 5UFKyAYW8vJa5CsqGOkFk5rtEWGwCnyxbM9/hu/tgFp0QA9K86NmuYSZjVbZL0bvCWHa
- 8DvAbForwVQ85K5mvqsVTMamyxMwcmjONi4y21qjXL/Ad1lGXnNPVYAPjAKabeiWtBJU
- GDY7CRsVz3WNm8CqoUO9/dwm/SVU/RZbHfZRdWA7nWoSUazKRFiZ+S0Pe8pvup5x39jH
- lF5+reb0JdOTPbXUSGjscky9urDMjYPRDzVLADhqGYGWvhIgr9kqNyyWY7kifddmheAn
- JuAg==
+ bh=/kgLI7MhizMgsKZU+Aw847BhJRGZNY1cPGvaWvEvDlk=;
+ b=bUW/v2wW149oB8BQBuQcf+fsuKnrgeonN9U/+/5XJq0FbVusCfj6tUh467RmeB0vBg
+ 3AwBm8IerD/kymuLhXforfghcEoJv9E0QK2GXQmTCYSMqJoRGs+0vxZC0I8XuAEvHj8Z
+ QsWRIMuplmh1llYIYjgU6csf5JJ8+Xx0Ul6+ZCp7fyKycYnUHahyOaYFdiHV/H2QfzVc
+ uTsh1vWocQGAEBtpR5jpvh6ZKlIvDr2ISSOoKHLuezNb8cq4T+vQgRAeFOJ7elUvrLI/
+ Yrr1pZQvtsWQCarJlFnADcicoaYPZkFDfCafNDvgTIUHYSpfmpXgnYFWIiJB6XaY7wFk
+ aaEA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUrhEssTVWHzmUCCjj4yK+ku+VReeNlVSIGM22taRIIhedKJtvYZrk+JP6MyR9GsTN0Py1pReGJRFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRmxMXEG5EUpF+Mz2WXAlbf98fMGA8/b7JZDIolmvvNA/A6GZ4
- VkxqbaAQ36yl1HZ0u6i2N/PgUyeOv0XSbstBABeHrQHNUWIuP9X0+2GLfW03mg8Xfa7lbh9ka6J
- L3zv5eAz/0O83L9l1Ebr5Pek2nyt5dmvU6nAbNADq9A2+ImaHRqUS0pMPeXTma4D/jYGTwnU=
-X-Gm-Gg: AZuq6aIu/4CYJs+DpAs9nCTfGhWbH8G+02Mya3Jevr7qPoBxDWXnTiqyezGqSuCAX0S
- qdUcrluirymXgCt21nRyfJgI+X+tNRAW7mcd13ryeoNPBMEctq4giBLeDrCdBj/G/Hp9W4ZYrEs
- dqbj7AciXbA90wLGfOO0ZESzkdz/bGCo8aUyhF0kNJu5MVeEdd1dfvLukaorMmgeO4wzXgHJqIQ
- S9/Pr7Wgj7WBznH1Y9Z7Jj7cBcX7pqVQ9KXDiXeOHUwCfYXUUExHcK6nUQBqqXU2GggrqBi/AqF
- aKR72kS5vVPQL8//5psDpdbAyDtyC85k9BkcU8aMyAttrE03y8strIixyweanvdSSaB9aRd/6IT
- Ryf/DMZ0eGEmU8HGhcAbmrjMRNB80J5rl5w9XYLINaeAeN5pF633KBmWWvL41kska9An9ulLgjp
- 3qiAidw09wFqDh4KsxHqDeeO4=
-X-Received: by 2002:a05:620a:370a:b0:8a2:ee8:e7cc with SMTP id
- af79cd13be357-8c70b8411a5mr147107485a.5.1769515168453; 
- Tue, 27 Jan 2026 03:59:28 -0800 (PST)
-X-Received: by 2002:a05:620a:370a:b0:8a2:ee8:e7cc with SMTP id
- af79cd13be357-8c70b8411a5mr147105785a.5.1769515167989; 
- Tue, 27 Jan 2026 03:59:27 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AJvYcCVOdLq4Nf5OJ8SYRVR0lPOdwzoNKGDfGVdU/L553n7xhZ5tawmj57dP5FxIxXrFVLzQS0lQLmnVHKg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw0qPPuejOdwQVk1gQQNa/0Q+Uh4TzLTpOIVob+fo1xHgjXZT/q
+ 2a9l8RQBsg5Bqy41LsOdeNv4RkTfJiK5NN96VTho9nKf5/j72gedt3uBhri8w3veT20=
+X-Gm-Gg: AZuq6aKIzHlffPST627PW3Hj3Mpkfy9dBH9xKHGsvfQWUxElznky4jAnagByhEIwSE3
+ ZY8wd/2UM7qRp8hV5v87uHvHDKIDvOGwdb+O2ET9NpczIlsgClhXpHzNTVQ21E6DfC2GrnwHrc3
+ zbsT6Xz6RyldGo2ntY7+NPxRGreH/1NS/KlvywFO1FPn9DGt2FmL3rgjQlGDpnySW6kaj24NJ4W
+ 5rrazwDKhfDD9T1Z7x9RovIowzWjCOtKseoaO+D+veGXhy4j8HumoFJLY8DNYSv8IvAJBA5jY19
+ 48tpkSqdb4nbo/mUfP1x66LkPWljy0aXemO0CWlMGIP0Pz7y7C3apm1WAtSMugHxL9Q739PoNIZ
+ BnSimzqIAjnG0MCOEvM4ZDifdlLEfLBqfOz/QWYNTg8jWUT5QARDRnQmUTuluLj92JlsdK7KhhU
+ /BgGmItJGiSxrb+lyMkXpr1ReBdLKleieVQ0caO25oMl4A6qWqjNEcKnTaxxLdEZBkpIcCA/KN3
+ w==
+X-Received: by 2002:a05:6000:2dc9:b0:432:5b81:480 with SMTP id
+ ffacd0b85a97d-435dd06a466mr2267894f8f.24.1769522137688; 
+ Tue, 27 Jan 2026 05:55:37 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:3d9:2080:53a6:bd3c:8e65:509d?
+ ([2a01:e0a:3d9:2080:53a6:bd3c:8e65:509d])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-385da1705f7sm31844261fa.26.2026.01.27.03.59.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Jan 2026 03:59:27 -0800 (PST)
-Date: Tue, 27 Jan 2026 13:59:25 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+ ffacd0b85a97d-435b1e717cbsm38798477f8f.24.2026.01.27.05.55.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Jan 2026 05:55:37 -0800 (PST)
+Message-ID: <6e8c3d6b-8cba-42da-bafa-28becfa15d60@linaro.org>
+Date: Tue, 27 Jan 2026 14:55:36 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 1/7] dt-bindings: usb: document the Renesas
+ UPD720201/UPD720202 USB 3.0 xHCI Host Controller
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] drm/msm/dpu: Fix LM size on a number of platforms
-Message-ID: <5sb4agmjs2xemn6m4zetab6qvf2xatwkkwesayywvm4zx76bt3@4myarlti3jku>
-References: <20260127-topic-lm_size_fix-v1-1-25f88d014dfd@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260127-topic-lm_size_fix-v1-1-25f88d014dfd@oss.qualcomm.com>
-X-Proofpoint-GUID: XGabwa6Cd7ZqN6lrcUhkdPeQnU1zJPB-
-X-Authority-Analysis: v=2.4 cv=SvedKfO0 c=1 sm=1 tr=0 ts=6978a8a1 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=4POtUoziGYp5d_2QLlgA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: XGabwa6Cd7ZqN6lrcUhkdPeQnU1zJPB-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI3MDA5OCBTYWx0ZWRfXzwKp/6A9jLza
- RchxGNvvdyUJu80f2auzOl0CaYfsn3+hGZXilOyV8igyQpzD5BlOXLHK0fKkvTlQnZ0eLWsNUMZ
- n8fD0Bv20oA5FHYGOFFJ3wWMWfrQcyHnAc15AD4YxpGkNKSC+kBZbiudQrx6UWaNjxjKKxAf0Nn
- YGYIiYo3Q9XTKxbu5ixTX9qq4FIUQ4SLvZmRNcx3T4YhO2d2VijKjD9nzOqR09Hy2v4/MqkN/c2
- oLhi0hd6FwJaW8wgxuQPudEwL9yKAgFA5wodnTdBtSUAg3sXI+jAJZJEqfrhRSdXSVUMh2/KtE3
- E/85FHt0SMUdsfNmJQr4DGsDCZKEJoeNHTut+ex3aWdt/9SrWDlqTA0Cva5E9gM4WGLRlaqefwi
- lnxLoHXytHLDS+RMBiT889thD932L7lGVps7kAHm1io7d5HAtmvmn9U6I+9hlCxbHxm4/3ECpzN
- fh2i4aFO7pTAT7iAVfg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-01-27_02,2026-01-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0 impostorscore=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601270098
+ linux-usb@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
+ <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-1-c55ec1b5d8bf@linaro.org>
+ <CAMuHMdU9HcK3xX=itqe2di1HS1SJvV6=ySqKyrtj7Yr1yXyuqQ@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAMuHMdU9HcK3xX=itqe2di1HS1SJvV6=ySqKyrtj7Yr1yXyuqQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,71 +139,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.81 / 15.00];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,quicinc.com,linaro.org,vger.kernel.org,lists.freedesktop.org];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:abelvesa@kernel.org,m:andersson@kernel.org,m:quic_khsieh@quicinc.com,m:neil.armstrong@linaro.org,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:konrad.dybcio@oss.qualcomm.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:geert@linux-m68k.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:gregkh@linuxfoundation.org,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:brgl@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-usb@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-pci@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
+	HAS_ORG_HEADER(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com,vger.kernel.org,lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[28];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	HAS_REPLYTO(0.00)[neil.armstrong@linaro.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:dkim,linaro.org:email,linaro.org:replyto,linaro.org:mid,0.0.0.0:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,devicetree.org:url,linux-m68k.org:email];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:dkim]
-X-Rspamd-Queue-Id: 1765F93EF6
+	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	REPLYTO_EQ_FROM(0.00)[]
+X-Rspamd-Queue-Id: 6FF1695309
 X-Rspamd-Action: no action
 
-On Tue, Jan 27, 2026 at 11:58:49AM +0100, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> The register space has grown with what seems to be DPU8.
-> Bump up the .len to match.
-> 
-> Fixes: e3b1f369db5a ("drm/msm/dpu: Add X1E80100 support")
-> Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
-> Fixes: efcd0107727c ("drm/msm/dpu: add support for SM8550")
-> Fixes: 100d7ef6995d ("drm/msm/dpu: add support for SM8450")
-> Fixes: 178575173472 ("drm/msm/dpu: add catalog entry for SAR2130P")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> compile-tested only
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 12 ++++++------
->  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 12 ++++++------
->  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 12 ++++++------
->  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_1_sar2130p.h | 12 ++++++------
->  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h | 12 ++++++------
->  5 files changed, 30 insertions(+), 30 deletions(-)
-> 
+Hi,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On 1/27/26 11:20, Geert Uytterhoeven wrote:
+> Hi Neil,
+> 
+> On Tue, 27 Jan 2026 at 10:57, Neil Armstrong <neil.armstrong@linaro.org> wrote:
+>> Document the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host Controller,
+>> which connects over PCIe and requires specific power supplies to
+> 
+> Here: "requires"...
 
+Sorry I don't understand
 
--- 
-With best wishes
-Dmitry
+> 
+>> start up.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>>   .../bindings/usb/renesas,upd720201-pci.yaml        | 55 ++++++++++++++++++++++
+>>   1 file changed, 55 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml b/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml
+>> new file mode 100644
+>> index 000000000000..df3cdcf44747
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml
+>> @@ -0,0 +1,55 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/usb/renesas,upd720201-pci.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: UPD720201/UPD720202 USB 3.0 xHCI Host Controller (PCIe)
+>> +
+>> +maintainers:
+>> +  - Neil Armstrong <neil.armstrong@linaro.org>
+>> +
+>> +description:
+>> +  UPD720201 USB 3.0 xHCI Host Controller via PCIe x1 Gen2 interface.
+>> +  The UPD720202 up to two downstream ports, while UPD720201 supports up to
+>> +  four downstream USB 3.0 rev1.0 ports.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: pci1912,0014
+> 
+> Just wondering: how does having a new driver
+> drivers/pci/pwrctrl/pci-pwrctrl-upd720201.c matching against this
+> compatible play well with normal PCI discovery and probing of
+> drivers/usb/host/xhci-pci-renesas.c?
+
+In Linux, power control is implemented as a platform device driver,
+so it doesn't collide with the pci driver.
+
+The pci driver won't probe until the device shows up on the bus anyway,
+so he power control will attach as platform for this purpose.
+
+> 
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  avdd33-supply:
+>> +    description: +3.3 V power supply for analog circuit
+>> +
+>> +  vdd10-supply:
+>> +    description: +1.05 V power supply
+>> +
+>> +  vdd33-supply:
+>> +    description: +3.3 V power supply
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+> 
+> ... but no power supplies are listed here? ...
+
+None are stricly required, they can be supplied directly without
+a passive regulator. Not sure they should be required
+
+> 
+>> +
+>> +allOf:
+>> +  - $ref: usb-xhci.yaml
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    pcie@0 {
+>> +        reg = <0x0 0x1000>;
+>> +        ranges = <0x02000000 0x0 0x100000 0x10000000 0x0 0x0>;
+>> +        #address-cells = <3>;
+>> +        #size-cells = <2>;
+>> +        device_type = "pci";
+>> +
+>> +        usb@0 {
+> 
+> The actual DTS uses "usb-controller".
+> 
+>> +            compatible = "pci1912,0014";
+>> +            reg = <0x0 0x0 0x0 0x0 0x0>;
+> 
+> ... also not in the example?
+> 
+>> +        };
+>> +    };
+>>
+>> --
+>> 2.34.1
+> 
+> Gr{oetje,eeting}s,
+> 
+>                          Geert
+> 
+> 
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                  -- Linus Torvalds
+
+Thanks,
+Neil
