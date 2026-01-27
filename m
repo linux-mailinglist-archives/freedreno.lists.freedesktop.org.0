@@ -2,59 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sH95ENmIeGmqqwEAu9opvQ
+	id kJZTFxqMeGmqqwEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:43:53 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:57:46 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD2191EB5
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:43:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B76DC922FD
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:57:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185E888735;
-	Tue, 27 Jan 2026 09:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8214289CC4;
+	Tue, 27 Jan 2026 09:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=packett.cool header.i=@packett.cool header.b="i6hy5OhT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eLgHuhiK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com
- [95.215.58.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0773988735
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 09:43:48 +0000 (UTC)
-Message-ID: <33424a9d-10a6-4479-bba6-12f8ce60da1a@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
- s=key1; t=1769507026;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bdTrt5yTViLMoxGqfPI2tzzVWJf6+qHces4GsCpsQDw=;
- b=i6hy5OhTkrEK1JWbJlqEJ6KvqNDCm4DL9hLJul51zp0E4tHfqYHY4QfWaTutTtwgajhw+A
- k4CFnhPvrInf+TwZPm2/+/6Msf48vLqeJZbTqt1wM7hEJlbQczpQc+krZK+FbG96NuR/55
- q0tOiHQzlscw/JxmGwq6n1ThmwY/X1LHXI1g1s7XVXKJcl5goG9f10/5wE1LsJDc0g3a/z
- Dx016l4YYXoOoVWJGpH0304hs9WEVndY/6PK4Wb1RBc1cfyKd8akP3KhMEeWDFRhUeCJRK
- oiEgfnO9cvUeY2uMJ0xKU/JpPQ8slVJ4NES3f4m25kXNOWM7VcdN2fb22NRgfg==
-Date: Tue, 27 Jan 2026 06:43:32 -0300
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0AEA89CC4
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 09:57:43 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id
+ 5b1f17b1804b1-47fedb7c68dso55160135e9.2
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 01:57:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1769507862; x=1770112662; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2e0LebsihOgK1n8wthh7i3DWNd7QqTelv44kSjU7JJE=;
+ b=eLgHuhiKuGtIgkoejTYf5+NEeTplZ6ACzKjp7TD+zT8wFxtpf+zpVz51UuSXj2yEGO
+ 6QFAVkKRiZIOGh62GFvLgCA7tk5ie9vKd40/2SfaD0KNhVvJBcOqiJQOSZJSMcUKfAwF
+ lkyafPKwKZAZZTzHJ+2e74gXJu4dT/3N5gOaAo6URvVEgZ7K/A7XJm3b/6W5irDPEVRE
+ K0yHXGzop3kSo1akwpXzFft6Z9Vq4/f9hvEEEE5vCmR4XAvKD0iONuos7XCJ9MpE7318
+ 5JffTRXHUPsdpa+azQ/wtk77rWDXtrx/i+QbZOwa6AVcZhpF6u7rC/uOUL9TPRVbjH9X
+ C20w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769507862; x=1770112662;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2e0LebsihOgK1n8wthh7i3DWNd7QqTelv44kSjU7JJE=;
+ b=ojcIGh4z9Ij6Hfn/jyst5jd3rcQ/noQ7Ps0fi5RKEKPs9ZTyfWBqmtmiCEHdO2BDrJ
+ SWWSJMbr/+Bw0Ez0hzM6P94KE9HE7JE3+CjwBGaKJqpSetGESR6xGdbKiKaWF8V21R3D
+ 0ip6nBxlUBBiVRgwOmcQQQTY6gvEXIRNffFQOBUru0SgU3ROLDIbIT4kGd0OxvBKIluT
+ /1P5qyTUwdpm9yiWbA8CAkkLaEAgwt1Wd1MnAOD9fc8uEr2P4bjqZDXDFkZHsPXINCRX
+ DlCUX3UU4VC0KxduRRfWI3r0cGYR28lYPHxP1BKd/ZPQNnAx7Bdqn2ojUSvTm/P3vsHn
+ FXvQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXXJI9ODJdjdT0yXA0SlVtb6CLYqbPjR/eQSYeh8ck+xchmyxEwjUfa6ra+ybmKUoB5Wb0heco/vpI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrzU0P9QxSlondAsDPMooaa1rrX6bxiF6o4OmAPRu1V0yJ6TWf
+ 5l16QVSUDreTtyRaDo7WW90JmsjDjm8vsg6QmJeU05+0DSg20k5q1m0hS0w8dnAD66o=
+X-Gm-Gg: AZuq6aISWuE4ktxezmn0LRjnbRShdDidCzJaEjp8r2d5EJA8mGsNb0DgfVN/R1cnv2C
+ d8IaXEyJ+03VR31lEs447bbh8NhJZvVvEGmsppWt55+6N4o5i9JhVc+LZbTp3FMTDe0S+itz1V/
+ I8q3RHrHgsK7+4UQ9+m+GeuH0dOE+he1DU+ExwAd41l1lntzgHZHpzquCLxCZViT/LY4ERliAAY
+ o2/+J3KJA2I07EM5rSLnrfn3rHKbjpPp9EUgANjl9BHVhd2k3wSJ1wy9HmjNTLdEy0+CZBVVoGh
+ 1nw/ka2mqp/agfm9tKGafGVmqcc5GPO1cu+WJvGOJr7ybrhtRUjmmTwDNPJ5OTqK+5KLOWebQxf
+ KRuFMV0I1Czl2ieK3kfLZcCEOIpOAWkw6vK7/Szryeb2kC53CO2ZG/ez4FP/QjEUBB0aUYS9rg7
+ jJwwh6nBJQL4Lmmdt1zkVNuSh/u6Qllbk=
+X-Received: by 2002:a05:600c:350b:b0:480:49ce:42cc with SMTP id
+ 5b1f17b1804b1-48069c0de5cmr14612455e9.9.1769507861972; 
+ Tue, 27 Jan 2026 01:57:41 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:3d9:2080:8261:5fff:fe11:bdda])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48066bf93cesm49056225e9.9.2026.01.27.01.57.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Jan 2026 01:57:41 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/7] arm64: dts: qcom: Add support for the Ayaneo Pocket S2
+Date: Tue, 27 Jan 2026 10:57:27 +0100
+Message-Id: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] drm/msm/dpu: try reserving the DSPP-less LM first
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260115-dpu-fix-dspp-v1-0-b73152c147b3@oss.qualcomm.com>
- <20260115-dpu-fix-dspp-v1-2-b73152c147b3@oss.qualcomm.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20260115-dpu-fix-dspp-v1-2-b73152c147b3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+X-B4-Tracking: v=1; b=H4sIAAeMeGkC/5WNQQ6CMBAAv0J6dk1bLKme/IfhUMoWNmpLuoRIC
+ H+38gOPM4eZTTBmQha3ahMZF2JKsYA+VcKPLg4I1BcWWupGKq1gThN54LdtjAS3uogJpuSfOAN
+ r6BwjSOPri8XQ26YXJTRlDPQ5Jo+28Eg8p7wez0X97F/5RYGErqvD1QTlpTX3F0WX0znlQbT7v
+ n8B1huUUdUAAAA=
+X-Change-ID: 20260121-topic-sm8650-ayaneo-pocket-s2-base-05c348efd86d
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-pci@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ KancyJoe <kancy2333@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2479;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=1Ho0XG7dS+YggQv/oK2R0s/FYzjIvQaih1Dhu9EIl4g=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBpeIwRROCpb0TMHeAc6TMUdXNXB9/fuPUVBZL9uXyU
+ 2FlCoHWJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaXiMEQAKCRB33NvayMhJ0aEaEA
+ CFi7NkRxXRZmDOfjdMNhmQFgH9m9TO18dvcYR4Szl4XAM66hsfrAr2BzHliKhGsuZGVQCn21OEacn1
+ 2psYd7D5fe821xwIpunC1uX3v5BxWozwN1D1h+ZMYLTyRLiOfWeboymDJvSvpQb7bivUNVwQKG5O4y
+ maY86FceNdv8JJwC8sx96Bzf2R4r2aPtUJwFU/ua8IYGbGtUAOc8L2DuQhM6RPz1wRNcXiggPUzhyP
+ jwaPYUsqvJeCW5+PXLUSHu2yYQKbxVt8d1RC+rzY+a+u7Ur5H9B23XHwGHUl6MnC//pDNtHoPeri3v
+ X8F6MS2V/EudvIBqHZeTU4OOlEzEDtHXrMqR2+ZkK1DL/is/kkSFX48e5gJkKEL6J5BFR0gXGC1dE0
+ Pkas7nXik4ArNrYr4EsYR1odk5y/a1Ix68QBRSA3M3hn+O9OgTZtveQyM1LuIHx86NiAKVNnrJnkFf
+ 7ZonrJyjqpd1ei/d+t/ELDeQrNxydxQi0jLuga8L2ZNm03YgRkSeL1/rukXbQ8Iior/wdS0YB2WN+W
+ iGHVYXymMyCW1c2ZtKs97b2qGEc1EpoAllwjD2LwdJfFvDLdlsc+mfBbyKANuVDVHRTypu9Af2UY5Y
+ X6N+TMHRPHf7v8/JbJ+3SlI3zqCz80sBujApWp0WGIJCilnZgrDhN6eVHVQg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,76 +131,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.31 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[packett.cool,quarantine];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[packett.cool:s=key1];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:robin.clark@oss.qualcomm.com,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[val@packett.cool,freedreno-bounces@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:gregkh@linuxfoundation.org,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:brgl@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-usb@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-pci@vger.kernel.org,m:neil.armstrong@linaro.org,m:krzysztof.kozlowski@oss.qualcomm.com,m:kancy2333@outlook.com,m:krzk@kernel.org,m:conor@kernel.org,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com];
+	FORGED_SENDER(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[30];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[packett.cool:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,linaro.org,oss.qualcomm.com,outlook.com];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_NEQ_ENVFROM(0.00)[val@packett.cool,freedreno-bounces@lists.freedesktop.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:email,packett.cool:dkim,packett.cool:url,packett.cool:mid]
-X-Rspamd-Queue-Id: 4CD2191EB5
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,linaro.org:dkim,linaro.org:mid,ayaneo.com:url]
+X-Rspamd-Queue-Id: B76DC922FD
 X-Rspamd-Action: no action
 
-Hi,
+The Ayaneo Pocket S2 is a gaming console based on the Qualcomm
+Snapdragon 8 Gen 3. It has an internal UFS storage, WiFi,
+Bluetooth, gaming buttons, SDCard, 2K display and USB-C
+connector.
 
-On 1/15/26 5:05 PM, Dmitry Baryshkov wrote:
-> On most of the platforms only some mixers have connected DSPP blocks.
-> If DSPP is not required for the CRTC, try looking for the LM with no
-> DSSP block, leaving DSPP-enabled LMs to CRTCs which actually require
-> those.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 52 +++++++++++++++++++++++++---------
->   1 file changed, 38 insertions(+), 14 deletions(-)
+Product Page [1].
 
+The Initial linux port was done by KancyJoe (Sunflower2333)
+at [2].
 
-this has massively broken things on my x1e device (latitude-7455):
+[1] https://www.ayaneo.com/goods/9344082149621
+[2] https://github.com/sunflower2333/linux/tree/master
 
-- upon booting into gdm, the internal display is all dark blue
-- suspend-resume makes gdm appear fine, then logging in results in 
-another blue screen, again bypassed by suspend-resume (vt switching back 
-to gdm makes it appear fine but switching back to the session, it's 
-still blue)
-- OR blindly logging in on the blue gdm makes the session appear
-- plugging in an external display makes the blue screen flash constantly 
-over the contents, there is also a flashing vertical gap between 2 
-halves of the internal screen (amazing effect) and the external display 
-doesn't actually refresh the contents under the blue 
-(https://owo.packett.cool/dbg/dspp-lm-boom.webm)
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- Add proper regulators for the USB controller, with bindings & power ctrl
+- Add proper regulators for FAN
+- Dropped support for headset over USB-C, audio is connected to a jack port
+- Cleaned up Audio routing and fixed the DP endpoint index
+- Added i2c clk frequencies
+- Renamed fan node and used interrupts-extended
+- Dropped the usb-c self-powered
+- Reordered nodes alphabetically
+- Renamed pcieport1 to pcie1_port0
+- Link to v1: https://patch.msgid.link/20260121-topic-sm8650-ayaneo-pocket-s2-base-v1-0-bb3f95f1c085@linaro.org
 
-Consistently across 3 reboots.
+---
+KancyJoe (1):
+      arm64: dts: qcom: add basic devicetree for Ayaneo Pocket S2 gaming console
 
-Reverted only this commit and it's back to normal, so I'm pretty sure 
-it's this.
+Neil Armstrong (6):
+      dt-bindings: usb: document the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host Controller
+      pci: pwrctrl: add PCI pwrctrl driver for the UPD720201/UPD720202 USB 3.0 xHCI Host Controller
+      arm64: defconfig: enable pci-pwrctrl-upd720201 as module
+      dt-binding: vendor-prefixes: document the Ayaneo brand
+      dt-bindings: arm: qcom: document the Ayaneo Pocket S2
+      arm64: dts: qcom: sm8650: Add sound DAI prefix for DP
 
-/sys/kernel/debug/dri..: https://owo.packett.cool/dbg/bluewtf.dri
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ .../bindings/usb/renesas,upd720201-pci.yaml        |   55 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      | 1559 ++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650.dtsi               |   47 +-
+ arch/arm64/configs/defconfig                       |    1 +
+ drivers/pci/pwrctrl/Kconfig                        |   10 +
+ drivers/pci/pwrctrl/Makefile                       |    2 +
+ drivers/pci/pwrctrl/pci-pwrctrl-upd720201.c        |   88 ++
+ 10 files changed, 1743 insertions(+), 23 deletions(-)
+---
+base-commit: cd31ece0d7a4f2fb2266d6d6abd4d33f45e93dac
+change-id: 20260121-topic-sm8650-ayaneo-pocket-s2-base-05c348efd86d
 
-
-~val
+Best regards,
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
 
