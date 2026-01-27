@@ -2,150 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ICCDIzq7d2lGkgEAu9opvQ
+	id wBs4N3hqeGk1pwEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jan 2026 20:06:34 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 08:34:16 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECBC68C546
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jan 2026 20:06:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2638A90C06
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 08:34:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB3C610E475;
-	Mon, 26 Jan 2026 19:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8663010E28B;
+	Tue, 27 Jan 2026 07:34:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BNgabcq6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M05PuWzl";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="H6/W0z0G";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3FD810E469
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jan 2026 19:06:30 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60QHxSrG860194
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jan 2026 19:06:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- K5Q/4zJ0owH3B9S+STbgEe6iJzJedmnk8hr33vBbkos=; b=BNgabcq6SW2ytwfo
- 4uTgF7dvX05saxO/C7YR+sA3rimUP/8WizBD7V1nrMJmPr7s+Jdx4jN/8IDKi5pr
- bujtO0yQ0jjkGnfCAPPRsBIO0ujzOp1LUKIaPKkvWq/52pQsV97GV27BAhpPUjm4
- iVg57RuM6u3SQ46WBqbDUNdIr1qDTR4nbMVdAXtPkISQepps5TCrls3DblZ5Bbm5
- QnGhUZPPM+O2tNhbxjyptgkNxyekw3eQ6MOXJgcfVRox4zbYwtSc21oJ2+92iBk+
- EV+LeZc+slStHTDNlk8oCfsR60P1RgF77NpJwXYXJaVkN85+etyfR3m4wffJ0EGZ
- ShO7tQ==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bvwtyd2wn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jan 2026 19:06:30 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id
- a1e0cc1a2514c-94834f7a238so5680912241.3
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jan 2026 11:06:30 -0800 (PST)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C259010E011
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 07:34:12 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-8230c839409so4237742b3a.3
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jan 2026 23:34:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769454389; x=1770059189;
+ d=chromium.org; s=google; t=1769499252; x=1770104052;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=K5Q/4zJ0owH3B9S+STbgEe6iJzJedmnk8hr33vBbkos=;
- b=M05PuWzlx6N4gSbvFxPeUBxKzPouIVUK3/nWlqXewL5GPo7c2QpW5leUHZkPvqiqHR
- VdjwE2777lN7x2mevaqWqcXuJogKZWCVYoTqmSIg3bW0Imi2FFrI3qA1b5RzNBIo/UeL
- MTVsNi37bHdXFrvC4Ew1LMkho0yM96YyN5r0HjBY7bs5TsYw1p4O+PgMK8mJCHLJeZvP
- fyvU/+XZ9i/Fh4dyhWnob5rXlBlPX8oBHSBRRWeN1opNW3AOkHP1NK+gSGfZ6oFAgv6n
- CgELO7ImjIPGL6gxPAQvgjGg8YsRgniB9BNwFFtYm1wXUTWlZW6F0kqWa+yUyuCGN5bO
- I5Qw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MO/xBk1Z9Sg2T5LDtUgXSRnpiqznRJUad1HNlKnWIEg=;
+ b=H6/W0z0GhHrHTAQ3KFd0HDlYDnc6ho0BD3NCsdQeKhqYkDObgUwjopdSQZo0Lx7zQv
+ cZsYzkr0tL3VePHsI/UEejTPzN2n53rCpzGuaq7QvWqP9MXKJgSNvBKtVLIuKAhV2rpN
+ 75GM4l+InwbrtPy8Q3Q04rta8CoywmPPeyXCk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769454389; x=1770059189;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=K5Q/4zJ0owH3B9S+STbgEe6iJzJedmnk8hr33vBbkos=;
- b=soBpO3Iv/MeLJWwpe2yT5Q3Paz9HTpGkh+CgmV9+SYC6lSDBW45VAcBhEdw3H0z9+2
- YJ1THegqXZVxakj5FsWsUQ8a5evi2b+Ra0MTOUXazJaKWQXEKXpWcg/EPCNYPivebaya
- 9pfjMfDeKL9t3SaGw9dMwKZKEQtQThOt+9XopRCLeEM2wEsWw5vj8qhT2NFUZZbLgCqu
- 2+eLf8tY15LCrxaPSwr/+IBllZP8vZ6DvqooS0sldkBmdrnZS+16nT5/lv3mruXsp6KC
- /vh+IRyRv/IFvwHauXLevu+DBR4Ja2m0BaWrSRTCMGm5YzjvmY3J78WMbktQtuJVbphw
- GHvg==
+ d=1e100.net; s=20230601; t=1769499252; x=1770104052;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MO/xBk1Z9Sg2T5LDtUgXSRnpiqznRJUad1HNlKnWIEg=;
+ b=cWwNTp0bRnq/khH9/v50gPb7gB2do/Co6kke2RUEYXF+ttPCx133q/fcvBGd31kRpz
+ FAUUnkJ5xyCNCgyb8ZLqsB4P9b8CEqB8cPzP1F0rUH7uKxdLI0eDoJ2RSfXMMjMmRYyw
+ sj85C5BDI8l7xLj7XVCr/IFp4IoUmpyqxHQKHK5zCRhugVic+Ps5mHoCxybQZeKP3o0R
+ rq1QXNm9OYrhm5ZCEu5g56E49p02rHRiacQvbPjBDKN3bg4O5Znb9CTckfTSzzv9Ciit
+ mLaGosI1anA2LQ6+zvQObGajcKsPiPGMvsbzBW8S4yF5fMbesLHAhHSyiGBYwyCihOaY
+ WyLg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfN7IMvhA0WVwxlROp0hhSUvbHa3/so5Aebfvpp6k0JVbASwRxvOz7r8NqrECmyWiDl9VbUdrOfco=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxom3FXf/GoriPqgZo5vLJKT4wN83XzbxMhmakgHvINqUSTfPpj
- qv50mmAuXMdWHg4oXoO683yw/n8mJ8bGnqFqHtEkaOhnE1U0pzyRUWVtbcxsiP5baVOCMBaaQo0
- e7Ze/28LuTSLzXI7LpURLIFln6ZFBDcJ/gcFrTidZ5MxXzMsq4bw7T9Wa35x3VEpuQzhYwZw=
-X-Gm-Gg: AZuq6aJ1bM/2fP9+utkjpJzMs94kPUpx+JGtLyXOuhC25/1uYR1J0drelVCfdFsxp2B
- 5xzjW5TFOorab1FAIAAp8jeV0ykOa+Uu2CDOHwv8fVlAX0mq758/xu3QpCQHn2vJtGyyR6rFVW6
- tzwuKYu2oMgIVXpHE6CRwFpcfisaW7yn8CmDuD3fweT5MI7oqM/G+4ysbv90AJm4mLgt/xhDpEF
- nXeeEWt2VwfkmPArLADYkf1JQGBOSLjq/oG5sjN4jtU1ZBnO/08TIyJlAM0KveyQpphB9JGDIZn
- amCYXV2E74VjWRDwkB2AH1qUSFd027h/zYKVlUKu6SKhjW8ps9mtwJgD9dwGLdJtPK7WAhzSXqI
- 3iY7/le3qyWc+q9UgL5p9CpS6GgaaL07clS48NHpZN1uedXnCQ3SMZGzVuS4bM2vLG1e61CFqC4
- y/j2zD9jaA2gWaum16pnISifw=
-X-Received: by 2002:a05:6102:d86:b0:5f5:3c38:c4bc with SMTP id
- ada2fe7eead31-5f72379c561mr45482137.23.1769454389106; 
- Mon, 26 Jan 2026 11:06:29 -0800 (PST)
-X-Received: by 2002:a05:6102:d86:b0:5f5:3c38:c4bc with SMTP id
- ada2fe7eead31-5f72379c561mr45465137.23.1769454388494; 
- Mon, 26 Jan 2026 11:06:28 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AJvYcCUC6MoYd+1r6ZmtX0afhxTNcizBRLtTgDP8vYgajXEVUq7uJp7io6r2zpfdvNXFxTAgH69gjn5UUwg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YypvM05Hmgb5TQWdXrnQLSQkAqpIj+veT5gJnSHMGdwJIREKlQh
+ jWvm85l7rOxHoubY4lu1eOdXXGxSxFy/DEQedjmgJEdc7LemDhdgzrv4D/ys+OYMmA==
+X-Gm-Gg: AZuq6aJ09PDLmOt6BjJsBSU6GcQqdwPU1APeLYKfq6WAX0p1GrFl7nCTMU+9nebTSYy
+ K+4ZD0T4dW7pvepFceB7q92n05vQ4zeonDlWnrRPYkZMqA9RSZfVUw61lUBWWevXZ+/nNtLnWxD
+ CM8OMRwYriBVDPQ2HE7PTejFaG3w4aB4I1b+PxIIDTF1Qk7mDPx8z7bRVjcoG8gfxn1RI+BSEXK
+ BCQF1pzbMO+7FhI+8MW7vhUnrnnFY3/ek961WX4ALhFUCENjovmuY199PU+SJNSWpkm+mf4DOx+
+ Cv+ZS+wlJijhPXaA4yj6E+MEw4Ot9tUAEmNSewFD6dpeCh9nxfm4tNHm599auEceb6ohWoh1frD
+ hyRDyiSPsXaB9JT45yakrF4z9P4hyYynx+Yo4go48URfb66/CWbexxUFKflrYoWmD4gN7fBF/TH
+ U2nnnjgzcYDK/qBvwsaKJjb1+X2ByR1lyoE24wiTXc2qoTL0b8KT6sSx3MUnl6Vr8Q9yX5gFi6+
+ g==
+X-Received: by 2002:a05:6a00:1c99:b0:81f:521c:b640 with SMTP id
+ d2e1a72fcca58-823692e6deamr973608b3a.55.1769499251997; 
+ Mon, 26 Jan 2026 23:34:11 -0800 (PST)
+Received: from tigerii.tok.corp.google.com
+ ([2a00:79e0:2031:6:d089:781c:105e:9178])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59de48df5b3sm2898858e87.6.2026.01.26.11.06.27
+ d2e1a72fcca58-8231876e718sm11232295b3a.62.2026.01.26.23.34.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Jan 2026 11:06:27 -0800 (PST)
-Date: Mon, 26 Jan 2026 21:06:25 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v17 2/4] drm/msm/dpu: Defer SSPP allocation until CRTC
- check
-Message-ID: <g2kzzrfmcsmzs6wz7alzjjycytpuebxwbehkco7yimdg2jam5a@uqsrt7mov7la>
-References: <6kzd2g4hgffqz5ipaqbourgiefuxxh3njj44n35blo37z6hhhj@us7lzlgmjuld>
- <CABymUCMf8LxX6VWUuzNJP+G1y3Xi5-CVYhaqLR7F=kU6ZgdcgA@mail.gmail.com>
- <c56e4ylgwcqni23btaxegdbfg3tbkyp2vtjtboeb3kbvcfk27u@vrlh276djtfr>
- <CABymUCP6ZDGtEJeQSZ48x8TZyJ4gKVDC+JzJRz-tZ0ksCUCqsA@mail.gmail.com>
- <91d590de-fa00-4df3-923f-b49ad00cd9da@oss.qualcomm.com>
- <CABymUCOqxtYS7BaDMHeN2npn=4+Y-6kxLDOS6oskiiH58epR5w@mail.gmail.com>
- <bbd8e584-4398-40da-9759-0c27f34214d3@oss.qualcomm.com>
- <CABymUCMivNJt4fikx8XJ8KFZB-y4zc2RaqjBksxWrQFD9foEkg@mail.gmail.com>
- <7c3yxfkadtkd6xs6aiupcamykx75c2tieakc7n4a2jyymz6kzz@4gflcto2nbkj>
- <CABymUCMeS7cWgEProyWnMUJ1fF1rfba3dy4VB0mwTmPbpTvanA@mail.gmail.com>
+ Mon, 26 Jan 2026 23:34:11 -0800 (PST)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Tomasz Figa <tfiga@chromium.org>
+Subject: [RFC PATCH] drm: gpu: msm: forbid mem reclaim from reset
+Date: Tue, 27 Jan 2026 16:33:34 +0900
+Message-ID: <20260127073341.2862078-1-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.53.0.rc1.217.geba53bf80e-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCMeS7cWgEProyWnMUJ1fF1rfba3dy4VB0mwTmPbpTvanA@mail.gmail.com>
-X-Proofpoint-GUID: G37bQn4QHiAJxKuLnfzIrYODLoReMpWC
-X-Authority-Analysis: v=2.4 cv=BteQAIX5 c=1 sm=1 tr=0 ts=6977bb36 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=K78EwcQ-zvPrcKlDjY0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-ORIG-GUID: G37bQn4QHiAJxKuLnfzIrYODLoReMpWC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI2MDE2MyBTYWx0ZWRfXyDgrag/1rG30
- MgJ3Ih/dbpKi5vr4Ci5gR9AErEQImMt9NpTmMpmDCUmufAaFmD49e0d1MoqdaMq4L1BBX8enuM2
- x6xMTNqNr/q0QOhTm7oEewYqIhLgiJITV+hGwD8FhqqQ3MKqiwkbgMGf+Lgdrakm9Dt6eI2iSBh
- OuQcSx4yDb1U7+dGUYw+s3QfKaM7XXFKaWuaOxHzE6EbntV4lVRvQDI+3vWpYKS6DGJfOeHXTM1
- 6jbEltvMqZvxnBbBmdye+LWxfyPosVZfD5qe5c2/TsHYGO6zeT0Aq4y4vzXZwz0hT+ZPCBgOK1Z
- BXwZQrDCWyhR/8tZXXyup7rxGjkV75iWj6t+4AMLuY/zJAQCI7wByquEeLXP3kissIKFjsL2uxa
- k6f0uGjE2l8Z0xfrSpuzlpJwCTxGWptnuIZ/DlA/SDuMDtNzol/sxb0PtrGl5Isq3K9yVvde3xS
- 2kp4a+4FjHTgyuD64Uw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.20,FMLib:17.12.100.49
- definitions=2026-01-26_04,2026-01-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601260163
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,190 +95,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.81 / 15.00];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[chromium.org,none];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	R_DKIM_ALLOW(-0.20)[chromium.org:s=google];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[linux.dev,kernel.org,poorly.run,somainline.org,gmail.com,ffwll.ch,oss.qualcomm.com,linaro.org,vger.kernel.org,lists.freedesktop.org];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jun.nie@linaro.org,m:abhinav.kumar@linux.dev,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:konradybcio@kernel.org,m:akhilpo@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:senozhatsky@chromium.org,m:tfiga@chromium.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[senozhatsky@chromium.org,freedreno-bounces@lists.freedesktop.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	FROM_NEQ_ENVFROM(0.00)[senozhatsky@chromium.org,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[chromium.org:+];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:email,qualcomm.com:dkim]
-X-Rspamd-Queue-Id: ECBC68C546
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: 2638A90C06
 X-Rspamd-Action: no action
 
-On Mon, Jan 26, 2026 at 09:29:44PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年1月26日周一 20:31写道：
-> >
-> > On Mon, Jan 26, 2026 at 08:01:00PM +0800, Jun Nie wrote:
-> > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年1月26日周一 18:49写道：
-> > > >
-> > > > On 26/01/2026 12:29, Jun Nie wrote:
-> > > > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年1月26日周一 18:13写道：
-> > > > >>
-> > > > >> On 26/01/2026 12:06, Jun Nie wrote:
-> > > > >>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年1月22日周四 18:22写道：
-> > > > >>>>
-> > > > >>>> On Thu, Jan 22, 2026 at 02:03:25PM +0800, Jun Nie wrote:
-> > > > >>>>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年1月21日周三 17:30写道：
-> > > > >>>>>>
-> > > > >>>>>> On Wed, Jan 21, 2026 at 04:01:51PM +0800, Jun Nie wrote:
-> > > > >>>>>>> Currently, plane splitting and SSPP allocation occur during the plane
-> > > > >>>>>>> check phase. Defer these operations until dpu_assign_plane_resources()
-> > > > >>>>>>> is called from the CRTC side to ensure the topology information from
-> > > > >>>>>>> the CRTC check is available.
-> > > > >>>>>>
-> > > > >>>>>> Why is it important? What is broken otherwise?
-> > > > >>>>>
-> > > > >>>>> I see. Thanks! Will add below lines in next version.
-> > > > >>>>>
-> > > > >>>>> By default, the plane check occurs before the CRTC check.
-> > > > >>>>> Without topology information from the CRTC, plane splitting
-> > > > >>>>> cannot be properly executed. Consequently, the SSPP
-> > > > >>>>> engine starts without a valid memory address, which triggers
-> > > > >>>>> an IOMMU warning.
-> > > > >>>>
-> > > > >>>> What is plane splitting? Write commit message for somebody who doesn't
-> > > > >>>> exactly know what is going on.
-> > > > >>>
-> > > > >>> Thanks for the suggestion! Any more revise is needed?
-> > > > >>
-> > > > >> Sadly enough the text below is not a significant improvement.
-> > > > >>
-> > > > >>>
-> > > > >>> Currently, splitting plane into SSPP rectangles the allocation occur
-> > > > >>> during the plane check phase, so that a plane can be supported by
-> > > > >>> multiple hardware pipe.
-> > > > >>
-> > > > >> What does this mean? Without virtual planes in place, there are no
-> > > > >> multiple hardware pipes.
-> > > > >>
-> > > > >>> While pipe topology is decided in CRTC check.
-> > > > >>
-> > > > >> ?? What does it mean here?
-> > > > >>
-> > > > >>> By default, the plane check occurs before the CRTC check in DRM
-> > > > >>> framework. Without topology information from the CRTC, plane splitting
-> > > > >>> cannot be properly executed.
-> > > > >>
-> > > > >> What does 'properly' mean here? How is it executed? What happens?
-> > > > >>
-> > > > >>> Consequently, the SSPP engine starts
-> > > > >>> without a valid memory address, which triggers IOMMU warning.
-> > > > >>
-> > > > >> IOMMU faults. There are no "warnings".
-> > > > >>
-> > > > >>>
-> > > > >>> Defer above plane operations until dpu_assign_plane_resources()
-> > > > >>> is called from the CRTC side to ensure the topology information from
-> > > > >>> the CRTC check is available.
-> > > > >>
-> > > > >>
-> > > > > Thanks for the patience!
-> > > > >
-> > > > >
-> > > > > Currently, splitting plane into SSPP rectangles and allocation occur
-> > > > > during the plane check phase. When virtual plane is enabled to support
-> > > > > quad-pipe topology later, 2 SSPPs with 4 rect will be needed, so that
-> > > > > a plane can be supported by 4 hardware pipes. And pipe number is
-> > > >
-> > > > number of pipes
-> > > >
-> > > > > decided in CRTC check per interface number, resolution and hardware
-> > > > > feature.
-> > > >
-> > > > Okay, but IOMMU errors were reported with virtual planes being disabled.
-> > > > So how is it relevant?
-> > >
-> > > After revise of splitting plane into pipes, the number of pipes will be decided
-> > > by CRTC check for both virtual plane and non-virtual plane case to unify the
-> > > plane handling,  instead of assumption of 2 pipes at most.
-> >
-> > This needs to be explicitly written.
-> >
-> > > >
-> > > > >
-> > > > > By default, the plane check occurs before the CRTC check in DRM
-> > > > > framework. Without topology information from the CRTC, plane splitting
-> > > >
-> > > > WHat is plane splitting?
-> > >
-> > > How about: s/plane splitting/splitting plane into pipes ?
-> >
-> > This plane is not being split into anything. It's being mapped onto hw
-> > pipes. But before that, the number of necessary hw pipes is being determined
-> > based on foo, bar an baz,
-> 
-> Thanks for the correction!
-> 
-> Currently, plane is mapped onto at most 2 hardware pipes and 1 SSPP
-> allocation occur during the plane check phase. When virtual plane is
-> enabled to support quad-pipe topology later, 2 SSPPs with 4 rect will
-> be needed, so that a plane can be supported by 4 hardware pipes.
-> 
-> After revise of quad-pipe, the number of pipes is decided in CRTC
-> check per number of interfaces, resolution, clock rate constrain,
+We sometimes get into a situtation where GPU hangcheck fails to
+recover GPU:
 
-Where?
+[..]
+msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
+msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840161
+msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840162
+msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
+msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840162
+msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840163
+[..]
 
-> hardware feature and virtual plane enablement. The decidsion of
+The problem is that msm_job worker is blocked on gpu->lock
 
-decision
+INFO: task ring0:155 blocked for more than 122 seconds.
+Not tainted 6.6.99-08727-gaac38b365d2c #1
+task:ring0 state:D stack:0 pid:155 ppid:2 flags:0x00000008
+Call trace:
+__switch_to+0x108/0x208
+schedule+0x544/0x11f0
+schedule_preempt_disabled+0x30/0x50
+__mutex_lock_common+0x410/0x850
+__mutex_lock_slowpath+0x28/0x40
+mutex_lock+0x5c/0x90
+msm_job_run+0x9c/0x140
+drm_sched_main+0x514/0x938
+kthread+0x114/0x138
+ret_from_fork+0x10/0x20
 
-> number of pipes will happen in CRTC check for both virtual plane and
-> non-virtual plane case to unify the plane handling. Before that, the
+which is owned by recover worker, which is waiting for DMA fences
+from a memory reclaim path, under the very same gpu->lock
 
-will? Do you mean, after this patch? If so, please use imperative
-language. See Documentation/process/submitting-patches.rst
+INFO: task ring0:155 is blocked on a mutex likely owned by task gpu-worker:154.
+task:gpu-worker state:D stack:0 pid:154 ppid:2 flags:0x00000008
+Call trace:
+__switch_to+0x108/0x208
+schedule+0x544/0x11f0
+schedule_timeout+0x1f8/0x770
+dma_fence_default_wait+0x108/0x218
+dma_fence_wait_timeout+0x6c/0x1c0
+dma_resv_wait_timeout+0xe4/0x118
+active_purge+0x34/0x98
+drm_gem_lru_scan+0x1d0/0x388
+msm_gem_shrinker_scan+0x1cc/0x2e8
+shrink_slab+0x228/0x478
+shrink_node+0x380/0x730
+try_to_free_pages+0x204/0x510
+__alloc_pages_direct_reclaim+0x90/0x158
+__alloc_pages_slowpath+0x1d4/0x4a0
+__alloc_pages+0x9f0/0xc88
+vm_area_alloc_pages+0x17c/0x260
+__vmalloc_node_range+0x1c0/0x420
+kvmalloc_node+0xe8/0x108
+msm_gpu_crashstate_capture+0x1e4/0x280
+recover_worker+0x1c0/0x638
+kthread_worker_fn+0x150/0x2d8
+kthread+0x114/0x138
 
-> the number of necessary hw pipes is being determined based on
-> resolution and clock rate constrain.
-> 
-> By default, the plane check occurs before the CRTC check in DRM
-> framework. Without topology information from the CRTC, plane mapping
-> will be skipped for the first time as number of pipe is 0.
-> Consequently, the SSPP engine starts without a valid memory address,
-> which triggers IOMMU fault.
-> 
-> Defer above plane related operations until dpu_assign_plane_resources()
-> is called from the CRTC side to ensure the topology information from
-> the CRTC check is available.
-> 
-> >
-> > >
-> > > >
-> > > > > will be skipped for the first time as pipe number is 0. Consequently,
-> > > > > the SSPP engine starts without a valid memory address, which triggers
-> > > > > IOMMU fault.
-> > > > >
-> > > > > Defer above plane related operations until dpu_assign_plane_resources()
-> > > > > is called from the CRTC side to ensure the topology information from
-> > > > > the CRTC check is available.
+So no one can make any further progress.
 
+Forbid recover/fault worker to enter memory reclaim (under
+gpu->lock) to address this deadlock scenario.
+
+Cc: Tomasz Figa <tfiga@chromium.org>
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 995549d0bbbc..ddcd9e1c217a 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -17,6 +17,7 @@
+ #include <linux/string_helpers.h>
+ #include <linux/devcoredump.h>
+ #include <linux/sched/task.h>
++#include <linux/sched/mm.h>
+ 
+ /*
+  * Power Management:
+@@ -469,6 +470,7 @@ static void recover_worker(struct kthread_work *work)
+ 	struct msm_gem_submit *submit;
+ 	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
+ 	char *comm = NULL, *cmd = NULL;
++	unsigned int noreclaim_flag;
+ 	struct task_struct *task;
+ 	int i;
+ 
+@@ -506,6 +508,8 @@ static void recover_worker(struct kthread_work *work)
+ 			msm_gem_vm_unusable(submit->vm);
+ 	}
+ 
++	noreclaim_flag = memalloc_noreclaim_save();
++
+ 	get_comm_cmdline(submit, &comm, &cmd);
+ 
+ 	if (comm && cmd) {
+@@ -524,6 +528,8 @@ static void recover_worker(struct kthread_work *work)
+ 	pm_runtime_get_sync(&gpu->pdev->dev);
+ 	msm_gpu_crashstate_capture(gpu, submit, NULL, comm, cmd);
+ 
++	memalloc_noreclaim_restore(noreclaim_flag);
++
+ 	kfree(cmd);
+ 	kfree(comm);
+ 
+@@ -588,6 +594,7 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
+ 	struct msm_gem_submit *submit;
+ 	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
+ 	char *comm = NULL, *cmd = NULL;
++	unsigned int noreclaim_flag;
+ 
+ 	mutex_lock(&gpu->lock);
+ 
+@@ -595,6 +602,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
+ 	if (submit && submit->fault_dumped)
+ 		goto resume_smmu;
+ 
++	noreclaim_flag = memalloc_noreclaim_save();
++
+ 	if (submit) {
+ 		get_comm_cmdline(submit, &comm, &cmd);
+ 
+@@ -610,6 +619,8 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
+ 	msm_gpu_crashstate_capture(gpu, submit, fault_info, comm, cmd);
+ 	pm_runtime_put_sync(&gpu->pdev->dev);
+ 
++	memalloc_noreclaim_restore(noreclaim_flag);
++
+ 	kfree(cmd);
+ 	kfree(comm);
+ 
 -- 
-With best wishes
-Dmitry
+2.53.0.rc1.217.geba53bf80e-goog
+
