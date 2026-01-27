@@ -2,91 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wHC+BkiBeGkzqgEAu9opvQ
+	id sH95ENmIeGmqqwEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:11:36 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:43:53 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E3C91867
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:11:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD2191EB5
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 10:43:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0FA110E49A;
-	Tue, 27 Jan 2026 09:11:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 185E888735;
+	Tue, 27 Jan 2026 09:43:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="ARDcksx7";
+	dkim=pass (2048-bit key; unprotected) header.d=packett.cool header.i=@packett.cool header.b="i6hy5OhT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5056910E49A;
- Tue, 27 Jan 2026 09:11:32 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260127091130euoutp014c75f018134d9523a802741a4410d6be~Oi4Ej8mLk0793907939euoutp01d;
- Tue, 27 Jan 2026 09:11:30 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260127091130euoutp014c75f018134d9523a802741a4410d6be~Oi4Ej8mLk0793907939euoutp01d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1769505090;
- bh=o3uYq+bvJ8IHWH6k2uOihpa6CKY0ItOKPXbc7h/Pz2g=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=ARDcksx7il7K+UJhL3qOUbJrzsCnWlDnWMyBKycHeHqFCGmyemgus6UZuDTSdf+bf
- sio+/WnMIcFH7Q4EvSeQJPsiIhXonBavFn5UetIdLJJLlTvKiDVGsd1YhwF3xweOeh
- qSQI7psb+mdS7QYSc32Br4lqAOSfjZL27eQp/MjQ=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260127091130eucas1p1440fbe9f7c4c663fa3a68f6fcb86470d~Oi4EUDQLX2294122941eucas1p1s;
- Tue, 27 Jan 2026 09:11:30 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260127091128eusmtip12e05e437c03450178ad4e2539faa417e~Oi4CsG4iT0357803578eusmtip1P;
- Tue, 27 Jan 2026 09:11:28 +0000 (GMT)
-Message-ID: <002704a5-9ccb-4abb-beaf-5a448c17ea39@samsung.com>
-Date: Tue, 27 Jan 2026 10:11:27 +0100
+Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com
+ [95.215.58.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0773988735
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 09:43:48 +0000 (UTC)
+Message-ID: <33424a9d-10a6-4479-bba6-12f8ce60da1a@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+ s=key1; t=1769507026;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bdTrt5yTViLMoxGqfPI2tzzVWJf6+qHces4GsCpsQDw=;
+ b=i6hy5OhTkrEK1JWbJlqEJ6KvqNDCm4DL9hLJul51zp0E4tHfqYHY4QfWaTutTtwgajhw+A
+ k4CFnhPvrInf+TwZPm2/+/6Msf48vLqeJZbTqt1wM7hEJlbQczpQc+krZK+FbG96NuR/55
+ q0tOiHQzlscw/JxmGwq6n1ThmwY/X1LHXI1g1s7XVXKJcl5goG9f10/5wE1LsJDc0g3a/z
+ Dx016l4YYXoOoVWJGpH0304hs9WEVndY/6PK4Wb1RBc1cfyKd8akP3KhMEeWDFRhUeCJRK
+ oiEgfnO9cvUeY2uMJ0xKU/JpPQ8slVJ4NES3f4m25kXNOWM7VcdN2fb22NRgfg==
+Date: Tue, 27 Jan 2026 06:43:32 -0300
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v4 02/10] drm/vc4: hdmi: implement clear_infoframe
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej
- Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Liu Ying <victor.liu@nxp.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav
- Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 2/2] drm/msm/dpu: try reserving the DSPP-less LM first
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260115-dpu-fix-dspp-v1-0-b73152c147b3@oss.qualcomm.com>
+ <20260115-dpu-fix-dspp-v1-2-b73152c147b3@oss.qualcomm.com>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <jiq5ublhbfzuv3qsz3n6bve32wmto5hxc6mxppb2i2wagykafx@d235legi4r5o>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20260115-dpu-fix-dspp-v1-2-b73152c147b3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260127091130eucas1p1440fbe9f7c4c663fa3a68f6fcb86470d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260126174455eucas1p1f219202580a1033d3e881adc4f37f206
-X-EPHeader: CA
-X-CMS-RootMailID: 20260126174455eucas1p1f219202580a1033d3e881adc4f37f206
-References: <20260107-limit-infoframes-2-v4-0-213d0d3bd490@oss.qualcomm.com>
- <20260107-limit-infoframes-2-v4-2-213d0d3bd490@oss.qualcomm.com>
- <5c247393-b096-43ea-9ff4-9dd5fcdeec73@samsung.com>
- <CGME20260126174455eucas1p1f219202580a1033d3e881adc4f37f206@eucas1p1.samsung.com>
- <36278555-a01e-4c96-bb26-e170016e5f8c@samsung.com>
- <jiq5ublhbfzuv3qsz3n6bve32wmto5hxc6mxppb2i2wagykafx@d235legi4r5o>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,59 +70,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.20 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[samsung.com,none];
-	R_DKIM_ALLOW(-0.20)[samsung.com:s=mail20170921];
+X-Spamd-Result: default: False [-1.31 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[packett.cool,quarantine];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	R_DKIM_ALLOW(-0.20)[packett.cool:s=key1];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
-	XM_UA_NO_VERSION(0.01)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,raspberrypi.com,igalia.com,sholland.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,nxp.com,pengutronix.de,collabora.com,oss.qualcomm.com,linux.dev,poorly.run,somainline.org,rock-chips.com,sntech.de,lists.freedesktop.org,vger.kernel.org,lists.infradead.org,lists.linux.dev];
-	RCPT_COUNT_TWELVE(0.00)[39];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[m.szyprowski@samsung.com,freedreno-bounces@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:robin.clark@oss.qualcomm.com,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[samsung.com:+];
+	FORGED_SENDER(0.00)[val@packett.cool,freedreno-bounces@lists.freedesktop.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	DKIM_TRACE(0.00)[packett.cool:+];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_NEQ_ENVFROM(0.00)[val@packett.cool,freedreno-bounces@lists.freedesktop.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[freedreno];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,samsung.com:mid,samsung.com:dkim]
-X-Rspamd-Queue-Id: 18E3C91867
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:email,packett.cool:dkim,packett.cool:url,packett.cool:mid]
+X-Rspamd-Queue-Id: 4CD2191EB5
 X-Rspamd-Action: no action
 
-On 26.01.2026 20:00, Dmitry Baryshkov wrote:
-> On Mon, Jan 26, 2026 at 06:44:52PM +0100, Marek Szyprowski wrote:
->> On 26.01.2026 18:42, Marek Szyprowski wrote:
->>> On 07.01.2026 19:14, Dmitry Baryshkov wrote:
->>>> Implement the clear_infoframe callback, disabling corresponding
->>>> InfoFrame type.
->>>>
->>>> Acked-by: Maxime Ripard <mripard@kernel.org>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> This patch landed recently in linux-next as commit 3a4ceb89a972
->>> ("drm/vc4: hdmi: implement clear_infoframe"). In my tests I found that
->>> it causes the following regression on Qualcomm RB5 board:
->> Please ignore my report, it looks that automated bisecting got a bit
->> confused.
-> See https://lore.kernel.org/dri-devel/9ebc0582b0f7990d7df992a07ec8ef7f@kernel.org/T/#t
+Hi,
+
+On 1/15/26 5:05 PM, Dmitry Baryshkov wrote:
+> On most of the platforms only some mixers have connected DSPP blocks.
+> If DSPP is not required for the CRTC, try looking for the LM with no
+> DSSP block, leaving DSPP-enabled LMs to CRTCs which actually require
+> those.
 >
-> I'm going to push it to drm-misc-next-fixes.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 52 +++++++++++++++++++++++++---------
+>   1 file changed, 38 insertions(+), 14 deletions(-)
 
-Thanks for pointing that patch! It fixed my issue.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+this has massively broken things on my x1e device (latitude-7455):
+
+- upon booting into gdm, the internal display is all dark blue
+- suspend-resume makes gdm appear fine, then logging in results in 
+another blue screen, again bypassed by suspend-resume (vt switching back 
+to gdm makes it appear fine but switching back to the session, it's 
+still blue)
+- OR blindly logging in on the blue gdm makes the session appear
+- plugging in an external display makes the blue screen flash constantly 
+over the contents, there is also a flashing vertical gap between 2 
+halves of the internal screen (amazing effect) and the external display 
+doesn't actually refresh the contents under the blue 
+(https://owo.packett.cool/dbg/dspp-lm-boom.webm)
+
+Consistently across 3 reboots.
+
+Reverted only this commit and it's back to normal, so I'm pretty sure 
+it's this.
+
+/sys/kernel/debug/dri..: https://owo.packett.cool/dbg/bluewtf.dri
+
+
+~val
 
