@@ -2,48 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sDvcMg4XeWmyvAEAu9opvQ
+	id UL8YCpkfeWkQvgEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 20:50:38 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 21:27:05 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218849A200
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 20:50:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F339A5A3
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 21:27:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F260D10E5B8;
-	Tue, 27 Jan 2026 19:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E26A10E170;
+	Tue, 27 Jan 2026 20:27:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kLQTvED4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OlEJLz9J";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RoIKToce";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 887BF10E104;
- Tue, 27 Jan 2026 19:50:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2C45E43D75;
- Tue, 27 Jan 2026 19:50:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF5AC116C6;
- Tue, 27 Jan 2026 19:50:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769543435;
- bh=UaKGXBQECE0SDe7XXMs88ifMfoexM+bNNiVKCwxPry8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kLQTvED4LlSKzw2nWBpeK5viX8ZbqC10mYv1QroLhWLVlCqz2iR1bg4yYnRhz/FNn
- UlXU0v6oTqeW3oYFDM8UA/Ntm5uOmB151/wgibG3XMZwTlzSCm3HoDhdp+9cTSuDAX
- jt9crfIprdiN//Qns45XzTb++v6Rc/OEHjxt157GG8V04Ct4M9GDnXgfXKn8fYBAIx
- Te3wrBDNMsAun6AI7V81/8dvy5LJ607YML0E+bJU//aMBkUrSL0mhN3XOOekOqHe9w
- y4AS+6Vynd0jQIuR1Mrpa4jR/rMBq0d/IxubsJkTUwkKRKqJGOqh+IXHAZ/qpZsJh/
- 7WDwMYHNnLQxQ==
-Date: Tue, 27 Jan 2026 19:50:25 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B868910E170
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 20:27:01 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60RHoHr5786605
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 20:27:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=R7u/+GzEYAjioDYmkQxOY6xs
+ Cw+YDBbFVfBMYmE+PTU=; b=OlEJLz9Jts4JCKDA2sUywDbOlEwV13u5StSD37uO
+ 3jZ2LqLmnkOlj3tENXxxrto0rqSvazhIxACvFa3vg9Lr0LTfmIGoBSKKWVw7oxiA
+ Ygi6pAvHAHWzb6RO4xH6d0S62SdvBx5ZYlidlKngSSWsM9rethdRC2pSYUcDiBTF
+ T5FQSQLRcDQhV7oEF8GYAH9Gbn9OVoQhUGC0n7DrBSDA+jXZdZ2uyp0KnpDgA8Sm
+ dROwvv75q9PROWNOhczfWpFsK3gmh3eR87eCfuCL8Yc6qCOcag0QIWk8bnEMl7E3
+ 7ZVSIDQJjUzuMcn7KtzSEzu5NNF2rO7f5YkXeibASpI4Sw==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bxg93m58q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 20:27:00 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-5f178054150so6404283137.2
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 12:27:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1769545620; x=1770150420;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=R7u/+GzEYAjioDYmkQxOY6xsCw+YDBbFVfBMYmE+PTU=;
+ b=RoIKToceNTuio33AFoyNvNvGWqerUMkmSFPfh7y0TPALBBul6mtH/JMzdLevzKlVul
+ me+bN23CAbwe/dcTysd59V4kP7H3UpMbs7Nv07WkVQdDdtAv3SjdBuOG/cVnErc7Q7Ry
+ who438IlyjsLHlhw8SZ2VPi+4FGhJhnF5wks4S44Clv1wW9DU4KAkVhKGPr9V3lvPi5f
+ 2mRFPlIuLXawSHJVMxL272HoV7CvJUWw3uf3Q1alQrPERv07WaL+x6drd6JOj4B9n2df
+ 0I38yfXF4bXc/9HXU2HQVjq3TVl3CIJmVBnedZEsV4wb/vH8C9vQvoLaIxAcxUIe+0ue
+ 0TuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769545620; x=1770150420;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=R7u/+GzEYAjioDYmkQxOY6xsCw+YDBbFVfBMYmE+PTU=;
+ b=Ng34YuzygFyiM0Ic3s96T7iQA4YgspYaMS2biQ13hbW+e85Ff83TbCHGMPo6ztzf4F
+ KWDCcXZe690RMdaC9QldOAdXzE09ScvLPz7ddKaFfTFJcr/x0xNr+D/zPWiMsnW4lpC9
+ ELE+P1ZQMwsUzHxGn+QRBwj7RBJJPDFL4HOQDxi5MtihA9vBVeZkT8B54QYVJa0M2l7w
+ nju0cjbO8G7NjQh29p0vShiRJckiSxfy2x4R1BEn+FFGVChDm/EpmuR/zwqg95SbAvSz
+ cKiKLZdrBA7zAO8gpTNpzfeGZA4fuOpmmdYlBFpTT+g9ZKOcO61wZ3C0Aq62dwQCdIEe
+ eYCA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWoG5voOEV0wF5TGp/B3flhWx7iHpOQxViBo31OECJXWxhXzdOK2XT7m13u/xvaSPaWBuCK48C4noc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwH/geL0BOmeKfrCmylLZdmGSkzRzlFdkyI+Fw7uAnEW9ngQLu
+ YVxG+c9PTgg8C9eCm76/ncQYe7SMS4iAa0kttauH2Tf8fsAvR0DD1x3eai5jYpWJ8sYvD2Z/ca8
+ RqIIznrZnZJguY8icWMwoFLKa4UHEh+YFZZsFYISPYAjbqfx+9+AspOMHIcok381bjLSwwVY=
+X-Gm-Gg: AZuq6aJvduMMrcfHD85XbGGORE8hAQhiysgHwINAosFo9VAMQ7HUNOAc6Ufb3TObBns
+ 2d9kcjH2CkGy07AJzrQepUBk+DowEb7wtenQIleAqIpuJd3OrS6oSrTLO0qT9bxhGCWvK7Rtks2
+ OwPnWA7Nt7bW9pQlapolqMufORS1JCCMMMpbUamXBgxYTaWbE7UcWPpyXPAmjFiuWqnt9u84wTm
+ gOAl/Eyd1Ew93oXbcd/8AsaVY+hMi2rhilPR6Ht6aXnl6EYVBQ1qNX2bJmdUPZ2uXVlVQYukAbI
+ mGP5H1xoVZDvTvU+KLClTicgNwPfPngNFoBCjudMzk5vTEQnBDzOhDNn2cYBrtiFNjnJMZUcUwr
+ T3/RAwWtxur6Het/3OeMoz2DtNZ7zsFbTPTogTJJIhbMxQhKQj/taEKHESY9eV+mUMMMY6zf0rQ
+ 3PjKPZ5GOD+5XcOrYg38JXR8g=
+X-Received: by 2002:a05:6102:290e:b0:5ef:5387:ca85 with SMTP id
+ ada2fe7eead31-5f7237d2386mr962086137.39.1769545619934; 
+ Tue, 27 Jan 2026 12:26:59 -0800 (PST)
+X-Received: by 2002:a05:6102:290e:b0:5ef:5387:ca85 with SMTP id
+ ada2fe7eead31-5f7237d2386mr962042137.39.1769545619368; 
+ Tue, 27 Jan 2026 12:26:59 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-59e07481b72sm147447e87.11.2026.01.27.12.26.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Jan 2026 12:26:58 -0800 (PST)
+Date: Tue, 27 Jan 2026 22:26:56 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Samuel Holland <samuel@sholland.org>,
@@ -61,22 +118,45 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-mediatek@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, Aishwarya.TCV@arm.com
 Subject: Re: [PATCH v4 05/10] drm/bridge: refactor HDMI InfoFrame callbacks
-Message-ID: <47619a02-c667-4fd0-afa9-f6cf7aba8dd4@sirena.org.uk>
+Message-ID: <6p52srrxddazxiwqfqmjpef7k4bbpzojxqiy57zmhqcpqa2bum@gv555pvqrige>
 References: <20260107-limit-infoframes-2-v4-0-213d0d3bd490@oss.qualcomm.com>
  <20260107-limit-infoframes-2-v4-5-213d0d3bd490@oss.qualcomm.com>
+ <47619a02-c667-4fd0-afa9-f6cf7aba8dd4@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sKQ7u6u6my6XlJTm"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260107-limit-infoframes-2-v4-5-213d0d3bd490@oss.qualcomm.com>
-X-Cookie: Send some filthy mail.
+In-Reply-To: <47619a02-c667-4fd0-afa9-f6cf7aba8dd4@sirena.org.uk>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI3MDE2NiBTYWx0ZWRfX5T3XXMuICqW5
+ aXBPPggNzEhJYas6eG/vFWo3XAJXVLRTEFUVL29jGEgPD3B2OnvpecvELiPWDrKeKqIWhsFs+ya
+ dUiekqP7GR+HDS9MArFykSXiUaXXg1N1XKvubtwSc+rshIZBjv272SzEO6BMYtyI72syvs+TanN
+ rFi8Kdbmy1oh4PUdhmlrn6aDGO8IYPtF8xhmMaIHGS/058inbG8BZSZ/RoQi4Lp5tYcSI+SWw4I
+ ETjjAwtcNZFORnvOuQyiph+tgl+k/dTpZeQ7dAQ67ojwsKLiXOfvY2hEN0WDALMiuL1Tj5Xo3Ak
+ QhaRaQrwEN+3450oHRUh0IzXxr+mAVdLg5O6ZDqip7f/S4wJIRg1cJ8EBcHb3LmRUoyXNjB5SqH
+ CelSUX17E1JykuEWcNzuH5vpwk8JLoahi201NdwSxlPk/TsAgbtmCiCQOsgk52oaQTCcOTlRMb7
+ qdR+FFqlp3Zp/L/fLBQ==
+X-Authority-Analysis: v=2.4 cv=Uc1ciaSN c=1 sm=1 tr=0 ts=69791f94 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QCwxOkPKupwELJ-03vgA:9 a=CjuIK1q_8ugA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: aOxzrHYd2dB8fDKLDKkR8DEoWtV93JIP
+X-Proofpoint-GUID: aOxzrHYd2dB8fDKLDKkR8DEoWtV93JIP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-27_04,2026-01-27_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2601270166
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,140 +172,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.91 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [0.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,raspberrypi.com,igalia.com,sholland.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,nxp.com,pengutronix.de,collabora.com,oss.qualcomm.com,linux.dev,poorly.run,somainline.org,rock-chips.com,sntech.de,lists.freedesktop.org,vger.kernel.org,lists.infradead.org,lists.linux.dev,arm.com];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,raspberrypi.com,igalia.com,sholland.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,nxp.com,pengutronix.de,collabora.com,oss.qualcomm.com,linux.dev,poorly.run,somainline.org,rock-chips.com,sntech.de,lists.freedesktop.org,vger.kernel.org,lists.infradead.org,lists.linux.dev,arm.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:dave.stevenson@raspberrypi.com,m:mcanal@igalia.com,m:kernel-list@raspberrypi.com,m:wens@kernel.org,m:jernej.skrabec@gmail.com,m:samuel@sholland.org,m:andrzej.hajda@intel.com,m:neil.armstrong@linaro.org,m:rfoss@kernel.org,m:Laurent.pinchart@ideasonboard.com,m:jonas@kwiboo.se,m:victor.liu@nxp.com,m:chunkuang.hu@kernel.org,m:p.zabel@pengutronix.de,m:matthias.bgg@gmail.com,m:angelogioacchino.delregno@collabora.com,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-sunxi@lists.linux.dev,m:linux-mediatek@lists.infradead.org,m:linux-arm-msm@vger.kernel.org,
+ m:linux-rockchip@lists.infradead.org,m:Aishwarya.TCV@arm.com,m:jernejskrabec@gmail.com,m:matthiasbgg@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	TAGGED_RCPT(0.00)[freedreno];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[40];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno];
 	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: 218849A200
+X-Rspamd-Queue-Id: 62F339A5A3
 X-Rspamd-Action: no action
 
+On Tue, Jan 27, 2026 at 07:50:25PM +0000, Mark Brown wrote:
+> On Wed, Jan 07, 2026 at 08:15:02PM +0200, Dmitry Baryshkov wrote:
+> > Having only a single set of callbacks, hdmi_clear_infoframe and
+> > hdmi_write_infoframe, bridge drivers don't have an easy way to signal to
+> > the DRM framework, which InfoFrames are actually supported by the
+> > hardware and by the driver and which are not. Also, it makes it
+> 
+> We're seeing oopses on Qualcomm RB5 platforms in -next which bisect to
+> this patch.  Looking at the patch I'm not immediately seeing what it
+> might be getting wrong, though I do note that the board uses a LT9611
 
---sKQ7u6u6my6XlJTm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+LT9611UXC, yes. Fixed with [1], fix committed to drm-misc-next-fixes.
 
-On Wed, Jan 07, 2026 at 08:15:02PM +0200, Dmitry Baryshkov wrote:
-> Having only a single set of callbacks, hdmi_clear_infoframe and
-> hdmi_write_infoframe, bridge drivers don't have an easy way to signal to
-> the DRM framework, which InfoFrames are actually supported by the
-> hardware and by the driver and which are not. Also, it makes it
+[1] https://lore.kernel.org/dri-devel/176945413960.1492466.3261759749688865592.b4-ty@oss.qualcomm.com/T/#t
 
-We're seeing oopses on Qualcomm RB5 platforms in -next which bisect to
-this patch.  Looking at the patch I'm not immediately seeing what it
-might be getting wrong, though I do note that the board uses a LT9611
-which is updated by the patch.
+> which is updated by the patch.
+> 
 
-Failure log:
-
-3853 01:47:31.278489  <3>[   21.045573] msm_dpu ae01000.display-controller: [drm:msm_dsi_modeset_init [msm]] *ERROR* failed to create dsi connector: -22
-3854 01:47:31.280977  <3>[   21.057526] [drm:_dpu_kms_initialize_dsi:630] [dpu error]modeset_init failed for dsi[0], rc = -22
-3855 01:47:31.322994  <3>[   21.066927] [drm:_dpu_kms_setup_displays:766] [dpu error]initialize_dsi failed, rc = -22
-3856 01:47:31.323293  <3>[   21.075563] [drm:dpu_kms_hw_init:1283] [dpu error]modeset init failed: -22
-3857 01:47:31.323577  <3>[   21.083223] msm_dpu ae01000.display-controller: [drm:msm_drm_kms_init [msm]] *ERROR* kms hw init failed: -22
-3858 01:47:31.323809  <1>[   21.094033] Unable to handle kernel paging request at virtual address dead000000000108
-
-...
-
-3882 01:47:31.547579  <4>[   21.252828] Hardware name: Qualcomm Technologies, Inc. Robotics RB5 (DT)
-
-...
-
-3901 01:47:31.678351  <4>[   21.462030] Call trace:
-3902 01:47:31.721776  <4>[   21.464819]  drm_atomic_private_obj_fini+0x24/0x70 [drm] (P)
-3903 01:47:31.722072  <4>[   21.470924]  _dpu_kms_hw_destroy+0x4c/0x64 [msm]
-3904 01:47:31.722309  <4>[   21.475969]  dpu_kms_destroy+0x28/0xb0 [msm]
-3905 01:47:31.722528  <4>[   21.480650]  msm_drm_kms_uninit+0xac/0xd8 [msm]
-3906 01:47:31.722743  <4>[   21.485596]  msm_drm_uninit.isra.0+0x54/0xd4 [msm]
-3907 01:47:31.722968  <4>[   21.490816]  msm_drm_init+0x18c/0x1f0 [msm]
-3908 01:47:31.723228  <4>[   21.495409]  msm_drm_bind+0x30/0x3c [msm]
-3909 01:47:31.723442  <4>[   21.499824]  try_to_bring_up_aggregate_device+0x164/0x1d0
-3910 01:47:31.723646  <4>[   21.505635]  __component_add+0xa4/0x170
-3911 01:47:31.725046  <4>[   21.509851]  component_add+0x14/0x20
-3912 01:47:31.766295  <4>[   21.513793]  dsi_dev_attach+0x20/0x2c [msm]
-3913 01:47:31.766592  <4>[   21.518387]  dsi_host_attach+0x58/0x98 [msm]
-3914 01:47:31.766829  <4>[   21.523068]  devm_mipi_dsi_attach+0x34/0x90
-3915 01:47:31.767113  <4>[   21.527638]  lt9611uxc_attach_dsi.isra.0+0x84/0x100 [lontium_lt9611uxc]
-3916 01:47:31.767339  <4>[   21.534701]  lt9611uxc_probe+0x59c/0x62c [lontium_lt9611uxc]
-
-bisect log:
-
-git bisect start
-# status: waiting for both good and bad commits
-# good: [50814c5ce8d8f6751fd49c818abeb8853f8be2df] Merge branch 'for-linux-next-fixes' of https://gitlab.freedesktop.org/drm/misc/kernel.git
-git bisect good 50814c5ce8d8f6751fd49c818abeb8853f8be2df
-# status: waiting for bad commit, 1 good commit known
-# bad: [615aad0f61e0c7a898184a394dc895c610100d4f] Add linux-next specific files for 20260126
-git bisect bad 615aad0f61e0c7a898184a394dc895c610100d4f
-# good: [b047f48069330e050431e9ad762bd838af43337f] Merge branch 'mtd/next' of https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git
-git bisect good b047f48069330e050431e9ad762bd838af43337f
-# bad: [fe1e00e6f9fe8a160921f6a87f999075a1dfef0a] Merge branch 'for-mfd-next' of https://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git
-git bisect bad fe1e00e6f9fe8a160921f6a87f999075a1dfef0a
-# good: [9d10cd526111a989eb353c3a4df9d4c79695ea8d] Merge tag 'drm-intel-next-2026-01-15' of https://gitlab.freedesktop.org/drm/i915/kernel into drm-next
-git bisect good 9d10cd526111a989eb353c3a4df9d4c79695ea8d
-# bad: [7260b161359d310b9a92513dbd73cd9a3a226c6f] Merge branch 'for-next' of https://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git
-git bisect bad 7260b161359d310b9a92513dbd73cd9a3a226c6f
-# bad: [d1968cd2a0ecab805106e5e60613dd45b63d52d9] Merge branch 'drm-next' of https://gitlab.freedesktop.org/drm/kernel.git
-git bisect bad d1968cd2a0ecab805106e5e60613dd45b63d52d9
-# good: [d2f618b8fe76b565f6bc0071b5eeee07a9012c6d] Merge tag 'drm-intel-next-fixes-2026-01-22' of https://gitlab.freedesktop.org/drm/i915/kernel into drm-next
-git bisect good d2f618b8fe76b565f6bc0071b5eeee07a9012c6d
-# good: [fc23163a7ca6cc0e6c3297aed3bdc9428aa8b1a9] Merge branch 'master' of https://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git
-git bisect good fc23163a7ca6cc0e6c3297aed3bdc9428aa8b1a9
-# skip: [00e6f8f60601b412e400873c8972f3e3802557f3] dt-bindings: vendor-prefixes: Add AlgolTek
-git bisect skip 00e6f8f60601b412e400873c8972f3e3802557f3
-# bad: [e5e1a0000746ded4d9fa16fceda0748aec2b6e6a] drm/bridge: samsung-dsim: samsung_dsim_host_attach: use a temporary variable for the next bridge
-git bisect bad e5e1a0000746ded4d9fa16fceda0748aec2b6e6a
-# bad: [0607052a6aee1e3d218a99fae70ba9f14b3b47ed] drm/hisilicon/hibmc: fix no showing problem with loading hibmc manually
-git bisect bad 0607052a6aee1e3d218a99fae70ba9f14b3b47ed
-# bad: [5a4e4e30f6dc4d2a68eec08257128906572f3346] drm/debug: don't register files for unsupported HDMI InfoFrames
-git bisect bad 5a4e4e30f6dc4d2a68eec08257128906572f3346
-# good: [638409979c5f7d3155afcded67532003e07a7d0e] drm/sun4i: hdmi_enc: implement clear_infoframe stub
-git bisect good 638409979c5f7d3155afcded67532003e07a7d0e
-# skip: [1d8847f457648ed4932019dcd3081bc27bcea936] drm/display: hdmi_state_helper: reject Audio IF updates if it's not supported
-git bisect skip 1d8847f457648ed4932019dcd3081bc27bcea936
-# bad: [e802c783be94bf71541a7e2ac8b1b5486aad10db] drm/display: hdmi_state_helper: split InfoFrame functions per type
-git bisect bad e802c783be94bf71541a7e2ac8b1b5486aad10db
-# good: [afc399f7a5ea7bf405b2ef85c7470529b1a9e47c] drm/connector: make clear_infoframe callback mandatory for HDMI connectors
-git bisect good afc399f7a5ea7bf405b2ef85c7470529b1a9e47c
-# bad: [b626b1a1c9ccadd8861870a2a450f02e0c61ab88] drm/bridge: refactor HDMI InfoFrame callbacks
-git bisect bad b626b1a1c9ccadd8861870a2a450f02e0c61ab88
-# first bad commit: [b626b1a1c9ccadd8861870a2a450f02e0c61ab88] drm/bridge: refactor HDMI InfoFrame callbacks
-
---sKQ7u6u6my6XlJTm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAml5FwAACgkQJNaLcl1U
-h9B9Tgf/X2VdX2dj9e0HmnAWF7Z6YHcQwTv5vOPRR3TtPQ1f0IJF84ETF90P7M+z
-0r53d6IbwJsKLOX4qsB/rNQEI5N+CJmuM3AAwc2f6ATSDYXwfp7G82qqjy1yhIf5
-WTaqKV6iegc3pW6A+6AaU7mOqNBCm74S+28Yb07/FYYYI4CLJ1MZODAbjAHdKJMh
-3KgxmTu9nFANpwxnxf7J6KAVvq+V3AWackd3YyPPRJymtC/VP3hDf+YJdFA8hBV0
-aHaxFLCwzVkFfUutqrJ45IQS3wyDewkuIHBBWMfls4ORz6J+JAHSgoxHFLC+Xvwv
-0T8FfKnKWZSsk5IGJrkrvzX7z2NSgg==
-=rTj8
------END PGP SIGNATURE-----
-
---sKQ7u6u6my6XlJTm--
+-- 
+With best wishes
+Dmitry
