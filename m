@@ -2,97 +2,145 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2D3fKOreeGkCtwEAu9opvQ
+	id wOGgNRrKeGmNtQEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 16:51:06 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 15:22:18 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F13CF97198
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 16:51:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33B4E958D7
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jan 2026 15:22:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB39210E592;
-	Tue, 27 Jan 2026 15:51:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC41910E57E;
+	Tue, 27 Jan 2026 14:22:16 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="U1LqhODG";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kxUlE48i";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f66.google.com (mail-qv1-f66.google.com
- [209.85.219.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65C7910E592
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 15:51:03 +0000 (UTC)
-Received: by mail-qv1-f66.google.com with SMTP id
- 6a1803df08f44-88ffcb14e11so95728566d6.0
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 07:51:03 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8FB89149
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 14:22:15 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60RAHwFN3714711
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 14:22:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ T/zZBr4RQMGR6+8mwWzOZeCwVTQSBGms3epNbHc/lK4=; b=U1LqhODGZjRjomPG
+ kj2Tn0IW2gH/YO2UfKr1oCd1wYuDd8oHGJPP66qCoKBW2rZAtmI6N3CyX4zEoqZ0
+ xgsTESoghkgenLSBdK4vD/HQNat9JV6ESB+xedzP6a/TJf3HO6woc8nf/+QE4RP7
+ VMcd3joH2Ony78XdvoNGaBcBkKWvAADACa3KDYdpEXzl1KaQtjtis1Al4jgWy7w7
+ kSUMU4Wy4epR6XpRbAtD1gjaV8VqUOBa5RyRTogDNIckxCcs7HoThn9io+YubLtQ
+ KR9g8m1fLu1t0rxLE+GXFROHHhTXhryhe71uvxkaGeo1Jw6nHsCvgP6pSl5v0MBG
+ 28zFhQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bxdv0b99m-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 14:22:14 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8c710279d57so7924685a.3
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 06:22:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1769523734; x=1770128534;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=T/zZBr4RQMGR6+8mwWzOZeCwVTQSBGms3epNbHc/lK4=;
+ b=kxUlE48iGlU8oWjD9TzEgdaEez5nb4TiDGYIJRv48KX9QLNUebUC4xWnw1WxGgzrtV
+ iKasrL+j39wICQBvsa9e5kCIWR2sPOZlTbnLn+dKcjK9loxMV258vopqozW0NmaRFYgV
+ ZsVqBjC3Sr15f7mWjh+YlsTA9VZZ0l+ViqZNdE8d4W/WO+Sw+npf39hCdcJgBXrb4Tln
+ DqhuuFnzFfJdAW5uEYZeVEHg8wNhQunBAdsjjG3fs1yjaNGod7CZQeaz8rW1vtynEtcU
+ wi0TfUBtPic+QEAXenR/Lgk3zeeiB7x9jhKCvWjdmFwcm6GVTre7l2/KzkUqJySNz4vV
+ TmNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769529062; x=1770133862;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=y3iP0W+rICWiFtIz9Lnj4u7VRlu+Bycye5GdS1BEDSM=;
- b=ZI717P9mN5Aea4EwCnDnuXfiw6hOLDE/Zrzc0xfQxtqOsFXJ41Osmcv86Y0NkTez7V
- 35l1ik+QnihALTiuI9IV49qy2+/YQAGoDZxy2yQVfasRy8LqSrasBm4J+h7TF6VkY40d
- Blgs4xPyQ4qFifE3UFoM2VFHG6XSXuDQFWoI+j9/FkDBAKFi8dQZZOnq7LcMa0ijKiZn
- l9/WqNgaNEjK3RhSGD6UB41dyz2mrBXbwU4FoOXYNAdrz3lqYeq3kwLXeYJRrgR5kjOB
- knkRMxXEmukgy+la8A4IIfkxrX+4PUcM19i8zHpDR4byHapGKKl3GP6cKFQ9iUMvI9qG
- jC1g==
+ d=1e100.net; s=20230601; t=1769523734; x=1770128534;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=T/zZBr4RQMGR6+8mwWzOZeCwVTQSBGms3epNbHc/lK4=;
+ b=I1LJNB8TkbZV1CfceGaIrkkBQfkvKWIm1SQD6rpArpzR9u/apbzr/dx8YVDI50gIby
+ wDQAriR+X5PD2vcv+r6ny4UkH4MR5xnsipnrhwQXVkekPvfoxHToD1Kw9zgtPmbyN80e
+ J4SIicw2mlYXwmQoSiWtCY0Cvc6xuCnkx8KuBOxLNED/1vVzIpC1A33dJkghwMpLdJaX
+ XCJ9zbc6fG5AfKaidOGfvsw2O6GGfMNv6hwEvMWgF8uszd4KRH9rrTCmQCuK2FjA4qqZ
+ vSx599P0X9o2464O2n1QsVOyNU180O2SRi594BAxRIuP6f9vjbqmssmmb9e5VWVT1vQw
+ 30lA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUmtDer+hrWQxdBQqqYl6CnhrZBP8xMT9wwzflcgmotOjoVLkMnfJx0/mQq3WJnF1OQURC4A7e3jZg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyoG4Og3PJocuWr0LwNo4nX7XOituL1+9Mx1ZhRcS2El6/43+fy
- 2thm9JxJnjnHVCvwSYy8EAHcDFKKncClvGxQXv7rN39sHH+9D/yKGfmt0VpfY+jtdBWSAA==
-X-Gm-Gg: AZuq6aIw0aXuk+sT8E8Ge2gqww4C0r1edXcRket8mTQgTcd3QKgYb2NJ6sGjvteKIhP
- 6NdFSgZGCXUaaiBR4J0MG3DjK1rjwrQ6VIdy2PHb7aTJNwms35Olrszit0ovWZvlm6UbLpShPEt
- +o8kfOMLoCqk1J3IcerFNjAmr+QtABcFh4VypGrlgQo32mBhksdo6KcEfFth7h6MZiJK3hiw0cS
- jpH1wmxqJhyJ1zkBfe0wUGo+ESzp9tfFqM52SypTIAS69A9Qc4bR911S1oUnc2ZBDXceRGyAAw1
- AET/amkqmFDzcb0BiKV1sixQzpUid7j/J9Gmh4eiYnvWkUjgEThT6xK5LLJDuPaFT6SDWdS/6AA
- 2wOTj4+Y2kuRxiEPgTbMgxyUSzY9NfIKRgHTk5iBfpnWGi7Hz6DRESRSWHafdLvxfvPMRmtCAOA
- qLuBv6USmNXQ+npsjdGkK0qA1h9O3KYwhcYOZFtDiw5Ip6TEuM80bL
-X-Received: by 2002:a05:6214:da5:b0:894:7dd2:b262 with SMTP id
- 6a1803df08f44-894cc7b9c84mr24664356d6.2.1769522851062; 
- Tue, 27 Jan 2026 06:07:31 -0800 (PST)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com.
- [209.85.222.170]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8949196e497sm115173806d6.55.2026.01.27.06.07.30
- for <freedreno@lists.freedesktop.org>
+ AJvYcCXHJg73drHhuWqzjghzYdYe/EMYB9IEqCZ1K3GX/YuwXhOWccSbB8zjNRMah7IyPtOh18mf2DGMtzc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtuFITTqhRg8UGYoy2ah8XSiNi0IyU5jvcbCyce27i3fg/3C2U
+ DBKBOhpbvGHx7CKSTsCd0nK0y3ZdlTvKpFeSaTftE4tdPHN3dBFPY6dh5ap1CNHWCEuYx/ng75s
+ /2RWc6BeoOVw2lwr2ItQY/2OhvO4Erb6dcUdGAFaYdNfwQPzSOiGSfHem6ItBfnYWtPfB0Oo=
+X-Gm-Gg: AZuq6aKrLaJXDH5OccpYPvUGqKGh06E2Y98zzYmibzzrbjafX6xvbBjPARkSB4Ou43Z
+ cTMSWXi1hJgQTDpIkzEnYYyzPq63Llmdo/kdBW8gb5cOBJadNc0chxk77IwJdIegdyUku71hK+b
+ H2c7CJI05VaWUMn89fuS8W3rT7WYmaIw5T/g6CXTENGwe/MnBX++j8SnFMlDtFKen9AfsKo+MNG
+ TqzURxO4ARnQygNTJvkRguZS2JMH26nJvwVjKG0QaeFXkn9lVAjxixuG9pk80hbo1G7IqFKlmrG
+ Aa7x/T5PJEES1Vtm0BdNQePACCovlvpJ6eA5J3HlAJSepIBNqypCoYaXglTbhX9iJd4kyKhF+Q2
+ 4NNMcaTxbJCKOWOEoUYtvtuLZl0BsNuut7iVgMPEccYKby9BIQL9AlB7G+z8xXgWFkI0=
+X-Received: by 2002:a05:620a:178a:b0:8b2:1f8d:f11d with SMTP id
+ af79cd13be357-8c70b9046b6mr186422085a.2.1769523733772; 
+ Tue, 27 Jan 2026 06:22:13 -0800 (PST)
+X-Received: by 2002:a05:620a:178a:b0:8b2:1f8d:f11d with SMTP id
+ af79cd13be357-8c70b9046b6mr186414885a.2.1769523733146; 
+ Tue, 27 Jan 2026 06:22:13 -0800 (PST)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b885b416ca5sm815011666b.25.2026.01.27.06.22.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jan 2026 06:07:30 -0800 (PST)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-8c5389c3cd2so660540585a.0
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jan 2026 06:07:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCW8w4lmxHEC05VhgEniStmk57fXR+OnYI3DPGDZiu5sVsqhCvTJ3j6nh09fM572ujB+QAvm7o3SeT0=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:340e:b0:566:2568:df1b with SMTP id
- 71dfb90a1353d-566794c0a54mr742458e0c.2.1769522547250; Tue, 27 Jan 2026
- 06:02:27 -0800 (PST)
+ Tue, 27 Jan 2026 06:22:12 -0800 (PST)
+Message-ID: <c243a067-c33e-4ada-831e-ec611208b191@oss.qualcomm.com>
+Date: Tue, 27 Jan 2026 15:22:09 +0100
 MIME-Version: 1.0
-References: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
- <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-1-c55ec1b5d8bf@linaro.org>
- <CAMuHMdU9HcK3xX=itqe2di1HS1SJvV6=ySqKyrtj7Yr1yXyuqQ@mail.gmail.com>
- <6e8c3d6b-8cba-42da-bafa-28becfa15d60@linaro.org>
-In-Reply-To: <6e8c3d6b-8cba-42da-bafa-28becfa15d60@linaro.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 27 Jan 2026 15:02:16 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdV=u280N2HUgpiHtRXuMv0RhtDeEFDaSLFQ0Wg8frt+6A@mail.gmail.com>
-X-Gm-Features: AZwV_QhN9K-WsMdmqL2nfJrvZ40lsYIN6kZoo7JRPE4M6cKNWw4lsg30FvWZJqY
-Message-ID: <CAMuHMdV=u280N2HUgpiHtRXuMv0RhtDeEFDaSLFQ0Wg8frt+6A@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] dt-bindings: usb: document the Renesas
- UPD720201/UPD720202 USB 3.0 xHCI Host Controller
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] soc: qcom: smem: Expose DDR data from SMEM
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-usb@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
+ <20260108-topic-smem_dramc-v3-1-6b64df58a017@oss.qualcomm.com>
+ <20260109133612.ommcoivkbhbisp6o@hu-mojha-hyd.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260109133612.ommcoivkbhbisp6o@hu-mojha-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: zGHX08FZhw9k9vXbz2fTJjCH0ULZq-qC
+X-Authority-Analysis: v=2.4 cv=SvedKfO0 c=1 sm=1 tr=0 ts=6978ca16 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=rBdmBs-3Ac6Y_iI8bpQA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: zGHX08FZhw9k9vXbz2fTJjCH0ULZq-qC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI3MDExNyBTYWx0ZWRfX4m2FD7EPxW6u
+ ZdHoNqLOyvpgVjO/3yEz4amjBgp5XoIsSiJ56e1Ud3n7u/xSDUIfbDpcBGR5+d0M3Ft5Wj20NCT
+ wbKOXzA4MeA/2l0cZh3APTqY1P5lyiIbpvWUB1hMvtxScZnMDMcwAq+S94n2EudtbmIsq10vyiS
+ ssYKR+0vfUs6ZFVOxq/PnXiIsOHNFlgFdFDVMrSADF/d7EyhmkNtPO8QcggxBywUnrgjMvhTreg
+ RtzFJ1tW/uiVloU7KNgoM5xxMfYvlMPUn7ALsfUEFTkt0El/0TprcLMz13J7wNjODNiqxAJ998U
+ LDwvgk9aIhfjH+qMzHO9OKXbjOfkdX/I8nRZkmgxYgrPxoH7gdx86Zs+L7QLbj7db8VSpE6nyjs
+ Y16feeGVp0UtTTH01hWUy6onDI51gWjz1RQmRZQHFJPNF6rFuBbBi6ZXEjwEZxdcy10C0sBHQQX
+ NEckpUoU2Ley7EyHmBA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-27_03,2026-01-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601270117
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,146 +156,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.89 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+X-Spamd-Result: default: False [-1.31 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:mukesh.ojha@oss.qualcomm.com,m:konradybcio@kernel.org,m:andersson@kernel.org,m:kees@kernel.org,m:gustavoars@kernel.org,m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:akhilpo@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-hardening@vger.kernel.org,m:dri-devel@lists.freedesktop.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:neil.armstrong@linaro.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:gregkh@linuxfoundation.org,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:brgl@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-usb@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-pci@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
-	DMARC_NA(0.00)[linux-m68k.org];
+	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,poorly.run,linux.dev,gmail.com,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[geert@linux-m68k.org,freedreno-bounces@lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com,vger.kernel.org,lists.freedesktop.org];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[19];
 	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[geert@linux-m68k.org,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	R_DKIM_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
-	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
+	NEURAL_HAM(-0.00)[-0.999];
+	TAGGED_RCPT(0.00)[freedreno];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,mail.gmail.com:mid,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,devicetree.org:url,0.0.0.0:email,linux-m68k.org:email]
-X-Rspamd-Queue-Id: F13CF97198
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:mid,oss.qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: 33B4E958D7
 X-Rspamd-Action: no action
 
-Hi Neil,
+On 1/9/26 2:36 PM, Mukesh Ojha wrote:
+> On Thu, Jan 08, 2026 at 03:21:50PM +0100, Konrad Dybcio wrote:
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>
+>> Most modern Qualcomm platforms (>= SM8150) expose information about the
+>> DDR memory present on the system via SMEM.
 
-On Tue, 27 Jan 2026 at 14:55, Neil Armstrong <neil.armstrong@linaro.org> wrote:
-> On 1/27/26 11:20, Geert Uytterhoeven wrote:
-> > On Tue, 27 Jan 2026 at 10:57, Neil Armstrong <neil.armstrong@linaro.org> wrote:
-> >> Document the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host Controller,
-> >> which connects over PCIe and requires specific power supplies to
-> >
-> > Here: "requires"...
->
-> Sorry I don't understand
+[...]
 
-Please read below the continuations ("...") below...
+>> @@ -1236,17 +1241,24 @@ static int qcom_smem_probe(struct platform_device *pdev)
+>>  
+>>  	__smem = smem;
+>>  
+>> +	smem->debugfs_dir = smem_dram_parse(smem->dev);
+> 
+> Is it possible, even after calling qcom_smem_is_available() before calling 
+> qcom_smem_dram_get_hbb() we are getting __dram as NULL.
+> 
+> is it good to move __smem assignment to the end with barrier so all the
+> changes before the assignment are seen when somebody checking qcom_smem_is_available()
+> with a pair smp store/release pair.
 
->
-> >
-> >> start up.
-> >>
-> >> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+I think just moving the __smem assignment down will be enough, no?
 
-> >> --- /dev/null
-> >> +++ b/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml
-> >> @@ -0,0 +1,55 @@
-> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >> +%YAML 1.2
-> >> +---
-> >> +$id: http://devicetree.org/schemas/usb/renesas,upd720201-pci.yaml#
-> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> +
-> >> +title: UPD720201/UPD720202 USB 3.0 xHCI Host Controller (PCIe)
-> >> +
-> >> +maintainers:
-> >> +  - Neil Armstrong <neil.armstrong@linaro.org>
-> >> +
-> >> +description:
-> >> +  UPD720201 USB 3.0 xHCI Host Controller via PCIe x1 Gen2 interface.
-> >> +  The UPD720202 up to two downstream ports, while UPD720201 supports up to
-> >> +  four downstream USB 3.0 rev1.0 ports.
-> >> +
-> >> +properties:
-> >> +  compatible:
-> >> +    const: pci1912,0014
-> >
-> > Just wondering: how does having a new driver
-> > drivers/pci/pwrctrl/pci-pwrctrl-upd720201.c matching against this
-> > compatible play well with normal PCI discovery and probing of
-> > drivers/usb/host/xhci-pci-renesas.c?
->
-> In Linux, power control is implemented as a platform device driver,
-> so it doesn't collide with the pci driver.
->
-> The pci driver won't probe until the device shows up on the bus anyway,
-> so he power control will attach as platform for this purpose.
+What scenario do you have in mind that would require SMP barriers?
 
-OK.
+[...]
 
-> >> +  avdd33-supply:
-> >> +    description: +3.3 V power supply for analog circuit
-> >> +
-> >> +  vdd10-supply:
-> >> +    description: +1.05 V power supply
-> >> +
-> >> +  vdd33-supply:
-> >> +    description: +3.3 V power supply
-> >> +
-> >> +required:
-> >> +  - compatible
-> >> +  - reg
-> >
-> > ... but no power supplies are listed here? ...
->
-> None are stricly required, they can be supplied directly without
-> a passive regulator. Not sure they should be required
+>> +struct smem_dram {
+>> +	unsigned long frequencies[MAX_DDR_FREQ_NUM_V5];
+>> +	u32 num_frequencies;
+> 
+> freq and num_freq_entries ? since you have used freq at various places..
 
-So the goal of this binding is to document the required power supplies
-which are not required? I am confused (but that could just be me ;-)...
+The names in structs come from internal shmem definitions that I didn't
+want to stray away from
 
-> >> +examples:
-> >> +  - |
-> >> +    pcie@0 {
-> >> +        reg = <0x0 0x1000>;
-> >> +        ranges = <0x02000000 0x0 0x100000 0x10000000 0x0 0x0>;
-> >> +        #address-cells = <3>;
-> >> +        #size-cells = <2>;
-> >> +        device_type = "pci";
-> >> +
-> >> +        usb@0 {
-> >
-> > The actual DTS uses "usb-controller".
-> >
-> >> +            compatible = "pci1912,0014";
-> >> +            reg = <0x0 0x0 0x0 0x0 0x0>;
-> >
-> > ... also not in the example?
-> >
-> >> +        };
-> >> +    };
+Making the kernel-side struct fields named the same feels like added
+confusion to me
 
-Gr{oetje,eeting}s,
+[...]
 
-                        Geert
+>> +	if (size == sizeof(struct ddr_details_v5)
+>> +		 + 4 * sizeof(struct ddr_region_v5)
+>> +		 + sizeof(struct ddr_xbl2quantum_smem_data)
+>> +		 + sizeof(struct shub_freq_plan_entry))
+>> +		return INFO_V5;
+> 
+> Why this does not have separate name ?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Because it's the same DDR info structure as "normal v5", with trailing
+extras that we don't really care about
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[...]
+
+>> +struct dentry *smem_dram_parse(struct device *dev)
+>> +{
+>> +	struct dentry *debugfs_dir;
+>> +	enum ddr_info_version ver;
+>> +	struct smem_dram *dram;
+>> +	size_t actual_size;
+>> +	void *data = NULL;
+>> +
+>> +	/* No need to check qcom_smem_is_available(), this func is called by the SMEM driver */
+> 
+> This comment seems redundant..
+
+With this one specifically, I don't agree it's obvious..
+
+Konrad
