@@ -2,75 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yF1hABUKemk82AEAu9opvQ
+	id qDxEDmzBeWl/ywEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 14:07:33 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 08:57:32 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E935A1D32
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 14:07:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 795D79DE81
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 08:57:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F201E10E6BC;
-	Wed, 28 Jan 2026 13:07:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4627A10E279;
+	Wed, 28 Jan 2026 07:57:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="de5YgG5y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UvJ0Hx6f";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 28 Jan 2026 06:27:59 UTC
-Received: from mail-m32116.qiye.163.com (mail-m32116.qiye.163.com
- [220.197.32.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B12B10E1AD;
- Wed, 28 Jan 2026 06:27:59 +0000 (UTC)
-Received: from [172.16.12.14] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 323dec204;
- Wed, 28 Jan 2026 14:22:51 +0800 (GMT+08:00)
-Message-ID: <33bbb3ec-5659-4d50-a5ff-dafa44e291dd@rock-chips.com>
-Date: Wed, 28 Jan 2026 14:22:50 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3DE410E271;
+ Wed, 28 Jan 2026 07:57:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 37154438DF;
+ Wed, 28 Jan 2026 07:57:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF4AC4CEF1;
+ Wed, 28 Jan 2026 07:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1769587048;
+ bh=Edxazn8QS4dzQlUgaoJvS2lJwVXq0yRqauGtKDHAMGc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UvJ0Hx6fEVhv2jb1LSVkEQLToIpw9cNVss0Rnqo1n3hSjVuN5KgSN9s/95Ut7EIou
+ bFD2BKZjRl9MmGNDLIL81X+rwLYoaTU2zOC0EJGmUNLCh/DYFlZusV0S5d4zhdx8jf
+ rS4JVEjsHlAJ93oLeXNseazRIp0vQkzkQw0nRr32ZLGFzjjs/QJ17apYUgf0I2QY22
+ /aTvbu7/qdiBjOepoXE+V7ndBmBNFJmlA29n7j7rZmCw1lBeN9niSuuv9LhrYPlfIY
+ OcOALjnZuHyTnBp7SN3wWT6Zi6Vmiad/N9Ux23JF3KFsnN8iClXPFlcILqKjM8skmG
+ ix5wDgU9Hc4CA==
+Date: Wed, 28 Jan 2026 13:27:15 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, devicetree@vger.kernel.org,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-pci@vger.kernel.org
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-pci@vger.kernel.org
 Subject: Re: [PATCH v2 2/7] pci: pwrctrl: add PCI pwrctrl driver for the
  UPD720201/UPD720202 USB 3.0 xHCI Host Controller
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>
+Message-ID: <ppe6w2h32vx2jh73bcv7ip7ubr2wgwjsz4ooruplpx7gx5s4rv@qfasjbocku4r>
 References: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
  <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-2-c55ec1b5d8bf@linaro.org>
  <llbnkm72mgcsrucnp7pdkwbgyzenvhe4kudxkdixplgaoirdem@3q3me34o5drf>
  <0104896e-44d0-485a-a44e-694864c819b7@linaro.org>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <0104896e-44d0-485a-a44e-694864c819b7@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <33bbb3ec-5659-4d50-a5ff-dafa44e291dd@rock-chips.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9c0344df9609cckunmfeac2e531bd066
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGkxLSFZNSUsaHkMZQ01MGB5WFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=de5YgG5yXN9uH1U/29igFPjzMtVXZjG11RVK1ox3PS+J0OxMUsWTNCOPROu8id+oUwcmJpuixHyc9xQu9wm+e011mhPVPHSDxOEQqVX7UmuUb4yIv1FjZ8cKPaXr4zOp8OU4D4CKufl7NjYy2zQtn0eUL36w0+D3ewWucOSsJ/4=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=MAfz+13K76TPUxvO+5QDm/lgQXp/YWJ9M/nw8Kebqcw=;
- h=date:mime-version:subject:message-id:from;
-X-Mailman-Approved-At: Wed, 28 Jan 2026 13:07:28 +0000
+In-Reply-To: <33bbb3ec-5659-4d50-a5ff-dafa44e291dd@rock-chips.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,212 +84,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.19 / 15.00];
+X-Spamd-Result: default: False [0.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[rock-chips.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[rock-chips.com:s=default];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[29];
+	RCPT_COUNT_TWELVE(0.00)[28];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.992];
-	FROM_NEQ_ENVFROM(0.00)[shawn.lin@rock-chips.com,freedreno-bounces@lists.freedesktop.org];
-	FREEMAIL_CC(0.00)[rock-chips.com,kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com,vger.kernel.org,lists.freedesktop.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	FROM_NEQ_ENVFROM(0.00)[mani@kernel.org,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linaro.org,kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com,vger.kernel.org,lists.freedesktop.org];
 	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
-	DKIM_TRACE(0.00)[rock-chips.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,linaro.org:email]
-X-Rspamd-Queue-Id: 9E935A1D32
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: 795D79DE81
 X-Rspamd-Action: no action
 
-在 2026/01/28 星期三 5:53, Neil Armstrong 写道:
-> On 1/27/26 16:53, Manivannan Sadhasivam wrote:
->> On Tue, Jan 27, 2026 at 10:57:29AM +0100, Neil Armstrong wrote:
->>> Add support fo the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host 
->>> Controller
->>> power control which connects over PCIe and requires specific power 
->>> supplies
->>> to start up.
->>>
->>
->> This driver only handles the supplies. So why can't you use the existing
->> pwrctrl-slot driver as a fallback?
+On Wed, Jan 28, 2026 at 02:22:50PM +0800, Shawn Lin wrote:
+> 在 2026/01/28 星期三 5:53, Neil Armstrong 写道:
+> > On 1/27/26 16:53, Manivannan Sadhasivam wrote:
+> > > On Tue, Jan 27, 2026 at 10:57:29AM +0100, Neil Armstrong wrote:
+> > > > Add support fo the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host
+> > > > Controller
+> > > > power control which connects over PCIe and requires specific
+> > > > power supplies
+> > > > to start up.
+> > > > 
+> > > 
+> > > This driver only handles the supplies. So why can't you use the existing
+> > > pwrctrl-slot driver as a fallback?
+> > 
+> > It would fit with no change, but the name "slot" doesn't match the goal
+> > here,
+> > it's not a slot at all, it's an actual pcie IC.
+> > 
 > 
-> It would fit with no change, but the name "slot" doesn't match the goal 
-> here,
-> it's not a slot at all, it's an actual pcie IC.
-> 
-
-How about renaming slot.cto something like pci-pwrctrl-simple.c, 
-especially if most power sequences fit into this category? This would 
-follow the naming example seen in other subsystems, such as 
-drivers/mmc/core/pwrseq_simple.c.
-
-> Neil
-> 
->>
->> - Mani
->>
->>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>> ---
->>>   drivers/pci/pwrctrl/Kconfig                 | 10 ++++
->>>   drivers/pci/pwrctrl/Makefile                |  2 +
->>>   drivers/pci/pwrctrl/pci-pwrctrl-upd720201.c | 88 ++++++++++++++++++ 
->>> +++++++++++
->>>   3 files changed, 100 insertions(+)
->>>
->>> diff --git a/drivers/pci/pwrctrl/Kconfig b/drivers/pci/pwrctrl/Kconfig
->>> index e0f999f299bb..5a94e60d0d3e 100644
->>> --- a/drivers/pci/pwrctrl/Kconfig
->>> +++ b/drivers/pci/pwrctrl/Kconfig
->>> @@ -11,6 +11,16 @@ config PCI_PWRCTRL_PWRSEQ
->>>       select POWER_SEQUENCING
->>>       select PCI_PWRCTRL
->>> +config PCI_PWRCTRL_UPD720201
->>> +    tristate "PCI Power Control driver for the UPD720201 USB3 Host 
->>> Controller"
->>> +    select PCI_PWRCTRL
->>> +    help
->>> +      Say Y here to enable the PCI Power Control driver of the 
->>> UPD720201
->>> +      USB3 Host Controller.
->>> +
->>> +      The voltage regulators powering the rails of the PCI slots
->>> +      are expected to be defined in the devicetree node of the PCI 
->>> device.
->>> +
->>>   config PCI_PWRCTRL_SLOT
->>>       tristate "PCI Power Control driver for PCI slots"
->>>       select PCI_PWRCTRL
->>> diff --git a/drivers/pci/pwrctrl/Makefile b/drivers/pci/pwrctrl/Makefile
->>> index 13b02282106c..a99f85de8a3d 100644
->>> --- a/drivers/pci/pwrctrl/Makefile
->>> +++ b/drivers/pci/pwrctrl/Makefile
->>> @@ -5,6 +5,8 @@ pci-pwrctrl-core-y            := core.o
->>>   obj-$(CONFIG_PCI_PWRCTRL_PWRSEQ)    += pci-pwrctrl-pwrseq.o
->>> +obj-$(CONFIG_PCI_PWRCTRL_UPD720201)    += pci-pwrctrl-upd720201.o
->>> +
->>>   obj-$(CONFIG_PCI_PWRCTRL_SLOT)        += pci-pwrctrl-slot.o
->>>   pci-pwrctrl-slot-y            := slot.o
->>> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-upd720201.c b/drivers/ 
->>> pci/pwrctrl/pci-pwrctrl-upd720201.c
->>> new file mode 100644
->>> index 000000000000..db96bbb69c21
->>> --- /dev/null
->>> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-upd720201.c
->>> @@ -0,0 +1,88 @@
->>> +// SPDX-License-Identifier: GPL-2.0-only
->>> +/*
->>> + * Based on upd720201.c:
->>> + * Copyright (C) 2024 Linaro Ltd.
->>> + * Author: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
->>> + */
->>> +
->>> +#include <linux/device.h>
->>> +#include <linux/mod_devicetable.h>
->>> +#include <linux/module.h>
->>> +#include <linux/pci-pwrctrl.h>
->>> +#include <linux/platform_device.h>
->>> +#include <linux/regulator/consumer.h>
->>> +#include <linux/slab.h>
->>> +
->>> +struct pci_pwrctrl_upd720201_data {
->>> +    struct pci_pwrctrl ctx;
->>> +    struct regulator_bulk_data *supplies;
->>> +    int num_supplies;
->>> +};
->>> +
->>> +static void devm_pci_pwrctrl_upd720201_power_off(void *data)
->>> +{
->>> +    struct pci_pwrctrl_upd720201_data *upd720201 = data;
->>> +
->>> +    regulator_bulk_disable(upd720201->num_supplies, upd720201- 
->>> >supplies);
->>> +    regulator_bulk_free(upd720201->num_supplies, upd720201->supplies);
->>> +}
->>> +
->>> +static int pci_pwrctrl_upd720201_probe(struct platform_device *pdev)
->>> +{
->>> +    struct pci_pwrctrl_upd720201_data *upd720201;
->>> +    struct device *dev = &pdev->dev;
->>> +    int ret;
->>> +
->>> +    upd720201 = devm_kzalloc(dev, sizeof(*upd720201), GFP_KERNEL);
->>> +    if (!upd720201)
->>> +        return -ENOMEM;
->>> +
->>> +    ret = of_regulator_bulk_get_all(dev, dev_of_node(dev),
->>> +                    &upd720201->supplies);
->>> +    if (ret < 0) {
->>> +        dev_err_probe(dev, ret, "Failed to get upd720201 
->>> regulators\n");
->>> +        return ret;
->>> +    }
->>> +
->>> +    upd720201->num_supplies = ret;
->>> +    ret = regulator_bulk_enable(upd720201->num_supplies, upd720201- 
->>> >supplies);
->>> +    if (ret < 0) {
->>> +        dev_err_probe(dev, ret, "Failed to enable upd720201 
->>> regulators\n");
->>> +        regulator_bulk_free(upd720201->num_supplies, upd720201- 
->>> >supplies);
->>> +        return ret;
->>> +    }
->>> +
->>> +    ret = devm_add_action_or_reset(dev, 
->>> devm_pci_pwrctrl_upd720201_power_off,
->>> +                       upd720201);
->>> +    if (ret)
->>> +        return ret;
->>> +
->>> +    pci_pwrctrl_init(&upd720201->ctx, dev);
->>> +
->>> +    ret = devm_pci_pwrctrl_device_set_ready(dev, &upd720201->ctx);
->>> +    if (ret)
->>> +        return dev_err_probe(dev, ret, "Failed to register pwrctrl 
->>> driver\n");
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static const struct of_device_id pci_pwrctrl_upd720201_of_match[] = {
->>> +    {
->>> +        .compatible = "pci1912,0014",
->>> +    },
->>> +    { }
->>> +};
->>> +MODULE_DEVICE_TABLE(of, pci_pwrctrl_upd720201_of_match);
->>> +
->>> +static struct platform_driver pci_pwrctrl_upd720201_driver = {
->>> +    .driver = {
->>> +        .name = "pci-pwrctrl-upd720201",
->>> +        .of_match_table = pci_pwrctrl_upd720201_of_match,
->>> +    },
->>> +    .probe = pci_pwrctrl_upd720201_probe,
->>> +};
->>> +module_platform_driver(pci_pwrctrl_upd720201_driver);
->>> +
->>> +MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
->>> +MODULE_DESCRIPTION("PCI Power Control driver for UPD720201 USB3 Host 
->>> Controller");
->>> +MODULE_LICENSE("GPL");
->>>
->>> -- 
->>> 2.34.1
->>>
->>
-> 
-> 
+> How about renaming slot.cto something like pci-pwrctrl-simple.c, especially
+> if most power sequences fit into this category? This would follow the naming
+> example seen in other subsystems, such as drivers/mmc/core/pwrseq_simple.c.
 > 
 
+Yes. There is no point in duplicating the drivers just for a different name.
+Slot driver is relatively new. So I don't think there would be issues in
+renaming the module name.
+
+I'd prefer for 'pci-pwrctrl-generic.ko' for module name and 'generic.c' for
+driver name.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
