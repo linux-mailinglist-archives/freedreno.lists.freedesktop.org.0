@@ -2,132 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YCYBKCbOeWnezgEAu9opvQ
+	id OLuVJjfueWmO1AEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 09:51:50 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 12:08:39 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0752D9E72C
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 09:51:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71634A0061
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 12:08:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D72E310E625;
-	Wed, 28 Jan 2026 08:51:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2006D10E6A3;
+	Wed, 28 Jan 2026 11:08:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QtYy3W/h";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MB/NNpN1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3F710E28E
- for <freedreno@lists.freedesktop.org>; Wed, 28 Jan 2026 08:51:47 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-47edffe5540so76142705e9.0
- for <freedreno@lists.freedesktop.org>; Wed, 28 Jan 2026 00:51:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1769590306; x=1770195106; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=KkssKX9UZLI3a5TYO9ENZYAnlkONRgQSKBvfWG/TLA4=;
- b=QtYy3W/hBciQGOI8MXGoLhMefOObyBc+RJJbgXEvcn0sXgkQ6w2furN39NoFwHSZEW
- /u2RQV/bOf6Zor5N0gZkNZXN684W5lhrda0Ea2Hc08fSUGm9Us/fuhl5PImDOY30K2gS
- o8U8ZA5YpIARezk4Q/qt+fkO3zp8MVyOzzs2psrsTx0h/oxvCfQbzUVLNv9Xj49WlWQQ
- lBSFjhnI8tZOIWu4Ra09f3GKxL0qj7phSjzz4RZmXGExHPvRsYRjpIfFtKMNDPLPkF+i
- TbgRE1OSucEivGx84N257L1hIKTS4ckUWxknVUBnRY73W7n35Uk271/QxOCuxWY949Nm
- V2Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769590306; x=1770195106;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KkssKX9UZLI3a5TYO9ENZYAnlkONRgQSKBvfWG/TLA4=;
- b=DoX7ga6RIG3MDKfrkkKmsTS2+zyHJy+yTz+QYHX0FvesTZh5d+up8ri/rx5iSjkfOW
- 1llLmuJq9nFMwpm0yzVmXjqo8hboD1PONrqQoLpHYwG2cMovcEX1Hk+4G+OSAoVzmflH
- MjjA7YnL0t53zej5kizshvNru59Tn9yRpRnC8h5mXFKoF14FA3uaFvJ9mUtKx/5WRI2Y
- vWyjealc+bAcxa3lS2aPNyAQPVDAUbQXo+Sa4RL+dclDAk3uOedpCjkpR7HCPXSkbASd
- HKAYSWlLefZi2cGczRYf+C2/hhH+Gjh1p7NNMEZd0Wdz8PboXNuXzcwWvRu7Wuoka6xy
- h51A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXdu/XYRwVxtCFM3BoHJX143NKTYDvVhcoYk36NJb4nvVA44rLMZqKRoXi0s2biW31j2NoGBLtp/xU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwK3Dt7iHev5x8kcd5JpL/cxy1QrB0LOkwnFrz7mK5WIcATkZVx
- zjT8kSRCVdreuXhdGvNFzdrL9QSY8IsyMs4rOgZG34JxjbW7y3jM2xLkBTlR/gSKfyQ=
-X-Gm-Gg: AZuq6aKgAgT5lEQpLAzdmnzEfZfKGaAt8TCwb1S3LDHQ/3zUcyfi4Abs94U+uWiNIk2
- T/EmQBDUUP1s0npPLlHcxOyKea8rAG+0+kTOsjn+hB3F2ep/ECpNbZjA8uisSEo/p41hd4NnPDk
- z+mo3AQErRNjTqgtZw+74Av2cOmD5gEqQQonlnmkSPJM2GY+HDnRo/XWvEfSxun4o3UdgMWz9v1
- po+1cxDvOvhC2GmRn2+JZVqfCwENcIcJfJcWLgRa1WcFDiThdQ3k/2inbl9K0qyKhWy1FtJDDXH
- 08cyfC0lRGRE/0OGWwk/7SYZjmv38UDgHULodJcOyE7pKwwk7M+VpkVuGy93WnTBPGNpwWRLgq9
- jm2FtfNRqMQ/42d1j0EwzM5h3Rz8mrH4KhAAXyFOp9wQ0fw032GotKFKnFKeiSFDKu0CJ6yMJIb
- 9v40kqxZA+lYPZLJeTX4mcFK7LdAJqyjWScmnZ3JnWXXLCpHa1j4AwTuvq9Um8l+s=
-X-Received: by 2002:a05:600c:4592:b0:477:1af2:f40a with SMTP id
- 5b1f17b1804b1-48069c5b97cmr56776605e9.17.1769590305903; 
- Wed, 28 Jan 2026 00:51:45 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:3d9:2080:7745:d752:5f0b:2b68?
- ([2a01:e0a:3d9:2080:7745:d752:5f0b:2b68])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4806cddffe9sm66744915e9.4.2026.01.28.00.51.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Jan 2026 00:51:45 -0800 (PST)
-Message-ID: <c3b678ea-fca2-47ff-bc39-72ad498c8641@linaro.org>
-Date: Wed, 28 Jan 2026 09:51:44 +0100
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E839110E66F;
+ Wed, 28 Jan 2026 11:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=TAzdWXnoLcpcCgEAqKE/cq4ByrpsKMjnAk7MHIetA1s=; b=MB/NNpN1tiuyEmFVu7kJyd3qMT
+ Rt2qNEQaAP/FBB9wbGq0/FhHhRb5EjWhO5QdfFs9scryk1RvOupT2VVWFpwN9gH3k9XRiv/0RQNK/
+ w3kRuMY9oqY1iZc8DtOMD0m8Ox3qvvzSbPObt5sgSjOw8i4q5Rb8gQb448iMBw0dFerVdvZDqxqsZ
+ 6eGIFgJy9yTjho2jR9+KfKjtQNBmg48FpJ4VBX13vefZCrKBJmQqYpFhe8ab5fqva7HxqasMqPczQ
+ nFKdhba/Zk40D89JPMxTQxfiQQQhIh0xcfNv0M9wRA29SWtvZyOsn4cpeq8sgul7crA8OqK5eeI5e
+ 0W7B9yMw==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vl3PO-00Aqez-Ok; Wed, 28 Jan 2026 12:08:26 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH v6 24/31] drm/msm: Remove drm_sched_init_args->num_rqs usage
+Date: Wed, 28 Jan 2026 11:07:59 +0000
+Message-ID: <20260128110806.38350-25-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
+References: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/7] pci: pwrctrl: add PCI pwrctrl driver for the
- UPD720201/UPD720202 USB 3.0 xHCI Host Controller
-To: Manivannan Sadhasivam <mani@kernel.org>,
- Shawn Lin <shawn.lin@rock-chips.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
- <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-2-c55ec1b5d8bf@linaro.org>
- <llbnkm72mgcsrucnp7pdkwbgyzenvhe4kudxkdixplgaoirdem@3q3me34o5drf>
- <0104896e-44d0-485a-a44e-694864c819b7@linaro.org>
- <33bbb3ec-5659-4d50-a5ff-dafa44e291dd@rock-chips.com>
- <ppe6w2h32vx2jh73bcv7ip7ubr2wgwjsz4ooruplpx7gx5s4rv@qfasjbocku4r>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <ppe6w2h32vx2jh73bcv7ip7ubr2wgwjsz4ooruplpx7gx5s4rv@qfasjbocku4r>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,86 +63,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.19 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+X-Spamd-Result: default: False [1.99 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
+	R_MISSING_CHARSET(0.50)[];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	DMARC_POLICY_SOFTFAIL(0.10)[igalia.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:mani@kernel.org,m:shawn.lin@rock-chips.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:gregkh@linuxfoundation.org,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:brgl@kernel.org,m:bhelgaas@google.com,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-usb@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-pci@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	HAS_ORG_HEADER(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com,vger.kernel.org,lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_REPLYTO(0.00)[neil.armstrong@linaro.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:replyto,linaro.org:dkim,linaro.org:mid,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
-	REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Queue-Id: 0752D9E72C
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[tvrtko.ursulin@igalia.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[igalia.com:-];
+	NEURAL_HAM(-0.00)[-0.705];
+	TAGGED_RCPT(0.00)[freedreno];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:email]
+X-Rspamd-Queue-Id: 71634A0061
 X-Rspamd-Action: no action
 
-On 1/28/26 08:57, Manivannan Sadhasivam wrote:
-> On Wed, Jan 28, 2026 at 02:22:50PM +0800, Shawn Lin wrote:
->> 在 2026/01/28 星期三 5:53, Neil Armstrong 写道:
->>> On 1/27/26 16:53, Manivannan Sadhasivam wrote:
->>>> On Tue, Jan 27, 2026 at 10:57:29AM +0100, Neil Armstrong wrote:
->>>>> Add support fo the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host
->>>>> Controller
->>>>> power control which connects over PCIe and requires specific
->>>>> power supplies
->>>>> to start up.
->>>>>
->>>>
->>>> This driver only handles the supplies. So why can't you use the existing
->>>> pwrctrl-slot driver as a fallback?
->>>
->>> It would fit with no change, but the name "slot" doesn't match the goal
->>> here,
->>> it's not a slot at all, it's an actual pcie IC.
->>>
->>
->> How about renaming slot.cto something like pci-pwrctrl-simple.c, especially
->> if most power sequences fit into this category? This would follow the naming
->> example seen in other subsystems, such as drivers/mmc/core/pwrseq_simple.c.
->>
-> 
-> Yes. There is no point in duplicating the drivers just for a different name.
-> Slot driver is relatively new. So I don't think there would be issues in
-> renaming the module name.
-> 
-> I'd prefer for 'pci-pwrctrl-generic.ko' for module name and 'generic.c' for
-> driver name.
+Remove member no longer used by the scheduler core.
 
-Will do
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+---
+ drivers/gpu/drm/msm/msm_gem_vma.c    | 1 -
+ drivers/gpu/drm/msm/msm_ringbuffer.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-Thanks,
-Neil
-
-> 
-> - Mani
-> 
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 5fd58d910620..0b0bd8d17a01 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -832,7 +832,6 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
+ 	if (!managed) {
+ 		struct drm_sched_init_args args = {
+ 			.ops = &msm_vm_bind_ops,
+-			.num_rqs = 1,
+ 			.credit_limit = 1,
+ 			.timeout = MAX_SCHEDULE_TIMEOUT,
+ 			.name = "msm-vm-bind",
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index b2f612e5dc79..f7f0312a7dc0 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -67,7 +67,6 @@ struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+ {
+ 	struct drm_sched_init_args args = {
+ 		.ops = &msm_sched_ops,
+-		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = num_hw_submissions,
+ 		.timeout = MAX_SCHEDULE_TIMEOUT,
+ 		.dev = gpu->dev->dev,
+-- 
+2.52.0
 
