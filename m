@@ -2,152 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cCpMGQ3yeWnT1AEAu9opvQ
+	id MGpQLsH3eWkE1QEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 12:25:01 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 12:49:21 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA0F8A0484
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 12:25:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A9DA0CC5
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jan 2026 12:49:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B32910E68A;
-	Wed, 28 Jan 2026 11:24:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B672310E2A1;
+	Wed, 28 Jan 2026 11:49:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eSBO5EHk";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d/jQDzX3";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="o9qaCDOs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 806AE10E68A
- for <freedreno@lists.freedesktop.org>; Wed, 28 Jan 2026 11:24:58 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B252010E2A1;
+ Wed, 28 Jan 2026 11:49:18 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60S924Wq1406345
- for <freedreno@lists.freedesktop.org>; Wed, 28 Jan 2026 11:24:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dhRsJ3EzuUj/2l9fOKYhc3V/t6syCqgQiffXBGPgzVU=; b=eSBO5EHkrk1kKvol
- or1hol6Sg/aspr2AtDwhhY13UR1eIqD9bG3gYLci7B0wSHjWtftBFSGdsPtlBcS0
- gmfF/12HMueS+9JgpEynVntlJQAX3IZHmC53Aw62zLMDKnaEOnZ5sOrLi1eHtUyH
- Ykvt1VM16nyeOAutu3YgEv8lwDvluq2erwKlrDXCusZtEpLw37JoP3mc/2JX5+9p
- urgyjMvOKOHg4uhwcNbnSSajZOeeZu7KmpeWa0lSs7nz3B+icVeL/OM02E68eTo5
- p6Qs6gzBK5OXPo3155SKE3LEKWsu7WxvCuzhwDXeCwO2tQzofTi0SOyubeXWeJYV
- fVl0Mg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4by4dytjss-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 28 Jan 2026 11:24:57 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5029a8193c0so3355531cf.0
- for <freedreno@lists.freedesktop.org>; Wed, 28 Jan 2026 03:24:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769599497; x=1770204297;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=dhRsJ3EzuUj/2l9fOKYhc3V/t6syCqgQiffXBGPgzVU=;
- b=d/jQDzX3Mop4pW4Z4BC5LE8fk/fdJ8PvDDN7bRNL1FnPhCMI8Q7MsE1QxFpZ9NsOW+
- +lmlSWCBJdd1uKojmgQndgMYP2eiEwllknSr5Hq1PeWbUU1VSwk6VOHLKPgm+AP+MieO
- bSshnWvak4TOHHEDrGHq4PUcWm7CkHdfNrhyteYpYni/97BjjzbgihULYiIkjSNbF9Tw
- 4peGsTzT2JOEEqiJS35oH0QrC384fM/gssZZC/fMKitcKqZTA+nY1/u+TzE/pv4DQYTr
- wgDZgA0xYeVXfd0huTPB2x9LtMjJ5EWW1AW5rZS0gq5IntyQkng4gX/tHvEcUR34nuim
- mT/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769599497; x=1770204297;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dhRsJ3EzuUj/2l9fOKYhc3V/t6syCqgQiffXBGPgzVU=;
- b=ZKWuSIyEVNZ6YQojZGnhT/QivtLIttdpnYgGEIzGZ6K+803PMaGP0kbq4kXG16muYZ
- yKMk0q3lOgEmvahEKSbF/+4I/I5qulMaoBrXTBg0AEA2RsiqOoWeiB/qQtvZQNwXBz0E
- CYGw2HM5zYvEISCsxFbhqUWvQ0eintKse6XlcYPb0z8zgcsQRqxtUiq3U73YTzo04uEL
- lmMJdDIdOFuWWiZ0me05EwRQKd3PHBA21VF2QzYQ95c+TI7xsS0DtI6hMuwXbc43PIvV
- J9xNJTPoK8PmdR4SeriIc2V1nj2KbRs/v5sYMv9D/xEEe+iqa89HKSuJXdhBOQzj5vZH
- JWzA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWSbrW+3I66DNILmCsBJiPUlrIXz3jm0mFQXoU7eSWu+gqNmL+FTp7xHCoQesdDbohbPPo1sIiiauQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy784W5fo7w5/8an6i73MZRDtuA2I9x9B4YuGTtqZ5cpRUz0VBR
- TfMKjVWfX9od1OffacJmT/9gwWZ/I5slETvQQcwtptuxdW+bY+5SI00fCpeXaZHh16Jhk5n9gug
- Ux6d4wZfmi5U9jsKR0PeVdoDJVYdjmY6ZqKMCQIfLT0C4G/94/fdW9/QpAfHiBg6/TBQuO1s=
-X-Gm-Gg: AZuq6aJLUpIGYc6giWyPpKdbzy4AtHLsJ+cG1hW8XI4uxoOn1n1tNl7n3WIr25wtzfO
- r8rxycQpW4rSNBFG8C5kDveDqp6oR7NXEwKXGosVduc5iZJXpTMolFc9w9Dsw4ZQcfqW/6a0h9m
- BiWmm2RTYMiNTnZM0RO3wxrLZkJSSGP3CbqVNs+XVnw+quQ/FF9D5laRA2og7XMGKUYNCF49riz
- zFVCQSuKlR2DcfFknRl55UyUxiijPfQ6Figdpoffwa6vKIQ1kEk/L/jBn5U/gLQePYqCXneZsdx
- Y4StBzC973DQmBHgeTLuWV9HFbytzMDpbz1YF0qjrU+iY+KrKY3dNnYgZtTf17GMO+IUJX6jInu
- ZWkwG0qMq1hKgA+7QVENZ01LKVAa4zIJEtaOY4PyoLA1HL30QKdfSOntBr0uEWJ85EZg=
-X-Received: by 2002:a05:620a:2904:b0:8c6:d3a7:3d1e with SMTP id
- af79cd13be357-8c714a67607mr122193185a.0.1769599496961; 
- Wed, 28 Jan 2026 03:24:56 -0800 (PST)
-X-Received: by 2002:a05:620a:2904:b0:8c6:d3a7:3d1e with SMTP id
- af79cd13be357-8c714a67607mr122190085a.0.1769599496363; 
- Wed, 28 Jan 2026 03:24:56 -0800 (PST)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8dbf1847f9sm117534166b.42.2026.01.28.03.24.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Jan 2026 03:24:55 -0800 (PST)
-Message-ID: <de10c91b-f6bf-4594-8df2-71395ecaa893@oss.qualcomm.com>
-Date: Wed, 28 Jan 2026 12:24:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: add basic devicetree for Ayaneo
- Pocket S2 gaming console
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ 60S92WoQ254579; Wed, 28 Jan 2026 11:49:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=IbRL/MdORU0nV1KmM+0/jPn6yuujtqAOkTm
+ 0iq6dFWs=; b=o9qaCDOsNalPQsexZB1O7ofYEd3SpsOWir4WSxyvpcmbcvZnbZQ
+ fl9jmnD0dgPFDg6s5IK0oUGovY4mpXM6EcktW5zq5RC4hGTdr0FSYlHpxsAsqFfL
+ vdgJPtEuMNtB4r9MIL7tfE7qplhPb7aDW5zip0AaNxCEAsA2WU/YcB6v7k9E+cHF
+ XTAGJVL0BbyAPg1nxXin+rmiPuaKo3Tanm+rCOrLIaTcGqwwudP3DFRpvo9RUpBT
+ VeFPOpGo6TUKoE0hJG1hFl5MsU65uj+pffUx0z/ZPRSBv3RZmTayZ3GqBiLKqCEq
+ 1HmCH4F3dB8cFVXnnonvXzVMo1KYFEap7IQ==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4by20y36pr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 11:49:08 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 60SBn5Hh004220; 
+ Wed, 28 Jan 2026 11:49:05 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4bvq5mgsj1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 11:49:05 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 60SBn5Uo004094;
+ Wed, 28 Jan 2026 11:49:05 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-riteshk-hyd.qualcomm.com
+ [10.213.102.118])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 60SBn4ie004089
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 11:49:05 +0000
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2314801)
+ id 356AB5DF; Wed, 28 Jan 2026 17:19:04 +0530 (+0530)
+From: Ritesh Kumar <quic_riteshk@quicinc.com>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ sean@poorly.run, marijn.suijten@somainline.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ quic_mahap@quicinc.com, andersson@kernel.org, konradybcio@kernel.org,
+ mani@kernel.org, James.Bottomley@HansenPartnership.com,
+ martin.petersen@oracle.com, vkoul@kernel.org, kishon@kernel.org,
+ cros-qcom-dts-watchers@chromium.org
+Cc: Ritesh Kumar <quic_riteshk@quicinc.com>, linux-phy@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-usb@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-pci@vger.kernel.org,
- KancyJoe <kancy2333@outlook.com>
-References: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
- <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-7-c55ec1b5d8bf@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-7-c55ec1b5d8bf@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=XqT3+FF9 c=1 sm=1 tr=0 ts=6979f209 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=UqCG9HQmAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
- a=rO7Yge3HHgQ4wEOnkrQA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: j7nZuhma2tPM8WDwWAJIjKORJ4S3YwTb
-X-Proofpoint-ORIG-GUID: j7nZuhma2tPM8WDwWAJIjKORJ4S3YwTb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDA5MyBTYWx0ZWRfX6MSrY3Bb4wdI
- yRgbF9gXPy6Q/YdAD/UWVriKNoftQttpaHlAXgEHjwDQU1D8RonN5H6Pd+h2K3rXsBmaXElLe8j
- rFmsH5Q2rvW5yXme8vnF/xZckdPQExozIL9xvhnYYxuhgtPFIN5m5AyB8HK9NwR/8ORyXyhW93N
- ZG1QzpfGxCj95K9eL8TR2+6O9OP8y+HRGTfXt6/R0UnmlmrUU4byeVVkr/6ycDWRNDgObF8E5AF
- i/2sLxrB+WLS0D6vAMypORJAMgn42kDTFwzAW8o2YX1/FAbUOdxO21K2mlg+c6TdRcIW2CBTeDj
- oLCRV1GYPElaUZ2Gt1u4u/kppanfWyC9Z6R0L2HlqTF4lsRgP5xPzfl29pQ02OYgrKh5lQ09gCc
- DB84jqD625mIYQ0gNkZqaz0kziRLThC0PeN8C/2uJbVvElViiLN1qudVWlOa+RwjNMjznZXQq1/
- qrYpCFYsQW02D3w8glw==
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+ quic_vproddut@quicinc.com
+Subject: [PATCH v4 0/2] Add edp reference clock for lemans
+Date: Wed, 28 Jan 2026 17:18:48 +0530
+Message-ID: <20260128114853.2543416-1-quic_riteshk@quicinc.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: xkX8URlhIYmfiYxwg_gGFmygazzvMK_o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDA5NyBTYWx0ZWRfX14V9n/Aa786j
+ JGb/wmODho8qppn/lrc/DupUEh+E+AvcedqRYIOvJskzFnaTq4vtkrWfCNSMgS8Gph+pjb0Qy4E
+ 5zNOhwRY8bfMLu90qK/pzDAF2A7AykvYbsdushUoP4DxMGApkbBnE7Qwzuoa+qskoxmYb3mJMRa
+ rYDjCwpNzP/Unsmb8GBJjvNUxikfy+DJ3gwZSTNfAYq1aUY3gPd9u0Qp5rwBRQb92XlTNy/Hh/s
+ GZePvxo7UYuPbeQF1OE7JufdM0IgUpgoBpLyVInaSynQfIrMVe1Cxvvg6q+fgIaGVpDjbC/nita
+ NvABlDB0Ke7rsZR2UJDI62/BJi2NjOEdLm1b+/wnuG4IO/VDRpUerktyt6ryJ2Gzzuju5iephjE
+ /nr1sFHFUtGciPBqjqp1ze2hTJuYXaabpsQCegszmCcWVfEDfdAyNF82EJaP5OQ12mqhh55uqBs
+ JJDfs47XRG+vlFVOgSQ==
+X-Proofpoint-GUID: xkX8URlhIYmfiYxwg_gGFmygazzvMK_o
+X-Authority-Analysis: v=2.4 cv=IKgPywvG c=1 sm=1 tr=0 ts=6979f7b5 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=COk6AnOGAAAA:8 a=VVwWfd7dDLNrxvkr-osA:9 a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-01-28_02,2026-01-27_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ adultscore=0 priorityscore=1501 clxscore=1011 suspectscore=0 impostorscore=0
+ phishscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601280093
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601280097
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,117 +120,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.19 / 15.00];
+X-Spamd-Result: default: False [1.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[quicinc.com,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[quicinc.com:s=qcppdkim1];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	MAILLIST(-0.20)[mailman];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[29];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS(0.00)[m:neil.armstrong@linaro.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:gregkh@linuxfoundation.org,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:brgl@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-usb@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-pci@vger.kernel.org,m:kancy2333@outlook.com,m:krzk@kernel.org,m:conor@kernel.org,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[linaro.org,kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linuxfoundation.org,glider.be,google.com];
-	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,outlook.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[31];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,poorly.run,somainline.org,linux.intel.com,suse.de,gmail.com,ffwll.ch,quicinc.com,HansenPartnership.com,oracle.com,chromium.org];
+	DKIM_TRACE(0.00)[quicinc.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_NEQ_ENVFROM(0.00)[quic_riteshk@quicinc.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[1d87000:email,quicinc.com:mid,quicinc.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns];
+	TAGGED_RCPT(0.00)[freedreno,dt];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,oss.qualcomm.com:mid,oss.qualcomm.com:dkim,outlook.com:email,qualcomm.com:email,qualcomm.com:dkim]
-X-Rspamd-Queue-Id: CA0F8A0484
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 10A9DA0CC5
 X-Rspamd-Action: no action
 
-On 1/27/26 10:57 AM, Neil Armstrong wrote:
-> From: KancyJoe <kancy2333@outlook.com>
-> 
-> Add initial Device Tree for the Ayaneo Pocket S2 gaming console based
-> on the Qualcomm Snapdragon 8 Gen 3 platform.
-> 
-> The design is similar to a phone without the modem, the game control
-> is handled via a standalone controller connected to a PCIe USB
-> controller.
-> 
-> Display panel support will be added in a second time.
-> 
-> Signed-off-by: KancyJoe <kancy2333@outlook.com>
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
+On lemans chipset, edp reference clock is being voted by ufs mem phy
+(ufs_mem_phy: phy@1d87000). But after commit 77d2fa54a945
+("scsi: ufs: qcom : Refactor phy_power_on/off calls") edp reference
+clock is getting turned off, leading to below phy poweron failure on
+lemans edp phy.
 
-[...]
+[   19.830220] phy phy-aec2a00.phy.10: phy poweron failed --> -110
+[   19.842112] mdss_0_disp_cc_mdss_dptx0_link_clk status stuck at 'off'
+[   19.842131] WARNING: CPU: 2 PID: 371 at drivers/clk/qcom/clk-branch.c:87 clk_branch_toggle+0x174/0x18c
+[   19.984356] Hardware name: Qualcomm QCS9100 Ride (DT)
+[   19.989548] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   19.996697] pc : clk_branch_toggle+0x174/0x18c
+[   20.001267] lr : clk_branch_toggle+0x174/0x18c
+[   20.005833] sp : ffff8000863ebbc0
+[   20.009251] x29: ffff8000863ebbd0 x28: 0000000000000000 x27: 0000000000000000
+[   20.016579] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000001
+[   20.023915] x23: ffff0000c53de980 x22: 0000000000000001 x21: ffffb4b57fd8d710
+[   20.031245] x20: ffffb4b5bb238b88 x19: 0000000000000000 x18: ffffffffffff7198
+[   20.038584] x17: 0000000000000014 x16: ffffb4b5bb1e2330 x15: 0000000000000048
+[   20.045926] x14: 0000000000000000 x13: ffffb4b5bd386a48 x12: 0000000000000dfb
+[   20.053263] x11: 00000000000004a9 x10: ffffb4b5bd3e5a20 x9 : ffffb4b5bd386a48
+[   20.060600] x8 : 00000000ffffefff x7 : ffffb4b5bd3dea48 x6 : 00000000000004a9
+[   20.067934] x5 : ffff000eb7d38408 x4 : 40000000fffff4a9 x3 : ffff4b58fb2b7000
+[   20.075269] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000ec4fc3480
+[   20.082601] Call trace:
+[   20.085127]  clk_branch_toggle+0x174/0x18c (P)
+[   20.089705]  clk_branch2_enable+0x1c/0x28
+[   20.093829]  clk_core_enable+0x6c/0xac
+[   20.097687]  clk_enable+0x2c/0x4c
+[   20.101104]  clk_bulk_enable+0x4c/0xd8
+[   20.104964]  msm_dp_ctrl_enable_mainlink_clocks+0x184/0x24c [msm]
+[   20.111294]  msm_dp_ctrl_on_link+0xb0/0x400 [msm]
+[   20.116178]  msm_dp_display_process_hpd_high+0x110/0x190 [msm]
+[   20.122209]  msm_dp_hpd_plug_handle.isra.0+0xac/0x1c4 [msm]
+[   20.127983]  hpd_event_thread+0x320/0x5cc [msm]
+[   20.132680]  kthread+0x12c/0x204
+[   20.136011]  ret_from_fork+0x10/0x20
+[   20.139699] ---[ end trace 0000000000000000 ]---
+[   20.144489] Failed to enable clk 'ctrl_link': -16
+[   20.149340] [drm:msm_dp_ctrl_enable_mainlink_clocks [msm]] *ERROR* Unable to start link clocks. ret=-16
 
-> +		va-dai-link {
-> +			link-name = "VA Capture";
-> +
-> +			codec {
-> +				sound-dai = <&lpass_vamacro 0>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
-> +			};
-> +
-> +			platform {
-> +				sound-dai = <&q6apm>;
-> +			};
-> +		};
-> +
-> +		dp-dai-link {
+This series adds support for voting the clock from lemans edp phy driver.
 
-'d'p-dai-link < 'v'a-dai-link
+---
 
-[...]
+Change in v4:
+- The dependent series is merged. Rebased to latest linux-next. Removed dependency in cover letter.
+- Update commit message of dt-bindings patch. [Krzysztof]
+- Update commit message of devicetree patch to give more detail. [Abel Vesa]
+- Link to v3: https://lore.kernel.org/all/20251104114327.27842-1-riteshk@qti.qualcomm.com/
 
-> +&pm8550_gpios {
-> +	volume_up_n: volume-up-n-state {
-> +		pins = "gpio6";
-> +		function = "normal";
-> +		bias-pull-up;
-> +		input-enable;
-> +		power-source = <1>;
-> +	};
-> +
-> +	pwm_fan_ctrl_active: pwm-fan-ctrl-active-state {
-> +		pins = "gpio9";
-> +		function = "func1";
-> +		output-low;
-> +		bias-disable;
-> +		power-source = <0>;
-> +		qcom,drive-strength = <3>; /* PMIC_GPIO_STRENGTH_LOW */
+Change in v3:
+- Rebase to latest linux-next and latest version 5 of dependency.
+- Squash both DT binding patches together. [Dmitry, Rob]
+- Add dt-binding change in sorted order. [Dmitry]
+- Update commit message of bindings patch to give more detail of the problem. [Bjorn]
+- Update commit message of devicetree patch and add Fixes tag. [Dmitry]
+- Link to v2: https://lore.kernel.org/all/20251013104806.6599-1-quic_riteshk@quicinc.com/
 
-This is defined in include/dt-bindings/pinctrl/qcom,pmic-gpio.h,
-you can just use it
+Change in v2:
+- Rebase on top of dependent series. [Krzysztof]
+- Remove duplicate patches and make changes limited to lemans.
+- Link to v1: https://lore.kernel.org/all/20251009071127.26026-1-quic_riteshk@quicinc.com/
 
-[...]
+---
+Ritesh Kumar (2):
+  dt-bindings: phy: qcom-edp: Add reference clock for sa8775p eDP PHY
+  arm64: dts: qcom: lemans: Add eDP ref clock for eDP PHYs
 
-> +	upd720201_avdd33: upd720201-avdd33-state {
-> +		pins = "gpio123";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +		output-low;
+ .../bindings/display/msm/qcom,sa8775p-mdss.yaml      |  6 ++++--
+ .../devicetree/bindings/phy/qcom,edp-phy.yaml        |  1 +
+ arch/arm64/boot/dts/qcom/lemans.dtsi                 | 12 ++++++++----
+ 3 files changed, 13 insertions(+), 6 deletions(-)
 
-You should be able to drop all the output-low/high properties
-since the device driver that references these GPIOs already asserts
-that
+-- 
+2.34.1
 
-otherwise lgtm
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
