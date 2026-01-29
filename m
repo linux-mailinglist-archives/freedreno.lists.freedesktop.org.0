@@ -2,38 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id JTqIDUlZe2m5EAIAu9opvQ
+	id uJlNC0lZe2mvEAIAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
 	for <lists+freedreno@lfdr.de>; Thu, 29 Jan 2026 13:57:45 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0D50B0327
+	by mail.lfdr.de (Postfix) with ESMTPS id A0692B0326
 	for <lists+freedreno@lfdr.de>; Thu, 29 Jan 2026 13:57:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A425410E862;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA3E010E863;
 	Thu, 29 Jan 2026 12:57:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="RE5oEN+B";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="JG+j+f9F";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 436 seconds by postgrey-1.36 at gabe;
- Thu, 29 Jan 2026 02:55:35 UTC
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
- [91.218.175.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49B3810E7A7;
- Thu, 29 Jan 2026 02:55:35 +0000 (UTC)
+X-Greylist: delayed 608 seconds by postgrey-1.36 at gabe;
+ Thu, 29 Jan 2026 03:00:32 UTC
+Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com
+ [95.215.58.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28A0E10E7AE
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jan 2026 03:00:32 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1769654887;
+ t=1769655012;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding;
- bh=w37zi7Z3Z1toycVB9XsslK/3vJdWdgc5ktIQdfluvMU=;
- b=RE5oEN+B/mFoQOi85mSF6DC0enssy/ugYR03qfZbKSUNTMLcb6Bl4sQObojIGaY6gFK++4
- qD4rYueiwW2la2xvYSE6QLhakVnqY4ec5S3JVzGT7crOLJ4lJgc0whIoTRRma6ng+rU+xT
- FjGWSYkkzH2Xcs35BJjMC4AeliQ8eIg=
+ bh=0LxstW29k/h/2F7AZ/O8A+GqEd32z7jzPtpyQ0dWEUQ=;
+ b=JG+j+f9Fe/HLug+o+caz4zwkyGcp/qX2uNIIpAKU0L1ZplRLRmJNRJm6d/f5oeQ8DrydYI
+ xGfh2QarC5IDlo1mHBeRtg9mSLgUt7AIjDxCFhwhX8OkMadq4jXMM7LJXTxVPmx2oZiL+2
+ P7MPkEE2yPHFgUudYu421dCOvpIHz7c=
 From: sunliming@linux.dev
 To: robin.clark@oss.qualcomm.com, lumag@kernel.org, airlied@gmail.com,
  simona@ffwll.ch
@@ -42,10 +42,10 @@ Cc: sean@poorly.run, marijn.suijten@somainline.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  sunliming <sunliming@kylinos.cn>, kernel test robot <lkp@intel.com>,
  Dan Carpenter <error27@gmail.com>
-Subject: [PATCH] drm/msm/dpu: Fix smatch warnings about variable dereferenced
- before check
-Date: Thu, 29 Jan 2026 10:47:11 +0800
-Message-Id: <20260129024711.30268-1-sunliming@linux.dev>
+Subject: [PATCH RESEND] drm/msm/dpu: Fix smatch warnings about variable
+ dereferenced before check
+Date: Thu, 29 Jan 2026 10:49:19 +0800
+Message-Id: <20260129024919.30449-1-sunliming@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -69,31 +69,37 @@ X-Spamd-Result: default: False [0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[linux.dev,none];
-	R_DKIM_ALLOW(-0.20)[linux.dev:s=key1];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[linux.dev:s=key1];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[poorly.run,somainline.org,vger.kernel.org,lists.freedesktop.org,kylinos.cn,intel.com,gmail.com];
-	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[poorly.run,somainline.org,vger.kernel.org,lists.freedesktop.org,kylinos.cn,intel.com,gmail.com];
+	FORGED_SENDER(0.00)[sunliming@linux.dev,freedreno-bounces@lists.freedesktop.org];
 	RCPT_COUNT_TWELVE(0.00)[13];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:sunliming@kylinos.cn,m:lkp@intel.com,m:error27@gmail.com,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,gmail.com,ffwll.ch];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[sunliming@linux.dev,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_TWO(0.00)[2];
 	DKIM_TRACE(0.00)[linux.dev:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	TAGGED_RCPT(0.00)[freedreno];
 	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FROM_NO_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,linux.dev:mid,linux.dev:dkim]
-X-Rspamd-Queue-Id: A0D50B0327
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,intel.com:email,linux.dev:mid,linux.dev:dkim]
+X-Rspamd-Queue-Id: A0692B0326
 X-Rspamd-Action: no action
 
 From: sunliming <sunliming@kylinos.cn>
@@ -124,7 +130,7 @@ index e65f1fc026fd..312ee6597ab1 100644
  	if (!ctx || !pe_ext)
  		return;
  
-+	u32 offset = ctx->cap->sblk->sspp_rec0_blk.base;
++	offset = ctx->cap->sblk->sspp_rec0_blk.base;
 +
  	c = &ctx->hw;
  	/* program SW pixel extension override for all pipes*/
