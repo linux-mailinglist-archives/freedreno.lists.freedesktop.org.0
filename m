@@ -2,88 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uFZIJrVqfGn+MQIAu9opvQ
+	id uBNQKgLbfGlbOwIAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jan 2026 09:24:21 +0100
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jan 2026 17:23:30 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09707B84DF
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jan 2026 09:24:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32052BC7DD
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jan 2026 17:23:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFBFA10E924;
-	Fri, 30 Jan 2026 08:24:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6F210EA10;
+	Fri, 30 Jan 2026 16:23:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YQdWQF6C";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="Ix4wyv4M";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
- [209.85.221.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 830FC10E926
- for <freedreno@lists.freedesktop.org>; Fri, 30 Jan 2026 08:24:18 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id
- ffacd0b85a97d-430f2ee2f00so1171419f8f.3
- for <freedreno@lists.freedesktop.org>; Fri, 30 Jan 2026 00:24:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1769761457; x=1770366257; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=kSHfEKQ3xKgmT9AN7R0YJI5063g4zHXX2+tc+T6cmxk=;
- b=YQdWQF6CUwTL19goD85GtvmZIqIOxI7yUfBuPp357Rti5x8grogyC7hiaJBWyd29oo
- mEGABxoW5EblomF/vvIj4cJwxOj4HKi0Ho97fDTHC9pmO4EKPLB7/44T4Og+AuorJMwv
- 5VLfHW1y/HIbhe0wKkcz1Iffiw4P/W4WqRqceUkaqinyRVsZyETQ7kp4zkDH/rrOuMbG
- +N6BADZcfxGw0J1kHgQoTxfk6YrepbM334s08zhvIYkNRv1gkkKfe3+VDISe5w9dQ+/k
- 24Ck8/NF2ZoisGIhAk3b+JMkudBugu/ukTjxRPw7npnnNdqqCgKV+0ltEa0AVYh+d7kY
- OiNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769761457; x=1770366257;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kSHfEKQ3xKgmT9AN7R0YJI5063g4zHXX2+tc+T6cmxk=;
- b=s1jzVyJ96Ymyn6H62TAX3VcLv+CfxKOnwSzzJJCVIYbQ2ZNWi59n8xn/bjGGVhP0p0
- iuOOZsBDjAopQrXy22dhZqqdLW7FrfwmJViLAREksgglv0WRFsI3/xBIRzgbSVjWLqIz
- ZUx5qjTqlX6ICf9tV3wFqmU+Kk7z+U8KUTtt2Bev9QGIQ4nAVcoH0NI2d0vq9bEfVVOi
- pfYltzwwjo9xzAEhtDcrr6vxUouVzGZ5H3ihLCb3XuEskSGPUvwWHof1qsZLCOizKKmr
- BSNkvraH4W+EWMxwVnbhtgxl/WsqCFdHeq1NdqU5kWf3b9JLSfs5mM2HyEkbv/8I2TbS
- qbLw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUvT7XHPQ4taRy7FG0SAR1jq3vBF6NRiL0QyaJryf2W+tCAc1pIWeDD7lELXCQZIzYnP4voYc2+KB0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9KaVabpBinf0Sf7jCHX6R43VCZStB0mm4WufgWIDeioxII789
- ++FtMuFR9AWL09USMe5YBOFI2H7WX8izCT3P+gGCy7rLMTD3y8iQBOuxYr7tDO507/0=
-X-Gm-Gg: AZuq6aJsA24DLj68QXa+cRrOjLIYv+nobQlfVGScZwuISl49J3gRlrF4GjTGe3ldMla
- MYKRHA/EfPjumgKPIg0xYCnaEVBeFelQoE0A4h/NH7AJWUYICSLrYhUZgmXmlWfJHvwANzSFXoX
- EH2vOxMq6k5BCsATioaBV8WwoV7Bv7D+HhzB+JEc649N4GCEQPZjfpOQKIPfBH3NLLOoSxb6t8l
- YQKBbfjFFGRWvatnhtJ+GSGUkvbNIeoMmN0SeDQ90a2Rav5wld9AsYql+Uzx/rVdFOUT4O1ZOdB
- Y1wNkmKoKWDwtb80XWVWSTi9ZDgQnO6tlLItusiOjKCq5KNkfL1UNh0lyceclqona3wK6+ztSOH
- gSDdf4DNZYjNAoci1JGaLnFFK8LUZC7mPtZUDcIStEVL/KYtzjKDLQjW1kWv872wwD4QjpEVlss
- GZGUrVHWvlJFMQWjBanCsUokCdYgI=
-X-Received: by 2002:a05:6000:220c:b0:435:8f18:9539 with SMTP id
- ffacd0b85a97d-435f3a6cd84mr3201514f8f.9.1769761456834; 
- Fri, 30 Jan 2026 00:24:16 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435e1354d43sm21835959f8f.43.2026.01.30.00.24.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Jan 2026 00:24:16 -0800 (PST)
-Date: Fri, 30 Jan 2026 11:24:12 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: sunliming <sunliming@linux.dev>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, sean@poorly.run, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- sunliming <sunliming@kylinos.cn>, kernel test robot <lkp@intel.com>,
- Dan Carpenter <error27@gmail.com>
-Subject: Re: [PATCH RESEND] drm/msm/dpu: Fix smatch warnings about variable
- dereferenced before check
-Message-ID: <aXxqrD3ZzK_dTAmb@stanley.mountain>
-References: <20260129024919.30449-1-sunliming@linux.dev>
- <aXsHSTHHP0eyI-Pk@stanley.mountain>
- <b62dc0de-b39c-7515-25d8-6e6817df3f17@linux.dev>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E556D10EA10
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Jan 2026 16:23:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769790206; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=g4MzenbRjsu1VI01DFycTbC0vAIZVq1FjIZ6V7lmxIQYoaQJUymhkFnWf6RDB25DS/IaOgKixWXAOPFUqg7fDA7vV3RCRJ5wx4V9LtzbTpGaGvoT4P7clHbCmKNXN9p2Qj3+LNW6Hj8DL2b4Wdkf1U/NazgrYiA5seQmgZHVVBk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1769790206;
+ h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=SpZ2rbCho0PP5f0vYFU/KK/CmhrJKIU7U9ceMtFR0Mw=; 
+ b=BZK+EMT/MNtARRZVstm3CsCKgn22AsEXhMatkl6DYdF6VuF+vM2GIynfJ0MHi+ydI18q2jjoHa9KIDenZAnXWOebkCJf82ftEM2hGU/3XhkqjleX92jCW8UdvICiP8ynCWrdkMJBbyVEwE1a7Exf501/71a+zfxeZizzMfTkojI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769790206; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=SpZ2rbCho0PP5f0vYFU/KK/CmhrJKIU7U9ceMtFR0Mw=;
+ b=Ix4wyv4MloQsngrcIO5BI/ipCLC+fZnRl1f+txD+sGFIWyUycFwERKqw/G1MyP/Q
+ P/MOdM+mcrkoPY5WkDyYCEN2ZS31OXtGiDUzYQZ7RcpiIQAJ2qCS9AxSfMxa+9IzwqX
+ 8j4mKuhhPuxox87hbviERkNXh7bL/yu9MVh3VHdY=
+Received: by mx.zohomail.com with SMTPS id 1769790204446433.6821892184171;
+ Fri, 30 Jan 2026 08:23:24 -0800 (PST)
+Message-ID: <eedd9e390289bb9f11f92ec14beb1e09770ea797.camel@collabora.com>
+Subject: Save the Date! XDC 2026 comes to Toronto
+From: Mark Filion <mark.filion@collabora.com>
+To: freedreno@lists.freedesktop.org
+Date: Fri, 30 Jan 2026 11:23:22 -0500
+Content-Type: multipart/alternative; boundary="=-8sWFPGpc3PBWlmlI/PvQ"
+User-Agent: Evolution 3.58.2 (3.58.2-1.fc43app1) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b62dc0de-b39c-7515-25d8-6e6817df3f17@linux.dev>
+X-ZohoMailClient: External
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,75 +66,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.31 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+X-Spamd-Result: default: False [-2.31 / 15.00];
+	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[collabora.com,none];
+	R_DKIM_ALLOW(-0.20)[collabora.com:s=zohomail];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,gmail.com,ffwll.ch,poorly.run,somainline.org,vger.kernel.org,lists.freedesktop.org,kylinos.cn,intel.com];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FORGED_RECIPIENTS(0.00)[m:sunliming@linux.dev,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:sunliming@kylinos.cn,m:lkp@intel.com,m:error27@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[dan.carpenter@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[freedreno];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RCPT_COUNT_ONE(0.00)[1];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,linux.dev:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
-X-Rspamd-Queue-Id: 09707B84DF
+	NEURAL_HAM(-0.00)[-0.852];
+	SUBJECT_HAS_EXCLAIM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_NEQ_ENVFROM(0.00)[mark.filion@collabora.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,floss.social:url];
+	DKIM_TRACE(0.00)[collabora.com:+]
+X-Rspamd-Queue-Id: 32052BC7DD
 X-Rspamd-Action: no action
 
-On Fri, Jan 30, 2026 at 01:30:35PM +0800, sunliming wrote:
-> 
-> On 2026/1/29 15:07, Dan Carpenter wrote:
-> > On Thu, Jan 29, 2026 at 10:49:19AM +0800,sunliming@linux.dev  wrote:
-> > > From: sunliming<sunliming@kylinos.cn>
-> > > 
-> > > Fix below smatch warnings:
-> > > drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c:161 dpu_hw_sspp_setup_pe_config_v13()
-> > > warn: variable dereferenced before check 'ctx' (see line 159)
-> > > 
-> > > Reported-by: kernel test robot<lkp@intel.com>
-> > > Reported-by: Dan Carpenter<error27@gmail.com>
-> > > Closes:https://lore.kernel.org/r/202601252214.oEaY3UZM-lkp@intel.com/
-> > > Signed-off-by: sunliming<sunliming@kylinos.cn>
-> > > ---
-> 
-> Previously, a maintainer suggested that the name should match the email
-> address,
-> 
+--=-8sWFPGpc3PBWlmlI/PvQ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yes.  But normally people change their email address instead of their
-name.
+Hello!
 
-> but community patches have consistently used the name "sunliming" since
-> then.
-> 
+We=E2=80=99re excited to announce that XDC 2026 will take place September 2=
+8=E2=80=9330
+in Toronto, Canada =E2=80=94 mark your calendars!
 
-Consistency is less important than being correct...  It's just a weird
-thing to say.  Are there other non-community patches with a different
-name?  It's fine if that's your legal name and we have made exceptions
-for people who aren't able to share their real name because of stalking
-or whatever...
+The conference will be held in person at Daniels Spectrum, a vibrant
+community cultural hub in the heart of Toronto=E2=80=99s Regent Park
+neighbourhood, just minutes from Yonge=E2=80=93Dundas Square.
 
-regards,
-dan carpenter
+We=E2=80=99d also like to extend a sincere thank you to Arm for organizing =
+this
+year=E2=80=99s conference and helping make XDC another great success.
 
+Registration and the Call for Proposals will be opening soon, so stay
+tuned!
+
+Until then, be sure to follow us on Mastodon for the latest news and
+updates:
+https://floss.social/@XOrgDevConf
+
+Best,
+
+Mark
+
+--=-8sWFPGpc3PBWlmlI/PvQ
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style>pre,code,address {
+  margin: 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+ol,ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+blockquote {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+</style></head><body><div>Hello!</div><div><br></div><div>We=E2=80=99re exc=
+ited to announce that XDC 2026 will take place September 28=E2=80=9330 in T=
+oronto, Canada =E2=80=94 mark your calendars!</div><div><br></div><div>The =
+conference will be held in person at Daniels Spectrum, a vibrant community =
+cultural hub in the heart of Toronto=E2=80=99s Regent Park neighbourhood, j=
+ust minutes from Yonge=E2=80=93Dundas Square.</div><div><br></div><div>We=
+=E2=80=99d also like to extend a sincere thank you to Arm for organizing th=
+is year=E2=80=99s conference and helping make XDC another great success.</d=
+iv><div><br></div><div>Registration and the Call for Proposals will be open=
+ing soon, so stay tuned!</div><div><br></div><div>Until then, be sure to fo=
+llow us on Mastodon for the latest news and updates:</div><div><a href=3D"h=
+ttps://floss.social/@XOrgDevConf">https://floss.social/@XOrgDevConf</a></di=
+v><div><br></div><div>Best,</div><div><br></div><div>Mark</div><div><span><=
+/span></div></body></html>
+
+--=-8sWFPGpc3PBWlmlI/PvQ--
