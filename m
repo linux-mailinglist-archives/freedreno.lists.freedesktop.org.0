@@ -2,128 +2,129 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wFkpHJW9fWnmTQIAu9opvQ
+	id aO1zMSi/fWkATgIAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sat, 31 Jan 2026 09:30:13 +0100
+	for <lists+freedreno@lfdr.de>; Sat, 31 Jan 2026 09:36:56 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 217D1C1416
-	for <lists+freedreno@lfdr.de>; Sat, 31 Jan 2026 09:30:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17704C1479
+	for <lists+freedreno@lfdr.de>; Sat, 31 Jan 2026 09:36:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB2CB10E39B;
-	Sat, 31 Jan 2026 08:30:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BCB910E068;
+	Sat, 31 Jan 2026 08:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="f2QJv/Ro";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dHuwabT1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jz8lh9ei";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Fukd9q1r";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39F6910E39F
- for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 08:30:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B77B610E068
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 08:36:53 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60V4UEv1447384
- for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 08:30:08 GMT
+ 60V4U1nX447257
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 08:36:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ufXJQD9GBYFDKvoyoQAHCQdu
- 6g2pHLom6Qi1xTuFWBw=; b=f2QJv/Ro0/gHpr4P2Xv+gIpbUnf0BZt19QHen1iX
- zWHxUnWQ/Kkxk5bzOoUogCZyKH8WU+0uCAhcAQUtu2CqoOxj9sznVoS59l+wZpd1
- IJTe4l6ha6Xf+DgBer2L2ycij+vMw+Cp8MzzlUJtMLGzlXYi5fZBiLbtfeS9iy92
- u6fzcIJ1rN5Xa/j7Fp6627xnrTHWkwJBnSlB3u2GtUFqLtr5KUpNOTsJZwxRkAPd
- uLvOZ1YWpa04+EkHcVn5acVD86PNsoHhxlCMqz3fmvBE5xIIXvH+4xqQfRPaM1Ua
- TtdBKcIg/iHSpv8o4gZPQEDpBkQUtuQYAdwNDnAOPZIvbA==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4c1arrrg1c-1
+ :references:subject:to; s=qcppdkim1; bh=XC2TPSUzWPcQTzNqmQCvXpWj
+ +IbAM0Jw8/jSDMDyfkk=; b=jz8lh9eigTiUTQ12dHtnHHgZJme/cGSVjFXigD7W
+ lhAl8gg8omKrbR8U9eD2NqfMazIo6s2dj6lit+90YIUYjFiILVmG+IyQSWJRH5bv
+ VHSJ7bOXlk7nqtl2M4fuO90pmIXwisNxHQFTTWUiXncYBUuquglIMWQyvicYayHa
+ xfa4jZk+OVZrtWjNPzQdNwhWC84XyHgX2IisG3V0jdlmIz6vbuAeiJ+KAjwQ5+Yj
+ vqsbN0rAablBVoXwHZSch98l2TJ0F7dnyO6clg1OwUoKBDJT2T63KXZxpW/jANzA
+ DaUHdxxNbmZ1CuiQXGqAfSuCf0yfJ9hfds/VT/96YwSYng==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4c1arrrga8-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 08:30:08 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id
- a1e0cc1a2514c-93f57d3a1acso8931540241.0
- for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 00:30:08 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 08:36:52 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-5ef31a7a2b1so7413052137.3
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Jan 2026 00:36:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769848207; x=1770453007;
+ d=oss.qualcomm.com; s=google; t=1769848612; x=1770453412;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ufXJQD9GBYFDKvoyoQAHCQdu6g2pHLom6Qi1xTuFWBw=;
- b=dHuwabT1qknyXNCz/WH6ebgxxIfr5HRCMeH5ppSKIZSIt1V/UHLX3mSQExTXX4BVd/
- w4NeJTkv9SPEUd8DMG+H//pzdK7yQ6CNv3odJ6se+6N7H6Oef1crUEIFi2yrVyeLUB+z
- j6C/L5YpzQwvd7SeRpbN513ko9avrdbFNfFr2Z29wICo4GyWQuQ8Q+wdCeM97kYClzAC
- IgaoGFpEXulZURfsb5HaJhd1Ywa2no2SEbkGZ7qPOqUrRCONvdsfdT66zfXxJo3otZAf
- EZXGLKjxL87HmWFY153RiYdJbAMmXxHVK4nlz2dEBXMhKnT6SaO8bbUlyTF4kKVWt5St
- sPPw==
+ bh=XC2TPSUzWPcQTzNqmQCvXpWj+IbAM0Jw8/jSDMDyfkk=;
+ b=Fukd9q1rT2VFuQeEtpHFU0fZYdjMwhr/KmPL6nIhjZz0J+EZdbV7+MnuQAV91Z6auf
+ E8OrP9EMWu5itVCNrnXqPxJeaff8nPjiJA9dRJ+O/Pft+IdkYe7VKMHBqr423D8YKSnG
+ W/j80tBMGakR9drPdrWab76gLyOysEbq3xg5wVpxcLwxZRfOTKshbLUfgzS4wTT9fl3N
+ PkRrYRdmPnCj2fjQZPSzsbnS0XXBV/5tATxCwF5RlWFyLpjYn3CpEDxaZYnHE15BSUDr
+ MWPxk9EvodntgPIR5n3CjsburGOjFqbBoqVrun9S3RbvVhOWCmRDUFuiesl0abilZt1w
+ orbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769848207; x=1770453007;
+ d=1e100.net; s=20230601; t=1769848612; x=1770453412;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ufXJQD9GBYFDKvoyoQAHCQdu6g2pHLom6Qi1xTuFWBw=;
- b=jax5S0R/CH97uXvue0jyGYXAYD/XP15XYTSP8427VJDwZtDSMiPzSmaMRHj1rH4kCZ
- De7I4EyQfNAUL+QKPhy71tuVcDV8/Q1TfvYoaxzij50h/k/XGEK3s1SPl0ev00vQDmnz
- k0XalaE17ZbAWkk4jtmL67odGvQwL0Lznef1UE8S8LOrq2Fv/3q8unk05o+0mrSCNFvt
- 29vrDmOayxi1NVip/lzpFIFOoVI/lZF/cUzUxXNA8esbYDi+U9MEZhdgUa44gh/kuOTH
- /nFv/Yzb85cp5VGnzvKE4H1e4GbQZL5R3WvrsSp06Iu3zQBgqjtTI3o1hbdYQF70R/a1
- R8mg==
+ bh=XC2TPSUzWPcQTzNqmQCvXpWj+IbAM0Jw8/jSDMDyfkk=;
+ b=QUV6bBF9lAEaKv25vHECalh55S/kU/qX2V9ZEX7bBDFsMQgDWRRVEarIJ2lWrJmr8w
+ JgYFAD95a/K5YnjTv11ULr+suIY3BHDSDYLw60SIbniFxpIDx/kfx375F+Pygayqly+Y
+ pzTCQeqrlKCuZH+1NxqwgRjAFQTYjIJzZ4DXZBOhCluqpYVL3SiTsfkfu/roU8ArAOed
+ xikNMNUc+x9oBpGOU8gMZkPfetZHqvHIxQCIM60G9qoTYqQC6fg2UxNXs7M0oxzKdTta
+ VclFcMpkUvE65L6eY65UU7/ILY+sGWGGxkD0U5KwpfUn87+f/bB4hjrBI3+L5d4dMr8z
+ ZBZA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXZ1y93vi8icFMtiRaZD5dL4PCDntsvWElt2zotGYScijzyIZoRYNKx4DYUTU2ad/c9rc35d3AYbFA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwUq7wvAIMGEKF61BlU1Z9ZfgcSl3HMc35SOKdtilY9LnJC65a
- 8AM6jRvxmNOS1fV37sgxBZy064l6TWAnHYBgysB96vDppBGdhngoRpAh2cGH9jKvCAbgQEZpbAG
- 7gzGKaGOBa7zwNoAYe7krRTPq6UoFNlusaQZ9ETu8MhH8+mtUDy16v4LN7uaEk+PZlYH1/hQ=
-X-Gm-Gg: AZuq6aKkz3uTTBz1Zk8qKRb8UvoUyHOCYDsCW/OV4PVeB/axHFOXa3vUTY1hyUdSfwQ
- dMf7gA6JyixuCvfcFHORR0J8Bo7b3xjDmo4Drk0dx6iSqlfCeB4hSEiBw+hQU4RGXf5MD+na2NM
- ToACgshq4FRnzSRuUyslh6jlT5Dlj4/5gFMgqr9GjRX3M5XGmpCuTQAhXpy2Nn1eNMnGlE2YmZR
- TJB/FRD9sbyBK5dC3BRVSrIGv8Ohepa6wDAgZTG9oKo9ljV1hlrt30EfNKIybJskrHgLyzu7Ogi
- s/Ogxc7MurPhoI3JF1N8s0OkOUlqtWhgm51wCSLxZNn/3Somm/1/O/wueX+TyP/Ysk9v8ai104t
- unQtT2+Xvvnbs0Vuv7z4wMkq+2sF4imFoEt0qE50/3JOQtI9gr9mCv1xdpApkrQk2V21eU4ECsQ
- jz6Q5MgI+Cn3eQnYPB7d1KqMA=
-X-Received: by 2002:a05:6102:c93:b0:5ee:a76a:8513 with SMTP id
- ada2fe7eead31-5f8e265ee7cmr2080905137.33.1769848207484; 
- Sat, 31 Jan 2026 00:30:07 -0800 (PST)
-X-Received: by 2002:a05:6102:c93:b0:5ee:a76a:8513 with SMTP id
- ada2fe7eead31-5f8e265ee7cmr2080885137.33.1769848206973; 
- Sat, 31 Jan 2026 00:30:06 -0800 (PST)
+ AJvYcCX34G/tgnBkVP2mxEPOsjyIQMW3OSVBQM3DttEGYVzQ7oab+LntuOp8pfyZzqdy28LWNPiiZHDMqpU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxLePPA0c4QI4Z0dJ0sdvtFHCwxuLqQstGD6VvDfbGOOqjdBNpp
+ z+DUZOdZURVC0hWUaV6lKEg06g2deEz2/AotU4CI9f6slLY8pSXOPJuPWKySNNIGY+irCR0dzcr
+ 25O5fAXs77Zm2yR6KfZ9nMhgb5a758XB3WbaBcd98x8u/fMEzLFOtLDULbw4taRZgqtGwfUY=
+X-Gm-Gg: AZuq6aKG3XARKAk+zwXTew4IDtyRGOOc8gGb9bbVaplUmKRMkQpVmLsXbcJd6Fy5icn
+ O/dXQlZN0weKMBO0GmTThxj92leHHookyKAOi2No7Uzi4kxj2f0l5TAwbUmwK8Eruj/KcjSYHcb
+ 22KRivxHdmI+tAphvAvIWJtGMKLprJuipsCtP7AoMUQE7IkWj6nnm1f+6i7gHAi/7phw/iQzX25
+ 12MztBQb07c2bG4c8Z19c9BUoglg6YucG5E/l/Xo0ds9iPTy0rewmj0RnJN/0/gvCbkczlauiTt
+ P8pv1VVg5bQpzKnQMUl9KtnW4qljUeGiAJ24Y2rr2gCFAUli8arHrdm0Le6a1aML8tazHxw6tMo
+ mfWvNGQ/YEgH+o8ObmVW7HB/YPMR+Av46Tw5bmZ11IkERf8QjWp3cjgrBoeWcXtRh0RYvFOdXRZ
+ x6p2VIzVI89eNkKyW8G8Mwslg=
+X-Received: by 2002:a05:6102:dd1:b0:5f5:5c93:8733 with SMTP id
+ ada2fe7eead31-5f8e246ea45mr1636987137.6.1769848611970; 
+ Sat, 31 Jan 2026 00:36:51 -0800 (PST)
+X-Received: by 2002:a05:6102:dd1:b0:5f5:5c93:8733 with SMTP id
+ ada2fe7eead31-5f8e246ea45mr1636975137.6.1769848611592; 
+ Sat, 31 Jan 2026 00:36:51 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59e074bbf55sm2300983e87.90.2026.01.31.00.30.06
+ 2adb3069b0e04-59e074b2e9bsm2241641e87.54.2026.01.31.00.36.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 31 Jan 2026 00:30:06 -0800 (PST)
-Date: Sat, 31 Jan 2026 10:30:04 +0200
+ Sat, 31 Jan 2026 00:36:49 -0800 (PST)
+Date: Sat, 31 Jan 2026 10:36:46 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: sunliming@linux.dev
 Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, sean@poorly.run, marijn.suijten@somainline.org,
+ simona@ffwll.ch, abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
+ sean@poorly.run, marijn.suijten@somainline.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  sunliming <sunliming@kylinos.cn>, kernel test robot <lkp@intel.com>,
  Dan Carpenter <error27@gmail.com>
-Subject: Re: [PATCH RESEND] drm/msm/dpu: Fix smatch warnings about variable
+Subject: Re: [PATCH v2] drm/msm/dpu: Fix smatch warnings about variable
  dereferenced before check
-Message-ID: <iypev74zzv6l2ydzm3r5jfk6qabf45ujyhenxsyijegpcghwji@vpozmiehe65y>
-References: <20260129024919.30449-1-sunliming@linux.dev>
+Message-ID: <lji2aqv3hqrhbacnugbawzft7t4o5dvvh6fwbc2sydapqfk22c@bfcauuyklstm>
+References: <20260130053615.24886-1-sunliming@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260129024919.30449-1-sunliming@linux.dev>
-X-Proofpoint-ORIG-GUID: XtwWXJ_TdXvMshnBqEfS9ufG5rRwlaYk
-X-Authority-Analysis: v=2.4 cv=FNYWBuos c=1 sm=1 tr=0 ts=697dbd90 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260130053615.24886-1-sunliming@linux.dev>
+X-Proofpoint-ORIG-GUID: V2ZTXmva9AQtK6k8-o8kHfPpmb9C-i-I
+X-Authority-Analysis: v=2.4 cv=FNYWBuos c=1 sm=1 tr=0 ts=697dbf24 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
- a=s1uS2ZYBl9SNm-zYMqYA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTMxMDA2OSBTYWx0ZWRfX+xQXfva1Vy4u
- +vumLZ2DLLrwFyZLcxN5c/i/wX1X2kg2caS67360GnctBdAtxbUSxTH9Nbd7hFifY5FSseCY90h
- llw/DuNe00m2x6REnxhDxAfgQf34km/6Kqv4Ldg55GIzUApKLQd6fq1SuSW9aniex1h8CbJXL8J
- B4/R2eRptTyPtrQsuLDY+1Ip13Qj9AMUuxsSflpa+sHvl2eM2doxOLYL4RRaDuCgWslia8mIerc
- Q4Y4hLTlYsASbwonLWql2RMJI7irHvCUcPB4SCaWn7tXLo+EJ/7lagH0YW4FE9B8ZfiAJOD1Y+w
- MI50Jx3DkfXo6JIBNcixopQGPlQHNGauJDV8hWMzfT3JmI6xhqA0kAoi75Lk5x3Eqm1IwhTQwec
- feIPqr5ubPh9oD0Niu300i+gki43edM7H5HacrupLnl6KdDN6vnfqHe7zIFx9OqLuGclNbOfCNC
- t+slGCoboTE6b6tGJLw==
-X-Proofpoint-GUID: XtwWXJ_TdXvMshnBqEfS9ufG5rRwlaYk
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=zk_b8o_FbLgx-YkRIm4A:9
+ a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTMxMDA3MCBTYWx0ZWRfX7fAwMbverYyq
+ 3rWyuviBS4JOQlNJWA/3pJASyWRsB4vLAwtXP4oY3BSkhKx21260wQ0oxi30F8Z84xS3g6EszPP
+ lDr0XvgiqDL9cgEfLXKTjDiM1K44KaV/G8iopy3z08jlTV/MScSmCjSuYv1khBcOGAZd5MYNGQf
+ wPJUdxtkg9kI/lN7J32Te3EcDO4USp3RWdiNGwQUKUIURXSh6hXTfdETHDTLjqy1k3pcgErU6BV
+ QmIt1GKsPIywjwmtq6bXuPg2m7xwbjXWY8XP5RfS3yRICsJCgkxLzn01V2IYGnEyr7pTdFhpUF7
+ A6vLyFArfPHB5K2ZLlLz0J3SDgriLmNvKiww8MqtUDsNm4JtkAyiiB9zhrdRrCQvM5oO7QlybY1
+ LnSYdU6sQh8QFmmQEbtvMQNgAdrXtCNdJZMhRmGE+Bl1lU1dEuc89PgDfIlG3q3F/0rHVVxXy3M
+ E+xsOsrKIJ6MHn4fDdA==
+X-Proofpoint-GUID: V2ZTXmva9AQtK6k8-o8kHfPpmb9C-i-I
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-01-30_04,2026-01-30_04,2025-10-01_01
@@ -131,7 +132,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  impostorscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 clxscore=1015
  spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601310069
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601310070
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,41 +149,42 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.81 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	MAILLIST(-0.20)[mailman];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[14];
+	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,gmail.com,ffwll.ch,linux.dev,poorly.run,somainline.org,vger.kernel.org,lists.freedesktop.org,kylinos.cn,intel.com];
 	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS(0.00)[m:sunliming@linux.dev,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:sunliming@kylinos.cn,m:lkp@intel.com,m:error27@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,gmail.com,ffwll.ch,poorly.run,somainline.org,vger.kernel.org,lists.freedesktop.org,kylinos.cn,intel.com];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:sunliming@linux.dev,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:sunliming@kylinos.cn,m:lkp@intel.com,m:error27@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	MISSING_XM_UA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,oss.qualcomm.com:dkim,kylinos.cn:email,intel.com:email]
-X-Rspamd-Queue-Id: 217D1C1416
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,qualcomm.com:dkim,kylinos.cn:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,oss.qualcomm.com:dkim,linux.dev:email]
+X-Rspamd-Queue-Id: 17704C1479
 X-Rspamd-Action: no action
 
-On Thu, Jan 29, 2026 at 10:49:19AM +0800, sunliming@linux.dev wrote:
+On Fri, Jan 30, 2026 at 01:36:15PM +0800, sunliming@linux.dev wrote:
 > From: sunliming <sunliming@kylinos.cn>
 > 
 > Fix below smatch warnings:
@@ -190,20 +192,40 @@ On Thu, Jan 29, 2026 at 10:49:19AM +0800, sunliming@linux.dev wrote:
 > warn: variable dereferenced before check 'ctx' (see line 159)
 > 
 > Reported-by: kernel test robot <lkp@intel.com>
-
-Closes? (you can just reply to this email with the Closes: line and the
-URL for the LKP report).
-
 > Reported-by: Dan Carpenter <error27@gmail.com>
 > Closes: https://lore.kernel.org/r/202601252214.oEaY3UZM-lkp@intel.com/
 > Signed-off-by: sunliming <sunliming@kylinos.cn>
 > ---
+> v2: Fix error code
+
+Which error code?
+
+> 
 >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c | 4 +++-
 >  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c
+> index e65f1fc026fd..312ee6597ab1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c
+> @@ -156,11 +156,13 @@ static void dpu_hw_sspp_setup_pe_config_v13(struct dpu_hw_sspp *ctx,
+>  	u8 color;
+>  	u32 lr_pe[4], tb_pe[4];
+>  	const u32 bytemask = 0xff;
+> -	u32 offset = ctx->cap->sblk->sspp_rec0_blk.base;
+> +	u32 offset;
+>  
+>  	if (!ctx || !pe_ext)
+>  		return;
+>  
+> +	offset = ctx->cap->sblk->sspp_rec0_blk.base;
+> +
+>  	c = &ctx->hw;
+>  	/* program SW pixel extension override for all pipes*/
+>  	for (color = 0; color < DPU_MAX_PLANES; color++) {
+> -- 
+> 2.25.1
+> 
 
 -- 
 With best wishes
