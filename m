@@ -2,116 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UFSKNRRPgGkF6QIAu9opvQ
+	id CO4ZNlZJgWnNFQMAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Mon, 02 Feb 2026 08:15:32 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 03 Feb 2026 02:03:18 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 886ECC91D5
-	for <lists+freedreno@lfdr.de>; Mon, 02 Feb 2026 08:15:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C8B2D335A
+	for <lists+freedreno@lfdr.de>; Tue, 03 Feb 2026 02:03:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 729AC10E3A0;
-	Mon,  2 Feb 2026 07:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5B510E4BF;
+	Tue,  3 Feb 2026 01:03:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="E6L7tcrp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RO0TNqiY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D5D210E3A0
- for <freedreno@lists.freedesktop.org>; Mon,  2 Feb 2026 07:15:27 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-79478ec4cf1so39146327b3.3
- for <freedreno@lists.freedesktop.org>; Sun, 01 Feb 2026 23:15:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770016526; cv=none;
- d=google.com; s=arc-20240605;
- b=QkxiID3W6nrmASeofSLg8XPeOUcI8HQ6rGJfCbsD7UY9wjR2+wKrn7AHT1pbepeMqF
- lJG+7Yosy2IZMx3Lpipg1VI8Q3T1AlGsFOpP4Ek+XDFRxYXLGemZELAHQ17rKHh9eRKd
- GhlP4cdaStUJYgetKFVKxGw/jHPIS5v2OT7NyhNrD21bNRD0HcKgPr+ackCtc7M/dLwJ
- VscWjXRJ/5x6q35UM/nEiiMSmat8F6v2qwluC8qJeww7m7A2p0bVNDM2+xp58/iz5dHI
- ICiGMT3EEwp+IcADAPNcIgmC7e/CZwb9BuMxLgsQBn5cDWKWKDiCkR5OBMJ70/hhvloK
- lX1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=AOhIjuxpp6TSu7OUXd09SI4wwYt5TFMCJ2RUNnmG8u4=;
- fh=Vu2QoGyQpEl5ENz0r0N0ro/pPU3Aqsf0Qp/PlokL8Bg=;
- b=I0BGxvjNcOmYizO6K77IU0hRKiwoN651IIlrSuOUWFPQb2VuxS5a0ymdssOLYdUb71
- yqzigy2e2JLk4Vb3/ntYO1MJevdqQLomkVv/mParmStFBceayYuYaVECVJFitb+/jh81
- GqPrXUb9c/uKGw8pImAagXSdB+izZdcAGW43jZdzqcYrMlO4gkrR9UtqMSm98jKmDXdS
- RoSS5ZStboiGbTvVmnvvwT7cVlc7bTw9UjHzYh685XP3Qg2CLLWxTFSmN3nFLcXcyBh+
- p/m9fVW3rUhujYhEnM/N/IctLKQqHcZaPJAMPyW16OMTBOYvjQLxy6N7Uo7aOE+y9ng3
- vTUA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
+ [209.85.219.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD8C010E4AF
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Feb 2026 01:03:14 +0000 (UTC)
+Received: by mail-qv1-f48.google.com with SMTP id
+ 6a1803df08f44-88a26ce6619so66936666d6.3
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Feb 2026 17:03:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1770016526; x=1770621326; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AOhIjuxpp6TSu7OUXd09SI4wwYt5TFMCJ2RUNnmG8u4=;
- b=E6L7tcrpSSR4h6mNihUxpIVDLDTngM8B8mlF3fwd9eOGuLNcozqg1Gexi1febiUplI
- I/Mj5pHy2SneIIsxTmRm1D5HAVFh/D8QPVdmVZt7XVwtyD5QTXNW1OqLZb9hPhsEpKpU
- nTAzuZT6wrt3hkUWixj8dMJId+Nk9VAwsIG/7xW151JnB1TGz0Lg2i9RTpKkwrYAgyT3
- 3b5gcQVCxR2TdBNS1QYZpDvxO1JPX+A/9/F5aPsPk1DqDyVc0E+50vh9JCGqDso3cXFJ
- CJwBdV6/Tr/0yC/40sAyzYewjFtHyGHXKjwRgwtrLgFjX9j2/3dCg/KNelc/fgoZPUr0
- ALDA==
+ d=gmail.com; s=20230601; t=1770080593; x=1770685393; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4HDdB99E4CdIl4ZvDTOk2E5hND83PuSdUEsGJyDFfRE=;
+ b=RO0TNqiYN2coyJmsj/bbeWUv8JQXglhLocCvql8CsaJJua+h6WjvnDJAjZZxr+7g6B
+ z3v9kC0fY0cdUfp7Aw9DMQjYQpnxRjRtXl3CqFTylrRDhqgmmcM22vNcNUPdkmU4dI4h
+ C1UFrxd2aYMvtgqc0ej31lJtUoa+t6VnAX+PD9pmBrXugs/9ujj4sQ/tUgpagOONMx81
+ S0fV30VOOiVNwfwjNIbPKrPO2HDvzMJfjYR+AxDjkF2rPyBkOKzDwRWYi+Pku/cqm/mx
+ DIrH/u5Bel47VXxuVs5njS2wXTi192rF3Og9sefdfxwiw/1fTPtEJQZcqrSYKcRnqMBu
+ zW+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770016526; x=1770621326;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=AOhIjuxpp6TSu7OUXd09SI4wwYt5TFMCJ2RUNnmG8u4=;
- b=OQwOL7XvfgSS1yzPmu0QCAizHYOs7aQBtnm7w/IRFqfS/ygxBAaYzYVpxsxcSDSN4D
- WKC6TPecpoAkdukofHDy7LvuQjm/vhXzPUwOlVC65KYWXyt1pC9EvThrIEKI1G7dinrB
- h35q5k+3LkXeCPFZTkfMVp4Q1dvodk54L1CtjfnQLHCiwh5iWiPSLOUpO1SAyH0L/yYW
- NU9+UTz6ibjNqV09e1ONxijFJ16X/cEwzChQPQ/AZofQzFx+OjeTeJd4Ihntgt9GMWpw
- XZtDi0DEpgKfI4OyN/u68JlrLfbmUE/HwYOodQ4V78ckYLSarViOD7lhwz3uVIh1ZxFi
- iRew==
+ d=1e100.net; s=20230601; t=1770080593; x=1770685393;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4HDdB99E4CdIl4ZvDTOk2E5hND83PuSdUEsGJyDFfRE=;
+ b=NLUAlYhDScKhdNvNPqfXK+Lx0fvRyuUi/nCPFYPGUJ6e3qwwMGaaZZOp8ux8ssTSWp
+ DtUYkj/2z9RDH2wtAoohUDsZrkJB3dAGFOGGIRV41gpLHZDb2WwipWjiDH7G8yXAH9Ef
+ I9tFRe1M004YFNPA/rnvUuAQ2imLKvS0mck/vSErhOjM77e+gRpjG36zvNizRtJ7MSjp
+ omGNHDnfqw36kz3bVjTOguhecYF7nRgwh4vfeWfdakwN6AUg74HUCXDSy5ifBn4UmWHe
+ hWW78yBHhLLW3lyCfLz0DU47xo5v52Bp5P2yE5YpbPLYnTgy31rQmjYwPpq//2IkfpUa
+ CAKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLx3M6elf4/094iM1elt07XwoZzHy7C65JsE/2xgngpIMIxVtqwzDfLwfcfD84wwMziOJ7TK3AE+0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyUn33QbLwQYOv8ijv35o7NBD5buHMDgzUGVNf1hDYflYIIsaI4
- 5y+GQltD91qOfxUwmMPCOSqRk9GwUgUUGhp4YvvNrUO1/LJ2Pvo8g2G54BxuWla1TIvcpL1kIU9
- N8Knjt0ZlZvL0A71KcygI/PMmTc4qSIHhOIyK0QLrVg==
-X-Gm-Gg: AZuq6aKiOBWE+OYm/FVdZULwiUA5f8Lm1bRizkYSXJaB4NNcJda4GY+/w0rOw3eJJyt
- IVsqaoNY7FtZqueVX1aE9/MkydCrTwZp2yOlraD9ejGo3vzwosYgOv/tQQl6u8NdmzYxwCdLAbr
- RmJqhTedk3YVo8iSA+44GHZGMHPxXyKWzmaubLxJgvibLPg/5PnA0BRFzaa3Ge7Z/Mcv1+LbDAw
- PB+2YGojcZVdYhQJdeze064IBaMLAHz/RpZTkfdVOhcGhUemSQ/sg8jfBZnEDOMcmIdf8ItvjqQ
- 1JQ=
-X-Received: by 2002:a05:690e:1347:b0:649:b002:2553 with SMTP id
- 956f58d0204a3-649b0022aaamr6055975d50.79.1770016525726; Sun, 01 Feb 2026
- 23:15:25 -0800 (PST)
+ AJvYcCXS6KsTSvAk1ahZaHdtm++I8X9Eoo+ROWa1MUVHzkl7WenKKS4NJB6BUFASGxqaKxEa91JKNOa40z4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy1Dv9m6kpwI9yBMT7dOvp1cZTIqhU38kbJfIIES/PWken1yXy3
+ O0BMwqL/Ks30k6fh1FVSWbb1j6Rl9gsOB6PC0SqYUyltN+By0tJm27Bd
+X-Gm-Gg: AZuq6aKGJRMwNUjgAYPG2DSTI9M7Cp8rS11zMDfPuIJG94fGsWH4xFEErfenrN78q/J
+ NR1YlKCBwk4ySGqV+AosfhEBTufApNAW/qcEj0AEYvXUaZ3V+Bd/YyOdve8mJd5gbRseAIH+sCF
+ Or5KlmLtij8ShQGDO8XsC6kJDFkG+jOQE03HtxH09ACfuzL7kJca6ZgtHL7Jaf0TxgSaeRx9HEy
+ 8Dh0FqZ/dUd2ztD6fAzuuN6JeIjLH10z2paCwzOFUj6ihe6TNDK7RvsFbcbYxJohot6p++e0Mo/
+ 21RSwyxTjO8RMM4NT3tYyoMDBmO411bwD1AwueeTi0tMkq7pGP8HP6QqYLkVe60hF6JC/bBjEBq
+ 3jYskYTaYz3BbCuEAh0jSs8/xPE2eIIN+9raKch+9aOTuh9j6kcmupKw7N2+POAUfUL92i0gtZv
+ yg/YXo45QrdiMFsaT9/fIHsna50UrFgeXqjmgtIaLTMROZ54jBxY91md2Lof71XvoKHQM2ObmDJ
+ ZpMvxdIuGQIbg==
+X-Received: by 2002:a05:6214:e49:b0:894:48f7:9919 with SMTP id
+ 6a1803df08f44-894ea10065amr196085236d6.56.1770080592742; 
+ Mon, 02 Feb 2026 17:03:12 -0800 (PST)
+Received: from localhost
+ (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-894d376e0d8sm123753126d6.53.2026.02.02.17.03.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Feb 2026 17:03:12 -0800 (PST)
+Date: Mon, 2 Feb 2026 20:03:47 -0500
+From: Richard Acayan <mailingradian@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH v2 1/4] dt-bindings: display/msm/gmu: Add SDM670 compatible
+Message-ID: <aYFJcxOXWpuuC41I@rdacayan>
+References: <20240806214452.16406-7-mailingradian@gmail.com>
+ <20240806214452.16406-8-mailingradian@gmail.com>
 MIME-Version: 1.0
-References: <6kzd2g4hgffqz5ipaqbourgiefuxxh3njj44n35blo37z6hhhj@us7lzlgmjuld>
- <CABymUCMf8LxX6VWUuzNJP+G1y3Xi5-CVYhaqLR7F=kU6ZgdcgA@mail.gmail.com>
- <c56e4ylgwcqni23btaxegdbfg3tbkyp2vtjtboeb3kbvcfk27u@vrlh276djtfr>
- <CABymUCP6ZDGtEJeQSZ48x8TZyJ4gKVDC+JzJRz-tZ0ksCUCqsA@mail.gmail.com>
- <91d590de-fa00-4df3-923f-b49ad00cd9da@oss.qualcomm.com>
- <CABymUCOqxtYS7BaDMHeN2npn=4+Y-6kxLDOS6oskiiH58epR5w@mail.gmail.com>
- <bbd8e584-4398-40da-9759-0c27f34214d3@oss.qualcomm.com>
- <CABymUCMivNJt4fikx8XJ8KFZB-y4zc2RaqjBksxWrQFD9foEkg@mail.gmail.com>
- <7c3yxfkadtkd6xs6aiupcamykx75c2tieakc7n4a2jyymz6kzz@4gflcto2nbkj>
- <CABymUCMeS7cWgEProyWnMUJ1fF1rfba3dy4VB0mwTmPbpTvanA@mail.gmail.com>
- <g2kzzrfmcsmzs6wz7alzjjycytpuebxwbehkco7yimdg2jam5a@uqsrt7mov7la>
-In-Reply-To: <g2kzzrfmcsmzs6wz7alzjjycytpuebxwbehkco7yimdg2jam5a@uqsrt7mov7la>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 2 Feb 2026 15:15:14 +0800
-X-Gm-Features: AZwV_QgxNMYnRxQupdZOrh2Yv4jbFQ5rsdru-fR7eVF3kXxCsbW0Ix_tK3sAtyQ
-Message-ID: <CABymUCOmq_FVOQRVQSz97wjF_gtdji4dXz0CucChvFyqmyw06w@mail.gmail.com>
-Subject: Re: [PATCH v17 2/4] drm/msm/dpu: Defer SSPP allocation until CRTC
- check
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240806214452.16406-8-mailingradian@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,258 +107,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.31 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+X-Spamd-Result: default: False [0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:abhinav.kumar@linux.dev,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:robdclark@gmail.com,m:quic_abhinavk@quicinc.com,m:dmitry.baryshkov@linaro.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konrad.dybcio@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:daniel@ffwll.ch,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[jun.nie@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[linux.dev,kernel.org,poorly.run,somainline.org,gmail.com,ffwll.ch,oss.qualcomm.com,linaro.org,vger.kernel.org,lists.freedesktop.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,quicinc.com,linaro.org,poorly.run,somainline.org,kernel.org,vger.kernel.org,lists.freedesktop.org];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	FORGED_SENDER(0.00)[mailingradian@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jun.nie@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[linaro.org:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[freedreno];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mailingradian@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TAGGED_RCPT(0.00)[freedreno,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,qualcomm.com:email]
-X-Rspamd-Queue-Id: 886ECC91D5
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: 3C8B2D335A
 X-Rspamd-Action: no action
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-1=E6=9C=8827=E6=97=A5=E5=91=A8=E4=BA=8C 03:06=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Mon, Jan 26, 2026 at 09:29:44PM +0800, Jun Nie wrote:
-> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
-=B9=B41=E6=9C=8826=E6=97=A5=E5=91=A8=E4=B8=80 20:31=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > >
-> > > On Mon, Jan 26, 2026 at 08:01:00PM +0800, Jun Nie wrote:
-> > > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=
-=E5=B9=B41=E6=9C=8826=E6=97=A5=E5=91=A8=E4=B8=80 18:49=E5=86=99=E9=81=93=EF=
-=BC=9A
-> > > > >
-> > > > > On 26/01/2026 12:29, Jun Nie wrote:
-> > > > > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2=
-026=E5=B9=B41=E6=9C=8826=E6=97=A5=E5=91=A8=E4=B8=80 18:13=E5=86=99=E9=81=93=
-=EF=BC=9A
-> > > > > >>
-> > > > > >> On 26/01/2026 12:06, Jun Nie wrote:
-> > > > > >>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=
-=8E2026=E5=B9=B41=E6=9C=8822=E6=97=A5=E5=91=A8=E5=9B=9B 18:22=E5=86=99=E9=
-=81=93=EF=BC=9A
-> > > > > >>>>
-> > > > > >>>> On Thu, Jan 22, 2026 at 02:03:25PM +0800, Jun Nie wrote:
-> > > > > >>>>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=
-=8E2026=E5=B9=B41=E6=9C=8821=E6=97=A5=E5=91=A8=E4=B8=89 17:30=E5=86=99=E9=
-=81=93=EF=BC=9A
-> > > > > >>>>>>
-> > > > > >>>>>> On Wed, Jan 21, 2026 at 04:01:51PM +0800, Jun Nie wrote:
-> > > > > >>>>>>> Currently, plane splitting and SSPP allocation occur duri=
-ng the plane
-> > > > > >>>>>>> check phase. Defer these operations until dpu_assign_plan=
-e_resources()
-> > > > > >>>>>>> is called from the CRTC side to ensure the topology infor=
-mation from
-> > > > > >>>>>>> the CRTC check is available.
-> > > > > >>>>>>
-> > > > > >>>>>> Why is it important? What is broken otherwise?
-> > > > > >>>>>
-> > > > > >>>>> I see. Thanks! Will add below lines in next version.
-> > > > > >>>>>
-> > > > > >>>>> By default, the plane check occurs before the CRTC check.
-> > > > > >>>>> Without topology information from the CRTC, plane splitting
-> > > > > >>>>> cannot be properly executed. Consequently, the SSPP
-> > > > > >>>>> engine starts without a valid memory address, which trigger=
-s
-> > > > > >>>>> an IOMMU warning.
-> > > > > >>>>
-> > > > > >>>> What is plane splitting? Write commit message for somebody w=
-ho doesn't
-> > > > > >>>> exactly know what is going on.
-> > > > > >>>
-> > > > > >>> Thanks for the suggestion! Any more revise is needed?
-> > > > > >>
-> > > > > >> Sadly enough the text below is not a significant improvement.
-> > > > > >>
-> > > > > >>>
-> > > > > >>> Currently, splitting plane into SSPP rectangles the allocatio=
-n occur
-> > > > > >>> during the plane check phase, so that a plane can be supporte=
-d by
-> > > > > >>> multiple hardware pipe.
-> > > > > >>
-> > > > > >> What does this mean? Without virtual planes in place, there ar=
-e no
-> > > > > >> multiple hardware pipes.
-> > > > > >>
-> > > > > >>> While pipe topology is decided in CRTC check.
-> > > > > >>
-> > > > > >> ?? What does it mean here?
-> > > > > >>
-> > > > > >>> By default, the plane check occurs before the CRTC check in D=
-RM
-> > > > > >>> framework. Without topology information from the CRTC, plane =
-splitting
-> > > > > >>> cannot be properly executed.
-> > > > > >>
-> > > > > >> What does 'properly' mean here? How is it executed? What happe=
-ns?
-> > > > > >>
-> > > > > >>> Consequently, the SSPP engine starts
-> > > > > >>> without a valid memory address, which triggers IOMMU warning.
-> > > > > >>
-> > > > > >> IOMMU faults. There are no "warnings".
-> > > > > >>
-> > > > > >>>
-> > > > > >>> Defer above plane operations until dpu_assign_plane_resources=
-()
-> > > > > >>> is called from the CRTC side to ensure the topology informati=
-on from
-> > > > > >>> the CRTC check is available.
-> > > > > >>
-> > > > > >>
-> > > > > > Thanks for the patience!
-> > > > > >
-> > > > > >
-> > > > > > Currently, splitting plane into SSPP rectangles and allocation =
-occur
-> > > > > > during the plane check phase. When virtual plane is enabled to =
-support
-> > > > > > quad-pipe topology later, 2 SSPPs with 4 rect will be needed, s=
-o that
-> > > > > > a plane can be supported by 4 hardware pipes. And pipe number i=
-s
-> > > > >
-> > > > > number of pipes
-> > > > >
-> > > > > > decided in CRTC check per interface number, resolution and hard=
-ware
-> > > > > > feature.
-> > > > >
-> > > > > Okay, but IOMMU errors were reported with virtual planes being di=
-sabled.
-> > > > > So how is it relevant?
-> > > >
-> > > > After revise of splitting plane into pipes, the number of pipes wil=
-l be decided
-> > > > by CRTC check for both virtual plane and non-virtual plane case to =
-unify the
-> > > > plane handling,  instead of assumption of 2 pipes at most.
-> > >
-> > > This needs to be explicitly written.
-> > >
-> > > > >
-> > > > > >
-> > > > > > By default, the plane check occurs before the CRTC check in DRM
-> > > > > > framework. Without topology information from the CRTC, plane sp=
-litting
-> > > > >
-> > > > > WHat is plane splitting?
-> > > >
-> > > > How about: s/plane splitting/splitting plane into pipes ?
-> > >
-> > > This plane is not being split into anything. It's being mapped onto h=
-w
-> > > pipes. But before that, the number of necessary hw pipes is being det=
-ermined
-> > > based on foo, bar an baz,
-> >
-> > Thanks for the correction!
-> >
-> > Currently, plane is mapped onto at most 2 hardware pipes and 1 SSPP
-> > allocation occur during the plane check phase. When virtual plane is
-> > enabled to support quad-pipe topology later, 2 SSPPs with 4 rect will
-> > be needed, so that a plane can be supported by 4 hardware pipes.
-> >
-> > After revise of quad-pipe, the number of pipes is decided in CRTC
-> > check per number of interfaces, resolution, clock rate constrain,
->
-> Where?
+On Tue, Aug 06, 2024 at 05:44:55PM -0400, Richard Acayan wrote:
+> The Snapdragon 670 has a GMU. Add its compatible.
+> 
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
 
-The pipe is decided in dpu_crtc_get_topology(). Change to quad-pipe
- is made in later patch. So I drop this in this patch message below.
->
-> > hardware feature and virtual plane enablement. The decidsion of
->
-> decision
->
-> > number of pipes will happen in CRTC check for both virtual plane and
-> > non-virtual plane case to unify the plane handling. Before that, the
->
-> will? Do you mean, after this patch? If so, please use imperative
-> language. See Documentation/process/submitting-patches.rst
-
-Yes, it is in later patch. So drop it in this patch message.
-
-It is possible to keep plane check unchanged, and rely on re-allocation
-in later stage to support quad-pipe, if quad-pipe use case is detected.
-But to unify the allocation logic for both non-virtual and virtual plane
-use cases, and to centralize resource management, we'd better defer
-the allocation.
-
-
->
-> > the number of necessary hw pipes is being determined based on
-> > resolution and clock rate constrain.
-> >
-> > By default, the plane check occurs before the CRTC check in DRM
-> > framework. Without topology information from the CRTC, plane mapping
-> > will be skipped for the first time as number of pipe is 0.
-> > Consequently, the SSPP engine starts without a valid memory address,
-> > which triggers IOMMU fault.
-> >
-> > Defer above plane related operations until dpu_assign_plane_resources()
-> > is called from the CRTC side to ensure the topology information from
-> > the CRTC check is available.
-> >
-> > >
-> > > >
-> > > > >
-> > > > > > will be skipped for the first time as pipe number is 0. Consequ=
-ently,
-> > > > > > the SSPP engine starts without a valid memory address, which tr=
-iggers
-> > > > > > IOMMU fault.
-> > > > > >
-> > > > > > Defer above plane related operations until dpu_assign_plane_res=
-ources()
-> > > > > > is called from the CRTC side to ensure the topology information=
- from
-> > > > > > the CRTC check is available.
->
-How about this commit message? It is more coherent with the change
-in this patch.
-
-
-Currently, a plane maps to at most two hardware pipes, and SSPP
-allocation occurs during the plane check phase. However, when virtual
-planes are enabled, SSPP re-allocation can occur within
-dpu_assign_plane_resources() during the CRTC check.
-
-To support future quad-pipe topologies, which require allocating two
-SSPPs with four rectangles by default, it is more efficient to perform
-the primary allocation in a single pass rather than relying on later
-re-allocations. So defer the allocation to CRTC check phase by default.
-Allocation logic for both non-virtual and virtual plane use cases is
-unified in this way.
-
-> --
-> With best wishes
-> Dmitry
+Ping, the contents of this patch seem worth including in the bindings
+but I haven't gotten a response to this patch.
