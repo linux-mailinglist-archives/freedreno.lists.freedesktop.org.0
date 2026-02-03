@@ -2,84 +2,147 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id nkkfE6JugWkrGQMAu9opvQ
+	id iNw6ED5XgmmISgMAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 03 Feb 2026 04:42:26 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 03 Feb 2026 21:14:54 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97B6FD4313
-	for <lists+freedreno@lfdr.de>; Tue, 03 Feb 2026 04:42:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 896FFDE66D
+	for <lists+freedreno@lfdr.de>; Tue, 03 Feb 2026 21:14:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58BCF10E4E6;
-	Tue,  3 Feb 2026 03:42:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02D8910E587;
+	Tue,  3 Feb 2026 20:14:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="abKlhYYZ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="S642t2iU";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WkbSHTt2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26AF610E4E9
- for <freedreno@lists.freedesktop.org>; Tue,  3 Feb 2026 03:42:23 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-34c868b197eso3730740a91.2
- for <freedreno@lists.freedesktop.org>; Mon, 02 Feb 2026 19:42:23 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0E210E5AB
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Feb 2026 20:14:51 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 613ImLwm2732739
+ for <freedreno@lists.freedesktop.org>; Tue, 3 Feb 2026 20:14:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ CtW+VYHRGzBX6OvEGMQr1befivCX9DAV1/zlI/ei+2c=; b=S642t2iUR5AEQuUl
+ A9Wmq7DQIIixJkvaZOFqUe5Q9d1+7m2lb5eH8yJDOl4mLigYGuBRzP6zkhC8XqRY
+ QmrvzlnTKGfqi/KBx4xhIfZKVp++naan53+qMz1CvdqSxc/Ew0FzePd0i98vASuu
+ YqIF2U+JUmFGq0o9jz2v+Glr1tbC1Q5maGsi7J6ae1DqBLLIoiMVHJWg9dVq4yAZ
+ rQUyQ556ofF8ridKdQwWLmYMUy1N+0dLUGhbSVeArisfoQcI3eTiSO8uBtDKt15P
+ wes0p97ppVDPknIyLP0fBWBdwiPwdT70xhglEbDRE66F3FMMtsnjnQkWPbHrIRJx
+ qz7TNg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4c3exjj0at-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Feb 2026 20:14:50 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-34c38781efcso17980a91.2
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Feb 2026 12:14:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1770090143; x=1770694943;
+ d=oss.qualcomm.com; s=google; t=1770149690; x=1770754490;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=mQQ9Yn0qN8mFWXLqjsawjzfjPTO4eluX+BjJlD5wAq0=;
- b=abKlhYYZNHFmFSGIG9THBxUOoF3/CBbeKMZS9OedMtFtZbKcmJZTaFfXhyKYC65MUX
- 4of+U54PMsg2jPptaTWe5vH4lgqhNZGFG0c6D4pHacYRu2sVw8t7kskXTP4QOoDPzjgC
- vEJy6/HwP1XP2wiFgdnHBSMfYyz0EtyKFb0d0=
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CtW+VYHRGzBX6OvEGMQr1befivCX9DAV1/zlI/ei+2c=;
+ b=WkbSHTt2sL+dis2v65cHkzFlnvPSW6GW9DuC5cMI8yG3B4ZzDppl3uQQ9bOIUi6VLT
+ CUQI69V4lM/gv6VJqtYUpObPJ8FFfWr8Qsv0PAWhsX1CjoS0//vvTNGRGt/D4w39EHxv
+ 7CzLljo6f58RCJqLpvfXmIFbGJMHRR4kt9LylIbDIay0NzjE0Xh+c69SRsuxilMWdark
+ d4h3KH01yGhc4pZA4CKIphZNNYd0I8hUMC2cNHBjMlZYPbpITuBL369+/bBdhBRCq074
+ GrZIrky11Gji4kUB3ujXep1Th4ExBuzBmB0yFmBAQwPtBsjE6BXB/juiGB0AqhPDzBVO
+ 4o1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770090143; x=1770694943;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mQQ9Yn0qN8mFWXLqjsawjzfjPTO4eluX+BjJlD5wAq0=;
- b=NSVhI/MqBInBKRJskIXpD6+hOWbIcGJkrgavZ3kn/7rIjPyMrvmueAJjKNVgb5TuyV
- JAhgEiBd+wkxAqoB4XobcUA/yt3UUTmooUOkJi+wWn+qhsvy1OqjyFO2B37VlfldYyzE
- aHbHNUEOG41EJTVlN1vmXeE+h2DJ7ZqG3jtcg1E9QySSjVwoROOc5YQ6AMNWwDiEwAFB
- 2GCLGu7Ub/eTi4XkG0WhMRWiI66+OQccnYVMKwuCnRnYf4Ljy2vSi9olwLpwQrPZQcB7
- sBRaE30N93clxSG8cX0CcowBggC5d5EAAq+VcfjI5OmMqZONh+kpeMgwgeVa4to+LIe5
- HKAQ==
+ d=1e100.net; s=20230601; t=1770149690; x=1770754490;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CtW+VYHRGzBX6OvEGMQr1befivCX9DAV1/zlI/ei+2c=;
+ b=iAPRVEB/7MaR+vXcC+6pfMMVqTJ7tnMwAZSEgZCfZNsIYV7jFKZdxcSRuQYo3/dlEO
+ UFtN4vgip0FvRQ/GxpFgHQRmOEzBL2h1F4LqOoQYtmwiqbYH4TugjdI9ll/tGodkfn8B
+ +K/LH+eYoaFYJmvVRRQJNHsyMAmL5e4wmZIDioa4Y+DQmooh20NVx2UD0xoIYkFp+HAi
+ dkTFbndLmulRNhVOPdOon+Ui1HcoEhA2Pmha2KIfIeVMNkV3BnNGMGcf0Ci2q5rhqNNw
+ dd+OtrlkZqF6agO8MFoNTsntGc+OYzfkC3aXkljuC1ePKnUp9PPsyLOol2LW9vIzY+BZ
+ 1kCA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/Acz4L41OEPAR2P6TBz/XZYoxX8X1drZvfoTB2Gwj8byDtoluSHdxdNhALXiYZacguvQ3hG8xmfY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHFdw2VwKfK6P5y/toletDW9qUJipeVHZE9Mmr874QmU+FybHN
- 6F1GP68JXZ6HeXUyyml7EGDxesKHvKBEQzcx7kj5K366jDKyHtQKaVe/aJimIVGykg==
-X-Gm-Gg: AZuq6aJQRNXSBZkf73CWfABU9uDTJqtGff7q8EEmmFbTFcmQ3PjSu7bLfFJRYUTQMN0
- xUE+yKXZ9OJL/NJY6jYfuI/O7l2fFZg5fLkr6mGMiTarVpTi+eeDzzHuOGCs6hGlM9qepzCgDvi
- DEwjaR92X1cMvlevYOJqOIG8/gtNTGM4dwUQlFlSs3qznbahe8URvTKOVykNbwWLn3NLjgS6Fee
- PJUPRt6EePVrSRTkHEsW2jA97Pobct8MxaKIGkXWJko6K3xOyFjF6t9LAy3CPkuJ7diQBuyc7QC
- Su4uoN6XeSFu7tEOKeq/sueHw3v4KHJwlaPLO8+xAvemocyEb0Y9G57D0jBVHzrMZuVETwbIFTC
- gMczzOKd4Uhyx9aIT4BA+6EV5KFhuKO0wEHn6Kdrnd0DbEerDbITspUtMCio9m66AhWN/3VswJu
- mENlsN02Hmi0iyIeKKkRn6/EuiCYwvNOFZihsKKvBfGqtW3MjIFA==
-X-Received: by 2002:a17:90b:4a4e:b0:340:d578:f299 with SMTP id
- 98e67ed59e1d1-3543b2dcba2mr12892974a91.3.1770090142638; 
- Mon, 02 Feb 2026 19:42:22 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:ad8e:5863:2270:6d7])
+ AJvYcCWVl9GmSjWjweOguB3YrlJgaajkWT+/kbYavO8rK0BkTSxg5fOK4654Thab4S4IFrIEt1Mr6CFETjU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZmGXiz/B0mA9b5gxOdhtjxZiZmosEl4eyinJSQXTcZ2J9WWQl
+ Lr41qHe/G2j+7lYNBCIrkH47oK51r/Nyy4Y6rXhLmSmtiFxX34MVR5lGcaW/ewQ/MOjntb/iRnO
+ 7cXpEjUWtXod0fx+4V88PbL/52LTEyhBQCAA5dhgmuJElNxVK9LJqq4764BDALI1awWIPo60=
+X-Gm-Gg: AZuq6aK9MpCd45gbFpDogNwPr8B1uXiFJvJPPIr1ohh4uLMyEVNm6j7RM7WwT2wN6Vs
+ sfp72o+Fj1iYQ+9Pgq3M+EtGkiDC4VTzfofWjARE8QA9T3nvdEIX9rCP8FtMX/nFj5KU6VutrUJ
+ /mmogqF2AQ1BZg6N6MMaKFeUDGPnVHRCUax8U4d3GOrWSusipoyYVFBU9K8aDx3+kZF8Jn4j/5X
+ eVVBp1pyonjmX013SyqNeI3EKD1X9UYYGKpN/wNQF6SD8c6ZDuvgCr5KIzJHn44dphVC7eE+MTa
+ b045u4NMLmEFTuH+pYbad7YoA0PWsOTblZitMb7sCBThp+uqL/e45z6njIQAahzD4yiWF2fuL21
+ grANOZsBX1xp5OK6p7j3CcOPD6IZnJ/hbIQ==
+X-Received: by 2002:a17:90b:3b89:b0:352:e3d1:8d69 with SMTP id
+ 98e67ed59e1d1-354870b1bb5mr334088a91.1.1770149689808; 
+ Tue, 03 Feb 2026 12:14:49 -0800 (PST)
+X-Received: by 2002:a17:90b:3b89:b0:352:e3d1:8d69 with SMTP id
+ 98e67ed59e1d1-354870b1bb5mr334077a91.1.1770149689371; 
+ Tue, 03 Feb 2026 12:14:49 -0800 (PST)
+Received: from [192.168.1.11] ([106.222.231.57])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3547b10364csm342726a91.10.2026.02.02.19.42.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Feb 2026 19:42:22 -0800 (PST)
-Date: Tue, 3 Feb 2026 12:42:18 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tomasz Figa <tfiga@chromium.org>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [RFC PATCH] drm: gpu: msm: forbid mem reclaim from reset
-Message-ID: <nbk32ecg6wgdghnsr4amj5wufk4t7pavbsuqjvc6ulychjr6jh@zyyrzqbjes4i>
-References: <20260127073341.2862078-1-senozhatsky@chromium.org>
+ 98e67ed59e1d1-35487131849sm97904a91.0.2026.02.03.12.14.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Feb 2026 12:14:48 -0800 (PST)
+Message-ID: <86cc659d-f5d9-47b0-8134-6a4b11c99434@oss.qualcomm.com>
+Date: Wed, 4 Feb 2026 01:44:41 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260127073341.2862078-1-senozhatsky@chromium.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: display/msm/gmu: Add SDM670 compatible
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20240806214452.16406-7-mailingradian@gmail.com>
+ <20240806214452.16406-8-mailingradian@gmail.com> <aYFJcxOXWpuuC41I@rdacayan>
+Content-Language: en-US
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <aYFJcxOXWpuuC41I@rdacayan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=W8c1lBWk c=1 sm=1 tr=0 ts=6982573a cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=TQVzCM6xFy0bRFPZzaP6Sw==:17
+ a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=pGLkceISAAAA:8 a=KKAkSRfTAAAA:8
+ a=lqJ36Ib93Mf7KDR35b0A:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: gZWNh7BjRHjra64m1gLDSxPDK2tr6_jJ
+X-Proofpoint-ORIG-GUID: gZWNh7BjRHjra64m1gLDSxPDK2tr6_jJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjAzMDE2MCBTYWx0ZWRfX5VWNBpsJ9bSp
+ vHq7Gx1QsVhfiFJWz/2TRz5+LKpKi69oRWFNbfKZSqy9ANGhea78chHKdf2tRtI0hSfudpFR04l
+ iUkpIB0Cq3lQQFjIZKCHxva7LdKLgGGxIfULl1QAHox90jPi7FGeW5QL2Dk6nG+tR51VQIBlYWa
+ 1ZYLRmXbstlQVH/I/GvZx/jXaJdyvT0QsPzLAyl0okDLrFkNP+FspuLyzTk/tixqCCbE45Wrl8G
+ 14ba6U5UcjC7LEUfU9oq0TekT1kKAWBqEa8TKG6EjrHImVq43FmgZrdlpaIdRK0rHlStcGkw98U
+ OqHf6+fxsnOFdk1iEibGSzKiiTRoLE0VBG44ZArt+A2Nqun1ti6QvqNc+OIBfX/3E3LEwZpiZwq
+ bOvQ6eRc8SZiWKLp8TEwv1Jz5/BwXOjDVPlBjV6ou8XnzDrsPvSznKbcf6uihm/7oYVkISr+D0Y
+ jXfSpN5peVXMf2OjX8g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-02-03_06,2026-02-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602030160
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,103 +158,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.81 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[chromium.org,none];
-	MID_RHS_NOT_FQDN(0.50)[];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[chromium.org:s=google];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:konradybcio@kernel.org,m:akhilpo@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:tfiga@chromium.org,m:senozhatsky@chromium.org,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[senozhatsky@chromium.org,freedreno-bounces@lists.freedesktop.org];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[21];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:mailingradian@gmail.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:daniel@ffwll.ch,m:robdclark@gmail.com,m:quic_abhinavk@quicinc.com,m:dmitry.baryshkov@linaro.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konrad.dybcio@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[akhilpo@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,quicinc.com,linaro.org,poorly.run,somainline.org,vger.kernel.org,lists.freedesktop.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[senozhatsky@chromium.org,freedreno-bounces@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[chromium.org:+];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[akhilpo@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
-X-Rspamd-Queue-Id: 97B6FD4313
+	TAGGED_RCPT(0.00)[freedreno,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,linaro.org:email]
+X-Rspamd-Queue-Id: 896FFDE66D
 X-Rspamd-Action: no action
 
-On (26/01/27 16:33), Sergey Senozhatsky wrote:
-> We sometimes get into a situtation where GPU hangcheck fails to
-> recover GPU:
+On 2/3/2026 6:33 AM, Richard Acayan wrote:
+> On Tue, Aug 06, 2024 at 05:44:55PM -0400, Richard Acayan wrote:
+>> The Snapdragon 670 has a GMU. Add its compatible.
+>>
+>> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> ---
 > 
-> [..]
-> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
-> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840161
-> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840162
-> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): hangcheck detected gpu lockup rb 0!
-> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): completed fence: 7840162
-> msm_dpu ae01000.display-controller: [drm:hangcheck_handler] *ERROR* (IPv4: 1): submitted fence: 7840163
-> [..]
-> 
-> The problem is that msm_job worker is blocked on gpu->lock
-> 
-> INFO: task ring0:155 blocked for more than 122 seconds.
-> Not tainted 6.6.99-08727-gaac38b365d2c #1
-> task:ring0 state:D stack:0 pid:155 ppid:2 flags:0x00000008
-> Call trace:
-> __switch_to+0x108/0x208
-> schedule+0x544/0x11f0
-> schedule_preempt_disabled+0x30/0x50
-> __mutex_lock_common+0x410/0x850
-> __mutex_lock_slowpath+0x28/0x40
-> mutex_lock+0x5c/0x90
-> msm_job_run+0x9c/0x140
-> drm_sched_main+0x514/0x938
-> kthread+0x114/0x138
-> ret_from_fork+0x10/0x20
-> 
-> which is owned by recover worker, which is waiting for DMA fences
-> from a memory reclaim path, under the very same gpu->lock
-> 
-> INFO: task ring0:155 is blocked on a mutex likely owned by task gpu-worker:154.
-> task:gpu-worker state:D stack:0 pid:154 ppid:2 flags:0x00000008
-> Call trace:
-> __switch_to+0x108/0x208
-> schedule+0x544/0x11f0
-> schedule_timeout+0x1f8/0x770
-> dma_fence_default_wait+0x108/0x218
-> dma_fence_wait_timeout+0x6c/0x1c0
-> dma_resv_wait_timeout+0xe4/0x118
-> active_purge+0x34/0x98
-> drm_gem_lru_scan+0x1d0/0x388
-> msm_gem_shrinker_scan+0x1cc/0x2e8
-> shrink_slab+0x228/0x478
-> shrink_node+0x380/0x730
-> try_to_free_pages+0x204/0x510
-> __alloc_pages_direct_reclaim+0x90/0x158
-> __alloc_pages_slowpath+0x1d4/0x4a0
-> __alloc_pages+0x9f0/0xc88
-> vm_area_alloc_pages+0x17c/0x260
-> __vmalloc_node_range+0x1c0/0x420
-> kvmalloc_node+0xe8/0x108
-> msm_gpu_crashstate_capture+0x1e4/0x280
-> recover_worker+0x1c0/0x638
-> kthread_worker_fn+0x150/0x2d8
-> kthread+0x114/0x138
-> 
-> So no one can make any further progress.
-> 
-> Forbid recover/fault worker to enter memory reclaim (under
-> gpu->lock) to address this deadlock scenario.
+> Ping, the contents of this patch seem worth including in the bindings
+> but I haven't gotten a response to this patch.
 
-Gentle ping.
+This requires a rebase, most likely. Send a new rev?
+
+-Akhil.
