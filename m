@@ -2,69 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KCJmMVADhmmyJAQAu9opvQ
+	id AFl2F4dphmnwMwQAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 06 Feb 2026 16:05:52 +0100
+	for <lists+freedreno@lfdr.de>; Fri, 06 Feb 2026 23:21:59 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CFFFFF6EF
-	for <lists+freedreno@lfdr.de>; Fri, 06 Feb 2026 16:05:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5375103BA3
+	for <lists+freedreno@lfdr.de>; Fri, 06 Feb 2026 23:21:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7F4710E802;
-	Fri,  6 Feb 2026 15:05:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E4410E94C;
+	Fri,  6 Feb 2026 22:21:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WtS2+Nxh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sclpwADi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D009810E051;
- Fri,  6 Feb 2026 15:05:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64DEB10E943;
+ Fri,  6 Feb 2026 22:21:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A09A5417A5;
- Fri,  6 Feb 2026 15:05:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D9CC19422;
- Fri,  6 Feb 2026 15:05:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7BDAD6013D;
+ Fri,  6 Feb 2026 22:21:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28699C116C6;
+ Fri,  6 Feb 2026 22:21:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770390349;
- bh=RSB2OFRe/6/DcmzMzPHjQ+Zxxl5zXroyGePOEXEehJs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WtS2+Nxh55Adz0xYAf0PByzHQ6s6C/C9nq7MaYSOmHTfvsrH8peYshYKPMR1av/A1
- bNtZxlPTieyMxfR/oUu5tYkKnM1Is7YF8E5Q93LLJOhVIjLIrIdEVROjTAsuWAy4y1
- 9YoxCQ0RJ2aWs9mpAH3fcLA4Bs9y6S80h01srWvaXtE64Aql6ya84wwWDzlQJCEeAA
- +Z+DungMjosbrvE1frGGvt8dtQQymTMVYPUD1Yt110TpF2luyRzlCdXd1X5r+3att/
- 00dT60TBwiYTA5pZn848oEaCdRoJu43Or0HnQHzR7v8CMQhax8JYjn/CwmABdevwNK
- OF6JMHeAFfEqA==
-Date: Fri, 6 Feb 2026 09:05:48 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-usb@vger.kernel.org, linux-pci@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
+ s=k20201202; t=1770416514;
+ bh=oQRJiNUzubJ19Wx1XgCCgnTsTPuzcvWNLC/cnrc8QvA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=sclpwADixRMuZ09rsS1t0+O7jiwtqiALgjAvTpNzHJe46dn1GLZrEVe3OQvWi8zaN
+ eewMrCWCfW1ix2SlZaTLQ+8a41A5GFAREv+8nLah3M5n4njJDFD/m2Pvx2qwhs0atX
+ pncuF/CBxCE3EkFBzSqESpEcfpBXD0eBYlczOdytUiYHpniryUqydOaCir4QefkFwl
+ C2Dm9kVkfUNqvPhOe5NiPR5Q3vJrlTEV+nyb5vKdfK0l6CF/XCivVgsvLA0lwpe7z3
+ mXkOEWFoGnMprJGcq3gnn3IzFN7zJecQMVYdQG78RB1rt4djxPRxhG2RQ1QNFsue9R
+ eu6i4u3Y4IQbA==
+From: Kees Cook <kees@kernel.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Kees Cook <kees@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, devicetree@vger.kernel.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Sean Paul <sean@poorly.run>, Magnus Damm <magnus.damm@gmail.com>,
- linux-renesas-soc@vger.kernel.org, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v2 5/7] dt-bindings: arm: qcom: document the Ayaneo
- Pocket S2
-Message-ID: <177039029875.225465.9560671235103288038.robh@kernel.org>
-References: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-0-c55ec1b5d8bf@linaro.org>
- <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-5-c55ec1b5d8bf@linaro.org>
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: [PATCH] drm/msm: Adjust msm_iommu_pagetable_prealloc_allocate()
+ allocation type
+Date: Fri,  6 Feb 2026 14:21:52 -0800
+Message-Id: <20260206222151.work.016-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260127-topic-sm8650-ayaneo-pocket-s2-base-v2-5-c55ec1b5d8bf@linaro.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1662; i=kees@kernel.org;
+ h=from:subject:message-id; bh=oQRJiNUzubJ19Wx1XgCCgnTsTPuzcvWNLC/cnrc8QvA=;
+ b=owGbwMvMwCVmps19z/KJym7G02pJDJltmfU7n93tvD9HSCh32WPFpydTev27djntL71dv6nLQ
+ klTZkJRRykLgxgXg6yYIkuQnXuci8fb9nD3uYowc1iZQIYwcHEKwER2/2Bk2G3cZGIa2u5sOuf5
+ Dob2quKXmfEX/ITi5S9Mm8FovvlIGcP/muT/Cwseapy52xnKmXqkIFVl1sqSU/vVRAUVd/HFNLs
+ yAQA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +75,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.19 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[27];
-	FREEMAIL_CC(0.00)[kernel.org,somainline.org,vger.kernel.org,linux.dev,lists.freedesktop.org,linuxfoundation.org,gmail.com,google.com,oss.qualcomm.com,glider.be,poorly.run,ffwll.ch];
-	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno,dt,renesas];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[kees@kernel.org,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,linaro.org:email]
-X-Rspamd-Queue-Id: 4CFFFFF6EF
+	TAGGED_RCPT(0.00)[freedreno];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,lists.freedesktop.org:email]
+X-Rspamd-Queue-Id: D5375103BA3
 X-Rspamd-Action: no action
 
+In preparation for making the kmalloc family of allocators type aware,
+we need to make sure that the returned type from the allocation matches
+the type of the variable being assigned. (Before, the allocator would
+always return "void *", which can be implicitly cast to any pointer type.)
 
-On Tue, 27 Jan 2026 10:57:32 +0100, Neil Armstrong wrote:
-> Document the Qualcomm SM8650 based Ayaneo Pocket S2 gaming console.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+The assigned type is "void **" but the returned type will be "void ***".
+These are the same allocation size (pointer size), but the types do not
+match. Adjust the allocation type to match the assignment.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Kees Cook <kees@kernel.org>
+---
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: <linux-arm-msm@vger.kernel.org>
+Cc: <dri-devel@lists.freedesktop.org>
+Cc: <freedreno@lists.freedesktop.org>
+---
+ drivers/gpu/drm/msm/msm_iommu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index d5dede4ff761..271baf4dc4e8 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -332,7 +332,7 @@ msm_iommu_pagetable_prealloc_allocate(struct msm_mmu *mmu, struct msm_mmu_preall
+ 	struct kmem_cache *pt_cache = get_pt_cache(mmu);
+ 	int ret;
+ 
+-	p->pages = kvmalloc_array(p->count, sizeof(p->pages), GFP_KERNEL);
++	p->pages = kvmalloc_array(p->count, sizeof(*p->pages), GFP_KERNEL);
+ 	if (!p->pages)
+ 		return -ENOMEM;
+ 
+-- 
+2.34.1
 
