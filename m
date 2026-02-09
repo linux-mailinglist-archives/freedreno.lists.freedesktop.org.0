@@ -2,101 +2,166 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mOpMJqmih2k2bAQAu9opvQ
+	id 6A0iATItimkjIAAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sat, 07 Feb 2026 21:38:01 +0100
+	for <lists+freedreno@lfdr.de>; Mon, 09 Feb 2026 19:53:38 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 402FD107134
-	for <lists+freedreno@lfdr.de>; Sat, 07 Feb 2026 21:38:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BA83113DC2
+	for <lists+freedreno@lfdr.de>; Mon, 09 Feb 2026 19:53:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 285AB10E2C5;
-	Sat,  7 Feb 2026 20:37:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFEC110E457;
+	Mon,  9 Feb 2026 18:53:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ThEfjcd9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DeEDYWeg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0EA810E1C9;
- Sat,  7 Feb 2026 20:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cKrScF4a28cP5lsIVMLNsUl91oT7jCHdkbXGzgDf+4E=; b=ThEfjcd9SM+sshBYF/imnjPgzr
- 8R2KjZ6jF6ORVH0x4Na8CTHEE23CX6huPIlvjxTlucbsaTd/B+iIr4JYNw42XFmNGIb3fxR26YP+X
- KeapWuwqLmSLNJXWvr32EzDpB+RgKMAU8SiLm2umOIupHMe5LWl+vaGTyc7biK3k3rIqxmd6UbFlW
- Oxdq3OQSH0HPaa3LL/RdOLHUoCjwt0/8IAJQM/Mq50Qcw1MT/+30Krr4UkNCR/uhyp6wMWYk+eKd2
- WYQBd8pDUhglMiCZsy2FZ+6znZODLGkcvDkarv2R6m0khnK6rxCM66wrn8IRao2Ew3fe4MLM/UhIG
- lwYuMB1A==;
-Received: from [187.36.210.68] (helo=[192.168.1.103])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vop3l-00FNqd-Pn; Sat, 07 Feb 2026 21:37:42 +0100
-Message-ID: <5b92cb85-5f82-4eef-ba4e-ca7e3a4fb791@igalia.com>
-Date: Sat, 7 Feb 2026 17:37:31 -0300
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012018.outbound.protection.outlook.com
+ [40.93.195.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 882B410E455;
+ Mon,  9 Feb 2026 18:53:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dXtFmlzOE/A3IwbImxi+/Nz8IIQVWlcNG3u27k+6pXkC7D44iJW0qHq4cruVbBFklyRvPV7aetFiBF1hiPCMjM2Rp4cA5YhlaZ3nXlVzsPT6w6EdlVLrw47u/x7lMkyAzlDrTlDZ8rsv/Pdv4X6AgdlmxrfHIYp2SVMCf+fiF1s1Ej2FL4oCrTU2RwL9u3bPpVb35tMUitZI6SEq7Nl1JxGMYZUVR09zPSvGDldt+z9q63nr82BpoLF1Qdo5n2h+O/hFzxVkShsE0QB6i7xT3t6k3VHIhCwlPOwDz5s98CfzfQaSS6nj5f5bhdZpOR8u+Eq6k0Z8jOkiJngPFEcmbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mdPCy7VVlM2FpWwitjQlrjnxbUgbbIqch38aTgZ9ySM=;
+ b=Zh1rhazGaY7v8KLIzvHKWKlREpF8pSIHcCTpOr/fwvjfLpZKJ+5/LM4xSnaxrkSBE/3aWwGjTr6VLOQvZf35JIOi5KH32oCk8NpfaI2SOFILlgXsd5hgiwF9FdKwwWDc3mx4+0mU/PxfC289XwPXFRUHWl5gW7+un5xGG9mZ8CiFOrCZ863gCxIn/AoNKrULPpMA1HQooaOFRpLRCCuFxoSPC9eD+L+BqxQjNXIavjbPU44hhyGxaMCYAGllRQ/Hb/PIJsTKhFcwcXaRf4Sbffr78mWHLs4bt4fJj/f/XNn3/NFYHZqJdpXkDc6npzfiB5/BuFHY19IC2KlNa4fpZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mdPCy7VVlM2FpWwitjQlrjnxbUgbbIqch38aTgZ9ySM=;
+ b=DeEDYWeguFzsNdZRgmc13dJPe5SOQgy6BuNqA2q5zzFtcO+arDO6KBYzzT7sCF997HXgcbApfToiYptPXTwAqLAEWPjUnw+2qW26s8GSGtYzTUmhb/Oi4evlT19vn6UOTTyAoL+Tjtdh0prIHbmjlP3gRS2OF2sOHL+YD5tNJS4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by PH7PR12MB9150.namprd12.prod.outlook.com (2603:10b6:510:2eb::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.12; Mon, 9 Feb
+ 2026 18:53:28 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%4]) with mapi id 15.20.9587.016; Mon, 9 Feb 2026
+ 18:53:28 +0000
+Message-ID: <eaf22961-3900-4a53-92f9-90e5e1080ca9@amd.com>
+Date: Mon, 9 Feb 2026 13:52:47 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 15/15] drm/atomic: Remove state argument to
- drm_atomic_private_obj_init
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- amd-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>
-References: <20260128-drm-private-obj-reset-v4-0-90891fa3d3b0@redhat.com>
- <20260128-drm-private-obj-reset-v4-15-90891fa3d3b0@redhat.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260128-drm-private-obj-reset-v4-15-90891fa3d3b0@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: events@lists.x.org, xorg-devel@lists.x.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
+ xorg@lists.freedesktop.org
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: X.Org Board Nominations Open 2026
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0179.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::22) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|PH7PR12MB9150:EE_
+X-MS-Office365-Filtering-Correlation-Id: 859bdf41-6d7a-4a22-7bd2-08de680c8287
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?U3BIOCtGK0ZNdFlVSHFnaWs2V0lBaUJpQW0vYm1kMzFsYTMzcWFJTlNDbCtq?=
+ =?utf-8?B?YjI2UnRmUzFxemxpNHhPNDdYWmpuTGFvWTBVcXYvZjR3L25mbnltdGd2Szcv?=
+ =?utf-8?B?RkZRaGpwRkRTTXcxYWFySmxCUHpqZFVlS0tYMi9uVDNLcDJSYUpMeFB1QlpS?=
+ =?utf-8?B?MXN6RVRRNm1acDJ3eFo4cUR1eVQ2TFZLdS9iLzJUMDVSdzJNZ1ViejdlaGRp?=
+ =?utf-8?B?aUlzckludnp0OFloNXJoVnp6Slp2OTNzejNNNU83TGlRQjN5WElubDFRZkUw?=
+ =?utf-8?B?S2ZQcTNjZDQ2TFN6eHU1WGpMRmozN1ZFZG9jTWJlSE5mUXZRQ1hJK2txTkJM?=
+ =?utf-8?B?L0J3bGhYTllPeEdBQzRwNGJBVmNzWlF0T09neHVNbEp4bmhHL2EzMWVvYU5I?=
+ =?utf-8?B?QUJGMmQxbW03djQxNkxrZ2NXL0U0R05YNkNGYko3bG1STEEzWFU2RHhnQUY0?=
+ =?utf-8?B?UWN1K3RGNDlkS2dqMVB0dWlsdG5HeFlBRWNQUnBocGxxZTQ4V1htV0tod2Vx?=
+ =?utf-8?B?Q2phMXMwbUZ2NVVsQzlDTjVGYWF2U3ZVQlQ1STY1eWdRbHhGTkdyKzQyeUdC?=
+ =?utf-8?B?ekdvWFpha2M0ZHg0eVNqY2N0cXhNRlR5UDRycCtkZjJocUkvSmJKMnRWRHNR?=
+ =?utf-8?B?YWhXYmZTY3ZEUWFlWkNWblVIQWlxQ1Eramk0OTRZemNFZFVqNFdwUFdCNVZL?=
+ =?utf-8?B?ZUliZmM4RytKNXJoU092L3lmNG1xc0lkdjgvclBqLy9vWTY3RTJkQ085cjEr?=
+ =?utf-8?B?U01lNkhlK2lHUWJCS1NTeTE5aHgvSk9Zc2doUDVicng0U0JWT0dOSUpEV1dO?=
+ =?utf-8?B?YXZETnZpQ3BxWDlubTRDd0xJTFVBVmVyN2oxK08vLzNvWEpSckllNVBPTDJa?=
+ =?utf-8?B?cmJoMTBDc1F0RmV6RzBpU05RdSs1MWtvVGJTOHFucWFVVzcyOFlZSlo5dUF3?=
+ =?utf-8?B?d2tNZldWbCtnajZ3K1I5M28vNjRrdEpoUjVEcmFZeXlDcmdZOUhvNjBzb0t2?=
+ =?utf-8?B?OElNcm1nNFdoaGdJK2VZSWhzT0lLRDF2U1UrTGt3QzcxMm1jblZqdnhZbW4v?=
+ =?utf-8?B?b2NTYVZoZCtNT2IvMjREeU1pVEd4eDlpZkNlcWtJOFJEMmZqb2tzRTUrc2Zz?=
+ =?utf-8?B?TVNJb0hmMU1jbVVaMVRZa1VPMFlDMTJrbTYrbm42bWN2Z0JuMWVDQ2JMa043?=
+ =?utf-8?B?cG4zMkwxMHpZSk5VZ3VDMUlNZGVaT1VoZnlFWU9SZmErNzFwRmxlc2NYNnRG?=
+ =?utf-8?B?QWNVKytBdlkzb0J2cTQycHFOSzc3ckl0SURNMmNkMk1MZHNNTStSVmNNUzRm?=
+ =?utf-8?B?K1htMGdMNVJQcjg1OUdlZXREd0c4NWVsampsMU95SnBhQlNBeXpuaE5lOEFj?=
+ =?utf-8?B?aGtFeVM3UU42ZU5IcFdEOE81K0F6RjFLc1JIeVNUMFJlR2RzUXZ1NEVTWVAx?=
+ =?utf-8?B?QmtsbThXWkh4L0xIanhJekxOZERQQjJLV2crMHJtQTIvak1YM2RCZGQ1YW9k?=
+ =?utf-8?B?Rzl1cU5DZTFHQmpFMVVvOVRHb3VoRi9SMWhKaWx1dVRnSmVTNE1DckQ2QmRv?=
+ =?utf-8?B?djB5WVFGSnd3V0tXWEdMekM0UkJBd1dnREFRcmFNbWZSRjhoVUQyVUJ1b2d5?=
+ =?utf-8?B?aVgrZVdVYzB4L1lvMERxZUxzME96TUl6NXhPYlNwd092L2NwSHNFc0dFblZh?=
+ =?utf-8?B?M0JTd3pnQktIclE5OFdWclhLTGRjSlI5VDBhYS9sUnErY290Qm9qRERKWGRz?=
+ =?utf-8?B?amRIZjlWcGZrVExWTnRMY1pIdzhqMW9ERUl1ZTJDeUswUUdtRUtrQ1pwRDZq?=
+ =?utf-8?B?eDdmSHBpRGRqbWtSZnlvdFRKektQby9OVFJOSFBQVExNSDB5elpNc2toZVJl?=
+ =?utf-8?B?U2Q1WVRlemVmT1pDUE1Md0JjNzdBT0N4d2tDYjYwUjdCKy9RcEJ4YU9MdDdY?=
+ =?utf-8?B?Nks5VlV0SWJTbUgzWWowUlV2UVhxKzJieWFBeEREdFVFTi8ramxzMVZ5VERs?=
+ =?utf-8?B?dFZzZEFsSXdrclNwNlQvbVEveEpBRlVnTmMxU0xSSVVoQ09haEx6MEprT2hX?=
+ =?utf-8?B?bFBNZVp1SERqNmRRVUYxQ3hxQTIva3J1dW5uSWh1OTJkSU5jVHowdDl0ZFR3?=
+ =?utf-8?Q?LH1M=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(921020); DIR:OUT; SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dkpCeDVZcmsrdHlxamtzVnliVWprWkUzWnhwR2VWTVlPY0Q3UEdXaWI3WlVp?=
+ =?utf-8?B?UVpjdnNZZGZPdklNQlVadVNMck5zVW9GQzIvQnRERHRjajFPeUdRMGxncUJW?=
+ =?utf-8?B?YUlMb0s0Y2RVY1dLZXFtQVp2YWpwZ3lXaC9uVnlYb2RjUjI1ekE5T0l0Wi94?=
+ =?utf-8?B?QXNMQkt4N3Z2ek1DYU9WdmxCbmFldElkWDU4aDZYOFJlQ1BDemxKNlRtVm81?=
+ =?utf-8?B?TmxJeFZiLytCWHNWYUNpeWpaSk5PeTRGNXd4STBUNFlRWjlGRXhabS9qeTFF?=
+ =?utf-8?B?Z2ozOFpRR3pweFpsZzFpYndRUW1iYXdrV1VKUkRqcnpqamp1M2NwcWJxRVVt?=
+ =?utf-8?B?SkdMT2N5UzNxTTI5dUxseFBSRE0xbmR3a2FBM2YrTEtScEVoTUxucVp2MXJa?=
+ =?utf-8?B?UVY3aHlub2lLVEhLRm9QL0wveFI5N0VXNFVkdU9qYmJZdlhJNHZmTHdnOFdR?=
+ =?utf-8?B?SVUzWkVEVDRTUUh0S29sb3VOeERocTJzZVhKanVIQ0ZaU0hHamF6T3Vscitj?=
+ =?utf-8?B?Uk9hWmdWSlUyZDN6WU5lMVNEVEFSVktJcittUitGN0JVSjZjWk9WY1FWb0Nm?=
+ =?utf-8?B?NjF0enY3V1l5ZDNEenJLR1ZkeG5FNzFZc001MGVxckhpRExEbDFNTlI2N0JD?=
+ =?utf-8?B?b1IxRW9JQlU4SmNLWGJoc1JteWhjMU81MFNCLzlPbGQ0MEIwNkk3WWtJYktX?=
+ =?utf-8?B?dmdtU0dadktYVzQ1bGtJMG5GZ1RtTFVCUVFCMTRqNlc4ZGZEUC9DM1NoM3lI?=
+ =?utf-8?B?am1CVVZEQy9FWFllTTMrUUJqTEVnREE3NUd2cDBqN1QyNUlZN2t0UWhMYVB0?=
+ =?utf-8?B?UkQrTzV5eUhFTzlCLzc1VU1ORExObU54TDR6aWxUUS83a3ltZFRzdFA1ZnIy?=
+ =?utf-8?B?bzdPMzZuODdlNGRoMDNKNjBpRXU0R1NEWk0xNE1ZQldFMnQ1aEpsUWRIRml5?=
+ =?utf-8?B?WVUzTVN3STN3VUJQTmcvNHJ4MERMemplWUxGQlNyWlNaSmNEQ0pJaXI5WVhR?=
+ =?utf-8?B?QnBQdXBTdE1Cc1Y0VEtIZWVabzhkWXN5aG5KSEZxaVNKU2IvNTRzL0E3YXJj?=
+ =?utf-8?B?bUI0YVhaSzc2OFl0bWt2NFBicGRzQTZxcURKYlF5TElkbG5FYWJTcTdCVXRS?=
+ =?utf-8?B?UEhYM3dJU0FuN09tMG8ybHNjbEZLNm95RkhaNURqSXdKbmMxb3lsYkV1Z0Vj?=
+ =?utf-8?B?Q2t2eDM5ajJUYXFWZTEyYXhHeWoxOHhJZ3FMZlR0VmdjZ0UvMkJBYlZROTJx?=
+ =?utf-8?B?VWtGZjBGMTZBUU5MY3ZFRTF0RnFzcVFOV3ZtNzBXRmVkeWFNd0hrZTFXaVlS?=
+ =?utf-8?B?SHQvUnNVNWVvdFRleVlzRm9QU3NnODFNb3dxa1NOQnM5Q0VxM1dZTGNaeUp5?=
+ =?utf-8?B?QnVCclNIMm9OVTZLZW9Kb1lqTStqVGU5N2Z0bGVNVmhFZlFnWG1nbHplQ3lZ?=
+ =?utf-8?B?K2MwSmlCelNuWlNiM1U3cGZSTWs4Q0JENmlCbmNwaVVabVpFcjZidEpsZnpT?=
+ =?utf-8?B?d09HUHRlUytFdmhWNG1LYjZKY0haNUw1TmdwZWJPUnZQOW5qc2dkWUIrUVgr?=
+ =?utf-8?B?NzFIdy8yM01PTmRPY3IrS2xiUnV2WWFOYklXN0hkcGIvemFZdTNiZHRzWE9t?=
+ =?utf-8?B?UTZlZnlhVHNFc1N3ZkVTUHVRV3JXWXZ4QWdPWWhGaEtZNUh4UXN2L01WeS9p?=
+ =?utf-8?B?WndTWGVNYTlkTGJXWmdDS1BEbFRWTWIwZUMyaGtZNk5yMWQxVEZtS1o2WEYx?=
+ =?utf-8?B?OE9wL013aEIrTVptVmhmUTVNWEhQWXVRam5zOTZIZEFScFdYL1VEdDlhWUdx?=
+ =?utf-8?B?dVYyUk1EdUd2TjYrQlNybVpkeDFjTTNLQ2RQZmY2UmtpbkdBMkdKOWNJaDRF?=
+ =?utf-8?B?N3hLQVVkdFdIKzRtY3ZMTnl0T1JabzZQa0dIeUdUVk83cy9jZlFyQlY2MU1L?=
+ =?utf-8?B?NlpVK1hLVGhTK21CQVBveWNWZHg0eUZpR1hXYkpDaURpSlJNdTJsYStLdnVl?=
+ =?utf-8?B?NGZqYkJkL0MwZmFWU3hpTkQvdkVZZ3RUbnlINFFsVkpselF6dUJjbFRiVU12?=
+ =?utf-8?B?eHRlT3pqUmpZZW1JajBoaStiM0VaNkFON1B3RythQkFqK0RyY1ZKRWxKWE11?=
+ =?utf-8?B?Wjl5QmNXZVVXMEdhOVhHVTlHSmhEL1ZoazBPVjluREdydFZnWXlhZjBZNlpo?=
+ =?utf-8?B?V292TzFuWlRSQUVDWXFUYVdxZEE2dXN6ckFsSlU0cFBpMDdkekF2bWJOMEZI?=
+ =?utf-8?B?Q2ovenQ5aFVPVEtYUjNaK0ZvYWhYV0NkME80WmlhdThFYWxBcEQzUUsxUHdJ?=
+ =?utf-8?B?YVEzYVJHV1RlV0VLR2NQVWlFRVBVaWVXSUh2VzJIVWtOUjdtU0FGUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 859bdf41-6d7a-4a22-7bd2-08de680c8287
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 18:53:28.1804 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tnhw7ajlFGJ/Br5qsJgoBl5Uzu2HiFWXTtRTW1BogKbbFGtidFaOk9R1i//cjN/cobagO4TvcfaI/rCGizK5fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9150
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,489 +177,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.99 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
-	MAILLIST(-0.20)[mailman];
+X-Spamd-Result: default: False [-2.31 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
-	DMARC_POLICY_SOFTFAIL(0.10)[igalia.com : SPF not aligned (relaxed),none];
+	MAILLIST(-0.20)[mailman];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,suse.de,gmail.com,ffwll.ch];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[31];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[igalia.com:-];
-	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	FROM_NEQ_ENVFROM(0.00)[mcanal@igalia.com,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,oss.qualcomm.com,ideasonboard.com,arm.com,intel.com,linaro.org,kernel.org,crapouillou.net,gmail.com,nvidia.com,raspberrypi.com,igalia.com,kwiboo.se,linux.dev,poorly.run,somainline.org,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,kwiboo.se:email,crapouillou.net:email]
-X-Rspamd-Queue-Id: 402FD107134
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,amd.com:mid,amd.com:dkim,x.org:url,x.org:email];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[harry.wentland@amd.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+]
+X-Rspamd-Queue-Id: 5BA83113DC2
 X-Rspamd-Action: no action
 
-Hi Maxime,
+Hi all,
 
-On 28/01/26 09:43, Maxime Ripard wrote:
-> Now that all drm_private_objs users have been converted to use
-> atomic_create_state instead of the old ad-hoc initialization, we can
-> remove the state parameter from drm_private_obj_init and the fallback
-> code.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Nominations are now open for the 2026 X.Org Board elections. Four
+positions are open. If you're active in the community please consider
+running and supporting your community in this way.
 
-For vc4:
+These board members' periods will end this year:
+- Mark Filion
+- Erik Faye-Lund
+- Simon Ser
+- Neal Gompa
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+These board members remain on the board until next year and therefore
+comprise your elections committee:
+- Arkadiusz Hiler
+- Lyude Paul
+- Andres Gomez
+- Harry Wentland
 
-Best regards,
-- Maíra
+Self-nominations are encouraged. If so, a simple message to
+elections@x.org is sufficient. Please include your affiliation, if any,
+and a personal statement. Examples from last year can be found at [1].
+You will receive an email confirmation within a few days.
 
-> ---
-> 
-> To: Liviu Dudau <liviu.dudau@arm.com>
-> To: Andrzej Hajda <andrzej.hajda@intel.com>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Robert Foss <rfoss@kernel.org>
-> To: Paul Cercueil <paul@crapouillou.net>
-> To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> To: Thierry Reding <thierry.reding@gmail.com>
-> To: Mikko Perttunen <mperttunen@nvidia.com>
-> To: Jonathan Hunter <jonathanh@nvidia.com>
-> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Rodrigo Siqueira <siqueira@igalia.com>
-> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> Cc: Jonas Karlman <jonas@kwiboo.se>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-> Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: "Maíra Canal" <mcanal@igalia.com>
-> Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: linux-mips@vger.kernel.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-tegra@vger.kernel.org
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 -
->   .../drm/arm/display/komeda/komeda_private_obj.c    | 16 ++++++++--------
->   drivers/gpu/drm/display/drm_dp_mst_topology.c      |  1 -
->   drivers/gpu/drm/display/drm_dp_tunnel.c            |  2 +-
->   drivers/gpu/drm/drm_atomic.c                       | 22 +++++-----------------
->   drivers/gpu/drm/drm_bridge.c                       |  1 -
->   drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
->   drivers/gpu/drm/ingenic/ingenic-ipu.c              |  2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  1 -
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  1 -
->   drivers/gpu/drm/omapdrm/omap_drv.c                 |  2 +-
->   drivers/gpu/drm/tegra/hub.c                        |  2 +-
->   drivers/gpu/drm/vc4/vc4_kms.c                      |  4 +---
->   include/drm/drm_atomic.h                           |  1 -
->   14 files changed, 19 insertions(+), 39 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index a97e1bf1bfdc6384a6ac83f907878807bb3b62a0..cff3d00a367728449b4a4de4cc9f3c9036e3924f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4932,11 +4932,10 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
->   	/* indicates support for immediate flip */
->   	adev_to_drm(adev)->mode_config.async_page_flip = true;
->   
->   	drm_atomic_private_obj_init(adev_to_drm(adev),
->   				    &adev->dm.atomic_obj,
-> -				    NULL,
->   				    &dm_atomic_state_funcs);
->   
->   	r = amdgpu_display_modeset_create_props(adev);
->   	if (r)
->   		return r;
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> index 4994b69c6595637ea832b97629b052e3aea97ee7..6270e5c525db221267b1215a27653ace578eeb0a 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> @@ -63,11 +63,11 @@ static const struct drm_private_state_funcs komeda_layer_obj_funcs = {
->   };
->   
->   static int komeda_layer_obj_add(struct komeda_kms_dev *kms,
->   				struct komeda_layer *layer)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &layer->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &layer->base.obj,
->   				    &komeda_layer_obj_funcs);
->   	return 0;
->   }
->   
->   static struct drm_private_state *
-> @@ -116,11 +116,11 @@ static const struct drm_private_state_funcs komeda_scaler_obj_funcs = {
->   
->   static int komeda_scaler_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_scaler *scaler)
->   {
->   	drm_atomic_private_obj_init(&kms->base,
-> -				    &scaler->base.obj, NULL,
-> +				    &scaler->base.obj,
->   				    &komeda_scaler_obj_funcs);
->   	return 0;
->   }
->   
->   static struct drm_private_state *
-> @@ -168,11 +168,11 @@ static const struct drm_private_state_funcs komeda_compiz_obj_funcs = {
->   };
->   
->   static int komeda_compiz_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_compiz *compiz)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj,
->   				    &komeda_compiz_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -222,11 +222,11 @@ static const struct drm_private_state_funcs komeda_splitter_obj_funcs = {
->   
->   static int komeda_splitter_obj_add(struct komeda_kms_dev *kms,
->   				   struct komeda_splitter *splitter)
->   {
->   	drm_atomic_private_obj_init(&kms->base,
-> -				    &splitter->base.obj, NULL,
-> +				    &splitter->base.obj,
->   				    &komeda_splitter_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -275,11 +275,11 @@ static const struct drm_private_state_funcs komeda_merger_obj_funcs = {
->   
->   static int komeda_merger_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_merger *merger)
->   {
->   	drm_atomic_private_obj_init(&kms->base,
-> -				    &merger->base.obj, NULL,
-> +				    &merger->base.obj,
->   				    &komeda_merger_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -328,11 +328,11 @@ static const struct drm_private_state_funcs komeda_improc_obj_funcs = {
->   };
->   
->   static int komeda_improc_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_improc *improc)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &improc->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &improc->base.obj,
->   				    &komeda_improc_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -381,11 +381,11 @@ static const struct drm_private_state_funcs komeda_timing_ctrlr_obj_funcs = {
->   };
->   
->   static int komeda_timing_ctrlr_obj_add(struct komeda_kms_dev *kms,
->   				       struct komeda_timing_ctrlr *ctrlr)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj,
->   				    &komeda_timing_ctrlr_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -435,11 +435,11 @@ static const struct drm_private_state_funcs komeda_pipeline_obj_funcs = {
->   };
->   
->   static int komeda_pipeline_obj_add(struct komeda_kms_dev *kms,
->   				   struct komeda_pipeline *pipe)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &pipe->obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &pipe->obj,
->   				    &komeda_pipeline_obj_funcs);
->   
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> index 1ab0233a2a18f784d8c43e61b94e40a06bd4baf6..7e0e5b90df7251beed6985e16d1c3270ddfb3f37 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -5763,11 +5763,10 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->   	mgr->max_dpcd_transaction_bytes = max_dpcd_transaction_bytes;
->   	mgr->max_payloads = max_payloads;
->   	mgr->conn_base_id = conn_base_id;
->   
->   	drm_atomic_private_obj_init(dev, &mgr->base,
-> -				    NULL,
->   				    &drm_dp_mst_topology_state_funcs);
->   
->   	return 0;
->   }
->   EXPORT_SYMBOL(drm_dp_mst_topology_mgr_init);
-> diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-> index 2abd714efd19f27697770813b38194e384be87ce..241498cef7de497afdf2837f750113743c001240 100644
-> --- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-> +++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-> @@ -1598,11 +1598,11 @@ static bool init_group(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_tunnel_group
->   {
->   	group->mgr = mgr;
->   	group->available_bw = -1;
->   	INIT_LIST_HEAD(&group->tunnels);
->   
-> -	drm_atomic_private_obj_init(mgr->dev, &group->base, NULL,
-> +	drm_atomic_private_obj_init(mgr->dev, &group->base,
->   				    &tunnel_group_funcs);
->   
->   	return true;
->   }
->   
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index e3029c8f02e5a3698781117bcc80eff98407cf16..243579fa1c756cd2eda660ad658cb49d67106584 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -919,11 +919,10 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
->   
->   /**
->    * drm_atomic_private_obj_init - initialize private object
->    * @dev: DRM device this object will be attached to
->    * @obj: private object
-> - * @state: initial private object state
->    * @funcs: pointer to the struct of function pointers that identify the object
->    * type
->    *
->    * Initialize the private object, which can be embedded into any
->    * driver private object that needs its own atomic state.
-> @@ -931,37 +930,26 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
->    * RETURNS:
->    * Zero on success, error code on failure
->    */
->   int drm_atomic_private_obj_init(struct drm_device *dev,
->   				struct drm_private_obj *obj,
-> -				struct drm_private_state *state,
->   				const struct drm_private_state_funcs *funcs)
->   {
-> +	struct drm_private_state *state;
->   	memset(obj, 0, sizeof(*obj));
->   
->   	drm_modeset_lock_init(&obj->lock);
->   
->   	obj->dev = dev;
->   	obj->funcs = funcs;
->   	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
->   
-> -	/*
-> -	 * Not all users of drm_atomic_private_obj_init have been
-> -	 * converted to using &drm_private_obj_funcs.atomic_create_state yet.
-> -	 * For the time being, let's only call reset if the passed state is
-> -	 * NULL. Otherwise, we will fallback to the previous behaviour.
-> -	 */
-> -	if (!state) {
-> -		state = obj->funcs->atomic_create_state(obj);
-> -		if (IS_ERR(state))
-> -			return PTR_ERR(state);
-> +	state = obj->funcs->atomic_create_state(obj);
-> +	if (IS_ERR(state))
-> +		return PTR_ERR(state);
->   
-> -		obj->state = state;
-> -	} else {
-> -		obj->state = state;
-> -		state->obj = obj;
-> -	}
-> +	obj->state = state;
->   
->   	return 0;
->   }
->   EXPORT_SYMBOL(drm_atomic_private_obj_init);
->   
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 94864e05619d1678ea6c0571e889f951e17d8d16..648d94da26b11e51ba4eca506ac99786838c81f7 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -551,11 +551,10 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
->   			goto err_reset_bridge;
->   	}
->   
->   	if (drm_bridge_is_atomic(bridge))
->   		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
-> -					    NULL,
->   					    &drm_bridge_priv_state_funcs);
->   
->   	return 0;
->   
->   err_reset_bridge:
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> index 862691991ed2770d30342bf531e828e34bd7080a..e6b003c16e63609180881b1d3b0c7acbd5218ada 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> @@ -1399,11 +1399,11 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
->   	if (ret) {
->   		dev_err(dev, "Unable to register clock notifier\n");
->   		goto err_devclk_disable;
->   	}
->   
-> -	drm_atomic_private_obj_init(drm, &priv->private_obj, NULL,
-> +	drm_atomic_private_obj_init(drm, &priv->private_obj,
->   				    &ingenic_drm_private_state_funcs);
->   
->   	ret = drmm_add_action_or_reset(drm, ingenic_drm_atomic_private_obj_fini,
->   				       &priv->private_obj);
->   	if (ret)
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-ipu.c b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> index 253a1ce30997308547b61339468d52e6875785d3..635ef2b1efa57556f32fded612f0ff1068e23e8c 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> @@ -899,11 +899,11 @@ static int ingenic_ipu_bind(struct device *dev, struct device *master, void *d)
->   	if (err) {
->   		dev_err(dev, "Unable to prepare clock\n");
->   		return err;
->   	}
->   
-> -	drm_atomic_private_obj_init(drm, &ipu->private_obj, NULL,
-> +	drm_atomic_private_obj_init(drm, &ipu->private_obj,
->   				    &ingenic_ipu_private_state_funcs);
->   
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index e33995a9522d2a9e8d0627069f7b5f44902278de..e52fd6b79c614a67d910e404efc24be014ec8f5e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1159,11 +1159,10 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->   
->   	dev->mode_config.cursor_width = 512;
->   	dev->mode_config.cursor_height = 512;
->   
->   	drm_atomic_private_obj_init(dpu_kms->dev, &dpu_kms->global_state,
-> -				    NULL,
->   				    &dpu_kms_global_state_funcs);
->   
->   	atomic_set(&dpu_kms->bandwidth_ref, 0);
->   
->   	rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> index 1fc9671590762b800bdeb6cd440b1ae6ee634679..c41bb03e5b96a162340b886d32656dfe4b0d1a99 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -715,11 +715,10 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->   	int ret;
->   
->   	mdp5_kms->dev = dev;
->   
->   	drm_atomic_private_obj_init(mdp5_kms->dev, &mdp5_kms->glob_state,
-> -				    NULL,
->   				    &mdp5_global_state_funcs);
->   
->   	/* we need to set a default rate before enabling.  Set a safe
->   	 * rate first, then figure out hw revision, and then set a
->   	 * more optimal rate:
-> diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
-> index febee3fea01dd40faec7d631279b1393a17822ba..27de798026365f710b78306a7ec2a72ddff20828 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_drv.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_drv.c
-> @@ -297,11 +297,11 @@ static const struct drm_private_state_funcs omap_global_state_funcs = {
->   
->   static int omap_global_obj_init(struct drm_device *dev)
->   {
->   	struct omap_drm_private *priv = dev->dev_private;
->   
-> -	drm_atomic_private_obj_init(dev, &priv->glob_obj, NULL,
-> +	drm_atomic_private_obj_init(dev, &priv->glob_obj,
->   				    &omap_global_state_funcs);
->   	return 0;
->   }
->   
->   static void omap_global_obj_fini(struct omap_drm_private *priv)
-> diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-> index e8cc4382532fffaea99020755ad78d3252613c26..5c7fd36aaadc405b9dae0acb1e8b4f12f12c84bd 100644
-> --- a/drivers/gpu/drm/tegra/hub.c
-> +++ b/drivers/gpu/drm/tegra/hub.c
-> @@ -955,11 +955,11 @@ static int tegra_display_hub_init(struct host1x_client *client)
->   {
->   	struct tegra_display_hub *hub = to_tegra_display_hub(client);
->   	struct drm_device *drm = dev_get_drvdata(client->host);
->   	struct tegra_drm *tegra = drm->dev_private;
->   
-> -	drm_atomic_private_obj_init(drm, &hub->base, NULL,
-> +	drm_atomic_private_obj_init(drm, &hub->base,
->   				    &tegra_display_hub_state_funcs);
->   
->   	tegra->hub = hub;
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
-> index f82c7ea1d74eeaa075296533a1ffe3561f197748..8f60e9e98380984a0de7c9243c5ba703316d0c13 100644
-> --- a/drivers/gpu/drm/vc4/vc4_kms.c
-> +++ b/drivers/gpu/drm/vc4/vc4_kms.c
-> @@ -114,11 +114,11 @@ static void vc4_ctm_obj_fini(struct drm_device *dev, void *unused)
->   
->   static int vc4_ctm_obj_init(struct vc4_dev *vc4)
->   {
->   	drm_modeset_lock_init(&vc4->ctm_state_lock);
->   
-> -	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager, NULL,
-> +	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager,
->   				    &vc4_ctm_state_funcs);
->   
->   	return drmm_add_action_or_reset(&vc4->base, vc4_ctm_obj_fini, NULL);
->   }
->   
-> @@ -755,11 +755,10 @@ static void vc4_load_tracker_obj_fini(struct drm_device *dev, void *unused)
->   }
->   
->   static int vc4_load_tracker_obj_init(struct vc4_dev *vc4)
->   {
->   	drm_atomic_private_obj_init(&vc4->base, &vc4->load_tracker,
-> -				    NULL,
->   				    &vc4_load_tracker_state_funcs);
->   
->   	return drmm_add_action_or_reset(&vc4->base, vc4_load_tracker_obj_fini, NULL);
->   }
->   
-> @@ -847,11 +846,10 @@ static void vc4_hvs_channels_obj_fini(struct drm_device *dev, void *unused)
->   }
->   
->   static int vc4_hvs_channels_obj_init(struct vc4_dev *vc4)
->   {
->   	drm_atomic_private_obj_init(&vc4->base, &vc4->hvs_channels,
-> -				    NULL,
->   				    &vc4_hvs_state_funcs);
->   
->   	return drmm_add_action_or_reset(&vc4->base, vc4_hvs_channels_obj_fini, NULL);
->   }
->   
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 0b1b32bcd2bda1b92299fd369ba7c23b1c2d3dfa..f03cd199aee73fa8e15b2d9e16a53d134fc7de7d 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -736,11 +736,10 @@ struct drm_connector_state * __must_check
->   drm_atomic_get_connector_state(struct drm_atomic_state *state,
->   			       struct drm_connector *connector);
->   
->   int drm_atomic_private_obj_init(struct drm_device *dev,
->   				struct drm_private_obj *obj,
-> -				struct drm_private_state *state,
->   				const struct drm_private_state_funcs *funcs);
->   void drm_atomic_private_obj_fini(struct drm_private_obj *obj);
->   
->   struct drm_private_state * __must_check
->   drm_atomic_get_private_obj_state(struct drm_atomic_state *state,
-> 
+A renewed membership period is required in order to run and vote in the
+elections. 32 people have renewed their membership so far. If you
+haven't done so yet please log in to members.x.org [2] and renew yours
+or apply for one if you weren't a member in the past.
 
+The key election dates are:
+    Nomination period Start: Mon February 9th
+    Nomination period End: Mon March 9th
+    Publication of Candidates & start of Candidate QA: Mon March 16th
+    Deadline of X.Org membership application or renewal: Mon March 16th
+    Election Planned Start: Mon March 23rd
+    Election Planned End: Mon April 13th
+
+[1] https://www.x.org/wiki/BoardOfDirectors/Elections/2025/
+[2] https://members.x.org
+
+Cheers,
+Harry
