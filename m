@@ -2,69 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id VMD3F8aNimmwLwAAu9opvQ
+	id IP6yFceNimmwLwAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 10 Feb 2026 02:45:42 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 10 Feb 2026 02:45:43 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEB9411609D
-	for <lists+freedreno@lfdr.de>; Tue, 10 Feb 2026 02:45:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E40511160A4
+	for <lists+freedreno@lfdr.de>; Tue, 10 Feb 2026 02:45:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E80E10E4A0;
-	Tue, 10 Feb 2026 01:45:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4141810E49E;
+	Tue, 10 Feb 2026 01:45:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oox3OpFW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H8+chdQX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
- [209.85.219.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD5E10E49E
- for <freedreno@lists.freedesktop.org>; Tue, 10 Feb 2026 01:45:38 +0000 (UTC)
-Received: by mail-qv1-f50.google.com with SMTP id
- 6a1803df08f44-89473f15ed8so2951996d6.2
- for <freedreno@lists.freedesktop.org>; Mon, 09 Feb 2026 17:45:38 -0800 (PST)
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D80110E49F
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Feb 2026 01:45:40 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-8c5384ee23fso401575785a.1
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Feb 2026 17:45:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770687937; x=1771292737; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=elsS/kGMmD0OoEVMgvfZiiYPaJsOWDl9DHfN22z7daU=;
- b=Oox3OpFWdx/pQbi8JLifIfs2s+RrTHItTGDSFPE/CuiUptN2Ltt1YxDTs5MdQh68Tp
- 5mxgX+B7s2wz6g1Yu0NfvxzBquZ2tZIRd6XR4ja9ZZOw9d0clkCJf0rKCaxmMq31PVq2
- xQBxl82XbxRQiZczKr7iCSyozlELRZWsnyom45pdmh+zyC34+jI/bzuPQO3lIxHMoiXB
- lsEaEJhbRjxZxCExyaiM8uSpsdm0/9fc7QthHzoTtC7iI8YK0vMXxnstCYKJKBAh4NMD
- F0GjKf8TyGMB9kaFfWpUdvYOaGaenFlcCbIPd+YVxH3Jby0sv2kgGDR1Q+Bxe0LpH9AR
- Wg6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770687937; x=1771292737;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1770687939; x=1771292739; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=elsS/kGMmD0OoEVMgvfZiiYPaJsOWDl9DHfN22z7daU=;
- b=xDJrzl8gUA1Uj2dwg7UZqXaZqHiOPprZhfY5dgqNU+1XGQDqYWOcck3AlsisP5Nl34
- VkRRLjAc/peY04f3FCeeTKA3GlS6u4OQvafCmLyujeLHDoQVFUiy+CUqMRQKfk1/5wQG
- Tt++7DmiwYIuOMH1vKfZzTFGtXYAQR/fkINwweKYROTkYb1LkgLUAqEZp9z5SOsdoJD6
- toP6gq/UrLe9Yz/vIX3ZDA/iftk0zoQlDH1rM7BSUvczH6Fb491xs1k+87ov9kVQcgox
- /nVzAdJlzRfJyxrVhKopFhqnrefG9DsU3APxtrg8SQOEFPTasIKTRcFgWUcq7DTzrvIm
- ijGg==
+ bh=/qZS6xma+Zqre7AlmNOzN/FqfjaONWCLXqsAywPf9Rk=;
+ b=H8+chdQX4b7H/5suOuim48wV86SGZyKAzPBKVDf/Z8TEKcr9ZH41an2T3nWTQHD+Ai
+ QUP2KUmgEQTkxu13vZwsNQAqJRDOgibYr+h792ocxriSgpVZqJlevOo1w1EYD7f4UaEv
+ VGhki9C6QEFa8t0wPxYuUrCOtGrB/dIyjvfTu7tf7ZMkNkOLPwh57UgzfMFFp9MfN1Kh
+ v3kr6Svuw/glldwCLSGARIQBh1bUOe0weUjU2fwmbnphNrmer3gKNx/yICM+yQ0QtXf+
+ VQb8H7W7CcdjocC8fa9hLQpoQwKryYtkZpgrX+wsIn2+p7XASuZT8ca7Y0HX8Emo5WDD
+ 7dvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770687939; x=1771292739;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=/qZS6xma+Zqre7AlmNOzN/FqfjaONWCLXqsAywPf9Rk=;
+ b=mM0O9P3ElWurzWlOXuNWwX44xxM7zUS1YfkfhTHBGp4JyHDRjf9qoUhT2d/K4St9NG
+ cY/yhvedckE/0Mf0rG0VdcZFL+NlHb/QynhhFM2c7p5P9/jBKYIhrJ0/BFiayaJc1n9q
+ C3BCSqPq4pqGY4HP+9AUEQMAjfKV/MLZG8P6rdEvL1EEBvJaZfYF/Gi8X9X8pnzF4+9Y
+ 95FyQxPh3UOBJ4MywyODpz4F+eH6SKlPcOyhKfUAfQZ2eP9HvTIsFtq/z5CsNK8lmMER
+ 4V+A7sXh0DQaaDpWu1fzsLtopYhdvoNabwjFN3EesjBnM0I5qnbVHk6z6w7QlckgKRzB
+ fcOQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFmppGiylL9BdsC4lrFHjVlvr6O/7+SPNWkzwClYJavPiqgDIaEsX0InsVRlkBrflEEn4XPEm9Ytw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYc2NBxInyX1Y8xfDQt5fchpsoPbBk+rzSzk7AA5EAmKAEqVcu
- Dp0de9F2916D3Tqoeq7EujFn5QUpB7iQuC2hyn5lwCpHHHYvl0NRw5e3
-X-Gm-Gg: AZuq6aI9+qy+PhLfyFUpVRKUpOpdDXh8cM0foi6d5dTV69S0t/JKAgg5Z1sauxfSG59
- vCGhXLJcuOfYinD24uRHZHUF1ePVtUA/hKefMpu+nq+3UNzZVdBWg/u8G8IXHQOw2Y4dYIzC2Ae
- znkWgobfIPPjAw6JVxt22WdrRBYsEIt9emqQTH9cxRHEonDV3dGYbxK4jAY479nE5Oo1h7a+A7r
- vCN5wYOE6AzjeBezBRcNwWnzxYruIoj619QXbcTkx+nKjChX6EewfUogu8kmWSOT9PaeRcXh4Fd
- yqLe5nthA9IKJu9Wbl8wUk8W13avXreeXcRwS9GBTnzrSgk/Ti8F6nvlZ5OKTfjTB0X2zCKd/Qc
- aZHvZWc+svR0XB2UcahbulK+LSKTT99PirOvQqORhqEf7av8PSWKD/i/1RmfEPW0lKLIS3bIad8
- G1scukVdydvQFSFmY6X7OBvPBEeg==
-X-Received: by 2002:ad4:596f:0:b0:87c:2967:fd32 with SMTP id
- 6a1803df08f44-8953c82d263mr190898256d6.22.1770687937497; 
- Mon, 09 Feb 2026 17:45:37 -0800 (PST)
-Received: from localhost ([184.144.58.243]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8caf9a15969sm933984785a.34.2026.02.09.17.45.36
+ AJvYcCUU2csHD2gvaIX5Sro+x7HC6Wxipc+ipwqafvN5tW2ctFwKXY/UsHJKys8J3BlUUTfWJnRRt/5QDK4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTLx3v74uzUaVpIjCZoWl8JmOBTPuuS9aNTUFwPeMc98ZeBJBz
+ cAUSJfuKap99i2D+EvL56ghhnvA+NmiFgMUv862wDiVZPpInU1AmvZ+W
+X-Gm-Gg: AZuq6aJTn5PKzyK4L8lqu9qIuk800I2WhRFdYJTxx23daA4+5jB2ixGdzV4lnBnDlzL
+ EmXaGtt2NR9o8Z30fYiXZjBjwkiha+javu+amKe27M2kSjgPwSIXbDwq2kTqJiKB3niVpzBm6gd
+ r/eG1UidMOtdwTrc1NQaxw7w0gP4WWBSBafzowsHQb+ZFXFkAcfGasdo3S1Ct+MJJZraiSIqrUW
+ Z/q6yc7QAUsydeO7G6rpWerZdlclyf01aQYwKImPFpEGpnkFqTqCkH7n4fQPSZoOocsg2IQ43DF
+ dic6P7jDo5LEI+h9Am7/91/ex/V9Wkp+cbhlIg+NtCfC4nG9KSGJCb48ULAAKjodYhU+agUZrQ5
+ ETVOlo8jyLH2Ip13QZsFZ1ySV6PszYM8QcMebqjGfjeG+Q3asUFp9ja144YjB00QUqCeNWYUFze
+ JWhBdiis9b6+rhVM5tfEWvpEuMs8C/7u/0SP9x1t0KeX3e+BWKKvQD0rB4Vy+ZC3VhhoJiAyQqI
+ y9NgWJDmV5TvL8=
+X-Received: by 2002:a05:620a:1902:b0:8c6:db3a:3735 with SMTP id
+ af79cd13be357-8caeeb4e8a4mr1816696985a.5.1770687939183; 
+ Mon, 09 Feb 2026 17:45:39 -0800 (PST)
+Received: from localhost
+ (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8caf7aefbc5sm915309685a.17.2026.02.09.17.45.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Feb 2026 17:45:36 -0800 (PST)
+ Mon, 09 Feb 2026 17:45:38 -0800 (PST)
 From: Richard Acayan <mailingradian@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
@@ -80,10 +84,12 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
 Cc: Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v3 0/1] drm/msm/adreno: Add A615 GPU for SDM670 and Pixel 3a
-Date: Mon,  9 Feb 2026 20:46:02 -0500
-Message-ID: <20260210014603.1372-1-mailingradian@gmail.com>
+Subject: [PATCH v3 1/1] dt-bindings: display/msm/gmu: Add SDM670 compatible
+Date: Mon,  9 Feb 2026 20:46:03 -0500
+Message-ID: <20260210014603.1372-2-mailingradian@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260210014603.1372-1-mailingradian@gmail.com>
+References: <20260210014603.1372-1-mailingradian@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -106,23 +112,23 @@ X-Spamd-Result: default: False [1.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_MISSING_CHARSET(0.50)[];
-	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:devicetree@vger.kernel.org,m:mailingradian@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linux.intel.com,suse.de,vger.kernel.org,lists.freedesktop.org];
-	FORGED_SENDER(0.00)[mailingradian@gmail.com,freedreno-bounces@lists.freedesktop.org];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:devicetree@vger.kernel.org,m:mailingradian@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[mailingradian@gmail.com,freedreno-bounces@lists.freedesktop.org];
 	RCPT_COUNT_TWELVE(0.00)[19];
 	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno,dt];
@@ -137,26 +143,29 @@ X-Spamd-Result: default: False [1.69 / 15.00];
 	TO_DN_SOME(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[mailingradian@gmail.com,freedreno-bounces@lists.freedesktop.org];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
-X-Rspamd-Queue-Id: BEB9411609D
+X-Rspamd-Queue-Id: E40511160A4
 X-Rspamd-Action: no action
 
-This adds support for the speed-binned A615 GPU on SDM670.
+The Snapdragon 670 has a GMU. Add its compatible.
 
-Changes since v2 (https://lore.kernel.org/r/20240806214452.16406-7-mailingradian@gmail.com):
-- drop applied patches (previously 2-4/4)
-- specify that this constrains the regs and clocks (1/4)
-
-Changes since v1 (https://lore.kernel.org/r/20240730013844.41951-6-mailingradian@gmail.com):
-- add Acked-by tag (1/4)
-- add OPPs exclusive to some speed bins (3/4)
-- enable GMU by default (3/4)
-
-Richard Acayan (1):
-  dt-bindings: display/msm/gmu: Add SDM670 compatible
-
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
  Documentation/devicetree/bindings/display/msm/gmu.yaml | 1 +
  1 file changed, 1 insertion(+)
 
+diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+index e32056ae0f5d..93e5e6e19754 100644
+--- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+@@ -91,6 +91,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - qcom,adreno-gmu-615.0
+               - qcom,adreno-gmu-618.0
+               - qcom,adreno-gmu-630.2
+     then:
 -- 
 2.53.0
 
