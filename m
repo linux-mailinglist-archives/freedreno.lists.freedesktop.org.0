@@ -2,81 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EAmkJDQ7j2nHNAEAu9opvQ
+	id qK9XGTw7j2nHNAEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 15:54:44 +0100
+	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 15:54:52 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B4311374AC
-	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 15:54:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF71D1374C2
+	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 15:54:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 324BD10E2F7;
-	Fri, 13 Feb 2026 14:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58F5510E816;
+	Fri, 13 Feb 2026 14:54:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MeTaugWB";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="q+mkZMRy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBB910E2F7
- for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 14:54:41 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-b4755f37c3eso681960a12.3
- for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 06:54:41 -0800 (PST)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22C4310E815
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 14:54:49 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-354bb7d2cb1so1532407a91.0
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 06:54:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1770994481; x=1771599281; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rletUrcUN7ShAO8UQiB2puJZzRLEZ+mDGtAy0YaJSRI=;
- b=MeTaugWBAH/a8OvzHkiTlNooiPj6bQXP09UClFJZSMMX+kXWUJgNMjz0tQ8PQsRgbs
- zmEigSj77Xqehe0C0VPSiysoVH9+cVj2jgd/pVs2dCric3L3568eMT+kjcPlwVl9DQdM
- xpJCNzzXaeOEsOIri/5C3/3DtjD+mwrgZSe3ThrY/ZZQ693w3fVphzusy/pR7oWvWdTt
- CNF7ttu/uq5snZ1bIaHlu8BJ9yu8wQonhfw0bjI+qYFktAYVWuVf89zu0jdbPCoIkWog
- /bVogdM+TMVuD7hkeR2MHg/ZINd8CSfjmzAsssQ1QGc+XcXqpIDhg8CGI74/yMsj1IS0
- V+Fg==
+ d=linaro.org; s=google; t=1770994489; x=1771599289; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=+ROwhGAC+uM/YVDPTZ7SWeJKccnx9vcVwkY+8qPNgeE=;
+ b=q+mkZMRyG8Xdn8/nyPfsUXX/3srIREjuBYePFBjLKT+p9Rnkrt0ShDttkAz3Xb6tR0
+ qgzNNrR0ppsL0Q6RkiQmCoLNFcgigZeNyjZUTE4XZtVkvGrqWsSjNfFr19bF/9zACv85
+ nfN3hGtEKFEyv9ze628C3sA6sxHe35v7o+L3mhIT/5HxKLgrYx7z6+rMafApAfVcVg2Z
+ LgXN+WNwHViGXJLe9zZGkaSJqxd3dg7rSAw+nN5Oq7ymN3Z7kmhMpMl4YkwFR8DszM0o
+ iiL6Ml7X7i+7Jo/WeOlU8HVbRdshc+fQEP5epgw2gLKRxW+zhW+NsxtKnW2C2/7nt79z
+ v2vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770994481; x=1771599281;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rletUrcUN7ShAO8UQiB2puJZzRLEZ+mDGtAy0YaJSRI=;
- b=indMfoYTTtXgxaIkG/Qbcru6Z+xlWsR6kGTk0uWtTKAz3y8oWAU15PAM8ijfBJbALy
- MC4vbyXLkbemgGd/tImFGQFvbYQ1gbZj4JfQW++F0VXYD9q6EQo65Dlkw/oHP05osy68
- kUG9KYtJNY+i5PQy/8eEF2p2sgbIgq7CKy7avn8Mm28kk812Fwansy76nAOeXxRLGRIo
- YLmtGC+1mHrByo4QVkHLtHqXKA4v71sdSccFb9qfjaWzUu23kSSjy88740gy7oCOGWbF
- vkfScUGlCgegmjMrDroxZDwRjuICU6Bo6gqfeA8jjzKBTsqcgKjnx1NFvsnT9V93RBdK
- 02LA==
+ d=1e100.net; s=20230601; t=1770994489; x=1771599289;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=+ROwhGAC+uM/YVDPTZ7SWeJKccnx9vcVwkY+8qPNgeE=;
+ b=iSwp2E6qy8snFh7O73zwMib8Q9pAfK67sFGGUCFIMArtPav12r3Pape55WgWQSf6Na
+ ZfsJdxZ8DCpSbKmlmYuaFLwxqPDuPh93WALozd+k3ldzGtrT4L7qesJy9la5palGLv+K
+ zBHQKUkJC8X53oyoROTcmiKF/15zy4d8+bjE6CT4ldVsqOKn6V77Qr8834zjk6TCmRiQ
+ zn+UmTkMuaYcsQKsYfWWs/SIQzwN3QrWC/gJdHAK29gfpbgUHdbcgFD4gQxzdZ8SO0hB
+ WXcuhe/pGufQ27fye9IOD+HvcMPlEGOh2Q5PF79+ZCZtCVExqRCWRnyVxAfUsF6ANUmn
+ 6PNw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdXzbueadsz5rVy8sJjOKF67JuIV2lseJ11BWQloZWRg5rsKBWrBjhuS5QLieKuNWRzsCiw2Y24pM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxVBGvfNsASc+SIvkev9evZxnaZA3Q199xaE/CpLHFJgSBqWe87
- nWbQWLU13aHRqE5ttBc66y+95iUcAoxwK8t+GlVevQB3WAn7FVWHCkRNWut9WQHWDCY=
-X-Gm-Gg: AZuq6aLEaRe/lk5/kZvthEmB8RwJI0Kk/PXnFpQGKG6wwmpde48Gn7Ce0GiILG+LLqO
- Po+cHyAlcEahg9zIcM6zpPfpjvSZL/jFpxs3OjESuoJiFpvzDlAVvqQYWKrGiHvJVYplCz0lzLT
- Tcl9Dtk3yujD7XGozS4zeCNREneM7/ZnWMameAkldMRFvINOXTpYbErg+1x5kdJxtDt7Q0Jhok2
- LEPj+2RI+sDDmPkhRt2Gy0Qj6nFH/SihYto7clLXFPMtB/tnjmKK5GUf6plUhS44C68DkghITVD
- lel93X6OqHUIGCaORsLjM2vYQK+sxpZer4JLhiiC4P93IXxAEEeGLQb26ptr4bxKtOexbc+mY/n
- H6ECTJ6Eb2eNErPqzxEe2eagNheBeLTakwmH3c+x5sj35ViUcMDd5JuG0qLgg47Lyx8haWeYCnu
- LORj16spndAJ4H3OOvsh5VLniU7CIMhG9vBblm9ZmwVMf31Wd1xpyS8BYU
-X-Received: by 2002:a17:90b:4d86:b0:343:7714:4ca8 with SMTP id
- 98e67ed59e1d1-356aabe97bemr2406501a91.15.1770994480428; 
- Fri, 13 Feb 2026 06:54:40 -0800 (PST)
+ AJvYcCUwiGqg8VpoTDCYocbJp3OFXbOKoeFBJt6LIb9SjY8XE8C0JXb0Dr96MgJaCoLilQLqLSa5cFMj8ww=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/0TW2MdpjTmhl8b+gkNLdlAkXb1Zd+t/S/duYQnRRFphyPoos
+ jE/R+MxJSBKIEAN+qQWN7Vl6gHMQridnwAKYf9D5mNftwA9Wr4cIhuS1yCGDIeisIVQ=
+X-Gm-Gg: AZuq6aI3UBdClLbGo6Ys7YrmW1dqYE+mXgACLls1qK91RDRkLpQDvk43PvR7FLPJlRG
+ CtUrF9qo8MBP5G0Az7MvvNqDM1oooY5c5fN5CA+HGpFqtWnEL3ANhZuyiyv6P8FJ7rJ5pWfMWQl
+ J+ccrOH5Phwyh9IJY0mXut/1z9Ysy8gFJ7Xi+OPhwYiaK3lmNdaeRpqBlGaOhalAUB0so4ClwFv
+ FE4JHEh/kQL4y4RobCuy0q/ba7O9T/XSbOLzqRy2kGq/w4OC7xQ4EZef1S/x6R3ApltQ7Nh/VTx
+ 4s8bTiTBX2TLMNWD7HF/GCe+ywG9OEwCzL3uLAdZvP98KzUSMbD529d4VCTK17X1EvG5FTIPj3M
+ WOCrGqReJVqKtssqR7dmglS6DKpe1bYiRg7ZTB4lMJ8TjHkWMyUIFWfz0kFQOH0V4SHG4/EeL0D
+ ZJVRZ4wR9F1nBM2Vv2MCvhsGZi6SFzu4q1fVAXE+kEHjaOiDn6e2y93Dkb8h9PRF57ACE=
+X-Received: by 2002:a17:90b:3c03:b0:34c:7212:7a67 with SMTP id
+ 98e67ed59e1d1-357b518b298mr278498a91.12.1770994488494; 
+ Fri, 13 Feb 2026 06:54:48 -0800 (PST)
 Received: from [127.0.1.1] (210-61-187-172.hinet-ip.hinet.net.
  [210.61.187.172]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3567eba9b2esm8814759a91.9.2026.02.13.06.54.33
+ 98e67ed59e1d1-3567eba9b2esm8814759a91.9.2026.02.13.06.54.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Feb 2026 06:54:40 -0800 (PST)
+ Fri, 13 Feb 2026 06:54:48 -0800 (PST)
 From: Jun Nie <jun.nie@linaro.org>
-Subject: [PATCH v18 0/4] drm/msm/dpu: Support quad pipe with dual-interface
-Date: Fri, 13 Feb 2026 22:54:24 +0800
-Message-Id: <20260213-msm-next-quad-pipe-split-v18-0-5815158d3635@linaro.org>
+Date: Fri, 13 Feb 2026 22:54:25 +0800
+Subject: [PATCH v18 1/4] drm/msm/dpu: Extract plane splitting into a
+ dedicated function
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACA7j2kC/42NQQ6CMBBFr0Jm7RhaQkFX3sOwKHSASaCtLRIM4
- e5WTuDyv/z//g6RAlOEe7ZDoJUjO5uCqC8ZdKO2AyGbBEDmUuVCCpzjjJa2BV9vbdCzJ4x+4gV
- 1eytbRUXfmwLS3AfqeTvdzyblkePiwue8WkX1w39YUxNzVNQqU6uq7LR8TGx1cFcXBmiO4/gCl
- SDVGsQAAAA=
+Message-Id: <20260213-msm-next-quad-pipe-split-v18-1-5815158d3635@linaro.org>
+References: <20260213-msm-next-quad-pipe-split-v18-0-5815158d3635@linaro.org>
+In-Reply-To: <20260213-msm-next-quad-pipe-split-v18-0-5815158d3635@linaro.org>
 To: Abhinav Kumar <abhinav.kumar@linux.dev>, 
  Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -85,14 +84,13 @@ To: Abhinav Kumar <abhinav.kumar@linux.dev>,
  Neil Armstrong <neil.armstrong@linaro.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1770994473; l=9506;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1770994473; l=3875;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=ZSr3OfkGh211T3wZ0jypVL1pBqVEzf78zH3ocJwHf0A=;
- b=+OLtsXJbCj7Zu3OYwY4zO2kwlUtN1QHn2RA9MV1/L7tNmXTXnn6qos3BuUkcPXAbsrzNSGlXw
- 8FqvxMqBhAkDT3/kChVF9hnLIWCUf5mFlAf+tfsPLVCc7OcDck+qFTe
+ bh=0lT7RY7u/q/OvDkV4Xni5NMBZEHeI41cYul1o1LxOgY=;
+ b=x3weaFm2PlNMn3CfL4RIoYr1Kac9Rcr4tlBVb35PAKV9faheYU9eInS4/w7+FocmSsmDz96H1
+ i/T4SkPRpHuD3sgBTd56hxtfXhSSxA78YpK1OCyYy+qbvIfHGpKQEly
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -119,11 +117,11 @@ X-Spamd-Result: default: False [-1.31 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:abhinav.kumar@linux.dev,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:jun.nie@linaro.org,m:dmitry.baryshkov@oss.qualcomm.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:abhinav.kumar@linux.dev,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:jun.nie@linaro.org,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[linux.dev,kernel.org,poorly.run,somainline.org,gmail.com,ffwll.ch,oss.qualcomm.com,linaro.org];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jun.nie@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[14];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
@@ -140,198 +138,120 @@ X-Spamd-Result: default: False [-1.31 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
-X-Rspamd-Queue-Id: 9B4311374AC
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,linaro.org:mid,linaro.org:dkim,linaro.org:email]
+X-Rspamd-Queue-Id: DF71D1374C2
 X-Rspamd-Action: no action
 
-2 or more SSPPs and dual-DSI interface are need for super wide panel.
-And 4 DSC are preferred for power optimal in this case due to width
-limitation of SSPP and MDP clock rate constrain. This patch set
-extends number of pipes to 4 and revise related mixer blending logic
-to support quad pipe. All these changes depends on the virtual plane
-feature to split a super wide drm plane horizontally into 2 or more sub
-clip. Thus DMA of multiple SSPPs can share the effort of fetching the
-whole drm plane.
-
-The first pipe pair co-work with the first mixer pair to cover the left
-half of screen and 2nd pair of pipes and mixers are for the right half
-of screen. If a plane is only for the right half of screen, only one
-or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
-assinged for invalid pipe.
-
-For those panel that does not require quad-pipe, only 1 or 2 pipes in
-the 1st pipe pair will be used. There is no concept of right half of
-screen.
-
-For legacy non virtual plane mode, the first 1 or 2 pipes are used for
-the single SSPP and its multi-rect mode.
-
-This patch set drop the merged heading 8 patches of v16, only the last
-2 are revised and split into 4 patches here.
-
-    Changes in v18:
-    - Revise the deferring of SSPP handling and comments to distinguish
-      assignment of non-virtual plane case and allocation of virtual plane case.
-    - Always assume 1 stage in non-virtual plane case when splitting and
-      mapping plane to pipes.
-    - Revise topology decision making and comments to fix possible
-      regression.
-    - Link to v17: https://lore.kernel.org/r/20260121-msm-next-quad-pipe-split-v17-0-6eb6d8675ca2@linaro.org
-    
-    Changes in v17:
-    - Fix iommu warning on Hamoa.
-    - Extract plane splitting into a dedicated function.
-    - Defer plan splitting and SSPP allocation until CRTC check
-      so that topology information is available.
-    - Add virtual plane condition to quad-pipe topology so that
-      legacy devices are not impacted.
-    - Drop the merged 8 patches of v16, only the last 2 is revised
-      and sent here.
-    - Link to v16: https://lore.kernel.org/linux-arm-msm/20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org
-
-    Changes in v16:
-    - Rebase to latest branch msm-next-lumag.
-    - Fix IGT test failures.
-    - Drop patches that have been merged.
-    - Link to v15: https://lore.kernel.org/r/20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org
-
-    Changes in v15:
-    - Polish logic in sspp check and assignment.
-    - Link to v14: https://lore.kernel.org/r/20250801-v6-16-rc2-quad-pipe-upstream-v14-0-b626236f4c31@linaro.org
-
-    Changes in v14:
-    - Add patch to fix null pointer bug SSPP sharing, which is missed in
-      the last version.
-    - Polish single pipe check with removing loop.
-    - Polish logic of SSPP sharing test in dpu_plane_virtual_assign_resources()
-    - Polish argument of dpu_plane_virtual_assign_resources().
-    - Link to v13: https://lore.kernel.org/r/20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org
-
-    Changes in v13:
-    - Modify the SSPP assignment patch for sharing SSPP among planes in
-      quad-pipe case.
-    - Link to v12: https://lore.kernel.org/r/20250707-v6-16-rc2-quad-pipe-upstream-v12-0-67e3721e7d83@linaro.org
-
-    Changes in v12:
-    - Polish single pipe case detection in a plane. Add stage index check when
-      sharing SSPP with multi-rect mode in 2 planes.
-    - Abstract SSPP assignment in a stage into a function.
-    - Rebase to latest msm/msm-next.
-    - Link to v11: https://lore.kernel.org/r/20250603-v6-15-quad-pipe-upstream-v11-0-c3af7190613d@linaro.org
-
-    Changes in v11:
-    - Change function name from dpu_plane_check_single_pipe to
-      dpu_plane_get_single_pipe.
-    - Abstract SSPP assignment in stage into a function.
-    - Link to v10: https://lore.kernel.org/r/20250526-v6-15-quad-pipe-upstream-v10-0-5fed4f8897c4@linaro.org
-
-    Changes in v10:
-    - Drop changes in drm helper side, because num_lm == 0 does not lead to
-      any issue in the first call to dpu_plane_atomic_check_nosspp() with
-      latest repo. It is initialized properly right after the call in
-      drm_atomic_helper_check_planes(), thus the later plane splitting works
-      as expected.
-    - Rebase to latest msm-next branch.
-    - Fix PIPES_PER_STAGE to PIPES_PER_PLANE where handling all pipes, instead
-      of stages.
-    - Link to v9: https://lore.kernel.org/r/20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org
-
-    Changes in v9:
-    - Rebase to latest mainline and drop 3 patches as mainline already cover
-      the logic.
-      "Do not fix number of DSC"
-      "configure DSC per number in use"
-      "switch RM to use crtc_id rather than enc_id for allocation"
-    - Add a patch to check crtc before checking plane in drm framework.
-    - Add a patch to use dedicated WB number in an encoder to avoid regression.
-    - Revise the condition to decide quad-pipe topology.
-    - Link to v8: https://lore.kernel.org/r/20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org
-
-    Changes in v8:
-    - Fix looping pipes of a plane in _dpu_plane_color_fill()
-    - Improve pipe assignment with deleting pipes loop in stage.
-    - Define PIPES_PER_PLANE properly when it appears fisrt.
-    - rename lms_in_pair to lms_in_stage to avoid confusion.
-    - Add review tags.
-    - Link to v7: https://lore.kernel.org/r/20250226-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v7-0-8d5f5f426eb2@linaro.org
-
-    Changes in v7:
-    - Improve pipe assignment to avoid point to invalid memory.
-    - Define STAGES_PER_PLANE as 2 only when quad-pipe is introduced.
-    - Polish LM number when blending pipes with min() and pull up to caller func.
-    - Add review tags.
-    - Link to v6: https://lore.kernel.org/r/20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org
-
-    Changes in v6:
-    - Replace LM number with PP number to calculate PP number per encoder.
-    - Rebase to Linux v6.14-rc2.
-    - Add review tags.
-    - Link to v5: https://lore.kernel.org/r/20250118-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v5-0-9701a16340da@linaro.org
-
-    Changes in v5:
-    - Iterate SSPP flushing within the required mixer pair, instead of all
-      active mixers or specific mixer.
-    - Limit qaud-pipe usage case to SoC with 4 or more DSC engines and 2
-      interfaces case.
-    - Remove valid flag and use width for pipe validation.
-    - Polish commit messages and code comments.
-    - Link to v4: https://lore.kernel.org/r/20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org
-
-    Changes in v4:
-    - Restrict SSPP flushing to the required mixer, instead of all active mixers.
-    - Polish commit messages and code comments.
-    - Rebase to latest msm/drm-next branch.
-    - Move pipe checking patch to the top of patch set.
-    - Link to v3: https://lore.kernel.org/dri-devel/20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org
-
-    Changes in v3:
-    - Split change in trace into a separate patch.
-    - Rebase to latest msm-next branch.
-    - Reorder patch sequence to make sure valid flag is set in earlier patch
-    - Rectify rewrite patch to move logic change into other patch
-    - Polish commit messages and code comments.
-    - Link to v2: https://lore.kernel.org/dri-devel/20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org
-
-    Changes in v2:
-    - Revise the patch sequence with changing to 2 pipes topology first. Then
-      prepare for quad-pipe setup, then enable quad-pipe at last.
-    - Split DSI patches into other patch set.
-    - Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org
-
-To: Abhinav Kumar <abhinav.kumar@linux.dev>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: Sean Paul <sean@poorly.run>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+dpu_plane_atomic_check_nosspp() currently handles both plane
+validation and plane splitting. For better simplicity and to
+facilitate future refactoring, move the splitting logic into
+its own dedicated function.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
-Jun Nie (4):
-      drm/msm/dpu: Extract plane splitting into a dedicated function
-      drm/msm/dpu: Defer SSPP allocation until CRTC check
-      drm/msm/dpu: support plane splitting in quad-pipe case
-      drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 51 ++++++++++++++++++++++---------
+ 1 file changed, 36 insertions(+), 15 deletions(-)
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  62 +++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |   8 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  29 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 320 +++++++++++++----------
- 7 files changed, 250 insertions(+), 175 deletions(-)
----
-base-commit: 9ca80c3d6712fcd3d91d5123f49c5ec47fb4aa1a
-change-id: 20260121-msm-next-quad-pipe-split-ab95b6e3ffd3
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 9b7a8b46bfa91..66f240ce29d07 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -821,13 +821,8 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+ {
+ 	int i, ret = 0, min_scale, max_scale;
+ 	struct dpu_plane *pdpu = to_dpu_plane(plane);
+-	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+-	u64 max_mdp_clk_rate = kms->perf.max_core_clk_rate;
+ 	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
+-	struct dpu_sw_pipe_cfg *pipe_cfg;
+-	struct dpu_sw_pipe_cfg *r_pipe_cfg;
+ 	struct drm_rect fb_rect = { 0 };
+-	uint32_t max_linewidth;
+ 
+ 	min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
+ 	max_scale = MAX_DOWNSCALE_RATIO << 16;
+@@ -850,14 +845,6 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+ 		return -EINVAL;
+ 	}
+ 
+-	/* move the assignment here, to ease handling to another pairs later */
+-	pipe_cfg = &pstate->pipe_cfg[0];
+-	r_pipe_cfg = &pstate->pipe_cfg[1];
+-	/* state->src is 16.16, src_rect is not */
+-	drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
+-
+-	pipe_cfg->dst_rect = new_plane_state->dst;
+-
+ 	fb_rect.x2 = new_plane_state->fb->width;
+ 	fb_rect.y2 = new_plane_state->fb->height;
+ 
+@@ -879,6 +866,34 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+ 		if (pstate->layout.plane_pitch[i] > DPU_SSPP_MAX_PITCH_SIZE)
+ 			return -E2BIG;
+ 
++	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
++
++	return 0;
++}
++
++static int dpu_plane_split(struct drm_plane *plane,
++			   struct drm_plane_state *new_plane_state,
++			   const struct drm_crtc_state *crtc_state)
++{
++	struct dpu_plane *pdpu = to_dpu_plane(plane);
++	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
++	u64 max_mdp_clk_rate = kms->perf.max_core_clk_rate;
++	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
++	struct dpu_sw_pipe_cfg *pipe_cfg;
++	struct dpu_sw_pipe_cfg *r_pipe_cfg;
++	uint32_t max_linewidth;
++
++	if (!new_plane_state->visible)
++		return 0;
++
++	/* move the assignment here, to ease handling to another pairs later */
++	pipe_cfg = &pstate->pipe_cfg[0];
++	r_pipe_cfg = &pstate->pipe_cfg[1];
++	/* state->src is 16.16, src_rect is not */
++	drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
++
++	pipe_cfg->dst_rect = new_plane_state->dst;
++
+ 	max_linewidth = pdpu->catalog->caps->max_linewidth;
+ 
+ 	drm_rect_rotate(&pipe_cfg->src_rect,
+@@ -910,8 +925,6 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+ 				    new_plane_state->fb->width, new_plane_state->fb->height,
+ 				    new_plane_state->rotation);
+ 
+-	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
+-
+ 	return 0;
+ }
+ 
+@@ -1129,6 +1142,10 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = dpu_plane_split(plane, new_plane_state, crtc_state);
++	if (ret)
++		return ret;
++
+ 	if (!new_plane_state->visible)
+ 		return 0;
+ 
+@@ -1169,6 +1186,10 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = dpu_plane_split(plane, plane_state, crtc_state);
++	if (ret)
++		return ret;
++
+ 	if (!plane_state->visible) {
+ 		/*
+ 		 * resources are freed by dpu_crtc_assign_plane_resources(),
 
-Best regards,
 -- 
-Jun Nie <jun.nie@linaro.org>
+2.43.0
 
