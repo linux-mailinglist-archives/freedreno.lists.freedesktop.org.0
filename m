@@ -2,97 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wD2GMMhUj2lqQQEAu9opvQ
+	id gOQwJAFXj2lqQQEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 17:43:52 +0100
+	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 17:53:21 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2234713853B
-	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 17:43:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDB5E13864C
+	for <lists+freedreno@lfdr.de>; Fri, 13 Feb 2026 17:53:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871D810E837;
-	Fri, 13 Feb 2026 16:43:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58EDD10E837;
+	Fri, 13 Feb 2026 16:53:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kvfm7hlJ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XfW86WuB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SvqAtH6N";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j7e3LQC7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A213C10E837
- for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 16:43:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5211210E203
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 16:53:17 +0000 (UTC)
 Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61DF6JJP2627978
- for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 16:43:48 GMT
+ 61DFHjLk2628151
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 16:53:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=21pPGFIL/zCrhSvYIYVV0SyF
- kdzI1vjuhcaXVxySdG0=; b=kvfm7hlJLc3wLBNsbbesNIzs3hQZgCZWipk7fD3z
- uRk4coh/UiQF6uAiwpD2bK7+6ph07QbnRnxGr8aJO8Qh2TUJw4OEqYY8H+pZ5g+y
- IHwroE234Iw8XooYJHKBEdyFVX+lgGx9FGF4fr3NDeBHofKZmcmgbsRBZTfApJAx
- 6MY5axkXXMB7irXO3FKnL+uqGlrIVJ0PkvYe4SIvgXBuWfUYB+Zti//ML7Jlwv90
- 8iAtiZ714vGRgSfQzvxt8jfDsuKbZ5prDCMyu962PkpZOX++UQc21CjBdPlroVOW
- GfVo39Rrxxr8kDPVUZOtPj+SCSe9l/I9KeqP/dVrFAesMA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4c9ygut1ek-1
+ :references:subject:to; s=qcppdkim1; bh=/oVMsUgTLZaMOKBsltA80ghS
+ BNzy1i2pQtxl1eCTlPU=; b=SvqAtH6NS+fUPv7uVXCQOUVe5si8dJZBBLTMgWRR
+ Hs+giu0D0us+9mF3WBlEZfLeGRmObN66c8Ls5I7sS3/MrsbC1tjeRJPrQ+k/ATZh
+ of/KiouMcxh+F+z9PrRJ8EUde/3xVkyZhzuD1FfUT7Hv7IkceWf+KB2Nx4YOgS9t
+ yyq3Zt/rQMZPfhLxltG9qKb2E0pXYnbuezKagq2PQT50lE6HV5D8Uzcj55N2xHTT
+ YK+JUFhJFBEX/LhR+uRUWHpvGUzXLonsnAU8hKfuqDgysRvkqkJMQ4P+KhT+9Bvs
+ HOyyqJEjcYfE7HKzhzQkQxMIUxeFCvJe+VdJgCszDjTgsQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4c9ygut28p-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 16:43:48 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-506a1ce5d31so17892551cf.0
- for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 08:43:48 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 16:53:16 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8c71304beb4so329150385a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Feb 2026 08:53:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1771001028; x=1771605828;
+ d=oss.qualcomm.com; s=google; t=1771001596; x=1771606396;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=21pPGFIL/zCrhSvYIYVV0SyFkdzI1vjuhcaXVxySdG0=;
- b=XfW86WuBP+J7KeA/gt7hRQUFBv9EheZlg3tswHk33PylHbBpCChoN1ipexlUDxMkW3
- SfdD1ZrHS0J8ZqLMOZUNm86B2MBqIiO17DHBZd8D1UIQri9s+EnJCUg9w/j+uplRB12T
- 7fc79iHYwok7WrLYBfZOjJi8JGw1QmtjebCnZnjDcO549tKyyL9Kvm1VjkXA61oKu54A
- Mnsa335VXV6DLCcjoQo6ETTfkaQQy3yFD/FPtsSM3WTUsJR4YrNCkBaFitWz+XpD6pbZ
- 844Eq7rNT3QAmfWd5hJB3ubcEApOHIgCYP6bR5lkvVDY7AYNXj24nHZfGu96zwaWtgsu
- dnzA==
+ bh=/oVMsUgTLZaMOKBsltA80ghSBNzy1i2pQtxl1eCTlPU=;
+ b=j7e3LQC7yl5b39wa+hYeB7TkmlN2hHE4t24xvgc06RQEmtapXRNmZrxjYd8OG5ntaV
+ +nfEua3nH7on81KSz8A2U8T8lys45stXnPKIxl3fXqbB5Qq5/ZWUrM0XA3PAVE+9H4Sy
+ IWOKANS9Zno9YA+ZfDrvK5N+WaXGC7ag0boE3XGIREEN6SgxrLNJ4ySxehTaXOL2gLqG
+ eteXexXcoZ97Pf8allhLD4o1a00w3ZDBcVLYOQUNDTVyWdXFoSzGbsSHPtnrXWHRNbpZ
+ 7BUpGNh2erTT+EXzfd9PUdmxrB9Ku6nua8v4LXZ0oNaihmu9+vLlEGEqDtIS1wUDqU7z
+ zFPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771001028; x=1771605828;
+ d=1e100.net; s=20230601; t=1771001596; x=1771606396;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=21pPGFIL/zCrhSvYIYVV0SyFkdzI1vjuhcaXVxySdG0=;
- b=EA6Akm+AWBfCrLaRRGmaZWmJDv4dQqnI4tu861fFCGJhj3Fz+iIqIsHAuYXNCTm97l
- p+acsiPqEQbJUHrBfgyg0Um/JZGevXlnbQv9asLVB/raQn/W2qrXccnh/QVQJvOthaB7
- MuggsU8abCMv3dRUmOtILod9iIvvF77iGrL7r9kGDCKzKivMtmcjBcAqvy5vMD3n6mfr
- 3OzHLcCjTvFvnd0hktFLorPbZ/1P3D3obJb33SgX9kTtDLLeUdOlEjLlQM/f8AB8EPb8
- my3l6SZo5PXU1cpESuGl7drZoEsjN+4quTmW9tDj6b9iQbwWzXdbLlN7XGz3311gQCPq
- 2gOg==
+ bh=/oVMsUgTLZaMOKBsltA80ghSBNzy1i2pQtxl1eCTlPU=;
+ b=qqmHKTwGQLPlFnDizGnzPNYY0ka9YIeyDTYUhEbwfEzuytYJbNtMg+p8797ZTPf5i2
+ AwN7S7PbockUXbKeQ4KeuIDcXb1ty3y4q50wJ7K1EgluqP631/uCLSi7nql9KkYKr1sI
+ h1PPCOS2Dj/O5ccKs0lsol7wn2ljJqARIG2EfpQguo//P6FL1XjZ11Es1YbV8JirtdJa
+ 2tGnF/es9ijLWxGW5wbJPvZPzUCpYcAgPaqhpTjqU0rWImomoSbEo1FVLdibz45l2c5C
+ VO/6fg2ht5Qd6s8/kEoBB74xFZXN9eqaAeyx5j7oCBKWDk9h0nDuJT5HD9tNm2LGc5Vq
+ xTAw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/3CZltwhdyRGghqk/VEFv/jxXsZLHuZTwkQL2N2L/F4lhMuAgqkU2oE75srX4+lo1r/oUwhascDU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQkMkFQUoAXwDg0AVwgoVYuIbO9iTneXXqxk+pRVCI4xGP/Ij6
- ZaleLmj2oy1vAOuGJ34Ok3Nt/ly5qu73f+WU7d7mSqiF28FGTzdPMfQjQfzpt3eIPGlOReCssn1
- WBeIXBzz6H9nhzxtb+0eNarwSS9oD3YQU89Ub/MXs1zz+96RobIBzvi20aZIXA8q0oBQQ2X0=
-X-Gm-Gg: AZuq6aLCkuKIPU3k/322GkTskibCy8tyRcz3Gd1PL6KEntWl9KExTwMnmiSxXSSZ5N/
- FT6ZTtzh4fCFBmffk2ZpIO9a3CEdw1Y1PI/ynLIKEUpa11qB9cFmsvEGdU4CNVjwnZvYEshWie4
- tBzpzn94tYEf6cuxqhjmtLjctGNbZL49v7gA/shjVB5v3UpHlUjydaHKGCKlFbuhL7Y0J2Yf+hW
- HeDYD4vmYfYMC8mAQGetLeepG2bN4JiXf4t9xji+xdqploi+D56Faat8PqxyQ9A4Z/0zoLSwpY8
- d3YOL/o09oxcrwLmBFOJtMWVq3FzFMBqUbO3Y/Y2XQb12Pke0Rd92UAf0qDIl/OWldWDCEAid5e
- Ao3if12FIiyqk7d4ATLZyddJRRNUYSwHvVjTtLA5ocvzdgyYYNA04gjVpc7Tq/Oxkiz+4oTyZXD
- zz1rbDx/2O9BrRvTQPdLVtcBQ/7AFBImnhwvE=
-X-Received: by 2002:a05:620a:691a:b0:8c6:ee09:5eae with SMTP id
- af79cd13be357-8cb421628bbmr291427185a.0.1771001026652; 
- Fri, 13 Feb 2026 08:43:46 -0800 (PST)
-X-Received: by 2002:a05:620a:691a:b0:8c6:ee09:5eae with SMTP id
- af79cd13be357-8cb421628bbmr291423485a.0.1771001026154; 
- Fri, 13 Feb 2026 08:43:46 -0800 (PST)
+ AJvYcCVfGuNGmvtr7aA8iVNmTmb5kLvsMhmz+T/0dOSfEqs0hjHYRowGV10DMCHN19SPlzdiwE0ahhSRhgQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzE1iKOKpMsuOIXdJwYZKJ1pk5eKbsHSN3GVj7o31L/uzw16xMP
+ l0Fv1PoMdbMIXJskunUeo/nAQhRegMoydhHR4YOpx598ZWKdTJgyKbzdO4tuwC4CLTFOlJnlBdW
+ seTRhWSbwRbv9SV7H8vMMPYEoFXre75LpjHutllOIWnKA70s6HZ7dOTKV+x1li6Ac1+S8aCc=
+X-Gm-Gg: AZuq6aLX6N9dmlPLonRT/3JWv7KcCb5MP6Gi6IQI1wZCLO9r+x2f2zCKRYSOaamNKRb
+ VhRj7DpReN+ZsfCCVgDHfKXKdUCz9sQeNp8UOpY26KJBXTTaRxG0EpSagavaSeATwyOb7KQCJvA
+ PDbCsl2LCOg9u3cdbZubeHVVUPsKr/UOKbhlMR2QnaxYpeX5vDHcBUQXdnji/6DRdD3HsJS6ehc
+ CWbActFwHTpRHQWeEU44UKoMqImNcJ1RsmCTn0IMHbfLpAED4x3UpBI5yqdkFsIP29Zf4ugyAcv
+ Kn3ESWtcVR+qtbuFatPtDUxDQptaoIi7elmCP6q/TxNDyCdlhC0pXGoCdmgmmNc7sJqJW3fZPuV
+ 1zcqSsRyY+3UZub/bbMjpw4sd31wa4007Uk6/UrY1kVf4FP6B+L+m2JyBW40ik28m2OtUvGVq9d
+ VtiRoMyDlJmkvw0m6qMLIncxFknUlnvRx/jCU=
+X-Received: by 2002:a05:620a:3187:b0:8b3:14dc:4821 with SMTP id
+ af79cd13be357-8cb4225fe2cmr301758685a.3.1771001595646; 
+ Fri, 13 Feb 2026 08:53:15 -0800 (PST)
+X-Received: by 2002:a05:620a:3187:b0:8b3:14dc:4821 with SMTP id
+ af79cd13be357-8cb4225fe2cmr301753685a.3.1771001595056; 
+ Fri, 13 Feb 2026 08:53:15 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-387068e5ddfsm13919101fa.23.2026.02.13.08.43.44
+ 2adb3069b0e04-59e5f5b6cb1sm1673648e87.84.2026.02.13.08.53.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Feb 2026 08:43:45 -0800 (PST)
-Date: Fri, 13 Feb 2026 18:43:42 +0200
+ Fri, 13 Feb 2026 08:53:14 -0800 (PST)
+Date: Fri, 13 Feb 2026 18:53:12 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -105,29 +105,29 @@ Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v18 1/4] drm/msm/dpu: Extract plane splitting into a
  dedicated function
-Message-ID: <674jl5pvmoq3vktnc7vpasn43ncx4jj4zhaiegbmek7kqtseod@e7tkjv3uzjq2>
+Message-ID: <jbd4snirozad7u673dofl34xhpulybbmsyibijohecazhov6gc@5k2xqea6ofci>
 References: <20260213-msm-next-quad-pipe-split-v18-0-5815158d3635@linaro.org>
  <20260213-msm-next-quad-pipe-split-v18-1-5815158d3635@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20260213-msm-next-quad-pipe-split-v18-1-5815158d3635@linaro.org>
-X-Proofpoint-GUID: 1x6yMPcjxMMblbujHJb7KQmYB5hDad-r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjEzMDEyOCBTYWx0ZWRfX53PTWu0mYspY
- /lJhjvjaiAEFo2UgsN6vLAoaxlEg3oMSBR0Uk7s+JD7KnFDlfD0iosaQbfkmH4p9jfUz2xtc6lf
- 7rAsRHRrhwltpZOZfplLWK3xzDQdvEDnRm4uV60u2CHqw/3GMZxrzx+/MXyZUNYIpDanox6Fxyo
- foO+KBXH/0DEcq0ZIAMTszArJxWfTbF0Tfsqh8IH8Yrf0jutLxle1BFB4yLAGTPW3u0u2mNtANZ
- WDlKgPBBGYgvOj6Isz9FFr6cMoAmUiIK5iHLCEs0Bmm9eeyW2LrXfyXC1/0C50sa0Si79ChT9hh
- AjJa1eiXvsepUL3W+knAO4creuTXIcV0JcHptYn0I22zIn2Na3/CzmGsHMtVsEF6XJHiHAjA+Tb
- 4AT945Ap+3u2f8OLqDlnr1kbWso2HyNQi/tGePqzKgdYWFxX9VAMZc25roxvPiuElWFTY5u6HQU
- qemKW9INfjCF6LAKfGw==
-X-Authority-Analysis: v=2.4 cv=If+KmGqa c=1 sm=1 tr=0 ts=698f54c4 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+X-Proofpoint-GUID: Nnw8KiLDTQBhzQNXfXy-2sroUxWTFZau
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjEzMDEzMCBTYWx0ZWRfX6YBhwWU+g9tU
+ 0CVA9uW5GWnBXUz0MptQE1TRYrYpMYCv9RsV+Ana6RuUcUWhNrD/RcBxBzyCDMmudqCxR529Xcu
+ dP8jKzwF8K9nvz4FvXaDHwU+dAD00uI+Cb+/C/5W14nrp5fQhcCCZ/VpaooGd9PSfD+n+XN82gK
+ P+x0B6vZk3OmNddXCSH6TIchxcQUy1MUvzeTftlK5W2wI+9KtkjQFu4/+8Ux5YMqP7Sw5dpAf55
+ 9MPAs6D2xSONE/mOXiupGKu9/SryZg/Ok2UO4lC9ScO/tFY1JYXXSFRQNYQyZGgPOCef6D5saIG
+ NL4cX6fEtb2bi79tz7ubhASMLyE8vL5v1PPimO0wQt23b/Ir/1tTdfetwhxaCLPpCVX+nuVl3O7
+ itu+ah1CqMDNfM584L+MlPNxZVJKWH9zuCYADuDvO7vpS8uqzTDeIx5xkIkh+Z1MvX2PltypCRT
+ ONrSGxJM5J8pnIUUUmQ==
+X-Authority-Analysis: v=2.4 cv=If+KmGqa c=1 sm=1 tr=0 ts=698f56fc cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=6cJ-CjKpxfkWJcI31lMA:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: 1x6yMPcjxMMblbujHJb7KQmYB5hDad-r
+ a=LT1BtIMsji7uXtgOJFYA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: Nnw8KiLDTQBhzQNXfXy-2sroUxWTFZau
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-02-13_03,2026-02-13_01,2025-10-01_01
@@ -135,7 +135,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0
  impostorscore=0 phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602130128
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602130130
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,8 +182,8 @@ X-Spamd-Result: default: False [-0.81 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,linaro.org:email,qualcomm.com:email,qualcomm.com:dkim]
-X-Rspamd-Queue-Id: 2234713853B
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:dkim]
+X-Rspamd-Queue-Id: DDB5E13864C
 X-Rspamd-Action: no action
 
 On Fri, Feb 13, 2026 at 10:54:25PM +0800, Jun Nie wrote:
@@ -197,9 +197,74 @@ On Fri, Feb 13, 2026 at 10:54:25PM +0800, Jun Nie wrote:
 >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 51 ++++++++++++++++++++++---------
 >  1 file changed, 36 insertions(+), 15 deletions(-)
 > 
+> +static int dpu_plane_split(struct drm_plane *plane,
+> +			   struct drm_plane_state *new_plane_state,
+> +			   const struct drm_crtc_state *crtc_state)
+> +{
+> +	struct dpu_plane *pdpu = to_dpu_plane(plane);
+> +	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+> +	u64 max_mdp_clk_rate = kms->perf.max_core_clk_rate;
+> +	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
+> +	struct dpu_sw_pipe_cfg *pipe_cfg;
+> +	struct dpu_sw_pipe_cfg *r_pipe_cfg;
+> +	uint32_t max_linewidth;
+> +
+> +	if (!new_plane_state->visible)
+> +		return 0;
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Wait... This still isn't improved. The dpu_plane_split() function should
+not be called if the plane is not visible. Move it after the check.
 
+Yes, it is currently a part of the code which is called before the
+check. But there is no need to keep that.
+
+> +
+> +	/* move the assignment here, to ease handling to another pairs later */
+> +	pipe_cfg = &pstate->pipe_cfg[0];
+> +	r_pipe_cfg = &pstate->pipe_cfg[1];
+> +	/* state->src is 16.16, src_rect is not */
+> +	drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
+> +
+> +	pipe_cfg->dst_rect = new_plane_state->dst;
+> +
+>  	max_linewidth = pdpu->catalog->caps->max_linewidth;
+>  
+>  	drm_rect_rotate(&pipe_cfg->src_rect,
+> @@ -910,8 +925,6 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
+>  				    new_plane_state->fb->width, new_plane_state->fb->height,
+>  				    new_plane_state->rotation);
+>  
+> -	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
+> -
+>  	return 0;
+>  }
+>  
+> @@ -1129,6 +1142,10 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = dpu_plane_split(plane, new_plane_state, crtc_state);
+> +	if (ret)
+> +		return ret;
+> +
+>  	if (!new_plane_state->visible)
+>  		return 0;
+>  
+> @@ -1169,6 +1186,10 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = dpu_plane_split(plane, plane_state, crtc_state);
+> +	if (ret)
+> +		return ret;
+> +
+>  	if (!plane_state->visible) {
+>  		/*
+>  		 * resources are freed by dpu_crtc_assign_plane_resources(),
+> 
+> -- 
+> 2.43.0
+> 
 
 -- 
 With best wishes
