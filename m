@@ -2,108 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cDrZCKhikGlQZAEAu9opvQ
+	id mHpqMlD8k2n4+AEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sat, 14 Feb 2026 12:55:20 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 17 Feb 2026 06:27:44 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F44513BC7E
-	for <lists+freedreno@lfdr.de>; Sat, 14 Feb 2026 12:55:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32AF3148CDE
+	for <lists+freedreno@lfdr.de>; Tue, 17 Feb 2026 06:27:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC9610E14D;
-	Sat, 14 Feb 2026 11:55:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D111910E206;
+	Tue, 17 Feb 2026 05:27:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="H8xQBP9d";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="TIlgbO1T";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
- [74.125.224.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5147E10E098
- for <freedreno@lists.freedesktop.org>; Sat, 14 Feb 2026 11:55:14 +0000 (UTC)
-Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-64aea64bf15so1693585d50.2
- for <freedreno@lists.freedesktop.org>; Sat, 14 Feb 2026 03:55:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771070113; cv=none;
- d=google.com; s=arc-20240605;
- b=FuzJOwQqfNrsCxHf2pj0kAaiLmZFjY+QBAKBFGZYNL29Ru7Mo902GarvIhBLRxA0Nj
- 2rQM7eOrM9phahcIkSEa7oOr988/qT4Oged0bSDnptC/jaz68piv/R0AvUY75ZygwT1O
- 0VXczHgo4dSE9Rk8oYlOP1GaB6VLAWmpy0JANwmc/SUMOnQ1828vMqxin1+ulwRr168+
- OovpfNcrKEPmieBvICpSbroNHmiLSMRH1mwW7fWf8mx4bYRtvl7kEnjV8/ev3UQUwBVG
- ZUMnpuWDgZ2wogKtFBPHBEtEPVhgUQ74UMYYzmW2hgp9malRapPoLhso6YuK4Ti+mpMy
- PTRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=sfC50XSQItSsLfF856D24b0b0ZI/QZxB3Dst2QZCTGg=;
- fh=ZKylZ5pyfZsJW9hO++aipHK+QOBhv0jlc+H6cAfUX5I=;
- b=VQEQM77/kZdW6jBwCwNMmy3ON8N2WgRfrbxfGx3E68RGEcMOHkzBtkLyEZvj7HnYrx
- gdzeMaDBus8y22geIGowMshQjle8+GgiBAn9tcD8PWl9VunVW0ww8CnF9WlpAlFlh1FI
- o2nOQdkwn56yY/zRTVKpp6/WyrDtyd207NH4LW22TPTZ7zxGCqLUBRyTvYT0x/lq5dFH
- oAWNTZ8yMjV81Bn/SKXfyyRTKdlBHgpe+eoFbdkanV/3jc7PE88HZMX1vQrXnt7MtGN1
- 776r6lEI50Yswg8SO8Lf9jyh6ZUpjXjNZ04NyqEoQXgU/jE0D5wbe0yk953KEmsPcAMf
- QMmg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1771070113; x=1771674913; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sfC50XSQItSsLfF856D24b0b0ZI/QZxB3Dst2QZCTGg=;
- b=H8xQBP9doa9EfN+AAgVzATEsRIBKLUVbUE2az04cV3S2ULYiiep2N7x6jkzgZg9coG
- 1Z/BmIFqudFdfy4YQaB/5jPwTjncmvMb77ke2Cx2qyXZZVos85nOUr/6eUCVwnTbj/YT
- zwGs6lS42Fnu0Mf27JcwcmnAh0wquMDhXZq5Ha1OlOLDQ7spEdzXfVSBRTuyW6xhpTA1
- g2302vjy81lt1vBLcfJ/Do64ieapOWc7WSJGZ6L+hT6FRrPLJ5kajVc9xVVXYNDPIk3F
- opzSZQQ4PP2h9WxN4Axn8DPfsDHquFKr8wkmo9y57MwalZ4TQOyCo9vteWNMcciM53sU
- ZHMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771070113; x=1771674913;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=sfC50XSQItSsLfF856D24b0b0ZI/QZxB3Dst2QZCTGg=;
- b=X5ArZxsPX0APLQu4rI1Q8Rnp8+H2f1l/e+pTO/3MoQ80OsapEMgrg/t3FMb+317SZp
- JjwD2lZlz3HCpbQhOy8ifKp7RMj1n/B5C+3j5NflG9RkR+o/cIA90Kf5CUe4r/Yc8FJE
- S5nT8GIS1c2qRsrvoRpFPImBbvdZClcQE99TnRJSL+/ar4rMui662wpy8ta6PjHz9Bgs
- D+ntAECK7kgVNYJawOkOq1IojY4DWXxC1VmrJhSiHCrS7p4z+TXi7F0L96RqWWXelnje
- j+7C2/xLubgwMUoRtk4SrbdfOiwmd2Sd0wO4m66IvvoTKWbAyKyF0bo0gQpkGYhu2ZPx
- a7+w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUu4diy+IInq2FwK3Ez0ZcyyOhZIVixIGJiFyYXLuX3PosVDuiDcQYPzIK9GfzMHIDdeGRRQt8TIzA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRDqW91bRnM7l4SMQ2gQJKlXj5nnCb5mxtdLX244Yiq2S7qesY
- TnButfo4xfPRYA4D9b7XO8CihGjv27rkBLOk1Cwsn8u8kWPikCDStKRudCBRWwFffS2wwRRC9D7
- u/3Fas2IUO+1c8fW9oXlfvKRIx0wBZaMVfKwEqqPv1A==
-X-Gm-Gg: AZuq6aJ7WYGS1uifCNcE9GE5CYnZbyUWWE3BelW6J9GoDnRmNgqrrMEXckTHaluMEIy
- wveaWNtbWcj0NtlkKXyw+AEV9FpHOynckImMEtC273fAJ2GshyS/zqcZ9PpkAgZm2jxy4kwE8fk
- ZW49xlrVlH3U+eDHKb7A4w5gTINrwpSHPpNC+Ysdi1SE8xR60+QajRG1jmVVdSD5mz/bHEflfeW
- gtnar4NraYGrP/XKhskaTURCCFlHCHCfrK9BJOHJjVNgTC2tj/zx7DcvczKhTngEVYgltqt2/O4
- wDIWHyj1jUfyTjkkbA==
-X-Received: by 2002:a05:690c:9990:b0:78f:a615:2724 with SMTP id
- 00721157ae682-797a0cca0cdmr83696787b3.48.1771070113134; Sat, 14 Feb 2026
- 03:55:13 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FE510E206;
+ Tue, 17 Feb 2026 05:27:41 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 61GNunqW1935465; Tue, 17 Feb 2026 05:27:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 3BxA4miqDIYOLKIcAaLqUANJmnRjEKPnTXy72ZA8o0c=; b=TIlgbO1TItRjzDGN
+ l16ab4NwKHqjxBZrOuj/Gkp8UNlL1Xl+Jh8QGIXW/k4HCoi0z4Z6KrO1dBUer/dl
+ QJ0SdgUPh+klzdW7ZrQD3PfnGvLEojcfzYLJLO1bD7ACG1kIArUUos+YWkMoACD0
+ cnnJ3+iZIksRFMX7h6rSCDWXa/dmhCmy5TqcKbn0nf8lY0Pxd6IekUHv7G7at+F5
+ Mc4uFn3anFgDc9F5R9dlhPJNG6RQ3dXCJ9Dvs5MPYXs5lIngeAJ1SUc2E3RAxT33
+ vJzYJWyUQ0K9jEUEvIW/HdtF0cvJe6sUS0nWkDTwFi287UTNXUBRN3kQ90iUz+RT
+ BzjnhQ==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cc662sa4k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Feb 2026 05:27:27 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 61H5RQEk031672
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Feb 2026 05:27:26 GMT
+Received: from [10.204.79.129] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Feb
+ 2026 21:27:19 -0800
+Message-ID: <4ae28713-9996-4662-85c1-52321e317eee@quicinc.com>
+Date: Tue, 17 Feb 2026 10:57:16 +0530
 MIME-Version: 1.0
-References: <20260213-msm-next-quad-pipe-split-v18-0-5815158d3635@linaro.org>
- <20260213-msm-next-quad-pipe-split-v18-2-5815158d3635@linaro.org>
- <pufuo7jq4olww3ksyawqkoee34cl4fhtpfh3sh2kfuimajswod@gv4rp6wsnrhx>
-In-Reply-To: <pufuo7jq4olww3ksyawqkoee34cl4fhtpfh3sh2kfuimajswod@gv4rp6wsnrhx>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Sat, 14 Feb 2026 19:55:02 +0800
-X-Gm-Features: AZwV_Qigv3G7TrMHGxexVDebiOQwk_U6GNZ8jgGeUNvo9OZcvzyb-L5nKUd2Gxs
-Message-ID: <CABymUCMba4C0g+TPzWAT_eXTyxDbJDgWjTw3WgXu9=voOyZONQ@mail.gmail.com>
-Subject: Re: [PATCH v18 2/4] drm/msm/dpu: Defer SSPP allocation until CRTC
- check
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] arm64: dts: qcom: qcs8300: add Display Serial
+ Interface device nodes
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <robdclark@gmail.com>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <sean@poorly.run>,
+ <marijn.suijten@somainline.org>, <andersson@kernel.org>,
+ <robh@kernel.org>, <robh+dt@kernel.org>, <krzk+dt@kernel.org>,
+ <konradybcio@kernel.org>, <conor+dt@kernel.org>,
+ <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
+ <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>,
+ <jonathan@marek.ca>, <jonas@kwiboo.se>, <jernej.skrabec@gmail.com>,
+ <quic_rajeevny@quicinc.com>, <quic_vproddut@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260124203925.2614008-1-quic_amakhija@quicinc.com>
+ <20260124203925.2614008-2-quic_amakhija@quicinc.com>
+ <CAFEp6-16r0eo3z0muGWk0G2-NGa-G7PdyM92z19xKPpE46v3mg@mail.gmail.com>
+Content-Language: en-US
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+In-Reply-To: <CAFEp6-16r0eo3z0muGWk0G2-NGa-G7PdyM92z19xKPpE46v3mg@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE3MDA0MyBTYWx0ZWRfX96evfY2n0c+f
+ kCoeJ1mFo8KDnkxw7yn4ypyyFoI20SxxEV7FrBeVf/Mb3iNHGwTNKbeKx/P9LBm5TxtLpp+vnMJ
+ p8NONYcDi91INoYGrTfIEBcBOgNJOXAl9xZCuvAoRGBy9nY/JQFAAzjCJCO4X0jIxYJnMrfduDc
+ SsavOdTi28QwMuSykFht+2ea+g5fZu8+kekhcrauzA4N1PITeYxILUS0uPSCcqTeW7Ie92gxDca
+ VbuKNCMw6AW6yVlNi6rZEd87rMSZoWdNsAToRiGb5DO8CCEX+OrLVXnQM8te9PbDYxjeJYcpT5c
+ jctYWSVyPPzcx1v8Yyxt0iLhTjcD/Flh0qBGbgFnZpAD3O2oPQlwGP3Hc/goD8Q6O1Ma+gkT1u+
+ RSJAM8S3P/i46A27BuQs1NweDkh85x41UYPEfVr7fqCxQysux5cX8hGk+IpWHu3LoF/EZgib8Fr
+ KStamIN9iCJV+5uj2dg==
+X-Authority-Analysis: v=2.4 cv=Y6b1cxeN c=1 sm=1 tr=0 ts=6993fc3f cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=9P1oJjtBLAIuoJThx18A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: hIdkFj0eyqlwPXQIFiCuSEZ0hs9-aDqo
+X-Proofpoint-ORIG-GUID: hIdkFj0eyqlwPXQIFiCuSEZ0hs9-aDqo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-02-16_08,2026-02-16_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 suspectscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602170043
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,402 +120,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.31 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[quicinc.com,none];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[quicinc.com:s=qcppdkim1];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:abhinav.kumar@linux.dev,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[jun.nie@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[26];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jun.nie@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	FREEMAIL_CC(0.00)[linux.dev,kernel.org,poorly.run,somainline.org,gmail.com,ffwll.ch,oss.qualcomm.com,linaro.org,vger.kernel.org,lists.freedesktop.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	TAGGED_RCPT(0.00)[freedreno];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,gmail.com,oss.qualcomm.com,poorly.run,somainline.org,kernel.org,intel.com,linaro.org,ideasonboard.com,marek.ca,kwiboo.se,quicinc.com];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,linaro.org:email,linaro.org:dkim]
-X-Rspamd-Queue-Id: 1F44513BC7E
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[quic_amakhija@quicinc.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[quicinc.com:+];
+	HAS_XOIP(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno,dt];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[0.0.0.0:email,0.0.0.1:email,qualcomm.com:email,ae94000:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: 32AF3148CDE
 X-Rspamd-Action: no action
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-2=E6=9C=8814=E6=97=A5=E5=91=A8=E5=85=AD 01:03=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Feb 13, 2026 at 10:54:26PM +0800, Jun Nie wrote:
-> > Currently, mapping plane to SSPP occurs during the plane check phase fo=
-r
-> > non-virtual plane case. The SSPP allocation and plane mapping occurs du=
-ring
-> > crtc check phase for virtual plane case. Defer these SSPP operations un=
-til
->
-> Nit: CRTC
->
-> > CRTC check stage to unify the 2 cases, and ease later revisement for
-> > quad-pipe change.
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   3 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 155 +++++++++++++---------=
---------
-> >  2 files changed, 66 insertions(+), 92 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm=
-/msm/disp/dpu1/dpu_crtc.c
-> > index 6bf7c46379aed..797296b14264e 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > @@ -1534,8 +1534,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc =
-*crtc,
-> >                       return rc;
-> >       }
-> >
-> > -     if (dpu_use_virtual_planes &&
-> > -         (crtc_state->planes_changed || crtc_state->zpos_changed)) {
-> > +     if (crtc_state->planes_changed || crtc_state->zpos_changed) {
-> >               rc =3D dpu_crtc_reassign_planes(crtc, crtc_state);
->
-> dpu_crtc_reassing_planes() starts by freeing all SSPPs. It should not be
-> used in a non-virtual-plane case. I'd suggest duplicating the function
-> and stripping out all code and data related to virtual planes.
+On 2/12/2026 3:57 PM, Loic Poulain wrote:
+> Hi Ayushi,
+> 
+> On Sat, Jan 24, 2026 at 9:39 PM Ayushi Makhija
+> <quic_amakhija@quicinc.com> wrote:
+>>
+>> Add device tree nodes for the DSI0 controller with their corresponding
+>> PHY found on Qualcomm QCS8300 SoC.
+>>
+>> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/monaco.dtsi | 105 ++++++++++++++++++++++++++-
+>>  1 file changed, 104 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+>> index 5d2df4305d1c..7dda05bda3e7 100644
+>> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+>> @@ -3,6 +3,7 @@
+>>   * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+>>   */
+>>
+>> +#include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
+>>  #include <dt-bindings/clock/qcom,qcs8300-gcc.h>
+>>  #include <dt-bindings/clock/qcom,rpmh.h>
+>>  #include <dt-bindings/clock/qcom,sa8775p-camcc.h>
+>> @@ -5573,9 +5574,19 @@ port@0 {
+>>                                                 reg = <0>;
+>>
+>>                                                 dpu_intf0_out: endpoint {
+>> +
+>>                                                         remote-endpoint = <&mdss_dp0_in>;
+>>                                                 };
+>>                                         };
+>> +
+>> +                                       port@1 {
+>> +                                               reg = <1>;
+>> +
+>> +                                               dpu_intf1_out: endpoint {
+>> +
+>> +                                                       remote-endpoint = <&mdss_dsi0_in>;
+>> +                                               };
+>> +                                       };
+>>                                 };
+>>
+>>                                 mdp_opp_table: opp-table {
+>> @@ -5603,6 +5614,96 @@ opp-650000000 {
+>>                                 };
+>>                         };
+>>
+>> +                       mdss_dsi0: dsi@ae94000 {
+>> +                               compatible = "qcom,qcs8300-dsi-ctrl",
+>> +                                            "qcom,sa8775p-dsi-ctrl",
+>> +                                            "qcom,mdss-dsi-ctrl";
+>> +                               reg = <0x0 0x0ae94000 0x0 0x400>;
+>> +                               reg-names = "dsi_ctrl";
+>> +
+>> +                               interrupt-parent = <&mdss>;
+>> +                               interrupts = <4>;
+>> +
+>> +                               clocks = <&dispcc MDSS_DISP_CC_MDSS_BYTE0_CLK>,
+>> +                                        <&dispcc MDSS_DISP_CC_MDSS_BYTE0_INTF_CLK>,
+>> +                                        <&dispcc MDSS_DISP_CC_MDSS_PCLK0_CLK>,
+>> +                                        <&dispcc MDSS_DISP_CC_MDSS_ESC0_CLK>,
+>> +                                        <&dispcc MDSS_DISP_CC_MDSS_AHB_CLK>,
+>> +                                        <&gcc GCC_DISP_HF_AXI_CLK>;
+>> +                               clock-names = "byte",
+>> +                                             "byte_intf",
+>> +                                             "pixel",
+>> +                                             "core",
+>> +                                             "iface",
+>> +                                             "bus";
+>> +
+>> +                               assigned-clocks = <&dispcc MDSS_DISP_CC_MDSS_BYTE0_CLK_SRC>,
+>> +                                                 <&dispcc MDSS_DISP_CC_MDSS_PCLK0_CLK_SRC>;
+>> +                               assigned-clock-parents = <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
+>> +                                                        <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>;
+>> +
+>> +                               phys = <&mdss_dsi0_phy>;
+> 
+> I'm quite sure DSI requires a refgen regulator, so add the proper
+> refgen-supply link.
+> 
+Hi Loic, sure will add in new patchset.
 
-OK, will duplicate the function to customize non-virtual-plane version.
->
-> >               if (rc < 0)
-> >                       return rc;
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_plane.c
-> > index 66f240ce29d07..be1a7fcf11b81 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -1119,102 +1119,24 @@ static int dpu_plane_atomic_check(struct drm_p=
-lane *plane,
-> >       struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_pl=
-ane_state(state,
-> >                                                                        =
-        plane);
-> >       int ret =3D 0;
-> > -     struct dpu_plane *pdpu =3D to_dpu_plane(plane);
-> > -     struct dpu_plane_state *pstate =3D to_dpu_plane_state(new_plane_s=
-tate);
-> > -     struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
-> > -     struct dpu_sw_pipe *pipe =3D &pstate->pipe[0];
-> > -     struct dpu_sw_pipe *r_pipe =3D &pstate->pipe[1];
-> > -     struct dpu_sw_pipe_cfg *pipe_cfg =3D &pstate->pipe_cfg[0];
-> > -     struct dpu_sw_pipe_cfg *r_pipe_cfg =3D &pstate->pipe_cfg[1];
-> > -     const struct drm_crtc_state *crtc_state =3D NULL;
-> > -     uint32_t max_linewidth =3D dpu_kms->catalog->caps->max_linewidth;
-> > +     struct drm_crtc_state *crtc_state =3D NULL;
-> >
-> >       if (new_plane_state->crtc)
-> >               crtc_state =3D drm_atomic_get_new_crtc_state(state,
-> >                                                          new_plane_stat=
-e->crtc);
-> >
-> > -     pipe->sspp =3D dpu_rm_get_sspp(&dpu_kms->rm, pdpu->pipe);
-> > -
-> > -     if (!pipe->sspp)
-> > -             return -EINVAL;
-> > -
-> >       ret =3D dpu_plane_atomic_check_nosspp(plane, new_plane_state, crt=
-c_state);
-> >       if (ret)
-> >               return ret;
-> >
-> > -     ret =3D dpu_plane_split(plane, new_plane_state, crtc_state);
-> > -     if (ret)
-> > -             return ret;
-> > -
-> >       if (!new_plane_state->visible)
-> >               return 0;
-> >
-> > -     if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_p=
-ipe_cfg,
-> > -                                           pipe->sspp,
-> > -                                           msm_framebuffer_format(new_=
-plane_state->fb),
-> > -                                           max_linewidth)) {
-> > -             DPU_DEBUG_PLANE(pdpu, "invalid " DRM_RECT_FMT " /" DRM_RE=
-CT_FMT
-> > -                             " max_line:%u, can't use split source\n",
-> > -                             DRM_RECT_ARG(&pipe_cfg->src_rect),
-> > -                             DRM_RECT_ARG(&r_pipe_cfg->src_rect),
-> > -                             max_linewidth);
-> > -             return -E2BIG;
-> > -     }
-> > -
-> > -     return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
-> > -}
-> > -
-> > -static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
-> > -                                       struct drm_atomic_state *state)
-> > -{
-> > -     struct drm_plane_state *plane_state =3D
-> > -             drm_atomic_get_plane_state(state, plane);
-> > -     struct drm_plane_state *old_plane_state =3D
-> > -             drm_atomic_get_old_plane_state(state, plane);
-> > -     struct dpu_plane_state *pstate =3D to_dpu_plane_state(plane_state=
-);
-> > -     struct drm_crtc_state *crtc_state =3D NULL;
-> > -     int ret, i;
-> > -
-> > -     if (IS_ERR(plane_state))
-> > -             return PTR_ERR(plane_state);
-> > -
-> > -     if (plane_state->crtc)
-> > -             crtc_state =3D drm_atomic_get_new_crtc_state(state,
-> > -                                                        plane_state->c=
-rtc);
-> > -
-> > -     ret =3D dpu_plane_atomic_check_nosspp(plane, plane_state, crtc_st=
-ate);
-> > -     if (ret)
-> > -             return ret;
-> > -
-> > -     ret =3D dpu_plane_split(plane, plane_state, crtc_state);
-> > -     if (ret)
-> > -             return ret;
-> > -
-> > -     if (!plane_state->visible) {
-> > -             /*
-> > -              * resources are freed by dpu_crtc_assign_plane_resources=
-(),
-> > -              * but clean them here.
-> > -              */
-> > -             for (i =3D 0; i < PIPES_PER_PLANE; i++)
-> > -                     pstate->pipe[i].sspp =3D NULL;
-> > -
-> > -             return 0;
-> > -     }
-> > -
-> >       /*
-> > -      * Force resource reallocation if the format of FB or src/dst hav=
-e
-> > -      * changed. We might need to allocate different SSPP or SSPPs for=
- this
-> > -      * plane than the one used previously.
-> > +      * To trigger the callback of dpu_assign_plane_resources() to
-> > +      * finish the sspp assignment or allocation and check.
-> >        */
-> > -     if (!old_plane_state || !old_plane_state->fb ||
-> > -         old_plane_state->src_w !=3D plane_state->src_w ||
-> > -         old_plane_state->src_h !=3D plane_state->src_h ||
-> > -         old_plane_state->crtc_w !=3D plane_state->crtc_w ||
-> > -         old_plane_state->crtc_h !=3D plane_state->crtc_h ||
-> > -         msm_framebuffer_format(old_plane_state->fb) !=3D
-> > -         msm_framebuffer_format(plane_state->fb))
-> > -             crtc_state->planes_changed =3D true;
-> > -
-> > +     crtc_state->planes_changed =3D true;
->
-> Why do we need to enforce this? Previously it was limited to the cases
-> when the plane has actually changed and required revalidation.
-
-It is just for safety to ensure derferring the SSPP handling into CRTC
-check stage.
-The planes_changed is set in drm_atomic_helper_plane_changed() as below
-call tree for every frame in kmscube test. So this enforcement does
-not introduce
-redundant calling. I can use another variable to trigger the deferred
-SSPP handling.
-But we still need to optimize drm framework or msm_atomic_check to
-avoid redundant
-asserting crtc_state->planes_changed later.
-
-drm_atomic_check_only
-  -> msm_atomic_check
-     -> drm_atomic_helper_check
-        -> drm_atomic_helper_check_planes
-            -> drm_atomic_helper_plane_changed  =3D>
-crtc_state->planes_changed is asserted.
->
-> >       return 0;
-> >  }
-> >
-> > @@ -1261,9 +1183,9 @@ static int dpu_plane_virtual_assign_resources(str=
-uct drm_crtc *crtc,
-> >                                             struct dpu_global_state *gl=
-obal_state,
-> >                                             struct drm_atomic_state *st=
-ate,
-> >                                             struct drm_plane_state *pla=
-ne_state,
-> > +                                           const struct drm_crtc_state=
- *crtc_state,
-> >                                             struct drm_plane_state **pr=
-ev_adjacent_plane_state)
-> >  {
-> > -     const struct drm_crtc_state *crtc_state =3D NULL;
-> >       struct drm_plane *plane =3D plane_state->plane;
-> >       struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
-> >       struct dpu_rm_sspp_requirements reqs;
-> > @@ -1273,10 +1195,6 @@ static int dpu_plane_virtual_assign_resources(st=
-ruct drm_crtc *crtc,
-> >       const struct msm_format *fmt;
-> >       int i, ret;
-> >
-> > -     if (plane_state->crtc)
-> > -             crtc_state =3D drm_atomic_get_new_crtc_state(state,
-> > -                                                        plane_state->c=
-rtc);
-> > -
-> >       pstate =3D to_dpu_plane_state(plane_state);
-> >       for (i =3D 0; i < STAGES_PER_PLANE; i++)
-> >               prev_adjacent_pstate[i] =3D prev_adjacent_plane_state[i] =
-?
-> > @@ -1288,6 +1206,10 @@ static int dpu_plane_virtual_assign_resources(st=
-ruct drm_crtc *crtc,
-> >       if (!plane_state->fb)
-> >               return -EINVAL;
-> >
-> > +     ret =3D dpu_plane_split(plane, plane_state, crtc_state);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> >       fmt =3D msm_framebuffer_format(plane_state->fb);
-> >       reqs.yuv =3D MSM_FORMAT_IS_YUV(fmt);
-> >       reqs.scale =3D (plane_state->src_w >> 16 !=3D plane_state->crtc_w=
-) ||
-> > @@ -1318,14 +1240,56 @@ static int dpu_plane_virtual_assign_resources(s=
-truct drm_crtc *crtc,
-> >       return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
-> >  }
-> >
-> > +static int dpu_plane_assign_resources(struct drm_crtc *crtc,
-> > +                                   struct dpu_global_state *global_sta=
-te,
-> > +                                   struct drm_atomic_state *state,
-> > +                                   struct drm_plane_state *plane_state=
-,
-> > +                                   const struct drm_crtc_state *crtc_s=
-tate,
-> > +                                   struct drm_plane_state **prev_adjac=
-ent_plane_state)
-> > +{
-> > +     struct drm_plane *plane =3D plane_state->plane;
-> > +     struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
-> > +     struct dpu_plane_state *pstate =3D to_dpu_plane_state(plane_state=
-);
-> > +     struct dpu_sw_pipe *pipe =3D &pstate->pipe[0];
-> > +     struct dpu_sw_pipe *r_pipe =3D &pstate->pipe[1];
-> > +     struct dpu_sw_pipe_cfg *pipe_cfg =3D &pstate->pipe_cfg[0];
-> > +     struct dpu_sw_pipe_cfg *r_pipe_cfg =3D &pstate->pipe_cfg[1];
-> > +     struct dpu_plane *pdpu =3D to_dpu_plane(plane);
-> > +     int ret;
-> > +
-> > +     pipe->sspp =3D dpu_rm_get_sspp(&dpu_kms->rm, pdpu->pipe);
-> > +     if (!pipe->sspp)
-> > +             return -EINVAL;
-> > +
-> > +     ret =3D dpu_plane_split(plane, plane_state, crtc_state);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     if (!dpu_plane_try_multirect_parallel(pipe, pipe_cfg, r_pipe, r_p=
-ipe_cfg,
-> > +                                           pipe->sspp,
-> > +                                           msm_framebuffer_format(plan=
-e_state->fb),
-> > +                                           dpu_kms->catalog->caps->max=
-_linewidth)) {
-> > +             DPU_DEBUG_PLANE(pdpu, "invalid " DRM_RECT_FMT " /" DRM_RE=
-CT_FMT
-> > +                             " max_line:%u, can't use split source\n",
-> > +                             DRM_RECT_ARG(&pipe_cfg->src_rect),
-> > +                             DRM_RECT_ARG(&r_pipe_cfg->src_rect),
-> > +                             dpu_kms->catalog->caps->max_linewidth);
-> > +             return -E2BIG;
-> > +     }
-> > +
-> > +     return dpu_plane_atomic_check_sspp(plane, state, crtc_state);
-> > +}
-> > +
-> >  int dpu_assign_plane_resources(struct dpu_global_state *global_state,
-> >                              struct drm_atomic_state *state,
-> >                              struct drm_crtc *crtc,
-> >                              struct drm_plane_state **states,
-> >                              unsigned int num_planes)
-> >  {
-> > -     unsigned int i;
-> >       struct drm_plane_state *prev_adjacent_plane_state[STAGES_PER_PLAN=
-E] =3D { NULL };
-> > +     const struct drm_crtc_state *crtc_state =3D NULL;
-> > +     unsigned int i;
-> > +     int ret;
-> >
-> >       for (i =3D 0; i < num_planes; i++) {
-> >               struct drm_plane_state *plane_state =3D states[i];
-> > @@ -1334,8 +1298,19 @@ int dpu_assign_plane_resources(struct dpu_global=
-_state *global_state,
-> >                   !plane_state->visible)
-> >                       continue;
-> >
-> > -             int ret =3D dpu_plane_virtual_assign_resources(crtc, glob=
-al_state,
-> > +             if (plane_state->crtc)
-> > +                     crtc_state =3D drm_atomic_get_new_crtc_state(stat=
-e,
-> > +                                                                plane_=
-state->crtc);
-> > +
-> > +             if (!dpu_use_virtual_planes)
-> > +                     ret =3D dpu_plane_assign_resources(crtc, global_s=
-tate,
-> > +                                                      state, plane_sta=
-te,
-> > +                                                      crtc_state,
-> > +                                                      prev_adjacent_pl=
-ane_state);
->
-> This is an overkill for the non-virtual case. We don't need adjancent
-> states, we don't need the array of plane state pointers, etc.
-
-dpu_plane_assign_resources just include the SSPP assignment, which
-is moved from dpu_plane_atomic_check(). The adjancent state is handled
-in dpu_plane_virtual_assign_resources()
->
-> > +             else
-> > +                     ret =3D dpu_plane_virtual_assign_resources(crtc, =
-global_state,
-> >                                                            state, plane=
-_state,
-> > +                                                          crtc_state,
-> >                                                            prev_adjacen=
-t_plane_state);
-> >               if (ret)
-> >                       return ret;
-> > @@ -1772,7 +1747,7 @@ static const struct drm_plane_helper_funcs dpu_pl=
-ane_helper_funcs =3D {
-> >  static const struct drm_plane_helper_funcs dpu_plane_virtual_helper_fu=
-ncs =3D {
-> >       .prepare_fb =3D dpu_plane_prepare_fb,
-> >       .cleanup_fb =3D dpu_plane_cleanup_fb,
-> > -     .atomic_check =3D dpu_plane_virtual_atomic_check,
-> > +     .atomic_check =3D dpu_plane_atomic_check,
-> >       .atomic_update =3D dpu_plane_atomic_update,
-> >  };
-> >
-> >
-> > --
-> > 2.43.0
-> >
->
-> --
-> With best wishes
-> Dmitry
+Thanks,
+Ayushi
