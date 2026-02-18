@@ -2,168 +2,148 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oM8tCP70lGlzJQIAu9opvQ
+	id aMAkNYwLlWmqKQIAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 00:08:46 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 01:45:00 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CAAB151B48
-	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 00:08:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26F471525EE
+	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 01:45:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1A6C10E2AF;
-	Tue, 17 Feb 2026 23:08:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5716D10E20A;
+	Wed, 18 Feb 2026 00:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HuknjF3p";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I3WbPSch";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MehId1me";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a/77W6KT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB9010E2B1
- for <freedreno@lists.freedesktop.org>; Tue, 17 Feb 2026 23:08:43 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E81910E20A
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 00:44:56 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61HFUFDg2319832
- for <freedreno@lists.freedesktop.org>; Tue, 17 Feb 2026 23:08:42 GMT
+ 61HN7i0i4060336
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 00:44:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=LnanU8PAYceSWKBt+m+SEdZEojtqeWe2NeYl1HwNokU=; b=Hu
- knjF3p/1KoYNLudzRm1VJq6Qb98csFwOfWEvCSnXuCqjNufsBlkJm3+2mxD/v2ch
- whEkYmMPEwtsXK1jXmT8+4N2vN70jd8DPvPE1hzRvRfh+SofiMA8iSBWtmhZwEjc
- tOPtphayWdDEkKX124h4tlQqioSmbmEll1KepWceEek++K6vs5hSFfpktBRExeku
- dKfIfXITalCkoTj9ReZr/EwgxuqnVZhBo0d0081OQxuQqWWssrimNVD3PjkMFBuc
- th1xKaUR72JEtC/Vby1YGo1amsHnQ0vl1YaIHdnftPFoBTnasenfDnshzaugG6bZ
- RsNJde9ZmJqUxP5TQbJA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ccu1eses1-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=MDILxvRtKcp720/UrtSTDBg6
+ /HJjHwoeZ4/0fsSNcL8=; b=MehId1mePzlN7KBHLwUFoqLPqxbNclcPWhxpiS+G
+ b9tLOO2g9J2tgOZRUMgO6xTrVYrwCZLBu0r8+nynHO/1wk3YTqvtONu++sB/WfCz
+ KhVY0YHBJPcf7txj+z5UyzxUPSUqEUtsEwSqNKSlyFs7eCwc9SYa2xdX2yd0rn0u
+ um8w4X/VLXxX/go52+7FUFYnkdYsySY57k8xBmLhhLIC4wUfI1Mzuu8U3skBr1iI
+ qWWZZwULTsUfiUCnokC6E5P1z+epF+N3JoZBLs+4uXn/SxpgxhZh70YubHahkRYg
+ arwVbGom30ZUJ5ZYmOdEhG/Ly2FoZF2KDxj7e08BR99JxQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cd1qx073j-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 17 Feb 2026 23:08:42 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2ba87c0e198so3952461eec.1
- for <freedreno@lists.freedesktop.org>; Tue, 17 Feb 2026 15:08:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771369721; cv=none;
- d=google.com; s=arc-20240605;
- b=S7gDDwtNcj35yFc6Zb8dzJT4Ii8plnPgTsDOmBHn48I85FHhjpnFsrBBhciFob5mci
- HWJQH2xwI94cDCRa7ND97S7PSkj07Sv3s+gHZKre/PEdGGGfxNIycqSzcRQTflhMAwlH
- 7qF5rIvQclFlsq+9+ZbgS9Qpk8pc5y3nHyG6pfRELKA9ma4Gv+C6JzaLL2+Dh3ka+iNm
- SWtsRib6zg+NRqctV6GqXHSk6B641SKKrUZNc+2Bnhc31cFW8yjeh49xLxJytQFR6Lpu
- Jhrxy2TiuKVVp4nBzqszHQ7JkqNq5/sJpzgMBLfmtM3Yke5PiGXTwT0ezDvAPwNI4+Xo
- oT4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=LnanU8PAYceSWKBt+m+SEdZEojtqeWe2NeYl1HwNokU=;
- fh=yH43b9xxd2Slk6whU54Ff3QWZDW8jbiBahWiBoReuQQ=;
- b=OJHrobXL9fijcm3Z5T06hoadzA39iB6MGDP9ra6CkjjYScCGETqA1wgbpXJkLumQBn
- K0MmUJHZQcx0FohkM7TraRTes0tbh8kQJzUUtEIoplNti+Fylgw6xStJkSzmkRpYYj7Z
- i8WSBX2Bls8LCx0i2CWsY9sAvpNe6pEtFQ2BVgVjx1w+dL13pUgy70bfoitBivljfLgO
- M7IH1oHDgfda6TXlj4PhOTA2FrHEi6gcRXpmKvprq6BGz/Hx5QwDeNtdIz6KzWICw8pZ
- iXfYIu0KxVYQc76AK18hdw7Ph8elJ87ZXIhR2K6VzW2uNe5rqPQnzIKhXpylNubtn9IN
- OuMQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 00:44:54 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8c70fadd9a3so3952363185a.0
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Feb 2026 16:44:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1771369721; x=1771974521;
+ d=oss.qualcomm.com; s=google; t=1771375494; x=1771980294;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=LnanU8PAYceSWKBt+m+SEdZEojtqeWe2NeYl1HwNokU=;
- b=I3WbPSchaWlcLQFvs6ewpV8EkMzNguc52Dov5fRe1qyR8mOE4rot/i9WkblCGBY7te
- ECnmupNxy595r1pU8EZ67sNXS0MdNwOUCFByNQgRhbpkIMNawKwEM5csdTTr/5/jRU5M
- jHOJ7KDhRua8DROw3bISCxySPidCi0NesYG6a+A2xOnRPm2QEPl+3TipEYvCPZ0of/Ws
- fdo9TzrRiS1MEY1cEg3JzLTUQ+0fqhJO/6C2mBZUjfF6rG+1ceRnjzzfJg4E/bESKOBt
- g2SJlnDUUd8o0V91H8V8AzhLZKQ5x0Z+9qel+YBy67wcQ+l1zcsicmKvYyUlyWmfuApY
- BYqg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=MDILxvRtKcp720/UrtSTDBg6/HJjHwoeZ4/0fsSNcL8=;
+ b=a/77W6KTdImzhAF+yCef0lrqM4IrOpAMz1KfdsbcYnqKafQgymQwV5svid40pxgbuC
+ Ghjrkgt/+IZYQ1wjIbwvp8MklslbVwYrYzeyKU3aycJA5cAybKaLUvOhYZpI2ZTXVYKH
+ CPTnMTuyLwDVHQpxeyo+Y2XX42PxG2iRQC6BPOlQAJtlnmOsu9Kcbr7+FANg17+JXd9U
+ qKqMWiIx2dDrxrEmOywMY6xoBwGaDkvx8xWGzE57YBUwwnNnZVQO+9FyKg8GLigjs26i
+ 9TYtkFuZY9SpEPl53NJxddjmCuX3du6+Hl96DhQLn8rro/R03IHXo/OsmZK+JQeqxAIx
+ dtZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771369721; x=1771974521;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LnanU8PAYceSWKBt+m+SEdZEojtqeWe2NeYl1HwNokU=;
- b=v2OuQcyHItJpF7gFAnb5hKx7K7ZQUioIm3aPRxOp3I4sLqBb8a4I3wgrE4C2oNQ4ir
- gnYJK7dtJlCx0sY6M+uzdIPm+nBwdYE4D6LjMA/ZpPAPiyYkG1yot3DTFNdex9DGFSVc
- qfwNGEV1xfMmy4bD5C39DeYlu06sus8lw0y7ILmbVWXCzOAkUPGf2RHTiHZcknlBuZf0
- bIPWgTQCpgzLtRnvu2cbahD+8LgNhjoNoO9qRck4DXs1PPf4o0v+9yUJqRYQNkKMbVFq
- 5RCVONC4bfL/a76um1JY6h+gFRtWXay5ELrq+KOUWNKRqrltItZZLCCU/GFdtm96mOMd
- P/VQ==
+ d=1e100.net; s=20230601; t=1771375494; x=1771980294;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MDILxvRtKcp720/UrtSTDBg6/HJjHwoeZ4/0fsSNcL8=;
+ b=WjiScarYZEZks8j/1ljuZhDM511XEsRlhVyOtSGvV19tzwYyU1nqnvYy8Tu14gOfHg
+ zTv7iw9ZQHBWvOtBOy4TtqwQ4EEbmQfZp8nUCnF4VmyKj2e11Rz/OZsH37bVdXoCvgz7
+ hvyxUdkYLNW4qtK+og/9PhppYX3Io5OslmlF9PRm6lHuC8KThIDBe9R7dTTwIwH8muAV
+ uhJfWVulmgTDUpmR1dqXUfSszJPrFVQoBOL7f5xVmx5d2SNqHwHOkF/Gy5uelG8wIPDe
+ fiV7fD0LqBUju67EZlk1QBju5M9coGxXKaxv9NadapmaLLqlkpWuDB7TMpgVt7j72YsN
+ zqaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPzLrfW3tSmaFt2dtRDYCYZlRFEqkXqLMOB3jLF4eMmwdqusu1WwyaqYP4hdCge7Rkv7DRCA5RPd0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKl7wUpP9KAB85oeRUlU6ZpUIySOtoX7LZ40aIvVMSRzruhJxh
- zqaC2ScVr9R/E012gBKUr0//YySeY2NNS2bS8b+o0AK9GZMpzL2+bnIaMrkbRS5NRbvGfFT1U2D
- PO2pjI1xq2pRzEAeZZ8WdHLRa6PNqcBpj2bem0NrI3hWq2DjhifUph4riL0DH/LPE6zsEk4niYP
- H81sOwxVtjMWvLkThLrVPSIW7i3NU7O85Gz0a4jjVAgqDbRA==
-X-Gm-Gg: AZuq6aK6riX47PtNEm2dW4VBswx6p406aoH5p1P5qjG40pyV5CPfOZ0HluRk/jdRwg3
- riR+/1+ZLUl1LgWAkVPouu2JbxUSSz9/+Lw8yuawO9XZ3sGlPVNqNvkBbjZlPmdeszoNbKrVIkj
- CWMsuz7TsU/kmisfHwpKg/er4VGCMRDUcID0+N220Lp9kqrKq86tBhtwwzt8n1l/pDnEC01Rfsb
- zwQMhGZEYV/l51Jr2g4Ee5AAsuhEa3aGgUEKA==
-X-Received: by 2002:a05:7301:1688:b0:2ba:7ed9:1565 with SMTP id
- 5a478bee46e88-2baba125906mr6788250eec.36.1771369720923; 
- Tue, 17 Feb 2026 15:08:40 -0800 (PST)
-X-Received: by 2002:a05:7301:1688:b0:2ba:7ed9:1565 with SMTP id
- 5a478bee46e88-2baba125906mr6788224eec.36.1771369720229; Tue, 17 Feb 2026
- 15:08:40 -0800 (PST)
-MIME-Version: 1.0
-References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
- <20260108-topic-smem_dramc-v3-2-6b64df58a017@oss.qualcomm.com>
- <you4xijwc5g4ngcnhxm4ecn7opexnsdfayvd5wiiqpl7734r7w@bdkpjqmlzxre>
- <b2pqfrs2ptaoxxeanzumxyibmydsoiqslcsg6yrm4hihynowj4@mzazqnrptnyf>
- <hunbpvbfkcxzbnwr676z6fncgdhfumjedx7jp5izojusg3rj7f@5te77lmqcdaa>
- <cleh7dolqus3grexqfchtavvnj6wef6rlslgv3r7gesfuyxhs5@5b6z5gwtn36b>
- <nhgxvv5bm3bevq4qkqnew6gaqlwiaicrs7yjckg26fgwnffqj5@u2phabfukljx>
- <befc5600-5cfd-4134-928c-80e3b1b4102a@oss.qualcomm.com>
- <iqg6jpq4i3olwugnlnsczisbrbysxzik6otby3pgkv5uqsez3f@diwpjgf26mk3>
- <203f6f63-e81d-4db5-8ede-ff6695a847ed@oss.qualcomm.com>
- <i74iyesupz2elaoefyn5s5r53op5aifftcmsgktk2pyghozvwx@usg4hp4wrtug>
-In-Reply-To: <i74iyesupz2elaoefyn5s5r53op5aifftcmsgktk2pyghozvwx@usg4hp4wrtug>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 17 Feb 2026 15:08:29 -0800
-X-Gm-Features: AaiRm52D5WXYL-x3xfhCjoZjU7AnJhPRmHPHx2Ez5oMG6KajaDiqGRMsuv65CcU
-Message-ID: <CACSVV01D6u1B2d6ipd7cuomOhE_iGDBF84V8=v7jcm_5hJ87eQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] soc: qcom: ubwc: Get HBB from SMEM
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ AJvYcCXnh2kvXwTLDFJc6UtZz97nTWVGD5fKXGjFmyKRfiAJ9Ua2Ljy44CoLk/94dC3pkHZWf1H4TgdcyMQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAFzM3KhNw9Pf0UKHraUSD1/ceiygn1tiAyMzx0C0l/i6n4D0U
+ 7hY7P5Ke5jWTbqisCTVByRfKFNhspaPKA3cdCdAOHGEWM4XwG9Gf8Ynx3b7M85F2hJRh78kGOvA
+ v0SA3UzdmlVq7jCwNp7S+IEHWZPY4CbNvcwpvHMM1fTLf9IYym6Fo4nSu+vj6y48v9cJWa0A=
+X-Gm-Gg: AZuq6aKrXqkcz2ZZNxIc4Ske0qMdCGEgiIm24/f3L7c9p1pkhFE0wfuD/kEx+3CfmtJ
+ mPmyzWGODhSnLcL4BMTgk67gR78HYFTArP6qRbkv/oTmLB/vE4w+3I+a1Ly0pF9PvQ340nCzBXm
+ VES4QzrPjYE0FWpIgb33eh+wd7wjxMyjm8N+QL3hrbueNdDes+ucQtTXRdDkUfdVP9GN22k5KUv
+ kGs++G8NoNW6Q0ApRjkjFF9nqp8y6Y3S+IcnLmcPgCsaZvHh+ZflLP933icQ4S9ZY/lRREFIDMi
+ L3Uc+HDtPrcgBJgQznU259O5FkiKBPCoXVx7VTH+bwTl1sKp1ZkFsphN4Mf2+xVfpKZwPLYrh3r
+ 1e2d13ziSnXgAcfiVr5uVk4/eh+vAwArz9eb4B1Om5FWLyADHc+Z5H6gDc6opPvE1mwQUeRaHZ5
+ VR5FX+N1A4NddwRulUIxTa6lQehQPe+yLSHL0=
+X-Received: by 2002:a05:620a:4607:b0:8c7:176b:ebbe with SMTP id
+ af79cd13be357-8cb4c014765mr1607893785a.57.1771375494352; 
+ Tue, 17 Feb 2026 16:44:54 -0800 (PST)
+X-Received: by 2002:a05:620a:4607:b0:8c7:176b:ebbe with SMTP id
+ af79cd13be357-8cb4c014765mr1607890785a.57.1771375493872; 
+ Tue, 17 Feb 2026 16:44:53 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-387068e5976sm40285091fa.27.2026.02.17.16.44.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Feb 2026 16:44:52 -0800 (PST)
+Date: Wed, 18 Feb 2026 02:44:49 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=LfsxKzfi c=1 sm=1 tr=0 ts=6994f4fa cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22
- a=GgsMoib0sEa3-_RKJdDe:22 a=EUspDBNiAAAA:8 a=-dl7yEjYuLqhyd9yoY0A:9
- a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: gD2ABguSRz_vIzzIMi6I9C4ilP2D3hv3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE3MDE5MSBTYWx0ZWRfXwC/KJnUcFxm6
- W/kDf9Nf88r4rPAD91KVVTo43ozQMTXkcWnHjQLGT+jUxP0M55rrFbohZtOg8SRMToEJuo3jZit
- /mveHkSWWTPefzwsg9F0UZsdoewOhv+D4WNW92stcoOBl3Qi5M86pw3Y0S6nLnvGTjKrttXEFUm
- HgHkg7R5HpmnmBIS7rVgH3riDVOaCCA4UgDSf9Qs+k2ewCsBXWUaHTDkvRs+dJYCGaXO7gVEatC
- xFmft2S+x7RL8QW/hfF+1Laly/Cv2T9sx8lqxupyktxPJlkKFaQjHulnalfpdbA+eXTr/OXl9ys
- rZxJU9RtmMELcL6F0A9fAxKDECP6shrnf/HxRqON4FQrjFoz4ou+H+YNb6we8PZk/hTCVIWLjKb
- yg4IPhHjApyByzOsgGa+xYKZhXq7OihxyyRKKxuoZnLOtINMauB9sbVL1AG2jV3ViFXCY7HQjTy
- f98Y97g5ZZEwpc8teJQ==
-X-Proofpoint-ORIG-GUID: gD2ABguSRz_vIzzIMi6I9C4ilP2D3hv3
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, Wangao Wang <wangao.wang@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/9] soc: qcom: ubwc: add helpers to get programmable
+ values
+Message-ID: <pl7gyocwutgt4ftfjql7ipmsvvsje3jkzi62gnostcxartcb5d@trrdjswrldnv>
+References: <20260125-iris-ubwc-v4-0-1ff30644ac81@oss.qualcomm.com>
+ <20260125-iris-ubwc-v4-2-1ff30644ac81@oss.qualcomm.com>
+ <5dd7834b-2e9c-4865-af6f-c362aa0c8287@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5dd7834b-2e9c-4865-af6f-c362aa0c8287@oss.qualcomm.com>
+X-Proofpoint-GUID: ujWNs5LusZ0P83bAgLx8aifgid-znsks
+X-Authority-Analysis: v=2.4 cv=R7oO2NRX c=1 sm=1 tr=0 ts=69950b86 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=EUspDBNiAAAA:8
+ a=UiVfME4oCffaLAUF7oQA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE4MDAwNCBTYWx0ZWRfXz5lzKRj+Ac3R
+ +wpoIN+G8COxRqAxjRpR0aeTY2awfNVVtRz2rOnx4uUn/V6DxzSnnnDzs3PxW2ue/+3E5Nvmy0r
+ 3B7Ym4KYIFhX6uZLHF5SbJv2ZAcB+w/Vz55hnutY+08Bw7S6gBV7AHcFSbqG597FyOzJe9Qr4ds
+ P68lqQQbLT1vAizMhC/ggC5cj0j08UrWJC1KYQFGJ9dDnyo+P8fogz/GoYJBIfZk9fvV9lyhTd8
+ xcit/L9L9T1lQt/lbU3NGo7/JhOYF8xuUQnjvasO8HWZ4qoigviilEQsIRUnZ5j1HWoSmc9Z2rg
+ Q1IoH7jQsH7URocyynOmmxcU20nRDsq4K717W0+2Z7LVNtOvCK00IGFJzIIFlPIGNuATDHr/Hgt
+ QP5uMRcq2GmLAAIiD7m9JZeUM8pZrgBHYRFrX3QjhQiLNL+/LgzZgaapd5xPquMsLf71UPfX2Dg
+ SrvG5Jxgbsa8X+4XfSw==
+X-Proofpoint-ORIG-GUID: ujWNs5LusZ0P83bAgLx8aifgid-znsks
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-17_03,2026-02-16_04,2025-10-01_01
+ definitions=2026-02-17_04,2026-02-16_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 clxscore=1015 spamscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
- definitions=main-2602170191
+ clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0 phishscore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602180004
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,251 +156,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.31 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+X-Spamd-Result: default: False [-0.81 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	MAILLIST(-0.20)[mailman];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	REPLYTO_DOM_EQ_TO_DOM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:andersson@kernel.org,m:konradybcio@kernel.org,m:kees@kernel.org,m:gustavoars@kernel.org,m:sean@poorly.run,m:akhilpo@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-hardening@vger.kernel.org,m:dri-devel@lists.freedesktop.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[rob.clark@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,poorly.run,linux.dev,gmail.com,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:konrad.dybcio@oss.qualcomm.com,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:akhilpo@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:dikshita.agarwal@oss.qualcomm.com,m:bod@kernel.org,m:mchehab@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-media@vger.kernel.org,m:wangao.wang@oss.qualcomm.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_REPLYTO(0.00)[rob.clark@oss.qualcomm.com];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rob.clark@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	TAGGED_RCPT(0.00)[freedreno];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:replyto,oss.qualcomm.com:dkim]
-X-Rspamd-Queue-Id: 7CAAB151B48
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:dkim]
+X-Rspamd-Queue-Id: 26F471525EE
 X-Rspamd-Action: no action
 
-On Tue, Feb 17, 2026 at 2:53=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> On Tue, Feb 17, 2026 at 01:59:48PM +0100, Konrad Dybcio wrote:
-> > On 1/13/26 5:29 PM, Dmitry Baryshkov wrote:
-> > > On Tue, Jan 13, 2026 at 04:31:15PM +0100, Konrad Dybcio wrote:
-> > >> On 1/10/26 11:45 AM, Dmitry Baryshkov wrote:
-> > >>> On Fri, Jan 09, 2026 at 11:50:46AM -0600, Bjorn Andersson wrote:
-> > >>>> On Fri, Jan 09, 2026 at 05:21:10AM +0200, Dmitry Baryshkov wrote:
-> > >>>>> On Thu, Jan 08, 2026 at 11:49:54AM -0600, Bjorn Andersson wrote:
-> > >>>>>> On Thu, Jan 08, 2026 at 04:45:49PM +0200, Dmitry Baryshkov wrote=
-:
-> > >>>>>>> On Thu, Jan 08, 2026 at 03:21:51PM +0100, Konrad Dybcio wrote:
-> > >>>>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > >>>>>>>>
-> > >>>>>>>> To make sure the correct settings for a given DRAM configurati=
-on get
-> > >>>>>>>> applied, attempt to retrieve that data from SMEM (which happen=
-s to be
-> > >>>>>>>> what the BSP kernel does, albeit with through convoluted means=
- of the
-> > >>>>>>>> bootloader altering the DT with this data).
-> > >>>>>>>>
-> > >>>>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > >>>>>>>>
-> > >>>>>>>> ---
-> > >>>>>>>> I'm not sure about this approach - perhaps a global variable s=
-toring
-> > >>>>>>>> the selected config, which would then be non-const would be be=
-tter?
-> > >>>>>>>
-> > >>>>>>> I'd prefer if const data was const, split HBB to a separate API=
-.
-> > >>>>>>>
-> > >>>>>>
-> > >>>>>> I agree, but I'd prefer to avoid a separate API for it.
-> > >>>>>>
-> > >>>>>> Instead I'd like to either return the struct by value (after upd=
-ating
-> > >>>>>> the hbb), but we then loose the ability to return errors, or by =
-changing
-> > >>>>>> the signature to:
-> > >>>>>>
-> > >>>>>> int qcom_ubwc_config_get_data(struct qcom_ubwc_cfg_data *data)
-> > >>>>>>
-> > >>>>>> This costs us an additional 16 bytes in each client (as the poin=
-ter is
-> > >>>>>> replaced with the data), but I think it's a cleaner API.
-> > >>>>>
-> > >>>>> What about:
-> > >>>>>
-> > >>>>> const struct qcom_ubwc_cfg_data qcom_ubwc_config_get_data(u32 *hb=
-b)
-> > >>>>>
-> > >>>>> I really want to keep the data as const and, as important, use it=
- as a
-> > >>>>> const pointer.
-> > >>>>>
-> > >>>>
-> > >>>> I guess the question is what are you actually trying to achive; my=
- goal
-> > >>>> was to keep the base data constant, but I'm guessing that you also=
- want
-> > >>>> to retain the "const" classifier in the client's context struct (e=
-.g.
-> > >>>> the "mdss" member in struct dpu_kms)
-> > >>>>
-> > >>>> If we're returning the data by value, there's no way for you to ma=
-rk
-> > >>>> it as "const" in the calling code's context object (as by definiti=
-on you
-> > >>>> shouldn't be able to change the value after initializing the objec=
-t).
-> > >>>
-> > >>> And I, of course, misssed one star:
-> > >>>
-> > >>> const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(u32 *hbb=
-)
-> > >>>
-> > >>> This leaks the knowledge that HBB is slightly different kind of pro=
-perty
-> > >>> than the rest of UBWC data.
-> > >>>
-> > >>>>
-> > >>>> You also can't return the data by value and then track it by refer=
-ence -
-> > >>>> as that value lives on the stack. This has the benefit of making t=
-he
-> > >>>> lifecycle of that object clear (it lives in each client) - but per=
-haps
-> > >>>> not a goal of ours...
-> > >>>>
-> > >>>> How come the ubwc config is const but the hbb isn't?
-> > >>>>
-> > >>>>
-> > >>>> If we want both the per-target data to remain const and data in th=
-e
-> > >>>> client's context to be carrying the const qualifier, the one solut=
-ion I
-> > >>>> can see is:
-> > >>>>
-> > >>>> const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(void)
-> > >>>> {
-> > >>>>         const struct qcom_ubwc_cfg_data *data;
-> > >>>>         static struct qcom_ubwc_cfg_data cfg;
-> > >>>>         int hbb;
-> > >>>>
-> > >>>>         ...
-> > >>>>
-> > >>>>         data =3D of_machine_get_match_data(qcom_ubwc_configs);
-> > >>>>         ...
-> > >>>>
-> > >>>>         hbb =3D qcom_smem_dram_get_hbb();
-> > >>>>  ...
-> > >>>>
-> > >>>>         cfg =3D *data;
-> > >>>>         cfg.highest_bank_bit =3D hbb;
-> > >>>>
-> > >>>>         return &cfg;
-> > >>>> }
-> > >>>>
-> > >>>> But we'd need to deal with the race in cfg assignment...
-> > >>>
-> > >>> static struct qcom_ubwc_cfg_data *cfg;
-> > >>> static DEFINE_MUTEX(cfg_mutex);
-> > >>> const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(void)
-> > >>> {
-> > >>>         const struct qcom_ubwc_cfg_data *data;
-> > >>>         int hbb;
-> > >>>
-> > >>>   guard(mutex)(&cfg_mutex);
-> > >>>
-> > >>>   if (cfg)
-> > >>>           return cfg;
-> > >>>
-> > >>>         data =3D of_machine_get_match_data(qcom_ubwc_configs);
-> > >>>   if (!data)
-> > >>>           return ERR_PTR(-ENOMEM);
-> > >>>
-> > >>>         hbb =3D qcom_smem_dram_get_hbb();
-> > >>>   if (hbb =3D -ENODATA)
-> > >>>           hbb =3D 15; /* I think it was default */
-> > >>>   else if (hbb < 0)
-> > >>>           return ERR_PTR(hbb);
-> > >>>
-> > >>>         cfg =3D kmemdup(data, sizeof(*data), GFP_KERNEL);
-> > >>>   if (!cfg)
-> > >>>           return ERR_PTR(-ENOMEM);
-> > >>>
-> > >>>         cfg->highest_bank_bit =3D hbb;
-> > >>>
-> > >>>   return cfg;
-> > >>> }
-> > >>>
-> > >>> This potentially leaks sizeof(*data) memory if the module gets remo=
-ved.
-> > >>> Granted that all users also use qcom_ubwc_config_get_data() symbol,=
- it
-> > >>> should be safe to kfree(cfg) on module removal.
-> > >>
-> > >> I really don't understand why you'd want a separate API for hbb, if
-> > >> hbb is already available from the larger struct *and* if a driver ne=
-eds
-> > >> to know about the value of hbb, it really needs to know about all th=
-e
-> > >> other values as well
-> > >
-> > > Please take another look, qcom_ubwc_config_get_data() is the only pub=
-lic
-> > > API, qcom_smem_dram_get_hbb() is an internal API.
-> > >
-> > > My goal is to keep having UBWC db which keeps const data and which wh=
-ich
-> > > also returns a const pointer.
-> >
-> > Right
-> >
-> > So if I understand correctly, this is almost exactly what I originally =
-had
-> > in mind in the under-"---" message (modulo having a static global ptr v=
-s full
-> > struct instance) but I failed to express that I wanted to keep returnin=
-g a
-> > const pointer to the consumers
-> >
-> > So in the end it's
-> >
-> > A) int qcom_ubwc_config_get_data(struct qcom_ubwc_cfg_data *data)
-> >
-> > vs
-> >
-> > B) const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(void)
-> >
-> > I think the latter is better since we won't have to store a separate co=
-py
-> > of the config in each consumer driver (which the SSOT rework was largel=
-y
-> > sparked by), essentially removing the ability for any of these drivers =
-to
-> > mess with the config internally and make it out-of-sync with others aga=
-in
->
-> You have my vote for the latter option.
+On Tue, Feb 17, 2026 at 11:55:41AM +0100, Konrad Dybcio wrote:
+> On 1/25/26 12:30 PM, Dmitry Baryshkov wrote:
+> > Currently the database stores macrotile_mode in the data. However it
+> > can be derived from the rest of the data: it should be used for UBWC
+> > encoding >= 3.0 except for several corner cases (SM8150 and SC8180X).
+> > 
+> > The ubwc_bank_spread field seems to be based on the impreside data we
+> > had for the MDSS and DPU programming. In some cases UBWC engine inside
+> > the display controller doesn't need to program it, although bank spread
+> > is to be enabled.
+> > 
+> > Bank swizzle is also currently stored as is, but it is almost standard
+> > (banks 1-3 for UBWC 1.0 and 2-3 for other versions), the only exception
+> > being Lemans (it uses only bank 3).
+> > 
+> > Add helpers returning values from the config for now. They will be
+> > rewritten later, in a separate series, but having the helper now
+> > simplifies refacroring the code later.
+> > 
+> > Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >  include/linux/soc/qcom/ubwc.h | 15 +++++++++++++++
+> >  1 file changed, 15 insertions(+)
+> > 
+> > diff --git a/include/linux/soc/qcom/ubwc.h b/include/linux/soc/qcom/ubwc.h
+> > index 5bdeca18d54d..f5d0e2341261 100644
+> > --- a/include/linux/soc/qcom/ubwc.h
+> > +++ b/include/linux/soc/qcom/ubwc.h
+> > @@ -84,4 +84,19 @@ static inline bool qcom_ubwc_min_acc_length_64b(const struct qcom_ubwc_cfg_data
+> >  		 cfg->ubwc_dec_version == UBWC_3_0);
+> >  }
+> >  
+> > +static inline bool qcom_ubwc_macrotile_mode(const struct qcom_ubwc_cfg_data *cfg)
+> 
+> Should we rename this to something like "qcom_ubwc_macrotile_mode_8ch()"?
 
-same here, B pls
+I'd rather land it as is (and maybe add a comment).
 
-BR,
--R
+> 
+> Konrad
+
+-- 
+With best wishes
+Dmitry
