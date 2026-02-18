@@ -2,148 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aMAkNYwLlWmqKQIAu9opvQ
+	id 2LVnD7nhlWliVwIAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 01:45:00 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 16:58:49 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26F471525EE
-	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 01:45:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84ED0157869
+	for <lists+freedreno@lfdr.de>; Wed, 18 Feb 2026 16:58:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5716D10E20A;
-	Wed, 18 Feb 2026 00:44:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA4CD10E085;
+	Wed, 18 Feb 2026 15:58:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MehId1me";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a/77W6KT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NSnB7yKh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E81910E20A
- for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 00:44:56 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61HN7i0i4060336
- for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 00:44:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=MDILxvRtKcp720/UrtSTDBg6
- /HJjHwoeZ4/0fsSNcL8=; b=MehId1mePzlN7KBHLwUFoqLPqxbNclcPWhxpiS+G
- b9tLOO2g9J2tgOZRUMgO6xTrVYrwCZLBu0r8+nynHO/1wk3YTqvtONu++sB/WfCz
- KhVY0YHBJPcf7txj+z5UyzxUPSUqEUtsEwSqNKSlyFs7eCwc9SYa2xdX2yd0rn0u
- um8w4X/VLXxX/go52+7FUFYnkdYsySY57k8xBmLhhLIC4wUfI1Mzuu8U3skBr1iI
- qWWZZwULTsUfiUCnokC6E5P1z+epF+N3JoZBLs+4uXn/SxpgxhZh70YubHahkRYg
- arwVbGom30ZUJ5ZYmOdEhG/Ly2FoZF2KDxj7e08BR99JxQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cd1qx073j-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 00:44:54 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8c70fadd9a3so3952363185a.0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Feb 2026 16:44:54 -0800 (PST)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5EE910E5EA
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 15:58:45 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c6e7e3f92adso359521a12.2
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Feb 2026 07:58:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771430325; cv=none;
+ d=google.com; s=arc-20240605;
+ b=WWgS3V/4eXDzc9qaODnQGwzPxJQ2z0r9OI5jVeWsH0RU+ZyEGks8OfJDt+xrIOiQfI
+ A/7mXQkaaieOTF48PKJWcgtojkN7UXXrCu6zqEdf50SVVzuJemGwG8gnzW/VzgyBf2fH
+ R8wfc0A9ECr1c6ZQcfh5mF12JfQt+/V5b4XprZ2F4LASyeBkhYfJAklxPpPdR7uaRAI8
+ gAItsQRt4G+1IaIXcEa06aPyfRW8EcQHo5wgKpeh3kEjpKf73X+0iqh6pMEE31smxa02
+ J8mFAZp6xWTcB3jgrdUUYM34YJ9usulm1xCMvLRS1kD5QBDKhV0kHEjVyzQd4TeY86uz
+ /6QQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+jEZRhKDKJOk8SBTSDYiUNsfqMbSOB+ljt4JuK9uCrE=;
+ fh=gV/xB+VPBvJSA+zel0jEYbpoJPSZN8Y+92bCxb+65xY=;
+ b=PUP2w9HxZ5mtcC0WhDYsHfpUORNvayvKsZBuwtgK0+Pmaht9RBxP0AWeaZxiWIMLDM
+ XQZQ9AuI+YPOE0HX6b9F4lsTLYoLKXGfCw/ywdyV2v+qz6SbsGTdR8uA2EF8VPC56YLJ
+ b/eMIjs8R/psgnx3Zk8WDafkc/QBGrtpVT/TQktrNUZjRF3q6nDQqHQeUkMsM75QkdRT
+ FCenNm67aoG9WQS/Eh7SriTaFTCdjSTZXHUxVc5lzS8yPUvYUqzdlws/GK7ygZL5xXW8
+ CRW7jZ4MXHns3DpO+JqZUjdyKFcgE4PHuLsfdfEfZR8Te824NUSDNIix3+hXndNiBDGD
+ zG0Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1771375494; x=1771980294;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=MDILxvRtKcp720/UrtSTDBg6/HJjHwoeZ4/0fsSNcL8=;
- b=a/77W6KTdImzhAF+yCef0lrqM4IrOpAMz1KfdsbcYnqKafQgymQwV5svid40pxgbuC
- Ghjrkgt/+IZYQ1wjIbwvp8MklslbVwYrYzeyKU3aycJA5cAybKaLUvOhYZpI2ZTXVYKH
- CPTnMTuyLwDVHQpxeyo+Y2XX42PxG2iRQC6BPOlQAJtlnmOsu9Kcbr7+FANg17+JXd9U
- qKqMWiIx2dDrxrEmOywMY6xoBwGaDkvx8xWGzE57YBUwwnNnZVQO+9FyKg8GLigjs26i
- 9TYtkFuZY9SpEPl53NJxddjmCuX3du6+Hl96DhQLn8rro/R03IHXo/OsmZK+JQeqxAIx
- dtZw==
+ d=gmail.com; s=20230601; t=1771430325; x=1772035125; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+jEZRhKDKJOk8SBTSDYiUNsfqMbSOB+ljt4JuK9uCrE=;
+ b=NSnB7yKhswAMWxXSRg1C7/1smf1Df3U4mxBLMTqYZ6RPfj/oCraAMANh23/w+V2jjM
+ u09iLO/9Rt1fkA9p8XFew2/D3j0HMrhbLheyDijRu7pwY27oV1b5O1Eew6ZUou39RdTO
+ uHfHz2OiAdI9EE79m0PSyQiUs6kTMk5nj8ksvCtayXKEBUYCGSauceZsD8nOK/RPlS5M
+ JOKJa/jaKlnThUPpv7m8PlTzrJLOTdnEBQHjlclT8J+uZ93ox74R68mlRkTlwvR7UXXv
+ LVQac6wLbedwHvaRcECtVBrLe6+lykm9sZxIcwqzoTlxDoWJuYWSmSiR/WMV9O5Oe0j8
+ JSfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771375494; x=1771980294;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MDILxvRtKcp720/UrtSTDBg6/HJjHwoeZ4/0fsSNcL8=;
- b=WjiScarYZEZks8j/1ljuZhDM511XEsRlhVyOtSGvV19tzwYyU1nqnvYy8Tu14gOfHg
- zTv7iw9ZQHBWvOtBOy4TtqwQ4EEbmQfZp8nUCnF4VmyKj2e11Rz/OZsH37bVdXoCvgz7
- hvyxUdkYLNW4qtK+og/9PhppYX3Io5OslmlF9PRm6lHuC8KThIDBe9R7dTTwIwH8muAV
- uhJfWVulmgTDUpmR1dqXUfSszJPrFVQoBOL7f5xVmx5d2SNqHwHOkF/Gy5uelG8wIPDe
- fiV7fD0LqBUju67EZlk1QBju5M9coGxXKaxv9NadapmaLLqlkpWuDB7TMpgVt7j72YsN
- zqaw==
+ d=1e100.net; s=20230601; t=1771430325; x=1772035125;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+jEZRhKDKJOk8SBTSDYiUNsfqMbSOB+ljt4JuK9uCrE=;
+ b=PefhnEQBrikrPve4oHwnmX8hQX9bsCcIFMlZzLrA5r1s7T9cg1Sic/A6nPs9XHY8yo
+ ShP3Xxw5dopoHjJEGyCE6eLb9wnsOqtVONnJhTcjC7pYtr4Wylh7z5qwbM6pBe74k/Zp
+ rmLmy/Ueo5n9xyJeClBiFR/Ah7q09eSM/gDPhUrPSSFTwQngk8gZk6G3FrdymT7LeoWY
+ 50xdQQY6KghWDw2yz/Hq+u9wzs7Uno+GO31XpLt2bm/mTpwIQiRUql30idHjy/l1W+CL
+ Ya95GW3lJwpWB4JEDSy0akyAjsAobIsFEIllKkW97CAV2bYCnCGjJQr5p8dIlewnLtRf
+ 4dtA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnh2kvXwTLDFJc6UtZz97nTWVGD5fKXGjFmyKRfiAJ9Ua2Ljy44CoLk/94dC3pkHZWf1H4TgdcyMQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAFzM3KhNw9Pf0UKHraUSD1/ceiygn1tiAyMzx0C0l/i6n4D0U
- 7hY7P5Ke5jWTbqisCTVByRfKFNhspaPKA3cdCdAOHGEWM4XwG9Gf8Ynx3b7M85F2hJRh78kGOvA
- v0SA3UzdmlVq7jCwNp7S+IEHWZPY4CbNvcwpvHMM1fTLf9IYym6Fo4nSu+vj6y48v9cJWa0A=
-X-Gm-Gg: AZuq6aKrXqkcz2ZZNxIc4Ske0qMdCGEgiIm24/f3L7c9p1pkhFE0wfuD/kEx+3CfmtJ
- mPmyzWGODhSnLcL4BMTgk67gR78HYFTArP6qRbkv/oTmLB/vE4w+3I+a1Ly0pF9PvQ340nCzBXm
- VES4QzrPjYE0FWpIgb33eh+wd7wjxMyjm8N+QL3hrbueNdDes+ucQtTXRdDkUfdVP9GN22k5KUv
- kGs++G8NoNW6Q0ApRjkjFF9nqp8y6Y3S+IcnLmcPgCsaZvHh+ZflLP933icQ4S9ZY/lRREFIDMi
- L3Uc+HDtPrcgBJgQznU259O5FkiKBPCoXVx7VTH+bwTl1sKp1ZkFsphN4Mf2+xVfpKZwPLYrh3r
- 1e2d13ziSnXgAcfiVr5uVk4/eh+vAwArz9eb4B1Om5FWLyADHc+Z5H6gDc6opPvE1mwQUeRaHZ5
- VR5FX+N1A4NddwRulUIxTa6lQehQPe+yLSHL0=
-X-Received: by 2002:a05:620a:4607:b0:8c7:176b:ebbe with SMTP id
- af79cd13be357-8cb4c014765mr1607893785a.57.1771375494352; 
- Tue, 17 Feb 2026 16:44:54 -0800 (PST)
-X-Received: by 2002:a05:620a:4607:b0:8c7:176b:ebbe with SMTP id
- af79cd13be357-8cb4c014765mr1607890785a.57.1771375493872; 
- Tue, 17 Feb 2026 16:44:53 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-387068e5976sm40285091fa.27.2026.02.17.16.44.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Feb 2026 16:44:52 -0800 (PST)
-Date: Wed, 18 Feb 2026 02:44:49 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, Wangao Wang <wangao.wang@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/9] soc: qcom: ubwc: add helpers to get programmable
- values
-Message-ID: <pl7gyocwutgt4ftfjql7ipmsvvsje3jkzi62gnostcxartcb5d@trrdjswrldnv>
-References: <20260125-iris-ubwc-v4-0-1ff30644ac81@oss.qualcomm.com>
- <20260125-iris-ubwc-v4-2-1ff30644ac81@oss.qualcomm.com>
- <5dd7834b-2e9c-4865-af6f-c362aa0c8287@oss.qualcomm.com>
+ AJvYcCWmusSnlgsHVobMZ7wpZTomrfylJiYWu/jX5w990yFkkM2RPU1z95F60TWKJQvionE0kJWiN7AotRw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzc2a9aMYG2zNqa+pONvC1Pyv1YJA6AA9taUI5DENS+2rrzAOD3
+ GmLHGtTJNc0Ibe1dgXag1yKoFioXCKvjXLjIop4sl9MXEF8QQxqfZPUlYyb3QE766CsxX4KXeVX
+ r0jwEjrea6T61d92i0vY3K47L4yJEP50=
+X-Gm-Gg: AZuq6aK5GtJuxOj5FH1rjA81Jyx2TRfwJcNgnuO7pAiGhiZWu2KlTVpmHJ/YnagRig5
+ 41Uwg9eiTVb9s6kZHMgv34SE3z+DTNFd33hjR7BX1KDL7iG62zjSVb0QVux33C11MObsxdxxK3y
+ 2KCHgGl7Htkfk3dT0AU7v5F9gasR37DRp8IIOdRIpscVtQG12dzL0AibvWNyp/pasL55b0/d83D
+ Po7NpCVgAcsBKMPozSfE9dQZFQWOWO5z46oQOZx7fFiEmu0ezUvXbvBcnups1DJ+Rt8UekJJRSV
+ /CwvIL0=
+X-Received: by 2002:a17:90b:28c4:b0:340:bca2:cf82 with SMTP id
+ 98e67ed59e1d1-356a7a44588mr12483278a91.4.1771430325136; Wed, 18 Feb 2026
+ 07:58:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5dd7834b-2e9c-4865-af6f-c362aa0c8287@oss.qualcomm.com>
-X-Proofpoint-GUID: ujWNs5LusZ0P83bAgLx8aifgid-znsks
-X-Authority-Analysis: v=2.4 cv=R7oO2NRX c=1 sm=1 tr=0 ts=69950b86 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=EUspDBNiAAAA:8
- a=UiVfME4oCffaLAUF7oQA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE4MDAwNCBTYWx0ZWRfXz5lzKRj+Ac3R
- +wpoIN+G8COxRqAxjRpR0aeTY2awfNVVtRz2rOnx4uUn/V6DxzSnnnDzs3PxW2ue/+3E5Nvmy0r
- 3B7Ym4KYIFhX6uZLHF5SbJv2ZAcB+w/Vz55hnutY+08Bw7S6gBV7AHcFSbqG597FyOzJe9Qr4ds
- P68lqQQbLT1vAizMhC/ggC5cj0j08UrWJC1KYQFGJ9dDnyo+P8fogz/GoYJBIfZk9fvV9lyhTd8
- xcit/L9L9T1lQt/lbU3NGo7/JhOYF8xuUQnjvasO8HWZ4qoigviilEQsIRUnZ5j1HWoSmc9Z2rg
- Q1IoH7jQsH7URocyynOmmxcU20nRDsq4K717W0+2Z7LVNtOvCK00IGFJzIIFlPIGNuATDHr/Hgt
- QP5uMRcq2GmLAAIiD7m9JZeUM8pZrgBHYRFrX3QjhQiLNL+/LgzZgaapd5xPquMsLf71UPfX2Dg
- SrvG5Jxgbsa8X+4XfSw==
-X-Proofpoint-ORIG-GUID: ujWNs5LusZ0P83bAgLx8aifgid-znsks
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-17_04,2026-02-16_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602180004
+References: <20260108-topic-smem_dramc-v3-0-6b64df58a017@oss.qualcomm.com>
+ <CACu1E7EDmLPhUFyouD=W6n+U7=oo7+6PY0Gz9=3pVpT2Qu9Z6w@mail.gmail.com>
+ <CACSVV00iiAXGOqV2HZs9KREoqatE0eNBZjFH9hSFMmNaX3_RXw@mail.gmail.com>
+ <CACu1E7Fh=GbLTiedj6OqtUxWiZbCVcKmsEzV6FYan5G6r1uyUA@mail.gmail.com>
+ <c99beabf-9841-44cd-9450-2f339d1d5c41@oss.qualcomm.com>
+In-Reply-To: <c99beabf-9841-44cd-9450-2f339d1d5c41@oss.qualcomm.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Wed, 18 Feb 2026 10:58:33 -0500
+X-Gm-Features: AaiRm51N5SpqVVJUQBLh2elCdDaV2cuIU7D7DKaGqf9-QJjihmDNYzh8f93hCZk
+Message-ID: <CACu1E7EnveTSzi2QD83xEgsqrM1H33KCqMqcaLE-VebgOMbh0g@mail.gmail.com>
+Subject: Re: [PATCH v3 0/3] Retrieve information about DDR from SMEM
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: rob.clark@oss.qualcomm.com, Konrad Dybcio <konradybcio@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,83 +122,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.81 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+X-Spamd-Result: default: False [-2.31 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	MAILLIST(-0.20)[mailman];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS(0.00)[m:konrad.dybcio@oss.qualcomm.com,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:akhilpo@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:dikshita.agarwal@oss.qualcomm.com,m:bod@kernel.org,m:mchehab@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-media@vger.kernel.org,m:wangao.wang@oss.qualcomm.com,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:konrad.dybcio@oss.qualcomm.com,m:rob.clark@oss.qualcomm.com,m:konradybcio@kernel.org,m:andersson@kernel.org,m:kees@kernel.org,m:gustavoars@kernel.org,m:sean@poorly.run,m:akhilpo@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:linux-kernel@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-hardening@vger.kernel.org,m:dri-devel@lists.freedesktop.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[cwabbott0@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	TAGGED_RCPT(0.00)[freedreno];
-	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[cwabbott0@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,poorly.run,linux.dev,gmail.com,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:dkim]
-X-Rspamd-Queue-Id: 26F471525EE
+	TAGGED_RCPT(0.00)[freedreno];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid]
+X-Rspamd-Queue-Id: 84ED0157869
 X-Rspamd-Action: no action
 
-On Tue, Feb 17, 2026 at 11:55:41AM +0100, Konrad Dybcio wrote:
-> On 1/25/26 12:30 PM, Dmitry Baryshkov wrote:
-> > Currently the database stores macrotile_mode in the data. However it
-> > can be derived from the rest of the data: it should be used for UBWC
-> > encoding >= 3.0 except for several corner cases (SM8150 and SC8180X).
-> > 
-> > The ubwc_bank_spread field seems to be based on the impreside data we
-> > had for the MDSS and DPU programming. In some cases UBWC engine inside
-> > the display controller doesn't need to program it, although bank spread
-> > is to be enabled.
-> > 
-> > Bank swizzle is also currently stored as is, but it is almost standard
-> > (banks 1-3 for UBWC 1.0 and 2-3 for other versions), the only exception
-> > being Lemans (it uses only bank 3).
-> > 
-> > Add helpers returning values from the config for now. They will be
-> > rewritten later, in a separate series, but having the helper now
-> > simplifies refacroring the code later.
-> > 
-> > Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >  include/linux/soc/qcom/ubwc.h | 15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> > 
-> > diff --git a/include/linux/soc/qcom/ubwc.h b/include/linux/soc/qcom/ubwc.h
-> > index 5bdeca18d54d..f5d0e2341261 100644
-> > --- a/include/linux/soc/qcom/ubwc.h
-> > +++ b/include/linux/soc/qcom/ubwc.h
-> > @@ -84,4 +84,19 @@ static inline bool qcom_ubwc_min_acc_length_64b(const struct qcom_ubwc_cfg_data
-> >  		 cfg->ubwc_dec_version == UBWC_3_0);
-> >  }
-> >  
-> > +static inline bool qcom_ubwc_macrotile_mode(const struct qcom_ubwc_cfg_data *cfg)
-> 
-> Should we rename this to something like "qcom_ubwc_macrotile_mode_8ch()"?
-
-I'd rather land it as is (and maybe add a comment).
-
-> 
+On Tue, Feb 17, 2026 at 6:23=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 1/9/26 10:03 PM, Connor Abbott wrote:
+> > On Fri, Jan 9, 2026 at 3:41=E2=80=AFPM Rob Clark <rob.clark@oss.qualcom=
+m.com> wrote:
+> >>
+> >> On Fri, Jan 9, 2026 at 11:11=E2=80=AFAM Connor Abbott <cwabbott0@gmail=
+.com> wrote:
+> >>>
+> >>> On Thu, Jan 8, 2026 at 9:22=E2=80=AFAM Konrad Dybcio <konradybcio@ker=
+nel.org> wrote:
+> >>>>
+> >>>> SMEM allows the OS to retrieve information about the DDR memory.
+> >>>> Among that information, is a semi-magic value called 'HBB', or Highe=
+st
+> >>>> Bank address Bit, which multimedia drivers (for hardware like Adreno
+> >>>> and MDSS) must retrieve in order to program the IP blocks correctly.
+> >>>>
+> >>>> This series introduces an API to retrieve that value, uses it in the
+> >>>> aforementioned programming sequences and exposes available DDR
+> >>>> frequencies in debugfs (to e.g. pass to aoss_qmp debugfs). More
+> >>>> information can be exposed in the future, as needed.
+> >>>>
+> >>>> Patch 3 should really be merged after 1&2
+> >>>
+> >>> No. The HBB value currently returned by the bootloader is *not* alway=
+s
+> >>> the same as what we use currently, because some SoCs (like SM8250)
+> >>> with the same DT ship with multiple different DRAM configurations and
+> >>> we've been using a sub-optimal value the whole time. After all, that'=
+s
+> >>> the whole point of using the bootloader value. But patches 1&2 will
+> >>> only make the DPU use the bootloader value for HBB, not the GPU. So o=
+n
+> >>> one of the affected SoCs, it will introduce a mismatch. You can't
+> >>> change anything until the GPU side uses the new ubwc config as its
+> >>> source of truth.
+> >>
+> >> Hmm, how is this even working today if DPU is using HBB from the
+> >> global table but GPU is not?  Are we just getting lucky with
+> >> compositors that don't know about modifiers and end up scanning out
+> >> linear?
+> >
+> > It works out as well as it's always worked out, i.e. we try to make
+> > GPU and DPU config match and pray that we didn't mess it up. At least
+> > now we'll get a warning when they don't match.
+> >
+> >>
+> >> We do log warnings when the global ubwc config does not match the
+> >> "fixed up" config.. google search for those msgs doesn't seem to turn
+> >> up anything other than the patch which introduced them.  Idk if that
+> >> is conclusive in any way, but I hope that means we could just delete
+> >> the fixup code on the GPU side.  I suppose we could add:
+> >>
+> >>        *cfg =3D *common_cfg;
+> >>
+> >> after the warning as a first step.  That would maybe get some bug
+> >> reports along with enough details in dmesg?
+> >
+> > Yes, the plan was always to delete the fixup code in the GPU config.
+> > And even that first step would be enough to prevent regressions when
+> > switching to the bootloader HBB value.
+> >
+> > There is a problem in that ubwc_swizzle isn't as well tested. Older
+> > parts supporting UBWC 1.0-3.0 partially or entirely ignore
+> > ubwc_swizzle, because it wasn't configurable back then, but we rely on
+> > it being set correctly in Mesa for VK_EXT_host_image_copy and sparse
+> > textures. So if ubwc_swizzle is incorrect you probably wouldn't
+> > notice, until you hit the HIC codepath in zink or some game using
+> > sparse textures. I think we fixed up all the cases where it was
+> > incorrectly set to 0x1 instead of 0x7, but it would be worth it to
+> > check again.
+>
+> Just to double-check, is your expectation to just double-check the kernel
+> settings, or would that require some intervention on the mesa side too?
+>
 > Konrad
 
--- 
-With best wishes
-Dmitry
+Just to double-check the kernel, and I double-checked since then and
+everything seems to be right.
+
+Connor
