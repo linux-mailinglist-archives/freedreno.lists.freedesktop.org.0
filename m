@@ -2,112 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id K1ZKI+cqoGl4fwQAu9opvQ
+	id eGXyOSw1oGkqgwQAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Thu, 26 Feb 2026 12:13:43 +0100
+	for <lists+freedreno@lfdr.de>; Thu, 26 Feb 2026 12:57:32 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDDE71A4E6B
-	for <lists+freedreno@lfdr.de>; Thu, 26 Feb 2026 12:13:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DA51A56ED
+	for <lists+freedreno@lfdr.de>; Thu, 26 Feb 2026 12:57:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA2EC10E8CE;
-	Thu, 26 Feb 2026 11:13:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A209C10E06F;
+	Thu, 26 Feb 2026 11:57:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="eOzu6Pb4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kHVZ6FtY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A46DE10E8CE;
- Thu, 26 Feb 2026 11:13:40 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61QAL8kI3987221; Thu, 26 Feb 2026 11:13:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=lTFreEYIylh
- 0/5vkZDUX91u2n4TL2Vmegs88I+0j47E=; b=eOzu6Pb4KZP5F6KKkpkSXp7J/GD
- L7OXbimrVdjFYkaxM62pg//DB7DtTtr6/GbxikdPKm+LdORgtuQBT+U9i+0U7MsA
- AcxELNwo2TlgdTqMqRb/n8AjB/8C6s96LaHeukph1rs8tDeJs+mAkPmLNGMDhKCh
- +JMxekUjH+OTBdfqRwoN5VJidrWDyhP4ikDyHJmpZST0MUUYkXLNZ7Qj0kPLesn0
- rIo8XahVxP1xhS1qsKNuM0z107oVbDoak3NYkQR9cACRYzf/iGyJVRlqW5KGPaKX
- 0YzRC8l8O9hKybTQi6j4gDSOlg6qU9+efAuYhEB//5uDQsLIlUgTxri823A==
-Received: from apblrppmta01.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cjdph1egj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Feb 2026 11:13:33 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 61QBDURP017513; 
- Thu, 26 Feb 2026 11:13:30 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4cf5smjsf6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Feb 2026 11:13:30 +0000
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 61QBDT37017496;
- Thu, 26 Feb 2026 11:13:29 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mkuntuma-hyd.qualcomm.com
- [10.213.97.145])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 61QBDTOw017494
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Feb 2026 11:13:29 +0000
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4582077)
- id B68E05E7; Thu, 26 Feb 2026 16:43:28 +0530 (+0530)
-From: Mani Chandana Ballary Kuntumalla <quic_mkuntuma@quicinc.com>
-To: dmitry.baryshkov@oss.qualcomm.com, marijn.suijten@somainline.org,
- swboyd@chromium.org, mripard@kernel.org, abel.vesa@linaro.org,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
- jessica.zhang@oss.qualcomm.com, abhinav.kumar@linux.dev,
- sean@poorly.run, airlied@gmail.com, simona@ffwll.ch,
- alex.vinarskis@gmail.com
-Cc: Mani Chandana Ballary Kuntumalla <quic_mkuntuma@quicinc.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- freedreno@lists.freedesktop.org, quic_rajeevny@quicinc.com,
- quic_vproddut@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_riteshk@quicinc.com
-Subject: [PATCH v4 2/2] arm64: dts: qcom: lemans-ride: Enable mdss1 display
- Port
-Date: Thu, 26 Feb 2026 16:43:22 +0530
-Message-Id: <20260226111322.250176-3-quic_mkuntuma@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260226111322.250176-1-quic_mkuntuma@quicinc.com>
-References: <20260226111322.250176-1-quic_mkuntuma@quicinc.com>
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
+ [209.85.217.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D22210E06F
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Feb 2026 11:57:30 +0000 (UTC)
+Received: by mail-vs1-f52.google.com with SMTP id
+ ada2fe7eead31-5ff196450c6so151037137.2
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Feb 2026 03:57:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772107049; cv=none;
+ d=google.com; s=arc-20240605;
+ b=eBHQMFc2vbRBzQ2Z535M9cshDhm0rtI3IT6syG76ZjZN9L7v7iWm1H3lavtMNlzRAc
+ Wz3peRrX7MAwcqmVglYK9pp99GLKgyIlcQ/ktPYTK+LYl/Wj/t934Vz5aU2wRMHYT8Hd
+ MM6mcGkZAu8bfmQcLa25BjLqB6aqkk5CpMo5Vv3aROVONvVv/ZN9A0a+1JU/9LpIvmKW
+ yVpYhcm9f/cEQZLYmnT8/dTOPOHlgAlIce1VpoxW7h9D3eJySOOCMoencEn4k0gdUrp6
+ X6A4QZvBW5Xr91TM4gnlIhXUbooViqmYv+Y93GlxXy30HImGWRLtRjTZ3qSgl/Bdr5Oq
+ kAjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=qNtK32BGt9MxWXtwDTu0yUUapwxqATE2188PlWft/QU=;
+ fh=uYxnaaqu9yI/K63J7LJh5kJCtl1ie9Bcns2/S4rVXhw=;
+ b=lztixu83m10g0c292pDWm/Eed7oxRzTDSgPp7FoLGx8slvBfua5FAKjPjwe8EwdG4e
+ QEt3ZmLosFA0aKjRua/+MW13eaGSeJo+5Dxy0Xbxu9rVeVdN45nPXIOtLXCfcU0hUuD8
+ sgWxqAc/2AZf0/mIQvjGO0Op2YNCicSLiYlFLTGWYtGaqRlOtaF1k4mXCUmLyvLL3t60
+ Ptk5hAETk87el2Ppgjvjc7MhEFSDEuLpgNGkQhIeCgsKC8P9RA9RRxYADgsRidhfO20X
+ 1zfxtvd9N5LRifxkCS1aHacmazE16XQVazT1tCafXRyB+tWW9R2hWfSDdN30yJqFcH+E
+ KMGA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772107049; x=1772711849; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qNtK32BGt9MxWXtwDTu0yUUapwxqATE2188PlWft/QU=;
+ b=kHVZ6FtYjrWgQGG8gThgqCXrB3WGPlMcf4Bo5AGP485gcMAdEHSQWec3kp9klRH9+G
+ eYBZ0gr8Px8NiyXaUGvQk0k/4YfQAbPD8hQcBye9HYNdJ+1X6Afbqmmp8Ct8dwLw1CZ9
+ RoAu8tfFrzvmOijuW9mMkrdzUYFv3h5R4EB95zZtHaLGtrfKe7C+Wwj8Zgy540ZOyJil
+ MUoQReVQZj2ifEDHJKfhYP7n1JyrY9tGQ7UYwVBwZ3CzuCeXNY+MRD6mNpD4CxjX1iIG
+ nR2C5IfhomBsA1OEbN1iIid96brmJNKw2xvQmjqnEgQlByf/wY11kNR02JMzLcD9i53I
+ ysaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772107049; x=1772711849;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=qNtK32BGt9MxWXtwDTu0yUUapwxqATE2188PlWft/QU=;
+ b=pdQ2QpEXulc81SgrDgIs9UJ0HCodCm8D/mTtcoYQEzgjJMeZ/vyegawpsCyNLWiA8h
+ 4qRjiXukjnJvaL+aGfho7r52dlH8RqpL27HjwlBEMIDadITbHerG+1F/NwmidvM5Sk7j
+ cTMkaPs0Rwo60f917RQu+nliSAuOoOj9/r02zAFYg20Uf2ZhhNGcv3NdYHew1TGqDX2I
+ szRqWa839tjP+15YUcq72AKzc/XBLNaLjfE6gF8Efj5Lu7qUNx5N3EwV+D9MYpY/DpVr
+ 0dgzn9hiT4saGLrKutJt2k1xhbX5pUIM3/tEapaTH3D73lkXXrOVMOv/SjL/E8euO5zh
+ 5ngw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWb4KmmKQmgfX6axhMG2pNiepOYdNTXyiFO8G+QxGdfr4t+q58N20O9u96o8xXJdJ8vBKUx7aVPsyk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0Ra0tT/A73STu1PnzFFWwyNq3RkBsz+Hpy77WyPvsKpnwPLM9
+ Yk1oBF0gAtiXx6jVjVmwcbWbYJaIWjSYT2xb4mMzTA4/+0U7hQX0VMcV23pZhiVg/c/Lo2SwDI0
+ HWyXNwM89YTmRM+UPFdpW6eSlX6Nnsso=
+X-Gm-Gg: ATEYQzwoj3dytMoyexH8TGyaItS6NLoVF71fJN5K3OMN0o22MLt2iBpl+XtSoyUbi3t
+ eF32vlNLO8gHeMqxTjKHY6Up++J01uCkokZcpuqTZ7QGYCYZaQetFNPU1+IHtacIrokQwLTVVI/
+ rle7U9oM3bRyzlZOJTJrBR8hV/tX3Fl3kyLJpMS/HFFN4Udgi+xes6EWgQ0KcbtStAblCMI3DzN
+ 0IIMbLnjwyxJohbbsYTWjmWc27Nix9Z5diZbKJtSPRlDQKlD7QG5up004enFuCh7oCNpYQk6CO1
+ Vxrh9C0=
+X-Received: by 2002:a05:6102:c8f:b0:5f5:3c38:c4bc with SMTP id
+ ada2fe7eead31-5ff140aac98mr1601764137.23.1772107048800; Thu, 26 Feb 2026
+ 03:57:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: LaFbp-VtcUHl-orN4rSZIEU3CTYgtjXE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI2MDEwMSBTYWx0ZWRfXwjNSV/ILHQkS
- V5Bu9r0YKtHRyQsGFIQhYn+NY0M/gdXu7OE/QfkXBHHzXsBu2EELWm8+Wl+byOpRBCukbKz8wAt
- M78GZjneQW55/4JjwA6y92EB4Klb1TuCu9wGeknmRbvIL5vYL8933EE4Zn3tsZf7C4HRGUf8Vda
- dNq/m5VjYz9U0muvTZgoQ4MMP/ZftNYcn8K5KxUk7rs/4MVRuwRtv6tI/6b9aPStbd3bGBl1GIx
- GutwdtCjy3i6Z80QONJIfBVWqr2Jyw1P2UieElsJa9TF5mGwZbp5d3XlxS0q5W1+9EW3D95tKym
- InI/Q9rXDFJSck/K3cGPgdY1i3ZmOO053Jawkvvuskczcq3aVAgpCBKDIfmv2MXp58i/k3xhz9h
- j24jyn0xbIqanWL18DUY8GmfUIyp5lZkBIORJKBPlaqm0aLTfIJex6qyuUCqQZeNCWhpHERIw9z
- mP21219Mh+s0VKuJPAg==
-X-Authority-Analysis: v=2.4 cv=NJLYOk6g c=1 sm=1 tr=0 ts=69a02add cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=HzLeVaNsDn8A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=COk6AnOGAAAA:8 a=lcgM4KOETyTTvZj5T8AA:9
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: LaFbp-VtcUHl-orN4rSZIEU3CTYgtjXE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-25_04,2026-02-25_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0
- malwarescore=0 clxscore=1011 adultscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2602260101
+References: <20260225054525.6803-1-mitltlatltl@gmail.com>
+ <20260225054525.6803-2-mitltlatltl@gmail.com>
+ <20260225-analytic-economic-parrot-4c3a45@quoll>
+ <5617b6ec-b1f7-4f3d-abda-d7142c323759@oss.qualcomm.com>
+ <CAH2e8h7T3Qy1f=-34SK+q=n9TRYOtzyxY8R6yKZJZGr_f+UMZg@mail.gmail.com>
+ <rwsaypiovv3xtw5pfxw5rksmqetv4mogu4yy7yrm7gfknezmuw@bh6v5q2zeuiy>
+In-Reply-To: <rwsaypiovv3xtw5pfxw5rksmqetv4mogu4yy7yrm7gfknezmuw@bh6v5q2zeuiy>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Thu, 26 Feb 2026 19:57:12 +0800
+X-Gm-Features: AaiRm50VYYJa11U6YREQitoe6H7Afdc4A9v2yu5-PwbhgzvuP2StWI1hICwfKV4
+Message-ID: <CAH2e8h6HCBpMfuzE-e2sOvE0SF9w2bgci68mxENP9J7cExp1yA@mail.gmail.com>
+Subject: Re: [PATCH 1/5] dt-bindings: display: msm-dsi-phy-7nm: Add SC8280XP
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Tianyu Gao <gty0622@gmail.com>, 
+ White Lewis <liu224806@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,150 +131,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.69 / 15.00];
+X-Spamd-Result: default: False [-0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[quicinc.com,none];
-	R_DKIM_ALLOW(-0.20)[quicinc.com:s=qcppdkim1];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[27];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,somainline.org,chromium.org,kernel.org,linaro.org,linux.dev,poorly.run,gmail.com,ffwll.ch];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns];
-	FROM_NEQ_ENVFROM(0.00)[quic_mkuntuma@quicinc.com,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[quicinc.com:+];
-	NEURAL_HAM(-0.00)[-0.998];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:krzk@kernel.org,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:quic_mkrishn@quicinc.com,m:jonathan@marek.ca,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:gty0622@gmail.com,m:liu224806@gmail.com,m:conor@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[28];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	NEURAL_HAM(-0.00)[-0.991];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,linux.intel.com,suse.de,ffwll.ch,quicinc.com,marek.ca,vger.kernel.org,lists.freedesktop.org];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: DDDE71A4E6B
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,mail.gmail.com:mid,qualcomm.com:email]
+X-Rspamd-Queue-Id: 35DA51A56ED
 X-Rspamd-Action: no action
 
-This change enables DP controllers, DPTX0 and DPTX1 alongside
-their corresponding PHYs of mdss1 which corresponds to edp2
-and edp3.
+On Thu, Feb 26, 2026 at 6:56=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Thu, Feb 26, 2026 at 06:44:02PM +0800, Pengyu Luo wrote:
+> > On Wed, Feb 25, 2026 at 7:02=E2=80=AFPM Konrad Dybcio
+> > <konrad.dybcio@oss.qualcomm.com> wrote:
+> > >
+> > > On 2/25/26 11:24 AM, Krzysztof Kozlowski wrote:
+> > > > On Wed, Feb 25, 2026 at 01:45:21PM +0800, Pengyu Luo wrote:
+> > > >> Document DSI PHY on SC8280XP Platform.
+> > > >>
+> > > >> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> > > >> ---
+> > > >>  Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | =
+1 +
+> > > >>  1 file changed, 1 insertion(+)
+> > > >>
+> > > >> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy=
+-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> > > >> index 9a9a6c4ab..9223af1f4 100644
+> > > >> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.ya=
+ml
+> > > >> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.ya=
+ml
+> > > >> @@ -23,6 +23,7 @@ properties:
+> > > >>                - qcom,sa8775p-dsi-phy-5nm
+> > > >>                - qcom,sar2130p-dsi-phy-5nm
+> > > >>                - qcom,sc7280-dsi-phy-7nm
+> > > >> +              - qcom,sc8280xp-dsi-phy-5nm
+> > > >
+> > > > Your other commit claims it is compatible with sa8775p, just like s=
+ome
+> > > > other devices here.
+> > >
+> > > If that helps, they do have the same values for the REVISION_ID regis=
+ters
+> > >
+> >
+> > Thanks for confirming this,I will add this to the commit message and
+> > fallback to sa8775 then.
+> >
+> > I am curious, do the PHY QUIRKs in dsi_phy_7nm.c reflect PHY revision?
+>
+> Yes
+>
+> > I notice
+> >             REG_DSI_7nm_PHY_CMN_REVISION_ID0       QUIRK
+> > SM8250:     0x00000014                               4.1
+> > SM8650:     0x00000025                               5.2
+> > SC8280XP:   0x00000024                               4.2
+> > SM8750:     0x00000027                               7.0(*)
+> >
+> > (*) SM8750 is 7.2 in the downstream.
+>
+> Please change SM8750 to 7.2 (and SM8150 to 4.0 FWIW).
+>
 
-Signed-off-by: Mani Chandana Ballary Kuntumalla <quic_mkuntuma@quicinc.com>
----
- .../boot/dts/qcom/lemans-ride-common.dtsi     | 80 +++++++++++++++++++
- 1 file changed, 80 insertions(+)
+ACK.
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
-index 8fb7d1fc6d56..abeb4cca0a6e 100644
---- a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
-@@ -180,6 +180,30 @@ dp1_connector_in: endpoint {
- 		};
- 	};
- 
-+	dp2-connector {
-+		compatible = "dp-connector";
-+		label = "eDP2";
-+		type = "full-size";
-+
-+		port {
-+			dp2_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp0_out>;
-+			};
-+		};
-+	};
-+
-+	dp3-connector {
-+		compatible = "dp-connector";
-+		label = "eDP3";
-+		type = "full-size";
-+
-+		port {
-+			dp3_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp1_out>;
-+			};
-+		};
-+	};
-+
- 	dp-dsi0-connector {
- 		compatible = "dp-connector";
- 		label = "DSI0";
-@@ -639,6 +663,50 @@ &mdss0_dsi1_phy {
- 	status = "okay";
- };
- 
-+&mdss1 {
-+	status = "okay";
-+};
-+
-+&mdss1_dp0 {
-+	pinctrl-0 = <&dp2_hot_plug_det>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdss1_dp0_out {
-+	data-lanes = <0 1 2 3>;
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+	remote-endpoint = <&dp2_connector_in>;
-+};
-+
-+&mdss1_dp0_phy {
-+	vdda-phy-supply = <&vreg_l1c>;
-+	vdda-pll-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss1_dp1 {
-+	pinctrl-0 = <&dp3_hot_plug_det>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdss1_dp1_out {
-+	data-lanes = <0 1 2 3>;
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+	remote-endpoint = <&dp3_connector_in>;
-+};
-+
-+&mdss1_dp1_phy {
-+	vdda-phy-supply = <&vreg_l1c>;
-+	vdda-pll-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
- &pmm8654au_0_gpios {
- 	gpio-line-names = "DS_EN",
- 			  "POFF_COMPLETE",
-@@ -816,6 +884,18 @@ dp1_hot_plug_det: dp1-hot-plug-det-state {
- 		bias-disable;
- 	};
- 
-+	dp2_hot_plug_det: dp2-hot-plug-det-state {
-+		pins = "gpio104";
-+		function = "edp2_hot";
-+		bias-disable;
-+	};
-+
-+	dp3_hot_plug_det: dp3-hot-plug-det-state {
-+		pins = "gpio103";
-+		function = "edp3_hot";
-+		bias-disable;
-+	};
-+
- 	io_expander_intr_active: io-expander-intr-active-state {
- 		pins = "gpio98";
- 		function = "gpio";
--- 
-2.34.1
+It is exactly 4.0.
+https://github.com/OnePlusOSS/android_kernel_oneplus_sm8150/blob/oneplus/SM=
+8150_P_9.0/arch/arm64/boot/dts/qcom/sm8150-sde.dtsi#L518
 
+Best wishes,
+Pengyu
