@@ -2,148 +2,163 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +K9RFTWBoWkUtgQAu9opvQ
+	id wCxSDNiooWm1vQQAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 27 Feb 2026 12:34:13 +0100
+	for <lists+freedreno@lfdr.de>; Fri, 27 Feb 2026 15:23:20 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4311B69EA
-	for <lists+freedreno@lfdr.de>; Fri, 27 Feb 2026 12:34:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC2911B8CF1
+	for <lists+freedreno@lfdr.de>; Fri, 27 Feb 2026 15:23:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C21410EB0C;
-	Fri, 27 Feb 2026 11:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1AB10EB9C;
+	Fri, 27 Feb 2026 14:23:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gqgINwBG";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ahNtVzVD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TmS912TP";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E1/N4dh1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A5B810EB0E
- for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 11:34:10 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E2EE10EB94
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 14:23:14 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61R9q3DG236168
- for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 11:34:09 GMT
+ 61RENDso3996033
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 14:23:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- vugU6Nub7U1CaNFRr7BPqL+35AbeCYSuFn/3PVLmBmE=; b=gqgINwBGAdAj4WI0
- JDl43c+3HeL8oE3cyj+aei6972f2e0vcKB+gnEKeCygLop0axx3/TDI5Xs0cFWbK
- Mhni9r0uTQNfXPPSzKP8EYBiNex/7+HKrLHPHZISqoZFqhKNpZCfhtw2DZ1LZhnl
- +cGyM+37gm8Mln/VnJpHI4+U8ewizlchmyJchMt8s0Odqvoh2okt0TU/NzmGaYZg
- YsZbY2iOELH/j8s2lKY7LC2+8Omvn9nUmP9M2Vayutxh1u4NZhIUR04m0CERzYYU
- 6obevLvh6MxycgDidQTNM2iy4V2YkYb76oYrY5hF534+HZ6BnUKCST+uamddHFRp
- UgqwEg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cjx1xtact-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=LbWv1DraxFhV/1oko2gTlG
+ J9gvfW5tsF984h+FYSIgg=; b=TmS912TPM8oZ0T1JYYWp2+GYljZJJQu1/xudc9
+ HFvah1a9ToJEJwXgBOeIdUCULeHTsAPS3VHsbv3TaRltqzZjwrTvWVaO0vpEfZEo
+ aUwzFCKXGLknRMCSGZZu5Fsmzas52i7UDLvTI08fqCAFHhqvBoCZbCNET2sHokQI
+ uAClhIFEDZhK0rkZKhGerzE1kEYrOcU4+Am9c9GGduudzkrqUEiKBlt0CYK0m4Ye
+ AUpxQMZFEPLkSLw/uFVKWtTgkFzgIScKYv9xBjcpJG0N32R/g2ty5cUDPpOGt6jT
+ PczM88Ii7Zmo+/Cv8ZuzjmS9Y6Lec3627tgY7htdKiyLrX/g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cju4r3p6p-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 11:34:09 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-899c3641fedso20629496d6.1
- for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 03:34:09 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 14:23:13 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8ca3ef536ddso1959505085a.0
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Feb 2026 06:23:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772192048; x=1772796848;
+ d=oss.qualcomm.com; s=google; t=1772202193; x=1772806993;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=vugU6Nub7U1CaNFRr7BPqL+35AbeCYSuFn/3PVLmBmE=;
- b=ahNtVzVDT78jNlxYnb4aECX1N9XZWxsVUrm7JQCgia3HsMwr6qIx2wtlgm38q8+QfY
- ad5RPxbSQ5N4r2HTKPEskdE7o8UwFrBYRXm8koNfqk99PyQ0BpO8ATX3pZamoTUf3/QL
- 1wPvTAa0Qes7qtPLz2Wm00yI5hmKnN39eniizDjwUSbfDxVM9LxDeb6ttn1KNIGr9VXL
- dgwiqdEFhufBby1vPqCWeMzGU7AuE5eomzwjl9pwKBPRWMFbCzTkNwxflnqX3drkAXav
- pkxEwmOwmJ2c7uYqvFHLFWFE1Ok+9a6S6mUfbQ5JqWRzCNoW4kGUNE8lZ4M2rcaVYrdM
- q71g==
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=LbWv1DraxFhV/1oko2gTlGJ9gvfW5tsF984h+FYSIgg=;
+ b=E1/N4dh1jYiEWkrK4EemgxD8YAFDe9G7IR4O1OMv3NNFr55hUdBOgOIz1NZlzOhOSo
+ 5vf65cXC5xsOm7h6K1EKU9b06oonE061N0JMI/jI+fGYVO/RchQKLTmFhY8HP8uOQM2e
+ SRCI4Fxl5tVCwOAPsy0UhwZKXwa5vaQQQ94K0AIEt3WOh/zu7SKF7zV4Fl+o7xDyjYv8
+ wew8Sly7cRlqkh8gW6gy9aviRGbThcpoALQO+D6X9+s9Cygo+EPgiSTs2/WBcKjgviLe
+ 6LBgQ22AMn2rG8b3vVJZP5iOCjIZLrOHMt2rdRzPf0nXt1WFFbohktClyFhVqKxm1ZMg
+ C9aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772192048; x=1772796848;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vugU6Nub7U1CaNFRr7BPqL+35AbeCYSuFn/3PVLmBmE=;
- b=XBDQCeqnp9YaMQC4TdjH/Vkb2OpEIjPEcM2nGzpbLGy4efNC/fJPpq7LeFjy6dnY9N
- oB9ChUKXk6+QdzPefQeUMYBrSXEpC37fZf8wS2vH3jKGvPhkexglM7XJm3DtRu4TmSmv
- aixgHxqhfhUGCDFoxlR9ZPsV6NghjEoWcG1hOxhR953Pb5dhyeeSa48n2J2+gcf1AdVD
- 1FyRDQmYUxI4xLIffNxcyJQaLeAgU9AxjfL+FRB3xiVj7wARuNz/zU+glpXZCCs9S1PG
- y2K4nKdeB014xRR67r3HPznTEh3ONWpx+8xWgVYxvP3dLhAcYNqu/QC1Bkj1gyW1gACX
- IzDA==
+ d=1e100.net; s=20230601; t=1772202193; x=1772806993;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LbWv1DraxFhV/1oko2gTlGJ9gvfW5tsF984h+FYSIgg=;
+ b=fAPuv+4tqzxJQDnFNiD8mXwD87qCLY6+3qoAv2i0yLLBYskS5ZbykheVTqez8wO2IK
+ 4eZCC3WJq+1ZmrssXLVyQvkhRK5B6+nUZ9NCL5nU6ObOCKLIiOh1NsaJ462GoCRSKfpc
+ fFPyu8Yu6HqjL1sOpLr3JIpMqhbVwvF3tpTaumJBKNXwPCNPaaTqj7/kzXCnmU9B6FUe
+ 63LM9CMAJ31a1bHZsckIfeF57ZOW7/KXPafFZaReWNheWvNG4EU76rnMEP3+4znA1ru0
+ gqkMn7T14aeQNwj44XBqlAD2oTHkYg/8SidDgzbYnwlEc3nGUezOHHtjY24ZZd12w2Ek
+ ye4Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVo4XR3kzqw+UwS8z70hbWRNP4yMvgBIkkVATFUWlj4Kns2IOPjo2GIm4oE6apS/BNwnc3s6TPVsb4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8PHlCBCJTy3bdiZOFL0zHg9gwvL1jlvZZ6dqkjkPFs9C/RCLP
- CVoQSkAWNuQyZi9Jipb8+xvgo57yP1jkUAr8FTgptv/UWKgwj0xILFl/6wli2bEJQ5F9oy57vPZ
- isd0ZRxZ5rKOOon3SfZDRD0ju/7Qt2+bw5A66v8F932u8EaT6xC9Uz+wYVun2qm7+jgdNdJY=
-X-Gm-Gg: ATEYQzz4huqTNtXfgkXMeitIDscWGes9t6Sy9t1oSMKgLv6mOnSwyQCmqfY60X5PbA/
- uJKtWdUMbcNq8DDTkU5LsnFRMc/vzdC9QXOgzqMvsrLcfdX3IS95elPTtkbJfR3Siz5TZwOT75m
- 2ZeOPnyfhVNpv4Wm337yGdPGUVKfq/gT4muWFz9LGDZkFDiQ/fkNcSluRIvQlDrH4JC2yiIPQPp
- MhFNVRlPv0kx4+l0Uw3RtY/fkJBQfExB4dPHgJrULkcAmK1Jw7VFX4Iv+e0fUd8roIRp8XCfdAm
- HnuqB9+5D2kNVT8zZF4SErOtb8GTYSQmly/n/zPSSgRtf2G0wNHtAuf2W7+zmDaUdMLrPrUSP5c
- cDNCzgoBbj3nIQjxiKo7Bmp/uAzm9F6tCN91CbA9nCJqDJEobZuNLbQ+z1580+26UFTkw9u3S2X
- Mk6w8=
-X-Received: by 2002:a05:6214:3483:b0:894:9d67:7329 with SMTP id
- 6a1803df08f44-899d1d86089mr24083046d6.2.1772192048451; 
- Fri, 27 Feb 2026 03:34:08 -0800 (PST)
-X-Received: by 2002:a05:6214:3483:b0:894:9d67:7329 with SMTP id
- 6a1803df08f44-899d1d86089mr24082566d6.2.1772192047613; 
- Fri, 27 Feb 2026 03:34:07 -0800 (PST)
-Received: from [192.168.119.151] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b935ae666d6sm140619966b.37.2026.02.27.03.34.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Feb 2026 03:34:06 -0800 (PST)
-Message-ID: <cb22367a-678c-431f-9f52-33663f4af9d7@oss.qualcomm.com>
-Date: Fri, 27 Feb 2026 12:34:04 +0100
+ AJvYcCXCdlnZzNbtvl4EaO3QEL9f1o7QdcSNDyVJ3NmXyQ8+xlI+W0mT9Ytv7oDNN4BEb0aX61vyENyS8VY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwndSVuFMfCPVWqeP7hNIvUS6FV0/yFJuwbNfi8B2QaUDrLzO5g
+ l4LZ/SpLXd0KhlcZuhqXLe0BCEbX4/wGg50TfXuK5GpPt8WWlohSNFbJ5sCi3FO3imHQxVffMRe
+ 4yPAhFDVOIimS8sA9zucq5q2cpmIfC+qHptsBdK3oqUQvt4la0GwnvF5Onp93Oy3LngFg3YI=
+X-Gm-Gg: ATEYQzzFqqPJ8hKdl4vAJz7hTwO+86qUIBRFL5UCi5ouvlC+b/lW0geg/mk5Lyl04Z7
+ BQ/vK54w9FeSe4/J/XEjbUHu0Rfl4mS+GtzIHTEHIhms7MMdvy7yGEg1TAfoUXBKHCGvg1XttFs
+ 1RNyitrGnP/YYCSDRaMqd3P/ZtyyiTJr7vyXfzwH+7v/+1TfDZkmFvsbZF/ZBnb5k3LPww6ASUD
+ 4GCU6WlRltU0cjR8jVwfBxQIhEg8caUtrEFyCJtLLKhPv7CIF7rMU3VDTqArAII4dhoox0Bdtg7
+ iJpCZaOcwVZCH4oafo7aYyfD/zjy3hGRnzHt85+9EocQHcrEFoSZFFWhpeZtIDPGGmmNGo2mTal
+ TASbv5dK80LKAvOPVXOSSlLw3mECF8w==
+X-Received: by 2002:a05:620a:4505:b0:8c7:d2b:b5c9 with SMTP id
+ af79cd13be357-8cbc8d834d9mr328562785a.9.1772202192449; 
+ Fri, 27 Feb 2026 06:23:12 -0800 (PST)
+X-Received: by 2002:a05:620a:4505:b0:8c7:d2b:b5c9 with SMTP id
+ af79cd13be357-8cbc8d834d9mr328558485a.9.1772202191836; 
+ Fri, 27 Feb 2026 06:23:11 -0800 (PST)
+Received: from hackbox.lan ([86.121.162.109]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483bfcbd781sm120204765e9.8.2026.02.27.06.23.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Feb 2026 06:23:10 -0800 (PST)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Fri, 27 Feb 2026 16:23:00 +0200
+Subject: [PATCH] dt-bindings: display: msm: Fix reg ranges and clocks on Glymur
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/msm/dpu: fix mismatch between power and frequency
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: yuanjiey <yuanjie.yang@oss.qualcomm.com>, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, krzysztof.kozlowski@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
- yongxing.mou@oss.qualcomm.com
-References: <20260109083808.1047-1-yuanjie.yang@oss.qualcomm.com>
- <20260109083808.1047-2-yuanjie.yang@oss.qualcomm.com>
- <kusxzlezvsuwcwwdtm7yqwnqea6gdeolkepxpx3estabaiqymo@edj7pgccli3y>
- <aWSTcI6H6+7AXkEN@yuanjiey.ap.qualcomm.com>
- <CAO9ioeVrQ_TfU5-auxNHG=dL8VmeWtBaC_NE09UECodkYrFv-w@mail.gmail.com>
- <aWSv+kVV3G18I/NJ@yuanjiey.ap.qualcomm.com>
- <e5ebc660-e30e-4fcd-ace6-5a6c889e9a8a@oss.qualcomm.com>
- <4g6fyehdc3fejx3pzeysmghigazfei3jz2vmnvxrnqkkbtbxdb@bdlcddxlvbhl>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <4g6fyehdc3fejx3pzeysmghigazfei3jz2vmnvxrnqkkbtbxdb@bdlcddxlvbhl>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: DbVn8qgU7L5h2I4AqiT9l1XwAVuXdnNh
-X-Authority-Analysis: v=2.4 cv=Vtouwu2n c=1 sm=1 tr=0 ts=69a18131 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+Message-Id: <20260227-glymur-fix-dp-bindings-reg-clocks-v1-1-99f7b42b43aa@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMOooWkC/yXN0QrCMAyF4VcZuTZQizjmq4gXNs26zNmNZBNl7
+ N2t7vKDw39WMFZhg0u1gvJLTMZccDxUQN09J0aJxeCdPzvva0zD57kotvLGOGGQHCUnQ+WENIz
+ 0MKzdKTqiwNw2UDqTcln/P6633baEnmn+hWHbvje5QwiFAAAA
+X-Change-ID: 20260227-glymur-fix-dp-bindings-reg-clocks-704d0ccbeef9
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Abel Vesa <abelvesa@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2234;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=qiHSzVHBwmKCmpWxCLWKkvn6EVGayWKBpsn+FNXo6ls=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBpoajGiWV89MPuotO9j0TY9byhHx2MtflA2zy47
+ idxX7lWc1CJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaaGoxgAKCRAbX0TJAJUV
+ Vr9rEACSpY2faiOnGoMe8kzSd6PPC1vk5Lhem2qn7I5lzQiTwIU5M4S1kbzLpT5wYDWRjvjhBcI
+ toEwyTpL8I/XsVi6s99yODDmyHebSPdTzrtpGvPpJzLgtBkKThB7pJ5hq9Kx7M15GfO9LllzYUv
+ bLihWNPYWrQkaqonzlMhz+fm5SiH5ELbPpDrz71CTZD3ImLg7eN5XP9YS3K+OV0dJSz/LnddKe/
+ +1PSUZM8/HLrjeHPKzdaO3rhp3IYRkYlO5+Q1nCL2unqNtFJNpg7ZKMYM6jKX3r3Ru8jJJj7PxE
+ Kb1Ak3mCCD0BHFqcDdZRcwlTV7i9WUaCeHGu+01TImDY6IdQs68d4ysn49PANwloB3siaOkw6fs
+ YsqHcuhI1N7Ujxbgbu7zB513FrJ1/21SUsVI22c9F0lKAR4HrHbBsUOplAmEEvlzn8XHU5FCEbx
+ HaLIrLbB1Ftpw0cRgt2vNxMmNgl1CwrAgxvJNV++e9gC93a6xxdLD6gIEiTfMSGOsC7gBzTvp6r
+ sXsLPuUfzG96aRpmKG6YvmZcSkWmWFgHle+dxO69kXw96UcpMM5UN9tm0zlsmc+QwH9z1WAeKXj
+ cCtM5cNzwq5I73QXh3azZXJq2yW1o5ekJLewh3V6mBGACNw3dK4ciVgoXLoEvP3r48Ag4A/sPZ6
+ EyT0FRCQFE7x5ug==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI3MDEyNyBTYWx0ZWRfX6Lw+/5MftjQm
+ CNjpuNZTdAPfDSwpD3Cwb5jO9/d/9ZSYSGvVni8sJQPlc8wHp39uwK4Xe9LQB3tCSAaFw91ENhn
+ +XutRo/cAx7jEUunQFNUd4gRR/3Y9ubeZGEhaCrQDR2VpCLhoPZoSrbxofYItBvF2HkZwtOJQK/
+ Vp6HlGw2oEkhhOLFspOGnFl0kgX6GE3sjaHbMYcl6eog1zBJJ3+8KNbmedD7EdJ+YMXAY3Lmc9s
+ sXBmOWg5PwercdWV1ncUAH9urIMqgTC70DQnNxT9aKXivNlSth9bVMhDaL31xlliUC2PMw5b3Ah
+ x0qUQ5iP4hUrSYFLtw4LEpxr3Vbc5V2dPgRcQOl6iPmspiCgK113oZrYwbwJufJb9KNMbIrIxkH
+ E/ZRIPp5mUxUVi0I6ykW4rOT78oQFp/1MYzu6eYFSLUnl+lOUtGq6m86dMQgSBYjAG73jFWwkwo
+ P2OP8kxWuk3htYafAgg==
+X-Proofpoint-GUID: Lc2r39c-NJCLqPNk3OlPDb167wigNu7i
+X-Authority-Analysis: v=2.4 cv=KZzfcAYD c=1 sm=1 tr=0 ts=69a1a8d1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=oauzzCmhM186DRC0Y2yWPg==:17
  a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=Og81VDND5z1jpqFtuisA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI3MDEwMiBTYWx0ZWRfX755S18i/mQSp
- i9s0Is0ciOog9KlGnInjO19hqTqyFPHvJecTII8RNquNp+Nuxh9WuIF88Iq/RYWfSw1+Lw5M6uL
- KHDLqlp/Jy6D1xqJ05Ou0G3pVYZflx9LaMTunEqycVtaAwBdqYO4I+fJiyeB3EzZ/iL7plgN2Vw
- enDCo8yocc9pXm8s7JcBIdYHVdpqrkAt5VM1wa2tV6CzdAsZf+C3M7o8xoNZuMHW210iLOJdz2Z
- hICdqJoLfiGEqWBM2fdFSxDc4pfV7UZ1XZ33A6WVkxR7/NaxVZPHlEOimovKrdBOAzPVuhX2lps
- xL+X97tGZmdBuz0zXqdekDs4qciaiuB+2XMU0IAbpqzib/cq2UZPfwPA7UsU5zl1DxmSI3rzS7Z
- gs4/fi7Iud6JqEM/j8Z3o0XxdPdRNESVO5y8Z8MwRK4k96QqAQiTX0JKMn4yDwPZFCo7o+k3imr
- m2PCz8ISW6CeBOMwh0w==
-X-Proofpoint-GUID: DbVn8qgU7L5h2I4AqiT9l1XwAVuXdnNh
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=feC5BgBSBr5ATEYaNTcA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: Lc2r39c-NJCLqPNk3OlPDb167wigNu7i
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-27_01,2026-02-27_01,2025-10-01_01
+ definitions=2026-02-27_02,2026-02-27_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 bulkscore=0 spamscore=0
- impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2602270102
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
+ definitions=main-2602270127
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,7 +174,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.31 / 15.00];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
@@ -167,162 +183,94 @@ X-Spamd-Result: default: False [-1.31 / 15.00];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:yuanjie.yang@oss.qualcomm.com,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:krzysztof.kozlowski@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:tingwei.zhang@oss.qualcomm.com,m:aiqun.yu@oss.qualcomm.com,m:yongxing.mou@oss.qualcomm.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:quic_khsieh@quicinc.com,m:abelvesa@kernel.org,m:dmitry.baryshkov@oss.qualcomm.com,m:krzk@kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:stable@vger.kernel.org,m:abel.vesa@oss.qualcomm.com,m:conor@kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linaro.org,vger.kernel.org,lists.freedesktop.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FORGED_SENDER(0.00)[abel.vesa@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,linux.intel.com,suse.de,ffwll.ch,quicinc.com];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
 	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_NEQ_ENVFROM(0.00)[abel.vesa@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	TAGGED_RCPT(0.00)[freedreno];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[freedreno,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,oss.qualcomm.com:mid,oss.qualcomm.com:dkim,qualcomm.com:email,qualcomm.com:dkim]
-X-Rspamd-Queue-Id: 6E4311B69EA
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,oss.qualcomm.com:mid,oss.qualcomm.com:dkim]
+X-Rspamd-Queue-Id: AC2911B8CF1
 X-Rspamd-Action: no action
 
-On 2/27/26 4:48 AM, Dmitry Baryshkov wrote:
-> On Thu, Feb 26, 2026 at 02:35:52PM +0100, Konrad Dybcio wrote:
->> On 1/12/26 9:25 AM, yuanjiey wrote:
->>> On Mon, Jan 12, 2026 at 09:38:41AM +0200, Dmitry Baryshkov wrote:
->>>> On Mon, 12 Jan 2026 at 08:23, yuanjiey <yuanjie.yang@oss.qualcomm.com> wrote:
->>>>>
->>>>> On Fri, Jan 09, 2026 at 05:22:37PM +0200, Dmitry Baryshkov wrote:
->>>>>> On Fri, Jan 09, 2026 at 04:38:07PM +0800, yuanjie yang wrote:
->>>>>>> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+The Glymur platform has four DisplayPort controllers. All the
+controllers support four streams (MST). However, the first three only
+have two streams wired up physically to the display subsystem, while the
+fourth controller has only one stream (SST).
 
-[...]
+So add a dedicated clause for Glymur compatible to enforce reg ranges to
+describing all four streams while allowing either one pixel clock, for the
+third DP controller, or two pixel clocks, for the rest of them.
 
-> Please correct me if I'm wrong, if we drop dev_pm_opp_set() from
-> dpu_runtime_suspend, then we should be able to also skip setting OPP
-> corner in dpu_runtime_resume(), because the previously set corner should
-> be viable until drm/msm driver commits new state / new modes.
+Cc: stable@vger.kernel.org # v6.19
+Fixes: 8f63bf908213 ("dt-bindings: display: msm: Document the Glymur DiplayPort controller")
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+ .../bindings/display/msm/dp-controller.yaml         | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-That matches my understanding.
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index ebda78db87a6..02ddfaab5f56 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -253,7 +253,6 @@ allOf:
+             enum:
+               # these platforms support 2 streams MST on some interfaces,
+               # others are SST only
+-              - qcom,glymur-dp
+               - qcom,sc8280xp-dp
+               - qcom,x1e80100-dp
+     then:
+@@ -310,6 +309,26 @@ allOf:
+           minItems: 6
+           maxItems: 8
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              # these platforms support 2 streams MST on some interfaces,
++              # others are SST only, but all controllers have 4 ports
++              - qcom,glymur-dp
++    then:
++      properties:
++        reg:
++          minItems: 9
++          maxItems: 9
++        clocks:
++          minItems: 5
++          maxItems: 6
++        clocks-names:
++          minItems: 5
++          maxItems: 6
++
+ unevaluatedProperties: false
+ 
+ examples:
 
-> The only important issue is to set the corner before starting up the
-> DPU, where we already have code to set MDP_CLK to the max frequency.
-> 
-> Which means, we only need to drop the dev_pm_set_rate call from the
-> dpu_runtime_suspend().
+---
+base-commit: 7c21b660e919698b10efa8bdb120f0f9bc3d3832
+change-id: 20260227-glymur-fix-dp-bindings-reg-clocks-704d0ccbeef9
 
-I concur.
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
 
->> For MDSS, we're currently generally describing the MDSS_AHB clock, the
->> GCC_AHB clock and the MDP clock (sounds wrong?) - there's not even an OPP
-> 
-> No. As far as I remember, MDP_CLK is necessary to access MDSS registers
-> (see commit d2570ee67a47 ("drm/msm/mdss: generate MDSS data for MDP5
-> platforms")), I don't remember if accessing HW_REV without MDP_CLK
-> resulted in a zero reads or in a crash. At the same time it needs to be
-> enabled to any rate, which means that for most of the operations
-> msm_mdss.c can rely on DPU keeping the clock up and running.
-> 
->> table.. The GCC clock is sourced from (and scaled by) the NoC, but the
->> MDSS_AHB one seems to have 3 actually configurable performance points
->> that neither we nor seemingly the downstream driver seem to really care
->> about (i.e. both just treat it as on/off). If we need to scale it, we
->> should add an OPP table, if we don't, we should at least add required-opps.
-> 
-> I think, dispcc already has a minimal vote on the MMCX, which fulfill
-> these needs.
-
-I have slightly mixed feelings, but I suppose that as we accepted Commit
-e3e56c050ab6 ("soc: qcom: rpmhpd: Make power_on actually enable the domain"),
-we can generally agree that it makes sense that calling genpd->on() actually
-turns on the power indeed
-
-What I'm worried about is if the clock is pre-configured to run at a high
-frequency from the bootloader (prepare_enable only sets the EN bit in the RCG,
-and doesn't impact the state of M/N/D at a glance), we may get a brownout
-
-This rings the "downstream really did it better with putting clock dvfs states
-into the clk driver" bell, but I suppose the way to fight this would be to
-simply set_rate(fmax) there too..
-
-I attempted an experiment with pulling out the plug. MMCX enabled with the
-AHB clock off results in a read-as-zero. I tried really hard to disable the
-mdp clock, but it seems like the "shared_ops" reflect some sort of "you
-*really* can't just disable it" type behavior (verified with debugcc)
-
-
-There's a possible race condition if we don't do it:
-
-------- bootloader --------
-configure display, mdp_clk=turbo
-------- linux -------------
-load rpmhpd     |
-load venus      |
-set mmcx=lowsvs | mdp_clk is @ turbo
-                | brownout
-                | 
-                | <mdss would only probe here>
-
-*but* that should be made impossible because of .sync_state().
-
-This may impact hacky setups like simplefb, but as the name implies,
-that's hacky.
-
-Relying on .sync_state() however will not cover the case if the mdss
-module is removed and re-inserted later, possibly with mmcx disabled
-entirely but the clock not parked at a sufficiently low rate.
-
-
-TLDR: reassess whether MDSS needs the MDP clock, if so, we should just
-plug the MDP opp table into it and set_rate(fmax) during mdss init
-
->> The MDP4/MDP5 drivers are probably wrong too in this regard, but many
->> targets supported by these may not even have OPP tables and are generally
->> not super high priority for spending time on.. that can, I'd kick down the
->> road unless someone really wants to step up
-> 
-> I'd really not bother with those two drivers, unless we start seing
-> crashes. For MDP4 platforms we don't implement power domains at all, no
-> interconnects, etc., which means that the system will never go to a
-> lower power state.
-
-Right. Might be that 2030-something arrives and armv7 is gone before someone
-randomly decides to work on that!
-
-> MDP5 platforms mostly don't have OPP tables. (I'm not counting MSM8998 /
-> SDM630 / SDM660 here). MSM8917 / MSM8937 have only DSI tables, MSM8976
-> has both MDP and DSI tables (my favourite MSM8996 has none). Probably we
-> should start there by adding missing bits adding corresponding
-> dev_pm_set_rate() calls as required (as demostrated by the DPU driver).
-
-A bit off-topic, but:
-
-drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-1101:   { .revision = 0, .config = { .hw = &msm8x74v1_config } },
-1102:   { .revision = 1, .config = { .hw = &msm8x26_config } },
-1103:   { .revision = 2, .config = { .hw = &msm8x74v2_config } },
-1104:   { .revision = 3, .config = { .hw = &apq8084_config } },
-1105:   { .revision = 6, .config = { .hw = &msm8x16_config } },
-1106:   { .revision = 8, .config = { .hw = &msm8x36_config } },
-1107:   { .revision = 9, .config = { .hw = &msm8x94_config } },
-1108:   { .revision = 7, .config = { .hw = &msm8x96_config } },
-1109:   { .revision = 11, .config = { .hw = &msm8x76_config } },
-1110:   { .revision = 14, .config = { .hw = &msm8937_config } },
-1111:   { .revision = 15, .config = { .hw = &msm8917_config } },
-1112:   { .revision = 16, .config = { .hw = &msm8x53_config } },
-
-96 is in DPU. any other candidates that should be moved over?
-
-> A note to myself to also add OPP tables support to the HDMI driver.
-
-Eliza!
-
-Konrad
