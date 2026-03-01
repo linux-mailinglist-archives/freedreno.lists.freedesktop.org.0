@@ -2,40 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4MNbBSImpGmyYgUAu9opvQ
+	id AP7tCQYnpGmMYwUAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sun, 01 Mar 2026 12:42:26 +0100
+	for <lists+freedreno@lfdr.de>; Sun, 01 Mar 2026 12:46:14 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86EF01CF5EF
-	for <lists+freedreno@lfdr.de>; Sun, 01 Mar 2026 12:42:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B845A1CF6A8
+	for <lists+freedreno@lfdr.de>; Sun, 01 Mar 2026 12:46:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 604DF10E1B0;
-	Sun,  1 Mar 2026 11:42:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79EEB10E1BD;
+	Sun,  1 Mar 2026 11:46:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZbQfejR4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a0Yawvhh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEC9410E196;
- Sun,  1 Mar 2026 11:42:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 516CF10E1BD;
+ Sun,  1 Mar 2026 11:46:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 38E21408B8;
- Sun,  1 Mar 2026 11:42:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B77C116C6;
- Sun,  1 Mar 2026 11:42:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 28F2F43ACD;
+ Sun,  1 Mar 2026 11:46:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70D5DC116C6;
+ Sun,  1 Mar 2026 11:46:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772365342;
- bh=f+bAkdDZB2L11jf0C0TAV2CE8KsC5uGvHGZbEgadEzw=;
+ s=k20201202; t=1772365571;
+ bh=+XZKJXFT4PEKoofH3TKDD6zGgMTeWZwTquLp4VBrWbM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZbQfejR45jgg2Q/jVSOOzm3u9pYz2LclxuBgRu6FTSB6R5DqkevwiZjnWToCIhNNA
- +HMh4bp87ihehl/zi1P9sSWYXqiZY+P/XqIlJH3pd7MKvJntjZZ39mywf6QgPp99A8
- tHMuKX6nLZU+qW9hlkrfEeL3zejuzIFV8jPfjNGCLdSq1O3tICqhhk9RYXWhfJcBQm
- S/JEWa6TOTEKBzCsuWgySe+4i2/UktuSuVIhPXamB4fEkJI08Uhx11L15ABiiKb+6a
- gJ2uf/4ZAFUOR4oB8EcCL45u/bfG9WBVVpb9ocUR+jYhFaGAH5vcQsV+NGGmlAybtI
- k5CVgiiuXCEqQ==
-Date: Sun, 1 Mar 2026 12:42:19 +0100
+ b=a0YawvhhHdZRa3u3l7Yure9yI5WqDmbLax8BIorPxc/Yo9Xn1DL1+EO9BRkBxViNp
+ 62FsfPSum4XOdn6qLCXfXMGgqLSwEB9WQ8PcW6S+gWhTWpUMDXvBVcYBMgDVGk9rJs
+ lj5Jfs/ofxvEanfhRGCBe8yRNvh7BzO3tvrFptsj9xsODhjvO1jiGUR9iTcqe69BRH
+ SyzTNKFIgci4XVXsvJfRwJaJU4w3VzbbQ5MLGXMxEcKcBCugrjt7X6Sfa2XfXv5C8m
+ 2ei7Rg39tR5B4rwssTXOumlakYJazMNHnJYDQwQxIag+sijjXA0u+nNYvuPgifLDcZ
+ R0Jj1uvWBYWAQ==
+Date: Sun, 1 Mar 2026 12:46:08 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Pengyu Luo <mitltlatltl@gmail.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -54,14 +54,15 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Tianyu Gao <gty0622@gmail.com>, White Lewis <liu224806@gmail.com>
-Subject: Re: [PATCH v3 1/4] dt-bindings: display: msm-dsi-phy-7nm: Add SC8280XP
-Message-ID: <20260301-poised-black-roadrunner-2fa89a@quoll>
+Subject: Re: [PATCH v3 3/4] dt-bindings: display: msm: Document DSI
+ controller and DSI PHY on SC8280XP
+Message-ID: <20260301-calculating-glistening-bird-ed0ef2@quoll>
 References: <20260228141715.35307-1-mitltlatltl@gmail.com>
- <20260228141715.35307-2-mitltlatltl@gmail.com>
+ <20260228141715.35307-4-mitltlatltl@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260228141715.35307-2-mitltlatltl@gmail.com>
+In-Reply-To: <20260228141715.35307-4-mitltlatltl@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,17 +107,16 @@ X-Spamd-Result: default: False [0.69 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email]
-X-Rspamd-Queue-Id: 86EF01CF5EF
+X-Rspamd-Queue-Id: B845A1CF6A8
 X-Rspamd-Action: no action
 
-On Sat, Feb 28, 2026 at 10:17:12PM +0800, Pengyu Luo wrote:
-> Since SC8280XP and SA8775P have the same values for the REVISION_ID
-> registers, then we fallback to SA8775P compatible.
+On Sat, Feb 28, 2026 at 10:17:14PM +0800, Pengyu Luo wrote:
+> Document DSI controller and DSI phy on SC8280XP platform.
 > 
 > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 > ---
->  Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../display/msm/qcom,sc8280xp-mdss.yaml       | 30 +++++++++++++++++++
+>  1 file changed, 30 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
