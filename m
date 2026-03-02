@@ -2,143 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MBd0Eh1apWlp+AUAu9opvQ
+	id bmDTDO9apWlc+QUAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 10:36:29 +0100
+	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 10:39:59 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7CDB1D5A19
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 10:36:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC041D5A95
+	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 10:39:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 412AD10E209;
-	Mon,  2 Mar 2026 09:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A6D10E471;
+	Mon,  2 Mar 2026 09:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HG76QltA";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hOFhEPv3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="suTY8gcA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 827B410E209
- for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2026 09:36:26 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6226hB9m2504642
- for <freedreno@lists.freedesktop.org>; Mon, 2 Mar 2026 09:36:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=W/+pREnN5e1VxpAxRAovD9rw
- Dlgzw5wWA1UEsPKKJ3A=; b=HG76QltAhcQoR3rz/gGVhRMMFMawMLGtmyEzEBQ/
- RVn1dkPrPp7w7+lOS4gOYluBGrH8G9B0Ngrw/1d9yHFBn1SWYWj3APSGXjtue+Tp
- nc3pwToZyyB+TBlRFFCcEJ9JHLZuGPSTVNBMP5d2oVXnuslbXtlxqXQnFEbW8jTc
- 4J+G78idwZ1/QAaJjZo9kc5sMYjuafub4CcrbJ5Q0Loiq3SmF72vDJEnBzfn+l/n
- npLhRwUs5fShAO9at6WAiQICN6QPr+ylP7ZQw9+aMIAhngBJuqNL4G02CZSxeCMd
- dw/LsSencxfv2Wl7lxzCaV68ySRF4iORUxyheU89jbltZQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cn5herms9-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 09:36:26 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8c70e610242so3565971685a.2
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 01:36:25 -0800 (PST)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D8410E209
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2026 09:39:55 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-439b78b638eso706164f8f.2
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 01:39:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772444185; x=1773048985;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=W/+pREnN5e1VxpAxRAovD9rwDlgzw5wWA1UEsPKKJ3A=;
- b=hOFhEPv35fvUrfoU1uCys9vap2cPs8yRhRhu/khMDmitphRp29c3QsciIYQ+HLuwDu
- IcvJ3KgBg38BjV9tg3FIUya1cerj0QoPltZWk6jRmSp4X9ptwMwS+TcYdKIZEUUn068q
- piJ6d4bgR7xD3NbEznwwVox54LZpQo5uFa7QhQKu3eSA634LsdUEOdqq4z9vjkuzjQNG
- NoSy8ICRZt+cIfM6FiGSlS4mrpb/UtA5z2Slj7DRDm7rKjBtWhHoKqkERP4Q3GHWIN8P
- FXbk6ML4WQbHhEalHgEFMJLu8c9vAbIaM42hV41qEENry3Gonm+0HjSmq1jGbxnc+OtD
- iUzg==
+ d=linaro.org; s=google; t=1772444394; x=1773049194; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:from:references:cc:to:subject:reply-to:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=JqpFEgvwHpU2hX5PSjnXyoj4uXycVqlvmrKK7iplIdY=;
+ b=suTY8gcA7JS5RwayAWWWIVxrIHl6/22shKMfaISKmMrgDD72scy6oRz7eVv+7EqoUj
+ IMhvfvvCWx3MlfZfpe+SmCutWRAlK5Z7Ra7ePPL1aiDmwtCHd5da2DK5SdljrqMM4NhL
+ /OADbZV2+MU/U/qPfWU2yQUleC6biOqnYtO7FonbAaJGBS8tsjmL93ADB8SRgTHCJmMM
+ bsXvpPUPsXH1yNYB//VnazuCiysCG9v3lT/t0i+yJRDiA5fhZwesoOqBPyXZ/1zut2OP
+ Z2p1rsfQEUkuRj7ErPCeyxzk0NZ4ttdvmSbcJLJC4Vg/LY5FfELf5MISLEesBU8ybjzS
+ qDBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772444185; x=1773048985;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1772444394; x=1773049194;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:from:references:cc:to:subject:reply-to:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=W/+pREnN5e1VxpAxRAovD9rwDlgzw5wWA1UEsPKKJ3A=;
- b=ozERr3cvoqHQg/OcRXRC+Ol/9Ht0vUpxjl0NgcwRInHQEI2noRnZSRXbM2abItDFy7
- 0oWk2AjprbrVKtzsJMxOu2DK0JbpdWzGk0K5T3ciONvyLerpCVF0pZLNFyzdXhwuUlzu
- PITMebFJ9rdnj++MMSmiDC4bxsoyIxHWr/IJ5OdUllXdN17ijsu2gpa6NhUTyLeTIOrx
- cRJOif7MMVimYc/NoYxv7M7vwcLque8JxOvhMeJfCrChp/NO5Ca2m8R0zDFlcCG+STPD
- DXMdK/dcn1/5+GhRRKFzu6aANT/1NgPWqxMD0ee5t+Zzw39zgB8RoMphqUnjtwjQ8oeD
- lLgw==
+ bh=JqpFEgvwHpU2hX5PSjnXyoj4uXycVqlvmrKK7iplIdY=;
+ b=iGFi3cvnLU0+ocK6UzolDmOUx3ouEPQ0Nq7ihDN/8h0cElHcoh3DQ9/TKy9DX5KfkR
+ /k45nlw88hYG0VnWJQlAnj0mdY05Yyz0RWSVPe23ZNOIt90xfSME6bmBZKeFGSc6wzVG
+ Qm0uICTuSK3RW4EyKi45c6cvaWlvnkz/SWGt0h3edvseswZ5+Fza+l0IrdcRoW4Z4hgD
+ i85UAuZl55dphCdBnuukZygOmf5wFeL/tbXL1Byu69nXhvENFxjVKp4j/9lC9BKT+zMw
+ tUPsLCrMODpwpDsK0v7gl2MkD2k6NGpt2A/EJ/tuPW6pPlEtUBP1spEHE2kDUHo8sF+y
+ TpMg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVMOTz3eQa5lhPWa4jEK5AzV1Ol3dX1ibx8txlben/pW1fTJ5Qx25MIGzsAwsX9/lljuDDl0sLoKKY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6B66pVqMiC6hMoEdnGGLHGdaHXa8MPmj8zDLjtZgYGIL80jUL
- By5y/aBOy4HJlMYe37vIWZ01VY1nJRSfkRWG65vOzuDxHB0qpv2+uX8aw0wAqTKNl0xrydABdB1
- JuC3+RJxGu7D22kXGY/fU0c+pP7xEeVzM+VwdSPNmKePkXWHmIabYulH8KgUzJ2W+qaFA9A0=
-X-Gm-Gg: ATEYQzxaAPvcLTUrth/70MWr6VP05TC6Z3uI12IEGye/ruQ+FbAsOQCdN6esdjW1e4K
- bur+d8P2RRRa7BntJmJgf3U3sjjjjOTxUccpHCMmxjjAjxm4PL2H80fH6zEbBTtmn5JZdTh6sTb
- IaiZo11KGFQjbbhoTv95uDmqDfEmyCJBlPlXf6lMIdVJNORpnn7Kj/XdBKAIzOEmUDC+s1VXyrI
- k/+w4wx47EsM9u+qE3SUBJwIZYd61G9zC90QQWb8Jug1CxeatXz0EotWtztsPgSyqC3MQy4jNKQ
- H4pXXRb2z/qS6PDBVdxxopbA5E8/lXz0stp/f07Fwa3QFISFq8ElHwXz6JRqNy6iIy+PeDGCTD5
- 793pEGqDRg/n4aIfFwYBtsiIPX3XMX3VKf2tO
-X-Received: by 2002:a05:620a:370c:b0:8ca:4288:b175 with SMTP id
- af79cd13be357-8cbc8e1d882mr1703926785a.55.1772444184967; 
- Mon, 02 Mar 2026 01:36:24 -0800 (PST)
-X-Received: by 2002:a05:620a:370c:b0:8ca:4288:b175 with SMTP id
- af79cd13be357-8cbc8e1d882mr1703923985a.55.1772444184259; 
- Mon, 02 Mar 2026 01:36:24 -0800 (PST)
-Received: from oss.qualcomm.com ([86.121.162.109])
+ AJvYcCV7p549evrDOhFkYlkf8QQXsLGQ8uABAxTopNdRN83ZAdiluO5v7FFrMuxUa+HFiLF65nPNlkyyJmw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YycSZETqHfpIGgBz1Yp9VRjpWrnkTeT7QNCaMP9cCcYH3xs/bTs
+ AZW5I+3hIt7+rrvFXcQvIyFTvi+MOmHiQNzGVWxcKgjFl8bzod/Z2pFg3Losn4CNAKk=
+X-Gm-Gg: ATEYQzzYvPpXVU8pi1t4eQW9qfnQSoAHnMRB5zTBJEG8RkKmlETWZAuqzjLUYhZD2Aj
+ o9U1IhOYA0jpDM4oEY3zKBwfU+ymgra+WgblKMORyrMuq5MhjF3AZnhWKIz6/6IV2Um2Yg1B1mF
+ MW28pr0zU2bWwB1QLQGZJZDwIzVskln4G0NKZ4foHoKcE1NTlKJ2kwO4PQBOkXK/G6BusNt4VOy
+ oaaB6mw4KZS5i6FC5B6KrZWXu/1lRj7/4+mzWhg7k3xnqbyj1t7Wp/5KrG8RtUgONUdgRclUJdM
+ dB43KWsIBzn2ldFFBDf3jvG4pS5axraTtrPVpVqzk8cHBpj20MSWkFVsHMh/26BnQzi0ygtA4kA
+ DVoIwDG5BDlG2W1GAS5gF+8ArZlqWevUn3EEepJCOgyXltuTPZR8vmsQL7If7TgT/E/9ex69bRt
+ fri8Ax77iYwqzci0B8ooD2QdpaGPNKNDalfTCJjBdC2VJQCJTfMeNoDP/2OZ7T76aY8ki13kQL2
+ MgE
+X-Received: by 2002:a05:600c:8711:b0:47e:e20e:bbb2 with SMTP id
+ 5b1f17b1804b1-483c9b970a5mr186563345e9.7.1772444394296; 
+ Mon, 02 Mar 2026 01:39:54 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:c342:61e:309c:3478?
+ ([2a01:e0a:106d:1080:c342:61e:309c:3478])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bd6f2f88sm381265025e9.2.2026.03.02.01.36.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Mar 2026 01:36:23 -0800 (PST)
-Date: Mon, 2 Mar 2026 11:36:21 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abel Vesa <abelvesa@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] (no cover subject)
-Message-ID: <nu4hcmawoq6kzug7lx7pmhp3f4tep2ttpo3mugdk5fg2mviqn2@p7nfdcllvnbb>
-References: <20260302-glymur-fix-dp-bindings-reg-clocks-v2-0-e99b6f871e3b@oss.qualcomm.com>
+ 5b1f17b1804b1-483bfba9a5esm272442605e9.4.2026.03.02.01.39.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Mar 2026 01:39:53 -0800 (PST)
+Message-ID: <4d39b428-75ae-43a7-b423-d93d8396004c@linaro.org>
+Date: Mon, 2 Mar 2026 10:39:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260302-glymur-fix-dp-bindings-reg-clocks-v2-0-e99b6f871e3b@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=BI++bVQG c=1 sm=1 tr=0 ts=69a55a1a cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=oauzzCmhM186DRC0Y2yWPg==:17
- a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=Zo8LqNs0DLUyECXxfzQA:9 a=CjuIK1q_8ugA:10
- a=VxAk22fqlfwA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: GbibWMcdiyGQCNzYTIZXMCT-1UmFauW6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAyMDA3OSBTYWx0ZWRfX1siKS/3q1+kl
- wwHWQZ2lEERqsacNrH8QNuwn5wzi/dpJPW7IisAWFYVZUxQJ3S13qc7ae+JDigcucU2/Dt3+L3R
- a50cn/IAdaM0z3M/T2vGQtT8bLPI0GPu2Jk+/9TIIwVQSoAVPyXXXyoJ95rbFFx/GiOJuNpqtpR
- n2xG0qINI+Rg2W4t24mUTfxsWVnrV1MILaOWwOQ9RL/ts6FzmJrVbPCSp9R9lOuHFRjsHD5jiVS
- LqEtkUOK27pR0rIJYFEBX5mXx4AwUT+uzlomTnALWhSIJHpsxwF34kLiwDTn1cLWUheJetGPXnT
- hWKYgg76p/NUW5PcxshAUGEcj3bLfWq0YbDic+iym80UbqNb9NJUadDsw6cb4XBVjwFixGiVxCO
- WmmJbqFDUjJwOBJySyVIEpN3U+GwAsK2YaVmVO2TpKacw1aJPNHIColPqH2RS2bFw4PEY9zM+/B
- m/te9fwo00UwUp3Kkcw==
-X-Proofpoint-ORIG-GUID: GbibWMcdiyGQCNzYTIZXMCT-1UmFauW6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-02_02,2026-02-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0
- spamscore=0 adultscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603020079
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT v2] drm/msm/dpu: enable virtual planes by default
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260226-dpu-enable-virt-planes-v2-1-87971236fe86@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260226-dpu-enable-virt-planes-v2-1-87971236fe86@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,51 +126,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+X-Spamd-Result: default: False [-1.31 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	MAILLIST(-0.20)[mailman];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER(0.00)[abel.vesa@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:quic_khsieh@quicinc.com,m:abelvesa@kernel.org,m:dmitry.baryshkov@oss.qualcomm.com,m:krzk@kernel.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:stable@vger.kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,linux.intel.com,suse.de,ffwll.ch,quicinc.com];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:quic_abhinavk@quicinc.com,m:lumag@kernel.org,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:robin.clark@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,quicinc.com,kernel.org,poorly.run,somainline.org,gmail.com,ffwll.ch];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	HAS_ORG_HEADER(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,linaro.org:mid,linaro.org:replyto,linaro.org:dkim,linaro.org:email,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	HAS_REPLYTO(0.00)[neil.armstrong@linaro.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[abel.vesa@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	NEURAL_HAM(-0.00)[-0.998];
-	TAGGED_RCPT(0.00)[freedreno,dt];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[neil.armstrong@linaro.org,freedreno-bounces@lists.freedesktop.org];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,msgid.link:url,oss.qualcomm.com:dkim,qualcomm.com:email,qualcomm.com:dkim]
-X-Rspamd-Queue-Id: A7CDB1D5A19
+	TAGGED_RCPT(0.00)[freedreno];
+	REPLYTO_EQ_FROM(0.00)[]
+X-Rspamd-Queue-Id: 9AC041D5A95
 X-Rspamd-Action: no action
 
-On 26-03-02 11:33:18, Abel Vesa wrote:
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On 2/26/26 14:49, Dmitry Baryshkov wrote:
+> Turn on the switch and use virtual planes by default, enhancing
+> utilisation of the display pipelines. It is still possible to use legacy
+> implementation by using `msm.dpu_use_virtual_planes=false` kernel boot
+> parameter.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> This is being sent as an RFT for now. Please give it a test with your
+> compositor of choice. X11. Weston. Sway. Wlroot. CrOS. I plan to turn
+> the switch for 7.1
 > ---
 > Changes in v2:
-> - Fixed the reg ranges in the example node in qcom,glymur-mdss.yaml as well.
-> - Link to v1: https://patch.msgid.link/20260227-glymur-fix-dp-bindings-reg-clocks-v1-1-99f7b42b43aa@oss.qualcomm.com
+> - Rebased on msm-next
+> - Updated the cover letter, targeting the switch to 7.1
+> - Link to v1: https://lore.kernel.org/r/20250514-dpu-enable-virt-planes-v1-1-bf5ba0088007@oss.qualcomm.com
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 0623f1dbed97..7c5b3495bddf 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -52,7 +52,7 @@
+>   #define DPU_DEBUGFS_DIR "msm_dpu"
+>   #define DPU_DEBUGFS_HWMASKNAME "hw_log_mask"
+>   
+> -bool dpu_use_virtual_planes;
+> +bool dpu_use_virtual_planes = true;
+>   module_param(dpu_use_virtual_planes, bool, 0);
+>   
+>   static int dpu_kms_hw_init(struct msm_kms *kms);
+> 
+> ---
+> base-commit: 50c4a49f7292b33b454ea1a16c4f77d6965405dc
+> change-id: 20250514-dpu-enable-virt-planes-7b7ce0a6ce2a
+> 
+> Best regards,
 
-Ignore this please.
+LGTM
+
+Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
