@@ -2,102 +2,104 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aBTXFaqEpWkCDAYAu9opvQ
+	id gBBrJ+uEpWkeDAYAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:38:02 +0100
+	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:39:07 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B36B11D8BF7
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:38:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0090C1D8C8A
+	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:39:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 808CF10E4C8;
-	Mon,  2 Mar 2026 12:38:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C1AC10E4C1;
+	Mon,  2 Mar 2026 12:39:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mndi4cHO";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NeiFD8ND";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zjf409ld";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dlfT9g+U";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C5E10E4C7
- for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2026 12:37:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 931BB10E4C1
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2026 12:39:04 +0000 (UTC)
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6226hGci2504783
- for <freedreno@lists.freedesktop.org>; Mon, 2 Mar 2026 12:37:59 GMT
+ 6226h9Ap2504590
+ for <freedreno@lists.freedesktop.org>; Mon, 2 Mar 2026 12:39:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Xj+RXedbXE9FhFvC6sdIgsQRafMTshNF24rbEDu3JPo=; b=Mndi4cHOsnQp2QMx
- sS5oQUtXOOLsfU0Zi4cS2sjaSMtXS16OgvGYsrAFyo2Wg4g1SouwiaB03EgST6zN
- 8+9R0OF+GucZx5YGAjj7mG+mM5ZEaw5VYGvdjl+tNJYjHapZ+Dqa+L1ImJZHYo8c
- 7Ab//dwpLglBG2oALJzeJUNVjutvLPy9SY9nGavJ2TU6y1hmb+K8OAD32VkiX1q6
- 4QjBuJPyXbjVkWfNDTM++iiMy3KQnDu6I0l8K9pYlI3B6i2l+pYxamozCy84kbd3
- P9CGJrmWy73vxvlywqaitqr3EKVRyzgwyL8+lnAS8+mg1Y/DNT4hXVhDe6LKXCTg
- gsiEfQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cn5hes85f-1
+ eQna04IhPNINhdUa/X4UZuWsEJV5qIs3HUGMu8ECfb8=; b=Zjf409ldqsN5tiwF
+ foHlYNVcL7NHrdBHqoaIT9TslddQSfOcc6B7qiuOXq4pN3E7WPBgW7M9WWei38z/
+ 7KCJWrmlkL99t9K59J6GmvDwc3qZjRM86XOy9+PVtDS2tdvMsDXM4VHFTb9fIQJx
+ GISpnaGJyYrLzY2qfKlrk+wYLCdnJaiosP6sWDbrrUe+FiJRAhofImR521QxTnua
+ jyB88tzboBDyLFeo5FaxFnR4g+NaXrNeYthNnETTKk1oi3d0/bZeOAZ1MYDxy1fc
+ hagtWeRCqK4CyM95baWvLNgE/vXFl+AcSGMRdzFhhxnEy66OwKofbnfSxaBZOMpR
+ 5ErYlQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cn5hes894-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 12:37:59 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5069ad151fcso41280231cf.1
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 04:37:59 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 12:39:04 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8cb5a76f13eso313138185a.2
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 04:39:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772455078; x=1773059878;
+ d=oss.qualcomm.com; s=google; t=1772455143; x=1773059943;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Xj+RXedbXE9FhFvC6sdIgsQRafMTshNF24rbEDu3JPo=;
- b=NeiFD8NDQIDclL6sxjsgijZj8FTl2Qtxd6eM0U5IQO1DnajVTJjhXpVFOSd7u836L2
- //VgjiWf5AsA0q2jbXwMU16qXgl2Ax199PflFslhWEAtzpy/Tcg/rvQhvS9KjUbo+9AS
- 4CUN9qUkpXXt/ogjD9td11xrta3IrtPrk/5izJzIu3VMRt1/PaxoFBQIahAmNRJdyyzd
- n3qG+Q9k5z8JUK0PIp6/Bk0nDT83pdROktOCjC1BgR7c0lp44JwhX66bdYCVzQWvEFif
- XL1iDSgfF9DcMD4dq+9T4rreSU8ej2gafj8MDgRDV8LCx+BM3x3V2Y9PVnpKggr+Ce2Q
- U9Gw==
+ bh=eQna04IhPNINhdUa/X4UZuWsEJV5qIs3HUGMu8ECfb8=;
+ b=dlfT9g+UfjD2fEBQlIUIZ2US14zC6mrGARQzkZ0KiAKrN51bmdUYs7tEbsJTG1mfNM
+ usxZ56irtxxVt+dz+v9iRxA1HZ4a6mlm6MON1BuOhU62o1nDRdfn3KEg45GkkMV3PKN7
+ UbiHQbCFcgoq71uwUM+R4fzBEWndS1zOGQ3dlRYb+2DiPWMqIDoo0jyXqmOrwmGyLddw
+ DsPrSsrtSJSDzghNdEI7KIgQKAKnKiIlsy7ZZtQ/PoIUf2JQc3WpCaXaxMvYbEgsOjfT
+ L7qW+DyNzhEXpymoLBUDgBqmeBnWk8XNcBqrKeBt4ZRYDjr4Kz07dGTbaNhM7yJS/sVM
+ RVqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772455078; x=1773059878;
+ d=1e100.net; s=20230601; t=1772455143; x=1773059943;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Xj+RXedbXE9FhFvC6sdIgsQRafMTshNF24rbEDu3JPo=;
- b=eA5W5PR1Y4RtEyPcZt77B7gzoDZmLwvywhsgIdZU73bSn4LYTRd1arr3jJQGKZJWt3
- CPuz2XM4GMUAppezmGkz88OBnccVVyLvLT0fSRaOwga3MKjTvNeZ8Q9Q0DhwlyOz5c7+
- ZUQ4k3lghos9M7MOf0zg1A3IQchABlCp/gfxN/f0Vjqf9SXW4lipbZEUfNmaAD6ns/yI
- oAieV61LrcctVlPwSbDzWnv9JUivoeg24fhsim+mQ2oLUnLGndSW5T6qA7KR1BVoRbFe
- jzoplTyEIe3NQ/lgws5GOe5Za0c3NFm3D5fTFRwlNlPXKG0/kQTs6UKIzI2+a54EaTgY
- nZTw==
+ bh=eQna04IhPNINhdUa/X4UZuWsEJV5qIs3HUGMu8ECfb8=;
+ b=t5U2Qv8sJnnSIeodBzosSGQeQ1GbIH/Fmp5l4j5vqfWn6mH44Wow0NsrbaSIwdSHjH
+ iKdr+sCJR8JWTMuq2SeBy/jRpGiWhYxPItQnTq6nLgOneojRstdoMoQCxvwbe+vaym/l
+ 1GFPYo9VKEA8jUh/X1XMjdTUlE9qJPH9Yr3rONC+YJJvY8eym2hsczxsEoUuA8r4ogoH
+ iZYm0LsWl/Na2LC7TqcGogG1GX1SvvYmDqRF1/5a6Amz+PUPnwYC0Gb1uIyvvfsRUA7e
+ Zc6rxgwZdW3isyq2ORRh/R2Gvp+sIZCZAizKZwiPD5/+jlywtFOrXSpn38Tfgyi/pnzn
+ +pLQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXE4PW6Q190mMnf5PVlHsKAHW62u1DPjQ9UyZY0k2HbSGyKPqWTYDKwOL+lNJOHdJT2KZqvZ6s0Gnc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxGzxaOUmzonzmgkS7inc1uChhbkJowGLKivFtevHpp9KSpMZ/0
- Ys4oIaXf8tYbnibEBNn7i6JT7F66h/kA1pQOOJFfvbj3p/lgQHy+EyHaoETGFryLGGWrB6q/ySr
- kMVFUc/5IrRMuCZJP2R8ak2G0f7es/HqiCXdgHjQtdp4Xsc4oDxlVeGJ50ryVemG2fHTF8Po=
-X-Gm-Gg: ATEYQzymFgC3BhNYnJatl9Ll1ifKC4ucuMr5sfw9a9jhbRZWPE2zzf3A8/ZUzkQq6Tx
- gBn3jjbVDvpz+9VGVt/taRGXaG/54DvBz6Zo7aOV5h4w21Zb718C0Hf1bAUjJhXDhNRLBWTOnlS
- 72jxmgNXfIkgzUtKQV4Tc4AhuoqEt+nx5eNoEqaa3t/tO1yxNd/3ZIAcUiF1UmA3TzKZyJuTI6N
- uJX356wApr4rUyybJ9eEEUYsYk08pOikwlGMdDxmviIbu8I1PCJu8fr6sOYZjc9yc0rfteCaCHX
- 5RLGT1GACimeV5AmdiCgK6uOV4KiJCza3HKIPqSQgQHUyDFMpA0jSRaC6s7wGeV56N+DVka23BB
- KD3DBNpwLi8iCMqy7cXjObey6crYs506YLfAlHd/Uf6mrtUpf4PJ6vzFamRjAdILZ7VWhaOhkr2
- ysDfM=
-X-Received: by 2002:a05:620a:2901:b0:8c5:2ce6:dd4 with SMTP id
- af79cd13be357-8cbc8e44e19mr1245823185a.2.1772455078147; 
- Mon, 02 Mar 2026 04:37:58 -0800 (PST)
-X-Received: by 2002:a05:620a:2901:b0:8c5:2ce6:dd4 with SMTP id
- af79cd13be357-8cbc8e44e19mr1245820085a.2.1772455077605; 
- Mon, 02 Mar 2026 04:37:57 -0800 (PST)
+ AJvYcCVOFgb4/nlGCuEEUUROfV8Y6MxREm8TBTdspU+mz1I7T/1E6dk2D28dKtEZN3OnJO9snqmgnI2nKN0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7oykcFvWOqn0DuCrtT/hhywQo9hfrj2KaMRjn9JIStnd44VgZ
+ XfyoDiJidCJm42QzIW+zPFSvtc0cxuvfwpv33cJstKdpGvT5l0RSgreOnzpKJINZ1TFJK86szI9
+ Zua1rb1i+z8VeOqj8i0Rk9yyUVYum735E8TrgFGFqfB76/3pxbtXiC5i9Hu0t4TGkzmQy0SMw4G
+ m//YM=
+X-Gm-Gg: ATEYQzxx1Wxy825cuUuaXIlU1RSf+BMxCn5m9gqLFkF8jNF0z+eybbWE4QOXjULYsQM
+ U+VnfA2TDDztENWrookzvUvUMKXEBV15eA5PxXKRMliylyWsVm1HD5q5n0IlfwUmaX/tM8dtvAB
+ SO65EFkORTT4rwohHmT3WEEEeDFNAHsXcps29LCTAGRjjkZgPQeZEmr523sFNR2fFsVSqPPLZrF
+ BMiKg8fKWv7SBOjPtsfUfCBPVlrW1kSYIUwKel45oSKMeQuZ6cALRCdn8MISFBaaOzlzurLrA8P
+ OkvjfBBUQuSTAyr/DZaQ4gehbigyBhyY8DPszGtmcmV/QRp2xG6DTRtLbIGg0ldbkSnvGUsLCgB
+ j+lrEucUgQOxa+yS1vGO9NHdr04Z6lOD6HRIWkhFAAdcXXu9Zy9KK+NxQ0Rh4bBXg9i3xGIGOdO
+ H7UyA=
+X-Received: by 2002:a05:620a:1712:b0:8c5:3892:a554 with SMTP id
+ af79cd13be357-8cbc8dd163emr1221191385a.3.1772455142921; 
+ Mon, 02 Mar 2026 04:39:02 -0800 (PST)
+X-Received: by 2002:a05:620a:1712:b0:8c5:3892:a554 with SMTP id
+ af79cd13be357-8cbc8dd163emr1221189085a.3.1772455142347; 
+ Mon, 02 Mar 2026 04:39:02 -0800 (PST)
 Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-65fabd36219sm3161313a12.3.2026.03.02.04.37.55
+ a640c23a62f3a-b935ae613ddsm465043166b.33.2026.03.02.04.39.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Mar 2026 04:37:57 -0800 (PST)
-Message-ID: <f04855c4-50e7-4366-a85f-d676b9f0ca07@oss.qualcomm.com>
-Date: Mon, 2 Mar 2026 13:37:54 +0100
+ Mon, 02 Mar 2026 04:39:01 -0800 (PST)
+Message-ID: <136fb7f5-6574-475a-b30f-e5770abfd51a@oss.qualcomm.com>
+Date: Mon, 2 Mar 2026 13:38:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] drm/msm/dpu: drop VBIF_NRT handling
+Subject: Re: [PATCH 2/7] drm/msm/dpu: stop declaring VBIFs as an array in
+ catalog
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
  <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -107,28 +109,28 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260227-drop-vbif-nrt-v1-0-2b97d0438182@oss.qualcomm.com>
- <20260227-drop-vbif-nrt-v1-1-2b97d0438182@oss.qualcomm.com>
+ <20260227-drop-vbif-nrt-v1-2-2b97d0438182@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260227-drop-vbif-nrt-v1-1-2b97d0438182@oss.qualcomm.com>
+In-Reply-To: <20260227-drop-vbif-nrt-v1-2-2b97d0438182@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=BI++bVQG c=1 sm=1 tr=0 ts=69a584a7 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Authority-Analysis: v=2.4 cv=BI++bVQG c=1 sm=1 tr=0 ts=69a584e8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=5umUYrs0ihikrlwyJ8oA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: cJYppV9YMys-SvC6yKIduWsGv69GPlzk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAyMDEwNiBTYWx0ZWRfX/vFrKkIbKKam
- zSM+7D52iBRQQUutPWdEEYxKc8/t+QOAOyP2vA/X7Cbwpb+2HMyH7ab2gctrndGeimYXMB7CipW
- 9U7dH1ttDb+tjHxpZDj1L/FIdKGkEFnDn99855yxCJJ+uZFPAJ3OXPn3UhFiJ9PVLq8BOKgMBJR
- tRY3yRWpb20BWUjrFIpWqUH/ANYMc54YxggeYzVSDw249beyvJRaa59pvj6uNbdi3IBG1IWcV/7
- rO0uTWrgr6gf9t7AlkSrhSRLLEinHm5O8aiFRUb1iqK0bDqpZfHAjps42mRAl3g2qnlYBTWFupe
- l9MzoUXBHFxUMrjhWU4pBRw1SmaEYRBkoThPhll4n+hJ8Ap6Uvfy2u7H/FTgueTVt4EK8y19Z8h
- RlvanYZkr5dL3GE5+/NpHGtUuQRMso/302RM6LDnJ5/bV+VC4NN90ba4VAiEaGpmnncoE//eJaN
- FYlPvQSlmeD7kQWXBbg==
-X-Proofpoint-ORIG-GUID: cJYppV9YMys-SvC6yKIduWsGv69GPlzk
+ a=EUspDBNiAAAA:8 a=xtCnSr9B5oVFkYUcn1YA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: ZbVe2qK-5T69SeyrbP4VJrr897VQm8qu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAyMDEwNiBTYWx0ZWRfX5cCgDAuvuh6F
+ RBStzS+ekKLIDD9o+Vp9pZvn/q+LlwhVJl6g1tX6SKMi901ZYJAwf361/TsD0wEJskCiGi3bzln
+ DI/n2gRzMT5AXb1FoHY/m/81JUrWDLUPXAk/NdDtrTCvce9yiejB3dmdv1H8R1EZrEPJerrZGgI
+ LMFifmK3Fjcky+QUVbSXYhTu6G+8aY7EROutHtjrAWDdyaPu4vP2QLQdvZyjHS51VSmoBNub1Ur
+ wb9P9/z/sSz/VxjtqC8Bz9bbtexxHLcQhMqr0S7VtvTEcs4DPKfpxG7JiPV7ND3AU2DDNT37HyL
+ w9bO7oyo/OJbDaWrH5A7Rnm7uYg/LbGao9trPLApkw54yjcRfwTdlyEWcv32EYVybjG1xKSUe71
+ pM+3otkZmpAMxJxS9Y49jFR4KJSeI4oA262YMTy0ZlRQmTZwSkdaIA6pcB5P1ALOpxdsZmu7zLy
+ Gq2qqQ6pPt2/QqScjWg==
+X-Proofpoint-ORIG-GUID: ZbVe2qK-5T69SeyrbP4VJrr897VQm8qu
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-02_03,2026-02-27_03,2025-10-01_01
@@ -180,28 +182,17 @@ X-Spamd-Result: default: False [-1.31 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
+	NEURAL_HAM(-0.00)[-0.999];
 	TAGGED_RCPT(0.00)[freedreno];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,oss.qualcomm.com:mid,oss.qualcomm.com:dkim,qualcomm.com:email,qualcomm.com:dkim]
-X-Rspamd-Queue-Id: B36B11D8BF7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:dkim,qualcomm.com:email,qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
+X-Rspamd-Queue-Id: 0090C1D8C8A
 X-Rspamd-Action: no action
 
 On 2/27/26 7:36 PM, Dmitry Baryshkov wrote:
-> The second VBIF instance, VBIF_NRT, is only used for the separate inline
-> rotator block. It is unsupported by the DPU driver and will require a
-> separate driver (or separate instance of the DPU device).
+> The driver handles a single VBIF instance, VBIF_RT. Stop declaring VBIFs
+> as an array in the DPU hardware catalog.
 > 
-> The only possible user of VBIF_NRT is writeback on MSM8996, however
-> writeback on that platform is currently unsupported and it's not worth
-> keeping extra complexity for the sake of that single legacy platform.
-> 
-> None of the hardware catalogs entries actually declare VBIF_NRT, so it
-> is left in its default state.
-> 
-> Stop pretending that DPU driver cares about VBIF_NRT and drop it.
-> 
-> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
 
