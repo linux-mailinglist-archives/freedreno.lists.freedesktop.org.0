@@ -2,104 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gBBrJ+uEpWkeDAYAu9opvQ
+	id +AcUDzeFpWkeDAYAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:39:07 +0100
+	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:40:23 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0090C1D8C8A
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:39:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0391D8D12
+	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 13:40:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C1AC10E4C1;
-	Mon,  2 Mar 2026 12:39:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D56AD10E4C1;
+	Mon,  2 Mar 2026 12:40:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zjf409ld";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dlfT9g+U";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gmn8gQjv";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g+LJCTjc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 931BB10E4C1
- for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2026 12:39:04 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7732010E4C1
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2026 12:40:19 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6226h9Ap2504590
- for <freedreno@lists.freedesktop.org>; Mon, 2 Mar 2026 12:39:04 GMT
+ 622B3djj3862797
+ for <freedreno@lists.freedesktop.org>; Mon, 2 Mar 2026 12:40:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- eQna04IhPNINhdUa/X4UZuWsEJV5qIs3HUGMu8ECfb8=; b=Zjf409ldqsN5tiwF
- foHlYNVcL7NHrdBHqoaIT9TslddQSfOcc6B7qiuOXq4pN3E7WPBgW7M9WWei38z/
- 7KCJWrmlkL99t9K59J6GmvDwc3qZjRM86XOy9+PVtDS2tdvMsDXM4VHFTb9fIQJx
- GISpnaGJyYrLzY2qfKlrk+wYLCdnJaiosP6sWDbrrUe+FiJRAhofImR521QxTnua
- jyB88tzboBDyLFeo5FaxFnR4g+NaXrNeYthNnETTKk1oi3d0/bZeOAZ1MYDxy1fc
- hagtWeRCqK4CyM95baWvLNgE/vXFl+AcSGMRdzFhhxnEy66OwKofbnfSxaBZOMpR
- 5ErYlQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cn5hes894-1
+ Dag3nNDunEg9So5Os8FDwl9iPASFDaDEp7Yv9nrSbY8=; b=Gmn8gQjvPV7RgiQQ
+ l/W6sb5vm9S22KpwW4+rKScxxNtlZG/MFZaPrW2RY0nowZ66MrMJWEWEU6C5IsOp
+ 0aXYT6MazeeXf1ueOYX3WZQJ1kQu++d5LnO7AzXOziK7EiP/7BLNkpQN2Rww4jyk
+ BTm+tPeoWVMTf++FmgkRbc38D2Lu26SzLuEAQDOecnSTbA9MKcWtMkARl969w5m9
+ iCLw8MUPUGdu8FY5hXvZA9be8b3kz8KZVaGwOSudHBlTyUtzJ56GFYYpSAfiy5dV
+ 2KOxN2L/oxu+DRC17u5zne4ePj+ZG/yZHhwnTM4biIORjISCaZKN5e3RPgctam8J
+ 5mhw5w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cn9bjg91f-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 12:39:04 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8cb5a76f13eso313138185a.2
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 04:39:03 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 12:40:18 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8cb39de5c54so417577785a.0
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 04:40:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772455143; x=1773059943;
+ d=oss.qualcomm.com; s=google; t=1772455218; x=1773060018;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=eQna04IhPNINhdUa/X4UZuWsEJV5qIs3HUGMu8ECfb8=;
- b=dlfT9g+UfjD2fEBQlIUIZ2US14zC6mrGARQzkZ0KiAKrN51bmdUYs7tEbsJTG1mfNM
- usxZ56irtxxVt+dz+v9iRxA1HZ4a6mlm6MON1BuOhU62o1nDRdfn3KEg45GkkMV3PKN7
- UbiHQbCFcgoq71uwUM+R4fzBEWndS1zOGQ3dlRYb+2DiPWMqIDoo0jyXqmOrwmGyLddw
- DsPrSsrtSJSDzghNdEI7KIgQKAKnKiIlsy7ZZtQ/PoIUf2JQc3WpCaXaxMvYbEgsOjfT
- L7qW+DyNzhEXpymoLBUDgBqmeBnWk8XNcBqrKeBt4ZRYDjr4Kz07dGTbaNhM7yJS/sVM
- RVqg==
+ bh=Dag3nNDunEg9So5Os8FDwl9iPASFDaDEp7Yv9nrSbY8=;
+ b=g+LJCTjcizYynGd8axRzbJoCC5PBCU4taUk65G4W4HNhz6LcClTJ9yywWcPbDxWCDj
+ InNeBfW+NaciNh419TRbP25GW3M2z6SFejwzdLwkffgLyf4Z8qLcrbuSz10n3ZFONUrM
+ 3rxyUeZbPj/sxEPCKNitKDllxdAFtD4BKNZymqZImIR+XDTWlS76IGW0VeH/yPkoB6dJ
+ 1NTBamV7LiqgXgwVbThubpQfdFw3jUkrpn8PABybwBUxCf6j5M018zXHmmDrxQOIDrzm
+ WqS36vT0P+QJJ4H0jUk3YWWpwgIL4W9g5HPJE9tZcsZvzA+yoic2JG/iueNwXpwddv13
+ DEKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772455143; x=1773059943;
+ d=1e100.net; s=20230601; t=1772455218; x=1773060018;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=eQna04IhPNINhdUa/X4UZuWsEJV5qIs3HUGMu8ECfb8=;
- b=t5U2Qv8sJnnSIeodBzosSGQeQ1GbIH/Fmp5l4j5vqfWn6mH44Wow0NsrbaSIwdSHjH
- iKdr+sCJR8JWTMuq2SeBy/jRpGiWhYxPItQnTq6nLgOneojRstdoMoQCxvwbe+vaym/l
- 1GFPYo9VKEA8jUh/X1XMjdTUlE9qJPH9Yr3rONC+YJJvY8eym2hsczxsEoUuA8r4ogoH
- iZYm0LsWl/Na2LC7TqcGogG1GX1SvvYmDqRF1/5a6Amz+PUPnwYC0Gb1uIyvvfsRUA7e
- Zc6rxgwZdW3isyq2ORRh/R2Gvp+sIZCZAizKZwiPD5/+jlywtFOrXSpn38Tfgyi/pnzn
- +pLQ==
+ bh=Dag3nNDunEg9So5Os8FDwl9iPASFDaDEp7Yv9nrSbY8=;
+ b=QiQUVqvuwqg4a0c3NSuHR0eWAvYzHxoqaX4zTcjXPCu4MYcU4trggf5sPsMJoo8UhK
+ CARAHyCzvBhQkptBItPTDOhsffZCCDHKOsoJWVkMQlJUbkoIb7VgEzuVjizOB3pCJf4F
+ bCsHh9Uiwf1GoL59nc3iR7wrX4KubNH9jvCgprqtxAgiY+sVG4ZiiZmm/k2p9RRc5ets
+ 3Yt+goX6oNRazSa95j/RKScTLsUoanQXAkKi7g8akLOJtIi3oWZCN57mKl2VUfKlsEzv
+ CZY9N9rIxyVZYOiDafOTzMGfgt+ozQusygyVtoLc8mlxh0eaBQ8CI61HqqW3rzleOk14
+ SzFQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVOFgb4/nlGCuEEUUROfV8Y6MxREm8TBTdspU+mz1I7T/1E6dk2D28dKtEZN3OnJO9snqmgnI2nKN0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7oykcFvWOqn0DuCrtT/hhywQo9hfrj2KaMRjn9JIStnd44VgZ
- XfyoDiJidCJm42QzIW+zPFSvtc0cxuvfwpv33cJstKdpGvT5l0RSgreOnzpKJINZ1TFJK86szI9
- Zua1rb1i+z8VeOqj8i0Rk9yyUVYum735E8TrgFGFqfB76/3pxbtXiC5i9Hu0t4TGkzmQy0SMw4G
- m//YM=
-X-Gm-Gg: ATEYQzxx1Wxy825cuUuaXIlU1RSf+BMxCn5m9gqLFkF8jNF0z+eybbWE4QOXjULYsQM
- U+VnfA2TDDztENWrookzvUvUMKXEBV15eA5PxXKRMliylyWsVm1HD5q5n0IlfwUmaX/tM8dtvAB
- SO65EFkORTT4rwohHmT3WEEEeDFNAHsXcps29LCTAGRjjkZgPQeZEmr523sFNR2fFsVSqPPLZrF
- BMiKg8fKWv7SBOjPtsfUfCBPVlrW1kSYIUwKel45oSKMeQuZ6cALRCdn8MISFBaaOzlzurLrA8P
- OkvjfBBUQuSTAyr/DZaQ4gehbigyBhyY8DPszGtmcmV/QRp2xG6DTRtLbIGg0ldbkSnvGUsLCgB
- j+lrEucUgQOxa+yS1vGO9NHdr04Z6lOD6HRIWkhFAAdcXXu9Zy9KK+NxQ0Rh4bBXg9i3xGIGOdO
- H7UyA=
-X-Received: by 2002:a05:620a:1712:b0:8c5:3892:a554 with SMTP id
- af79cd13be357-8cbc8dd163emr1221191385a.3.1772455142921; 
- Mon, 02 Mar 2026 04:39:02 -0800 (PST)
-X-Received: by 2002:a05:620a:1712:b0:8c5:3892:a554 with SMTP id
- af79cd13be357-8cbc8dd163emr1221189085a.3.1772455142347; 
- Mon, 02 Mar 2026 04:39:02 -0800 (PST)
+ AJvYcCX0uHYXgmQ5F7CHWtVW6+EUqVWt22lbZ9kVt4kw5oCoKJW+RWeVFrCbm0sXFlPJqieYD1GXJhBj2UI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzCLInbB5oLuHdrViyk1xHlt8cnOfMrlkvum+JALp56cxAMvLGi
+ IVfhwZ0BzFG7ZQ0+9el1sHPbcJ1krD/SqboDLJsM/+2oTkE9TAXV/gsF7g8mtBtMx7ipb+/32L1
+ iAi2KVUDunAV20r1ZLpV9VONAz+XmLsE/QGyJ+cQ/11dOZ+xPJp0HaM4cY6wiqceLkRUi21I=
+X-Gm-Gg: ATEYQzxNO/defHGSWcrIr47fP0Yaq5lB7o20IRDB0cUwkeS05ZG7jSLUvaBRjKbu3ec
+ SeI7yt3AgFtkaCBQHC18BlZhBY7748tm4+FwbknOjObv43vKEqr5hm+vYrDyDXXndiqafvfqkWT
+ cPxIqX31YN8JbihFxmsViiJi3bH0j+PmVO/fpDTRkS15q+9KzPfmhMXS4dJBisSWwvdWCeI6sv5
+ 55dr+EqeRr4eo8mMSANNNaw8kTJAdxaKdfMpidoITlV4fFzIDTLbo4ENyIkU7+2WcpE6aEwIPhr
+ 2QHgIQfkPjz+ttTpzhfngPtTEZ51tQ/l1pQGfKfDXGdoQiUF/FppkryYBS5L7vqFYjQ7Vqq7tOz
+ Rfn7MZzJOf4mAmlIMERM8+utxmncA+/QXed/Y2xREfCU8WDcEYGSzqFIPF8uaBnvmgElhTQdhP0
+ cYt/A=
+X-Received: by 2002:a05:620a:46a4:b0:8ca:2e37:ad06 with SMTP id
+ af79cd13be357-8cbc8f467c1mr1192647285a.10.1772455217963; 
+ Mon, 02 Mar 2026 04:40:17 -0800 (PST)
+X-Received: by 2002:a05:620a:46a4:b0:8ca:2e37:ad06 with SMTP id
+ af79cd13be357-8cbc8f467c1mr1192644785a.10.1772455217516; 
+ Mon, 02 Mar 2026 04:40:17 -0800 (PST)
 Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b935ae613ddsm465043166b.33.2026.03.02.04.39.00
+ a640c23a62f3a-b935ac51431sm467420666b.17.2026.03.02.04.40.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Mar 2026 04:39:01 -0800 (PST)
-Message-ID: <136fb7f5-6574-475a-b30f-e5770abfd51a@oss.qualcomm.com>
-Date: Mon, 2 Mar 2026 13:38:58 +0100
+ Mon, 02 Mar 2026 04:40:16 -0800 (PST)
+Message-ID: <8a2d1157-4761-42bb-a95e-77a851d1f13e@oss.qualcomm.com>
+Date: Mon, 2 Mar 2026 13:40:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] drm/msm/dpu: stop declaring VBIFs as an array in
- catalog
+Subject: Re: [PATCH 3/7] drm/msm/dpu: replace VBIF-related array with bare
+ pointers
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
  <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -109,34 +108,34 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260227-drop-vbif-nrt-v1-0-2b97d0438182@oss.qualcomm.com>
- <20260227-drop-vbif-nrt-v1-2-2b97d0438182@oss.qualcomm.com>
+ <20260227-drop-vbif-nrt-v1-3-2b97d0438182@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260227-drop-vbif-nrt-v1-2-2b97d0438182@oss.qualcomm.com>
+In-Reply-To: <20260227-drop-vbif-nrt-v1-3-2b97d0438182@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=BI++bVQG c=1 sm=1 tr=0 ts=69a584e8 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+X-Authority-Analysis: v=2.4 cv=Pe7yRyhd c=1 sm=1 tr=0 ts=69a58532 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=xtCnSr9B5oVFkYUcn1YA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: ZbVe2qK-5T69SeyrbP4VJrr897VQm8qu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAyMDEwNiBTYWx0ZWRfX5cCgDAuvuh6F
- RBStzS+ekKLIDD9o+Vp9pZvn/q+LlwhVJl6g1tX6SKMi901ZYJAwf361/TsD0wEJskCiGi3bzln
- DI/n2gRzMT5AXb1FoHY/m/81JUrWDLUPXAk/NdDtrTCvce9yiejB3dmdv1H8R1EZrEPJerrZGgI
- LMFifmK3Fjcky+QUVbSXYhTu6G+8aY7EROutHtjrAWDdyaPu4vP2QLQdvZyjHS51VSmoBNub1Ur
- wb9P9/z/sSz/VxjtqC8Bz9bbtexxHLcQhMqr0S7VtvTEcs4DPKfpxG7JiPV7ND3AU2DDNT37HyL
- w9bO7oyo/OJbDaWrH5A7Rnm7uYg/LbGao9trPLApkw54yjcRfwTdlyEWcv32EYVybjG1xKSUe71
- pM+3otkZmpAMxJxS9Y49jFR4KJSeI4oA262YMTy0ZlRQmTZwSkdaIA6pcB5P1ALOpxdsZmu7zLy
- Gq2qqQ6pPt2/QqScjWg==
-X-Proofpoint-ORIG-GUID: ZbVe2qK-5T69SeyrbP4VJrr897VQm8qu
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=5LKdAdAFkQmhlfp1ZXYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: EoogyORg6oQWr7TDffez5O6pr7IKh2uU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAyMDEwNiBTYWx0ZWRfXy5IdWjkEgXmA
+ mbOya5WrBGdC2Qw0TDlaHxNK/kaPhf1G/SKEGZIOnzyP0rLrtbFAkeAlQViR37ZOxfYjQNdv2E6
+ kIY+505UcCUm6r9T1KIZy/4pbR2iaSbVEqsJDkm1UAhVqkr1UCHohFsngraI5t3WMxMef+AnGWx
+ RYrlhAI/XkmeEira1CcWGNjDjR76HKJvdIXOsXYzxl+whriwClDXdVOSyrlAHaFAkjF5UeG8ZJY
+ CkW1P837op56RIEmBWAefBGad8Gxr1JTydf4vc+D2i8PSHan3F7FgFzrHQULAT6GMSHfj5msyU1
+ C7ypJl/rYfNBoLYgChnXTI9BKKt6qN3E8BPdun/qBxIEBqwNEtbHNWBl/dXqablhRNL3MqzYELX
+ yENSKe1crcZi4d2jJ3BPwvpZ3v6Dxs826jDbYnYyXhC6lOqvADj+l+Eq1Kpg7YCnUyx3kq/kZvJ
+ qXAIMTEVcqsnZJqBrkg==
+X-Proofpoint-GUID: EoogyORg6oQWr7TDffez5O6pr7IKh2uU
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-02_03,2026-02-27_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0
- spamscore=0 adultscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
+ malwarescore=0 suspectscore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603020106
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -182,16 +181,17 @@ X-Spamd-Result: default: False [-1.31 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	NEURAL_HAM(-0.00)[-0.998];
 	TAGGED_RCPT(0.00)[freedreno];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:dkim,qualcomm.com:email,qualcomm.com:dkim,gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns]
-X-Rspamd-Queue-Id: 0090C1D8C8A
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:helo,gabe.freedesktop.org:rdns,oss.qualcomm.com:mid,oss.qualcomm.com:dkim,qualcomm.com:email,qualcomm.com:dkim]
+X-Rspamd-Queue-Id: 8D0391D8D12
 X-Rspamd-Action: no action
 
 On 2/27/26 7:36 PM, Dmitry Baryshkov wrote:
-> The driver handles a single VBIF instance, VBIF_RT. Stop declaring VBIFs
-> as an array in the DPU hardware catalog.
+> As we no longer have multiple VBIF instances, it doesn't make sense to
+> keep VBIF data as arrays. Drop the extra wrapping and keep only a single
+> instance of each of the structures.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
