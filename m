@@ -2,66 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ECHJMtwHp2k7bgAAu9opvQ
+	id CIZcC+0Kp2kDcgAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Tue, 03 Mar 2026 17:10:04 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 03 Mar 2026 17:23:09 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AEA41F3565
-	for <lists+freedreno@lfdr.de>; Tue, 03 Mar 2026 17:10:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 876E31F3A89
+	for <lists+freedreno@lfdr.de>; Tue, 03 Mar 2026 17:23:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F14A210E099;
-	Tue,  3 Mar 2026 16:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59BFE10E852;
+	Tue,  3 Mar 2026 16:23:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AxNVCcOi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LfVi6sv5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A278A10E083;
- Tue,  3 Mar 2026 16:10:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF3210E851;
+ Tue,  3 Mar 2026 16:23:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2DB6D44561;
- Tue,  3 Mar 2026 16:10:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D447FC116C6;
- Tue,  3 Mar 2026 16:09:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 47DE160008;
+ Tue,  3 Mar 2026 16:23:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9FC1C116C6;
+ Tue,  3 Mar 2026 16:22:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772554202;
- bh=/Oki8YLUgptwDqEZ3/IL+keBgnynyQdoJNYct1jNqBM=;
+ s=k20201202; t=1772554985;
+ bh=3KP5UsXW/n92tPBlXiap82i+5VV+PmnqKnEg0EMd6J4=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=AxNVCcOi17SZBQ3JHnslC193OZYGZAwSo0J3eBTKUokc1TRw1jXBypG1WBd2N2KuR
- 0AU3BXGx4EOS6T/VumPpnykLM7r27aDjVTBPZHrb7HhXB0voIWo0NGrrrB1THhmVUg
- ircmZRCItalsRPlVxeTdWBR/KUhQ1f1xqXKvlFNhEv4Y2ihTfdYvUW3RlX0mXoEaik
- UTudNoc1Nf3YLa8Wtmfy4XUIZueFSYfbiEZRebF+YBym61VChxCMjijF0jM2fw2ZA8
- w+NKevjQhhn2vONQfUdwvFveunc6bgviqTaqJMAkw2WLqo3JquTpIKkf8K2I0z3S5W
- FVQIH1F/B4GvA==
-Message-ID: <3e288b83-8a99-4ec2-8b2b-efdd9d7463f2@kernel.org>
-Date: Tue, 3 Mar 2026 17:09:54 +0100
+ b=LfVi6sv5mzDF+gto8oNzM2EgaPhlTmS2tXuRZU4Jxga/cnE6f5iNWPgSh1AVbgVGF
+ oMF1d36tNOVhUXoRK/2NAd2pou4/OoKDEuwnMQM7xpxmwbxjRVkPVHvrgWSTak88z9
+ XNiLBwkaY4UFmHTr9FhGgxikuqVM1XUw6Pe7rKsZx+BGwNS5LEN6mAh9IMchsnnTVW
+ tBEbMGVwm8k6ALqLQHiWOPq0kDSPSXOTscu4vP6tDkpZ8cjT+DVmY/CyP6CIn+JN/n
+ qTpziJBz3+tQYAgpPpqjqQZcUeZtKVt8dfXhMNT0q0bFihJy+EFtzR0PaN4cqLGjpf
+ 1OXFaw1RIIgtg==
+Message-ID: <69853a6a-47a2-4777-9a5a-1a53f24531a2@kernel.org>
+Date: Tue, 3 Mar 2026 17:22:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] dt-bindings: display/msm: qcom, eliza-mdss: Add Eliza
- SoC
-To: "Rob Herring (Arm)" <robh@kernel.org>,
+Subject: Re: [PATCH 7/8] drm/msm/dpu: Add support for Eliza SoC
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Simona Vetter <simona@ffwll.ch>,
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <andersson@kernel.org>, freedreno@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-arm-msm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Marek <jonathan@marek.ca>, Rob Clark
- <robin.clark@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260303-drm-display-eliza-v1-0-814121dbb2bf@oss.qualcomm.com>
- <20260303-drm-display-eliza-v1-5-814121dbb2bf@oss.qualcomm.com>
- <177255337948.3355290.6523186852223801021.robh@kernel.org>
+ <20260303-drm-display-eliza-v1-7-814121dbb2bf@oss.qualcomm.com>
+ <7hwaqdfopuptvjoikc5y5jm7lf6pr556k2yijcac44fobt3x2z@5eglub7asuqq>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,7 +106,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <177255337948.3355290.6523186852223801021.robh@kernel.org>
+In-Reply-To: <7hwaqdfopuptvjoikc5y5jm7lf6pr556k2yijcac44fobt3x2z@5eglub7asuqq>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -124,62 +123,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: 2AEA41F3565
+X-Rspamd-Queue-Id: 876E31F3A89
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [0.19 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.20)[mailman];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[poorly.run,suse.de,kernel.org,gmail.com,vger.kernel.org,quicinc.com,ffwll.ch,linux.intel.com,linux.dev,linaro.org,lists.freedesktop.org,marek.ca,oss.qualcomm.com,somainline.org];
+	RCPT_COUNT_TWELVE(0.00)[27];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linux.intel.com,suse.de,quicinc.com,marek.ca,linaro.org,vger.kernel.org,lists.freedesktop.org];
 	RCVD_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.971];
+	NEURAL_HAM(-0.00)[-1.000];
 	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno,dt];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,qualcomm.com:email]
 X-Rspamd-Action: no action
 
-On 03/03/2026 16:56, Rob Herring (Arm) wrote:
-> 
-> On Tue, 03 Mar 2026 14:07:55 +0100, Krzysztof Kozlowski wrote:
->> Add MDSS/MDP display subsystem for Qualcomm Eliza SoC, being overall a
->> minor revision change against SM8750, but coming with few different
->> components, like different DSI PHY and added HDMI.
->>
->> The binding does not include HDMI description yet.
+On 03/03/2026 15:10, Dmitry Baryshkov wrote:
+> On Tue, Mar 03, 2026 at 02:07:57PM +0100, Krzysztof Kozlowski wrote:
+>> Add support for DPU (v12.4) on Qualcomm Eliza SoC, with one
+>> incomplete/skipped part: HDMI interface (INT_4).
 >>
 >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 >> ---
->>  .../bindings/display/msm/qcom,eliza-mdss.yaml      | 496 +++++++++++++++++++++
->>  1 file changed, 496 insertions(+)
+>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_4_eliza.h | 365 +++++++++++++++++++++
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>>  4 files changed, 368 insertions(+)
 >>
+>> +	}, {
+>> +		.name = "intf_3", .id = INTF_3,
+>> +		.base = 0x37000, .len = 0x4bc,
+>> +		.type = INTF_DP,
+>> +		.controller_id = MSM_DP_CONTROLLER_1,
 > 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/display/msm/qcom,eliza-mdss.example.dts:25:18: fatal error: dt-bindings/clock/qcom,eliza-gcc.h: No such file or directory
->    25 |         #include <dt-bindings/clock/qcom,eliza-gcc.h>
+> There is no DP_1 on Eliza
 
-Mea culpa, I was testing on branch with the dependency, so obviously I
-need to decouple these.
+You are right, thanks. It's paired with INTF_0.
+
 
 Best regards,
 Krzysztof
