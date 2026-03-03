@@ -2,154 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qK/gG4uzpWkBFQAAu9opvQ
+	id 2EjIL1yApmmIQgAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 16:58:03 +0100
+	for <lists+freedreno@lfdr.de>; Tue, 03 Mar 2026 07:31:56 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65371DC435
-	for <lists+freedreno@lfdr.de>; Mon, 02 Mar 2026 16:58:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F2DC1E9A08
+	for <lists+freedreno@lfdr.de>; Tue, 03 Mar 2026 07:31:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 548F910E528;
-	Mon,  2 Mar 2026 15:58:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9DD810E032;
+	Tue,  3 Mar 2026 06:31:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i5Wehurr";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LTh5mm6v";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hxev20dF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3DE10E528
- for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2026 15:57:59 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 622DvLYF356388
- for <freedreno@lists.freedesktop.org>; Mon, 2 Mar 2026 15:57:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NxieLgf60ZQks4kzdgoyGzleMAEm98sGfiRnLZPCF/Q=; b=i5WehurrOreDe16L
- FEm09Bfewv11v6ml3LurqqJb8vq2DWcdIGVLGuZOTocb8fhaZKx1OKi7vFl9WLjK
- ECxWdBIwcdsyF3gFoe/PUAjfFSvhofEI707EKrhUTRASNB7nx18IHWUshc4Fz56S
- 4vquWLy+jQcCeTCPLooBWMCLCoW4jTUJ80KMV/xSP5dXmkPyCAlSU96GsrDsoceZ
- +us8+kJjFpeA4/1EF+ivA6MGqM2E6Vi5sON4mWjaQLwR7CfpUf9gPDLJBMQzIKF3
- hXzP5h25Qj6cvyULHMMBHPTfUdpi8DXSoPvR5nlQYuq83+zEIgsxlVj5njxZyBuk
- zUKaTA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cmw64b1wg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 15:57:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8cb456d53a5so439477085a.2
- for <freedreno@lists.freedesktop.org>; Mon, 02 Mar 2026 07:57:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772467078; x=1773071878;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NxieLgf60ZQks4kzdgoyGzleMAEm98sGfiRnLZPCF/Q=;
- b=LTh5mm6vbv8kJOMH0xiWa2Dib36B4kFDNjYY4vCaIO+lsC3o9BpZeAkKk9VMhCobRe
- 3/5z7GuPyUFh6oF/DIib846coP0FC0+eqTT7E4OE1QavGaLlWbLoHxq8R821SO20meKw
- 1eHAsMUFXtEw/PbS+1GPqmdCIG6+XoQuLwsTD/f2ydHkVHKFY9c81mcJeFCY5U38MmnU
- SEPMzmQsmNftlL4XbT93NI/HsPGSOCy8ajBPWBWEatCA/mdHPBq4bgrmF1q6nwICIHKI
- f0mitnFn6kIPWrIDGTN+NZMxRkk0MBOlabSvrZAq92+d9ffin3N+lZUeDoqrMpOID8I9
- ykOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772467078; x=1773071878;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NxieLgf60ZQks4kzdgoyGzleMAEm98sGfiRnLZPCF/Q=;
- b=ICxLzyt8/cklxmaX4QStsbNHQAuu3KCu9FK+1ACLubfVnPgzDWh7QRaHjxZEuqSafE
- 5/nGrFZQqIQeQ420Lph3lMZPwYNW1hKEt3Sv2Qh2TXOk1A50OszGBf0Aq88zeScLTazy
- JjBF/Tb2pIiwcB+uA7AXqPxRProtqkSfRagL1J5v1c4YLSRz8fuxU2cHfT83LHcK3cBa
- ga9G3BdnQSGtMPGp/CCB6T5GW26JPlzrR/RjOaxvBOOiQVfsM6q4a3rSzZQG0Q3i2wVY
- 4a7eDJQnKSks4vIDMHY40nn785LfKiZ2MAxDoic1EkypIdk/y9/0BbaHWg66EfJH0NiL
- 6wag==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWk7xlxifg5qmdffchfTAG9QX/aug5FT7pYQCVhznfGzjanWhUCzfpW+5WgVaIdEsAsHdwd7qso2wg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHYQqp5Viko8wJRm28BCh0XNXOIe3Sit9ipYN5BxflDsLYuTqg
- LWCEOGL0J2GKdA8+gtkBBOpDaAlM3Nbs0ZxIymbN8iOaPThHd2roEmWsiRLFsd7HwT3iQEPFfJz
- 8pjQNPXAw+nNQWLuSDEnauNgleKklVk5YyN2HR9XtjsSyBpLAaBIGQ0W/BB5+NcFbY0wAEdY=
-X-Gm-Gg: ATEYQzz7q/nEl20uQ1WCoxUXr9QCD/KOF9xAMX8CHphIo7d2iLoZ3dsSWMXL6pW/9el
- jyzpkQXUARnTRCLwsc2BsAYOSpzxihTNgdJMB/RnIZqbiZAgpPUDxYDhBagIHO5MHdvrxkL2Mvx
- HNKcINx4IfO60jLbZu9SaVyTM7IEyV2kmjZEjb5F4mm3Lhz1pRlcftqVu2ZPQI0bhAsCy1xwz7l
- N6ECKivYq7/BV7XmOD+SWVMGQTI47MbMVkJ7d8iH1EuB2weHcZU7LRMWGRcwSQZFqd4+YEyzfzX
- AmWpnAnPfBgDhVgqYl6Py4yPAmsbw80s6wBM89K7ow0DMZFcDJixB2rBI8XzOOjYg6hXjNxgUTM
- GQuKzwnI5ZBAIWUgR2W/Y6ED6hrFe/2HXBuyUxflBBU2Aqb0NkJo2VvGIJnny7Dvg6LGcQy/G8Z
- sJ0Fc=
-X-Received: by 2002:a05:620a:4405:b0:8c9:ec71:b224 with SMTP id
- af79cd13be357-8cbc8da1ef9mr1219097285a.0.1772467077741; 
- Mon, 02 Mar 2026 07:57:57 -0800 (PST)
-X-Received: by 2002:a05:620a:4405:b0:8c9:ec71:b224 with SMTP id
- af79cd13be357-8cbc8da1ef9mr1219092685a.0.1772467077142; 
- Mon, 02 Mar 2026 07:57:57 -0800 (PST)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b935ab1552csm479120966b.13.2026.03.02.07.57.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Mar 2026 07:57:56 -0800 (PST)
-Message-ID: <ef6ebb5f-bc0b-4e26-b79b-6e4cdf0075da@oss.qualcomm.com>
-Date: Mon, 2 Mar 2026 16:57:52 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4619210E032;
+ Tue,  3 Mar 2026 06:31:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 41F2C600AE;
+ Tue,  3 Mar 2026 06:31:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65DF8C116C6;
+ Tue,  3 Mar 2026 06:31:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772519512;
+ bh=etIR7Pe56EdJQFM6d1qXtDhGMMHWIdR7Aif3D35ehjk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Hxev20dFa+dxxwB5bP7ivl+Y1AczyuBBSYjv3OaLW8gvm5Ntid6NW2+EIESuixvhL
+ 953KNgVlOyKO7TnKtiVYZkTSgTBWbHDR+gAJDqTReljaT3DidnyXPYpkmP0a/7MNiZ
+ Yf6705jGZZjSsANI7pppbBjL60NwbCyf+Phk5+gj9JMgJPTsWW3B1ZHTl3qc1WTaiI
+ US9O3xk2ZFVQDR4TjAv6HmZw+S7Mwu4N0rOKUEuzlkbVLNoR43qALwDeblDTGeXWix
+ AtVU7GR9t5aqKD2c+KhVCeffJBfrcBTIvubMCf68lanjTJ81pbAq3S3J3tAgPECwu0
+ Ppe3qphaARC2A==
+Date: Tue, 3 Mar 2026 07:31:50 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] dt-bindings: display: msm: Fix reg ranges for DP
+ example node
+Message-ID: <20260303-resilient-bouncy-anteater-b4cf0f@quoll>
+References: <20260302-glymur-fix-dp-bindings-reg-clocks-v3-0-8fe49ac1f556@oss.qualcomm.com>
+ <20260302-glymur-fix-dp-bindings-reg-clocks-v3-2-8fe49ac1f556@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: deliberations about the future of mdp5 (was: Re: [PATCH 1/2]
- drm/msm/dpu: fix mismatch between power and frequency)
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: yuanjiey <yuanjie.yang@oss.qualcomm.com>, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, krzysztof.kozlowski@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- tingwei.zhang@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
- yongxing.mou@oss.qualcomm.com, Stephan Gerhold <stephan@gerhold.net>,
- Nikita Travkin <nikita@trvn.ru>
-References: <aWSTcI6H6+7AXkEN@yuanjiey.ap.qualcomm.com>
- <CAO9ioeVrQ_TfU5-auxNHG=dL8VmeWtBaC_NE09UECodkYrFv-w@mail.gmail.com>
- <aWSv+kVV3G18I/NJ@yuanjiey.ap.qualcomm.com>
- <e5ebc660-e30e-4fcd-ace6-5a6c889e9a8a@oss.qualcomm.com>
- <4g6fyehdc3fejx3pzeysmghigazfei3jz2vmnvxrnqkkbtbxdb@bdlcddxlvbhl>
- <cb22367a-678c-431f-9f52-33663f4af9d7@oss.qualcomm.com>
- <jr4h4sx42dbxpknm5nkgj7ydpkivm4nglfz7ui4bjpom7wf6ub@spqb27d3ov2z>
- <d5c4eed5-bd87-4156-b178-2d78140ec8a9@oss.qualcomm.com>
- <w4ldxcxvcp3fz7u2zxyyjiii7lsrnoa2l6amzwpsn5a63yzotm@iawh6btqtf45>
- <b230815b-e169-4a3c-8c36-154deaf66afa@oss.qualcomm.com>
- <5wbvy257s553jyqzgqacfxhbeqgkrqui2yspqwjh2iyiz6ljoy@olo4l2kbrcjm>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <5wbvy257s553jyqzgqacfxhbeqgkrqui2yspqwjh2iyiz6ljoy@olo4l2kbrcjm>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: rmVOh9WyJ9BTRdl0NakIOHaW7I1o678Y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAyMDEzMyBTYWx0ZWRfX3s45xBnNzhtP
- q4zHRfBTrbOUEEPTM4Ef+M6tgbS8OPjaIVV6HW32yzYAjEgiRAjhzVCeOQrjSA/JAflmXjVnQli
- ViOHwoNJbb/bvbUHiaLtyP1GUbJOjA+aXS9M8kKSNc9OaJhUSU15wI3IQJkk9QwW0Q7aRaWmyPk
- MPxBkuGcXNVfVl0GjwN3yt8onWnf47mbnfubTAZ1G/s0pocVZKMNrfPrTi7rPS6PmL0BPH/Dio/
- cXNKgpiuvDZFIyb1YKldkxJQePV1T9qHeMfB25rrpy/gUevu47QDUys23uQR8I4+/QBV38OMQvJ
- ELlk8qj3F8Ve4z3rdXB3TlL+eEB/1Fj6imycXB+HNd/101xMKzzS+YA+2kG6fZdrOuVQByGwtXr
- FSRSXZRWlDnGN7VYSyPQ6viLbXIt9NoVdFSByW2X0DFmBdaYGojZBR6aVfKNezQ2tQsmix8BSae
- m9sg2M8+VNp7J/wNPRA==
-X-Proofpoint-ORIG-GUID: rmVOh9WyJ9BTRdl0NakIOHaW7I1o678Y
-X-Authority-Analysis: v=2.4 cv=I5Vohdgg c=1 sm=1 tr=0 ts=69a5b386 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=xg0hYumib2hcNOQJ:21 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=yKqxEvMnOuzkX6i4LBQA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-02_03,2026-03-02_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 phishscore=0 impostorscore=0 bulkscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
- definitions=main-2603020133
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260302-glymur-fix-dp-bindings-reg-clocks-v3-2-8fe49ac1f556@oss.qualcomm.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,153 +75,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: C65371DC435
+X-Rspamd-Queue-Id: 3F2DC1E9A08
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.31 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	MAILLIST(-0.20)[mailman];
+X-Spamd-Result: default: False [0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:yuanjie.yang@oss.qualcomm.com,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:krzysztof.kozlowski@linaro.org,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:tingwei.zhang@oss.qualcomm.com,m:aiqun.yu@oss.qualcomm.com,m:yongxing.mou@oss.qualcomm.com,m:stephan@gerhold.net,m:nikita@trvn.ru,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,linaro.org,vger.kernel.org,lists.freedesktop.org,gerhold.net,trvn.ru];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_TWELVE(0.00)[24];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,linux.intel.com,suse.de,ffwll.ch,quicinc.com,vger.kernel.org,lists.freedesktop.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno,dt];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
-	TAGGED_RCPT(0.00)[freedreno];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,oss.qualcomm.com:mid,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,qualcomm.com:dkim,qualcomm.com:email]
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
 X-Rspamd-Action: no action
 
-On 3/2/26 3:27 PM, Dmitry Baryshkov wrote:
-> On Mon, Mar 02, 2026 at 02:46:33PM +0100, Konrad Dybcio wrote:
->> On 3/2/26 2:28 PM, Dmitry Baryshkov wrote:
->>> On Mon, Mar 02, 2026 at 11:41:59AM +0100, Konrad Dybcio wrote:
->>>> On 2/27/26 8:05 PM, Dmitry Baryshkov wrote:
->>>>> On Fri, Feb 27, 2026 at 12:34:04PM +0100, Konrad Dybcio wrote:
->>>>>> On 2/27/26 4:48 AM, Dmitry Baryshkov wrote:
->>>>>>> On Thu, Feb 26, 2026 at 02:35:52PM +0100, Konrad Dybcio wrote:
->>>>>>>> On 1/12/26 9:25 AM, yuanjiey wrote:
->>>>>>>>> On Mon, Jan 12, 2026 at 09:38:41AM +0200, Dmitry Baryshkov wrote:
->>>>>>>>>> On Mon, 12 Jan 2026 at 08:23, yuanjiey <yuanjie.yang@oss.qualcomm.com> wrote:
->>>>>>>>>>>
->>>>>>>>>>> On Fri, Jan 09, 2026 at 05:22:37PM +0200, Dmitry Baryshkov wrote:
->>>>>>>>>>>> On Fri, Jan 09, 2026 at 04:38:07PM +0800, yuanjie yang wrote:
->>>>>>>>>>>>> From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
->>
->> [...]
->>
->>>
->>>>
->>>>> 1.1  - MSM8x26
->>>>>        Probably Luca can better comment on it. Should be doable, but I
->>>>>        don't see upstream devices using display on it.
->>>>
->>>> Because there's no iommu support for these
->>>
->>> I promised to put it on my todo list, but the list is very long.
->>>
->>>>
->>>>> 1.2  - MSM8974
->>>>>        I think it also had issues, no IOMMU support in upstream, etc.
->>>>> 1.3  - APQ8084
->>>>>        Had hw issues, no testing base, no MDSS in upstream DT
->>>>> 1.6  - MSM8916 / MSM8939
->>>>>        Can be done, low-hanging fruit for testing
->>>>> 1.7  - MSM8996
->>>>>        Supported in DPU
->>>>> 1.8  - MSM8936
->>>>>        No upsteram testing base
->>>>
->>>> 8936 is 39 with some CPUs fused off (unless you have info suggesting
->>>> otherwise)
->>>
->>> Hmm, you added 8x36 to mdp5_cfg.c, stating it is 1.8. See commit
->>> 81c4389e4835 ("drm/msm/mdp5: Add MDP5 configuration for MSM8x36.")
->>> Author: Konrad Dybcio <konradybcio@gmail.com>
->>>
->>> Please remove it from the mdp5_cfg to avoid confusion.
->>
->> v1.6 is strictly for 8916. 8936/39 both use v1.8.
+On Mon, Mar 02, 2026 at 11:58:36AM +0200, Abel Vesa wrote:
+> Add the missing p2, p3, mst2link and mst3link register blocks to the DP
+> example node. This is now necessary since the DP schema has been fixed.
 > 
-> I tend to agree with you. It's interesting that core list doesn't (and
-> likely is wrong).
-> 
->>
->>>>> 1.9  - MSM8994
->>>>>        No upstream testing base, no MDSS in upstream DT, normal CURSOR planes
->>>>> 1.10 - MSM8992
->>>>>        Even less testing base, no MDSS in upstream DT, normal CURSOR planes
->>>>> 1.11 - MSM8956 / 76
->>>>>        No complete display configurations upstream
->>>>
->>>> +Marijn, is your computer museum still running?
->>>
->>> Should we open a Qualcomm Virtual Museum?
->>
->> Maybe someone has a drawer full of QSD8250s!
-> 
-> Only APQ8060 here, but it's not even online after the reorg.
-> 
-> Anyway, I assume that we have something alive and kicking for:
-> - 1.1, 8226 (currently unusable, no IOMMU)
-> - 1.2, 8974 (currently unusable, no IOMMU)
-> - 1.6, 8916
-> - 1.8, 8939
-> - 1.9, 8994 (almost dead, I'd say)
-> - 1.10, 8992 (almost dead, I'd say)
+> While at it, use actual addresses from the first controller instead of
 
-My estimates for 8992/4 would be just a dozen or less enthusiasts, at most
-a couple dozen. The platform is in a tragic/borderline unsupported state
-upstream today and little effort has been seen to fix it, would probably
-need to come from us anyway, with essentially a re-bring-up..
+As pointed out by bot, this must stay bisectable, thus should be
+squashed. You can keep two Fixes tags, if both are applicable.
 
-Plus those have no IOMMU either (same camp as 74) and even if they did,
-I reckon any users would be happier to run the actually-maintained codebase.
+Best regards,
+Krzysztof
 
-I think I may have a partially-ported 94 branch somewhere on some SSD..
-
-Definitely more of a 'weekend project' type thing and shouldn't be
-considered a blocker.
-
-> - 1.11, 8956/76
-> 
-> It seems we can ignore (or drop) apq8084 (no activity since Dec 2019).
-> 
-> Already in DPU:
-> - 1.7, 8996
-> - 1.14, 8937
-> - 1.15, 8917
-> - 1.16, 8953
-> 
-> Which means:
-> - port 8916, copy for 8939 / 8956/76 and hope it works
-
-I suppose it's not a high priority for you. Maybe some 8916 enthusiast
-(+CC a couple) would like to try? (context: DPU1 support)
-
-Konrad
-
-> - add LM-cursor support
-> - deprecate mdp5, possibly moving it to EXPERT
-> - add 8226 / 8974 once we have IOMMU
-> - drop mdp5
-> 
