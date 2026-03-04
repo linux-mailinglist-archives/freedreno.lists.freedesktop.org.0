@@ -2,152 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6CP5In9WqGlutQAAu9opvQ
+	id sKYuEQZaqGlxtgAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Wed, 04 Mar 2026 16:57:51 +0100
+	for <lists+freedreno@lfdr.de>; Wed, 04 Mar 2026 17:12:54 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D694F20376F
-	for <lists+freedreno@lfdr.de>; Wed, 04 Mar 2026 16:57:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0583203EAC
+	for <lists+freedreno@lfdr.de>; Wed, 04 Mar 2026 17:12:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B38C10EA45;
-	Wed,  4 Mar 2026 15:57:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F65910EA54;
+	Wed,  4 Mar 2026 16:12:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WolelZa6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SSVAFGOa";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="B1gXa7u/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC4E210EA0E
- for <freedreno@lists.freedesktop.org>; Wed,  4 Mar 2026 15:57:47 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 624C89JB1678611
- for <freedreno@lists.freedesktop.org>; Wed, 4 Mar 2026 15:57:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=Kv3iTQKYCHQ+PN2YjozMkKoEokJkDuu8sR+APkn97Tc=; b=Wo
- lelZa6NHmrLWe/wDpEDNupeRnANERRGJDc/H2YoEXAY8R1ORt8z/9dyasJf1rWCA
- VR/xIh0ZVm5el/KDv/ugOuq6cD8iCupthIsnPqpYhbv5OWTGvqYzyJ1pW8XDSNZr
- LgRbJQPFK+6fXQUm2HSk2Y7XPdujash8aHzeF087rc9bkODdrz2J6BLUar0oPfFp
- K3EPO7bZV2YDarbsCVGO7NAnhFg+e9mzV27CryJUwSZUbBBtSniA5hHUfQnQ7hTx
- eWyRc1+2gbJgAqu2T3bbZvUf2fqFVUKE4kxwYe5jcGw2w/ebfKYyDTaPKHiNPKw9
- A1WDOyzw6NzGretySFyQ==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cp73hbe92-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 04 Mar 2026 15:57:47 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id
- 006d021491bc7-679dcf1f680so147563590eaf.0
- for <freedreno@lists.freedesktop.org>; Wed, 04 Mar 2026 07:57:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772639866; cv=none;
- d=google.com; s=arc-20240605;
- b=UbLay3mKy+JVJN74bmF8fJxnmgkvn1IueWJ53rXtUXd5Oy2aYgyTTjlYU52w6N0Xbs
- 2+dLZS9luQEf7U/NBFgfxm0EoPXozm2g6vEGqJw4boMMZ98SyDHt5rR/23UdpCnV85yZ
- yv74y1QbmmvUhifU6r6iPHQ24DI1K2JhEiiVWCiMnO1foqIe+K9E1Q6flBzRVfkEkFm9
- zAnomCgfrnl3AZo5+Fyuer53xbe6qkXy19rzYKy9KB6+NTAmi7xRB4oSgNDoMozD3OQu
- KH1L/ibcyKl5ycVI0ft1VAfeErR2QxSwrk0q6JFXUKcQW73aLq4tubUkC7B12dane+6D
- yClA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=Kv3iTQKYCHQ+PN2YjozMkKoEokJkDuu8sR+APkn97Tc=;
- fh=NeRZyxQRowp8u+QhN2sleZFN5aFlm0aOThEF77coFe0=;
- b=iWGdDCUgzNzjs9JinUyqCD2yScEzeB53eIccghguCQsVy3ykx4VemEbW2gJzJ/irQ7
- jc4yAVfpNGlSmt49X4xAqVz9FP/4r5xUlZ958tCaTvu5ytzINGm4k+qNh352Tj2M8q6x
- TI/yjoti/ppZeQhBkEcL1q7W7q0V2nod/sxbEX06DiYyZk93gOA7clVcvJcXPGkdppKU
- qy5Phhc+0BJErSTAs8A+ZRHEvODaFFE/UM5E+Eb2OFI1rhfYbKXbwaqS63KTKh1tNfVH
- bRwC8TNbdHxIwIhHpTOtPM38FG6E6FLoNGCOJ+pzpzAzMsS5aEPbZooJvW5VLUobE4KP
- M2wg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772639866; x=1773244666;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Kv3iTQKYCHQ+PN2YjozMkKoEokJkDuu8sR+APkn97Tc=;
- b=SSVAFGOagAJcTnXxAaLW2G5VSgtXYyNr1kasra2YDOmbC7jZas9IGsUMmqRt4bNpTo
- 8nh5fHGS/gd69sbtZ5DICBW9zwcdJlMc/XX8gt8BkAF2nYpOC2Ajx/1LsSeU7NuDG5+9
- qoObHx7lWdHx57KZui0Dcg0opvlC+NyUmtKWt7KCmt9rGaGiHxKS9FNvh9QFjFpTvfNg
- EOvWjUD7gEsVwaECidBqIpukS7VOr/zm32sRB+cimDDWpPrKyug57QhxfNl4RGR+hNYG
- 6T4C1Rr69myD4f6cwSZe7s2qLiqI8KYAYm/rUKtvyBPAGr1yrVUruJh9u0sV+kkL+YaE
- Yh3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772639866; x=1773244666;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Kv3iTQKYCHQ+PN2YjozMkKoEokJkDuu8sR+APkn97Tc=;
- b=vUEnomXookB8erTOklXVTRRxinLPy6Cgxlrt9ELdY6LbRs1S4jA+gr/gYfxCcm4NI+
- PnfUaSW6/a+WvzpKq1xPQwp/l6d/3vzZB4vTrKwYoFz4YWZq7BCEfo2auczO/zX7tDWU
- 0ORFYKikn7b1zT46hYifIc8x4IBOLNXrlxDqs0z3vKrRLNqhIshgIRlGuOoAL9l9bK1y
- 1G0ybw/FsPpaOmJaZksuWHVmWnZwnvdYHMQWPzfoB5HoVg+yd27AimyxAMr/BRRMzerD
- 3yIuHhy6HP9Oex7lbdY6BB7yZna5hF5WU0MP1eZATwvsW1CFuQ+4bKGIRaZgV3Vrk8jm
- AU1g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUiHwhwVXwedJKPf737NQpZdY7cW6Ys+NLvFET1WOFr69OVt2D/5/89xc6aYvColcQeTSNWmW5gBTM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyohrGZZPdY0V8TEGS4KQ2vSBxN1vEX0bV0LaXW4/epVfrtfQA9
- bhOrxB62YVTNBnOXZ9pmTA/B7SpTh597bTZ4CFikXmEs2jLhnXfbPUvxBRUEjpueEmys5adhlUv
- PnSZi+9/Co1NRIOv/LZwoM9x6h24I8XvYPzbXF0EWAncwR0unHFBq+jZkPmBwIjodYQ9MaLn9Nt
- JfHhNOdBWDngfZJV5Wc0pLR5XBx/JUtG0Cf1Dml+yAnHx31Q==
-X-Gm-Gg: ATEYQzzRWUgh0v3j3y2zSFBta4JbLJ4/KtF4D+LFMio+26rpzXIsIg0NlcSyEiSRvl/
- Jbd1RgqptKahnSBwTtSDpipXSrURS5MponF3UOYMbOik9SLz5nKWGBziLMHcvm6HEqxNenslGLQ
- P522ho7hizoNIvVus8RaTg2oyuek4OepcOEEF9e5SEb07vx+ELbWzdqCryihrTq1IbHgoMKVD4o
- P8qc6o8nR2SMI+15OAF62AfbkbKTD223mloXA==
-X-Received: by 2002:a05:6820:4dc8:b0:662:f61e:75a8 with SMTP id
- 006d021491bc7-67b1e900656mr1373742eaf.65.1772639866334; 
- Wed, 04 Mar 2026 07:57:46 -0800 (PST)
-X-Received: by 2002:a05:6820:4dc8:b0:662:f61e:75a8 with SMTP id
- 006d021491bc7-67b1e900656mr1373716eaf.65.1772639865944; Wed, 04 Mar 2026
- 07:57:45 -0800 (PST)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C164210EA4E;
+ Wed,  4 Mar 2026 16:12:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772640762; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=kRUk4O3CAkzGxMf6lwluro+2/Zz82AxFHdSBn1AVH9XeEFz+DgVJiTQ55KyJWsrIYa2OHiRKthYJEV3YdQcOaM8KUF6gCG5IXgVk6EJiFrPv0xDaFLsO7Q0AHgVcNE7ZwSfC1qE3+i9L23m89rRu1bxwXgxULFEfPuyJfIoHTY8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1772640762;
+ h=Content-Type:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=/UZ1fASd581DGwoDXE4nNr7cvDBmu2IMPO2n0Z57d0s=; 
+ b=SGcUttgqGNnv57CByEPkn2GSqhC8MLfPmEtHn+a8SixdvwPNhPkSlqN6dpLdT+WrKxOTDSbtalIR1wl4vvoMLr7X8q4idoRkqLhpodm27Z+HokzaZxV8Kdf7l6UjnP/Zb2GlhW9hmEsHVR8iy1ypnrJ0q3cr2I2dN5/fnCM9yiw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772640762; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:In-Reply-To:References:Content-Type:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=/UZ1fASd581DGwoDXE4nNr7cvDBmu2IMPO2n0Z57d0s=;
+ b=B1gXa7u/vRyCFytF/C2IblGhO61hhskl0NxSWvE4ckYXxcyO3lXkjGW5PLb21kLJ
+ 7zUNCZSLQDYxOMUSaI2QzOSxgdXaaJw52Ifa/nPOtmCPc/Le9XQPO2rK4E3+jyRFrmn
+ iItL/LjFC98h7dSQv+5LA3setfy05ivchT3QNeoY=
+Received: by mx.zohomail.com with SMTPS id 1772640759959464.1568830656362;
+ Wed, 4 Mar 2026 08:12:39 -0800 (PST)
+Message-ID: <77e280436ec5b54973a11303dd0446e9f3ab2ba1.camel@collabora.com>
+Subject: Reminder: Deadline to renew X.Org memberships for 2026 is March 16.
+From: Mark Filion <mark.filion@collabora.com>
+To: events@lists.x.org, xorg-devel@lists.x.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org, 
+ xorg@lists.freedesktop.org
+Date: Wed, 04 Mar 2026 11:12:37 -0500
+In-Reply-To: <0070f3dd-a521-40ee-b6e7-8b1f82e48b66@amd.com>
+References: <0070f3dd-a521-40ee-b6e7-8b1f82e48b66@amd.com>
+Content-Type: multipart/alternative; boundary="=-Ou9PVGv0Q/xGWensQ9B3"
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43app2) 
 MIME-Version: 1.0
-References: <20260304-msm-restore-ioctls-v1-1-b28f9231fcd2@oss.qualcomm.com>
-In-Reply-To: <20260304-msm-restore-ioctls-v1-1-b28f9231fcd2@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Wed, 4 Mar 2026 07:57:34 -0800
-X-Gm-Features: AaiRm52LqeFp_ZlAVTlgSy7x2OER3B-eQnSoEBsoKCq6ARMGFzZBztG4DTaj6iM
-Message-ID: <CACSVV00Z0gDW8aGOvO_YaB6AZ7cOR01mTsCHZvxp0qeO85Mqdg@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: restore GEM-related IOCTLs for KMS devices
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: VM4zgeBv1xqM9yikEaJzPb9jVghx3jk9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA0MDEyOSBTYWx0ZWRfX/ELI3S/UKld6
- a4fZg2PdmbjRhJhB95rmIJo8ggKevwD1lokLob5LukpZuVYyWZvHpSlpcueQ4h37KRO6txiO2qh
- BwJFfm8HC2v+GXe3yqNB/5bV6BOh3uFLNkAv95mjifSGoUQvhAjCbdvoHY29ykMCd3uOGfbuz9y
- S3VTpEuH1k/BAbBVeDkkXA95jGWMKwCAftzWwTlMM4g5RrYHzcNy3K+Uybi5wFKJ+3ZbclvbOGe
- CwTfBj+/sDv1HuNT0NAfgsYFytCU9ufBBfyd5boVVli9hViFsZhtC6pxt/1Xcpy9lfughClsAV+
- zem6rk6QN50NKfMq+OM94ny33dWn0hVmcTVG9st72qKBju6VpuWVa1ZHEeYvHyjBG3f2bMY+vRW
- oZiZQuAPHagfN4y0rfYDhEoRttgzxU+H86s+VVNuAGrnyKjt9uHv5fjWe7fxJxWQaXh9XSaPIoc
- ghdPM3J8xs4NSxHaqSg==
-X-Proofpoint-ORIG-GUID: VM4zgeBv1xqM9yikEaJzPb9jVghx3jk9
-X-Authority-Analysis: v=2.4 cv=BpWQAIX5 c=1 sm=1 tr=0 ts=69a8567b cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=Ad23g6fO8UNhwhZctZsA:9
- a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-04_07,2026-03-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 impostorscore=0 priorityscore=1501 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
- definitions=main-2603040129
+X-ZohoMailClient: External
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,122 +71,134 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: D694F20376F
+X-Rspamd-Queue-Id: A0583203EAC
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.31 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[collabora.com,none];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	R_DKIM_ALLOW(-0.20)[collabora.com:s=zohomail];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	REPLYTO_DOM_EQ_TO_DOM(0.00)[];
-	FORGED_SENDER(0.00)[rob.clark@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_REPLYTO(0.00)[rob.clark@oss.qualcomm.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rob.clark@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,x.org:url,x.org:email];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mark.filion@collabora.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:dkim,qualcomm.com:email,mail.gmail.com:mid,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
+	TO_DN_NONE(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[collabora.com:+]
 X-Rspamd-Action: no action
 
-On Wed, Mar 4, 2026 at 5:34=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> The MSM GBM backend uses MSM_GEM_NEW to allocate GEM buffers from the
-> KMS driver, imports them into the GPU driver (msm or kgsl) and then
-> uses them for rendering / blending. Commit 98f11fd1cf92 ("drm/msm: Take
-> the ioctls away from the KMS-only driver") dropped all IOCTLs from the
-> MSM KMS devices, pointing out the need to use dumb buffers, however dumb
-> buffers should not be used by the GPU for rendering. Restore GEM-related
-> IOCTLs for the KMS devices.
+--=-Ou9PVGv0Q/xGWensQ9B3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-We shouldn't be exposing DRIVER_RENDER on KMS-only nodes.  If msm gbm
-is allocating from a primary node, that is problematic, since there is
-no guarantee that anything but the compositor has access to the
-primary node.
+Hi everyone,
 
-BR,
--R
+Just a friendly reminder that the deadline to renew X.Org memberships
+for 2026 is March 16.
 
->
-> Fixes: 98f11fd1cf92 ("drm/msm: Take the ioctls away from the KMS-only dri=
-ver")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> Note, here I assume that dumb buffers generally should not be used for
-> rendering. That doesn't seem to be complete truth as Mesa kmsro on MSM
-> devices uses DRM_IOCTL_MODE_CREATE_DUMB to create buffers for resources.
-> ---
->  drivers/gpu/drm/msm/msm_drv.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.=
-c
-> index ed2a61c66ac9..f82c9a36a166 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -799,6 +799,14 @@ static const struct drm_ioctl_desc msm_ioctls[] =3D =
-{
->         DRM_IOCTL_DEF_DRV(MSM_VM_BIND,      msm_ioctl_vm_bind,      DRM_R=
-ENDER_ALLOW),
->  };
->
-> +static const struct drm_ioctl_desc msm_kms_ioctls[] =3D {
-> +       DRM_IOCTL_DEF_DRV(MSM_GEM_NEW,      msm_ioctl_gem_new,      DRM_R=
-ENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(MSM_GEM_INFO,     msm_ioctl_gem_info,     DRM_R=
-ENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(MSM_GEM_CPU_PREP, msm_ioctl_gem_cpu_prep, DRM_R=
-ENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(MSM_GEM_CPU_FINI, msm_ioctl_gem_cpu_fini, DRM_R=
-ENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(MSM_GEM_MADVISE,  msm_ioctl_gem_madvise,  DRM_R=
-ENDER_ALLOW),
-> +};
-> +
->  static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file=
-)
->  {
->         struct drm_device *dev =3D file->minor->dev;
-> @@ -868,6 +876,8 @@ static const struct drm_driver msm_kms_driver =3D {
->  #endif
->         MSM_FBDEV_DRIVER_OPS,
->         .show_fdinfo        =3D msm_show_fdinfo,
-> +       .ioctls             =3D msm_kms_ioctls,
-> +       .num_ioctls         =3D ARRAY_SIZE(msm_kms_ioctls),
->         .fops               =3D &fops,
->         .name               =3D "msm-kms",
->         .desc               =3D "MSM Snapdragon DRM",
->
-> ---
-> base-commit: ac47870fd795549f03d57e0879fc730c79119f4b
-> change-id: 20260304-msm-restore-ioctls-2a1792311a09
->
-> Best regards,
-> --
-> With best wishes
-> Dmitry
->
+Membership renewal ensures you maintain your voting rights in the
+upcoming foundation elections, but also helps strengthen the foundation
+by giving it more credibility.
+
+https://members.x.org/
+
+Thank you for your continued support of the X.Org Foundation.
+
+Best,
+
+Mark
+
+On Wed, 2026-02-04 at 16:22 -0500, Harry Wentland wrote:
+> Hi all,
+>=20
+> it's a new year and with that a new X.Org Board of Directors
+> election. Please take the time to log in to members.x.org
+> and renew your membership for the new period or sign up for
+> the first time.
+>=20
+> These board members' periods will end this year:
+> - Mark Filion
+> - Erik Faye-Lund
+> - Simon Ser
+> - Neal Gompa
+>=20
+> The election dates will be as follows:
+> =C2=A0=C2=A0=C2=A0 Nomination period Start: Mon February 9th
+> =C2=A0=C2=A0=C2=A0 Nomination period End: Mon March 9th
+> =C2=A0=C2=A0=C2=A0 Publication of Candidates & start of Candidate QA: Mon=
+ March 16th
+> =C2=A0=C2=A0=C2=A0 Deadline of X.Org membership application or renewal: M=
+on March
+> 16th
+> =C2=A0=C2=A0=C2=A0 Election Planned Start: Mon March 23rd
+> =C2=A0=C2=A0=C2=A0 Election Planned End: Mon April 13th
+>=20
+> If you have questions or encounter issues don't hesitate
+> to reach out the Elections Committee at elections@x.org.
+>=20
+> Best Regards,
+> Harry
+
+--=-Ou9PVGv0Q/xGWensQ9B3
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style>pre,code,address {
+  margin: 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+ol,ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+blockquote {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+</style></head><body><div>Hi everyone,</div><div><br></div><div><div>Just a=
+ friendly reminder that the deadline to renew X.Org memberships for 2026 is=
+ March 16.</div><div><br></div><div>Membership renewal ensures you maintain=
+ your voting rights in the upcoming foundation elections, but also helps st=
+rengthen the foundation by giving it more credibility.<br><br><a href=3D"ht=
+tps://members.x.org/">https://members.x.org/</a></div><div><br></div><div>T=
+hank you for your continued support of the X.Org Foundation.</div><div><br>=
+</div><div>Best,</div><div></div><br>Mark<br><br>On Wed, 2026-02-04 at 16:2=
+2 -0500, Harry Wentland wrote:</div><blockquote type=3D"cite" style=3D"marg=
+in:0 0 0 .8ex; border-left:2px #729fcf solid;padding-left:1ex"><div>Hi all,=
+<br></div><div><br></div><div>it's a new year and with that a new X.Org Boa=
+rd of Directors<br></div><div>election. Please take the time to log in to m=
+embers.x.org<br></div><div>and renew your membership for the new period or =
+sign up for<br></div><div>the first time.<br></div><div><br></div><div>Thes=
+e board members' periods will end this year:<br></div><div>- Mark Filion<br=
+></div><div>- Erik Faye-Lund<br></div><div>- Simon Ser<br></div><div>- Neal=
+ Gompa<br></div><div><br></div><div>The election dates will be as follows:<=
+br></div><div>&nbsp;&nbsp;&nbsp; Nomination period Start: Mon February 9th<=
+br></div><div>&nbsp;&nbsp;&nbsp; Nomination period End: Mon March 9th<br></=
+div><div>&nbsp;&nbsp;&nbsp; Publication of Candidates &amp; start of Candid=
+ate QA: Mon March 16th<br></div><div>&nbsp;&nbsp;&nbsp; Deadline of X.Org m=
+embership application or renewal: Mon March 16th<br></div><div>&nbsp;&nbsp;=
+&nbsp; Election Planned Start: Mon March 23rd<br></div><div>&nbsp;&nbsp;&nb=
+sp; Election Planned End: Mon April 13th<br></div><div><br></div><div>If yo=
+u have questions or encounter issues don't hesitate<br></div><div>to reach =
+out the Elections Committee at <a href=3D"mailto:elections@x.org">elections=
+@x.org</a>.<br></div><div><br></div><div>Best Regards,<br></div><div>Harry<=
+br></div></blockquote><div><br></div><div><span></span></div></body></html>
+
+--=-Ou9PVGv0Q/xGWensQ9B3--
