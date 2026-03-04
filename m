@@ -2,97 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yOF6Db7GqGlaxAAAu9opvQ
+	id eC3lGs/GqGlaxAAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 00:56:46 +0100
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 00:57:03 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F39B2093AB
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 00:56:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAE672093FB
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 00:57:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C1FC10EADC;
-	Wed,  4 Mar 2026 23:56:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA09F10EADC;
+	Wed,  4 Mar 2026 23:57:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="px9zWiSd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="khdJL+eT";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M3gyhoDK";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K9waE4oU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E40CE10EADB
- for <freedreno@lists.freedesktop.org>; Wed,  4 Mar 2026 23:56:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E099B10E1A9
+ for <freedreno@lists.freedesktop.org>; Wed,  4 Mar 2026 23:56:59 +0000 (UTC)
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 624M6ogx2275079
- for <freedreno@lists.freedesktop.org>; Wed, 4 Mar 2026 23:56:42 GMT
+ 624M6oh32275079
+ for <freedreno@lists.freedesktop.org>; Wed, 4 Mar 2026 23:56:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=EbLJv2J9kPBGNa5oq1GyOOHM
- jtzn/aJKqBG/UtKmSDw=; b=px9zWiSdVRBjjzNYUaw0oeny/GHhyRKP7xnlLFdl
- mqsmRZBdQr5BS11VgzyT00uk7CDQJxVDyaOXcB9Ls3O9bOz+J7ORwzp34aFygZ/v
- W5jKE9g0yahVQ3SP76yjOwaDCM1PNzaownz+CA3mVt6CgLiJoPjGmp5zyGGhqGr0
- PhYgMs4VlqTN5f4UnIQ3o7Q9fXzAtJjh6iK1qsMZB4KAEZFOdnwggI863piJrQrt
- JNfLcwzBN1QECqgxTNiKM1wHcjr4ZymUNW5mXDQRdiyWahXteJDpr/KHIkKNvV9n
- KWdAXnCpZWuEP03yZIgWEWf+kG2eJSWvO1xktrJlxIzCGw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cpc4muqg3-1
+ :references:subject:to; s=qcppdkim1; bh=La/zyW1kZlkdjuba28Y6cKUE
+ jgLjT1PdHqsncSoONxI=; b=M3gyhoDKsD95tRqPBt6AVRtUJ8xAewA9091Llh/v
+ 3N7WGAoRQBPzVIJQ+qMMIDlNc/bfennDxIAH2TEssBH789bj2CFI/9WHiWumbLtX
+ Ql5cWWDkmHK/HrduZFYdFIBCxQbuZCUwt9VpsjOneOKdaQDvPYtLjUV+u71lyXmG
+ dmxjU+qXynuSopTYtoQMCaamDnBl8AhwF8OiwiX39d0m+NMjaFXCFWCfbfdsFV2h
+ o+l1R38GMJrzXlm7o2GPUvHPn1156OUgdepeJ2YZzwgJPRbOnHzpNxoiQgsN2xDS
+ DJcDnZ8howbsvkbWgknRmV8ZQ+d0VG8z+7CPjjKVm1P8FQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cpc4muqgv-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 04 Mar 2026 23:56:41 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-8c70ed6c849so1243985885a.1
- for <freedreno@lists.freedesktop.org>; Wed, 04 Mar 2026 15:56:41 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Mar 2026 23:56:58 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-8cb4a241582so4036384685a.0
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Mar 2026 15:56:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772668601; x=1773273401;
+ d=oss.qualcomm.com; s=google; t=1772668618; x=1773273418;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=EbLJv2J9kPBGNa5oq1GyOOHMjtzn/aJKqBG/UtKmSDw=;
- b=khdJL+eTE7fA/n3PWPWs5kCfEPCxJHzwRnfrkFcc/NKWhJ2sIFpaiy4bDhQDQ4dCX6
- Z3ygiCC8cF1UV5OfJEGBjSK3+MCXvPMygkaidLq3NIFK48R9VrL07HbIHU6IwoI5BtlQ
- 6/fptCbba/nWFL5/hC8tie9aYq+0zcv+mPOinC5kbpvx6PCdxYSZ56wFwUQtv21eYh4p
- 2f7ZN6Y4HuSxmKtElzzujHPb/YRvK2MfmX/eJpTIXejQqXgnhlV+0hweA53oOpqwbHad
- rJFuzQwCBI7iJVDy95EIPJmJl85IAQuNFmOgyEQqknqAdMp6KYVnoT513RJ0Q90lP0Ra
- LTCA==
+ bh=La/zyW1kZlkdjuba28Y6cKUEjgLjT1PdHqsncSoONxI=;
+ b=K9waE4oUlkY1z+1nJ2ISOS07EUVvqtgVtFRyEEHZM6gQt+NjAeMmwoF5W+qhNVMCci
+ J+BCFlHXInAdI6iwYTgI1R4CBPw+/OxRuZPQ59eIpeS9oswekvuvNQ3cAE1U5Ur/St17
+ xLwJV1jsADxydTM83SyEzXJHA3rXFff5TQlOCmbjRzkNf0qbmzcttojZaEeptn4JFQ8d
+ y8acgsqqi/P7hE0CpEr6RO2H9GlEsf3uJdwN9FJENB4HK2pCO2TTRsgZ0n7RLpSlIlzz
+ tH+h3+NExBeyVyFiCqNxddUTgzwijueGUGGHL9YWUafCucwPZjNv2Izx27+K15UefRUj
+ lRpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772668601; x=1773273401;
+ d=1e100.net; s=20230601; t=1772668618; x=1773273418;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EbLJv2J9kPBGNa5oq1GyOOHMjtzn/aJKqBG/UtKmSDw=;
- b=KZBVRNia1V9S2278jNmmQY1kfDO2XycM9Rd/IEWkpR0e58oj8lsMWqah39jraJo8ya
- SbeB63nD6M5TOqSL8NDCdWmbpfKnkOpG6e5dDde6eLvRs9uNCtZH/S1NVyMamp3noD0h
- yKHdyVlbNsW1AkOg4xNjfwJg99/scfUvfk9jT+CT8Ey1gEmthX8wDh5EENZ9SsrGS/3i
- o3+j6G6lfYWg/Jop4aadPHR2wJCMdmzeZ84ISO+X3C52mBj46AdaHM9NAM8zhDTd3nCv
- QVAFn/8pEWB1q3mzpE3Yv8BaklOccjqs2QMNn7wvt1iDEFqsXZ2Ye1USbyoVCeq/rmQ+
- tTTQ==
+ bh=La/zyW1kZlkdjuba28Y6cKUEjgLjT1PdHqsncSoONxI=;
+ b=LRkI6e14aJPa3AzM/48A2OfEqnAUyk02ALreqthUhlNuCIBIzkQWwT5qb8waeiYnav
+ bQ7av2dVT4crtaK0+Ot7ra/CaeLtgwuC8aE2B1u1UUzv7Z0tEFLC9oisJjpFGuo/9ZMc
+ bOW8bLv7qBIW2SbmI73s325Z3OvGTVimLV1/0f2afidaVv95t2WOmpUBrHlm3XB5mlRD
+ P+3urXPsvE6gX6bmrPIqs/wermGSa+8ZBRm3RKv98fUFAVWZKnVJXJKf/Dixd/UCJpGw
+ w+PbnjR6+lR6fNmdEPhn3NrgVAOfPMIPkjeXPPZk7pf9izX6ymp+DDiNey6z8EAPGJEa
+ aCVQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXrHbRSH0B367wSUYkMVRXLKBvHTWe08m+e24Ik6Y4Jqa7gTojZIS9L4PB6HBLEl0hw+Tx1PpU0W7Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyE1aDYBW4PRxVnz839JHb6e0RbiuaoM986z+MXFzar3zlFqvMh
- CiTvs9zFt1zHbDOx6VouFV76S6xJsTmBG7/l+bgMM0emalU+LQZ+1fh7KVHdQnIfihKhyff8g6Z
- CTmw0BZxFzREUWIF532tqRMfEE4I5vuQaFmFpJPPD61ovlVIdIzjWuwqU7o9+DTg5gzNkSTU=
-X-Gm-Gg: ATEYQzxSH1F95osDvtkogNAaiRXxNdyQDE9/NQtA7UJyADQqhsZRe3he1aG3Fo91c7t
- MtpwGbzuDp2tvDpGKgU3j2mZ0O6R1NokWetuuiLuPxKDRcmRJ0csjkVWdGZecScmWN2Dx8yOlKG
- 0wWUj41s4koJy5LnKmv1F4R8LWfcNqsUC5BcTfx9WW7YeH/7yQf4/dFNzZGiaXCKb3pHEYyd9Zt
- pCOKj7lHciYghbYrKBU+dDkRR6CrPb04jMqdeE/ZzWSf83xnEuwM/u+b23Jb+bXlc1mJtmbRh3h
- 9QHp1WPFCLcAoXLqCWIDyJ/qoViigk5waHsREvDUeWzONCgMVtmThzhgtUqNTJIHNVQ+zGqOMNK
- Dqr+lxSkiShQruK2oEqQFSVwPVz0+sgKhuwq+kkVOFJRekU5Rhsv8BgLVpQQ5dQnkm8h8nAVrx4
- c+wOQp0JyepqiyUDOVsWhtNDQ7G1GXKYzGThs=
-X-Received: by 2002:a05:620a:1a29:b0:8b1:2fab:30a8 with SMTP id
- af79cd13be357-8cd5afceee6mr495521685a.74.1772668601155; 
- Wed, 04 Mar 2026 15:56:41 -0800 (PST)
-X-Received: by 2002:a05:620a:1a29:b0:8b1:2fab:30a8 with SMTP id
- af79cd13be357-8cd5afceee6mr495517685a.74.1772668600503; 
- Wed, 04 Mar 2026 15:56:40 -0800 (PST)
+ AJvYcCVQdfuZaya8tMe9L8x7AHtn+19JD4oxtU0irsTthKbf0foFnYK3PmQP7WAPEUhspmA+xWhpzM3/cbY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyulqF/WGRbdt7u7cn8och8jlx+ZQRI38ORmHHfR2jOQwAVwRSL
+ 1dmg/LhgqDSPWm3SXYZ0OlmBAqdp404d7TFBfzOCvqUQN6zoVMOT46SgPwc/66NrhCxBowoKnvl
+ sp9D/gKK4iGebebAaIKFWR0d8Z1JafB6AcWCEWsWdpoCEToLLxVQQzwcg1uxI7j79jabHRv0=
+X-Gm-Gg: ATEYQzy+Lvmw+hagm0cih14kl4A+mLPvnFRBMOLJSFfjIQHcePrYC0FN3Ej/LhtN/Xi
+ ewXmdncschylveS3Igt5rEGNj0myeix3FquSDiw5VzqHhVsTA5yEQuSXE32JfQzvUpq8v7X04ny
+ +iD714HtS3zmz5KcRKbC9xefifOFxbbCPI39AbWWGL7vQ+Fmp31xyu2oMvMrAKqG3j6DDJjWST3
+ GUsb5Q5eSe/dIsfsZRHXSCgrIo0+osoFma/ScqBOE4uyFLqOJgdP/brXIZYK6vkwg9t8cvR0O/J
+ 2YBBwvQREC+TXtm6pi3HYKkse5kWvmVViSLFLu3AARDHECFBkpS/prFmmEU/Y9Nxpv/CfDxHU5i
+ BXeKifsHBNzOE/1oP5/ZDVtB8H3FAgoI1JPPpnD19i6yneUH1KGNM8l4j7rf9LonmSUfCXjIWWY
+ 93gPChJRrFjXMD425zVkmJVkgec5MTIJKJdkY=
+X-Received: by 2002:a05:620a:44c2:b0:8c6:770c:40d8 with SMTP id
+ af79cd13be357-8cd5af775e5mr481318785a.40.1772668618474; 
+ Wed, 04 Mar 2026 15:56:58 -0800 (PST)
+X-Received: by 2002:a05:620a:44c2:b0:8c6:770c:40d8 with SMTP id
+ af79cd13be357-8cd5af775e5mr481314985a.40.1772668617932; 
+ Wed, 04 Mar 2026 15:56:57 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a125ceeafbsm1231277e87.85.2026.03.04.15.56.39
+ 2adb3069b0e04-5a123573df2sm1571493e87.65.2026.03.04.15.56.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Mar 2026 15:56:39 -0800 (PST)
-Date: Thu, 5 Mar 2026 01:56:37 +0200
+ Wed, 04 Mar 2026 15:56:56 -0800 (PST)
+Date: Thu, 5 Mar 2026 01:56:55 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Vladimir Oltean <vladimir.oltean@nxp.com>
 Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
@@ -107,30 +107,31 @@ Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
  linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
  linux-usb@vger.kernel.org, netdev@vger.kernel.org,
  spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com
-Subject: Re: [PATCH phy-next 20/22] phy: include PHY provider header
-Message-ID: <c6rtwgrwhqnkc7pomesjlmtqoj5pwsitvteolmf3t4spemysb2@rvcuyqqrj67s>
+Subject: Re: [PATCH phy-next 21/22] phy: remove temporary provider
+ compatibility from consumer header
+Message-ID: <o3yvtltydr5hvve2htwgqbp4bfopgu74ft4gnyelmges3hmiaa@wy3brdd5dnek>
 References: <20260304175735.2660419-1-vladimir.oltean@nxp.com>
- <20260304175735.2660419-21-vladimir.oltean@nxp.com>
+ <20260304175735.2660419-22-vladimir.oltean@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260304175735.2660419-21-vladimir.oltean@nxp.com>
-X-Proofpoint-ORIG-GUID: eakoPnNXPl3x4En2g0uuo4C_UtsB22Or
-X-Proofpoint-GUID: eakoPnNXPl3x4En2g0uuo4C_UtsB22Or
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA0MDE5OCBTYWx0ZWRfXz7wluCiStTY5
- lHFd/9RnQs/xG9LEiFk2yZmSr+V2GR+4rdMErHeaEbrJTuasxxcp2+QkXz2o8xdgj2AEaFw/ZU+
- NEuUzBkCV+IplijH1ZLCIQNxe8rvHRtLy6iE4igeImqK2ovIrO/c2SFf24c+uO91FjALrpRzM/m
- 1JYsLXFZM8m4Kd9Z+jwuLDQLBSk23dN0sBr6TnUyFR8fgGF2WIcHEwKs1DSMgt45VGKZaeO4ia3
- znR/fhwdG4/2GJKdNTyLSpCFNmo2AND7sGQMJ9Y16JbzUoSAf/rmwyBjM7EOWeLTv9wH7PKx1kY
- mvRCg4DQwtqFPJ56CePkJsSJsdfghZpgi1tVQNZkSF1A4HrtkeD4melaSvrlXBJfbGyKiYjRLNQ
- Xz7QQdOq80fGRvKhIRq7nKXgz7lGQpgwypAjPDlkgFjhOfCN2DI8nPVvw+CcGuiJVElEXW3ZOzR
- VVdDHzwi4qTsSqlZNFw==
-X-Authority-Analysis: v=2.4 cv=C67kCAP+ c=1 sm=1 tr=0 ts=69a8c6ba cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260304175735.2660419-22-vladimir.oltean@nxp.com>
+X-Proofpoint-ORIG-GUID: -wA3Wl2151MnxWM8LL4-Zx6qfgx1Vo97
+X-Proofpoint-GUID: -wA3Wl2151MnxWM8LL4-Zx6qfgx1Vo97
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA0MDE5OCBTYWx0ZWRfX5LviE1KVOcpP
+ VJQODdWPlEgGeLimrISNNR3nJRw6pXnWjyJ1f994QdjcVoKpiTkQgL0K+XJAnm05SEwxMn/0WkW
+ ko7ZJLKn2X+PZVa0XkcNPE1VlInQMp5b1EKBqCQ1yt/2BlPLBjtmG6+88yw7oXzt8Uz7XNtc3M+
+ pG4L+Q28YCHV4kOPsKtVIr+643526Y/W+DwE5pZxSMwvL30SHev7XvJXQWIO0UH9NSqqNOPbowQ
+ jbPLGBJgO2Wa9jSXKynGX3B3s4BovaBnWr0e4FBw7ihNOTRhGhgGIJVC+2aZEqDz5XJnmmTKj2T
+ XHQrQnZJgiGlA25D3vN5hqNZddCHrMwgrI631EZuVjIRyUmdsT3J+vKIOdI42S0PEe+jhqldrV7
+ m6RvOvaelYDXX1wej9MCG4aN9YCzL0M9BlbzWqD1oNAP7vPvuWa0fKwvmqhPYrHf+h8/KNsFiRF
+ HFDLtExue3oKkGJEm4g==
+X-Authority-Analysis: v=2.4 cv=C67kCAP+ c=1 sm=1 tr=0 ts=69a8c6cb cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=8AirrxEcAAAA:8
- a=EUspDBNiAAAA:8 a=6HcPSIi93OwE2-2V8-kA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=ST-jHhOKWsTCqRlWije3:22
+ a=EUspDBNiAAAA:8 a=Ji6k5uvf-STsHdHMmocA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=ST-jHhOKWsTCqRlWije3:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-04_09,2026-03-04_01,2025-10-01_01
@@ -154,7 +155,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: 8F39B2093AB
+X-Rspamd-Queue-Id: DAE672093FB
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.81 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
@@ -190,214 +191,17 @@ X-Spamd-Result: default: False [-0.81 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:dkim,qualcomm.com:email,nxp.com:email,oss.qualcomm.com:dkim,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
 X-Rspamd-Action: no action
 
-On Wed, Mar 04, 2026 at 07:57:33PM +0200, Vladimir Oltean wrote:
-> The majority of PHY drivers are PHY providers (obviously).
-> 
-> Some are providers *and* consumers (phy-meson-axg-mipi-dphy,
-> phy-meson-axg-pcie). These are the Amlogic AXG SoCs, which split the
-> physical layer into two chained PHYs: the digital layer and the analog
-> layer. The DSI or PCIe controller interacts only with the digital PHY,
-> presumably for simplicity.
-> 
-> The rest of PHY drivers which include <linux/phy/phy.h> do so because
-> they call phy_set_bus_width(), a consumer function.
+On Wed, Mar 04, 2026 at 07:57:34PM +0200, Vladimir Oltean wrote:
+> Now that all consumers have been updated to no longer dereference fields
+> inside struct phy, we can hide its definition altogether from public view.
 > 
 > Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 > ---
->  drivers/phy/allwinner/phy-sun4i-usb.c                 | 3 ++-
->  drivers/phy/allwinner/phy-sun50i-usb3.c               | 3 ++-
->  drivers/phy/allwinner/phy-sun6i-mipi-dphy.c           | 4 ++--
->  drivers/phy/allwinner/phy-sun9i-usb.c                 | 3 ++-
->  drivers/phy/amlogic/phy-meson-axg-mipi-dphy.c         | 2 ++
->  drivers/phy/amlogic/phy-meson-axg-mipi-pcie-analog.c  | 3 ++-
->  drivers/phy/amlogic/phy-meson-axg-pcie.c              | 2 ++
->  drivers/phy/amlogic/phy-meson-g12a-mipi-dphy-analog.c | 3 ++-
->  drivers/phy/amlogic/phy-meson-g12a-usb2.c             | 2 ++
->  drivers/phy/amlogic/phy-meson-g12a-usb3-pcie.c        | 3 ++-
->  drivers/phy/amlogic/phy-meson-gxl-usb2.c              | 3 ++-
->  drivers/phy/amlogic/phy-meson8-hdmi-tx.c              | 3 ++-
->  drivers/phy/amlogic/phy-meson8b-usb2.c                | 3 ++-
->  drivers/phy/apple/atc.c                               | 3 ++-
->  drivers/phy/broadcom/phy-bcm-cygnus-pcie.c            | 3 ++-
->  drivers/phy/broadcom/phy-bcm-kona-usb2.c              | 4 +++-
->  drivers/phy/broadcom/phy-bcm-ns-usb2.c                | 3 ++-
->  drivers/phy/broadcom/phy-bcm-ns-usb3.c                | 3 ++-
->  drivers/phy/broadcom/phy-bcm-ns2-pcie.c               | 3 ++-
->  drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c             | 3 ++-
->  drivers/phy/broadcom/phy-bcm-sr-pcie.c                | 3 ++-
->  drivers/phy/broadcom/phy-bcm-sr-usb.c                 | 3 ++-
->  drivers/phy/broadcom/phy-bcm63xx-usbh.c               | 3 ++-
->  drivers/phy/broadcom/phy-brcm-sata.c                  | 3 ++-
->  drivers/phy/broadcom/phy-brcm-usb.c                   | 2 +-
->  drivers/phy/cadence/cdns-dphy-rx.c                    | 3 ++-
->  drivers/phy/cadence/cdns-dphy.c                       | 4 ++--
->  drivers/phy/cadence/phy-cadence-salvo.c               | 3 ++-
->  drivers/phy/cadence/phy-cadence-sierra.c              | 3 ++-
->  drivers/phy/cadence/phy-cadence-torrent.c             | 3 ++-
->  drivers/phy/canaan/phy-k230-usb.c                     | 3 ++-
->  drivers/phy/eswin/phy-eic7700-sata.c                  | 3 ++-
->  drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.c        | 3 ++-
->  drivers/phy/freescale/phy-fsl-imx8m-pcie.c            | 4 ++--
->  drivers/phy/freescale/phy-fsl-imx8mq-usb.c            | 3 ++-
->  drivers/phy/freescale/phy-fsl-imx8qm-hsio.c           | 6 +++---
->  drivers/phy/freescale/phy-fsl-imx8qm-lvds-phy.c       | 3 ++-
->  drivers/phy/freescale/phy-fsl-lynx-28g.c              | 3 ++-
->  drivers/phy/hisilicon/phy-hi3660-usb3.c               | 3 ++-
->  drivers/phy/hisilicon/phy-hi3670-pcie.c               | 3 ++-
->  drivers/phy/hisilicon/phy-hi3670-usb3.c               | 3 ++-
->  drivers/phy/hisilicon/phy-hi6220-usb.c                | 3 ++-
->  drivers/phy/hisilicon/phy-hisi-inno-usb2.c            | 4 +++-
->  drivers/phy/hisilicon/phy-histb-combphy.c             | 3 ++-
->  drivers/phy/hisilicon/phy-hix5hd2-sata.c              | 3 ++-
->  drivers/phy/ingenic/phy-ingenic-usb.c                 | 3 ++-
->  drivers/phy/intel/phy-intel-keembay-emmc.c            | 3 ++-
->  drivers/phy/intel/phy-intel-keembay-usb.c             | 3 ++-
->  drivers/phy/intel/phy-intel-lgm-combo.c               | 4 ++--
->  drivers/phy/intel/phy-intel-lgm-emmc.c                | 3 ++-
->  drivers/phy/lantiq/phy-lantiq-rcu-usb2.c              | 3 ++-
->  drivers/phy/lantiq/phy-lantiq-vrx200-pcie.c           | 4 ++--
->  drivers/phy/marvell/phy-armada375-usb2.c              | 3 ++-
->  drivers/phy/marvell/phy-armada38x-comphy.c            | 3 ++-
->  drivers/phy/marvell/phy-berlin-sata.c                 | 3 ++-
->  drivers/phy/marvell/phy-berlin-usb.c                  | 3 ++-
->  drivers/phy/marvell/phy-mmp3-hsic.c                   | 3 ++-
->  drivers/phy/marvell/phy-mmp3-usb.c                    | 3 ++-
->  drivers/phy/marvell/phy-mvebu-a3700-comphy.c          | 3 ++-
->  drivers/phy/marvell/phy-mvebu-a3700-utmi.c            | 3 ++-
->  drivers/phy/marvell/phy-mvebu-cp110-comphy.c          | 3 ++-
->  drivers/phy/marvell/phy-mvebu-cp110-utmi.c            | 3 ++-
->  drivers/phy/marvell/phy-mvebu-sata.c                  | 3 ++-
->  drivers/phy/marvell/phy-pxa-28nm-hsic.c               | 3 ++-
->  drivers/phy/marvell/phy-pxa-28nm-usb2.c               | 3 ++-
->  drivers/phy/marvell/phy-pxa-usb.c                     | 3 ++-
->  drivers/phy/mediatek/phy-mtk-dp.c                     | 3 ++-
->  drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c            | 1 -
->  drivers/phy/mediatek/phy-mtk-hdmi.h                   | 3 ++-
->  drivers/phy/mediatek/phy-mtk-mipi-csi-0-5.c           | 2 +-
->  drivers/phy/mediatek/phy-mtk-mipi-dsi.h               | 3 ++-
->  drivers/phy/mediatek/phy-mtk-pcie.c                   | 2 +-
->  drivers/phy/mediatek/phy-mtk-tphy.c                   | 2 +-
->  drivers/phy/mediatek/phy-mtk-ufs.c                    | 2 +-
->  drivers/phy/mediatek/phy-mtk-xfi-tphy.c               | 2 +-
->  drivers/phy/mediatek/phy-mtk-xsphy.c                  | 2 +-
->  drivers/phy/microchip/lan966x_serdes.c                | 4 ++--
->  drivers/phy/microchip/sparx5_serdes.c                 | 2 +-
->  drivers/phy/motorola/phy-cpcap-usb.c                  | 3 ++-
->  drivers/phy/motorola/phy-mapphone-mdm6600.c           | 4 +++-
->  drivers/phy/mscc/phy-ocelot-serdes.c                  | 3 ++-
->  drivers/phy/nuvoton/phy-ma35d1-usb2.c                 | 3 ++-
->  drivers/phy/phy-airoha-pcie.c                         | 2 +-
->  drivers/phy/phy-can-transceiver.c                     | 3 ++-
->  drivers/phy/phy-core-mipi-dphy.c                      | 4 ++--
->  drivers/phy/phy-core.c                                | 2 ++
->  drivers/phy/phy-google-usb.c                          | 3 ++-
->  drivers/phy/phy-lpc18xx-usb-otg.c                     | 3 ++-
->  drivers/phy/phy-nxp-ptn3222.c                         | 3 ++-
->  drivers/phy/phy-pistachio-usb.c                       | 4 ++--
->  drivers/phy/phy-snps-eusb2.c                          | 2 ++
->  drivers/phy/phy-xgene.c                               | 3 ++-
->  drivers/phy/qualcomm/phy-ath79-usb.c                  | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-apq8064-sata.c          | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-edp.c                   | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-eusb2-repeater.c        | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c           | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c          | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c           | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-m31-eusb2.c             | 2 ++
->  drivers/phy/qualcomm/phy-qcom-m31.c                   | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-pcie2.c                 | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c             | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c      | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c              | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qmp-ufs.c               | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c        | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qmp-usb.c               | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qmp-usbc.c              | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-qusb2.c                 | 4 ++--
->  drivers/phy/qualcomm/phy-qcom-sgmii-eth.c             | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c         | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c      | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-usb-hs-28nm.c           | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-usb-hs.c                | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-usb-hsic.c              | 3 ++-
->  drivers/phy/qualcomm/phy-qcom-usb-ss.c                | 3 ++-
->  drivers/phy/ralink/phy-mt7621-pci.c                   | 3 ++-
->  drivers/phy/ralink/phy-ralink-usb.c                   | 3 ++-
->  drivers/phy/realtek/phy-rtk-usb2.c                    | 3 ++-
->  drivers/phy/realtek/phy-rtk-usb3.c                    | 3 ++-
->  drivers/phy/renesas/phy-rcar-gen2.c                   | 3 ++-
->  drivers/phy/renesas/phy-rcar-gen3-pcie.c              | 3 ++-
->  drivers/phy/renesas/phy-rcar-gen3-usb2.c              | 3 ++-
->  drivers/phy/renesas/phy-rcar-gen3-usb3.c              | 3 ++-
->  drivers/phy/renesas/phy-rzg3e-usb3.c                  | 3 ++-
->  drivers/phy/renesas/r8a779f0-ether-serdes.c           | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-dp.c                | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-dphy-rx0.c          | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-emmc.c              | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-inno-csidphy.c      | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c      | 4 ++--
->  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c         | 2 ++
->  drivers/phy/rockchip/phy-rockchip-inno-usb2.c         | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-naneng-combphy.c    | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-pcie.c              | 2 +-
->  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c     | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c     | 2 ++
->  drivers/phy/rockchip/phy-rockchip-snps-pcie3.c        | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-typec.c             | 4 ++--
->  drivers/phy/rockchip/phy-rockchip-usb.c               | 3 ++-
->  drivers/phy/rockchip/phy-rockchip-usbdp.c             | 2 ++
->  drivers/phy/samsung/phy-exynos-dp-video.c             | 3 ++-
->  drivers/phy/samsung/phy-exynos-mipi-video.c           | 3 ++-
->  drivers/phy/samsung/phy-exynos-pcie.c                 | 3 ++-
->  drivers/phy/samsung/phy-exynos4210-usb2.c             | 3 ++-
->  drivers/phy/samsung/phy-exynos4x12-usb2.c             | 3 ++-
->  drivers/phy/samsung/phy-exynos5-usbdrd.c              | 2 ++
->  drivers/phy/samsung/phy-exynos5250-sata.c             | 3 ++-
->  drivers/phy/samsung/phy-exynos5250-usb2.c             | 3 ++-
->  drivers/phy/samsung/phy-s5pv210-usb2.c                | 3 ++-
->  drivers/phy/samsung/phy-samsung-ufs.c                 | 2 +-
->  drivers/phy/samsung/phy-samsung-ufs.h                 | 3 ++-
->  drivers/phy/samsung/phy-samsung-usb2.c                | 2 ++
->  drivers/phy/samsung/phy-samsung-usb2.h                | 3 ++-
->  drivers/phy/socionext/phy-uniphier-ahci.c             | 3 ++-
->  drivers/phy/socionext/phy-uniphier-pcie.c             | 3 ++-
->  drivers/phy/socionext/phy-uniphier-usb2.c             | 3 ++-
->  drivers/phy/socionext/phy-uniphier-usb3hs.c           | 3 ++-
->  drivers/phy/socionext/phy-uniphier-usb3ss.c           | 3 ++-
->  drivers/phy/sophgo/phy-cv1800-usb2.c                  | 3 ++-
->  drivers/phy/spacemit/phy-k1-pcie.c                    | 4 ++--
->  drivers/phy/spacemit/phy-k1-usb2.c                    | 3 ++-
->  drivers/phy/st/phy-miphy28lp.c                        | 4 ++--
->  drivers/phy/st/phy-spear1310-miphy.c                  | 3 ++-
->  drivers/phy/st/phy-spear1340-miphy.c                  | 3 ++-
->  drivers/phy/st/phy-stih407-usb.c                      | 3 ++-
->  drivers/phy/st/phy-stm32-combophy.c                   | 3 ++-
->  drivers/phy/st/phy-stm32-usbphyc.c                    | 2 ++
->  drivers/phy/starfive/phy-jh7110-dphy-rx.c             | 3 ++-
->  drivers/phy/starfive/phy-jh7110-dphy-tx.c             | 3 ++-
->  drivers/phy/starfive/phy-jh7110-pcie.c                | 3 ++-
->  drivers/phy/starfive/phy-jh7110-usb.c                 | 3 ++-
->  drivers/phy/sunplus/phy-sunplus-usb2.c                | 3 ++-
->  drivers/phy/tegra/phy-tegra194-p2u.c                  | 3 ++-
->  drivers/phy/tegra/xusb-tegra124.c                     | 2 +-
->  drivers/phy/tegra/xusb-tegra186.c                     | 2 +-
->  drivers/phy/tegra/xusb-tegra210.c                     | 2 +-
->  drivers/phy/tegra/xusb.c                              | 2 +-
->  drivers/phy/ti/phy-am654-serdes.c                     | 3 ++-
->  drivers/phy/ti/phy-da8xx-usb.c                        | 3 ++-
->  drivers/phy/ti/phy-dm816x-usb.c                       | 3 ++-
->  drivers/phy/ti/phy-gmii-sel.c                         | 3 ++-
->  drivers/phy/ti/phy-omap-usb2.c                        | 3 ++-
->  drivers/phy/ti/phy-ti-pipe3.c                         | 3 ++-
->  drivers/phy/ti/phy-twl4030-usb.c                      | 3 ++-
->  drivers/phy/xilinx/phy-zynqmp.c                       | 4 ++--
->  include/linux/phy/phy-sun4i-usb.h                     | 2 +-
->  include/linux/phy/ulpi_phy.h                          | 2 +-
->  189 files changed, 363 insertions(+), 193 deletions(-)
+>  include/linux/phy/phy.h | 2 --
+>  1 file changed, 2 deletions(-)
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> #phy/qualcomm
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 -- 
 With best wishes
