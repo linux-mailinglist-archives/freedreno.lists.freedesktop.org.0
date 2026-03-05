@@ -2,97 +2,151 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QGlAFrBUqWli5gAAu9opvQ
+	id TB9vHDBYqWnW5wAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:02:24 +0100
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:17:20 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB0E20F3D9
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:02:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26EA20F8CD
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:17:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B68F010EC00;
-	Thu,  5 Mar 2026 10:02:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 444F110E235;
+	Thu,  5 Mar 2026 10:17:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dwVs+rrj";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BRNFmW1p";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T90zTTq1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58FB110EC00
- for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2026 10:02:21 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-48371119eacso93559715e9.2
- for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 02:02:21 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A851210E235
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2026 10:17:16 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 625AFtq04171101
+ for <freedreno@lists.freedesktop.org>; Thu, 5 Mar 2026 10:17:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=LIadV7BRF9LYFllJ7Yhh2a
+ +90a+1bxS3+rs4FMEgwds=; b=BRNFmW1pIXDzhhRsEW/L6PpmEuBklvK+bnLtYL
+ u7wLidyxEqCt2WmaW4OwYBh7lo7EUNVH0uzi/6WhviZX2gE8K70CoHW33Xn2TS/k
+ umby5dqekVuKmFzWCWpZ6P+sGr1jtncT5AaXceKSvxXZwnM/9pK/k7w0ALqIHhit
+ 9eQI0F/IYOqdUr0RzWFyDqS/9vOCod4GEQtronFlarpPw6JFrszPFVQyMG4sAnVH
+ G5FvvkzC17rW8ZhbF4lATXGTyt7K+Oq1gOeZ3E+YivYf3GMAyQsKFerB6njzFQNE
+ daWZ0cVMKBbZyxDT3KqveZaqzxxRAHLbPFAiH6TAKUJOtEnA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cpuhb2aw6-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 10:17:16 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-506b4005ab7so755950851cf.2
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 02:17:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1772704940; x=1773309740; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=PLN3jU+WSp15lmHsKDg7F21c9tIpGoZokDbnzqxSsGE=;
- b=dwVs+rrjPFfTTiIDxO7MRLpTf9YZKaC1K+cxdeCgVGWoEWBMGUgmkmu+gLHSma4uQf
- dDzJ6VBGCI71GMCsZijpCYJfxxw+vULPOZ0PC6Cuva5mvERAnL6u1aNU3AtkRAYcVQgs
- EJ8dN9i5TBYIzn3id8l6fReA0Y2iNihtKg4br/utawCawhBZXp9yTkitsUdkQbDcobZc
- 0QWrTYcvyPMikky843vkuavno+cFzGNwMmw5UAyzGY2k2O8CWN29MoZaMa1OKDb23W+C
- 6py2DvtUoVgocuTKqn0cbLvi9mmPbbBZCVc4Uf7uOHBTAl+zIicjYPDtZEIzofgPXf/O
- fBvw==
+ d=oss.qualcomm.com; s=google; t=1772705835; x=1773310635;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=LIadV7BRF9LYFllJ7Yhh2a+90a+1bxS3+rs4FMEgwds=;
+ b=T90zTTq1i54ELPhtuM/Xo4AHFSLw36rRsw0nwbHHHhBMd7jmYlnY8wd1YltTKxfGtk
+ lAK7my/9uY+pfEeE6KpCCWzZF0tTRo1/F1erIEgETTCXCfVZsO88ktOufyVMSC1mXZGh
+ +VgZEQen3/eCxvBnXwgTjzIsdKJssUMIrPdUdkOQPxmpfSCfi9E6ZLRIseeql2NycSFN
+ x2f1yIrGafaOYU1IzNUl8W3bUBfDCKpJUfycr5szMbSwjr0MLHrRmy4LFBZjWOttX8+A
+ b3kp7faywYcC3R0yKilvwf6c8K4ILYuqBmiTPmRcARg7WQYlAT/kqdIB87p6qJiiJuB3
+ h8NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772704940; x=1773309740;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PLN3jU+WSp15lmHsKDg7F21c9tIpGoZokDbnzqxSsGE=;
- b=FSURUACos1pi2lQMVgxEudh/rcfbRj/iP/AIzXpsRWVA5QveIQUlu9mT2K76JbwruE
- RdE+BxrQxguPR1RMD3S10L4bXjFxxAIvgt5Fen5oNATHdtoQFSsUzapAC/l40YuT0YW2
- GENnhKR+/YX1csx/CWRnEi46s9PbM5XI6Swab7d0Jmc4kY55RdnTcTXzzcwaFOKbggI0
- xQts7GhFqYPxqFgbpUEB1ATunG/FrdzekPMVe8OGTPeWa329hBtdfvKcjS5R9FJrtvpF
- QAZQjSn9/WYe32zBWucmWomDji4kIPvuPCylwUQKMSEboV07/Nqmp91HEdhKgZdlKBgr
- AgoA==
+ d=1e100.net; s=20230601; t=1772705835; x=1773310635;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LIadV7BRF9LYFllJ7Yhh2a+90a+1bxS3+rs4FMEgwds=;
+ b=P4yNbCAqlSqlcQR95qaXYex1o6GQvWfWiEZUDpG500dfI08vCSDjYewUDF8hHQFBtw
+ s87ZGWJ4JDtmlrHFFkyIZbSi/aj4zwpNsnH0Q+kmAiC4S1JFiToRz8GPska78bl480LH
+ jXXnfctlSN9JQp40zS2V4XAReD4ucnqZ+85Mk16JpF8959FzbVmkrvWxmHw0OP+LY5EA
+ QJYaocHXa8LnkT75hYNDO+DXIU9UKvLOwlN/sif6WUOB0o/KlC/tLU2n3FSFBIL2An8y
+ COmHYYZSCAUPqOtGAWC6Gv66E56YZjbimpzAXJk6USdAvPirmuQy92qTfUtwPioWSdXo
+ P0lw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX8f6EO/hJ7psU6Rl9SNcC79aNm3Zkle1BbSL+Ia357nLSZfInlJcY1dQV04Nlo8Ra4kG71Jw55jYM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzMNZ6bmyvCsb7GH8zTylXYS8u8TCIxub9p4ebpgTck55D2LXhs
- nXXllaQb6G3r4fLP3msPi5hOdxslq9pDVPiaPqtq/zrkWS6KCUI5xmugxbkAJquia5M=
-X-Gm-Gg: ATEYQzxq+iTQceE+761yxb2zdV7kucwe0//GCVQEc4nrnq5BAZTyCTg5xV0j7I8NgtP
- GkYo+zzPkuMIfavfmn0YvBqWvIi2IemXfchPBWtUaoqXkqPmSgemxRfIzhJqLJEwKR8QhGO5nOx
- n+pDC9Tjx/LP8uNRq7VDesThWko1OvMzKYxpyR9wDCpHz6TzQZ0Z0EQrzPcDG1Gi+egXZs+xBhS
- eURVIiX0/2tAqGsml14QT4Oilr+aJec5IgyKl++r1s4pMsQiDoZUVMBQnsZRjs5K275bAhfYFAl
- Ng9usPC6mDJqAs/YUST6kkLmMpLY1xtPv5NyMxOvQIO3VhDMUraWDGWvsKvv/jBJxSkLKcCkw8c
- EnE2IkxxY354EYjU0ETeKA7auRHBlJC3doNPdO/mIt1k7saMmeIZA4SUibodrdWlM+Reqa4Nlmn
- cfP/EYy/2d3I3XShPW0xwPLXywrSlp
-X-Received: by 2002:a05:600c:a07:b0:47f:b737:5ce0 with SMTP id
- 5b1f17b1804b1-4851988f31dmr86977045e9.23.1772704939633; 
- Thu, 05 Mar 2026 02:02:19 -0800 (PST)
-Received: from salami.lan ([212.129.84.244]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4851fade9fdsm59453655e9.4.2026.03.05.02.02.17
+ AJvYcCUuIIjZbFujWJCE+7MLitWfDcqlRw0dbLFVe11tt8bqzUHb5iLY/NDJKGCDeG/2/x1ToPF/iIYlTBc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLAZUMmLKFzGOiQbfh86ZIMe8cccGWaieyv7oIYLvIJArJ5DIj
+ Lzb23pcWYsz8KNkwSE3NgZaH4/7htKal5EJA24vQkXllOT4BLA8CcH9WS5Opu0L3bAdC/Yn4sk/
+ yAq9Xd2bCesjU+fLOsbNE5BGhhPM+lIr6nWv9QBdByFa8i6YU/ovIaipQ91vetty/wo0FoCA=
+X-Gm-Gg: ATEYQzz96F9nn3LZnfmX76WW7Ff5znZ0DWBed8/nWw5MNNpUlY6QGl7HrH56/BSlpax
+ if6+ZcCeEYCe2qgxsWWZ6HyveI3LeDWyWM62W2p8zGxRwFWQZaa6IoXh9B9y0oun4TcQ0WWWO6u
+ t4eApYmLrIC7nV16DPePyKjKCcGknRlK7ZtQJunLVt8OOX5nsEzCJSB0UmP7XbxcItUCMFk3Unk
+ IyY55yWWsH3BwYSaEy1Yri5X9Z9PF5dmkd5/csz/ipIrUPlFF4/w2A/TFdqcwx1apPtHN2pBLut
+ YgbJEIvBbZ4EVCttzQZjwWbW1jjBvnDiHWbG9mxT0DRnP/Br3oUEAvHQcitn/O19galTaJ6QLav
+ bsJ0JHMmnOEHpBhR/X1BpCTHjQC7azmcoBexd5nKE6ezOSW7eJzYVbopM7/aXaAFPFg31UiF1l+
+ mzjFB+zbs=
+X-Received: by 2002:a05:622a:11d4:b0:501:4858:a6d0 with SMTP id
+ d75a77b69052e-508db3dd455mr69791771cf.56.1772705835153; 
+ Thu, 05 Mar 2026 02:17:15 -0800 (PST)
+X-Received: by 2002:a05:622a:11d4:b0:501:4858:a6d0 with SMTP id
+ d75a77b69052e-508db3dd455mr69791511cf.56.1772705834741; 
+ Thu, 05 Mar 2026 02:17:14 -0800 (PST)
+Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-507451cda0asm194096731cf.24.2026.03.05.02.17.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 02:02:19 -0800 (PST)
-Message-ID: <030737fd255a49288349f06e8c1217a126ea9081.camel@linaro.org>
-Subject: Re: [PATCH phy-next 05/22] phy: add <linux/pm_runtime.h> where missing
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>, linux-phy@lists.infradead.org
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, 	dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 	linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, 	linux-can@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-ide@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, linux-sunxi@lists.linux.dev, 
- linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, 	spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Peter Griffin	 <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Heiko
- Stuebner <heiko@sntech.de>
-Date: Thu, 05 Mar 2026 10:02:16 +0000
-In-Reply-To: <20260304175735.2660419-6-vladimir.oltean@nxp.com>
-References: <20260304175735.2660419-1-vladimir.oltean@nxp.com>
- <20260304175735.2660419-6-vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-8 
+ Thu, 05 Mar 2026 02:17:14 -0800 (PST)
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Subject: [PATCH v5 0/2] drm/msm/dpu: Correct the dpu catalog config
+Date: Thu, 05 Mar 2026 18:17:05 +0800
+Message-Id: <20260305-mdss_catalog-v5-0-06678ac39ac7@oss.qualcomm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACFYqWkC/22OQY7CMAxFr1J5PUEkTdKWFfdAaOQkDkSiBOJSD
+ UK9O6FsZ2P5fcnP/wVMJRHDrnlBoTlxytcK5qcBf8briUQKlUFtlZFSGTEG5l+PE17ySbQY+66
+ PzkbvoJ7cCsX0t+oOxy8Xuj+qdfqG4JBJ+DyOado10XdOYqe89cF458LQD3VvFVrdW2pJU2sGH
+ eDjOieecnmuTWe9yv4vNWshRYjWyOhQdVu1z8yb+wMvn7+bOuC4LMsbcn1zL/sAAAA=
+X-Change-ID: 20251125-mdss_catalog-3af878fb6fcb
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mahadevan <quic_mahap@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772705829; l=1896;
+ i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
+ bh=pKtXrrBm5cADdMiIG05brIdEdoiEsw5uS/LfS5KfQBo=;
+ b=sazVMnVsTwYrtjRD3pS/v0hpCNtiD/J4kvbX49FrOn/ZZ2x1cf9GtFFmOhawB89i9M7kz9BgQ
+ x6xXQ/e/w1LASlxRG+e6x9BGUXPUWsSkDeEvU+rHi+ktsvn1tYlvfiD
+X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
+ pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA1MDA4MiBTYWx0ZWRfX8T+XejAJcyX1
+ mhbpJPBdyhgGJIin1d1U9EwnTiRzr7r9ygprqMckTRjrSZNR6IOawuIDXalbVGgkfNhMGu0Fzc/
+ pogoTB1NQSJKIzqicho5tjkwcb6D9RW628M5gd8gRQexzcZj7YRbajjepabsFTNrJ1rwFNTybS8
+ MneFhA/An5t+tnY2/+JmIhIWM8ZDDXt6qS7fOWvc0JHoLaaOAp5tGOvi1WReEqhTfu752OLjaAt
+ kci37yR7PTge2JXDqL+10b44MOxukU8ytrpebxr2kcGIYSOCE4/9zRI6R7elU3RqyDkcwwiFjVp
+ tCK0mTcrbuTe11dHUhm6EA/kzeTnqeN31qrmkkn+D9zy4Y+zEjPSo7HZAD5x6GfMspa8e29pzjQ
+ OLVcq4rAC+bxDb/l3jclaO9SG4dOxmbUh2bv6A5gYQKg+KDhMDkIaIy2qPuYNLkXHslO6Io/k2a
+ YPWW4s0U7Jm3fySwtmg==
+X-Proofpoint-GUID: 2oGoMi1-r6t8DygJVmcNtVDgCiBCTrcz
+X-Authority-Analysis: v=2.4 cv=SqydKfO0 c=1 sm=1 tr=0 ts=69a9582c cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=lNr4chmq66KuSy7Lpp0A:9
+ a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: 2oGoMi1-r6t8DygJVmcNtVDgCiBCTrcz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-05_02,2026-03-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603050082
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,56 +161,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: DAB0E20F3D9
+X-Rspamd-Queue-Id: C26EA20F8CD
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.19 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+X-Spamd-Result: default: False [-1.31 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:quic_mahap@quicinc.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:yongxing.mou@oss.qualcomm.com,m:quic_abhinavk@quicinc.com,m:dmitry.baryshkov@oss.qualcomm.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:vladimir.oltean@nxp.com,m:linux-phy@lists.infradead.org,m:vkoul@kernel.org,m:neil.armstrong@linaro.org,m:dri-devel@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-arm-msm@vger.kernel.org,m:linux-can@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-ide@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-pci@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-riscv@lists.infradead.org,m:linux-rockchip@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:linux-sunxi@lists.linux.dev,m:linux-tegra@vger.kernel.org,m:linux-usb@vger.kernel.org,m:netdev@vger.kernel.org,m:spacemit@lists.linux.dev,m:UNGLinuxDriver@microchip.com,m:peter.griffin@linaro.org,m:tudor.ambarus@linaro.org,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:heiko@sntech.de,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,quicinc.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[andre.draszik@linaro.org,freedreno-bounces@lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[29];
-	FREEMAIL_CC(0.00)[kernel.org,linaro.org,lists.freedesktop.org,lists.infradead.org,vger.kernel.org,lists.linux.dev,microchip.com,glider.be,gmail.com,sntech.de];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FORGED_SENDER(0.00)[yongxing.mou@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FROM_NEQ_ENVFROM(0.00)[andre.draszik@linaro.org,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[yongxing.mou@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno,renesas];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:email,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,linaro.org:dkim,linaro.org:email,linaro.org:mid]
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[freedreno];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,qualcomm.com:dkim,qualcomm.com:email]
 X-Rspamd-Action: no action
 
-On Wed, 2026-03-04 at 19:57 +0200, Vladimir Oltean wrote:
-> It appears that the phy-mapphone-mdm6600, phy-qcom-snps-femto-v2,
-> phy-rcar-gen3-pcie, r8a779f0-ether-serdes and phy-rockchip-typec drivers
-> call runtime PM operations without including the proper header.
->=20
-> This was provided by <linux/phy/phy.h> but no function exported by this
-> header directly needs it. So we need to drop it from there, and fix up
-> drivers that used to depend on that.
->=20
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Previously, the pair interfaces for MST had their type set to INTF_NONE,
+since they were not used. We are now preparing to enable MST on the
+platform, so the type needs to be set to the correct value (INTF_DP).
 
-> =C2=A0drivers/phy/phy-google-usb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
+The second patch fixes an incorrect interrupt number on SA8775P, which
+causes DPU errors.
 
-For Google:
-Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+This patch was split out from the MST V3 patch series:
+https://lore.kernel.org/all/20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com/
+---
+Changes in v5:
+- Rebase to latest linux-next and modify glymur catalog.
+- Split out the patch that fixes the interrupt number.[Dmitry]
+- Link to v4: https://lore.kernel.org/r/20251125-mdss_catalog-v4-1-df651fba2702@oss.qualcomm.com
+
+Changes in v4:
+- Splite chagne out from the MST V3 series.
+- Link to v3: https://lore.kernel.org/all/20250825-msm-dp-mst-v3-37-01faacfcdedd@oss.qualcomm.com/
+
+Changes in v3:
+- Fix through the whole catalog
+- Link to v2: https://lore.kernel.org/all/20250609-msm-dp-mst-v2-37-a54d8902a23d@quicinc.com/
+
+Changes in v2:
+- Change the patch order in the series.
+- Link to v1: https://lore.kernel.org/all/20241205-dp_mst-v1-3-f8618d42a99a@quicinc.com/
+
+---
+Abhinav Kumar (2):
+      drm/msm/dpu: Update the intf_type of MST interfaces
+      drm/msm/dpu: Correct the SA8775P intr_underrun/intr_underrun index
+
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h  |  6 +++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h |  6 +++---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h  | 12 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h |  6 +++---
+ 4 files changed, 15 insertions(+), 15 deletions(-)
+---
+base-commit: fc7b1a72c6cd5cbbd989c6c32a6486e3e4e3594d
+change-id: 20251125-mdss_catalog-3af878fb6fcb
+
+Best regards,
+-- 
+Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+
