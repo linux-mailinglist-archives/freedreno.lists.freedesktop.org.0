@@ -2,102 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OC/FFDRYqWnW5wAAu9opvQ
+	id qDN9JDlYqWnW5wAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:17:24 +0100
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:17:29 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9E4020F8E3
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:17:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21CF420F8F2
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 11:17:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AEF810E237;
-	Thu,  5 Mar 2026 10:17:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB64F88CFA;
+	Thu,  5 Mar 2026 10:17:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bx134pFA";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J1MR5FoV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="a+P+Un8E";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z725WSzY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAAE410E23B
- for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2026 10:17:21 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3AD010E23D
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2026 10:17:26 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 625AFsoJ861854
- for <freedreno@lists.freedesktop.org>; Thu, 5 Mar 2026 10:17:21 GMT
+ 625AG4MF2118288
+ for <freedreno@lists.freedesktop.org>; Thu, 5 Mar 2026 10:17:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5cQdZ+DABz9LopV0AgyKuyhJ924j8aV6F+NmfVtqb8E=; b=bx134pFADRihHxDA
- Gck74i1X5wl+x6EkdgH49k3O9iQe+29n7eyI6F61iBjwa3g76icAdVOTJQOj3R2Z
- VFUQkNt1Tw5a1qXnwU+70sQ/a623WOE7GCbUjf2lN98zRzkKgCXZ/GopXNoLGzB5
- OQ8t/P4jRjJJ8XJ/NDefhFw9tFp+u/v73T530YDGscAENfVqR/x6YxRu3e3wqpYU
- MYKr7SRSZB1Sn/qM4OyErn5uW3Mbiq8d6yvSevA5ZyB59W3FsGytavgis38ywh08
- CAaGXcU8O5aRPJt5M+hIdcU+hRkUjX+YGqavil810y7Ymy+3udB+Yli/9L2zyqUT
- LtoeQw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cps0wau7a-1
+ JjlwyC37ZMKEW9uWvYiZHV/c8H3CQ/IJn8+Myzw34aM=; b=a+P+Un8ECkESr8ly
+ CflvRw6US4IorqTkLiPc+zarpjfU9UI8qHAnvrLSFbnioFXPYul8a1Dgb1qbYSlc
+ OLcyJNZU9h6zxjcdAoNeAy0EjVIuQkUBax14r3G7rWY27lLTrDLfwbwrh+E8SmR2
+ 3ba9gdRblRo5N6HE/i9sCO5my6BaY1ahs+AqcBeVnfSSXpPhgD64ANBmZWCzSm7z
+ Z6beQXB/1oe4S6vx+Eo63UBGr35bSS2gSzEFtS5r9HRwm8JqU0i0xziAeuoPTFJg
+ Oj4rWs4YMEzv+psA/vpXC8BrL0z8CN8wAgBgWRzxpY+5Hw16SpPYC3gcyxZzFCnK
+ 9d0kBQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cps0m2w7j-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 10:17:21 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-506c0231e63so747538821cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 02:17:21 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 10:17:26 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-899f474fae1so281225786d6.0
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 02:17:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772705840; x=1773310640;
+ d=oss.qualcomm.com; s=google; t=1772705845; x=1773310645;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=5cQdZ+DABz9LopV0AgyKuyhJ924j8aV6F+NmfVtqb8E=;
- b=J1MR5FoVhBxg8YJgVir1GkQ1afWIXBzLe7Vp5Kdl16WU38DH2W6h7XDCvNHuTiEfWg
- QV3G6kBolt+uAXGYRNyKy++QOp7JMuIj3YZ2sHs3or3XOewZnIbepvn8g9tqub9+zGhs
- jMsLOkXkjTvjnLPdxrVLd3iTDSHJmrXtDl6CVC4FQns/G67nOQnhSQE5hEMoyptOFsRT
- bC08fcgirAr9cYrNfz2IK1KK/H+gs2weftbiOcSpxZ/3PItxPWo9uoGx+Pv8O3/kWF2t
- 3xfMgEYn/zeELg9cslVI90fCuOhc50tSCbvD0UTRgieebT0jRqKVv/iM+LIDIg5QVpR5
- fRIQ==
+ :reply-to; bh=JjlwyC37ZMKEW9uWvYiZHV/c8H3CQ/IJn8+Myzw34aM=;
+ b=Z725WSzY5nYrCMvnq8FpobY0IXv7jdukH4eGcirg8HhNWXv+iYtFwwYbOtMluv2Ed9
+ LWno0U46D7rvZQ+p91DHAoZgDktY9Ejd1m0opk++CDAHFKoXfMnEpqSN4gR7dFDUPhKZ
+ 8eLFR5JWvr8T43YMgJEQYR2HxH9B01U5vNnOnq5nUp+IPSyLYhe6yCS2Sh3Bw+YUlpG6
+ ZhsEnELEVuDUpj8EH4MdvgieD1yg/XJ3o3pC+GeX6pbeAmdTP/dozDfhQOswrdw7W+9S
+ V2UNR1FSsD6UqDk/ZN0Qus9qen9PzYH4V8ZxCYnjGQFXzy9lO4H1U25eHfLOSGKojkSh
+ vfcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772705840; x=1773310640;
+ d=1e100.net; s=20230601; t=1772705845; x=1773310645;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=5cQdZ+DABz9LopV0AgyKuyhJ924j8aV6F+NmfVtqb8E=;
- b=ikf80WCvTnI5rEURLx5pdCLcmLEnLqJPpelzNWwhNDNOSADcOrg8gBbyYSqxwFmsuG
- dQK8ZU9zhzYEfhdvijn9mXXhz5bbGcuZVt29A4MSomkWHHyBoseLdXO3/6Hl8g6C5VU0
- rn4hwdQvbnyaxfe4ui//Suwf9oV4/amkCBBjW/Co1pDsGUFdazTPppLKJDfh60ZvR3z7
- ut+1Pozup495tb4UQJX/3vBZO9JsUwMbS6r/b+53wOOvEpjs97NWtBSuO+pkGdTj0AmD
- iB982PAdOtuowcApo8tjtCCALxztTmJlXfrmuXDRItllfQ6WvG1fvZexxiXaqr1aKReY
- v74A==
+ bh=JjlwyC37ZMKEW9uWvYiZHV/c8H3CQ/IJn8+Myzw34aM=;
+ b=MM8jMulgO24NjxzN2WeOjT1Kq+sCRsr5Jba5wHzhICMyTUZzIbz9KnkMKjx9x984zZ
+ mAs13G+a5NEPak3LTftGw67IAjR7m0yV9CciWCDLlrfcjx2iPoFKqA7SzWMsd+0Cu8Zf
+ YX+faatmBsnp3tZXJ7DN11YiIbs6fpRcHs/ksFnTfO97rAeO1NNdF+s+souXfZpgD8jL
+ uGyG5xY29Rt81beEga/fotmKl/Y6wCF7CZjr1NA7CjPO5Y1i6R8yi2XA0lddCAFz5Y0P
+ Kr/eGJUpryQ4DfPuEevp/2+ojX/lpgyOW6HPxVD+Lo3Wko/H11ZLQ8//gxD1gtup5eGV
+ vMpA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU6BogvbyEYSriXJv0DIHIwLRMeDR6J6ZwrfvXFzyO5UGugGumIf2UiyaxdG86PP6QBlzau/y06EMg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNtvKffQKA0UVA8V+eCgxUsLzzhw8/rgAoD5/bzhJrSbg8Fq8k
- kL/Bx86/NccbVINYE8/RsF319rNzmqaLTBNZDEnAuKA9J9zelmqBNViu+H10zrF+22761U2ydSS
- ekcqyru9Lq0SQt4GnuEH1DWE0PqfFNsdRAyDVZyXD1+lM5v2BCdAGDZnYJBFCGLtk+ion8Ro=
-X-Gm-Gg: ATEYQzyPS70YMTQoIdMAdRU5zkusVnNo9l9RIVN4veDm/D6bLlfEtUbawGtN6hPcGCT
- bJ3PRjjKIDd0WCUncd417izvvm/jPq3+6hJTYc7pfhz9Z1BnmpIQwhd47T7r7/aZDiVetQWqgPw
- AEnALUIgFriEOydKivkzjw8jrj/fu8vdld88X0Hgu/gJh9WxPP3sxEBdCVlrbBkUHfMPbyN4zIO
- 4fUm14Wncmqwk4fu/jwkgQtuq6F3hIpni6mrbgWOu8Vc9IheF/PRe30ZE7l0Qt8JQ50bXWYDDDi
- 3ygtLjgjS7tIe7gAqRYtAN0aOuMA4tF5O0C4brXOZnuFxsm/+QVC9GQ7D9YNc90fA/BwHUxBs0l
- ZRtJ+RoXoJmPFsnpKjORx8hBa7SlsiqmgnkrCde/YszA+/nahpnnZc6fl9L81H+FmVjJUClA4t8
- OnmaTdwbk=
-X-Received: by 2002:ac8:7dd0:0:b0:506:a290:70d6 with SMTP id
- d75a77b69052e-508e67f62a1mr18988181cf.6.1772705840317; 
- Thu, 05 Mar 2026 02:17:20 -0800 (PST)
-X-Received: by 2002:ac8:7dd0:0:b0:506:a290:70d6 with SMTP id
- d75a77b69052e-508e67f62a1mr18987971cf.6.1772705839870; 
- Thu, 05 Mar 2026 02:17:19 -0800 (PST)
+ AJvYcCVi1+TvWk2POAjq1URChPeI5V4wjfxiNABdFxV8kvOgoeNEoSu8HrM8EC2TxOhmWAcQnp8/rtyMJCI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwmeDxlmxZl6/NkbSC2YAxM2brYLoMs0p9rHKHr82Q/ENUCE0DH
+ 4HNCCb/m8Mwvv5G6RjWREl27XfRpvEgC5AYuXj8mJ4UWykhZu6S+Ki48wQH3z7WsR4QDhwHIPVH
+ 4P7kr6SAgNZEJ5y36xTNMNlv2Aevzfz4ptNw0qofuteFo2ZVCxdzqU/6LuXmik0kth9yR0BA=
+X-Gm-Gg: ATEYQzykQA/qbshR3XLjw4jhm9GHUefBIsYFTHl6eYcRcvVHUkVLXZNVd+RvMsFsjOa
+ 6RH8g3WsW3I7/l28oL6ph2kw1VaqDQJ6A0xz/ZDyQ6TLEKvOQdiN/4GGKNdfvYCIMJHR1CjBf4B
+ GCO5+errgp15udE7Yl7YFxyRdXAlwLm0dn2bEVPLA1lkWlC1JrmUopjdDMWEgUh5OtitLASr5Yp
+ 1oljomIFBGOEvgiSPDoutlVQPIPCKfmrI4EFvkUquQ24Ltswnp76+GYqCfAD0M4WZHdFloYBZpI
+ mJEV/Eo9RzFRdNDOVv7FGPayDToGGc8RAKGN9oJw4nWZE3dcioz+qZSkX3SmMYJiIDH6PwomTRT
+ TYv+5mc4uc4wZoTL8DANekpXh09FLcTZsfINYFpU00UYZExbUykRIYs0xMMPGQK5ejrw8ux+22V
+ ido0ivmJU=
+X-Received: by 2002:a05:6214:623:b0:89a:77b:837e with SMTP id
+ 6a1803df08f44-89a244779b0mr20540456d6.6.1772705845342; 
+ Thu, 05 Mar 2026 02:17:25 -0800 (PST)
+X-Received: by 2002:a05:6214:623:b0:89a:77b:837e with SMTP id
+ 6a1803df08f44-89a244779b0mr20540246d6.6.1772705844891; 
+ Thu, 05 Mar 2026 02:17:24 -0800 (PST)
 Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-507451cda0asm194096731cf.24.2026.03.05.02.17.15
+ d75a77b69052e-507451cda0asm194096731cf.24.2026.03.05.02.17.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 02:17:19 -0800 (PST)
+ Thu, 05 Mar 2026 02:17:24 -0800 (PST)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Thu, 05 Mar 2026 18:17:06 +0800
-Subject: [PATCH v5 1/2] drm/msm/dpu: Update the intf_type of MST interfaces
+Date: Thu, 05 Mar 2026 18:17:07 +0800
+Subject: [PATCH v5 2/2] drm/msm/dpu: Correct the SA8775P
+ intr_underrun/intr_underrun index
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260305-mdss_catalog-v5-1-06678ac39ac7@oss.qualcomm.com>
+Message-Id: <20260305-mdss_catalog-v5-2-06678ac39ac7@oss.qualcomm.com>
 References: <20260305-mdss_catalog-v5-0-06678ac39ac7@oss.qualcomm.com>
 In-Reply-To: <20260305-mdss_catalog-v5-0-06678ac39ac7@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -110,38 +111,37 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1772705829; l=6579;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772705829; l=1244;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=7gkeiNxNKl6gMrOjBVvmFXUTc3giYW+5eNzAKZhEaVs=;
- b=A8H4tWgvmJewMNXWSG04jyIvgQM7r1m6IOYyhw9oxURvmv1BkwCmfPm2SSkPpj/roCAEB9c21
- P9leAg1bb42Bpgzo3bJxNQZle/xESKkGn90+6OBaxOtuO7jZkqpAu5B
+ bh=tO41DjAOfQzqwZFbNKiKJu3u3O77mCrCtRYIBZJ6ZXY=;
+ b=zlSVe181QTt/TFKu3KzUdOpSymLiiZyQyFbIa9D5xvvJSW+y7BQK/5zMvgHFA1dusq9HOeCAe
+ lPO6wmfzSQ2BA24CSjzaVP6TSOf7rpK2iAM/J6jZgCGc1Oh7H9L+eyU
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-GUID: I3qBAd1e-qmmsQIvfC_byaLSX4Xf_xzi
-X-Authority-Analysis: v=2.4 cv=BNK+bVQG c=1 sm=1 tr=0 ts=69a95831 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Authority-Analysis: v=2.4 cv=e6wLiKp/ c=1 sm=1 tr=0 ts=69a95836 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=4tyZmZgPP5sb52DUGSkA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA1MDA4MiBTYWx0ZWRfXzH2a2FiXmzn4
- +biqCNF46wX4kbvx82Y3d2W0HjtTS8iagVIGDvdOTcfTdAmi5rSgPnqgENZfEVq9p/Qqmjfw5P/
- qM/0lhddNv0u1vKUW2dWo+CHIiiAGkbWnuwCTwEWabjFCSC+hTm9RBcBporLDrtksFAtRy6jjn2
- lEdDU/KGOf6W/3vOQk8tQAM3We85nSEG3Dz0awmDZVN8ZsczY2+bQj/1wjZaCmN7EbbDTh/u4mx
- Zo/3ulRIsWgxAhgpVKOFJ+LnXNfx/d6C0jAvnKPYicXB6KL6EZHYVJXCh2fJP6DLQVU26OCyo5k
- BxFBlX1mSKnUy3S/fHupeg92gD1MwyydlaPk59rug/Nyez6ZzAem3rULFQPHkwrd/xYH6TROtXp
- IN7s3hxJY30d2PgBEePfGKj6P10Z1dMe3/9WOUksmlxSYCyHNu9KscxnreIRBmfui2nnkWLBcc/
- J8ixZy55cBUZ3m7Q1wQ==
-X-Proofpoint-ORIG-GUID: I3qBAd1e-qmmsQIvfC_byaLSX4Xf_xzi
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=COk6AnOGAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6ltB2YlUPjWEuFaGMccA:9
+ a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: vd50zXCQ6pKmOy8DuSupwdkmICmHEV2k
+X-Proofpoint-GUID: vd50zXCQ6pKmOy8DuSupwdkmICmHEV2k
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA1MDA4MiBTYWx0ZWRfXwCpNL9kj7Cet
+ IxyxT22DoDScvS19pOCwZAHsQZZR74VU5Q+JYard+aUoOqL3A1OWPVRHSkqnvCh9UQAIGY5hNtF
+ MAjWp1352rXuNJWA349TK2rRHslUb6HVYDlMM3W5bdoB00lus/zuZPyF4ePvQAFJYqEDYw2TF3M
+ 0Nhdb6hLsUq+fpiCElaxU78+oujeZN+l52r1x+q/3w3pGkB+Is+MB5RgUhoxB2HotDovcu6Vi9X
+ EDgc/7hb7zSjxWqZIMQcij1oadkf/EgS23w59V6XRTg+uiV62jf4F8jb7LsJq5k8fSRuvKNd4vm
+ sTwotGyje+jSore5J7Y0EoLbVGBELMehQdy8u88ZMlg+8W1vVW+nvQ9S2rVuw+B3qEiw7CZvwcZ
+ bOrtdsWqlAyT7712HuonE5MGApGtlqoMoB+cwQWV85zvFXolqvvj1Or8OsCXjCk2gUncfCdkFq5
+ 5SycnJ9DR3+sxYTWQAA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-05_02,2026-03-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015
+ spamscore=0 adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603050082
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -158,7 +158,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: D9E4020F8E3
+X-Rspamd-Queue-Id: 21CF420F8F2
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.31 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
@@ -168,7 +168,7 @@ X-Spamd-Result: default: False [-1.31 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:quic_mahap@quicinc.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:yongxing.mou@oss.qualcomm.com,m:quic_abhinavk@quicinc.com,m:dmitry.baryshkov@oss.qualcomm.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:quic_mahap@quicinc.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:yongxing.mou@oss.qualcomm.com,m:quic_abhinavk@quicinc.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,quicinc.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -196,152 +196,32 @@ X-Rspamd-Action: no action
 
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Interface type of MST interfaces is currently INTF_NONE when MST is not
-enabled. Update type to INTF_DP since will enable MST in the near future.
+The intr_underrun and intr_vsync indices have been swapped, just simply
+corrects them.
 
+Cc: stable@vger.kernel.org
+Fixes: b139c80d181c ("drm/msm/dpu: Add SA8775P support")
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h  | 6 +++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 6 +++---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h  | 8 ++++----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h | 6 +++---
- 4 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
-index 13bb43ba67d3..a3b590cca21d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
-@@ -426,7 +426,7 @@ static const struct dpu_intf_cfg glymur_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x37000, .len = 0x400,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-@@ -458,7 +458,7 @@ static const struct dpu_intf_cfg glymur_intf[] = {
- 	}, {
- 		.name = "intf_7", .id = INTF_7,
- 		.base = 0x3b000, .len = 0x400,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_2,	/* pair with intf_6 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 18),
-@@ -466,7 +466,7 @@ static const struct dpu_intf_cfg glymur_intf[] = {
- 	}, {
- 		.name = "intf_8", .id = INTF_8,
- 		.base = 0x3c000, .len = 0x400,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_1,	/* pair with intf_4 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-index 9f2bceca1789..89bc5b44f668 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-@@ -319,7 +319,7 @@ static const struct dpu_intf_cfg sc8280xp_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x37000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-@@ -351,7 +351,7 @@ static const struct dpu_intf_cfg sc8280xp_intf[] = {
- 	}, {
- 		.name = "intf_7", .id = INTF_7,
- 		.base = 0x3b000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_2,
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 18),
-@@ -359,7 +359,7 @@ static const struct dpu_intf_cfg sc8280xp_intf[] = {
- 	}, {
- 		.name = "intf_8", .id = INTF_8,
- 		.base = 0x3c000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_1,
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
-index 0f7b4a224e4c..6b24e9e84dec 100644
+index 6b24e9e84dec..00fd0c8cc115 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
-@@ -347,7 +347,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x37000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
+@@ -366,8 +366,8 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
+ 		.type = INTF_DP,
  		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
  		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-@@ -363,7 +363,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
- 	}, {
- 		.name = "intf_6", .id = INTF_6,
- 		.base = 0x3A000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
-@@ -371,7 +371,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
+-		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
+-		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16),
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
  	}, {
  		.name = "intf_7", .id = INTF_7,
  		.base = 0x3b000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 18),
-@@ -379,7 +379,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
- 	}, {
- 		.name = "intf_8", .id = INTF_8,
- 		.base = 0x3c000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_1,	/* pair with intf_4 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-index 52ff4baa668a..b35ad618ff63 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-@@ -335,7 +335,7 @@ static const struct dpu_intf_cfg x1e80100_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x37000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-@@ -367,7 +367,7 @@ static const struct dpu_intf_cfg x1e80100_intf[] = {
- 	}, {
- 		.name = "intf_7", .id = INTF_7,
- 		.base = 0x3b000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_2,	/* pair with intf_6 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 18),
-@@ -375,7 +375,7 @@ static const struct dpu_intf_cfg x1e80100_intf[] = {
- 	}, {
- 		.name = "intf_8", .id = INTF_8,
- 		.base = 0x3c000, .len = 0x280,
--		.type = INTF_NONE,
-+		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_1,	/* pair with intf_4 for DP MST */
- 		.prog_fetch_lines_worst_case = 24,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
 
 -- 
 2.43.0
