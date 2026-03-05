@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iO7jHelzqWl77wAAu9opvQ
+	id cHnWJkp3qWl77wAAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 13:15:37 +0100
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 13:30:02 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 090A02116B3
-	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 13:15:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05831211AA5
+	for <lists+freedreno@lfdr.de>; Thu, 05 Mar 2026 13:30:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDA8B10E002;
-	Thu,  5 Mar 2026 12:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 762E710E295;
+	Thu,  5 Mar 2026 12:30:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C87010E002
- for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2026 12:15:35 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-35982fd8910so2115872a91.1
- for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 04:15:35 -0800 (PST)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9486210E296
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2026 12:29:59 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-c70ea5e9e9dso2931725a12.1
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Mar 2026 04:29:59 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772712934; x=1773317734;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yS764krKV6WfB8kOxjvP29bXooB1nm1bNBDNiujlO4g=;
- b=EI0M2a+GQ9BiWyz9gEA+WIjfUUbyyd8ZScQZzHcgKkhSBEJZsngyhpUT5xkOwEVS7S
- kQmhjZjDtQzgXOPP1srmabWwmhLc0XbkQy5a6SMXr9u1JpJrmmD3Hyqb5IyfhHRq32vr
- b9dOhuZmbuUn3EnD0sNaeVW8brnvi/sTsN8ZEvs7PkCWiOyCzd1F8I3+bsxdJ0quDrFl
- loodQGMJtCMp4tqfASoECWYMXpQypS533hKovdGbSMZaj7jUK3Dn3WzilxE0HOu6FzaK
- e0MTVWszH1JXepnfvwt+JOgw35cihUBi7xYL+PcQXtoBenHsD4yl+b9tl788faAw42YA
- Epcg==
+ d=1e100.net; s=20230601; t=1772713799; x=1773318599;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QrCqdrr01xMGx/SCx6YPhCapPZnumyW3whTx771nk9I=;
+ b=apIUpTOSMfs71LZRyyfSoH+pNDKOOa6FhX2A7AJ78P3TKd80UxUoUbZR++vQNp0MdQ
+ xdhPiEES0LsGKopriZ4DCyX+j446pGIkW1meQTfv6Jv/7i2+kRunTEAM/hR2XFXUh+TX
+ bV6AY/wl7jvwzLVH6L1LRCBKEjeCtzebXJEVcMIU9IRf/e3ICqnjSXZEhRVYbOuL9Dc2
+ y6pmgHFk5utAe8ZR46EGU7Ws0b2OuxpdZ4btGvkMKDwTOE0D6T3wLnVNRznZNeIsruLJ
+ m3Z5RkCU2rQMnb7vZR/7yU9gOig/I1mb7UG9ZHlvPeLAHr6CUpl8/Aves5bt5ojXW95z
+ YM7g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWseBosdnYxn3rp7nvfDq7iNrJO2VCBOG6oTHa0kSbz6DTdaxfGzxIAiVXjJzogiaNQgGzFGKz0TWo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFnQUtK1fViqNoo8Vf3khJKT+SYYUQPXed5fV7Y4myxXyNPkOl
- +n+YfD9M+PpYtOnWW8H6Gg2m6h/cltCGveAobn/qdTuV7PG+w4QKmxY+
-X-Gm-Gg: ATEYQzz28U8aaH6i2SGhuzudbMck+bkHrLCYzcs9TFioS67UvmkgO5oae8G0SZAPd6+
- nlTRfDwzPRsjfsHaL0367IPBve/IqATj00GK5w/ohYlQvM91900UrnFa79nc1PBz3Xrm6x7ehAe
- 7V3saxpfMR1fXlXNwwyYUv9z+9r3SJQeGEpLP46ISCc7XtQgNWVtX5lmRoZe00zdzZC/a283f18
- pUyyqHiOHlIAfEO8lUQxfDIllwMtJSKeEG1fopJzBwEfEJ9zM58IdcEiqekNa7zTEexj2xR5PtS
- Jw+Z2C9WBqwxznQeQ9jHVKCH8P+nErq5wAYm32n/p5akonY/QYGYMtQGM9KTa+6bJsJi9luYbuB
- 8EOD4r7g9SuXaMVYZ5VnuDDvMVSwsyhmBBEn3yVRSnImbVGscsjl65OBmllltiB9TvsYAkQXeRN
- keJrHkrPgC2CK+DkNIwUUlyj07/VL8kAJIEHKPXH4pO0viA4XmA7YA6BE2q/P+92kihQBgd4mUj
- FGQ97G3qaQLoZSptPQF4R6iWRqNNYM7QiapqhoaoPtUUHnK5rJadL70qNluzg==
-X-Received: by 2002:a17:90a:d44b:b0:34e:630c:616c with SMTP id
- 98e67ed59e1d1-359a6a92750mr4210979a91.31.1772712934483; 
- Thu, 05 Mar 2026 04:15:34 -0800 (PST)
+ AJvYcCU5tOdm2UN4fKEYSv9ztmjfJhqmw35jBWsoRf122S9clqIQlFwrrd4f9epHQRI7Ek9gLZYxgV6okpA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyHf6a9MjyyPyn89/AvV47BU0RcnYhE366kw4Ou9jPifc/2W3lc
+ LsnlPWE0fEAY3zRglVfhZraTB5ONsgI7QTb/YZFdKgj2DvWiO5s/Xeec
+X-Gm-Gg: ATEYQzy6zgpqRsb3/ZPQGhU6E86qLMQ2yR3f6sseoHBQHw8/vePVLnoOanj181vynOr
+ BBUR6SL/ICw9O5XvpAu1LoCwjT6hKHSEisoXet7fjJJ/Y9WriQDQ+udkJa5MP7B/nYMnZUKNa+a
+ yQ0QoSbyvMYcmled2InHUTmFU6yyc5KFQoMWZAPB6tkkWG7OPXVuAQT4qdIvMCtW7TR+dastiIB
+ HZk28QnIegtV8xfPlA7Nfr2vq73WG6UNfxObyVG2vJFx1ymK0/fgydzFAmo7LAB+2G/hI0RMFgK
+ oW3/UEgJCFtqUx5YFIk0wa+eVqA+pn6stkmVAoO8M9PNmVQSk25iFOcsYhhXN972WHLGz8YXWBt
+ uGDtYmsKzO8SrGnLha6p/UzWE7yJPMgJpK+wA1qkVLywy3F1hEDsPsn1UMJCD6OkbMXiH74x7fD
+ N/R8aJr+AKSTtj6xHy0W62Bfobz+HkU01XN7mlHJ01Ft9B7SCui3/Zb57BjAtBthAEy8yz96i/B
+ TP7pu25EsPXby7stlKO0H9tOKNFMssK5eLrfGdKXCelxMBeAYA=
+X-Received: by 2002:a17:903:1a43:b0:2ae:4701:3c31 with SMTP id
+ d9443c01a7336-2ae6a9cc1c0mr59976385ad.11.1772713799017; 
+ Thu, 05 Mar 2026 04:29:59 -0800 (PST)
 Received: from localhost (fpd11144dd.ap.nuro.jp. [209.17.68.221])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-359b2c1daa6sm2391359a91.0.2026.03.05.04.15.33
+ d9443c01a7336-2adfb69fa43sm225561035ad.46.2026.03.05.04.29.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 04:15:33 -0800 (PST)
-Date: Thu, 5 Mar 2026 21:15:32 +0900
+ Thu, 05 Mar 2026 04:29:58 -0800 (PST)
+Date: Thu, 5 Mar 2026 21:29:57 +0900
 From: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>
 To: Vladimir Oltean <vladimir.oltean@nxp.com>
 Cc: Joe Perches <joe@perches.com>,
@@ -72,17 +72,19 @@ Cc: Joe Perches <joe@perches.com>,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
  UNGLinuxDriver@microchip.com
 Subject: Re: [PATCH phy-next 22/22] MAINTAINERS: add regex for linux-phy
-Message-ID: <20260305121532.GA1649635@rocinante>
+Message-ID: <20260305122957.GA1652563@rocinante>
 References: <20260304175735.2660419-1-vladimir.oltean@nxp.com>
  <20260304175735.2660419-23-vladimir.oltean@nxp.com>
  <a8fee1cd-1e69-4a9e-8533-c0988c480fb9@oss.qualcomm.com>
  <20260305085148.7cwo3yflp7vcfldf@skbuf>
  <f3a5aa3df78553ffc0fd0024f5fd36a4e2158c88.camel@perches.com>
  <20260305114352.2f7btqixg4tu5bzl@skbuf>
+ <20260305121532.GA1649635@rocinante>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260305114352.2f7btqixg4tu5bzl@skbuf>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260305121532.GA1649635@rocinante>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,59 +99,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: 090A02116B3
+X-Rspamd-Queue-Id: 05831211AA5
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.01 / 15.00];
 	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	DMARC_POLICY_SOFTFAIL(0.10)[linux.com : SPF not aligned (relaxed), No valid DKIM,none];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[linux.com : SPF not aligned (relaxed), No valid DKIM,none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:vladimir.oltean@nxp.com,m:joe@perches.com,m:konrad.dybcio@oss.qualcomm.com,m:linux-phy@lists.infradead.org,m:vkoul@kernel.org,m:neil.armstrong@linaro.org,m:dri-devel@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-arm-msm@vger.kernel.org,m:linux-can@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-ide@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-pci@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-riscv@lists.infradead.org,m:linux-rockchip@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:linux-sunxi@lists.linux.dev,m:linux-tegra@vger.kernel.org,m:linux-usb@vger.kernel.org,m:netdev@vger.kernel.org,m:spacemit@lists.linux.dev,m:UNGLinuxDriver@microchip.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[kw@linux.com,freedreno-bounces@lists.freedesktop.org];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	RCPT_COUNT_TWELVE(0.00)[26];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
 	FROM_NEQ_ENVFROM(0.00)[kw@linux.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	R_DKIM_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno];
-	TO_DN_SOME(0.00)[]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
 X-Rspamd-Action: no action
 
-Hello,
+On 26-03-05 21:15:32, Krzysztof Wilczyński wrote:
+> Hello,
+> 
+> > K:	\b(?:__)?(?:devm_)?(?:of_)?phy_(?:create|destroy|provider_(?:un)?register)\b
+> > K:	\bphy_(?:create|remove)_lookup\b
+> > K:	\bphy_(?:get|set)?_drvdata\b
+> > K:	\b(?:devm_)?(?:of_)?phy_(?:optional_)?(?:get|put)(?:_by_index)?\b
+> > K:	\bphy_pm_runtime_(?:get|put)(?:_sync)?\b
+> > K:	\bphy_(?:init|exit|power_(?:on|off))\b
+> > K:	\bphy_|(?:get|set)_(?:mode(?:_ext)?|media|speed|bus_width|max_link_rate)\b
+> > K:	\bphy_(?:reset|configure|validate|calibrate)\b
+> > K:	\bphy_notify_(?:connect|disconnect|state)\b
+> > K:	(?:struct\s+)?phy(?:_ops|_attrs|_lookup|_provider)?\b
+> > K:	(?:linux/phy/phy\.h|phy-props\.h|phy-provider\.h)
+> 
+> What about
+> 
+>   F:	drivers/*/*phy*
+> 
+> or something along these lines.
 
-> K:	\b(?:__)?(?:devm_)?(?:of_)?phy_(?:create|destroy|provider_(?:un)?register)\b
-> K:	\bphy_(?:create|remove)_lookup\b
-> K:	\bphy_(?:get|set)?_drvdata\b
-> K:	\b(?:devm_)?(?:of_)?phy_(?:optional_)?(?:get|put)(?:_by_index)?\b
-> K:	\bphy_pm_runtime_(?:get|put)(?:_sync)?\b
-> K:	\bphy_(?:init|exit|power_(?:on|off))\b
-> K:	\bphy_|(?:get|set)_(?:mode(?:_ext)?|media|speed|bus_width|max_link_rate)\b
-> K:	\bphy_(?:reset|configure|validate|calibrate)\b
-> K:	\bphy_notify_(?:connect|disconnect|state)\b
-> K:	(?:struct\s+)?phy(?:_ops|_attrs|_lookup|_provider)?\b
-> K:	(?:linux/phy/phy\.h|phy-props\.h|phy-provider\.h)
+For content match, it could also be:
 
-What about
+  K:	phy
 
-  F:	drivers/*/*phy*
+I believe this would match everything of interest?  Perhaps there is no
+need to have any of these complex regular expressions, would be my way of
+thinking here.  Makes it easier to maintain, too.
 
-or something along these lines.
+Just thinking out loud, really...
 
 	Krzysztof
