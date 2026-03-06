@@ -2,72 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yPAhESn4qmlxZAEAu9opvQ
+	id MEhGANcBq2msZQEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 16:52:09 +0100
+	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 17:33:27 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7B8C224438
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 16:52:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D50224F3E
+	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 17:33:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A401210ED6D;
-	Fri,  6 Mar 2026 15:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86BB210ED84;
+	Fri,  6 Mar 2026 16:33:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sDoh2dpx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EkUsr5QC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E52E10ED6D;
- Fri,  6 Mar 2026 15:52:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C1A344395;
- Fri,  6 Mar 2026 15:52:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153C4C4CEF7;
- Fri,  6 Mar 2026 15:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772812326;
- bh=VB7z6G4/ZLlDD7r7FKPmMsl9wkW7kNZ+4WwUIRbuOyo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=sDoh2dpx7TsNXplh355AlqTBYRr5byBVn6JZf1XoqnYR1K+T+maAULQRE1A8qMTKg
- xHtDnGP3+GPygxGHbqLIvytNB/VHWUllxD053WfzTs9wBqALLwbozdBF0kwn8YAiHi
- Xu+QgLYJOxkJYXesCociGAm3EP56F0PYeEeSS654JMCMTmP6hSLKZ10k+hxyes9CS7
- fc1mRKGwqqkaaOT8ht0+Lr30ETzX5q8TdzY8TBMqGfrLO191G538lT12CTQC62TveW
- Unm/228UfIdJvqzUYQpEGHVCvmMkdgkcg+yf2e0/KQQIz8ISf60N9dK2kpAVokD3WG
- +CtPHgNkHZr8w==
-Message-ID: <eb0ef26d-d1db-43b9-8113-a7c977d4b8cd@kernel.org>
-Date: Fri, 6 Mar 2026 07:52:01 -0800
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C16410ED84
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Mar 2026 16:33:23 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-829ac8d56c5so341325b3a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Mar 2026 08:33:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772814803; x=1773419603; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fniX8oUV8n9EE4oHisFRFMjU1mIvUBscUL0mED7CFfk=;
+ b=EkUsr5QCICm7FwhOL4zryKWxHqaNqFpduDy/dVjZQU2SE1cvoYjPJq36ZWsm20FXSv
+ t81+dJ6uwI7BYi9rBJ3rOOxScd7qPZqzfgsxPO2MP6djyBPLnleTp8zZaUZEUnU2NMew
+ CJkwZv6FxbWn8iSIPThaSnzdSpduYFbEOrZ3oSrhUzoQt0K8dQe7gQ3MH1us7SB1qMpL
+ amZE8FzmGip3X2yK7AwLRaVjQX7xacsDVIixMJt4zAM7S67SspYC9v6LJQhIF7La3/Zz
+ SLufsxYbjtcJ4e7d+hgeJf4t98cg6RqeINqMK3S8/N6bkzaLtCAKUElsHD9ddJYnVFNV
+ QkJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772814803; x=1773419603;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fniX8oUV8n9EE4oHisFRFMjU1mIvUBscUL0mED7CFfk=;
+ b=gYQisC9D8hJ6/8vTDrkQ/RDkMX+QqK6/h6P5to7fgx7RpS/3UnKHC0O7w13/bL6He4
+ 4xbzcGnccy4Z8NTcP1cl6v7K8oV115LCvfFJBE9f7VlmMo6AHgspJiBIOy5VqdHUYQyS
+ EUvJkP11hsquUinWBHW3QDo6sP3YVVSyhmmbmjL9Iii8Kxph9pIUhyhjV6eJSO2BKfWN
+ 9cN6d31O6rQ/6a8hfa3l05n3TiVNolOT0/1AWpzBdFt4sONSUMHKgSY1Yc5wJf0j8GTH
+ BpLqtO1GILSgpDvJ3Io7iG/lX4mRi+eIW66LITSslMuvikGEZ3RX+EqndSfdF8raYT7n
+ 8QhQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVODTotRDa1RLFaLioQjPb9rMwKmhOPiPsGA/bo+Lh8ZIJXHbrzTWmkNon09PDZJxgSmad3xCwR4YY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz321L4cY/IBThs6ZNx84EkUrLiIIgYZMhW1Pi0jXw/OVf01xdW
+ 1QhPR1aB+S7r96EYOqbahHa5C4dVqHm46wg93Pjs0tpL4tZ/jLaCpGpD
+X-Gm-Gg: ATEYQzw3LY6L8Ibt4FQGPcCkbqK9s7hXamOcMrTdmMYsHTWJto3sA/piOlRRSlG226b
+ do0Nz9YTNkk8KSNnJQPW3tXdo79hs7cqv74uHkyRRreL4egku5N4SmlI2UFGTP/vjD0DHHzNJa+
+ AdktFSY0jCNFF0zTnl5sVbhR9mDnsWyBc0jZ/30aaBQG0GHKpurNmTRz+EFnp7j/kdvGsVAMUBY
+ Yks/EpaTGBf++f7SAiEsVNbmZwXgr+r5bcu30D8nm1TEpkHSW53+98Z49u7vvxhgneu6tTYNYAp
+ vZMzIwhznzX88ytMZ8pmz0kffczMRNay7DgklQkxGxfIgPN7d7OQyBg91XZ5bE9CSM61lFe966+
+ lfxmEhnuEND767mW50ChTvcaDvJyKeayMvzYBdWi7sbYCKx2Ac1US0AwlY4dmwqskPZYZg/6l33
+ lN9BIUxj58l1GwP/sY9g==
+X-Received: by 2002:a05:6a00:1408:b0:824:93e4:2de1 with SMTP id
+ d2e1a72fcca58-829a2eaed31mr2478705b3a.30.1772814802771; 
+ Fri, 06 Mar 2026 08:33:22 -0800 (PST)
+Received: from nuvole ([109.166.36.159]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-829a4676187sm2786788b3a.27.2026.03.06.08.33.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Mar 2026 08:33:22 -0800 (PST)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Pengyu Luo <mitltlatltl@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/dsi: fix pclk rate calculation for bonded dsi
+Date: Sat,  7 Mar 2026 00:32:38 +0800
+Message-ID: <20260306163255.215456-1-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/14] wifi: ath12k: Switch to generic PAS TZ APIs
-To: Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
- sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org,
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260306105027.290375-1-sumit.garg@kernel.org>
- <20260306105027.290375-14-sumit.garg@kernel.org>
-From: Jeff Johnson <jjohnson@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260306105027.290375-14-sumit.garg@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,46 +95,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: C7B8C224438
+X-Rspamd-Queue-Id: 33D50224F3E
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.19 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	MAILLIST(-0.20)[mailman];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:mitltlatltl@gmail.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[49];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,poorly.run,linux.dev,gmail.com,somainline.org,ffwll.ch,lunn.ch,davemloft.net,google.com,redhat.com,linaro.org,qti.qualcomm.com,lists.trustedfirmware.org];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
+	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,lists.freedesktop.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.985];
-	FROM_NEQ_ENVFROM(0.00)[jjohnson@kernel.org,freedreno-bounces@lists.freedesktop.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno,dt,netdev];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,qualcomm.com:email]
+	NEURAL_HAM(-0.00)[-0.996];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[freedreno];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
 X-Rspamd-Action: no action
 
-On 3/6/2026 2:50 AM, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> Switch ath12k client driver over to generic PAS TZ APIs. Generic PAS TZ
-> service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
-> 
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Recently, we round up new_hdisplay once at most, for bonded dsi, we
+may need twice, since they are independent links, we should round up
+each half separately. This also aligns with the hdisplay we program
+later in dsi_timing_setup()
 
-Acked-by: Jeff Johnson <jjohnson@kernel.org>
+Example:
+	full_hdisplay = 1904, dsc_bpp = 8, bpc = 8
+	new_full_hdisplay = DIV_ROUND_UP(1904 * 8, 8 * 3) = 635
+
+if we use half display
+	new_half_hdisplay = DIV_ROUND_UP(952 * 8, 8 * 3) = 318
+	new_full_display = 636
+
+Fixes: 7c9e4a554d4a ("drm/msm/dsi: Reduce pclk rate for compression")
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index e8e83ee61..db6da9937 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -584,13 +584,30 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+  *  FIXME: Reconsider this if/when CMD mode handling is rewritten to use
+  *  transfer time and data overhead as a starting point of the calculations.
+  */
+-static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
+-		const struct drm_dsc_config *dsc)
++static unsigned long
++dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
++				const struct drm_dsc_config *dsc,
++				bool is_bonded_dsi)
+ {
+-	int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
+-			dsc->bits_per_component * 3);
++	int hdisplay, new_hdisplay, new_htotal;
+ 
+-	int new_htotal = mode->htotal - mode->hdisplay + new_hdisplay;
++	/*
++	 * For bonded DSI, split hdisplay across two links and round up each
++	 * half separately, passing the full hdisplay would only round up once.
++	 * This also aligns with the hdisplay we program later in
++	 * dsi_timing_setup()
++	 */
++	hdisplay = mode->hdisplay;
++	if (is_bonded_dsi)
++		hdisplay /= 2;
++
++	new_hdisplay = DIV_ROUND_UP(hdisplay * drm_dsc_get_bpp_int(dsc),
++				    dsc->bits_per_component * 3);
++
++	if (is_bonded_dsi)
++		new_hdisplay *= 2;
++
++	new_htotal = mode->htotal - mode->hdisplay + new_hdisplay;
+ 
+ 	return mult_frac(mode->clock * 1000u, new_htotal, mode->htotal);
+ }
+@@ -603,7 +620,7 @@ static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
+ 	pclk_rate = mode->clock * 1000u;
+ 
+ 	if (dsc)
+-		pclk_rate = dsi_adjust_pclk_for_compression(mode, dsc);
++		pclk_rate = dsi_adjust_pclk_for_compression(mode, dsc, is_bonded_dsi);
+ 
+ 	/*
+ 	 * For bonded DSI mode, the current DRM mode has the complete width of the
+-- 
+2.53.0
 
