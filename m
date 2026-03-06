@@ -2,140 +2,153 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wBVAIUMhq2mPaAEAu9opvQ
+	id FnDjJkU5rGm/nAEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 19:47:31 +0100
+	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 15:42:13 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E343A226D60
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 19:47:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B36EE22C34A
+	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 15:42:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7657010EDDB;
-	Fri,  6 Mar 2026 18:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C9510E02C;
+	Sat,  7 Mar 2026 14:42:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RVAjrCY5";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W9t4bouj";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TjQFsEg3";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J6UZ8D7E";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3543D10EDFB
- for <freedreno@lists.freedesktop.org>; Fri,  6 Mar 2026 18:47:28 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8230E10E162
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Mar 2026 19:48:00 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 626H217D668129
- for <freedreno@lists.freedesktop.org>; Fri, 6 Mar 2026 18:47:27 GMT
+ 626H2PU4742675
+ for <freedreno@lists.freedesktop.org>; Fri, 6 Mar 2026 19:48:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=xUscRt9PkJfXclN0l0QtK+rE
- L2+xLTOFDpKgHRcpxBA=; b=RVAjrCY5rpNslW9GVgCRo31k0oo0n3frulR0LfeO
- 6HtgKl3pBCq0JNF9c0YeQeR1StLG/7/nZi1jp3FOx/SQuhj6CIYIWfK/LHeONkof
- JSk3XX1bI5EWcHNbIiqE7Ux8sI6hxW7i045Hc/3oD0TwWsiKOGYO8e+qUnQQ0SIX
- qx6x/0oDpGZzTglb+eGWr/E7x3RNps01g/fQbVqDs5pG4w9MbR8HNHAbsyAiY7wK
- /DHOalIkXoGFohizLcu4qpeBTN4pepA7Ai70IWWPQBZA0AXi6AorjlRVu6Zs/J3c
- OiZbvv/ucEimaeG44Zt7i4Y8f48yShJSYcXnDFdaX1Zztg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cr2ye0csd-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ QI/LADBID+jqzAG3mtTdzJ4YzKT2Vu+d+JqTnL3p4aA=; b=TjQFsEg3+52Tkgyi
+ +ks4OzAhzjzC/ve69IAeOdZ3dw7LnExFJpYA3gwtJqFOHtIxvVfjWINpZo/mvCNZ
+ qEzNY4yw1XmiCEJ2889/fO7ULT1v2kXmg/34ipzGwCGTM/c8/sHFjvmhWxt4WK+l
+ Z0aGz+D8+CQ9vklqjVtwmjC1j2nVkpNKBRH/ZtYoQQFz/krB2m0Dp6hPzAjxSIV5
+ YsFbVBoQ2whPIInkv3cbSf7mrNAEbH+hBWy6xo/jCzgc1WAtFcj4DQ3DS5w3Hc+m
+ NZmf46s+W1wKeZUw18EnGWiHmqUGAICtkD0thCP6sr6n0r/dNtrNihYKzngVcOX4
+ NfDHew==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cqpxdu6k9-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 06 Mar 2026 18:47:27 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8cb706313beso1257348785a.3
- for <freedreno@lists.freedesktop.org>; Fri, 06 Mar 2026 10:47:27 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Mar 2026 19:47:59 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id
+ a92af1059eb24-1275c2ae713so3587970c88.0
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Mar 2026 11:47:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772822847; x=1773427647;
+ d=oss.qualcomm.com; s=google; t=1772826479; x=1773431279;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xUscRt9PkJfXclN0l0QtK+rEL2+xLTOFDpKgHRcpxBA=;
- b=W9t4bouj8VmZbIPm2AHcYar43huuOKvB2A8nbf7ZP+v6DIfGxlAho+E8/0Yn1+P0vr
- 37NCvaGr0FuUZ4R9tg5QB/Q7KflauTicg40Keih1hoLCrgWpq8ay7xIdS2SOk5NmWCJl
- +TYJmjcGn78COJQ58cGYZbHnIJABqTykgUazs+o48GpBz9bOjPR1DLCC0MG9gPaYVVjF
- oWFe2S1lU3IUM4C197c4leU1IYhULP7ZW7eiY6jim4afKTisYY0LuurHSGqktPhDRbxV
- 09X4FYLohWJjCh2rOqr53/Q6MtjBTsUTWZ10AzXWX387wIS/OBoOuLbXhIiqr7z2EiFK
- Xing==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QI/LADBID+jqzAG3mtTdzJ4YzKT2Vu+d+JqTnL3p4aA=;
+ b=J6UZ8D7EcaMVP/J2hQ3lubC2tdwe97ubne3x4aanmndyzJ42FyEBxg4/vlYPtCBuuc
+ houdKdiIn0zueQIcbAVFAPgDvV7CTrDDCrnDiRNFPda/6TM64zSQtTOX28dqP/aY2Rs4
+ iKXEK1PkFpSrsXcSAYBIUD35AS7jW+9vD/x1DSxTZdJ8c7tH0WvlOoWE7AbxIfo5Q8X5
+ 5HVhHbbJ7X0GY/Va0rMXHa/LaJxod2EBe1xSRvXAjXQXsMGODB/OFn4mCo2+4szgkYAX
+ iYe2wbqs+A0lEtmLiDlKLanL9IYjYEpYz7x7hbKWWVLWJjdlcUiP34qkzrNpy5pR0Vth
+ 4kfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772822847; x=1773427647;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xUscRt9PkJfXclN0l0QtK+rEL2+xLTOFDpKgHRcpxBA=;
- b=gOMJ+6n684sVNWXe1GNoMbREJQdbPXRjW9cOBRRaqka3wu1FbbXxPTgIogBKEPjpAx
- HxRdwzJ3UbuaxLNIL0w1EqiC+rtcXm1PnaZ0YVSQ0a5iozn/aObjweVA8bPbMguiAb/X
- 0Mqetp/vmp3YMn7KuZitt7vXBW2lfVwkqiivywYnG8ig2M5TbNA3tVY3KRbpwHCmqI+O
- XMUYfnXMghuBW8gU81fHvU84DLUtmi4UKXqb2xJLILiPGfnZpaK7ZsiMOX4teLYeICBx
- LKCe/bby6kgtN/huC5PkrPeAez48Nd12REymp962srErzfp0TuziyzEKJjJndwTqZqsH
- hovg==
+ d=1e100.net; s=20230601; t=1772826479; x=1773431279;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QI/LADBID+jqzAG3mtTdzJ4YzKT2Vu+d+JqTnL3p4aA=;
+ b=nU38KFAqrs6bDDK4w/oR3OyvzQC6P3IGR7Tuu/At5C5CLwh96woWJtbhIVoayottxK
+ iutxA4d0kWmgu8vqZR50j0bRMBVTJuAgkejOTY/FCYfLywIDd2XMWZgxNfj2ra3pMpYP
+ +kWT/IfaDhGA69XB6Ffp/mXYa/mFot6BRAS+niqSLmD+2dh1XXUqoTZ44AEbjbX7DI7c
+ Zcfx5rqs3Nh71+/ABTf1FTHfi4bO4vVslofjyGAGc4o+gIY34LzUmjk4yBdiMStKMw7A
+ K41dfHOz8m8szq9nre16jyUlHfzfUntipRYSidqkRaxQlGEl7pfxYjWWRAIf1dGlFIOf
+ r3hQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVXq0G1zRrDrpqB6BeflYzVXxjwsk54YuqInZEkZlB+8qheX9SjJm0T1tYya/0CcB3AKD1okUQDBTg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUPmquuql5C1W6xc8cTQm8kDjYarr8yenrk0C7s2WX84/8r14u
- pFgzHKYcJjxSePrad3wGgw5feYDsLmTBO31KhroT0ZYQ4Ewp3GHY1EkVnhaw9vTMDoVCUuf+RLD
- ffX0Nt5TIpPYWrw5Rx0rcmlOTXBEk0HzS0m7nHH6XMS8kIgcth0iIjMrG+Y6Q6YJvuZQz8CA=
-X-Gm-Gg: ATEYQzwMeRJ7oLVu2dHvvT9InklUE/rLhmmpKePOLf619qDM0qo+54eMFZcc2tbDXfw
- ljBIHN8jV5mKWv/j569HIaXQ9Q4NQwZqPXc1EvSWKCsjfAtqhlWfI6t4RVQ0tydb5SjfUURAH1q
- +8XLfv8VtN077V/kBBVYm9J4uRFmV+1jGgUJsxUKaHYAyvYf+Ew7LGQxNAUa+wfy4R12M2hs+b5
- zEhEfzETABen1/8qDRu6dwTlk4zLD8k5q2jxG20vtbGtTM6NwEj6j0rxKw6UQ0PXiwI2clCN7ya
- ekyqIBn4AW4fnKFxu31Reo16eOoCsY2E4bMQbJ0nhLK8vWCKZhQp6mmd3SPokgWObVx4ZKXx/Z4
- ImPSxwHA1KFIAaFGNE0QEKxSqSYABgHnP1xuPvxtPQISW/oUvFb9y0/w3GKOf5UhHA3wJxCety7
- 41gESc9Nhobk8bwygNvK15B6bTdWg2QZVHl0M=
-X-Received: by 2002:a05:620a:1726:b0:8cb:4fa5:d47a with SMTP id
- af79cd13be357-8cd6d494e49mr390658585a.77.1772822846526; 
- Fri, 06 Mar 2026 10:47:26 -0800 (PST)
-X-Received: by 2002:a05:620a:1726:b0:8cb:4fa5:d47a with SMTP id
- af79cd13be357-8cd6d494e49mr390654585a.77.1772822845978; 
- Fri, 06 Mar 2026 10:47:25 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AJvYcCUCD1DwEdMt1oGI4mjZZvZReQjtM9UAdVe6x5l4taCGvZwNwsI0PtbWsatYZULiy8FhoNyIopAWCPA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzr12wvz/3GzQG8o535Iaba83ILnk5mlVWM7fiD7bNiZB9JgHHw
+ LaIWTe5pzvmZOgnugbe5h4I77H9CPm4IfXBV5jf9msp0nBEwx+GJqAaq1YoldfN6XAX43F/pRkb
+ xTNIb5btYhIlWeDIGchZMghwnDEbwOhkqWD9c8kQy1cluEnh0ZFsJcSSIS4F9DFzUdigQ2XI=
+X-Gm-Gg: ATEYQzwKE0A8snmjGiY+cUZld+TXppHR3HhToeE0FdJ8+TUKd8YI93hFtBaLSHE2Q7U
+ acgs6m0s+UDkezEDYEJy4X2+Wq8Lve9RuYZkN9xA+2Tf9EvY4fXmmNh/TKdhuhlydBeHelwv6UB
+ AH07WFwl6zQhGuW7ln16XEb7GxBBWBrWVzDnBW0tMj8+LHBHObBvk+eCLpexuyVDZ5HsIkD0GT7
+ Svo7+zL6wej0jbouuYwPs/ZH9KpI9zha/8l2+Nm7uq6r57WUj85Ra+Q4P9HUxdlmDbzZDS195U5
+ ms/X8KsZ4XABUYbrBB5xyWZak+CbXBTHLu3pGkRm/kUWODtgNKloD3hm4ZQfbSZP0QTNGZSh9Ev
+ u3ZegTz6WvDZuOns+LyVTKY8s1Nfnm6PSxPpGJuLUIOpqfoyGD+vnfmc=
+X-Received: by 2002:a05:701b:424b:20b0:128:c958:96f3 with SMTP id
+ a92af1059eb24-128c9589a19mr430810c88.38.1772826478977; 
+ Fri, 06 Mar 2026 11:47:58 -0800 (PST)
+X-Received: by 2002:a05:701b:424b:20b0:128:c958:96f3 with SMTP id
+ a92af1059eb24-128c9589a19mr430751c88.38.1772826478139; 
+ Fri, 06 Mar 2026 11:47:58 -0800 (PST)
+Received: from [192.168.86.165] ([76.176.48.107])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38a41fa7bd5sm3212991fa.15.2026.03.06.10.47.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Mar 2026 10:47:24 -0800 (PST)
-Date: Fri, 6 Mar 2026 20:47:23 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Pengyu Luo <mitltlatltl@gmail.com>, Eugene Lepshy <fekz115@gmail.com>,
- Danila Tikhonov <danila@jiaxyga.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Eugene Lepshy <fekz115@gmail.com>,
- Danila Tikhonov <danila@jiaxyga.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dsi: remove bpc > 8 entries from allow list
-Message-ID: <groq7xzuqen2bhumrjt7u4v6mnpbnoxzpvn4cue2fayb2mim67@u2ya7glxxgv3>
-References: <20260306092518.37849-1-mitltlatltl@gmail.com>
+ a92af1059eb24-128c4065933sm1680909c88.16.2026.03.06.11.47.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Mar 2026 11:47:57 -0800 (PST)
+Message-ID: <e0a86461-c136-4371-99cf-c0b0d31443a3@oss.qualcomm.com>
+Date: Fri, 6 Mar 2026 11:47:55 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260306092518.37849-1-mitltlatltl@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA2MDE3NyBTYWx0ZWRfX5SgNE5K7Jshg
- liuRl40+EVd9Ww0nJPSrs7mCZWtEdADbDJLT5J6HXF51d+5+3YvqULBagWoWKqKNaB/vA0lKAmF
- PhtproaoQNmjCo8chNe7sM4niSjdCZcRF1lher1ArcehswFgqMj6CoQjSfUSInXBWGnXG9huyID
- vgW8AdSgFkhFhK5Ub8k4hNBwqkTwKwLBIGJUkDg//vvf+fRQzwcQrQxyVq/nxv+S+i09anQHveQ
- Ms90eDSSBxsu4rnscMGLeuqIpUaWz6tC6qo10j7ZtrvIkS7K1c9EnYrrjAv4WmYhg8seA5GfCYH
- lQRCmFZ8k2kgdpQ0xtaWFFq6p6CPjsYYjDs76XZplwJUg9R8PRKjvT+wIxGqoY2P593fdtrFV9i
- dJ87C5lb0eQv+UcJow+qt+sjkLJrA++VD4XHQ05APP95zUdicQiLWBktgyO6uMcEzu1NXMDBB7d
- qmRRc/d7MbAYt/PNZaQ==
-X-Authority-Analysis: v=2.4 cv=Bt+QAIX5 c=1 sm=1 tr=0 ts=69ab213f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8
- a=pi0S-Vlqv1HzeT5xHfUA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: VE9ruBT0iKXQI-ZjTW0RzAX7DvVy3jrb
-X-Proofpoint-ORIG-GUID: VE9ruBT0iKXQI-ZjTW0RzAX7DvVy3jrb
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/14] firmware: qcom: Add a generic PAS service
+To: Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
+ sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org,
+ abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
+ bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+ mathieu.poirier@linaro.org, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20260306105027.290375-1-sumit.garg@kernel.org>
+ <20260306105027.290375-3-sumit.garg@kernel.org>
+Content-Language: en-US
+From: Trilok Soni <trilokkumar.soni@oss.qualcomm.com>
+In-Reply-To: <20260306105027.290375-3-sumit.garg@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: hN6Dx1mQZtDZx-Q5FMN53FrjCic3wF4n
+X-Authority-Analysis: v=2.4 cv=E83AZKdl c=1 sm=1 tr=0 ts=69ab2f70 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=lsoD3MMNObdLvy1227ExmA==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=FJ8yPOFpIDEbGAQ7SYQA:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA2MDE4NiBTYWx0ZWRfX/5pIbRwuNd03
+ bbmxbRrJHXGKQSOR4gPUm2kPUSbq7ml2rTmgd7aX5tYaXp/M+jfSEOr0AoIczHkPerz0vQ7YecV
+ NiWDmxszfub3nKC6rDg/NrImmoIc50eq2KuZPI93RSMaqtCyMp7PpO0FxiSM7W1Qy123FGXYeM3
+ RLVTtUmFeI/vwoRdkdghmrAaV+yj7jxhR2eeHrRYdCRH3KtA+lJ+qzAl2qYESeU/p2CgANzLCEL
+ cuuAAI0fEIcDk+BiXnTt7nevFJ88Yxk6rmpPbepnn1eX3Kbk0KSWH1plZV3SK0AohK3SrBnPUHT
+ C7fRxPR2i2bI6RzqGHwKS8yAjwO2IGy0Rh+Ph9uRaNxuYnWdgXHHVsde2sVk2ptW162L2NqSDKv
+ wTaUs+B8bWX8UlNKZSCv9Fnwe+FtlcGJvo4BB7f6Uw17R+icJffr13pQnIq7ubjrc/sJ9z6Nbpt
+ acwmS9N28Jk/UXvGQNw==
+X-Proofpoint-GUID: hN6Dx1mQZtDZx-Q5FMN53FrjCic3wF4n
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-06_05,2026-03-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
- phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ clxscore=1011 suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603060177
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603060186
+X-Mailman-Approved-At: Sat, 07 Mar 2026 14:42:09 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,82 +163,556 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: E343A226D60
+X-Rspamd-Queue-Id: B36EE22C34A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.81 / 15.00];
+X-Spamd-Result: default: False [0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[17];
+	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,poorly.run,linux.dev,gmail.com,somainline.org,ffwll.ch,lunn.ch,davemloft.net,google.com,redhat.com,linaro.org,qti.qualcomm.com,lists.trustedfirmware.org];
 	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS(0.00)[m:mitltlatltl@gmail.com,m:fekz115@gmail.com,m:danila@jiaxyga.com,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com,jiaxyga.com];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch,jiaxyga.com,vger.kernel.org,lists.freedesktop.org];
+	FORGED_RECIPIENTS(0.00)[m:sumit.garg@kernel.org,m:linux-arm-msm@vger.kernel.org,m:devicetree@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-media@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:ath12k@lists.infradead.org,m:linux-remoteproc@vger.kernel.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:akhilpo@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:vikash.garodia@oss.qualcomm.com,m:dikshita.agarwal@oss.qualcomm.com,m:bod@kernel.org,m:mchehab@kernel.org,m:elder@kernel.org,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:jjohnson@kernel.org,m:mathieu.poirier@linaro.org,m:mukesh.ojha@oss.qualcomm.com,m:pavan.kondeti@oss.qualcomm.com,m:jorge.ramirez@oss.qualcomm.
+ com,m:tonyh@qti.qualcomm.com,m:vignesh.viswanathan@oss.qualcomm.com,m:srinivas.kandagatla@oss.qualcomm.com,m:amirreza.zarrabi@oss.qualcomm.com,m:jens.wiklander@linaro.org,m:op-tee@lists.trustedfirmware.org,m:apurupa@qti.qualcomm.com,m:skare@qti.qualcomm.com,m:sumit.garg@oss.qualcomm.com,m:krzk@kernel.org,m:conor@kernel.org,m:andrew@lunn.ch,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FORGED_SENDER(0.00)[trilokkumar.soni@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[48];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
 	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	NEURAL_HAM(-0.00)[-0.994];
-	TAGGED_RCPT(0.00)[freedreno];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[trilokkumar.soni@oss.qualcomm.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,qualcomm.com:dkim]
+	NEURAL_HAM(-0.00)[-0.998];
+	TAGGED_RCPT(0.00)[freedreno,dt,netdev];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:dkim,qualcomm.com:email,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,oss.qualcomm.com:dkim,oss.qualcomm.com:mid]
 X-Rspamd-Action: no action
 
-On Fri, Mar 06, 2026 at 05:25:00PM +0800, Pengyu Luo wrote:
-> In upstream the msm, for bpc greater than 8 are not supported yet,
-> although the hardware block supports this. Remove them until we
-> support them.
+On 3/6/2026 2:50 AM, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > 
-> Fixes: b0e71c2637d1 ("drm/msm/dsi: Allow values of 10 and 12 for bits per component")
-> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers.
 
-I hope Marijn, Danila or Eugeny can comment. The patch series with this
-patchset added 10 bpc panel and used it for one of the phones.
+You are using multiple conflicting terminologies here. In the first statement
+you have used "non-standard" and immediately you have used "aren't complaint".
 
+Which ARM document dictates that "standard" and "compliance" here? Are these
+SCM calls are using the vendor space per the spec, and if yes what does
+non-standard means here. 
+
+ These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from
+> Arm.
+> 
+> OP-TEE as an alternative trusted OS to QTEE can't support these non-
+
+What is QTEE? 
+
+> standard SCM calls. And even for newer architectures QTEE won't be able
+
+meaning of architecture please? Are you referring ARMv9.x or SOC architecture
+or software architecture? What does "newer" means? Is there
+any example available in public or are you ready to share? 
+
+> to support SCM calls either with FF-A requirements coming in. And with
+> both OP-TEE and QTEE drivers well integrated in the TEE subsystem, it
+> makes further sense to reuse the TEE bus client drivers infrastructure.
+> 
+> The added benefit of TEE bus infrastructure is that there is support
+> for discoverable/enumerable services. With that client drivers don't
+> have to manually invoke a special SCM call to know the service status.
+> 
+> So enable the generic Peripheral Authentication Service (PAS) provided
+> by the firmware. It acts as the common layer with different TZ
+> backends plugged in whether it's an SCM implementation or a proper
+> TEE bus based PAS service implementation.
+
+I haven't checked cover letter in detail, but did you tested these patches
+w/ the devices which doesn't support these new facilities? 
+
+> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
+>  drivers/firmware/qcom/Kconfig          |   8 +
+>  drivers/firmware/qcom/Makefile         |   1 +
+>  drivers/firmware/qcom/qcom_pas.c       | 295 +++++++++++++++++++++++++
+>  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
+>  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
+>  5 files changed, 398 insertions(+)
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+>  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e8e83ee61e..b60b26ddb0 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1824,12 +1824,9 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
+> diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
+> index b477d54b495a..8653639d06db 100644
+> --- a/drivers/firmware/qcom/Kconfig
+> +++ b/drivers/firmware/qcom/Kconfig
+> @@ -6,6 +6,14 @@
 >  
->  	switch (dsc->bits_per_component) {
->  	case 8:
-> -	case 10:
-> -	case 12:
->  		/*
-> -		 * Only 8, 10, and 12 bpc are supported for DSC 1.1 block.
-> -		 * If additional bpc values need to be supported, update
-> -		 * this quard with the appropriate DSC version verification.
-> +		 * In the upstream msm, only 8 bpc is supported for DSC 1.1/1.2
-> +		 * block.
->  		 */
->  		break;
->  	default:
-> -- 
-> 2.53.0
-> 
+>  menu "Qualcomm firmware drivers"
+>  
+> +config QCOM_PAS
+> +	tristate
+> +	help
+> +	  Enable the generic Peripheral Authentication Service (PAS) provided
+> +	  by the firmware. It acts as the common layer with different TZ
+> +	  backends plugged in whether it's an SCM implementation or a proper
+> +	  TEE bus based PAS service implementation.
+> +
+>  config QCOM_SCM
+>  	select QCOM_TZMEM
+>  	tristate
+> diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
+> index 0be40a1abc13..dc5ab45f906a 100644
+> --- a/drivers/firmware/qcom/Makefile
+> +++ b/drivers/firmware/qcom/Makefile
+> @@ -8,3 +8,4 @@ qcom-scm-objs += qcom_scm.o qcom_scm-smc.o qcom_scm-legacy.o
+>  obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
+>  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
+>  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
+> +obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
+> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+> new file mode 100644
+> index 000000000000..dc04ff1b6be0
+> --- /dev/null
+> +++ b/drivers/firmware/qcom/qcom_pas.c
+> @@ -0,0 +1,295 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device/devres.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
+> +#include <linux/of.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/slab.h>
 
--- 
-With best wishes
-Dmitry
+are you sure you are using functionalities from these header files?
+
+I couldn't find slab.h usage quickly and also qcom_scm.h. Can you please confirm?
+
+> +
+> +#include "qcom_pas.h"
+> +#include "qcom_scm.h"
+> +
+> +static struct qcom_pas_ops *ops_ptr;
+> +
+> +/**
+> + * devm_qcom_pas_context_alloc() - Allocate peripheral authentication service
+> + *				   context for a given peripheral
+> + *
+> + * PAS context is device-resource managed, so the caller does not need
+> + * to worry about freeing the context memory.
+> + *
+> + * @dev:	  PAS firmware device
+> + * @pas_id:	  peripheral authentication service id
+> + * @mem_phys:	  Subsystem reserve memory start address
+> + * @mem_size:	  Subsystem reserve memory size
+> + *
+> + * Returns: The new PAS context, or ERR_PTR() on failure.
+> + */
+> +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+> +						     u32 pas_id,
+> +						     phys_addr_t mem_phys,
+> +						     size_t mem_size)
+> +{
+> +	struct qcom_pas_context *ctx;
+> +
+> +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +	if (!ctx)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	ctx->dev = dev;
+> +	ctx->pas_id = pas_id;
+> +	ctx->mem_phys = mem_phys;
+> +	ctx->mem_size = mem_size;
+> +
+> +	return ctx;
+> +}
+> +EXPORT_SYMBOL_GPL(devm_qcom_pas_context_alloc);
+> +
+> +/**
+> + * qcom_pas_init_image() - Initialize peripheral authentication service state
+> + *			   machine for a given peripheral, using the metadata
+> + * @pas_id:	peripheral authentication service id
+> + * @metadata:	pointer to memory containing ELF header, program header table
+> + *		and optional blob of data used for authenticating the metadata
+> + *		and the rest of the firmware
+> + * @size:	size of the metadata
+> + * @ctx:	optional pas context
+> + *
+> + * Return: 0 on success.
+> + *
+> + * Upon successful return, the PAS metadata context (@ctx) will be used to
+> + * track the metadata allocation, this needs to be released by invoking
+> + * qcom_pas_metadata_release() by the caller.
+> + */
+> +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> +			struct qcom_pas_context *ctx)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->init_image(ops_ptr->dev, pas_id,
+> +					   metadata, size, ctx);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_init_image);
+> +
+> +/**
+> + * qcom_pas_metadata_release() - release metadata context
+> + * @ctx:	pas context
+> + */
+> +void qcom_pas_metadata_release(struct qcom_pas_context *ctx)
+> +{
+> +	if (!ctx || !ctx->ptr)
+> +		return;
+> +
+> +	if (ops_ptr)
+> +		ops_ptr->metadata_release(ops_ptr->dev, ctx);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_metadata_release);
+> +
+> +/**
+> + * qcom_pas_mem_setup() - Prepare the memory related to a given peripheral
+> + *			  for firmware loading
+> + * @pas_id:	peripheral authentication service id
+> + * @addr:	start address of memory area to prepare
+> + * @size:	size of the memory area to prepare
+> + *
+> + * Returns 0 on success.
+> + */
+> +int qcom_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->mem_setup(ops_ptr->dev, pas_id, addr, size);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_mem_setup);
+> +
+> +/**
+> + * qcom_pas_get_rsc_table() - Retrieve the resource table in passed output buffer
+> + *			      for a given peripheral.
+> + *
+> + * Qualcomm remote processor may rely on both static and dynamic resources for
+> + * its functionality. Static resources typically refer to memory-mapped
+> + * addresses required by the subsystem and are often embedded within the
+> + * firmware binary and dynamic resources, such as shared memory in DDR etc.,
+> + * are determined at runtime during the boot process.
+> + *
+> + * On Qualcomm Technologies devices, it's possible that static resources are
+> + * not embedded in the firmware binary and instead are provided by TrustZone.
+> + * However, dynamic resources are always expected to come from TrustZone. This
+
+Is it confirmed that it will always come from Trustzone? Is it not possible
+that it can come from trusted controller - bypassing the trustzone? Assuming that
+such controller is never modified by anyone else including final device makers and
+blessed by the trust boundaries. 
+
+Is this design going to scale if we put the MCU doing the heavy lifting instead? 
+
+
+> + * indicates that for Qualcomm devices, all resources (static and dynamic) will
+> + * be provided by TrustZone PAS service.
+> + *
+> + * If the remote processor firmware binary does contain static resources, they
+> + * should be passed in input_rt. These will be forwarded to TrustZone for
+> + * authentication. TrustZone will then append the dynamic resources and return
+> + * the complete resource table in output_rt_tzm.
+> + *
+> + * If the remote processor firmware binary does not include a resource table,
+> + * the caller of this function should set input_rt as NULL and input_rt_size
+> + * as zero respectively.
+> + *
+> + * More about documentation on resource table data structures can be found in
+> + * include/linux/remoteproc.h
+> + *
+> + * @ctx:	    PAS context
+> + * @pas_id:	    peripheral authentication service id
+> + * @input_rt:       resource table buffer which is present in firmware binary
+> + * @input_rt_size:  size of the resource table present in firmware binary
+> + * @output_rt_size: TrustZone expects caller should pass worst case size for
+> + *		    the output_rt_tzm.
+> + *
+> + * Return:
+> + *  On success, returns a pointer to the allocated buffer containing the final
+> + *  resource table and output_rt_size will have actual resource table size from
+> + *  TrustZone. The caller is responsible for freeing the buffer. On failure,
+> + *  returns ERR_PTR(-errno).
+> + */
+> +struct resource_table *qcom_pas_get_rsc_table(struct qcom_pas_context *ctx,
+> +					      void *input_rt,
+> +					      size_t input_rt_size,
+> +					      size_t *output_rt_size)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->get_rsc_table(ops_ptr->dev, ctx, input_rt,
+> +					      input_rt_size, output_rt_size);
+> +
+> +	return ERR_PTR(-ENODEV);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_get_rsc_table);
+> +
+> +/**
+> + * qcom_scm_pas_auth_and_reset() - Authenticate the given peripheral firmware
+> + *				   and reset the remote processor
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Return 0 on success.
+> + */
+> +int qcom_pas_auth_and_reset(u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_auth_and_reset);
+> +
+> +/**
+> + * qcom_pas_prepare_and_auth_reset() - Prepare, authenticate, and reset the
+> + *				       remote processor
+> + *
+> + * @ctx:	Context saved during call to qcom_scm_pas_context_init()
+> + *
+> + * This function performs the necessary steps to prepare a PAS subsystem,
+> + * authenticate it using the provided metadata, and initiate a reset sequence.
+> + *
+> + * It should be used when Linux is in control setting up the IOMMU hardware
+> + * for remote subsystem during secure firmware loading processes. The
+> + * preparation step sets up a shmbridge over the firmware memory before
+> + * TrustZone accesses the firmware memory region for authentication. The
+> + * authentication step verifies the integrity and authenticity of the firmware
+> + * or configuration using secure metadata. Finally, the reset step ensures the
+> + * subsystem starts in a clean and sane state.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int qcom_pas_prepare_and_auth_reset(struct qcom_pas_context *ctx)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->prepare_and_auth_reset(ops_ptr->dev, ctx);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_prepare_and_auth_reset);
+> +
+> +/**
+> + * qcom_pas_set_remote_state() - Set the remote processor state
+> + * @state:	peripheral state
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Returns 0 on success.
+> + */
+> +int qcom_pas_set_remote_state(u32 state, u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->set_remote_state(ops_ptr->dev, state, pas_id);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_set_remote_state);
+> +
+> +/**
+> + * qcom_pas_shutdown() - Shut down the remote processor
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Returns 0 on success.
+> + */
+> +int qcom_pas_shutdown(u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->shutdown(ops_ptr->dev, pas_id);
+> +
+> +	return -ENODEV;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_shutdown);
+> +
+> +/**
+> + * qcom_pas_supported() - Check if the peripheral authentication service is
+> + *			  available for the given peripheral
+> + * @pas_id:	peripheral authentication service id
+> + *
+> + * Returns true if PAS is supported for this peripheral, otherwise false.
+> + */
+> +bool qcom_pas_supported(u32 pas_id)
+> +{
+> +	if (ops_ptr)
+> +		return ops_ptr->supported(ops_ptr->dev, pas_id);
+> +
+> +	return false;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_supported);
+> +
+> +/**
+> + * qcom_pas_is_available() - Check for PAS service
+> + *
+> + * Returns true on success.
+> + */
+> +bool qcom_pas_is_available(void)
+> +{
+> +	/* The barrier is needed to synchronize with client drivers. */
+> +	return !!smp_load_acquire(&ops_ptr);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_is_available);
+> +
+> +/**
+> + * qcom_pas_ops_register() - Register PAS service ops
+> + * @ops:	PAS service ops pointer
+> + */
+> +void qcom_pas_ops_register(struct qcom_pas_ops *ops)
+> +{
+> +	if (!qcom_pas_is_available())
+> +		/* The barrier is needed to synchronize with client drivers. */
+> +		smp_store_release(&ops_ptr, ops);
+> +	else
+> +		pr_err("qcom_pas: ops already registered\n");
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_ops_register);
+> +
+> +/**
+> + * qcom_pas_ops_unregister() - Unregister PAS service ops
+> + */
+> +void qcom_pas_ops_unregister(void)
+> +{
+> +	/* The barrier is needed to synchronize with client drivers. */
+> +	smp_store_release(&ops_ptr, NULL);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_ops_unregister);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Sumit Garg <sumit.garg@oss.qualcomm.com>");
+
+What is the convention for Qualcomm authored drivers? In some drivers
+I find that Qualcomm doesn't add MODULE_AUTHOR. Can Qualcomm community
+clarify it here. I prefer consistency here for the Qualcomm submissions. 
+
+> +MODULE_DESCRIPTION("Qualcomm common TZ PAS driver");
+> diff --git a/drivers/firmware/qcom/qcom_pas.h b/drivers/firmware/qcom/qcom_pas.h
+> new file mode 100644
+> index 000000000000..4ebed22178f8
+> --- /dev/null
+> +++ b/drivers/firmware/qcom/qcom_pas.h
+> @@ -0,0 +1,53 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __QCOM_PAS_INT_H
+> +#define __QCOM_PAS_INT_H
+> +
+> +struct device;
+> +
+> +/**
+> + * struct qcom_pas_ops - Qcom Peripheral Authentication Service (PAS) ops
+> + * @drv_name:			PAS driver name.
+> + * @dev:			PAS device pointer.
+> + * @supported:			Peripheral supported callback.
+> + * @init_image:			Peripheral image initialization callback.
+> + * @mem_setup:			Peripheral memory setup callback.
+> + * @get_rsc_table:		Peripheral get resource table callback.
+> + * @prepare_and_auth_reset:	Peripheral prepare firmware authentication and
+> + *				reset callback.
+> + * @auth_and_reset:		Peripheral firmware authentication and reset
+> + *				callback.
+> + * @set_remote_state:		Peripheral set remote state callback.
+> + * @shutdown:			Peripheral shutdown callback.
+> + * @metadata_release:		Image metadata release callback.
+> + */
+> +struct qcom_pas_ops {
+> +	const char *drv_name;
+> +	struct device *dev;
+> +	bool (*supported)(struct device *dev, u32 pas_id);
+> +	int (*init_image)(struct device *dev, u32 pas_id,
+> +			  const void *metadata, size_t size,
+> +			  struct qcom_pas_context *ctx);
+> +	int (*mem_setup)(struct device *dev, u32 pas_id,
+> +			 phys_addr_t addr, phys_addr_t size);
+> +	void *(*get_rsc_table)(struct device *dev,
+> +			       struct qcom_pas_context *ctx,
+> +			       void *input_rt,
+> +			       size_t input_rt_size,
+> +			       size_t *output_rt_size);
+
+void * or resource_table * as return? 
+
+> +	int (*prepare_and_auth_reset)(struct device *dev,
+> +				      struct qcom_pas_context *ctx);
+> +	int (*auth_and_reset)(struct device *dev, u32 pas_id);
+> +	int (*set_remote_state)(struct device *dev, u32 state, u32 pas_id);
+> +	int (*shutdown)(struct device *dev, u32 pas_id);
+> +	void (*metadata_release)(struct device *dev,
+> +				 struct qcom_pas_context *ctx);
+> +};
+> +
+> +void qcom_pas_ops_register(struct qcom_pas_ops *ops);
+> +void qcom_pas_ops_unregister(void);
+> +
+> +#endif /* __QCOM_PAS_INT_H */
+> diff --git a/include/linux/firmware/qcom/qcom_pas.h b/include/linux/firmware/qcom/qcom_pas.h
+> new file mode 100644
+> index 000000000000..ef7328ecfa47
+> --- /dev/null
+> +++ b/include/linux/firmware/qcom/qcom_pas.h
+> @@ -0,0 +1,41 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __QCOM_PAS_H
+> +#define __QCOM_PAS_H
+> +
+> +#include <linux/err.h>
+> +#include <linux/types.h>
+> +
+> +struct qcom_pas_context {
+> +	struct device *dev;
+> +	u32 pas_id;
+> +	phys_addr_t mem_phys;
+> +	size_t mem_size;
+> +	void *ptr;
+> +	dma_addr_t phys;
+> +	ssize_t size;
+> +	bool use_tzmem;
+> +};
+> +
+> +bool qcom_pas_is_available(void);
+> +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+> +						     u32 pas_id,
+> +						     phys_addr_t mem_phys,
+> +						     size_t mem_size);
+> +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> +			struct qcom_pas_context *ctx);
+> +struct resource_table *qcom_pas_get_rsc_table(struct qcom_pas_context *ctx,
+> +					      void *input_rt, size_t input_rt_size,
+> +					      size_t *output_rt_size);
+> +int qcom_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size);
+> +int qcom_pas_auth_and_reset(u32 pas_id);
+> +int qcom_pas_prepare_and_auth_reset(struct qcom_pas_context *ctx);
+> +int qcom_pas_set_remote_state(u32 state, u32 pas_id);
+> +int qcom_pas_shutdown(u32 pas_id);
+> +bool qcom_pas_supported(u32 pas_id);
+> +void qcom_pas_metadata_release(struct qcom_pas_context *ctx);
+> +
+> +#endif /* __QCOM_PAS_H */
+
