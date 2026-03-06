@@ -2,115 +2,149 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4GuLN0S3qmkiVwEAu9opvQ
+	id 4OkkG77NqmkNXQEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 12:15:16 +0100
+	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 13:51:10 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5967221F81A
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 12:15:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD647220FE0
+	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 13:51:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18BEC10ECEE;
-	Fri,  6 Mar 2026 11:15:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5E210ED26;
+	Fri,  6 Mar 2026 12:51:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Skgyak60";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="KLhhK79j";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDDE10ECED;
- Fri,  6 Mar 2026 11:15:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 45E2F43747;
- Fri,  6 Mar 2026 11:15:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847E0C4CEF7;
- Fri,  6 Mar 2026 11:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772795713;
- bh=qQ1LMDD+Itww5H6FRPGdFnCtQZPG9QaXWO16g4BtvUo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Skgyak6008iYf4a1IVMcmJvZE0GpMmvDXnAhMshbpPBO4aHsjy2crfozYy6et/0R7
- cOuCCW6eAlwzlF8Cq2xCHao/cLtTSg0J0uU0zRBaRlqVjayGhQrg4Ra4NobcmyGRPt
- aVYjcHh45zQ4NqXoJHFefVxg3RawaJ1ypVmXGRhHDdxrw3KphnWp1OGcxw2ltf0TXe
- VG0gVZrhVGW2lVH6g+1/MFwmL4XnQD0CenN8KvfKAYlzGfkE2rBTr/AMgj9EHy2deR
- ujFoLH/jLreUoOMAz0jFfGbuvmSfMSZ7z0uh8T5d1cgCovmJ6nVLsG1teYcS1nYbFw
- ZK7dB2H5G62FA==
-Message-ID: <5dab61a6-d8cc-431d-b59e-744d98195d90@kernel.org>
-Date: Fri, 6 Mar 2026 12:15:01 +0100
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013029.outbound.protection.outlook.com
+ [52.101.83.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D816C10ED26;
+ Fri,  6 Mar 2026 12:51:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p+7SDu+JkPENunolmwHHRjzPVDON+TybEjklW9speaZq6g0SMgJ5ZopWkq6oF3T6fCpRmPA5zdxdKYWCQE+i0wJHzgizTZGExaMGbAD7dbHBuK2U6IXzBSTc8D2IobhTY+DTW6Qn0JwO+EnXpx2AX1MHzw+bENP0aobkcC8S7prJE6IXQdM4KsVVGRAKemlsKCqxr2eqVnSTnn2OYyu5BVHZOnYD6kWmogzIgcLB4J+5ee+U1X7CpJBzyL9w3hd8fFvJg9OPyIr3pHdWtsZepnnIuYT9R0vrU0C/YupvZNVF4fgQVvQ4diYcB/GAIcEAc3eXKq8TvxgibGDhLBdMvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QEUXeM7EXEx4DXmHFL22cSnuYYLuulp6HAvcgRVw7DY=;
+ b=mG9x5ysZMB4TT7Q0mD/4a3DvtUx0PP0ZLj/selF5IPYiPxOJFI5iCZbV9qiskFe88Xskui/jBJukfU7HjAy2Nr0uEjIaZHrCyja9Y5eau69S8N6kEujfiigauPrSjzw6q2hr1RxEknqkorPsPgkfI1szqPA9Fg4Yorde1brtgXgPfPjawIp3/WoUspPDiSoCqq0ZCQhCMpE3A6ivZQ6ehBNKF+QFmDcwOGBAAbAykpbX9ICLTaPtK+lwMayz3/rh+TGw2KBSv3v6ulSwRLv5A3I1oDegNSYtaO9VdKNBLA7bG1YJW7C0e8bMunAUvJIsA0Q7MLpT281RSj2+VaNqGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QEUXeM7EXEx4DXmHFL22cSnuYYLuulp6HAvcgRVw7DY=;
+ b=KLhhK79jQqW/IzPwTGljVqVs6m33YAjKf6+80sUf+/Fw/JzyH75YkTmTO8gQLL51KTy0oBJf1SxxCxZOqLuHON2q8dkCjqhNdQfaNIt5lgpQ++0GMY1xwLhb2Ws+v+rrb3BkY4s4faxrYHZR6stTBeOvnQr5p7xv0rh3yVGHEI63PR7CDY8rXLA3Sw2D/seX1h0S7Hd6kzc/blp6alBo2MjA/QERoFF6/kmow/OrfQtYHrPFmlZ21c6j7uSes7cdRchUg6di+hYDbITZD+i/eTDj0cKQqq92WqDEP8EYTMqkA6Annp79Z0ukhn6F/feucHa9RdCPfVeCUodGmuqNNA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by GVXPR04MB9777.eurprd04.prod.outlook.com (2603:10a6:150:115::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Fri, 6 Mar
+ 2026 12:51:01 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9678.017; Fri, 6 Mar 2026
+ 12:51:01 +0000
+Date: Fri, 6 Mar 2026 14:50:56 +0200
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, spacemit@lists.linux.dev,
+ UNGLinuxDriver@microchip.com, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Yan <andy.yan@rock-chips.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Vincent Mailhol <mailhol@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Markus Schneider-Pargmann <msp@baylibre.com>,
+ Magnus Damm <magnus.damm@gmail.com>
+Subject: Re: [PATCH phy-next 13/22] phy: introduce phy_get_max_link_rate()
+ helper for consumers
+Message-ID: <20260306125056.hkm7aanropjmfg5v@skbuf>
+References: <20260304175735.2660419-1-vladimir.oltean@nxp.com>
+ <20260304175735.2660419-14-vladimir.oltean@nxp.com>
+ <CAMuHMdUNtqsui3ek1RYCTyiuDLRajpSBMnrdzED6wu6i7-QcuA@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdUNtqsui3ek1RYCTyiuDLRajpSBMnrdzED6wu6i7-QcuA@mail.gmail.com>
+X-ClientProxiedBy: VI1P189CA0018.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:802:2a::31) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/14] firmware: qcom: Add a generic PAS service
-To: Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
- sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org,
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260306105027.290375-1-sumit.garg@kernel.org>
- <20260306105027.290375-3-sumit.garg@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260306105027.290375-3-sumit.garg@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GVXPR04MB9777:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8ed730a-07d9-4572-d2f3-08de7b7f04eb
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|19092799006|10070799003|366016|1800799024; 
+X-Microsoft-Antispam-Message-Info: ZGwEy0wCfY04xO13hpFPmIZGExGuB4ggjT5IUmqtp6sLV6MpAitOnaue/jBfrbnzia20l6kCoEEkZgPY+cW/cmI4XlkEtrXEHHhZm+nM3FFQzZGdDOQ/gfzOjebFMq/jq0JTAwJDUNZtcTXPbwyMEMk7a0xvjbF6wMNQKvBcJVzjHVh13b4HGanOb/V/iUi0XUdSGM+g6nRJVC97CXQY+b3S2OwvbpWM873d92f8ZFbEPIkd1ItXA9AN7P0BFfmBeYYgOtfKltL+9CZCykC+9bhpmNLEDbV1kPkPuWKFxy1CGrpn71hSj6HQMMz/ViB5Y3qqFgGTfQJKQ0OkLU0z7+g0gRqdxuj0LADVKXHRcz0APq0zm6r/Z9QRiRNN117j+jwqAU3RvR/I3Llqa4TZjOnzohpzEAldTcXK/Hp3QyILkxsgJFIL9XX89GnU2H08iLubZ5JmpulbcCUlFjFdKGuD2uDJrX2gAP2PzRVzaNXyDTZ9m+ArkuyBZWOJzBaUT7uz2hPNbxmAp/JAgPLzNw4zOPc7muF14jMxgmJ4Cg1xeO4yMRejf6d9E+7bqzVmUxQWx9Uh5nUMb+xJ+30sLe01Ovsjz0jOoSmZqHSxCWLI96rFIwLiPNvWsqY6k7TZFdnIY4CuzZCmjcFBNy7L5aWUvBHW71G1Oz8SFuuWd3SqE9aRfVK29ETdgPwyM+QQb2U3NRtB5ArGFzUqJIlzS0k58/QubS2fZbvDjJfJgsk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(19092799006)(10070799003)(366016)(1800799024);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?K+zIzLQSKiDVTUMVFOlsYRtj7q9dXK3LlwZjZB6HXRQQsHQ/NJpymMz4A3Tc?=
+ =?us-ascii?Q?JNKvZW0MUqXKLtgCBL1EKq+AlqEofwPKbI0PzKgmK9SvQZ+C3GOuvBewh8QB?=
+ =?us-ascii?Q?v+1EpOy/GpENkBYB6FfOq1BK6F4sTPViIiurJoyGmyCQaGjfFgTJChYkanLX?=
+ =?us-ascii?Q?HFHRz7ZK4LOvA5RWRDdPYLETKOBkXklF3eGqZvkfKbvz7YXKs2J1vjxok2nj?=
+ =?us-ascii?Q?K+gXKdDFi+IQ1MkzxHN7A9R78oF0ZB3F4lllQHsR5Exf+jatl0WSXJyEawIg?=
+ =?us-ascii?Q?Q14OY+Isq5CbUDJ4I35bZTfAcuo406BlPr1qzAKVkZjCcOF3YYl5IdiMY5Dc?=
+ =?us-ascii?Q?s8qKmyn3Hj2oLgwy3Ehg1oE96LeGx/IuqtU2mtrf8PH1TiGIOe60Qt5DCnr2?=
+ =?us-ascii?Q?FZtID1KoUo4MCQH9CRbLh1zsbHSHHZLH4v7hz6cuRnpPWhA8t3qZlBj9xZFH?=
+ =?us-ascii?Q?Hxi2al4j2tRhl9hYRIYuPn7TPoLZ9+rgGjUXu7eG/S8EMjzmWPwN4h+XNr/f?=
+ =?us-ascii?Q?2bkofiJPau+wrd/9OPY7Zt6UdDMf04RK9c5uahT9HCCWP7XbdAReMbxPyo6c?=
+ =?us-ascii?Q?9sO1aW1EMQ9bWNeeWQOYj2Vv89mnlGE8iDsI/pzJJC0t1wNZU/so+F4MUdZF?=
+ =?us-ascii?Q?DBV05zjsYXOVPYJ0lcLEmnY3d447oIIZDzoSuJdT0XdSM5M5HSFBjq3xhQLY?=
+ =?us-ascii?Q?NUaEttRMgHnt2t2BhfBinfAc7KhOZvl4+HNbFhnJw9b9Tz5QK/W48bLEq1vR?=
+ =?us-ascii?Q?rZ1p6d1YQ2fhIpfDEi5IhI+cTVlEi/R4EiBhWrXBdVkGpnR2gvcZAtxWWTUB?=
+ =?us-ascii?Q?WlfYCvuLec0TEBX/QTNy3nxLzQzKlLvn3dcaFAv3yT0Btiu2Q52unhHdlfpA?=
+ =?us-ascii?Q?eIe80PLzB/M0D5Z83FmGbHUSlY49bfo2Qym+1E9ULFLqHc5dAPCmT6ONHmMA?=
+ =?us-ascii?Q?qYLSggmgcl6XpT9J0jyHdw4kA3E4cWc4pDzrEKxHIHbaTEZqtOOlLCBUghY3?=
+ =?us-ascii?Q?QIvvtf3PRulWenjcH3xwen6/nwJdOA7waYBxYYcletzYKq59RyHoA6xg/ZQ6?=
+ =?us-ascii?Q?AJQ1t2n6yKcofAzO4GvruR6NTr9mAt6xmpND9rJMGz6HeiEx65RAzw6pQosE?=
+ =?us-ascii?Q?CHG6t7d0jeYPuPgq5iVO6YutrfVEievN2uuIv6hcvZDJz792Oc80QY9Peo2f?=
+ =?us-ascii?Q?VrmnZd95t6U7LQ0alHVfKhBJ9nSIfgBvjZAG1TxElVv2p88a6yFpMbU0Ta1M?=
+ =?us-ascii?Q?0ZkhbSSqoGadwk+8Ryg0hOAvtgk4HSx1w8pCJHDsQOHl6swCRs8p0X6b0ngj?=
+ =?us-ascii?Q?ZqgJZIMn55oaF2wVX8TyEEl7uDoHNxbgtWKWteVZuFP4d/vKaXJbGm1NjUx4?=
+ =?us-ascii?Q?YAmBlms+pHV7BP0uRpUOVpvcUYUehMwU+qRJ9NVJ3lzwkowT37KT9qDGq8gP?=
+ =?us-ascii?Q?8odbMy7635Bm78FWKtl60M6XcrLCkeM/Dv8BEi7tWoKRCkXtdDMUsx5AtP8q?=
+ =?us-ascii?Q?zx2fOY/csmQqyrubeopPSGX/A4ule3eIyL6yy1XX4lFc0Gcru02uVjzHRY5m?=
+ =?us-ascii?Q?tmZzhufUn2ijASzpz73DSOBR7yRFfTAUzdsEt9Kr0XLuOS3M9RL5fIdV2o4x?=
+ =?us-ascii?Q?brOTTiuB8G61PFyQy5YKZX1/laP1JLA1RZADnyvcRJLQzctby2DXfPEpWkGu?=
+ =?us-ascii?Q?jfuHXx8seadBo6KsGRTxPmWaKUBQ+EQJX5GYa6jf6RGBZjfartmImNuCbed0?=
+ =?us-ascii?Q?EtluACwLJUrp+M2P4YZ+1+HOefevbcidZpTz20Q8NNuPDrtiHmHVZAt1/Wx7?=
+X-MS-Exchange-AntiSpam-MessageData-1: +79mI/Urw1CJuGSmTegHZ18TfAF5uj7BZ0g=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8ed730a-07d9-4572-d2f3-08de7b7f04eb
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 12:51:00.9122 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4qh5msCp6o7lVRhOOwAiCIatW4lItCELkNRJv41zT/lCb6SOPX/EgQb80Vt+2dmoFikLURzusgIFZlAyOEbsJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9777
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,193 +159,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: 5967221F81A
+X-Rspamd-Queue-Id: CD647220FE0
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.19 / 15.00];
+X-Spamd-Result: default: False [-0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[nxp.com,none];
+	R_DKIM_ALLOW(-0.20)[nxp.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MAILLIST(-0.20)[mailman];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[kernel.org,oss.qualcomm.com,poorly.run,linux.dev,gmail.com,somainline.org,ffwll.ch,lunn.ch,davemloft.net,google.com,redhat.com,linaro.org,qti.qualcomm.com,lists.trustedfirmware.org];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_TWELVE(0.00)[42];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[49];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno,dt,netdev];
+	DKIM_TRACE(0.00)[nxp.com:+];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[vladimir.oltean@nxp.com,freedreno-bounces@lists.freedesktop.org];
+	FREEMAIL_CC(0.00)[lists.infradead.org,kernel.org,linaro.org,lists.freedesktop.org,vger.kernel.org,lists.linux.dev,microchip.com,intel.com,ideasonboard.com,kwiboo.se,gmail.com,linux.intel.com,suse.de,ffwll.ch,rock-chips.com,pengutronix.de,bootlin.com,tuxon.dev,baylibre.com];
+	TAGGED_RCPT(0.00)[freedreno];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	TO_DN_SOME(0.00)[]
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,nxp.com:dkim]
 X-Rspamd-Action: no action
 
-On 06/03/2026 11:50, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+On Thu, Mar 05, 2026 at 08:47:47AM +0100, Geert Uytterhoeven wrote:
+> > --- a/drivers/phy/phy-core.c
+> > +++ b/drivers/phy/phy-core.c
+> > @@ -640,6 +640,12 @@ void phy_set_bus_width(struct phy *phy, int bus_width)
+> >  }
+> >  EXPORT_SYMBOL_GPL(phy_set_bus_width);
+> >
+> > +u32 phy_get_max_link_rate(struct phy *phy)
+> > +{
+> > +       return phy->attrs.max_link_rate;
+> > +}
+> > +EXPORT_SYMBOL_GPL(phy_get_max_link_rate);
 > 
-> Qcom platforms has the legacy of using non-standard SCM calls
-> splintered over the various kernel drivers. These SCM calls aren't
-> compliant with the standard SMC calling conventions which is a
-> prerequisite to enable migration to the FF-A specifications from
-> Arm.
-> 
-> OP-TEE as an alternative trusted OS to QTEE can't support these non-
-> standard SCM calls. And even for newer architectures QTEE won't be able
-> to support SCM calls either with FF-A requirements coming in. And with
-> both OP-TEE and QTEE drivers well integrated in the TEE subsystem, it
-> makes further sense to reuse the TEE bus client drivers infrastructure.
-> 
-> The added benefit of TEE bus infrastructure is that there is support
-> for discoverable/enumerable services. With that client drivers don't
-> have to manually invoke a special SCM call to know the service status.
-> 
-> So enable the generic Peripheral Authentication Service (PAS) provided
-> by the firmware. It acts as the common layer with different TZ
-> backends plugged in whether it's an SCM implementation or a proper
-> TEE bus based PAS service implementation.
-> 
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> ---
->  drivers/firmware/qcom/Kconfig          |   8 +
->  drivers/firmware/qcom/Makefile         |   1 +
->  drivers/firmware/qcom/qcom_pas.c       | 295 +++++++++++++++++++++++++
->  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
->  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
->  5 files changed, 398 insertions(+)
->  create mode 100644 drivers/firmware/qcom/qcom_pas.c
->  create mode 100644 drivers/firmware/qcom/qcom_pas.h
->  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> 
-> diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
-> index b477d54b495a..8653639d06db 100644
-> --- a/drivers/firmware/qcom/Kconfig
-> +++ b/drivers/firmware/qcom/Kconfig
-> @@ -6,6 +6,14 @@
->  
->  menu "Qualcomm firmware drivers"
->  
-> +config QCOM_PAS
-> +	tristate
-> +	help
-> +	  Enable the generic Peripheral Authentication Service (PAS) provided
-> +	  by the firmware. It acts as the common layer with different TZ
-> +	  backends plugged in whether it's an SCM implementation or a proper
-> +	  TEE bus based PAS service implementation.
-> +
->  config QCOM_SCM
->  	select QCOM_TZMEM
->  	tristate
-> diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
-> index 0be40a1abc13..dc5ab45f906a 100644
-> --- a/drivers/firmware/qcom/Makefile
-> +++ b/drivers/firmware/qcom/Makefile
-> @@ -8,3 +8,4 @@ qcom-scm-objs += qcom_scm.o qcom_scm-smc.o qcom_scm-legacy.o
->  obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
->  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
->  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
-> +obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
-> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
-> new file mode 100644
-> index 000000000000..dc04ff1b6be0
-> --- /dev/null
-> +++ b/drivers/firmware/qcom/qcom_pas.c
-> @@ -0,0 +1,295 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/device/devres.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
-> +#include <linux/of.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/slab.h>
-> +
-> +#include "qcom_pas.h"
-> +#include "qcom_scm.h"
-> +
-> +static struct qcom_pas_ops *ops_ptr;
+> Any specific reason you are not making this a simple static inline
+> function, like phy_get_bus_width()?
 
-I really dislike this singleton design. And it is not even needed! If
-you were storing here some allocated instance of SCM/PAS I could
-understand, but singleton for only ops? Just implement one driver (so
-SCM + whatever you have here) which will decide which ops to use,
-through the probe. Really, this is neither needed nor beneficial.
+For a consumer function to be static inline and to dereference struct
+phy fields, it would mean that the struct phy contents need to be
+visible to the consumer directly. Against my stated purpose.
 
-It actually leads to more problems with this barrier handling, see
-further comments.
-...
-
-> +
-> +/**
-> + * qcom_pas_shutdown() - Shut down the remote processor
-> + * @pas_id:	peripheral authentication service id
-> + *
-> + * Returns 0 on success.
-> + */
-> +int qcom_pas_shutdown(u32 pas_id)
-> +{
-> +	if (ops_ptr)
-> +		return ops_ptr->shutdown(ops_ptr->dev, pas_id);
-> +
-> +	return -ENODEV;
-> +}
-> +EXPORT_SYMBOL_GPL(qcom_pas_shutdown);
-> +
-> +/**
-> + * qcom_pas_supported() - Check if the peripheral authentication service is
-> + *			  available for the given peripheral
-> + * @pas_id:	peripheral authentication service id
-> + *
-> + * Returns true if PAS is supported for this peripheral, otherwise false.
-> + */
-> +bool qcom_pas_supported(u32 pas_id)
-> +{
-> +	if (ops_ptr)
-
-Lack of barriers here is not looking right. Existing/old code is not a
-good example, I fixed only the obvious issue, but new code should be
-correct from the beginning.
-
-Barriers should normally be always paired, unless you have some clear
-path no concurrent execution can happen here, but such explanation is
-missing, look:
-
-> +		return ops_ptr->supported(ops_ptr->dev, pas_id);
-> +
-> +	return false;
-> +}
-> +EXPORT_SYMBOL_GPL(qcom_pas_supported);
-> +
-> +/**
-> + * qcom_pas_is_available() - Check for PAS service
-> + *
-> + * Returns true on success.
-> + */
-> +bool qcom_pas_is_available(void)
-> +{
-> +	/* The barrier is needed to synchronize with client drivers. */
-
-
-Here. This is pretty pointless/redundant comment. Obviously barriers are
-to synchronize with whoever is calling this and only clients are calling.
-
-You must say something useful, not just barrier is a barrier... It's
-like documenting mutex "to synchronize".
-
-> +	return !!smp_load_acquire(&ops_ptr);
-
-
-Best regards,
-Krzysztof
+phy_get_bus_width() was also changed to be non-inline.
