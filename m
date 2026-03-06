@@ -2,85 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8E4PFtKdqmlLUgEAu9opvQ
+	id YIghGUc5rGm/nAEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 10:26:42 +0100
+	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 15:42:15 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C129C21DE39
-	for <lists+freedreno@lfdr.de>; Fri, 06 Mar 2026 10:26:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B81A422C36A
+	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 15:42:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E94E710E20D;
-	Fri,  6 Mar 2026 09:26:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2D010E42A;
+	Sat,  7 Mar 2026 14:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bxXPm8M+";
+	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="twuf04TV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5298110E20D
- for <freedreno@lists.freedesktop.org>; Fri,  6 Mar 2026 09:26:38 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-35984cd0335so2482169a91.0
- for <freedreno@lists.freedesktop.org>; Fri, 06 Mar 2026 01:26:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772789197; x=1773393997; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=GASaaeIc7bq6+Q3h14hRV19dPYKwOXv/nhaVWKzPPQc=;
- b=bxXPm8M+KPW3IQVI+WoLh99GtIMT9Y9kLchj4LFfhx8nLPq4rXVWbQFweyk0AwGdKK
- j+itoUsKsZjaV/rJH8WNG/VtU0+IrHE9e5CP22dwksT7N5czIt2RmA/8soEceDKdyHs/
- MBo9WlLmcmcwZ85xgrpqw4jWLiQai2JlFXLFIp+r8L00BBgpzvBL2997gWbs4OXZ3yOF
- x5vMqFkfyGwh2alPQ1NrQorihrAfsJisYoQsF081xFZ24qL5dp3vsKhdjoglPH8lgIj+
- t8G09F249QRdZELA18usFoykX49JNQY9vDaAK4fOtydIapnVLg7kqX42NrpxHZ+i2+G+
- 4Wvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772789197; x=1773393997;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GASaaeIc7bq6+Q3h14hRV19dPYKwOXv/nhaVWKzPPQc=;
- b=jfX5LeFIBH9WkWDWQ4rnFT0jk2RQKpRumKQyVbtZ5ZHhrzq7htPMAowm9HsvPst67j
- BGgqSR3LopYdmj28pK+KMuDuxRqzuUIVUzMvPOVDV+4lfLEpw4KSmKJzAdp9oVkhvJCn
- XGBoEISCtXPnq/oSnDyAKoc6eF8BBj+/g4ju8+e2tz5VJQBKSFmON2Uh1ddI+yYZPdDG
- K+8RmGJkHnWCUFTbrheRGpjoXquVIG5YpDtzYwF/FjSNFzZpkaDdGR0bv+rDC/dPb3s5
- KqzwfFA9Ebn6Z8c0bE9CAtm5MOVrkJK3WKMG+HR4KEfut+Oo3NR+gI+N0PjMm/gVeZ+o
- tg8g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCULSOaL8ltjXNyQtH26sLFL0z8KxFzvLiH0LhTyhNKVjr6J2UWto7X07QryinCR7UMFNifEjo7+ua0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/tLZe8iaXyR3h3yO6QGUkhUarOIWG/+ifU8fgPYgQjUXNzQis
- c2T9kn7QgF+l4Z+ZQN+KasLF2JeViBCNm3Zop9WVZwihnvm5/2+/z5Jd
-X-Gm-Gg: ATEYQzyUz+2/yRfiu9AmmcvbChJwiUqPLLrdw5vs7C9AcJWoGmJ6kIsF2VTQwj/J16q
- E1oHaXt1uXV6yV+LYcRpIndi/tK1ZxzCjNw6NHoR1PdpR55VfTZmyz/Aui4doM1wkxEoaLhpFDy
- Po247lQdDaCoHDCkQK71ohrUYOkJnaBRhsZtuM6DEjCydqZ/n+TWgOj3p0mDeQuxjylxss/rHnY
- vuTtopLkMWmNrbauR41t0U93FbRhUeluhfx+PqVVZxuKpj44c7ZtcvUVj7HfuVkuHyvmgwxoH0j
- sX7G56E3Ghw9GP0TE8dtK5iqR4u5MEmXfCpyzub3J7OwiobH7lEYEadVRWNUYVOawbkbQf3++iL
- A0eQcp/NT9hdVT/Zs6n+qhv9+q8CD2bGcuiexhwv081CYsVOjmxb2S5rERFyHwC8P53ZgCNACz1
- uDmnkEdIeJn//XQjrqJg==
-X-Received: by 2002:a17:902:d501:b0:2ae:6163:345d with SMTP id
- d9443c01a7336-2ae75b4e528mr47926475ad.12.1772789197338; 
- Fri, 06 Mar 2026 01:26:37 -0800 (PST)
-Received: from nuvole ([144.202.86.13]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ae83e57afesm13214405ad.6.2026.03.06.01.26.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Mar 2026 01:26:37 -0800 (PST)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Pengyu Luo <mitltlatltl@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dsi: setup RC model properly
-Date: Fri,  6 Mar 2026 17:25:53 +0800
-Message-ID: <20260306092553.37973-1-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08D6B10E165;
+ Fri,  6 Mar 2026 09:56:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1772791004; x=1804327004;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=M0XofkcuBdV1zkdsuj7RJ1maZEJbks9g3VqYv60iJnU=;
+ b=twuf04TVYVqIu4COwwBJGikIziT4WVc4rAk8o62fHa8wMUUt9TAkhcPX
+ ST/jufyAnvjuucNTVpi+aZKYZPfQnnyN96HCZvGx7+wb2RdjcwzCiKZJW
+ SxRKb8Mk9MuAf8E7H1EiHZA7710ev+JtGXJBbDXJLCEKWd/jy387uXL9F
+ gVBXSJFxHqhi/IFSOAnszB6gqk0JDKLiaL/eWOLdNEbsw99dCnXVMliAM
+ qAQFnmcIphnqS+gWhC43gxQJ4GtHFiJU31ABivT7cNj9/uEm3FEkMLp/W
+ YnB/izdu1UCQe3AdXaqDPOFYylldwmPe1yeJtUDtXO96DHDSf5jv0OPSa g==;
+X-CSE-ConnectionGUID: kkklftjzTt+tmC5CjQykRw==
+X-CSE-MsgGUID: y9hzzWGpTbWY5hyCt1eJ5w==
+X-IronPort-AV: E=Sophos;i="6.23,104,1770620400"; d="scan'208";a="54313383"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 06 Mar 2026 02:56:43 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 6 Mar 2026 02:56:27 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 6 Mar 2026 02:56:22 -0700
+Date: Fri, 6 Mar 2026 10:56:22 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+CC: <linux-phy@lists.infradead.org>, Vinod Koul <vkoul@kernel.org>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-can@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>, <linux-ide@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <linux-rockchip@lists.infradead.org>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-tegra@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <spacemit@lists.linux.dev>,
+ <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+ <Steen.Hegelund@microchip.com>
+Subject: Re: [PATCH phy-next 07/22] net: lan969x: include missing <linux/of.h>
+Message-ID: <20260306095622.rh3sje3wnexbdsqb@DEN-DL-M70577>
+References: <20260304175735.2660419-1-vladimir.oltean@nxp.com>
+ <20260304175735.2660419-8-vladimir.oltean@nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260304175735.2660419-8-vladimir.oltean@nxp.com>
+X-Mailman-Approved-At: Sat, 07 Mar 2026 14:42:10 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,95 +88,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: C129C21DE39
+X-Rspamd-Queue-Id: B81A422C36A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-Spamd-Result: default: False [1.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[28];
+	DMARC_POLICY_ALLOW(-0.50)[microchip.com,reject];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[microchip.com:s=mchp];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:mitltlatltl@gmail.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[30];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[freedreno];
-	NEURAL_HAM(-0.00)[-1.000];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,lists.freedesktop.org];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[daniel.machon@microchip.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[microchip.com:+];
+	NEURAL_HAM(-0.00)[-0.967];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	TAGGED_RCPT(0.00)[freedreno,netdev];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[microchip.com:dkim,microchip.com:email,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,davemloft.net:email,lunn.ch:email]
 X-Rspamd-Action: no action
 
-Using incorrect parameters does not seem to affect the display, but we
-should use the correct in accordance with the DSC 1.1 or 1.2.
+> This file is calling of_property_read_u32() without including the proper
+> header for it. It is provided by <linux/phy/phy.h>, which wants to get
+> rid of it.
+> 
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> ---
+> Cc: Daniel Machon <daniel.machon@microchip.com>
+> Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Steen Hegelund <Steen.Hegelund@microchip.com>
+> ---
+>  drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c
+> index 4e422ca50828..249114b40c42 100644
+> --- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c
+> +++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c
+> @@ -4,6 +4,7 @@
+>   * Copyright (c) 2024 Microchip Technology Inc. and its subsidiaries.
+>   */
+> 
+> +#include <linux/of.h>
+>  #include "lan969x.h"
+> 
+>  /* Tx clock selectors */
+> --
+> 2.43.0
+>
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 31 +++++++++++++++++++++++++++---
- 1 file changed, 28 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index b60b26ddb0..276c63d2ac 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1843,10 +1843,35 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
- 	drm_dsc_set_const_params(dsc);
- 	drm_dsc_set_rc_buf_thresh(dsc);
- 
--	/* DPU supports only pre-SCR panels */
--	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
-+	if (dsc->dsc_version_major != 1) {
-+		DRM_DEV_ERROR(&msm_host->pdev->dev, "Unsupported DSC version: %x.%x\n",
-+			      dsc->dsc_version_major, dsc->dsc_version_minor);
-+		return -EOPNOTSUPP;
-+	}
-+
-+	switch (dsc->dsc_version_minor) {
-+	case 1:
-+		/*
-+		 * For DSC1.1. the upstream lacks SCR parameters, the downstream
-+		 * parameters are unverified here, we support pre-SCR only.
-+		 */
-+		ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
-+		break;
-+	case 2:
-+		if (dsc->native_422)
-+			ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_422);
-+		else if (dsc->native_420)
-+			ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_420);
-+		else
-+			ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
-+		break;
-+	default:
-+		ret = -EOPNOTSUPP;
-+	}
-+
- 	if (ret) {
--		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n");
-+		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters for DSC version: %x.%x\n",
-+			      dsc->dsc_version_major, dsc->dsc_version_minor);
- 		return ret;
- 	}
- 
--- 
-2.53.0
-
+Acked-by: Daniel Machon <daniel.machon@microchip.com>
