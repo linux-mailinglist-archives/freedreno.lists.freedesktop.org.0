@@ -2,88 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GDolBmQIrGkWjQEAu9opvQ
+	id wKaQIVODrGk1qQEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 12:13:40 +0100
+	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 20:58:11 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFBDC22B608
-	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 12:13:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 155AB22D6EF
+	for <lists+freedreno@lfdr.de>; Sat, 07 Mar 2026 20:58:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A85010E354;
-	Sat,  7 Mar 2026 11:13:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A39010E43D;
+	Sat,  7 Mar 2026 19:58:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U+oOPbng";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PlQSdJ68";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F30CD10E354
- for <freedreno@lists.freedesktop.org>; Sat,  7 Mar 2026 11:13:36 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2ae4988e039so45388035ad.1
- for <freedreno@lists.freedesktop.org>; Sat, 07 Mar 2026 03:13:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772882016; x=1773486816; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RfZvykbj+Munv01zyroOwx0N1ICA5mAYoReNuZjedZg=;
- b=U+oOPbngC1sFiQwPwBR6ghgqctUS7IO9IQXEUwGgteTmk1QNh/g8cRj02RAM5xU2nv
- WbN5C87tirBeN2abnmK80+OYxiOfORpox532LUmSPPXAlvUn95zSpfOwiUNmdfuTqdfE
- QnuEXLoVVNcrWxfQph8jGF5G4KDC4hvAvH/7exSK5DIokuE7GTE1grYsSOAY4HRRSKZH
- hK64Jf2mTHJyXSXxD1DiCnLIjv0K0EfF+e7KaI29mHnWj7OHuCOBjDLuQRgLgOhfeTBu
- rNYeRw6y9tlYXcAzh6rFKB5/Gf9oIsfQNNKLhNtrYHjWvWTLhYc1xSlV5nrM25JdSVH8
- J2EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772882016; x=1773486816;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=RfZvykbj+Munv01zyroOwx0N1ICA5mAYoReNuZjedZg=;
- b=wDdiFprtWu+X+DfXtmhShIDSft2iQKhvDOz0WFkAygxpOqZ5XTUA55N9L5MwL6fZYO
- d5wY/hXhZY4ZI4xhpY/4QWdmJfGnhRUfXORIM79rjCGq67u5sGXj5MkHY+WZz74OepKq
- HPVHUIQ9bZVKka1/z+Yoh6hl/EOZxAKqTzE3kqsc5uHEvNokvdlEv2siiBXgBffOd7BN
- Nfaxwv5D2KfXjElaqtTm64Nmv4nWRtKphgkd4Q0/4gUSVDiaYVBSyqwfzfNrcF3vpyEd
- /fgeXR8jo30GYUOI3stUH772OJU7Eq+R6cirqVc0sJ1zAJs0yZFEaXCz5MdL9qfnjVbv
- ImXg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVg7dJyZL6CgPT9RI3BrAmFouTmp2klSOT36IgiQfdeLNLmihCcaX0Tc3D3M/MjjEecuixsGtipGEk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKm7A7lA8X0PTIP6r2NdkSYVtvqL/PTKppqVL5TTD86gqVSXKl
- R09qpzHjFca9xO7jJHxECeqRM8lvFxDs16UkDvzKIihItfh0UwFKsBQ6
-X-Gm-Gg: ATEYQzzemsEAb+wKzFQ/7uURIvstJd/PNf/VG3uSXfcXmG3sP9Sb6Fqux9Sy7/CiiuZ
- a0CLheh69xq9od/2PskPKM2wOZHtfwYvN9BEuu9Y3YXZxlkpIs3bf3MnFNS9KxSX3dWDbmaA7YC
- lSNb93ND14wZWDjYxM4BkJyoFedNKhckovafUipIxrriUKYMhNzMMkTXTCUngesXH2HCog4e5IB
- HIqRTSn2lvsbGEv1GukEu7PBCmg2zWxLj8t2+Z5G9+A1sxiipecbjKAr3zbpv7h+jYWYYZffaFM
- Nfkp4wKnhXKbH0PDc3ynflYK1tIJgg2eoo4McNtiCZAC2VC+EnV+3zilB2CKkZ9VhBOPbwq/0W6
- SJzqiczspbGLpR1jMLscEElTkY476DslDx7LCbr7suC7d48hjQeOwTnBQhS7+dTLP/QWQAVqMwR
- iHYdg+0y3OzHgfmKTrxQ==
-X-Received: by 2002:a17:903:1a07:b0:2ae:5d90:9d95 with SMTP id
- d9443c01a7336-2ae829cdecbmr51388105ad.14.1772882016362; 
- Sat, 07 Mar 2026 03:13:36 -0800 (PST)
-Received: from nuvole ([109.166.36.159]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ae83f74e7bsm47350265ad.46.2026.03.07.03.13.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Mar 2026 03:13:35 -0800 (PST)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB1BC10E43A;
+ Sat,  7 Mar 2026 19:58:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772913488; x=1804449488;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=vpK34jiavOf+wUMryDBJi/NV9WUWupPS9ZThQGAPlxY=;
+ b=PlQSdJ68NfuauOVjpICx+kRHbdXEIEPw5/4i8vydwUpg9AvzyO3zUh6y
+ +b4HX3DdW7nM+/A3BBNYQ/kPZrJ40pdKaAObyYO+01IEvMWMbN5IVP3rg
+ RS8F4nGZofliTVmO3yaE0tzXcvxRBNv1zlW2z4LjYvI4cM7kFGoA7MH5n
+ r/DktOjNM56hdweNgq+eHPUZdxNcku6AT2guJUAfFkza3nu6Tr279mEJu
+ jMTploOe0fjJA3MRL24kz2lBg9hOpngBaXdxRuSre01v+urxbdIjcjBxw
+ mDtgydcREe21Fzg6xfs6Rl8HxDYi6Cj9Fgrt23VZE3FPWSk4OBdUKvaM6 Q==;
+X-CSE-ConnectionGUID: N/WXUW/uSSSfOT+ITTmhiA==
+X-CSE-MsgGUID: fsIoxIbRSCmeS3Ou3t49eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11722"; a="77869820"
+X-IronPort-AV: E=Sophos;i="6.23,107,1770624000"; d="scan'208";a="77869820"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2026 11:58:08 -0800
+X-CSE-ConnectionGUID: 5rWMSpbATBKAzYYozik7zQ==
+X-CSE-MsgGUID: JSmY/5QtSHS2UCmjdOGBHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,107,1770624000"; d="scan'208";a="224286777"
+Received: from lkp-server01.sh.intel.com (HELO 058beb05654c) ([10.239.97.150])
+ by orviesa005.jf.intel.com with ESMTP; 07 Mar 2026 11:58:05 -0800
+Received: from kbuild by 058beb05654c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vyxmj-000000002b3-0qaW;
+ Sat, 07 Mar 2026 19:58:01 +0000
+Date: Sun, 8 Mar 2026 03:57:25 +0800
+From: kernel test robot <lkp@intel.com>
+To: Pengyu Luo <mitltlatltl@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Pengyu Luo <mitltlatltl@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/msm/dsi: fix hdisplay calculation for CMD mode panel
-Date: Sat,  7 Mar 2026 19:12:49 +0800
-Message-ID: <20260307111250.105772-2-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260307111250.105772-1-mitltlatltl@gmail.com>
-References: <20260307111250.105772-1-mitltlatltl@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, Pengyu Luo <mitltlatltl@gmail.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi: fix pclk rate calculation for bonded dsi
+Message-ID: <202603080314.XeqyRZ7A-lkp@intel.com>
+References: <20260306163255.215456-1-mitltlatltl@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260306163255.215456-1-mitltlatltl@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,88 +81,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: BFBDC22B608
+X-Rspamd-Queue-Id: 155AB22D6EF
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.19 / 15.00];
+X-Spamd-Result: default: False [-0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
 	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
 	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:mitltlatltl@gmail.com,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,vger.kernel.org,lists.freedesktop.org];
+	FREEMAIL_TO(0.00)[gmail.com,oss.qualcomm.com,kernel.org,linux.dev,poorly.run,somainline.org,ffwll.ch];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,lists.freedesktop.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mitltlatltl@gmail.com,freedreno-bounces@lists.freedesktop.org];
-	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:+];
+	NEURAL_HAM(-0.00)[-0.966];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	NEURAL_HAM(-0.00)[-0.996];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[01.org:url,intel.com:dkim,intel.com:email,intel.com:mid,gitlab.freedesktop.org:url]
 X-Rspamd-Action: no action
 
-ac47870fd795 incorrecly broke hdisplay calculation for CMD mode, fix
-it.
+Hi Pengyu,
 
-Fixes: ac47870fd795 ("drm/msm/dsi: fix hdisplay calculation when programming dsi registers")
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+kernel test robot noticed the following build warnings:
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 7c16216e8b..f63165c7ce 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1016,8 +1016,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		/*
- 		 * DPU sends 3 bytes per pclk cycle to DSI. If widebus is
- 		 * enabled, MDP always sends out 48-bit compressed data per
--		 * pclk and on average, DSI consumes an amount of compressed
--		 * data equivalent to the uncompressed pixel depth per pclk.
-+		 * pclk and on average, for video mode, DSI consumes only an
-+		 * amount of compressed data equivalent to the uncompressed
-+		 * pixel depth per pclk.
- 		 *
- 		 * Calculate the number of pclks needed to transmit one line of
- 		 * the compressed data.
-@@ -1029,10 +1030,14 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		 * unused anyway.
- 		 */
- 		h_total -= hdisplay;
--		if (wide_bus_enabled)
--			bits_per_pclk = dsc->bits_per_component * 3;
--		else
-+		if (wide_bus_enabled) {
-+			if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
-+				bits_per_pclk = dsc->bits_per_component * 3;
-+			else
-+				bits_per_pclk = 48;
-+		} else {
- 			bits_per_pclk = 24;
-+		}
- 
- 		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc) * 8, bits_per_pclk);
- 
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.0-rc2 next-20260306]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Pengyu-Luo/drm-msm-dsi-fix-pclk-rate-calculation-for-bonded-dsi/20260307-010943
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260306163255.215456-1-mitltlatltl%40gmail.com
+patch subject: [PATCH] drm/msm/dsi: fix pclk rate calculation for bonded dsi
+config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20260308/202603080314.XeqyRZ7A-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260308/202603080314.XeqyRZ7A-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603080314.XeqyRZ7A-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/gpu/drm/msm/dsi/dsi_host.c:590 function parameter 'is_bonded_dsi' not described in 'dsi_adjust_pclk_for_compression'
+>> Warning: drivers/gpu/drm/msm/dsi/dsi_host.c:590 function parameter 'is_bonded_dsi' not described in 'dsi_adjust_pclk_for_compression'
+
 -- 
-2.53.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
