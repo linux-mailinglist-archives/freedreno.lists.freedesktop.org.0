@@ -2,72 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +DoNLnO5rmlIIQIAu9opvQ
+	id oM3ZHKP2rWnH+AEAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Mon, 09 Mar 2026 13:13:39 +0100
+	for <lists+freedreno@lfdr.de>; Sun, 08 Mar 2026 23:22:27 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22586238981
-	for <lists+freedreno@lfdr.de>; Mon, 09 Mar 2026 13:13:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C622D23269A
+	for <lists+freedreno@lfdr.de>; Sun, 08 Mar 2026 23:22:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B65410E4DB;
-	Mon,  9 Mar 2026 12:13:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.b="cjBBVeqh";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03C8B10E06E;
+	Sun,  8 Mar 2026 22:22:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
- [91.218.175.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C50210E039
- for <freedreno@lists.freedesktop.org>; Sun,  8 Mar 2026 21:13:24 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
- s=key1; t=1773004401;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=RpqpYlSXeAg/awnB0CvRWHuxixfrf2T/O/CAPqniJDI=;
- b=cjBBVeqhU4T10lCpRAAeAjU4MCvwUt698hAAsE2RWi1Qx/9Tw0CE0dvcbuicEw1Q4mZD6z
- UorENWb2j7lE2N+avFntgIvEtixr2llBmLzs9WkkY5IJkDJdLwwQSL5N9K9j8qUtR+D8r+
- Sr7ntF2rhgPnKFD1iQ28UW29ErlFzNp6GL1vocdSJR7RUUv/iyaCRj5ZGPuvsb1uf93JOB
- ZRdEbhl5sJeeqrPuhIK5VsQX9N8t/Cwn0521TR7Eo3yxF/hS4VqrOX9gK1KJcbRu3u/rNf
- 6eCwLm7iciBqtV0YwVsdCO4zTNByzkNLsiQAWsRfSrX1T+18o2V/n4dDJ44sNQ==
-From: Paul Sajna <sajattack@postmarketos.org>
-Date: Sun, 08 Mar 2026 14:12:54 -0700
-Subject: [PATCH] drm: msm: adreno: attempt to recover from ringbuffer drain
- timeout
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com
+ [216.40.44.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0957110E06E;
+ Sun,  8 Mar 2026 22:22:23 +0000 (UTC)
+Received: from omf03.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay06.hostedemail.com (Postfix) with ESMTP id 42DD81B91B3;
+ Sun,  8 Mar 2026 22:22:21 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf03.hostedemail.com (Postfix) with ESMTPA id BD6C56000E; 
+ Sun,  8 Mar 2026 22:22:14 +0000 (UTC)
+Message-ID: <9fd14d166e860f26febfbc9061a6dcae6a166961.camel@perches.com>
+Subject: Re: [PATCH v2 phy-next 24/24] MAINTAINERS: add regexes for linux-phy
+From: Joe Perches <joe@perches.com>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, linux-can@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-ide@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, 	spacemit@lists.linux.dev,
+ UNGLinuxDriver@microchip.com
+Date: Sun, 08 Mar 2026 15:22:13 -0700
+In-Reply-To: <20260308205623.5trrqdmdrzj744hi@skbuf>
+References: <20260308114009.2546587-1-vladimir.oltean@nxp.com>
+ <20260308114009.2546587-25-vladimir.oltean@nxp.com>
+ <ca170cbaf2f8bcbc89bbda68914d8e0d7640f0e7.camel@perches.com>
+ <20260308191017.kcyi7ka5pktq5jl4@skbuf>
+ <8c4c5d0c5d014d5cc19eb10906ca1bd83ffb3ce5.camel@perches.com>
+ <20260308205623.5trrqdmdrzj744hi@skbuf>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260308-adreno-ringbuffer-drain-timeout-recovery-v1-1-985a33faf108@postmarketos.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQ6CMBBG4auQWTtJC0lBr2Jc1PYvzsLWTIFoC
- He3Yflt3tupQgWVbt1Oik2qlNxgLx2Fl88zWGIz9aZ3ZjAT+6jIhVXy/FxTgnJUL5kXeaOsCyt
- C2aA/dnaEd9fJDilQy30USb7n6v44jj8C+n3LegAAAA==
-X-Change-ID: 20260308-adreno-ringbuffer-drain-timeout-recovery-617ea69813fc
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexey Minnekhanov <alexeymin@minlexx.ru>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773004397; l=2696;
- i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=IwQsRi65M4qXQUkCCxcuReQn++piLHkRFWLqIAUpTuE=;
- b=eGLN4VQHSoWAmzLT9wCgcSJt1HexLpTsXFY/zSncDP/EA8z4I5dzj0yYnNm92JPgaE46Hkccy
- VOeuuDdDFAiC5lPjHB0M+Wg6skuqLqSpRRvniitEFDaE+chlBosgLtp
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Mon, 09 Mar 2026 12:13:34 +0000
+X-Stat-Signature: zgtxuwsb3363ai68tf6p7s8zp8seinzy
+X-Spam-Status: No, score=-0.14
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX19wsONHcaef5rI729O90pckRr9dLrQEYXs=
+X-HE-Tag: 1773008534-677296
+X-HE-Meta: U2FsdGVkX19zIqgNUKb+c+5Mu7Q3C+Gpl/B+X8eI5i6bGv7WE3zpj355qMm6YCbRSW7Vrhs2aumEBIt791syA8wOI3oaCj+46xwg3qNvWJkp2gLycZfqNtZEDdNuGCB0y349Wog5E09dSEbmxlYo3wEry6L0kQTHpHQi1eemnMz3eHRJ8lW0g+PBe0pZnw/seBVjwauSFyG+tNp9GhFkZXlt5WBWbJRv4eXsvXAwTvZLp/ToUvk9BlaA2J9NhuyWc4djQ+wNnPyIbjEf3YbjCt97pmlbZeZatO9Oxpnpbki4SgQq7YX4GOxv15JoA/1s08cXIoR5CaQiUuDxwOWahT02urVywBVxEzsYACoHDQg9R+OY8J92EbaYAELi/zOh
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,87 +72,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: 22586238981
+X-Rspamd-Queue-Id: C622D23269A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.31 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[postmarketos.org,quarantine];
+X-Spamd-Result: default: False [7.19 / 15.00];
+	URIBL_BLACK(7.50)[perches.com:mid];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
-	R_DKIM_ALLOW(-0.20)[postmarketos.org:s=key1];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:konradybcio@kernel.org,m:akhilpo@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:alexeymin@minlexx.ru,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:phone-devel@vger.kernel.org,m:~postmarketos/upstreaming@lists.sr.ht,m:sajattack@postmarketos.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,poorly.run,kernel.org,linux.dev,gmail.com,somainline.org,ffwll.ch,minlexx.ru];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[sajattack@postmarketos.org,freedreno-bounces@lists.freedesktop.org];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[postmarketos.org:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[sajattack@postmarketos.org,freedreno-bounces@lists.freedesktop.org];
+	RCVD_COUNT_THREE(0.00)[4];
+	DMARC_NA(0.00)[perches.com];
 	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	RCPT_COUNT_TWELVE(0.00)[24];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	NEURAL_SPAM(0.00)[0.435];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	NEURAL_HAM(-0.00)[-0.966];
+	R_DKIM_NA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[joe@perches.com,freedreno-bounces@lists.freedesktop.org];
+	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[freedreno];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,postmarketos.org:dkim,postmarketos.org:email,postmarketos.org:mid]
-X-Rspamd-Action: no action
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_SPF_ALLOW(0.00)[+ip4:131.252.210.177:c];
+	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[perl.org:url]
+X-Rspamd-Action: add header
+X-Spam: Yes
 
-I found a 13-year-old TODO while debugging gpu stalls on sdm6xx/a5xx
-and thought I might as well try to implement it. It doesn't fully
-resolve all stalls in the driver, but it's a start.
+On Sun, 2026-03-08 at 22:56 +0200, Vladimir Oltean wrote:
+> On Sun, Mar 08, 2026 at 12:25:32PM -0700, Joe Perches wrote:
+> > On Sun, 2026-03-08 at 21:10 +0200, Vladimir Oltean wrote:
+> On Sun, Mar 08, 2026 at 11:40:44AM -0700, Joe Perches wrote:
+> > > Perhaps if matching only the include uses:
+> > > > (/ is escaped because get_maintainer is stupid)
+> > > > something like:
+> > > >=20
+> > > > K:	include\s*\<linux\/phy\/phy(?:-common-props|-provider)?\.h\>
+>=20
+> > > Why is get_maintainer stupid?
+> >=20
+> > The get_maintainer code used to match keywords is
+> >=20
+> 	    foreach my $line (keys %keyword_hash) {
+> 		if ($text =3D~ m/$keyword_hash{$line}/x) {
+> >=20
+> > so it seems the first / in the K: <foo> regex would terminate
+> > the match.
+> >=20
+> > It might have been better to use a different delimiter.
+> > Maybe:
+> >=20
+> 		if ($text =3D~ m{$keyword_hash{$line}}/x
+>=20
+> So why does it match in my example?
 
-[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
-msm_dpu c901000.display-controller: CP | opcode error | possible opcode=0x00000000
-msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 0380/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
-[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
-msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 000c/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
-[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
-msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 0051/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
-[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
-msm_dpu c901000.display-controller: [drm:recover_worker [msm]] *ERROR* 5.0.9.0: hangcheck recover!
-msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 000c/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
-msm_dpu c901000.display-controller: [drm:recover_worker [msm]] *ERROR* 5.0.9.0: offending task: sway (sway -c /home/user/.config/sxmo/sway)
-watchdog: CPU1: Watchdog detected hard LOCKUP on cpu 2
+Not sure really.  But it does match exactly.
+Maybe the regex code scans forward until the last /
+as the / character is not a "real" metacharacter.
 
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I added some test code and it produced:
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index d5fe6f6f0dec..77cda368eba1 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -742,10 +742,11 @@ bool adreno_idle(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	if (!spin_until(get_rptr(adreno_gpu, ring) == wptr))
- 		return true;
- 
--	/* TODO maybe we need to reset GPU here to recover from hang? */
- 	DRM_ERROR("%s: timeout waiting to drain ringbuffer %d rptr/wptr = %X/%X\n",
- 		gpu->name, ring->id, get_rptr(adreno_gpu, ring), wptr);
- 
-+	adreno_gpu->funcs->base.recover(gpu);
-+
- 	return false;
- }
- 
+line:	<+#include <linux/phy/phy.h>>
+kw:	<(?:linux/phy/phy\.h|phy-props\.h|phy-provider\.h)>
+test:	<^[+-].*(?:linux/phy/phy\.h|phy-props\.h|phy-provider\.h)>
+match:	<+#include <linux/phy/phy.h>
 
----
-base-commit: 52584178a10aa82d80aadda690f4bbc76d92ddda
-change-id: 20260308-adreno-ringbuffer-drain-timeout-recovery-617ea69813fc
+From https://perldoc.perl.org/perlrequick
 
-Best regards,
--- 
-Paul Sajna <sajattack@postmarketos.org>
+Not all characters can be used 'as is' in a match.
+Some characters, called metacharacters, are considered special,
+and reserved for use in regex notation. The metacharacters are
 
+{}[]()^$.|*+?\
+
+A metacharacter can be matched literally by putting a backslash before it:
+
+"2+2=3D4" =3D~ /2+2/;    # doesn't match, + is a metacharacter
+"2+2=3D4" =3D~ /2\+2/;   # matches, \+ is treated like an ordinary +
+'C:\WIN32' =3D~ /C:\\WIN/;                       # matches
+"/usr/bin/perl" =3D~ /\/usr\/bin\/perl/;  # matches
+
+In the last regex, the forward slash '/' is also backslashed, because it is=
+ used to delimit the regex.
