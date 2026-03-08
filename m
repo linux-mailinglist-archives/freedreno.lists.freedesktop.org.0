@@ -2,135 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 Delivered-To: lists+freedreno@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IKpDFYTirWks8wEAu9opvQ
+	id +DoNLnO5rmlIIQIAu9opvQ
 	(envelope-from <freedreno-bounces@lists.freedesktop.org>)
-	for <lists+freedreno@lfdr.de>; Sun, 08 Mar 2026 21:56:36 +0100
+	for <lists+freedreno@lfdr.de>; Mon, 09 Mar 2026 13:13:39 +0100
 X-Original-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3AF823236C
-	for <lists+freedreno@lfdr.de>; Sun, 08 Mar 2026 21:56:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22586238981
+	for <lists+freedreno@lfdr.de>; Mon, 09 Mar 2026 13:13:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFB9910E031;
-	Sun,  8 Mar 2026 20:56:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B65410E4DB;
+	Mon,  9 Mar 2026 12:13:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="dstguewP";
+	dkim=pass (2048-bit key; unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.b="cjBBVeqh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011052.outbound.protection.outlook.com
- [40.107.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEDEE10E031;
- Sun,  8 Mar 2026 20:56:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vo8X9iE0eELA/OhvLtUFhhssqBDZHZiJ5xChzaw393s8RmArAET3iLouBghW8ZeG0zW1N7UffrGClCKKBB1tHpEraea9Hhrrn+t9I5qbqCk29EGYla2aZ8O+rvUc/ggDJWOcgnRbxTHQvdBMybTCKJ8/smgqcExdNxvoJ9yPO1uCQ/FWis2lG8Yn7BdA/TS1oiQ8bjC0t6ObVN305jX6vPEAeglkRq6ENMhzoIiKNPZd1i1pDCi47quKNDDqs/C//q4fGwaf9cLktFJUo7k+OKWk6QVNnA64RIu/G3Z5ULpSYV5/QCY5ZCVAK4mp/kccAD1JeFmoeL9aWa9FSfYfcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HiKjX9b4qTdw3LK0Vrp5VK/gMgqjsTVPze0p47BFYNo=;
- b=uJ+Nwzj25OWA8HZ653TIwP1z+/j1ApzcMv2kcIFG9PT4+GfQjhAimZHsZVhhXbcC5dLjROdxsyB22SIgnKOwrDjyi3rBCkIVLk+BUSIb69wHWPgNaEJ/xjXEU0G+FJLujIbT9twgJ2MYX09CKbENxkzERO6vhadr801ak4PScn56vVaLDnrcvy/26DTTPDlpQU4GNUlC2QVC31vKFSP1MI9fTxzwqs42llrP1IjtGO/Na/zSe4AxLhbgMOecszKzGruZCKApztTx8bMOjHv+SioRSha23TT7krMwupgKw4fg+g6HqmEdD0UOX17ZuqfsjtTsNjI8AQ0DLKU8h8+V0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HiKjX9b4qTdw3LK0Vrp5VK/gMgqjsTVPze0p47BFYNo=;
- b=dstguewPE/Q7m1vwMS9UTIMlTHkH5N5MKq0Aa6xhPT+/aHpk1Q93ogGRoQg6W8W6wft2FTY4un3dgTkiBfvCxW50IPCMgirwmumBj9Tk9INnY1cryYQMLcU8eRqvVzzKCshf2BphbzEPBB4354reEW7rd5chVwQOBfA2Hligu+23QcnWFyLIwWdwwpJxeJVlBLvQBVWT0OD3RUkqwsL3h5RzHk3mkbms0lqTOFnoaiZnB/Yq8frcdl6NPI7ntHzF4cz1KeOc0fgSoQqudiXRY0SwqYsVnLlxFLMzJwZQ8/G1JwHdyjGnLW+fPAQJY+Pj5tS/grJAKskjmglLgNZDuQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by DU4PR04MB12129.eurprd04.prod.outlook.com (2603:10a6:10:643::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.24; Sun, 8 Mar
- 2026 20:56:28 +0000
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9678.023; Sun, 8 Mar 2026
- 20:56:27 +0000
-Date: Sun, 8 Mar 2026 22:56:23 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Joe Perches <joe@perches.com>
-Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com
-Subject: Re: [PATCH v2 phy-next 24/24] MAINTAINERS: add regexes for linux-phy
-Message-ID: <20260308205623.5trrqdmdrzj744hi@skbuf>
-References: <20260308114009.2546587-1-vladimir.oltean@nxp.com>
- <20260308114009.2546587-25-vladimir.oltean@nxp.com>
- <ca170cbaf2f8bcbc89bbda68914d8e0d7640f0e7.camel@perches.com>
- <20260308191017.kcyi7ka5pktq5jl4@skbuf>
- <8c4c5d0c5d014d5cc19eb10906ca1bd83ffb3ce5.camel@perches.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8c4c5d0c5d014d5cc19eb10906ca1bd83ffb3ce5.camel@perches.com>
-X-ClientProxiedBy: WA0P291CA0001.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1::27) To AM9PR04MB8585.eurprd04.prod.outlook.com
- (2603:10a6:20b:438::13)
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
+ [91.218.175.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C50210E039
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Mar 2026 21:13:24 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+ s=key1; t=1773004401;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RpqpYlSXeAg/awnB0CvRWHuxixfrf2T/O/CAPqniJDI=;
+ b=cjBBVeqhU4T10lCpRAAeAjU4MCvwUt698hAAsE2RWi1Qx/9Tw0CE0dvcbuicEw1Q4mZD6z
+ UorENWb2j7lE2N+avFntgIvEtixr2llBmLzs9WkkY5IJkDJdLwwQSL5N9K9j8qUtR+D8r+
+ Sr7ntF2rhgPnKFD1iQ28UW29ErlFzNp6GL1vocdSJR7RUUv/iyaCRj5ZGPuvsb1uf93JOB
+ ZRdEbhl5sJeeqrPuhIK5VsQX9N8t/Cwn0521TR7Eo3yxF/hS4VqrOX9gK1KJcbRu3u/rNf
+ 6eCwLm7iciBqtV0YwVsdCO4zTNByzkNLsiQAWsRfSrX1T+18o2V/n4dDJ44sNQ==
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 08 Mar 2026 14:12:54 -0700
+Subject: [PATCH] drm: msm: adreno: attempt to recover from ringbuffer drain
+ timeout
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|DU4PR04MB12129:EE_
-X-MS-Office365-Filtering-Correlation-Id: 317a3d24-7599-4695-9d39-08de7d552abd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|10070799003|366016|1800799024|19092799006; 
-X-Microsoft-Antispam-Message-Info: xrXObWncWD0pm8w97wNTtsEbOQoInE71snSZ5upiSu4AXezV0Wyes/620mdvd/owynHyLgob7KqFoIWP7gwuSiEQXw93uHTK+7nLOscE0MIbPHfSM4R37Cc4/fXOpmJvKxbcfRvDVEAKfOKK+PqfyIzc9ddphye22sbu4DrY0Ql1f9o3faEl3TAN28+WXsoqejjUHX6St5CavIayu56Ot3ImeFMvo9E1cHaSGHChOj3nTdt6mQVvJX6YdYQ8RjXVFwWr7D/zBTuTrF9vhEqK24Ts2mvHSipWEgMgD37k9LhRJlyTFBJ4fAEW9XAf79ZtXeVMVH9FZccKoq8xYqMb9T0dY1bIbxhg5PuYtqFCu8vxtq9cHk4j3TxjxLn/Ho5yVv9WAuxxGOYXxHDRu9t9QebCviMF6m4LauHBVfqnafdxU3inj6qK6eDbBww17q3IG8lk9hegESc7Fh7ZsR3kRgeOisbF5Z2aIwUpIXTvzJ9S9YzmFS5qm/nzHJgibONH50S8uzQ9tv8kMw8xpwk8N4Hx1j7oi9cTvMduKoLaTBaMqmW+rAM7UVoqHbsf+6QsvqH776XBTDKVaHoyRz02bxpLTPXHlbx42Mh3pU47EjL8f65Aclgx3knDB4qs1n0Bl/6jCYPlxbmGOJRLJOeSxgaXat3cReZKAf/3S1M4MZ/30yDa6TOJVnnlMvr+2/LzCagnhxRUkbbYDwVgzR9bYGYd6GU9kmLG0EuBwVwMmj0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(10070799003)(366016)(1800799024)(19092799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/TZZFdSjQSRqrzN+PWIULUYPdD7LwNgG/xURVb9lxkVOaPEZI3CGMmPVWa6J?=
- =?us-ascii?Q?e3IBkUCANygTUHSUrysJ/241Fm1t14JwyRCg52VLUKOkFWqjOm/TCUX6cXrh?=
- =?us-ascii?Q?xG/65On7sxcIneZs/5JCC/syoWkpbGCfN70LUOJVHIVnGeFb+wttTkAfTJfX?=
- =?us-ascii?Q?iuAnm5jlUq8YNH1I5b/01Ar7UA33ewpHLiDsOo1fkUucR04belU35XfBILrB?=
- =?us-ascii?Q?ti7NLvniuN4hksKzCOR/2LGGtgoZY/m2T+fkjKsjycRUfzE+REDETHoYf3Xo?=
- =?us-ascii?Q?iXqWuknF+n+NA2GgKb+N5qlv1bZp9/TQRCx7ul9bwsICxqG2cnGuXEyVximo?=
- =?us-ascii?Q?CcIsRKeBPf8G4/XCxHZhLnlZJZfoY2tZet6CavznIDDU5Ylg/5HHmf9l0JBa?=
- =?us-ascii?Q?OAnRFNjVQZlpF2TfYM+rlk2nsh8N0oQX66CFFsM7U3VwiFw56EfkbcMbYqnO?=
- =?us-ascii?Q?C9p9Nua/rA9Mk2TaqsqsLD4ATJbKAUMamedJo4NRdC5BqiTje0YNIkTuNpyX?=
- =?us-ascii?Q?wPDLfcouyJsGJalReQnkukO1pYM7melPq+kifYF+r3SNU1a29ioIzidOAsTF?=
- =?us-ascii?Q?5FgJPpLH5QCPF+YVNJH7GjJ8ZnioY2OIUcGKWeJQkE9OZpcBnARCmXcVIjpv?=
- =?us-ascii?Q?HGtG4ZBoFzhnhg60y5dJ9Gxo+30RA25Y9d1WTiak2C2rUL8GL7KZLgdnr3uI?=
- =?us-ascii?Q?O2txQShF6j6B4kSSm1WixmF5lzTV1dC+Wg1DCAuevgd8rH4KRJuyg4WRS2Qr?=
- =?us-ascii?Q?aIGzqOrWk55bOGqJ5roBPV0cgWSL8Fw6YFu5DRMwmgXFv9rZtWNzrGewXhS2?=
- =?us-ascii?Q?1z7HEJrs/niWvt5k9dyjOoaQfc/L7AIBbkXkeEyXpGR41f8D+dVVBuMY16Ue?=
- =?us-ascii?Q?aSYRFx7HdZqfkX9R3WMk0L51qNf4CZVa9U3DtuljR5TEOZ92p/udPiJConUh?=
- =?us-ascii?Q?DFSTkQMJ8MI1/COs25Ey9uAzsIYO3QVM0/iXHcFHpI8L8RMfJQL03UTYdXFI?=
- =?us-ascii?Q?kimG4F4mqzgnnyKAmvgOEWDd7FbZJVP2EDgB1lstewjd0WkXmBIWUx5+fqA6?=
- =?us-ascii?Q?rNbhbwZUdHY3Quh0fKFPNKXR1asJQ+1f+ialo2BUBGtzTcn/whYjG3LiL+7S?=
- =?us-ascii?Q?zezTECVzZrK7Xxmte5JbiwgRdHYYkeAgqIbO2lmCu3oFpC6LqWXcT/rmuN5Z?=
- =?us-ascii?Q?isUWw9IfejnQxp/563n9Mtzfcd36eRsNZoW03KRwVpKq+VYCNUFkhvrTTVz4?=
- =?us-ascii?Q?b1b4eADkEDEP2z0Yuq8eaZ0T7b4qYV5OPJNs4XIOMLOGc2ZEzOyDuHEhPFM2?=
- =?us-ascii?Q?z+O6gkmSFR6KUW5QOcqqSWEPhDXXg5GnnprnH3d9T9k+NuZFXlAJNKL0ru13?=
- =?us-ascii?Q?9c1V9mqT5CCFjhTPJy+dx09BcJQBSYG+rDtBT9t23o52aOYZsA4G0NtDx4/+?=
- =?us-ascii?Q?N4RmGOBMIGwZzkyrrY3RN9z+nZdBFyR1Ag4ctJsXTSS2foctorpv1LCEq2EY?=
- =?us-ascii?Q?7ME11dUrXLjlTYIAlI/k04d06RgwY0PdEb+JKX9I7yVVKLl7yI38Xuxbrcpj?=
- =?us-ascii?Q?F9eZ8DMXWfCdosBLa03HmZ1HTwNRtFPVmompdYVbTCZ2S+C2iMfdPufVLGzL?=
- =?us-ascii?Q?hsisAJr04wrC1DExCnF+F2cVz0AjVUTHMx/HdCn+q1BrZtx5Kbdj2NtgnYwh?=
- =?us-ascii?Q?OceY5YnywSuXXDn8B9STHU4wtimjp8oi1AfAU3LivadaSQJw60VWDR/z/JEe?=
- =?us-ascii?Q?jJ+qsZ1a9TT7Zo4o4A9v6svqzAiW63e0sMVQru2ulaij2kpqj0Ai4ltismu1?=
-X-MS-Exchange-AntiSpam-MessageData-1: GwLrVc9O53HfrJRFbQ1wVrU3GFHBz8Tx1Fc=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 317a3d24-7599-4695-9d39-08de7d552abd
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2026 20:56:27.7775 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mkRNQKH24zPNX4TzSn8Cl86XbIIIqGg5fBVErL113YLX2Q9D/Y6IZq7Vyuq43RjMx9K12jtHOgmGocv3cfPiew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12129
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260308-adreno-ringbuffer-drain-timeout-recovery-v1-1-985a33faf108@postmarketos.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQ6CMBBG4auQWTtJC0lBr2Jc1PYvzsLWTIFoC
+ He3Yflt3tupQgWVbt1Oik2qlNxgLx2Fl88zWGIz9aZ3ZjAT+6jIhVXy/FxTgnJUL5kXeaOsCyt
+ C2aA/dnaEd9fJDilQy30USb7n6v44jj8C+n3LegAAAA==
+X-Change-ID: 20260308-adreno-ringbuffer-drain-timeout-recovery-617ea69813fc
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alexey Minnekhanov <alexeymin@minlexx.ru>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773004397; l=2696;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=IwQsRi65M4qXQUkCCxcuReQn++piLHkRFWLqIAUpTuE=;
+ b=eGLN4VQHSoWAmzLT9wCgcSJt1HexLpTsXFY/zSncDP/EA8z4I5dzj0yYnNm92JPgaE46Hkccy
+ VOeuuDdDFAiC5lPjHB0M+Wg6skuqLqSpRRvniitEFDaE+chlBosgLtp
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Mon, 09 Mar 2026 12:13:34 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,57 +82,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-X-Rspamd-Queue-Id: B3AF823236C
+X-Rspamd-Queue-Id: 22586238981
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.81 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[nxp.com,none];
-	R_DKIM_ALLOW(-0.20)[nxp.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+X-Spamd-Result: default: False [-1.31 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[postmarketos.org,quarantine];
 	MAILLIST(-0.20)[mailman];
-	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
+	R_SPF_ALLOW(-0.20)[+ip4:131.252.210.177:c];
+	R_DKIM_ALLOW(-0.20)[postmarketos.org:s=key1];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[131.252.210.177:from];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[24];
+	FORGED_RECIPIENTS(0.00)[m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:konradybcio@kernel.org,m:akhilpo@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:alexeymin@minlexx.ru,m:linux-arm-msm@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:phone-devel@vger.kernel.org,m:~postmarketos/upstreaming@lists.sr.ht,m:sajattack@postmarketos.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.932];
-	FROM_NEQ_ENVFROM(0.00)[vladimir.oltean@nxp.com,freedreno-bounces@lists.freedesktop.org];
-	DKIM_TRACE(0.00)[nxp.com:+];
-	TAGGED_RCPT(0.00)[freedreno];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,poorly.run,kernel.org,linux.dev,gmail.com,somainline.org,ffwll.ch,minlexx.ru];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[sajattack@postmarketos.org,freedreno-bounces@lists.freedesktop.org];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[freedreno@lists.freedesktop.org];
+	DKIM_TRACE(0.00)[postmarketos.org:+];
 	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sajattack@postmarketos.org,freedreno-bounces@lists.freedesktop.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[freedreno@lists.freedesktop.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:6366, ipnet:131.252.0.0/16, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:dkim,gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo]
+	NEURAL_HAM(-0.00)[-0.966];
+	TAGGED_RCPT(0.00)[freedreno];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gabe.freedesktop.org:rdns,gabe.freedesktop.org:helo,postmarketos.org:dkim,postmarketos.org:email,postmarketos.org:mid]
 X-Rspamd-Action: no action
 
-On Sun, Mar 08, 2026 at 12:25:32PM -0700, Joe Perches wrote:
-> On Sun, 2026-03-08 at 21:10 +0200, Vladimir Oltean wrote:
-> > On Sun, Mar 08, 2026 at 11:40:44AM -0700, Joe Perches wrote:
-> > > Perhaps if matching only the include uses:
-> > > (/ is escaped because get_maintainer is stupid)
-> > > something like:
-> > > 
-> > > K:	include\s*\<linux\/phy\/phy(?:-common-props|-provider)?\.h\>
-> 
-> > Why is get_maintainer stupid?
-> 
-> The get_maintainer code used to match keywords is
-> 
-> 	    foreach my $line (keys %keyword_hash) {
-> 		if ($text =~ m/$keyword_hash{$line}/x) {
-> 
-> so it seems the first / in the K: <foo> regex would terminate
-> the match.
-> 
-> It might have been better to use a different delimiter.
-> Maybe:
-> 
-> 		if ($text =~ m{$keyword_hash{$line}}/x
+I found a 13-year-old TODO while debugging gpu stalls on sdm6xx/a5xx
+and thought I might as well try to implement it. It doesn't fully
+resolve all stalls in the driver, but it's a start.
 
-So why does it match in my example?
+[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
+msm_dpu c901000.display-controller: CP | opcode error | possible opcode=0x00000000
+msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 0380/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
+[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
+msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 000c/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
+[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
+msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 0051/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
+[drm:adreno_idle [msm]] *ERROR* 5.0.9.0: timeout waiting to drain ringbuffer 0 rptr/wptr = 32C/C
+msm_dpu c901000.display-controller: [drm:recover_worker [msm]] *ERROR* 5.0.9.0: hangcheck recover!
+msm_dpu c901000.display-controller: [drm:a5xx_irq [msm]] *ERROR* gpu fault ring 0 fence 29 status 800001C1 rb 000c/000c ib1 0000000001898000/0000 ib2 000000000366D000/0000
+msm_dpu c901000.display-controller: [drm:recover_worker [msm]] *ERROR* 5.0.9.0: offending task: sway (sway -c /home/user/.config/sxmo/sway)
+watchdog: CPU1: Watchdog detected hard LOCKUP on cpu 2
+
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index d5fe6f6f0dec..77cda368eba1 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -742,10 +742,11 @@ bool adreno_idle(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ 	if (!spin_until(get_rptr(adreno_gpu, ring) == wptr))
+ 		return true;
+ 
+-	/* TODO maybe we need to reset GPU here to recover from hang? */
+ 	DRM_ERROR("%s: timeout waiting to drain ringbuffer %d rptr/wptr = %X/%X\n",
+ 		gpu->name, ring->id, get_rptr(adreno_gpu, ring), wptr);
+ 
++	adreno_gpu->funcs->base.recover(gpu);
++
+ 	return false;
+ }
+ 
+
+---
+base-commit: 52584178a10aa82d80aadda690f4bbc76d92ddda
+change-id: 20260308-adreno-ringbuffer-drain-timeout-recovery-617ea69813fc
+
+Best regards,
+-- 
+Paul Sajna <sajattack@postmarketos.org>
+
